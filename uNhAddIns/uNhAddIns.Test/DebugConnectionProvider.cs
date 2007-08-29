@@ -3,7 +3,7 @@ using System.Data;
 using Iesi.Collections;
 using NHibernate.Connection;
 
-namespace NHAddIns.Test
+namespace uNhAddIns.Test
 {
 	/// <summary>
 	/// Ported from NH oficial tests.

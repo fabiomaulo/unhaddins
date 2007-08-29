@@ -8,7 +8,7 @@ using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
-namespace NHAddIns.Test
+namespace uNhAddIns.Test
 {
 	/// <summary>
 	/// Ported from NH oficial tests.

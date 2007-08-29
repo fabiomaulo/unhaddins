@@ -13,6 +13,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns
 		Release.AspNetCompiler.Debug = "False"
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "ConfigurationTemplates", "{6D470A4E-BAB0-4BE3-9C62-20FF3C682603}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		ConfigurationTemplates\FireBird.cfg.xml.tmpl = ConfigurationTemplates\FireBird.cfg.xml.tmpl
+		ConfigurationTemplates\MSSQL.cfg.xml.tmpl = ConfigurationTemplates\MSSQL.cfg.xml.tmpl
+		ConfigurationTemplates\MySql.cfg.xml.tmpl = ConfigurationTemplates\MySql.cfg.xml.tmpl
+		ConfigurationTemplates\Oracle.cfg.xml.tmpl = ConfigurationTemplates\Oracle.cfg.xml.tmpl
+		ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl = ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl
+		ConfigurationTemplates\SQLite.cfg.xml.tmpl = ConfigurationTemplates\SQLite.cfg.xml.tmpl
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
