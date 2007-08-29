@@ -45,6 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDetachedQuery.cs" />
+    <Compile Include="Impl\AbstractDetachedQuery.cs" />
+    <Compile Include="Impl\DetachedNamedQuery.cs" />
+    <Compile Include="Impl\DetachedQuery.cs" />
+    <Compile Include="Impl\IDetachedQueryImplementor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
