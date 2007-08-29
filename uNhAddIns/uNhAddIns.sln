@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "uNhAddIns\uNhAddIns.csproj", "{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns.Test\uNhAddIns.Test.csproj", "{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
