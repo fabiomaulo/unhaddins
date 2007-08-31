@@ -35,7 +35,7 @@ namespace uNhAddIns.Test
 		/// </summary>
 		protected virtual string MappingsAssembly
 		{
-			get { return "NHAddIns.Test"; }
+			get { return "uNhAddIns.Test"; }
 		}
 
 		public ISession LastOpenedSession
