@@ -50,7 +50,19 @@
     <Compile Include="Impl\DetachedNamedQuery.cs" />
     <Compile Include="Impl\DetachedQuery.cs" />
     <Compile Include="Impl\IDetachedQueryImplementor.cs" />
+    <Compile Include="Pagination\AbstractPaginableQuery.cs" />
+    <Compile Include="Pagination\AbstractRowsCounter.cs" />
+    <Compile Include="Pagination\BasePaginator.cs" />
+    <Compile Include="Pagination\IPageProvider.cs" />
+    <Compile Include="Pagination\IPaginable.cs" />
+    <Compile Include="Pagination\IPaginator.cs" />
+    <Compile Include="Pagination\IRowsCounter.cs" />
+    <Compile Include="Pagination\NamedQueryRowsCounter.cs" />
+    <Compile Include="Pagination\PaginableRowsCounterQuery.cs" />
+    <Compile Include="Pagination\Paginator.cs" />
+    <Compile Include="Pagination\QueryRowsCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
