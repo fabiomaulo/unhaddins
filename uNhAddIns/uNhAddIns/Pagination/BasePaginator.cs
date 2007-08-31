@@ -2,6 +2,13 @@ using System;
 
 namespace uNhAddIns.Pagination
 {
+	/// <summary>
+	/// General purpose paginator.
+	/// </summary>
+	/// <remarks>
+	/// It can be useful if you think to hold the state of pagination in some kind of cache.
+	/// </remarks>
+	[Serializable]
 	public class BasePaginator:IPaginator 
 	{
 		private int? currentPageNumber;
@@ -9,9 +16,20 @@ namespace uNhAddIns.Pagination
 
 		public BasePaginator() {}
 
+		/// <summary>
+		/// Create a new instance of <see cref="BasePaginator"/>.
+		/// </summary>
+		/// <param name="lastPageNumber">The las available page.</param>
+		/// <remarks>
+		/// The <see cref="CurrentPageNumber"/> is set to the first available page.
+		/// </remarks>
+		/// <exception cref="ArgumentOutOfRangeException">If <paramref name="lastPageNumber"/> is less than zero.</exception>
 		public BasePaginator(int lastPageNumber)
 		{
-			this.lastPageNumber = lastPageNumber;
+			if (lastPageNumber < 0)
+				throw new ArgumentOutOfRangeException("lastPageNumber",
+				                                      string.Format("expected great than or equals zero; was {0}", lastPageNumber));
+			LastPageNumber = lastPageNumber;
 		}
 
 		#region IPaginator Members
@@ -31,7 +49,12 @@ namespace uNhAddIns.Pagination
 		public virtual int? LastPageNumber
 		{
 			get { return lastPageNumber; }
-			protected set { lastPageNumber = value; }
+			protected set 
+			{
+				lastPageNumber = value; 
+				if (!currentPageNumber.HasValue && lastPageNumber.HasValue)
+					currentPageNumber = NextPageNumber;
+			}
 		}
 
 		/// <summary>
@@ -69,7 +92,10 @@ namespace uNhAddIns.Pagination
 		/// </summary>
 		public int FirstPageNumber
 		{
-			get { return 1; }
+			get 
+			{
+				return (LastPageNumber.HasValue && LastPageNumber < 1) ? 0 : 1; 
+			}
 		}
 
 		/// <summary>

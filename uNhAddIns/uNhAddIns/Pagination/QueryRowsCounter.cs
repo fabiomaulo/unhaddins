@@ -17,6 +17,7 @@ namespace uNhAddIns.Pagination
 		/// If the query is invalid an exception is throw only when <see cref="IRowsCounter.GetRowsCount(ISession)"/>
 		/// is called.
 		/// </remarks>
+		/// <exception cref="ArgumentNullException">If <paramref name="hqlRowsCount"/> is null or empty.</exception>
 		public QueryRowsCounter(string hqlRowsCount)
 		{
 			if (string.IsNullOrEmpty(hqlRowsCount))
@@ -44,6 +45,23 @@ namespace uNhAddIns.Pagination
 			QueryRowsCounter result = new QueryRowsCounter("select count(*) " + query.Hql);
 			result.CopyParametersFrom(query);
 			return result;
+		}
+
+		/// <summary>
+		/// Create a new instance of <see cref="QueryRowsCounter"/>.
+		/// </summary>
+		/// <param name="queryRowCount">The query.</param>
+		/// <remarks>
+		/// If the query is invalid an exception is throw only when <see cref="IRowsCounter.GetRowsCount(ISession)"/>
+		/// is called.
+		/// </remarks>
+		/// <exception cref="ArgumentNullException">If <paramref name="queryRowCount"/> is null.</exception>
+		public QueryRowsCounter(IDetachedQuery queryRowCount)
+		{
+			if (queryRowCount == null)
+				throw new ArgumentNullException("queryRowCount");
+
+			dq = queryRowCount;
 		}
 	}
 }

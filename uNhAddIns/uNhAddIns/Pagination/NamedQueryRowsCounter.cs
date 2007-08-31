@@ -18,5 +18,13 @@ namespace uNhAddIns.Pagination
 				throw new ArgumentNullException("queryRowsCount");
 			dq = new DetachedNamedQuery(queryRowsCount);
 		}
+
+		public NamedQueryRowsCounter(DetachedNamedQuery queryRowsCount)
+		{
+			if (queryRowsCount == null)
+				throw new ArgumentNullException("queryRowsCount");
+
+			dq = queryRowsCount;
+		}
 	}
 }
