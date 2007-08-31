@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDetachedQuery.cs" />
-    <Compile Include="Impl\AbstractDetachedQuery.cs" />
-    <Compile Include="Impl\DetachedNamedQuery.cs" />
-    <Compile Include="Impl\DetachedQuery.cs" />
-    <Compile Include="Impl\IDetachedQueryImplementor.cs" />
+    <Compile Include="NH\IDetachedQuery.cs" />
+    <Compile Include="NH\Impl\AbstractDetachedQuery.cs" />
+    <Compile Include="NH\Impl\DetachedNamedQuery.cs" />
+    <Compile Include="NH\Impl\DetachedQuery.cs" />
+    <Compile Include="NH\Impl\IDetachedQueryImplementor.cs" />
     <Compile Include="Pagination\AbstractPaginableQuery.cs" />
     <Compile Include="Pagination\AbstractRowsCounter.cs" />
     <Compile Include="Pagination\BasePaginator.cs" />

@@ -6,7 +6,8 @@ using NHibernate.Engine;
 using NHibernate.Transform;
 using NHibernate.Util;
 using NUnit.Framework;
-using uNhAddIns.Impl;
+using uNhAddIns.NH;
+using uNhAddIns.NH.Impl;
 
 namespace uNhAddIns.Test.DetachedQueries
 {

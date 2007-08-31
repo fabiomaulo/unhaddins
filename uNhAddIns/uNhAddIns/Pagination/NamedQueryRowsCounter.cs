@@ -1,5 +1,5 @@
 using System;
-using uNhAddIns.Impl;
+using uNhAddIns.NH.Impl;
 
 namespace uNhAddIns.Pagination
 {

@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using NHibernate;
 using NHibernate.Property;
+using NHibernate.Transform;
 
 namespace uNhAddIns.Transform
 {
@@ -23,7 +25,7 @@ namespace uNhAddIns.Transform
 	/// <see cref="NHibernate.Transform.AliasToBeanResultTransformer"/> class.
 	/// </remarks>
 	[Serializable]
-	public class PositionalToBeanResultTransformer: NHibernate.Transform.IResultTransformer
+	public class PositionalToBeanResultTransformer: IResultTransformer
 	{
 		private readonly Type resultClass;
 		private readonly string[] positionalAliases;
@@ -67,7 +69,7 @@ namespace uNhAddIns.Transform
 
 		#region IResultTransformer Members
 
-		public System.Collections.IList TransformList(System.Collections.IList collection)
+		public IList TransformList(IList collection)
 		{
 			return collection;
 		}

@@ -4,7 +4,7 @@ using NHibernate;
 using NHibernate.Transform;
 using NHibernate.Type;
 
-namespace uNhAddIns
+namespace uNhAddIns.NH
 {
 	/// <summary>
 	/// Interface to create queries in "detached mode" where the NHibernate session is not available.

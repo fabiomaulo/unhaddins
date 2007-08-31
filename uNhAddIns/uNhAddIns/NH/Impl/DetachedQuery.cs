@@ -1,15 +1,14 @@
 using System;
 using NHibernate;
-using uNhAddIns;
 
-namespace uNhAddIns.Impl
+namespace uNhAddIns.NH.Impl
 {
 	/// <summary>
 	/// Query in "detached mode" where the NHibernate session is not available.
 	/// </summary>
 	/// <seealso cref="IQuery"/>
-	/// <seealso cref="AbstractDetachedQuery"/>
 	/// <seealso cref="IDetachedQuery"/>
+	/// <seealso cref="AbstractDetachedQuery"/>
 	[Serializable]
 	public class DetachedQuery: AbstractDetachedQuery
 	{

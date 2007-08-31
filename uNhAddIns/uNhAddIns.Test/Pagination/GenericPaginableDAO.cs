@@ -1,5 +1,6 @@
 using System;
 using NHibernate;
+using uNhAddIns.NH;
 using uNhAddIns.Pagination;
 
 namespace uNhAddIns.Test.Pagination

@@ -7,15 +7,13 @@ using NHibernate.Impl;
 using NHibernate.Proxy;
 using NHibernate.Transform;
 using NHibernate.Type;
-using uNhAddIns;
 
-namespace uNhAddIns.Impl
+namespace uNhAddIns.NH.Impl
 {
 	/// <summary>
 	/// Base class to create queries in "detached mode" where the NHibernate session is not available.
 	/// </summary>
 	/// <seealso cref="AbstractQueryImpl"/>
-	/// <seealso cref="NHibernate.Impl.AbstractQueryImpl"/>
 	/// <remarks>
 	/// The behaviour of each method is basically the same of <see cref="NHibernate.Impl.AbstractQueryImpl"/> methods.
 	/// The main difference is on <see cref="SetProperties(object)"/>:

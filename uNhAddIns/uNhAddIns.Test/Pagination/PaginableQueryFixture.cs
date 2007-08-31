@@ -1,7 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
-using uNhAddIns.Impl;
+using uNhAddIns.NH.Impl;
 using uNhAddIns.Pagination;
 
 namespace uNhAddIns.Test.Pagination
@@ -13,7 +14,7 @@ namespace uNhAddIns.Test.Pagination
 	[TestFixture]
 	public class PaginableQueryFixture:TestCase
 	{
-		protected override System.Collections.IList Mappings
+		protected override IList Mappings
 		{
 			get { return new string[] { "Pagination.PagTest.hbm.xml" }; }
 		}

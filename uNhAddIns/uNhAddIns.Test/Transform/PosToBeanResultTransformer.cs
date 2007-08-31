@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.Transform;

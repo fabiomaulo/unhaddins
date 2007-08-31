@@ -1,6 +1,4 @@
-using uNhAddIns;
-
-namespace uNhAddIns.Impl
+namespace uNhAddIns.NH.Impl
 {
 	/// <summary>
 	/// Interface for DetachedQuery implementors.

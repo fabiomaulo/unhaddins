@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NHibernate;
-using uNhAddIns;
+using NHibernate.Engine;
+using uNhAddIns.NH;
 
 namespace uNhAddIns.Pagination
 {
@@ -19,7 +20,7 @@ namespace uNhAddIns.Pagination
 			if (query == null)
 				throw new ArgumentNullException("query");
 
-			query.SetFirstResult(default(int)).SetMaxResults(NHibernate.Engine.RowSelection.NoValue);
+			query.SetFirstResult(default(int)).SetMaxResults(RowSelection.NoValue);
 		}
 
 		private static void SetPagination(IDetachedQuery query, int pageSize, int pageNumber)

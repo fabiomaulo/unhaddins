@@ -1,7 +1,7 @@
 using System;
 using NHibernate;
 
-namespace uNhAddIns.Impl
+namespace uNhAddIns.NH.Impl
 {
 	/// <summary>
 	/// Named query in "detached mode" where the NHibernate session is not available.

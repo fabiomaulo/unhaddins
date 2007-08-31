@@ -1,3 +1,4 @@
+using uNhAddIns.NH;
 using uNhAddIns.Transform;
 
 namespace uNhAddIns.Test.Pagination
