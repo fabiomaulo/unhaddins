@@ -4,6 +4,7 @@ using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.NH.Impl;
 using uNhAddIns.Pagination;
+using uNhAddIns.Test.aReposEmul;
 
 namespace uNhAddIns.Test.Pagination
 {

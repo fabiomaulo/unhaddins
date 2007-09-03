@@ -4,10 +4,8 @@ using uNhAddIns.NH;
 using uNhAddIns.NH.Impl;
 using uNhAddIns.Pagination;
 
-namespace uNhAddIns.Test.Pagination
+namespace uNhAddIns.Test.aReposEmul
 {
-	// This is an Example
-	// see uNhAddIns.Test.Pagination.GenericPaginableDAO for details.
 	public class GenericPaginableRowsCounterQueryDAO<T> : PaginableRowsCounterQuery<T>
 	{
 		private readonly TestCase workingTest;

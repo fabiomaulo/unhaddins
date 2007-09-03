@@ -1,4 +1,5 @@
 using uNhAddIns.NH;
+using uNhAddIns.Test.aReposEmul;
 using uNhAddIns.Transform;
 
 namespace uNhAddIns.Test.Pagination

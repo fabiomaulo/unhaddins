@@ -3,16 +3,8 @@ using NHibernate;
 using uNhAddIns.NH;
 using uNhAddIns.Pagination;
 
-namespace uNhAddIns.Test.Pagination
+namespace uNhAddIns.Test.aReposEmul
 {
-	// You can take this class like an Example about how use PaginableRowsCounterQuery to create
-	// your own GenericPaginableDAO (if you use a GenericNHDAO for example).
-	// The DAO is the candidate place of because is where you have available the NH.Session 
-	// (some times from the classic NHibernateHelpers)
-	//
-	// Only for test, we use the TestCase like a session provider, 
-	// but you can take the session where you want.
-	//
 	public class GenericPaginableDAO<T>: AbstractPaginableQuery<T> 
 	{
 		private readonly TestCase workingTest;
