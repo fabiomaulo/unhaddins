@@ -3,7 +3,7 @@ using uNhAddIns.NH;
 
 namespace uNhAddIns.Pagination
 {
-	public abstract class PaginableRowsCounterQuery<T> : AbstractPaginableQuery<T>, IRowsCounter 
+	public abstract class AbstractPaginableRowsCounterQuery<T> : AbstractPaginableQuery<T>, IRowsCounter 
 	{
 		protected abstract IDetachedQuery GetRowCountQuery();
 

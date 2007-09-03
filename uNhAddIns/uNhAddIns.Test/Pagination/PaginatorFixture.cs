@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
+using uNhAddIns.GenericImpl;
 using uNhAddIns.NH.Impl;
 using uNhAddIns.Pagination;
 using uNhAddIns.Test.aReposEmul;
@@ -39,7 +40,7 @@ namespace uNhAddIns.Test.Pagination
 		public void SimplePaginator()
 		{
 			// with "AutoCalcPages mode" DISABLED
-			Paginator<NoFoo> ptor = new Paginator<NoFoo>(3, new NoFooPaginable(this,new DetachedNamedQuery("NoFoo.All")));
+			Paginator<NoFoo> ptor = new Paginator<NoFoo>(3, new NoFooPaginable(LastOpenedSession,new DetachedNamedQuery("NoFoo.All")));
 			// check init state
 			Assert.AreEqual(1, ptor.FirstPageNumber);
 			Assert.IsFalse(ptor.LastPageNumber.HasValue);
@@ -56,7 +57,7 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void AutoCalcPages()
 		{
-			Paginator<NoFoo> ptor = new Paginator<NoFoo>(3, new NoFooPaginable(this, new DetachedNamedQuery("NoFoo.All")), true);
+			Paginator<NoFoo> ptor = new Paginator<NoFoo>(3, new NoFooPaginable(LastOpenedSession, new DetachedNamedQuery("NoFoo.All")), true);
 			// check init state
 			Assert.AreEqual(1, ptor.FirstPageNumber);
 			Assert.AreEqual(5, ptor.LastPageNumber);
@@ -70,7 +71,7 @@ namespace uNhAddIns.Test.Pagination
 			Assert.IsTrue(ptor.HasPrevious);
 
 			// Partial last page
-			ptor = new Paginator<NoFoo>(10, new NoFooPaginable(this, new DetachedNamedQuery("NoFoo.All")), true);
+			ptor = new Paginator<NoFoo>(10, new NoFooPaginable(LastOpenedSession, new DetachedNamedQuery("NoFoo.All")), true);
 			Assert.AreEqual(2, ptor.LastPageNumber);
 		}
 
@@ -78,7 +79,7 @@ namespace uNhAddIns.Test.Pagination
 		public void WithCounter()
 		{
 			Paginator<NoFoo> ptor =new Paginator<NoFoo>(5, 
-				new NoFooPaginable(this, new DetachedNamedQuery("NoFoo.All")),
+				new NoFooPaginable(LastOpenedSession, new DetachedNamedQuery("NoFoo.All")),
 					new NamedQueryRowsCounter("NoFoo.Count.All")
 				);
 			Assert.AreEqual(3, ptor.LastPageNumber);
@@ -87,7 +88,7 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void PageMoving()
 		{
-			Paginator<NoFoo> ptor = new Paginator<NoFoo>(3, new NoFooPaginable(this, new DetachedNamedQuery("NoFoo.All")), true);
+			Paginator<NoFoo> ptor = new Paginator<NoFoo>(3, new NoFooPaginable(LastOpenedSession, new DetachedNamedQuery("NoFoo.All")), true);
 			IList<NoFoo> entities = ptor.GetFirstPage();
 			Assert.AreEqual(3, entities.Count);
 			Assert.AreEqual(1, ptor.CurrentPageNumber);
@@ -119,7 +120,7 @@ namespace uNhAddIns.Test.Pagination
 		{
 			DetachedQuery dq = new DetachedQuery("from Foo f where f.Name like :p1");
 			dq.SetString("p1", "%1_");
-			IPaginable<Foo> fp = new GenericPaginableRowsCounterQueryDAO<Foo>(this, dq);
+			IPaginable<Foo> fp = new PaginableRowsCounterQuery<Foo>(LastOpenedSession, dq);
 
 			Paginator<Foo> ptor = new Paginator<Foo>(2, fp);
 			Assert.IsTrue(ptor.AutoCalcPages);

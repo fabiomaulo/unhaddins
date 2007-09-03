@@ -4,19 +4,31 @@ using uNhAddIns.NH;
 using uNhAddIns.NH.Impl;
 using uNhAddIns.Pagination;
 
-namespace uNhAddIns.Test.aReposEmul
+namespace uNhAddIns.GenericImpl
 {
-	public class GenericPaginableRowsCounterQueryDAO<T> : PaginableRowsCounterQuery<T>
+	/// <summary>
+	/// Generic implementation of <see cref="IPaginable{T}"/> and <see cref="IRowsCounter"/> 
+	/// based on <see cref="uNhAddIns.NH.Impl.DetachedQuery"/>.
+	/// </summary>
+	/// <typeparam name="T">The type of DAO.</typeparam>
+	/// <seealso cref="uNhAddIns.NH.Impl.DetachedQuery"/>
+	/// <remarks>
+	/// Use this class only if you are secure that the DetachedQuery is based on a HQL that can be trasformed
+	/// to it's row count.
+	/// An HQL is supported if contain only 'from' clause and/or 'where' clause.
+	/// Any other clause throw an exception.
+	/// </remarks>
+	public class PaginableRowsCounterQuery<T> : AbstractPaginableRowsCounterQuery<T>
 	{
-		private readonly TestCase workingTest;
+		private readonly ISession session;
 		private readonly DetachedQuery detachedQuery;
-		public GenericPaginableRowsCounterQueryDAO(TestCase workingTest, DetachedQuery detachedQuery)
+		public PaginableRowsCounterQuery(ISession session, DetachedQuery detachedQuery)
 		{
 			if (detachedQuery == null)
 			{
 				throw new ArgumentNullException("detachedQuery");
 			}
-			this.workingTest = workingTest;
+			this.session = session;
 			this.detachedQuery = detachedQuery;
 		}
 
@@ -27,7 +39,7 @@ namespace uNhAddIns.Test.aReposEmul
 
 		public override ISession GetSession()
 		{
-			return workingTest.LastOpenedSession;
+			return session;
 		}
 
 		protected override IDetachedQuery GetRowCountQuery()

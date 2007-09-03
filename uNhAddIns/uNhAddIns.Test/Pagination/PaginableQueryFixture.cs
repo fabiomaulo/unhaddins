@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
+using uNhAddIns.GenericImpl;
 using uNhAddIns.NH.Impl;
 using uNhAddIns.Pagination;
-using uNhAddIns.Test.aReposEmul;
 
 namespace uNhAddIns.Test.Pagination
 {
@@ -46,16 +46,16 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void ListAllTest()
 		{
-			IPaginable<NoFoo> pg =new NoFooPaginable(this,new DetachedNamedQuery("NoFoo.All"));
 			using (OpenSession()) 
 			{
+				IPaginable<NoFoo> pg =new NoFooPaginable(LastOpenedSession,new DetachedNamedQuery("NoFoo.All"));
 				IList<NoFoo> l = pg.ListAll();
 				Assert.AreEqual(15, l.Count);
 			}
 
-			IPaginable<Foo> pf = new GenericPaginableDAO<Foo>(this, new DetachedQuery("from Foo"));
 			using (OpenSession())
 			{
+				IPaginable<Foo> pf = new PaginableQuery<Foo>(LastOpenedSession, new DetachedQuery("from Foo"));
 				IList<Foo> l = pf.ListAll();
 				Assert.AreEqual(15, l.Count);
 			}
@@ -65,9 +65,9 @@ namespace uNhAddIns.Test.Pagination
 		public void GetPageTest()
 		{
 			// Page count start from 1
-			IPaginable<NoFoo> pg = new NoFooPaginable(this, new DetachedNamedQuery("NoFoo.All"));
 			using (OpenSession()) 
 			{
+				IPaginable<NoFoo> pg = new NoFooPaginable(LastOpenedSession, new DetachedNamedQuery("NoFoo.All"));
 				IList<NoFoo> l = pg.GetPage(3, 2);
 				Assert.AreEqual(3, l.Count);
 				Assert.AreEqual("N3", l[0].Name);
@@ -96,6 +96,7 @@ namespace uNhAddIns.Test.Pagination
 			// Reload the same page and have the new element
 			using (OpenSession()) 
 			{
+				IPaginable<NoFoo> pg = new NoFooPaginable(LastOpenedSession, new DetachedNamedQuery("NoFoo.All"));
 				IList<NoFoo> l = pg.GetPage(10, 2);
 				// If pageSize=10 the page 2 have 6 elements
 				Assert.AreEqual(6, l.Count);
@@ -114,9 +115,9 @@ namespace uNhAddIns.Test.Pagination
 		{
 			DetachedQuery dq = new DetachedQuery("from Foo f where f.Name like :p1");
 			dq.SetString("p1", "N_");
-			IPaginable<Foo> fp = new GenericPaginableRowsCounterQueryDAO<Foo>(this, dq);
 			using (ISession s = OpenSession())
 			{
+				IPaginable<Foo> fp = new PaginableRowsCounterQuery<Foo>(LastOpenedSession, dq);
 				IList<Foo> l = fp.GetPage(5, 1);
 				Assert.AreEqual(5, l.Count);
 				Assert.AreEqual(10, ((IRowsCounter)fp).GetRowsCount(s));

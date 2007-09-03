@@ -53,11 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
     <Compile Include="DebugConnectionProvider.cs" />
     <Compile Include="DetachedQueries\DetachedQueryFixture.cs" />
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
-    <Compile Include="aReposEmul\GenericPaginableDAO.cs" />
-    <Compile Include="aReposEmul\GenericPaginableRowsCounterQueryDAO.cs" />
     <Compile Include="Pagination\QueryRowsCounterFixture.cs" />
     <Compile Include="Pagination\Foo.cs" />
     <Compile Include="Pagination\NamedQueryRowsCounterFixture.cs" />

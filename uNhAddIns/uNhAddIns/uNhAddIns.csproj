@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericImpl\PaginableCriteria.cs" />
+    <Compile Include="GenericImpl\PaginableQuery.cs" />
+    <Compile Include="GenericImpl\PaginableRowsCounterQuery.cs" />
     <Compile Include="NH\Expression\DetachedCriteria.cs" />
     <Compile Include="NH\IDetachedQuery.cs" />
     <Compile Include="NH\Impl\AbstractDetachedQuery.cs" />
@@ -60,7 +63,7 @@
     <Compile Include="Pagination\IPaginator.cs" />
     <Compile Include="Pagination\IRowsCounter.cs" />
     <Compile Include="Pagination\NamedQueryRowsCounter.cs" />
-    <Compile Include="Pagination\PaginableRowsCounterQuery.cs" />
+    <Compile Include="Pagination\AbstractPaginableRowsCounterQuery.cs" />
     <Compile Include="Pagination\Paginator.cs" />
     <Compile Include="Pagination\QueryRowsCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
