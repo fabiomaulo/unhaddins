@@ -1,11 +1,12 @@
 using NHibernate;
+using uNhAddIns.NH;
 using uNhAddIns.NH.Impl;
 
 namespace uNhAddIns.Pagination
 {
 	public abstract class PaginableRowsCounterQuery<T> : AbstractPaginableQuery<T>, IRowsCounter 
 	{
-		protected abstract DetachedQuery GetQuery();
+		protected abstract IDetachedQuery GetRowCountQuery();
 
 		#region IRowsCounter Members
 
@@ -19,7 +20,7 @@ namespace uNhAddIns.Pagination
 		public long GetRowsCount(ISession session)
 		{
 			if (dqrc == null)
-				dqrc = QueryRowsCounter.Transforming(GetQuery());
+				dqrc = new QueryRowsCounter(GetRowCountQuery());
 			return dqrc.GetRowsCount(session);
 		}
 
