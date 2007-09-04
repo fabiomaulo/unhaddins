@@ -45,6 +45,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynQuery\DetachedDynQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\From.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\IDynClause.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\IQueryPart.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\LogicalExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\OrderBy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\PaginableDynQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\Select.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\Where.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GenericImpl\PaginableCriteria.cs" />
     <Compile Include="GenericImpl\PaginableQuery.cs" />
     <Compile Include="GenericImpl\PaginableRowsCounterQuery.cs" />

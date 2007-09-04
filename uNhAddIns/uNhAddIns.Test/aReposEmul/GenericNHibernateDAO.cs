@@ -84,11 +84,18 @@ namespace uNhAddIns.Test.aReposEmul
 			return query.GetExecutableQuery(Session).UniqueResult<T>();
 		}
 
+		// Override this method to provide a PaginableRowCount instance
+		// if you are using the SVN-Trunk you have a CriteriaToRowCount transformer
 		public virtual IPaginable<T> GetPaginable(DetachedCriteria criteria)
 		{
 			return new PaginableCriteria<T>(Session, criteria);
 		}
 
+		// Override this method to check the type of 'query' param to provide some type of
+		// PaginableRowCount.
+		// for example:
+		// -secure if query is the implementation of DetachedDynQuery you can use PaginableDynQuery
+		// -some times if the query is an implementation of DetachedQuery (see PaginableRowsCounterQuery for instance)
 		public virtual IPaginable<T> GetPaginable(IDetachedQuery query)
 		{
 			return new PaginableQuery<T>(Session, query);
