@@ -45,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Criterions\Criterion.cs" />
+    <Compile Include="Criterions\EqOrNullExpression.cs" />
     <Compile Include="DynQuery\DetachedDynQuery.cs">
       <SubType>Code</SubType>
     </Compile>

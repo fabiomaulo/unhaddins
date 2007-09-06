@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="CriterionTest\CriterionTest.cs" />
+    <Compile Include="CriterionTest\Simple.cs" />
     <Compile Include="DebugConnectionProvider.cs" />
     <Compile Include="DetachedQueries\DetachedQueryFixture.cs" />
     <Compile Include="DynamicQuery\Animal.cs">
@@ -98,6 +100,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DynamicQuery\Animal.hbm.xml" />
     <EmbeddedResource Include="Pagination\PagTest.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CriterionTest\Simple.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
