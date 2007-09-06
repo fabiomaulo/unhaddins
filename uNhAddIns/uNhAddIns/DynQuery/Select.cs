@@ -69,6 +69,15 @@ namespace uNhAddIns.DynQuery
 			from = fromClause;
 		}
 
+		public Select Where(string partialClause)
+		{
+			if (from == null)
+				throw new NotSupportedException("Can't set the 'where' clause without 'from' clause.");
+
+			from.SetWhere(new Where(partialClause));
+			return this;
+		}
+
 		#region IDynClause Members
 
 		/// <summary>

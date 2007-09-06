@@ -76,6 +76,14 @@ namespace uNhAddIns.Test.DynamicQuery
 		}
 
 		[Test]
+		public void SelectWhereTest()
+		{
+			Select s = new Select("f.Name, f.Description, b.Descriptoin").From("Foo f join f.Bar b").Where("f.Name like :pName");
+			Assert.AreEqual("f.Name, f.Description, b.Descriptoin", s.Expression);
+			Assert.AreEqual("select f.Name, f.Description, b.Descriptoin from Foo f join f.Bar b where ((f.Name like :pName))", s.Clause);
+		}
+
+		[Test]
 		public void CommonUse()
 		{
 			// some times the select can be static in son place (the service of a DAO)
