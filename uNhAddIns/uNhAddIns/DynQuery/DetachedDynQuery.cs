@@ -28,6 +28,11 @@ namespace uNhAddIns.DynQuery
 			this.from = from;
 		}
 
+		public string Hql
+		{
+			get { return (select != null) ? select.Clause : from.Clause; }
+		}
+
 		/// <summary>
 		/// Get an executable instance of <see cref="IQuery"/>, to actually run the query.
 		/// </summary>
@@ -40,7 +45,7 @@ namespace uNhAddIns.DynQuery
 
 		public IDetachedQuery TransformToRowCount()
 		{
-			Select s = new Select("select count(*)");
+			Select s = new Select("count(*)");
 			s.SetFrom(from.FromWhereClause());
 			DetachedQuery result = new DetachedQuery(s.Clause);
 			result.CopyParametersFrom(this);

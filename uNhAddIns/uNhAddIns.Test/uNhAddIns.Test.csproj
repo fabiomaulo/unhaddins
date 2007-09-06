@@ -58,19 +58,10 @@
     <Compile Include="CriterionTest\Simple.cs" />
     <Compile Include="DebugConnectionProvider.cs" />
     <Compile Include="DetachedQueries\DetachedQueryFixture.cs" />
-    <Compile Include="DynamicQuery\Animal.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DynamicQuery\DetachedDynQuery.cs">
+    <Compile Include="DynamicQuery\DetachedDynQueryFixture.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DynamicQuery\DynQueryFixture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DynamicQuery\Human.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DynamicQuery\Name.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
@@ -98,7 +89,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DynamicQuery\Animal.hbm.xml" />
     <EmbeddedResource Include="Pagination\PagTest.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
