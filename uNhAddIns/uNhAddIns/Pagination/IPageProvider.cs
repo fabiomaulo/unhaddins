@@ -49,5 +49,11 @@ namespace uNhAddIns.Pagination
 		/// </summary>
 		/// <returns>The list of objects.</returns>
 		IList<T> GetPreviousPage();
+
+		/// <summary>
+		/// Get the list of objects of the current page.
+		/// </summary>
+		/// <returns>The list of objects.</returns>
+		IList<T> GetCurrentPage();
 	}
 }

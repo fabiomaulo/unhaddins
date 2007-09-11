@@ -148,7 +148,7 @@ namespace uNhAddIns.Pagination
 		}
 
 		/// <summary>
-		/// Get the list of objects for a given page number.
+		/// Get the list of objects for a given page number and move the current page.
 		/// </summary>
 		/// <param name="pageNumber">The page number.</param>
 		/// <returns>The list of objects.</returns>
@@ -160,7 +160,7 @@ namespace uNhAddIns.Pagination
 		}
 
 		/// <summary>
-		/// Get the list of objects of the first page.
+		/// Get the list of objects of the first page and move the current page.
 		/// </summary>
 		/// <returns>The list of objects.</returns>
 		public IList<T> GetFirstPage()
@@ -169,7 +169,7 @@ namespace uNhAddIns.Pagination
 		}
 
 		/// <summary>
-		/// Get the list of objects of the last page.
+		/// Get the list of objects of the last page and move the current page.
 		/// </summary>
 		/// <returns>The list of objects.</returns>
 		/// <exception cref="NotSupportedException">When <see cref="AutoCalcPages"/> is false</exception>
@@ -181,7 +181,7 @@ namespace uNhAddIns.Pagination
 		}
 
 		/// <summary>
-		/// Get the list of objects of the next page.
+		/// Get the list of objects of the next page and move the current page.
 		/// </summary>
 		/// <returns>The list of objects.</returns>
 		public IList<T> GetNextPage()
@@ -190,7 +190,7 @@ namespace uNhAddIns.Pagination
 		}
 
 		/// <summary>
-		/// Get the list of objects of the previous page.
+		/// Get the list of objects of the previous page and move the current page.
 		/// </summary>
 		/// <returns>The list of objects.</returns>
 		public IList<T> GetPreviousPage()
@@ -198,7 +198,28 @@ namespace uNhAddIns.Pagination
 			return GetPage(PreviousPageNumber);
 		}
 
+		/// <summary>
+		/// Get the list of objects of the current page.
+		/// </summary>
+		/// <returns>The list of objects.</returns>
+		/// <exception cref="NotSupportedException">When the current page is not available.</exception>
+		public IList<T> GetCurrentPage()
+		{
+			if (!CurrentPageNumber.HasValue)
+				throw new NotSupportedException("Current page not available.");
+			return source.GetPage(PageSize, CurrentPageNumber.Value);
+		}
+
 		#endregion
+
+		/// <summary>
+		/// Move the current page to a given page number.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		public new void GotoPageNumber(int pageNumber)
+		{
+			base.GotoPageNumber(pageNumber);
+		}
 
 		/// <summary>
 		/// The number of the last page if available; otherwise null.
