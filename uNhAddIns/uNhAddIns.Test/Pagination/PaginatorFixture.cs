@@ -137,11 +137,8 @@ namespace uNhAddIns.Test.Pagination
 		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
 		public void HasNotPages()
 		{
-			//Drop all items at Foo
-			LastOpenedSession.Delete("from Foo");
-			LastOpenedSession.Flush();
-						
-			PaginableRowsCounterQuery<Foo> pag = new PaginableRowsCounterQuery<Foo>(LastOpenedSession,new DetachedQuery("from Foo"));
+			string hql = "from Foo where Name = '-N123'";
+			PaginableRowsCounterQuery<Foo> pag = new PaginableRowsCounterQuery<Foo>(LastOpenedSession,new DetachedQuery(hql));
 			Paginator<Foo> ptor = new Paginator<Foo>(3, pag);
 			
 			Assert.AreEqual(false,ptor.HasPages);
@@ -156,12 +153,8 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void HasPages()
 		{
-			//Drop all items at Foo
-			LastOpenedSession.Delete("from Foo");
-			LastOpenedSession.Save(new Foo("N1","D1"));			
-			LastOpenedSession.Flush();
-						
-			PaginableRowsCounterQuery<Foo> pag = new PaginableRowsCounterQuery<Foo>(LastOpenedSession,new DetachedQuery("from Foo"));
+			string hql = "from Foo where Name = 'N1'";
+			PaginableRowsCounterQuery<Foo> pag = new PaginableRowsCounterQuery<Foo>(LastOpenedSession,new DetachedQuery(hql));
 			Paginator<Foo> ptor = new Paginator<Foo>(3, pag);
 			
 			Assert.AreEqual(true, ptor.HasPages);
