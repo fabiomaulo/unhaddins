@@ -18,6 +18,11 @@ namespace uNhAddIns.Pagination
 		/// The total rows count.
 		/// </summary>
 		long? RowsCount { get; }
+		
+		/// <summary>
+		/// Get True if the paginator has query results. False in other case.
+		/// </summary>
+		bool HasPages { get; }
 
 		/// <summary>
 		/// Get the list of objects for a given page number.
