@@ -146,6 +146,17 @@ namespace uNhAddIns.Pagination
 				return rowsCount;
 			}
 		}
+		
+		/// <summary>
+		/// Get True if the paginator has query results. False in other case.
+		/// </summary>
+		public bool HasPages
+		{
+			get
+			{
+				return this.FirstPageNumber != 0;
+			}		
+		}
 
 		/// <summary>
 		/// Get the list of objects for a given page number and move the current page.

@@ -132,5 +132,45 @@ namespace uNhAddIns.Test.Pagination
 			Assert.AreEqual("N12", lpage[0].Name);
 			Assert.AreEqual("N13", lpage[1].Name);
 		}
+		
+		[Test]
+		[ExpectedException(typeof(System.ArgumentOutOfRangeException))]
+		public void HasNotPages()
+		{
+			//Drop all items at Foo
+			LastOpenedSession.Delete("from Foo");
+			LastOpenedSession.Flush();
+						
+			PaginableRowsCounterQuery<Foo> pag = new PaginableRowsCounterQuery<Foo>(LastOpenedSession,new DetachedQuery("from Foo"));
+			Paginator<Foo> ptor = new Paginator<Foo>(3, pag);
+			
+			Assert.AreEqual(false,ptor.HasPages);
+			Assert.AreEqual(false, ptor.HasPrevious);
+			Assert.AreEqual(false, ptor.HasNext);
+			Assert.AreEqual(0,ptor.RowsCount.Value);
+			
+			//throw ArgumentOutOfRangeException
+			IList<Foo> lpage = ptor.GetPage(1);			
+		}
+		
+		[Test]
+		public void HasPages()
+		{
+			//Drop all items at Foo
+			LastOpenedSession.Delete("from Foo");
+			LastOpenedSession.Save(new Foo("N1","D1"));			
+			LastOpenedSession.Flush();
+						
+			PaginableRowsCounterQuery<Foo> pag = new PaginableRowsCounterQuery<Foo>(LastOpenedSession,new DetachedQuery("from Foo"));
+			Paginator<Foo> ptor = new Paginator<Foo>(3, pag);
+			
+			Assert.AreEqual(true, ptor.HasPages);
+			Assert.AreEqual(1,ptor.RowsCount);
+			Assert.AreEqual(false, ptor.HasPrevious);
+			Assert.AreEqual(false, ptor.HasNext);		
+			
+			IList<Foo> lpage = ptor.GetPage(1);		
+			Assert.AreEqual(1,lpage.Count);
+		}
 	}
 }
