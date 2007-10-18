@@ -24,7 +24,7 @@ namespace uNhAddIns.Test.UserTypes
         [Test]
         public void SaveObject()
         {
-            Foo f = new Foo(1, "coco", "mendieta");
+            Foo f = new Foo(1, "Astor Piazolla", "tango");
 
             using (ISession s = OpenSession())
             {
@@ -37,11 +37,31 @@ namespace uNhAddIns.Test.UserTypes
                 Foo upperFoo = s.Get<Foo>(1);
                 
                 Assert.AreEqual(1,upperFoo.Id);
-                Assert.AreEqual("COCO", upperFoo.Name);
-                Assert.AreEqual("mendieta", upperFoo.Description);
+                Assert.AreEqual("Astor Piazolla", upperFoo.Name);
+                Assert.AreEqual("TANGO", upperFoo.Description);
+            }
+        }
+
+        [Test]
+        public void SaveNullProperty()
+        {
+            Foo f = new Foo(2, "Pat Metheny", null);
+
+            using (ISession s = OpenSession())
+            {
+                s.Save(f);
+                s.Flush();
+            }
+
+            using (ISession s = OpenSession())
+            {
+                Foo upperFoo = s.Get<Foo>(2);
+
+                Assert.AreEqual(2, upperFoo.Id);
+                Assert.AreEqual("Pat Metheny", upperFoo.Name);
+                Assert.IsNull(upperFoo.Description);
             }
 
         }
-
     }
 }
