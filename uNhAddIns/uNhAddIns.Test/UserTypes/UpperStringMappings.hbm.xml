@@ -2,11 +2,17 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
 				   assembly="uNhAddIns.Test"
 				   namespace="uNhAddIns.Test.UserTypes" default-lazy="false">
+  
   <class name="Foo" table="FooUserType">
     <id name="Id" type="int">
       <generator class="assigned"/>
     </id>
-    <property name="Name" type="uNHAddIns.UserTypes.UpperString, uNHAddIns"/>
-    <property name="Description"/>
+    
+    <property name="Name"/>
+    
+    <property name="Description" 
+              type="uNHAddIns.UserTypes.UpperString, uNHAddIns"
+              not-null="false"/>
   </class>
+
 </hibernate-mapping>
