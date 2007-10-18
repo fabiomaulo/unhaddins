@@ -22,7 +22,7 @@ namespace uNhAddIns.Test.UserTypes
         }
 
         [Test]
-        public void SaveObject()
+        public void SaveObjectWithStringChangedToUpper()
         {
             Foo f = new Foo(1, "Astor Piazolla", "tango");
 
@@ -43,7 +43,7 @@ namespace uNhAddIns.Test.UserTypes
         }
 
         [Test]
-        public void SaveNullProperty()
+        public void SaveNullPropertyAndGetItBack()
         {
             Foo f = new Foo(2, "Pat Metheny", null);
 
@@ -63,5 +63,22 @@ namespace uNhAddIns.Test.UserTypes
             }
 
         }
+
+        //Not suported: The attribute owner was removed for IUserType interfaz
+        //and in this case was useful.
+        //[Test]
+        //public void SaveObject2()
+        //{
+        //    using (ISession s = OpenSession())
+        //    {
+        //        Foo f = new Foo(3, "Astor Piazolla", "tango");
+        //        s.Save(f);
+        //        s.Flush();
+                
+        //        Assert.AreEqual(3, f.Id);
+        //        Assert.AreEqual("Astor Piazolla", f.Name);
+        //        Assert.AreEqual("TANGO", f.Description);
+        //    }
+        //}
     }
 }

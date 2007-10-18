@@ -45,7 +45,9 @@ namespace uNHAddIns.UserTypes
                 return;
             }
 
-            NHibernateUtil.String.NullSafeSet(cmd, ((String) value).ToUpper(), index);
+            value = ((String) value).ToUpper();
+
+            NHibernateUtil.String.NullSafeSet(cmd, value, index);
         }
 
         /// <summary>
@@ -146,6 +148,11 @@ namespace uNHAddIns.UserTypes
             return x.Equals(y);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
         public int GetHashCode(object x)
         {
             return x.GetHashCode();
