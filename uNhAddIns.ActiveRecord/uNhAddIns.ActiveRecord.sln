@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.ActiveRecord", "uNhAddIns.ActiveRecord\uNhAddIns.ActiveRecord.csproj", "{481814B5-B244-4483-A58A-4460BF4B73C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.ActiveRecord.Test", "uNhAddIns.ActiveRecord.Test\uNhAddIns.ActiveRecord.Test.csproj", "{DEBBE7D7-482D-4EB1-BFAD-EA240954070B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "..\uNhAddIns\uNhAddIns\uNhAddIns.csproj", "{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{481814B5-B244-4483-A58A-4460BF4B73C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{481814B5-B244-4483-A58A-4460BF4B73C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{481814B5-B244-4483-A58A-4460BF4B73C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{481814B5-B244-4483-A58A-4460BF4B73C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEBBE7D7-482D-4EB1-BFAD-EA240954070B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEBBE7D7-482D-4EB1-BFAD-EA240954070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEBBE7D7-482D-4EB1-BFAD-EA240954070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEBBE7D7-482D-4EB1-BFAD-EA240954070B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
