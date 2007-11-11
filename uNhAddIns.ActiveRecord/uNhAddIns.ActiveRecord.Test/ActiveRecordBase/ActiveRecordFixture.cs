@@ -38,7 +38,7 @@ namespace uNhAddIns.ActiveRecord.Test.ActiveRecordBase
 
         [Test]
         public void FindAll() {
-            Foo[] list = Foo.FindAll(new DetachedQuery("from Foo"));
+            Foo[] list = Foo.FindAll(new DetachedQuery("from Foo Order By Id"));
 
             Assert.AreEqual(10, list.Length);
             Assert.AreEqual(1, list[0].Id);

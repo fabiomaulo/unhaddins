@@ -113,7 +113,7 @@ namespace uNhAddIns.ActiveRecord
         /// <param name="targetType">The target type.</param>
         /// <param name="detachedQuery">The criteria.</param>
         /// <returns>A <c>targetType</c> instance or <c>null.</c></returns>
-        protected internal static object FindFirst(Type targetType, IDetachedQuery detachedQuery) {
+        public static object FindFirst(Type targetType, IDetachedQuery detachedQuery) {
             Array array = SlicedFindAll(targetType, 0, 1, detachedQuery);
             if ((array != null) && (array.Length > 0))
             {
