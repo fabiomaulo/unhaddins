@@ -6,8 +6,20 @@ using uNhAddIns.NH;
 
 namespace uNhAddIns.ActiveRecord
 {
+    /// <summary>
+    /// Base class for all ActiveRecord classes. Implements 
+    /// all the functionality to simplify the code on the 
+    /// subclasses.
+    /// </summary>
+    [Serializable]
     public class ActiveRecordBase : Castle.ActiveRecord.ActiveRecordBase
     {
+        /// <summary>
+        /// Returns all instances found for the specified type according to the criteria
+        /// </summary>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="detachedQuery">The query expression</param>
+        /// <returns>The <see cref="Array"/> of results.</returns>
         public static Array FindAll(Type targetType, IDetachedQuery detachedQuery) {
             Array array;
             //This it's internal at ActiveRecord,implementation to do.
@@ -35,6 +47,14 @@ namespace uNhAddIns.ActiveRecord
             return array;
         }
 
+        /// <summary>
+        /// Returns a portion of the query results (sliced)
+        /// </summary>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="firstResult">The number of the first row to retrieve.</param>
+        /// <param name="maxResults">The maximum number of results retrieved.</param>
+        /// <param name="detachedQuery">The query expression</param>
+        /// <returns>The sliced query results.</returns>
         public static Array SlicedFindAll(Type targetType, int firstResult, int maxResults, IDetachedQuery detachedQuery) {
             Array array;
             //This it's internal at ActiveRecord,implementation to do.
@@ -64,6 +84,13 @@ namespace uNhAddIns.ActiveRecord
             return array;
         }
 
+        /// <summary>
+        /// Searches and returns a row. If more than one is found, 
+        /// throws <see cref="ActiveRecordException"/>
+        /// </summary>
+        /// <param name="targetType">The target type</param>
+        /// <param name="detachedQuery">The query expression</param>
+        /// <returns>A <c>targetType</c> instance or <c>null</c></returns>
         public static object FindOne(Type targetType, IDetachedQuery detachedQuery) {
             Array array = SlicedFindAll(targetType, 0, 2, detachedQuery);
             if (array.Length > 1)
@@ -80,6 +107,12 @@ namespace uNhAddIns.ActiveRecord
             return null;
         }
 
+        /// <summary>
+        /// Searches and returns the first row.
+        /// </summary>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="detachedQuery">The criteria.</param>
+        /// <returns>A <c>targetType</c> instance or <c>null.</c></returns>
         protected internal static object FindFirst(Type targetType, IDetachedQuery detachedQuery) {
             Array array = SlicedFindAll(targetType, 0, 1, detachedQuery);
             if ((array != null) && (array.Length > 0))
@@ -89,6 +122,12 @@ namespace uNhAddIns.ActiveRecord
             return null;
         }
 
+        /// <summary>
+        /// Check if there is any records in the db for the target type
+        /// </summary>
+        /// <param name="targetType">The target type.</param>
+        /// <param name="detachedQuery"></param>
+        /// <returns><c>true</c> if there's at least one row</returns>
         public static bool Exists(Type targetType, IDetachedQuery detachedQuery) {
             Array array = SlicedFindAll(targetType, 0, 1, detachedQuery);
 

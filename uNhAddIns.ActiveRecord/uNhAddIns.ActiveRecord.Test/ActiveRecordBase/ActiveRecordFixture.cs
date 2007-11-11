@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using uNhAddIns.NH.Impl;
+using uNhAddIns.Serialization;
 
 namespace uNhAddIns.ActiveRecord.Test.ActiveRecordBase
 {
@@ -64,6 +65,12 @@ namespace uNhAddIns.ActiveRecord.Test.ActiveRecordBase
 
             Assert.AreEqual(10, list[4].Id);
             Assert.AreEqual("n10", list[4].Name);
+        }
+
+        [Test]
+        public void CloneWithSerialization() {
+            ActiveRecord.ActiveRecordBase ar = new ActiveRecord.ActiveRecordBase();
+            Cloner.Clone(ar);
         }
     }
 }

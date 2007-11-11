@@ -1,9 +1,11 @@
 using Castle.ActiveRecord;
+using System;
+using uNhAddIns.Serialization;
 
 namespace uNhAddIns.ActiveRecord.Test.ActiveRecordBase
 {
     [Castle.ActiveRecord.ActiveRecord]
-    public class Foo : ActiveRecordBase<Foo>
+    public class Foo : ActiveRecordBase<Foo>,ICloneable
     {
         private int id;
         private string name;
@@ -26,6 +28,10 @@ namespace uNhAddIns.ActiveRecord.Test.ActiveRecordBase
         public string Name {
             get { return name; }
             set { name = value; }
+        }
+
+        public object Clone() {
+            return Cloner.Clone(this);
         }
     }
 }
