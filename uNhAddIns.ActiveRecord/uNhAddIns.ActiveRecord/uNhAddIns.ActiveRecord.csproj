@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="ActiveRecordBase.cs" />
     <Compile Include="ActiveRecordBase.Generic.cs" />
+    <Compile Include="ActiveRecordValidationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,9 @@
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveRecordValidationBase.Generic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

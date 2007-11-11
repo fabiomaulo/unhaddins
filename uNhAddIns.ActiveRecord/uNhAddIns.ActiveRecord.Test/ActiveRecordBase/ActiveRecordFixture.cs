@@ -6,13 +6,15 @@ using uNhAddIns.Serialization;
 namespace uNhAddIns.ActiveRecord.Test.ActiveRecordBase
 {
     [TestFixture]
-    public class ActiveRecordFixture : TestCase
+    public class ActiveRecordFixture : AbstractActiveRecordTestCase
     {
         public override Type[] Entities {
             get { return new Type[] {typeof (Foo)}; }
         }
 
         public override void OnSetUp() {
+            Recreate();
+
             for (int i = 1; i <= 10; i++)
             {
                 Foo foo = new Foo(i, "n" + i);
