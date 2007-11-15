@@ -72,6 +72,8 @@
     <Compile Include="ActiveRecordBase\ActiveRecordFixture.cs" />
     <Compile Include="ActiveRecordBase\Foo.cs" />
     <Compile Include="AbstractActiveRecordTestCase.cs" />
+    <Compile Include="ActiveRecordMediator\ActiveRecordMediatorFixture.cs" />
+    <Compile Include="ActiveRecordMediator\FooEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validation\GenericModel\Blog.cs" />
     <Compile Include="Validation\GenericModel\Customer.cs" />

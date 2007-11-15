@@ -62,6 +62,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveRecordMediator.cs" />
+    <Compile Include="ActiveRecordMediator.Generic.cs" />
     <Compile Include="ActiveRecordValidationBase.Generic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
