@@ -18,6 +18,7 @@ namespace uNhAddIns.ActiveRecord.Test
             
             if (Entities != null)
             {
+                ActiveRecordStarter.ResetInitializationFlag();
                 ActiveRecordStarter.Initialize(GetConfigSource(), Entities);
                 ActiveRecordStarter.CreateSchema();
             }

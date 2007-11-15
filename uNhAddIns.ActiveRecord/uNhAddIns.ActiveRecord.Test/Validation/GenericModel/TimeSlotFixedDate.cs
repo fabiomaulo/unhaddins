@@ -15,7 +15,7 @@
 using Castle.Components.Validator;
 namespace Castle.ActiveRecord.Tests.Validation.Model.GenericModel
 {
-    public abstract class AbstractTimeSlot<t> : uNhAddIns.ActiveRecord.ActiveRecordValidationBase
+    public abstract class AbstractTimeSlot<T> : uNhAddIns.ActiveRecord.ActiveRecordValidationBase
     {
         private int myId;
         private string myName;
