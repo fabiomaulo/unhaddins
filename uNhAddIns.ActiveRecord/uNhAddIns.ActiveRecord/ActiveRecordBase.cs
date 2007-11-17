@@ -111,7 +111,7 @@ namespace uNhAddIns.ActiveRecord
         /// Searches and returns the first row.
         /// </summary>
         /// <param name="targetType">The target type.</param>
-        /// <param name="detachedQuery">The criteria.</param>
+        /// <param name="detachedQuery">The expression query.</param>
         /// <returns>A <c>targetType</c> instance or <c>null.</c></returns>
         public static object FindFirst(Type targetType, IDetachedQuery detachedQuery) {
             Array array = SlicedFindAll(targetType, 0, 1, detachedQuery);
