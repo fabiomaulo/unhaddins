@@ -37,19 +37,7 @@
 			<xs:enumeration value="auto" />
 			<xs:enumeration value="never" />
 			<!-- <xs:enumeration value="always" /> - not implemented yet -->
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="cascadeStyle">
-		<xs:annotation>
-			<xs:documentation>Rule as to how to operate on child objects (for more information, read topics about "persistence by reachability" or "transparent/transitive/cascading persistence")</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="all" />
-			<xs:enumeration value="all-delete-orphan" />
-			<xs:enumeration value="none" />
-			<xs:enumeration value="save-update" />
-			<xs:enumeration value="delete" />
-			<xs:enumeration value="delete-orphan" />
+			<xs:enumeration value="always" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="optimisticLockMode">
@@ -88,7 +76,6 @@
 			<xs:enumeration value="always" />
 		</xs:restriction>
 	</xs:simpleType>
-
 	<!--
 		This is the same as laziness for now, but H3.2 allows lazy="no-proxy"
 		in some elements but not in others, so separate types are used.
@@ -114,6 +101,7 @@
 		<xs:attribute name="dynamic-update" type="xs:boolean" use="optional" default="false" />
 		<xs:attribute name="dynamic-insert" type="xs:boolean" use="optional" default="false" />
 		<xs:attribute name="select-before-update" type="xs:boolean" use="optional" default="false" />
+		<xs:attribute name="abstract" type="xs:boolean" />
 	</xs:attributeGroup>
 	<xs:attributeGroup name="baseCollectionAttributes">
 		<xs:attribute name="name" type="xs:string" use="required" />
@@ -127,7 +115,7 @@
 		</xs:attribute>
 		<xs:attribute name="outer-join" type="outerJoinStrategy" use="optional" />
 		<xs:attribute name="fetch" type="collectionFetchMode" use="optional" />
-		<xs:attribute name="cascade" type="cascadeStyle" use="optional" />
+		<xs:attribute name="cascade" type="xs:string" use="optional" />
 		<xs:attribute name="where" type="xs:string" use="optional" />
 		<xs:attribute name="inverse" type="xs:boolean" use="optional" default="false" />
 		<xs:attribute name="persister" type="xs:string" use="optional" />
@@ -234,6 +222,7 @@
 					<xs:element ref="class" />
 					<xs:element ref="subclass" />
 					<xs:element ref="joined-subclass" />
+					<xs:element ref="union-subclass" />
 				</xs:choice>
 				<xs:element ref="resultset" minOccurs="0" maxOccurs="unbounded" />
 				<xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -243,12 +232,8 @@
 				<xs:element ref="filter-def" minOccurs="0" maxOccurs="unbounded" />
 				<xs:element ref="database-object" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="schema" type="xs:string" use="optional">
-				<xs:annotation>
-					<xs:documentation>defaults to none used</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			<xs:attribute name="default-cascade" type="cascadeStyle" use="optional" default="none" />
+			<xs:attribute name="schema" type="xs:string" use="optional" />
+			<xs:attribute name="default-cascade" type="xs:string" use="optional" default="none" />
 			<xs:attribute name="default-access" type="xs:string" use="optional" default="property">
 				<xs:annotation>
 					<xs:documentation>Default property access setting</xs:documentation>
@@ -367,8 +352,12 @@
 					<xs:element ref="primitive-array" />
 				</xs:choice>
 				<xs:choice>
-					<xs:element ref="subclass" minOccurs="0" maxOccurs="unbounded" />
+					<xs:sequence>
+						<xs:element ref="join" minOccurs="0" maxOccurs="unbounded" />
+						<xs:element ref="subclass" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
 					<xs:element ref="joined-subclass" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element ref="union-subclass" minOccurs="0" maxOccurs="unbounded" />
 				</xs:choice>
 				<xs:group ref="classCustomSQL" />
 				<xs:element ref="filter" minOccurs="0" maxOccurs="unbounded" />
@@ -517,6 +506,7 @@
 					<xs:element ref="array" />
 					<xs:element ref="primitive-array" />
 				</xs:choice>
+				<xs:element ref="join" minOccurs="0" maxOccurs="unbounded" />
 				<xs:element ref="subclass" minOccurs="0" maxOccurs="unbounded" />
 				<xs:group ref="classCustomSQL" />
 			</xs:sequence>
@@ -572,6 +562,30 @@
 				</xs:annotation>
 			</xs:attribute>
 			<xs:attribute name="check" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="join">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="key" />
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="property" />
+					<xs:element ref="many-to-one" />
+					<xs:element ref="component" />
+					<xs:element ref="dynamic-component" />
+					<xs:element ref="any" />
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="table" type="xs:string">
+			</xs:attribute>
+			<xs:attribute name="schema" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>default: no value</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="fetch" type="fetchMode" use="optional" />
+			<xs:attribute name="inverse" type="xs:boolean" use="optional" default="false" />
+			<xs:attribute name="optional" type="xs:boolean" use="optional" default="false" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="property">
@@ -635,7 +649,7 @@
 			<xs:attribute name="access" type="xs:string" />
 			<xs:attribute name="insert" type="xs:boolean" />
 			<xs:attribute name="update" type="xs:boolean" />
-			<xs:attribute name="cascade" type="cascadeStyle" default="none" />
+			<xs:attribute name="cascade" type="xs:string" default="none" />
 			<xs:attribute name="index" type="xs:string" use="optional" />
 			<xs:attribute name="unique-key" type="xs:string" use="optional" />
 		</xs:complexType>
@@ -663,7 +677,7 @@
 			<xs:attribute name="table" type="xs:string" />
 			<xs:attribute name="schema" type="xs:string" />
 			<xs:attribute name="element-class" type="xs:string" />
-			<xs:attribute name="cascade" type="cascadeStyle" />
+			<xs:attribute name="cascade" type="xs:string" />
 			<xs:attribute name="where" type="xs:string" />
 			<xs:attribute name="optimistic-lock" type="xs:boolean" use="optional" />
 		</xs:complexType>
@@ -826,6 +840,15 @@
 			<xs:attribute name="length" type="xs:positiveInteger" use="optional" />
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="list-index">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="column" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="column" type="xs:string" />
+			<xs:attribute name="base" type="xs:positiveInteger" use="optional" />
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="index-many-to-any">
 		<xs:complexType>
 			<xs:sequence>
@@ -853,6 +876,8 @@
 			</xs:sequence>
 			<xs:attribute name="column" type="xs:string" />
 			<xs:attribute name="foreign-key" type="xs:string" use="optional" />
+			<xs:attribute name="property-ref" type="xs:string" use="optional" />
+			<xs:attribute name="on-delete" type="ondelete" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="key-many-to-one">
@@ -921,7 +946,7 @@
 			<xs:attribute name="unique" type="xs:boolean" default="false" />
 			<xs:attribute name="unique-key" type="xs:string" />
 			<xs:attribute name="index" type="xs:string" />
-			<xs:attribute name="cascade" type="cascadeStyle" />
+			<xs:attribute name="cascade" type="xs:string" />
 			<xs:attribute name="outer-join" type="outerJoinStrategy" use="optional" />
 			<xs:attribute name="fetch" type="fetchMode" use="optional" />
 			<xs:attribute name="update" type="xs:boolean" />
@@ -967,7 +992,7 @@
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="access" type="xs:string" />
 			<xs:attribute name="class" type="xs:string" />
-			<xs:attribute name="cascade" type="cascadeStyle" />
+			<xs:attribute name="cascade" type="xs:string" />
 			<xs:attribute name="outer-join" type="outerJoinStrategy" use="optional" />
 			<xs:attribute name="fetch" type="fetchMode" use="optional" />
 			<xs:attribute name="constrained" type="xs:boolean" default="false" />
@@ -1007,8 +1032,17 @@
 	</xs:element>
 	<xs:element name="query">
 		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="query-param" />
+			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
 			<xs:attribute name="flush-mode" type="flushMode" use="optional" />
+			<xs:attribute name="cache-mode" type="cacheMode" />
+			<xs:attribute name="cacheable" type="xs:boolean" />
+			<xs:attribute name="cache-region" type="xs:string" />
+			<xs:attribute name="fetch-size" type="xs:int" />
+			<xs:attribute name="timeout" type="xs:int" />
+			<xs:attribute name="read-only" type="xs:boolean" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="return">
@@ -1080,11 +1114,18 @@
 				<xs:element ref="return-join" />
 				<xs:element ref="load-collection" />
 				<xs:element ref="synchronize" />
+				<xs:element ref="query-param" />
 			</xs:choice>
 			<xs:attribute name="name" type="xs:string" use="required" />
-			<!-- <xs:attribute name="callable" type="xs:boolean" use="optional" default="false" /> -->
 			<xs:attribute name="resultset-ref" type="xs:string" use="optional" />
 			<xs:attribute name="flush-mode" type="flushMode" use="optional" />
+			<xs:attribute name="cache-mode" type="cacheMode" />
+			<xs:attribute name="callable" type="xs:boolean" />
+			<xs:attribute name="read-only" type="xs:boolean" />
+			<xs:attribute name="timeout" type="xs:int" />
+			<xs:attribute name="fetch-size" type="xs:int" />
+			<xs:attribute name="cache-region" type="xs:string" />
+			<xs:attribute name="cacheable" type="xs:boolean" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="list">
@@ -1096,7 +1137,10 @@
 					<xs:element ref="cache" />
 				</xs:choice>
 				<xs:element ref="key" />
-				<xs:element ref="index" />
+				<xs:choice>
+					<xs:element ref="index" />
+					<xs:element ref="list-index" />
+				</xs:choice>
 				<xs:choice>
 					<xs:element ref="element" />
 					<xs:element ref="one-to-many" />
@@ -1194,4 +1238,65 @@
 			<xs:attribute name="name" type="xs:string" use="required" />
 		</xs:complexType>
 	</xs:element>
+	<xs:simpleType name="cacheMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="get" />
+			<xs:enumeration value="ignore" />
+			<xs:enumeration value="normal" />
+			<xs:enumeration value="put" />
+			<xs:enumeration value="refresh" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="union-subclass">
+		<xs:annotation>
+			<xs:documentation>A subclass in a table-per-concrete-class mapping</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="meta" minOccurs="0" maxOccurs="unbounded" />
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="property" />
+					<xs:element ref="many-to-one" />
+					<xs:element ref="one-to-one" />
+					<xs:element ref="component" />
+					<xs:element ref="dynamic-component" />
+					<xs:element ref="any" />
+					<xs:element ref="map" />
+					<xs:element ref="set" />
+					<xs:element ref="list" />
+					<xs:element ref="bag" />
+					<xs:element ref="idbag" />
+					<xs:element ref="array" />
+					<xs:element ref="primitive-array" />
+				</xs:choice>
+				<xs:element ref="union-subclass" minOccurs="0" maxOccurs="unbounded" />
+				<xs:group ref="classCustomSQL" />
+			</xs:sequence>
+			<xs:attributeGroup ref="baseClassAttributes" />
+			<xs:attribute name="extends" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>Name of the root class. Required if the subclass is declared outside the declaration of its root class</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="schema" type="xs:string" use="optional" />
+			<xs:attribute name="table" type="xs:string" use="optional">
+				<xs:annotation>
+					<xs:documentation>default: unqualified classname</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="check" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="query-param">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required" />
+			<xs:attribute name="type" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="ondelete">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="cascade" />
+			<xs:enumeration value="noaction" />
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>
