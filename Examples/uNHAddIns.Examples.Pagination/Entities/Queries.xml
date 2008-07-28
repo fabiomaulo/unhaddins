@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                   assembly="Entities" 
+                   namespace="Entities">
+
+  <query name="AllArticlesByName" cacheable="false" read-only="true">
+    <![CDATA[
+        from Article where NameFirst like :value or LastName like :value
+    ]]>
+  </query>
+
+  <query name="AllArticles" cacheable="false" read-only="true">
+    <![CDATA[
+        from Article
+    ]]>
+  </query>
+
+</hibernate-mapping>

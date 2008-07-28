@@ -1,0 +1,160 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>uNhAddIns</RootNamespace>
+    <AssemblyName>uNhAddIns</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\uNhAddIns.xml</DocumentationFile>
+    <NoWarn>1591;3001;3002;3003;3005</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.DynamicProxy2, Version=2.0.0.1, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Castle.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="GoldParser, Version=1.0.1640.10330, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\GoldParser.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.0.0.1001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Criterions\Criterion.cs" />
+    <Compile Include="Criterions\EqOrNullExpression.cs" />
+    <Compile Include="DynQuery\DetachedDynQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\From.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\IDynClause.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\IQueryPart.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\LogicalExpression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\OrderBy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\PaginableDynQuery.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\Select.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DynQuery\Where.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GenericImpl\PaginableCriteria.cs" />
+    <Compile Include="GenericImpl\PaginableQuery.cs" />
+    <Compile Include="GenericImpl\PaginableRowsCounterQuery.cs" />
+    <Compile Include="Hql\Gold\AST\AstException.cs" />
+    <Compile Include="Hql\Gold\AST\BetweenOperator.cs" />
+    <Compile Include="Hql\Gold\AST\BinaryArithmeticOperator.cs" />
+    <Compile Include="Hql\Gold\AST\BinaryLogicOperator.cs" />
+    <Compile Include="Hql\Gold\AST\BinaryOperator.cs" />
+    <Compile Include="Hql\Gold\AST\FromElement.cs" />
+    <Compile Include="Hql\Gold\AST\NegateOperator.cs" />
+    <Compile Include="Hql\Gold\AST\DeleteStatement.cs" />
+    <Compile Include="Hql\Gold\AST\FromClause.cs" />
+    <Compile Include="Hql\Gold\AST\IntValue.cs" />
+    <Compile Include="Hql\Gold\AST\IOperator.cs" />
+    <Compile Include="Hql\Gold\AST\IsNullOperator.cs" />
+    <Compile Include="Hql\Gold\AST\LiteralNode.cs" />
+    <Compile Include="Hql\Gold\AST\NodeFactories\ComplexStringFactory.cs" />
+    <Compile Include="Hql\Gold\AST\NotOperator.cs" />
+    <Compile Include="Hql\Gold\AST\Parameter.cs" />
+    <Compile Include="Hql\Gold\AST\ReductionsHelper.cs" />
+    <Compile Include="Hql\Gold\AST\Identifier.cs" />
+    <Compile Include="Hql\Gold\AST\NodeFactories\IgnoreRootNodeFactory.cs" />
+    <Compile Include="Hql\Gold\AST\IStatement.cs" />
+    <Compile Include="Hql\Gold\AST\NodeFactory.cs" />
+    <Compile Include="Hql\Gold\AST\NodeFactories\PredicateFactory.cs" />
+    <Compile Include="Hql\Gold\AST\Property.cs" />
+    <Compile Include="Hql\Gold\AST\NodeFactories\PropertyFactory.cs" />
+    <Compile Include="Hql\Gold\AST\SelectClause.cs" />
+    <Compile Include="Hql\Gold\AST\SelectStatement.cs" />
+    <Compile Include="Hql\Gold\AST\TerminalNode.cs" />
+    <Compile Include="Hql\Gold\AST\Tuple.cs" />
+    <Compile Include="Hql\Gold\AST\UnaryOperator.cs" />
+    <Compile Include="Hql\Gold\AST\WhereClause.cs" />
+    <Compile Include="Hql\Gold\HqlParser.cs" />
+    <Compile Include="Hql\Gold\QueryTranslator.cs" />
+    <Compile Include="Hql\Gold\QueryTranslatorFactory.cs" />
+    <Compile Include="Hql\Gold\AstBuilder.cs" />
+    <Compile Include="Hql\Gold\AST\Node.cs" />
+    <Compile Include="Pagination\AbstractPaginableCriteria.cs" />
+    <Compile Include="Pagination\AbstractPaginableQuery.cs" />
+    <Compile Include="Pagination\AbstractRowsCounter.cs" />
+    <Compile Include="Pagination\BasePaginator.cs" />
+    <Compile Include="Pagination\IPageProvider.cs" />
+    <Compile Include="Pagination\IPaginable.cs" />
+    <Compile Include="Pagination\IPaginator.cs" />
+    <Compile Include="Pagination\IRowsCounter.cs" />
+    <Compile Include="Pagination\NamedQueryRowsCounter.cs" />
+    <Compile Include="Pagination\AbstractPaginableRowsCounterQuery.cs" />
+    <Compile Include="Pagination\Paginator.cs" />
+    <Compile Include="Pagination\QueryRowsCounter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\Cloner.cs" />
+    <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\UpperString.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Hql\Gold\Grammar\Grammar.cgt">
+    </EmbeddedResource>
+    <None Include="Hql\Gold\Grammar\Grammar.grm" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
