@@ -1,23 +1,7 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "uNhAddIns\uNhAddIns.csproj", "{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns.Test\uNhAddIns.Test.csproj", "{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
-EndProject
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "ConfigurationTemplates", "{6D470A4E-BAB0-4BE3-9C62-20FF3C682603}"
-	ProjectSection(WebsiteProperties) = preProject
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.Debug = "False"
-	EndProjectSection
 	ProjectSection(SolutionItems) = preProject
 		ConfigurationTemplates\FireBird.cfg.xml.tmpl = ConfigurationTemplates\FireBird.cfg.xml.tmpl
 		ConfigurationTemplates\MSSQL.cfg.xml.tmpl = ConfigurationTemplates\MSSQL.cfg.xml.tmpl
@@ -26,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "C
 		ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl = ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl
 		ConfigurationTemplates\SQLite.cfg.xml.tmpl = ConfigurationTemplates\SQLite.cfg.xml.tmpl
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "uNhAddIns\uNhAddIns.csproj", "{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns.Test\uNhAddIns.Test.csproj", "{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
