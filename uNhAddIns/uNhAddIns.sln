@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Hql", "uNhAddIns.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Hql.Tests", "uNhAddIns.Hql.Tests\uNhAddIns.Hql.Tests.csproj", "{EAD188BC-53C2-49A4-AB99-C498603A1440}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Web", "uNhAddIns.Web\uNhAddIns.Web.csproj", "{6F9968F5-6A16-4CD4-89FF-98A052FAB905}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F9968F5-6A16-4CD4-89FF-98A052FAB905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F9968F5-6A16-4CD4-89FF-98A052FAB905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F9968F5-6A16-4CD4-89FF-98A052FAB905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F9968F5-6A16-4CD4-89FF-98A052FAB905}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
