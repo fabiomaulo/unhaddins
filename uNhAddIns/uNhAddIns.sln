@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "uNhAddIns\uNhA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns.Test\uNhAddIns.Test.csproj", "{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Hql", "uNhAddIns.Hql\uNhAddIns.Hql.csproj", "{BA959BD0-92A0-41B9-B09E-F676C37F7424}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Hql.Tests", "uNhAddIns.Hql.Tests\uNhAddIns.Hql.Tests.csproj", "{EAD188BC-53C2-49A4-AB99-C498603A1440}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +32,14 @@ Global
 		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

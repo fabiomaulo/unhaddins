@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50727</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -14,6 +14,21 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -92,41 +107,6 @@
     <Compile Include="GenericImpl\PaginableCriteria.cs" />
     <Compile Include="GenericImpl\PaginableQuery.cs" />
     <Compile Include="GenericImpl\PaginableRowsCounterQuery.cs" />
-    <Compile Include="Hql\Gold\AST\AstException.cs" />
-    <Compile Include="Hql\Gold\AST\BetweenOperator.cs" />
-    <Compile Include="Hql\Gold\AST\BinaryArithmeticOperator.cs" />
-    <Compile Include="Hql\Gold\AST\BinaryLogicOperator.cs" />
-    <Compile Include="Hql\Gold\AST\BinaryOperator.cs" />
-    <Compile Include="Hql\Gold\AST\FromElement.cs" />
-    <Compile Include="Hql\Gold\AST\NegateOperator.cs" />
-    <Compile Include="Hql\Gold\AST\DeleteStatement.cs" />
-    <Compile Include="Hql\Gold\AST\FromClause.cs" />
-    <Compile Include="Hql\Gold\AST\IntValue.cs" />
-    <Compile Include="Hql\Gold\AST\IOperator.cs" />
-    <Compile Include="Hql\Gold\AST\IsNullOperator.cs" />
-    <Compile Include="Hql\Gold\AST\LiteralNode.cs" />
-    <Compile Include="Hql\Gold\AST\NodeFactories\ComplexStringFactory.cs" />
-    <Compile Include="Hql\Gold\AST\NotOperator.cs" />
-    <Compile Include="Hql\Gold\AST\Parameter.cs" />
-    <Compile Include="Hql\Gold\AST\ReductionsHelper.cs" />
-    <Compile Include="Hql\Gold\AST\Identifier.cs" />
-    <Compile Include="Hql\Gold\AST\NodeFactories\IgnoreRootNodeFactory.cs" />
-    <Compile Include="Hql\Gold\AST\IStatement.cs" />
-    <Compile Include="Hql\Gold\AST\NodeFactory.cs" />
-    <Compile Include="Hql\Gold\AST\NodeFactories\PredicateFactory.cs" />
-    <Compile Include="Hql\Gold\AST\Property.cs" />
-    <Compile Include="Hql\Gold\AST\NodeFactories\PropertyFactory.cs" />
-    <Compile Include="Hql\Gold\AST\SelectClause.cs" />
-    <Compile Include="Hql\Gold\AST\SelectStatement.cs" />
-    <Compile Include="Hql\Gold\AST\TerminalNode.cs" />
-    <Compile Include="Hql\Gold\AST\Tuple.cs" />
-    <Compile Include="Hql\Gold\AST\UnaryOperator.cs" />
-    <Compile Include="Hql\Gold\AST\WhereClause.cs" />
-    <Compile Include="Hql\Gold\HqlParser.cs" />
-    <Compile Include="Hql\Gold\QueryTranslator.cs" />
-    <Compile Include="Hql\Gold\QueryTranslatorFactory.cs" />
-    <Compile Include="Hql\Gold\AstBuilder.cs" />
-    <Compile Include="Hql\Gold\AST\Node.cs" />
     <Compile Include="Pagination\AbstractPaginableCriteria.cs" />
     <Compile Include="Pagination\AbstractPaginableQuery.cs" />
     <Compile Include="Pagination\AbstractRowsCounter.cs" />
@@ -145,9 +125,31 @@
     <Compile Include="UserTypes\UpperString.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Hql\Gold\Grammar\Grammar.cgt">
-    </EmbeddedResource>
-    <None Include="Hql\Gold\Grammar\Grammar.grm" />
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
