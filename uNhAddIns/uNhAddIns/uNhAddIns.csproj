@@ -75,6 +75,7 @@
       <HintPath>..\..\Lib\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -125,9 +126,13 @@
     <Compile Include="Pagination\QueryRowsCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\Cloner.cs" />
+    <Compile Include="SessionEasier\DefaultMultiFactoryConfigurator.cs" />
     <Compile Include="SessionEasier\IMultiFactoryConfigurator.cs" />
     <Compile Include="SessionEasier\ISessionFactoryProvider.cs" />
     <Compile Include="SessionEasier\ISessionWrapper.cs" />
+    <Compile Include="SessionEasier\MultiSessionFactoryProvider.cs" />
+    <Compile Include="SessionEasier\SessionFactoryManager.cs" />
+    <Compile Include="SessionEasier\SessionFactoryProvider.cs" />
     <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
     <Compile Include="UserTypes\UpperString.cs" />
   </ItemGroup>

@@ -93,6 +93,7 @@
     <Compile Include="DynamicQuery\DynQueryFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LogSpy.cs" />
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
     <Compile Include="Pagination\PaginableCriteriaFixture.cs" />
     <Compile Include="Pagination\QueryRowsCounterFixture.cs" />
@@ -106,6 +107,10 @@
     <Compile Include="Serialization\ClonerFixture.cs" />
     <Compile Include="Serialization\Foo.cs" />
     <Compile Include="Serialization\FooChild.cs" />
+    <Compile Include="SessionEasier\DefaultMultiFactoryConfiguratorFixture.cs" />
+    <Compile Include="SessionEasier\MultiSessionFactoryProviderFixture.cs" />
+    <Compile Include="SessionEasier\SessionFactoryProviderFixture.cs" />
+    <Compile Include="SessionEasier\TestConfigurationHelper.cs" />
     <Compile Include="TestCase.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
     <Compile Include="UserTypes\Foo.cs" />
@@ -157,6 +162,14 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestConfig1.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestConfig2.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
