@@ -50,6 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.DynamicProxy2, Version=2.0.0.1, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Castle.DynamicProxy2.dll</HintPath>
@@ -121,6 +125,9 @@
     <Compile Include="Pagination\QueryRowsCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\Cloner.cs" />
+    <Compile Include="SessionEasier\IMultiFactoryConfigurator.cs" />
+    <Compile Include="SessionEasier\ISessionFactoryProvider.cs" />
+    <Compile Include="SessionEasier\ISessionWrapper.cs" />
     <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
     <Compile Include="UserTypes\UpperString.cs" />
   </ItemGroup>
