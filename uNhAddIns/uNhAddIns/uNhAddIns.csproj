@@ -126,6 +126,11 @@
     <Compile Include="Pagination\QueryRowsCounter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\Cloner.cs" />
+    <Compile Include="SessionEasier\Contexts\CallSessionContext.cs" />
+    <Compile Include="SessionEasier\Contexts\Commons.cs" />
+    <Compile Include="SessionEasier\Contexts\CurrentSessionContext.cs" />
+    <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContext.cs" />
+    <Compile Include="SessionEasier\Contexts\TransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\DefaultMultiFactoryConfigurator.cs" />
     <Compile Include="SessionEasier\IMultiFactoryConfigurator.cs" />
     <Compile Include="SessionEasier\ISessionFactoryProvider.cs" />
