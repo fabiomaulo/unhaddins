@@ -84,6 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="Conversations\ConversationFixture.cs" />
+    <Compile Include="Conversations\TestConversation.cs" />
+    <Compile Include="Conversations\ThreadLocalConversationContainerFixture.cs" />
     <Compile Include="CriterionTest\CriterionTest.cs" />
     <Compile Include="CriterionTest\Simple.cs" />
     <Compile Include="DebugConnectionProvider.cs" />
