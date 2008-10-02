@@ -1,6 +1,6 @@
 using NHibernate.Cfg;
 using NUnit.Framework;
-using NUnit.Framework.SyntaxHelpers;
+using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier;
 
 namespace uNhAddIns.Test.SessionEasier
