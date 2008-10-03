@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using log4net;
 using NHibernate;
+using NHibernate.Engine;
 
 namespace uNhAddIns.SessionEasier.Conversations
 {
 	[Serializable]
 	public class NhConversation : AbstractConversation
 	{
-		// TODO : wrap de session
 		// TODO: manage transaction
-
 		private const string sessionsContextKey = "uNhAddIns.Conversations.NHSessions";
 		[NonSerialized] protected static readonly ILog log = LogManager.GetLogger(typeof (NhConversation));
 		[NonSerialized] private readonly ISessionFactoryProvider factoriesProvider;
@@ -85,17 +84,40 @@ namespace uNhAddIns.SessionEasier.Conversations
 				}
 				foreach (var factory in factoriesToRebind)
 				{
-					Bind(factory.OpenSession());					
+					Bind(OpenNewSessionFor(factory));					
 				}
 			}
 			else
 			{
 				// Bind a session for each SessionFactory
-				foreach (ISessionFactory sessionFactory in factoriesProvider)
+				foreach (var factory in factoriesProvider)
 				{
-					Bind(sessionFactory.OpenSession());
+					Bind(OpenNewSessionFor(factory));
 				}
 			}
+		}
+
+		protected virtual ISession OpenNewSessionFor(ISessionFactory factory)
+		{
+			ISession session = BuildSession((ISessionFactoryImplementor) factory);
+			// wrap the session in the transaction-protection proxy
+			session = Wrap(session);
+			return session;
+		}
+
+		protected virtual ISession Wrap(ISession session)
+		{
+			var wrapper = new TransactionProtectionWrapper(session, x => x);
+			var wrapped =
+				(ISession)
+				Commons.ProxyGenerator.CreateInterfaceProxyWithTarget(typeof(ISession), Commons.SessionProxyInterfaces, session,
+																															wrapper);
+			return wrapped;
+		}
+
+		protected virtual ISession BuildSession(ISessionFactoryImplementor factory)
+		{
+			return factory.OpenSession(null, false, false, factory.Settings.ConnectionReleaseMode);
 		}
 
 		protected override void DoEnd()
