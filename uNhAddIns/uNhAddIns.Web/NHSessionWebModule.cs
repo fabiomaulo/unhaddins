@@ -3,7 +3,6 @@ using System.Web;
 using log4net;
 using NHibernate;
 using uNhAddIns.SessionEasier;
-using uNhAddIns.SessionEasier.Contexts;
 
 namespace uNhAddIns.Web
 {
