@@ -86,6 +86,7 @@
     <Compile Include="SessionEasier\Conversations\IConversation.cs" />
     <Compile Include="SessionEasier\Conversations\IConversationContainer.cs" />
     <Compile Include="SessionEasier\Conversations\NhConversation.cs" />
+    <Compile Include="SessionEasier\Conversations\ThreadLocalConversationalSessionContext.cs" />
     <Compile Include="SessionEasier\Conversations\ThreadLocalConversationContainer.cs" />
     <Compile Include="Criterions\Criterion.cs" />
     <Compile Include="Criterions\EqOrNullExpression.cs" />
