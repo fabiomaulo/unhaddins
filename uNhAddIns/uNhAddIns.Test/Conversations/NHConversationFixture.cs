@@ -119,7 +119,8 @@ namespace uNhAddIns.Test.Conversations
 			ISession s = c.GetSession(sessions);
 			Assert.That(s, Is.Not.Null);
 			Assert.That(s.IsOpen);
-			Assert.That(s.IsConnected, Is.False);
+			//Assert.That(s.IsConnected, Is.False); need something else in NH
+			Assert.That(!s.Transaction.IsActive);
 		}
 
 		[Test]
@@ -164,6 +165,46 @@ namespace uNhAddIns.Test.Conversations
 			Assert.That(s, Is.Not.Null);
 			Assert.That(s.IsOpen, Is.False);
 			Assert.Throws<ConversationException>(() => s = c.GetSession(sessions));
+		}
+
+		[Test]
+		public void ConversationUsage()
+		{
+			using (ISession s = OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				var o = new Other {Name = "some other silly"};
+				var e = new Silly {Name = "somebody", Other = o};
+				s.Save(e);
+				tx.Commit();
+			}
+
+			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
+			{
+				c.Start();
+				ISession s = c.GetSession(sessions);
+				IList<Silly> sl = s.CreateQuery("from Silly").List<Silly>();
+				c.Pause();
+				Assert.That(sl.Count == 1);
+				Assert.That(!NHibernateUtil.IsInitialized(sl[0].Other));
+				// working with entities, even using lazy loading
+				Assert.That(!s.Transaction.IsActive);
+				Assert.That("some other silly", Is.EqualTo(sl[0].Other.Name));
+				Assert.That(NHibernateUtil.IsInitialized(sl[0].Other));
+				sl[0].Other.Name = "nobody";
+				c.Resume();
+				s = c.GetSession(sessions);
+				s.SaveOrUpdate(sl[0]);
+				// the dispose auto-end the conversation
+			}
+
+			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
+			{
+				c.Start();
+				ISession s = c.GetSession(sessions);
+				s.Delete("from Silly");
+				c.End();
+			}
 		}
 	}
 }
