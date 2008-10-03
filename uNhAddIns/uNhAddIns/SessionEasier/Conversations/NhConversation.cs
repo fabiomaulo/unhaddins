@@ -9,7 +9,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 	[Serializable]
 	public class NhConversation : AbstractConversation
 	{
-		// TODO: manage transaction
+		// TODO : use System.Transaction to enclose multi DB conversation
+		// NOTE : NH2.1 are supporting ambient transactions (even if the implementation is not complete)
 		private const string sessionsContextKey = "uNhAddIns.Conversations.NHSessions";
 		[NonSerialized] protected static readonly ILog log = LogManager.GetLogger(typeof (NhConversation));
 		[NonSerialized] private readonly ISessionFactoryProvider factoriesProvider;
@@ -57,7 +58,16 @@ namespace uNhAddIns.SessionEasier.Conversations
 			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
 			foreach (var pair in sessions)
 			{
-				pair.Value.Disconnect();
+				FlushAndCommit(pair.Value);
+			}
+		}
+
+		private static void FlushAndCommit(ISession session)
+		{
+			if (session.Transaction != null && session.Transaction.IsActive)
+			{
+				session.Flush();
+				session.Transaction.Commit();
 			}
 		}
 
@@ -74,7 +84,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 					{
 						if (!s.IsConnected)
 						{
-							pair.Value.Reconnect();
+							s.Reconnect();
 						}
 					}
 					else
@@ -95,11 +105,21 @@ namespace uNhAddIns.SessionEasier.Conversations
 					Bind(OpenNewSessionFor(factory));
 				}
 			}
+			foreach (var pair in sessions)
+			{
+				pair.Value.BeginTransaction();
+			}
 		}
 
 		protected virtual ISession OpenNewSessionFor(ISessionFactory factory)
 		{
 			ISession session = BuildSession((ISessionFactoryImplementor) factory);
+			if (session.FlushMode != FlushMode.Never)
+			{
+				log.Debug("Disabling automatic flushing of the Session");
+				session.FlushMode = FlushMode.Never;
+			}
+
 			// wrap the session in the transaction-protection proxy
 			session = Wrap(session);
 			return session;
@@ -128,6 +148,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 				ISession session = pair.Value;
 				if (session != null && session.IsOpen)
 				{
+					FlushAndCommit(session);
 					session.Close();
 				}
 			}
