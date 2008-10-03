@@ -4,7 +4,7 @@ using NHibernate;
 using NHibernate.Engine;
 using NHibernate.Event;
 
-namespace uNhAddIns.SessionEasier.Contexts
+namespace uNhAddIns.SessionEasier
 {
 	public delegate ISession UnbindDelegate(ISession session);
 

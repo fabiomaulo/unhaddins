@@ -4,7 +4,6 @@ using Castle.Core.Interceptor;
 using log4net;
 using NHibernate;
 using NHibernate.Util;
-using uNhAddIns.SessionEasier.Contexts;
 using IInterceptor=Castle.Core.Interceptor.IInterceptor;
 
 namespace uNhAddIns.SessionEasier
