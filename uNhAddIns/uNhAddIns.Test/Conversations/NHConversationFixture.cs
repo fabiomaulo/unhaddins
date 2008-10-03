@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
-using uNhAddIns.SessionEasier;
-using NHibernate.Util;
 using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.Test.Conversations
@@ -13,54 +11,6 @@ namespace uNhAddIns.Test.Conversations
 	[TestFixture]
 	public class NHConversationFixture: TestCase
 	{
-		private class SessionFactoryProviderStub: ISessionFactoryProvider
-		{
-			private readonly ISessionFactory factory;
-			private readonly IEnumerable<ISessionFactory> esf;
-
-			public SessionFactoryProviderStub(ISessionFactory factory)
-			{
-				this.factory = factory;
-				esf = new SingletonEnumerable<ISessionFactory>(factory);
-			}
-
-			#region Implementation of IInitializable
-
-			public void Initialize()
-			{
-			}
-
-			#endregion
-
-			#region Implementation of IEnumerable
-
-			public IEnumerator<ISessionFactory> GetEnumerator()
-			{
-				return esf.GetEnumerator();
-			}
-
-			IEnumerator IEnumerable.GetEnumerator()
-			{
-				return GetEnumerator();
-			}
-
-			#endregion
-
-			#region Implementation of IDisposable
-
-			public void Dispose()
-			{
-				
-			}
-
-			public ISessionFactory GetFactory(string factoryId)
-			{
-				return factory;
-			}
-
-			#endregion
-		}
-
 		#region Overrides of TestCase
 
 		protected override IList Mappings
