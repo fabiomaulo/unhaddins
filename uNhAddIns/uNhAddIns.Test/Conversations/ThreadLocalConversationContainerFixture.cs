@@ -1,7 +1,8 @@
 using System;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
-using uNhAddIns.Conversations;
+using uNhAddIns.SessionEasier.Conversations;
+
 namespace uNhAddIns.Test.Conversations
 {
 	[TestFixture]
