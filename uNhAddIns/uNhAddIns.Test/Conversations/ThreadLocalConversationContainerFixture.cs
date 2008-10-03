@@ -125,5 +125,15 @@ namespace uNhAddIns.Test.Conversations
 			Assert.That(tc2.CurrentConversation, Is.SameAs(c1));
 			tc1.Reset();			
 		}
+
+		[Test]
+		public void AutoUnBind()
+		{
+			var tc = new ThreadLocalConversationContainerStub {AutoUnbindAfterEndConversation = true};
+			IConversation c = new TestConversation();
+			tc.Bind(c);
+			c.End();
+			Assert.That(tc.BindedConversationCount, Is.EqualTo(0));
+		}
 	}
 }

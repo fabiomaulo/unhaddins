@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace uNhAddIns.SessionEasier.Conversations
 {
+	[Serializable]
 	public abstract class AbstractConversationContainer : IConversationContainer
 	{
 		protected abstract string CurrentId { get; set; }
@@ -52,6 +53,10 @@ namespace uNhAddIns.SessionEasier.Conversations
 			if (conversation == null)
 			{
 				throw new ArgumentNullException("conversation");
+			}
+			if(AutoUnbindAfterEndConversation)
+			{
+				conversation.Ended += ((x, y) => Unbind(conversation.Id));
 			}
 			Store[conversation.Id] = conversation;
 			SetCurrentIfNecessary();
@@ -108,5 +113,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 		}
 
 		#endregion
+
+		public virtual bool AutoUnbindAfterEndConversation { get; set; }
 	}
 }
