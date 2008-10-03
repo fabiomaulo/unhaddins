@@ -19,16 +19,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 		IDictionary<string, object> Context { get; }
 
 		/// <summary>
-		/// Pause the conversation after each iteration.
-		/// </summary>
-		bool AutoPause { get; set; }
-
-		/// <summary>
-		/// End the conversation after the first iteration.
-		/// </summary>
-		bool AutoEnd { get; set; }
-
-		/// <summary>
 		/// Start the conversation.
 		/// </summary>
 		void Start();

@@ -17,6 +17,19 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public NhConversation(ISessionFactoryProvider factoriesProvider)
 		{
+			if (factoriesProvider == null)
+			{
+				throw new ArgumentNullException("factoriesProvider");
+			}
+			this.factoriesProvider = factoriesProvider;
+		}
+
+		public NhConversation(ISessionFactoryProvider factoriesProvider, string id) : base(id)
+		{
+			if (factoriesProvider == null)
+			{
+				throw new ArgumentNullException("factoriesProvider");
+			}
 			this.factoriesProvider = factoriesProvider;
 		}
 
@@ -37,18 +50,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		protected override void DoStart()
 		{
-			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
-			if (sessions.Count > 0)
-			{
-				DoResume();
-			}
-			else
-			{
-				foreach (ISessionFactory sessionFactory in factoriesProvider)
-				{
-					Bind(sessionFactory.OpenSession());
-				}
-			}
+			DoResume();
 		}
 
 		protected override void DoPause()
@@ -63,15 +65,35 @@ namespace uNhAddIns.SessionEasier.Conversations
 		protected override void DoResume()
 		{
 			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
-			foreach (var pair in sessions)
+			if (sessions.Count > 0)
 			{
-				if (pair.Value != null && pair.Value.IsOpen)
+				var factoriesToRebind = new List<ISessionFactory>(5);
+				foreach (var pair in sessions)
 				{
-					pair.Value.Reconnect();
+					ISession s = pair.Value;
+					if (s != null && s.IsOpen)
+					{
+						if (!s.IsConnected)
+						{
+							pair.Value.Reconnect();
+						}
+					}
+					else
+					{
+						factoriesToRebind.Add(pair.Key);
+					}
 				}
-				else
+				foreach (var factory in factoriesToRebind)
 				{
-					// TODO: auto reopen each session ?
+					Bind(factory.OpenSession());					
+				}
+			}
+			else
+			{
+				// Bind a session for each SessionFactory
+				foreach (ISessionFactory sessionFactory in factoriesProvider)
+				{
+					Bind(sessionFactory.OpenSession());
 				}
 			}
 		}
@@ -81,9 +103,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
 			foreach (var pair in sessions)
 			{
-				Unbind(pair.Value);
+				ISession session = pair.Value;
+				if (session != null && session.IsOpen)
+				{
+					session.Close();
+				}
 			}
-			sessions.Clear();
 		}
 
 		#endregion
@@ -99,10 +124,15 @@ namespace uNhAddIns.SessionEasier.Conversations
 			return (IDictionary<ISessionFactory, ISession>) result;
 		}
 
-		public ISession GetSession(ISessionFactory sessionFactory)
+		public virtual ISession GetSession(ISessionFactory sessionFactory)
 		{
 			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
-			return sessions[sessionFactory];
+			ISession result;
+			if (!sessions.TryGetValue(sessionFactory, out result))
+			{
+				throw new ConversationException("The conversation was not started or was disposed or the SessionFactoryProvider don't manage it.");
+			}
+			return result;
 		}
 
 		public void Bind(ISession session)
@@ -115,7 +145,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 		private void CleanupAnyOrphanedSession(ISessionFactory factory)
 		{
 			ISession orphan = DoUnbind(factory);
-			if (orphan != null)
+			if (orphan != null && orphan.IsOpen)
 			{
 				log.Warn("Already session bound on call to Bind(); make sure you clean up your sessions!");
 				try
@@ -138,7 +168,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 					log.Debug("Unable to close orphaned session", t);
 				}
 			}
-			else {}
 		}
 
 		private ISession DoUnbind(ISessionFactory factory)
@@ -148,7 +177,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 			if (sessionDic != null)
 			{
 				sessionDic.TryGetValue(factory, out session);
-				sessionDic.Remove(factory);
+				sessionDic[factory] = null;
 			}
 			return session;
 		}
