@@ -6,6 +6,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 {
 	public class ThreadLocalConversationalSessionContext : ThreadLocalConversationContainer, ICurrentSessionContext
 	{
+		private bool? autoUnBind;
 		private readonly ISessionFactoryImplementor factory;
 
 		public ThreadLocalConversationalSessionContext(ISessionFactoryImplementor factory)
@@ -26,5 +27,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 		}
 
 		#endregion
+
+		public override bool AutoUnbindAfterEndConversation
+		{
+			// default autoUnbind is: true
+			get { return !autoUnBind.HasValue || autoUnBind.Value; }
+			set { autoUnBind = value; }
+		}
 	}
 }
