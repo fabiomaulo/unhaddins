@@ -1,4 +1,4 @@
-namespace uNhAddIns.Conversations
+namespace uNhAddIns.SessionEasier.Conversations
 {
 	/// <summary>
 	/// The context adapter to hold conversations.

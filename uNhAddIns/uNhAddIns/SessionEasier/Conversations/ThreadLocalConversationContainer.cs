@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace uNhAddIns.Conversations
+namespace uNhAddIns.SessionEasier.Conversations
 {
 	public class ThreadLocalConversationContainer : AbstractConversationContainer
 	{

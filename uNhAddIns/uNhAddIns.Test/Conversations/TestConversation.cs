@@ -1,5 +1,5 @@
 using log4net;
-using uNhAddIns.Conversations;
+using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.Test.Conversations
 {

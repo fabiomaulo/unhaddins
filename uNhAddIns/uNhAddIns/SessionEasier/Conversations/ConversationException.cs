@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace uNhAddIns.Conversations
+namespace uNhAddIns.SessionEasier.Conversations
 {
 	[Serializable]
 	public class ConversationException : ApplicationException
@@ -11,6 +11,6 @@ namespace uNhAddIns.Conversations
 		public ConversationException(string message, Exception inner) : base(message, inner) {}
 
 		protected ConversationException(SerializationInfo info,
-		                      StreamingContext context) : base(info, context) {}
+		                                StreamingContext context) : base(info, context) {}
 	}
 }

@@ -80,12 +80,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conversations\AbstractConversation.cs" />
-    <Compile Include="Conversations\AbstractConversationContainer.cs" />
-    <Compile Include="Conversations\ConversationException.cs" />
-    <Compile Include="Conversations\IConversation.cs" />
-    <Compile Include="Conversations\IConversationContainer.cs" />
-    <Compile Include="Conversations\ThreadLocalConversationContainer.cs" />
+    <Compile Include="SessionEasier\Conversations\AbstractConversation.cs" />
+    <Compile Include="SessionEasier\Conversations\AbstractConversationContainer.cs" />
+    <Compile Include="SessionEasier\Conversations\ConversationException.cs" />
+    <Compile Include="SessionEasier\Conversations\IConversation.cs" />
+    <Compile Include="SessionEasier\Conversations\IConversationContainer.cs" />
+    <Compile Include="SessionEasier\Conversations\NhConversation.cs" />
+    <Compile Include="SessionEasier\Conversations\ThreadLocalConversationContainer.cs" />
     <Compile Include="Criterions\Criterion.cs" />
     <Compile Include="Criterions\EqOrNullExpression.cs" />
     <Compile Include="DynQuery\DetachedDynQuery.cs">
