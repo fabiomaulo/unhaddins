@@ -50,10 +50,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 			get { return context; }
 		}
 
-		public bool AutoPause { get; set; }
-
-		public bool AutoEnd { get; set; }
-
 		public virtual void Start()
 		{
 			RaiseStarting();

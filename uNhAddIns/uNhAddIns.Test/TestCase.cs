@@ -171,7 +171,7 @@ namespace uNhAddIns.Test
 			return false;
 		}
 
-		private void Configure()
+		protected virtual void Configure()
 		{
 			cfg = new Configuration();
 			Assembly assembly = Assembly.Load(MappingsAssembly);
