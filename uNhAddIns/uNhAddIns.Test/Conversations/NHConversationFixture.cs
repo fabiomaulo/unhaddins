@@ -16,7 +16,7 @@ namespace uNhAddIns.Test.Conversations
 		private class SessionFactoryProviderStub: ISessionFactoryProvider
 		{
 			private readonly ISessionFactory factory;
-			private IEnumerable<ISessionFactory> esf;
+			private readonly IEnumerable<ISessionFactory> esf;
 
 			public SessionFactoryProviderStub(ISessionFactory factory)
 			{
