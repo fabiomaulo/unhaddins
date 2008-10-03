@@ -134,7 +134,6 @@ namespace uNhAddIns.Web
 				ISession session = factory.GetCurrentSession();
 				session.Flush();
 				session.Transaction.Commit();
-				session.Transaction.Rollback();
 				session.Close();
 			}
 			HttpContext.Current.Session[NHibernateSessionKey] = null;
