@@ -8,6 +8,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 	/// </summary>
 	public interface IConversation : IDisposable, IEqualityComparer<IConversation>
 	{
+		// TODO : maybe we need something to abort a conversation... maybe not
+
 		/// <summary>
 		/// Conversation identifier.
 		/// </summary>
