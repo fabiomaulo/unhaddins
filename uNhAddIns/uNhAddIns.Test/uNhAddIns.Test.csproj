@@ -87,7 +87,10 @@
     <Compile Include="Conversations\ConversationFixture.cs" />
     <Compile Include="Conversations\Domain.cs" />
     <Compile Include="Conversations\NHConversationFixture.cs" />
+    <Compile Include="Conversations\SessionFactoryProviderStub.cs" />
+    <Compile Include="Conversations\SillyDao.cs" />
     <Compile Include="Conversations\TestConversation.cs" />
+    <Compile Include="Conversations\ThreadLocalConversationalSessionContextFixture.cs" />
     <Compile Include="Conversations\ThreadLocalConversationContainerFixture.cs" />
     <Compile Include="CriterionTest\CriterionTest.cs" />
     <Compile Include="CriterionTest\Simple.cs" />

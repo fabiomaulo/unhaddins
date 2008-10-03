@@ -23,7 +23,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public ISession CurrentSession()
 		{
-			return ((NhConversation) CurrentConversation).GetSession(Factory);
+			var c = CurrentConversation as NhConversation;
+			if(c == null)
+			{
+				throw new ConversationException("No current conversation available. Create a conversation and bind it to the container.");
+			}
+			return c.GetSession(Factory);
 		}
 
 		#endregion
