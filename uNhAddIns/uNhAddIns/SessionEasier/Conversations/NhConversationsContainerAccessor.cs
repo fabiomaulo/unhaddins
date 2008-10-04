@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using NHibernate;
 using NHibernate.Engine;
 
 namespace uNhAddIns.SessionEasier.Conversations
@@ -9,7 +7,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 	{
 		private readonly IConversationContainer container;
 
-		public NhConversationsContainerAccessor(IEnumerable<ISessionFactory> sessionFactoryProvider)
+		public NhConversationsContainerAccessor(ISessionFactoryProvider sessionFactoryProvider)
 		{
 			if (sessionFactoryProvider == null)
 			{
