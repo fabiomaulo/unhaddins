@@ -13,22 +13,27 @@ namespace uNhAddIns.SessionEasier
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof (TransactionProtectionWrapper));
 
+		private readonly SessionCloseDelegate closeDelegate;
+		private readonly SessionDisposeDelegate disposeDelegate;
 		private readonly ISession realSession;
-		private readonly UnbindDelegate unbinder;
 
-		public TransactionProtectionWrapper(ISession realSession, UnbindDelegate unbinder)
+		public TransactionProtectionWrapper(ISession realSession, SessionCloseDelegate closeDelegate)
 		{
 			if (realSession == null)
 			{
 				throw new ArgumentNullException("realSession");
 			}
-			if (unbinder == null)
-			{
-				throw new ArgumentNullException("unbinder");
-			}
 			this.realSession = realSession;
-			this.unbinder = unbinder;
+			this.closeDelegate = closeDelegate;
 		}
+
+		public TransactionProtectionWrapper(ISession realSession, SessionCloseDelegate closeDelegate,
+		                                    SessionDisposeDelegate disposeDelegate) : this(realSession, closeDelegate)
+		{
+			this.disposeDelegate = disposeDelegate;
+		}
+
+		#region IInterceptor Members
 
 		public void Intercept(IInvocation invocation)
 		{
@@ -45,7 +50,13 @@ namespace uNhAddIns.SessionEasier
 					// If Close() is called, guarantee Unbind()
 					if ("Close".Equals(methodName) || "Dispose".Equals(methodName))
 					{
-						unbinder(realSession);
+						if (closeDelegate != null)
+							closeDelegate(realSession);
+						if ("Dispose".Equals(methodName))
+						{
+							if (disposeDelegate != null)
+								disposeDelegate(realSession);
+						}
 					}
 					else if (IsPassThroughMethod(methodName))
 					{
@@ -84,17 +95,20 @@ namespace uNhAddIns.SessionEasier
 			}
 		}
 
+		#endregion
+
 		protected virtual bool IsPassThroughMethodWithoutTransaction(string methodName)
 		{
 			return "BeginTransaction".Equals(methodName) || "get_Transaction".Equals(methodName)
 			       || "set_FlushMode".Equals(methodName) || "get_SessionFactory".Equals(methodName)
-						 || "get_IsConnected".Equals(methodName);
+			       || "get_IsConnected".Equals(methodName);
 		}
 
 		protected virtual bool IsPassThroughMethod(string methodName)
 		{
 			return "ToString".Equals(methodName) || "Equals".Equals(methodName) || "GetHashCode".Equals(methodName)
-			       || "get_Statistics".Equals(methodName) || "get_IsOpen".Equals(methodName) || "get_Timestamp".Equals(methodName);
+			       || "get_Statistics".Equals(methodName) || "get_IsOpen".Equals(methodName)
+			       || "get_Timestamp".Equals(methodName);
 		}
 	}
 }

@@ -39,12 +39,13 @@ namespace uNhAddIns.SessionEasier.Conversations
 		{
 			if (disposing)
 			{
-				IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
-				foreach (var pair in sessions)
+				IDictionary<ISessionFactory, ISession> contextS = GetFromContext();
+				var toDispose = new Dictionary<ISessionFactory, ISession>(contextS);
+				foreach (var pair in toDispose)
 				{
 					pair.Value.Dispose();
 				}
-				sessions.Clear();
+				contextS.Clear();
 			}
 		}
 
@@ -127,7 +128,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		protected virtual ISession Wrap(ISession session)
 		{
-			var wrapper = new TransactionProtectionWrapper(session, x => x);
+			var wrapper = new TransactionProtectionWrapper(session, null, Unbind);
 			var wrapped =
 				(ISession)
 				Commons.ProxyGenerator.CreateInterfaceProxyWithTarget(typeof(ISession), Commons.SessionProxyInterfaces, session,
