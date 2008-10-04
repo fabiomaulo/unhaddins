@@ -1,7 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "ConfigurationTemplates", "{6D470A4E-BAB0-4BE3-9C62-20FF3C682603}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "uNhAddIns\uNhAddIns.csproj", "{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Hql", "uNhAddIns.Hql\uNhAddIns.Hql.csproj", "{BA959BD0-92A0-41B9-B09E-F676C37F7424}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Hql.Tests", "uNhAddIns.Hql.Tests\uNhAddIns.Hql.Tests.csproj", "{EAD188BC-53C2-49A4-AB99-C498603A1440}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns.Test\uNhAddIns.Test.csproj", "{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Web", "uNhAddIns.Web\uNhAddIns.Web.csproj", "{6F9968F5-6A16-4CD4-89FF-98A052FAB905}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "ConfigurationTemplates", "{D121F01C-1CD3-4E44-B4C3-853E00B2D97D}"
 	ProjectSection(SolutionItems) = preProject
 		ConfigurationTemplates\FireBird.cfg.xml.tmpl = ConfigurationTemplates\FireBird.cfg.xml.tmpl
 		ConfigurationTemplates\MSSQL.cfg.xml.tmpl = ConfigurationTemplates\MSSQL.cfg.xml.tmpl
@@ -10,12 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "C
 		ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl = ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl
 		ConfigurationTemplates\SQLite.cfg.xml.tmpl = ConfigurationTemplates\SQLite.cfg.xml.tmpl
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns", "uNhAddIns\uNhAddIns.csproj", "{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Test", "uNhAddIns.Test\uNhAddIns.Test.csproj", "{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Web", "uNhAddIns.Web\uNhAddIns.Web.csproj", "{6F9968F5-6A16-4CD4-89FF-98A052FAB905}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,13 @@ Global
 		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA959BD0-92A0-41B9-B09E-F676C37F7424}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD188BC-53C2-49A4-AB99-C498603A1440}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
