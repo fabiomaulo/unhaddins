@@ -6,7 +6,8 @@ using NHibernate.Event;
 
 namespace uNhAddIns.SessionEasier
 {
-	public delegate ISession UnbindDelegate(ISession session);
+	public delegate ISession SessionCloseDelegate(ISession session);
+	public delegate void SessionDisposeDelegate(ISession session);
 
 	public static class Commons
 	{
