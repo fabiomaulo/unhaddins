@@ -87,6 +87,7 @@
     <Compile Include="Conversations\ConversationFixture.cs" />
     <Compile Include="Conversations\Domain.cs" />
     <Compile Include="Conversations\NHConversationFixture.cs" />
+    <Compile Include="Conversations\NhConversationsContainerAccessorFixture.cs" />
     <Compile Include="Conversations\SessionFactoryProviderStub.cs" />
     <Compile Include="Conversations\SillyDao.cs" />
     <Compile Include="Conversations\TestConversation.cs" />

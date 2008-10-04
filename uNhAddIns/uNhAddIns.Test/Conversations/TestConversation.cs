@@ -14,27 +14,32 @@ namespace uNhAddIns.Test.Conversations
 
 		protected override void Dispose(bool disposing)
 		{
-			log.Debug("Dispose called.");
+			if (log.IsDebugEnabled)
+				log.Debug("Dispose called.");
 		}
 
 		protected override void DoStart()
 		{
-			log.Debug("DoStart called.");
+			if (log.IsDebugEnabled)
+				log.Debug("DoStart called.");
 		}
 
 		protected override void DoPause()
 		{
-			log.Debug("DoPause called.");
+			if (log.IsDebugEnabled)
+				log.Debug("DoPause called.");
 		}
 
 		protected override void DoResume()
 		{
-			log.Debug("DoResume called.");
+			if (log.IsDebugEnabled)
+				log.Debug("DoResume called.");
 		}
 
 		protected override void DoEnd()
 		{
-			log.Debug("DoEnd called.");
+			if (log.IsDebugEnabled)
+				log.Debug("DoEnd called.");
 		}
 
 		#endregion

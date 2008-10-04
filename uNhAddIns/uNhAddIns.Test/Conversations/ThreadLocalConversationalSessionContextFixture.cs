@@ -10,6 +10,9 @@ namespace uNhAddIns.Test.Conversations
 	[TestFixture]
 	public class ThreadLocalConversationalSessionContextFixture: TestCase
 	{
+		private IConversationFactory cf;
+		private IConversationsContainerAccessor cca;
+
 		protected override System.Collections.IList Mappings
 		{
 			get { return new[] { "Conversations.Silly.hbm.xml" }; }
@@ -22,45 +25,57 @@ namespace uNhAddIns.Test.Conversations
 			base.Configure(configuration);
 		}
 
-		[Test, Ignore("Not supported yet.")]
+		[TestFixtureSetUp]
+		public void CreateCoversationStuff()
+		{
+			TestFixtureSetUp();
+			var provider = new SessionFactoryProviderStub(sessions);
+			cf = new DefaultConversationFactory(provider);
+			cca = new NhConversationsContainerAccessor(provider);
+		}
+
+		[Test]
 		public void ConversationUsage()
 		{
 			Assert.Throws<ConversationException>(() => sessions.GetCurrentSession());
+			var tc1 = cca.Container;
+			tc1.Bind(cf.CreateConversation("1"));
+			tc1.Bind(cf.CreateConversation("2"));
 
 			var dao = new SillyDao(sessions);
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
-			{
-				c.Start();
-				var o = new Other { Name = "some other silly" };
-				var e = new Silly { Name = "somebody", Other = o };
-				dao.MakePersistent(e);
-			}
+			tc1.SetAsCurrent("1");
+			tc1.CurrentConversation.Start();
+			var o = new Other {Name = "some other silly"};
+			var e = new Silly {Name = "somebody", Other = o};
+			dao.MakePersistent(e);
+			tc1.CurrentConversation.Pause();
 
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
+			tc1.SetAsCurrent("2");
+			using (var c2 = tc1.CurrentConversation)
 			{
-				c.Start();
+				c2.Start();
 				IList<Silly> sl = dao.GetAll();
-				c.Pause();
+				c2.Pause();
 				Assert.That(sl.Count == 1);
 				Assert.That(!NHibernateUtil.IsInitialized(sl[0].Other));
-				// working with entities, even using lazy loading
+				// working with entities, even using lazy loading no cause problems
 				Assert.That("some other silly", Is.EqualTo(sl[0].Other.Name));
 				Assert.That(NHibernateUtil.IsInitialized(sl[0].Other));
 				sl[0].Other.Name = "nobody";
-				c.Resume();
+				c2.Resume();
 				dao.MakePersistent(sl[0]);
 			}
 
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
+			tc1.SetAsCurrent("1");
+			tc1.CurrentConversation.Resume();
+			foreach (var silly in dao.GetAll())
 			{
-				c.Start();
-				IList<Silly> sl = dao.GetAll();
-				foreach (var silly in sl)
-				{
-					dao.MakeTransient(silly);
-				}
-				c.End();
+				dao.MakeTransient(silly);
 			}
+			tc1.CurrentConversation.End();
+
+			Assert.Throws<ConversationException>(() => tc1.SetAsCurrent("1"));
+			Assert.Throws<ConversationException>(() => tc1.SetAsCurrent("2"));
 		}
 	}
 }
