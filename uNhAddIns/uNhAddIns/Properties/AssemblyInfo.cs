@@ -15,5 +15,5 @@ using System.Reflection;
 [assembly: AssemblyTitleAttribute("uNhAddIns")]
 [assembly: AssemblyDescriptionAttribute("Unofficial addins for NHibernate.")]
 [assembly: AssemblyCopyrightAttribute("Licensed under LGPL.")]
-[assembly: AssemblyVersionAttribute("0.1.0.0")]
+[assembly: AssemblyVersionAttribute("0.2.0.*")]
 
