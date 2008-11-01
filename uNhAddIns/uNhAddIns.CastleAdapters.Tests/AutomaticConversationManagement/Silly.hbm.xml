@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="uNhAddIns.CastleAdapters.Tests"
+				   namespace="uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement">
+	
+	<class name="Silly">
+		<id name="Id">
+			<generator class="native"/>
+		</id>
+		<property name="Name"/>
+		<many-to-one name="Other" class="Other" cascade="all"/>
+	</class>
+
+	<class name="Other">
+		<id name="Id">
+			<generator class="native"/>
+		</id>
+		<property name="Name"/>
+	</class>
+</hibernate-mapping>
