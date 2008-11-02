@@ -34,7 +34,7 @@ namespace uNHAddIns.Examples.Caches.Tests
 				using (ISession s = base.OpenSession())
 				using (ITransaction t = s.BeginTransaction())
 				{
-					country = new Country("Italy");
+					country = new Country("Italy", "Europe");
 					s.Save(country);
 					t.Commit();
 				}
@@ -46,6 +46,37 @@ namespace uNHAddIns.Examples.Caches.Tests
 					using (ISession s = base.OpenSession())
 					{
 						s.Get<Country>(country.Id);
+					}
+				}
+			}
+		}
+
+		[Test]
+		public void QueryCache()
+		{
+			using (new SqlLogSpy())
+			{
+				using (ISession s = base.OpenSession())
+				using (ITransaction t = s.BeginTransaction())
+				{
+					s.Save(new Country("Italy", "Europe"));
+					s.Save(new Country("Argentina", "America"));
+					s.Save(new Country("Peru", "America"));
+					s.Save(new Country("Switzerland", "Europe"));
+					s.Save(new Country("Japan", "Asia"));
+					s.Save(new Country("Chine", "Asia"));
+					t.Commit();
+				}
+
+				log.Debug("Reading 100 times:");
+
+				for (int i = 0; i < 100; i++)
+				{
+					using (ISession s = base.OpenSession())
+					{
+						IQuery query = s.GetNamedQuery("GetCountryByContinent");
+						query.SetString("ContinentName", "America");
+						query.List();
 					}
 				}
 			}

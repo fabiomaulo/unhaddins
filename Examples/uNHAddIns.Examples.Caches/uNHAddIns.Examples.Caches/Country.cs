@@ -6,9 +6,10 @@ namespace uNHAddIns.Examples.Caches
 		{
 		}
 
-		public Country(string name)
+		public Country(string name, string continentName)
 		{
 			this.name = name;
+			this.continentName = continentName;
 		}
 
 		private int id;
@@ -25,6 +26,14 @@ namespace uNHAddIns.Examples.Caches
 		{
 			get { return name; }
 			set { name = value; }
+		}
+
+		private string continentName;
+
+		public string ContinentName
+		{
+			get { return continentName; }
+			set { continentName = value; }
 		}
 	}
 }
