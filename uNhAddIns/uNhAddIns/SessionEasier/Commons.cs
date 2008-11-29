@@ -1,5 +1,6 @@
 using System;
 using Castle.DynamicProxy;
+using log4net;
 using NHibernate;
 using NHibernate.Engine;
 using NHibernate.Event;
@@ -9,8 +10,10 @@ namespace uNhAddIns.SessionEasier
 	public delegate ISession SessionCloseDelegate(ISession session);
 	public delegate void SessionDisposeDelegate(ISession session);
 
-	public static class Commons
+	public class Commons
 	{
+		private Commons() {}
+
 		public const string SessionFactoryProviderKey = "NHSession.SessionFactoryProvider";
 		public const string SessionFactoryKey = "NHSession.Context.TransactedSessionContext";
 		public const string NHibernateSessionKey    = "NHibernateSession";
@@ -20,9 +23,10 @@ namespace uNhAddIns.SessionEasier
 
 		public static readonly Type[] SessionProxyInterfaces = new[]
 		                                                       	{
-		                                                       		typeof (ISessionWrapper), typeof (ISession),
+		                                                       		typeof (ISessionProxy), typeof (ISession),
 		                                                       		typeof (ISessionImplementor), typeof (IEventSource)
 		                                                       	};
+
 
 	}
 }

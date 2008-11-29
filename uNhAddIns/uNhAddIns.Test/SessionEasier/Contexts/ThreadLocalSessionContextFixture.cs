@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NUnit.Framework;
+using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Contexts;
 
 namespace uNhAddIns.Test.SessionEasier.Contexts
@@ -20,6 +21,12 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 			base.Configure(cfg);
 			cfg.SetProperty(Environment.CurrentSessionContextClass, typeof(TestableThreadStaticContext).AssemblyQualifiedName);
 			cfg.SetProperty(Environment.GenerateStatistics, "true");
+		}
+
+		protected override void BuildSessionFactory()
+		{
+			base.BuildSessionFactory();
+			CurrentSessionContext.Wrapper = new SessionWrapper();
 		}
 
 		[Test]
