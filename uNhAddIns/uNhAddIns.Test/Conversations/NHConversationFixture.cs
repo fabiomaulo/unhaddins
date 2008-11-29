@@ -23,14 +23,16 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Ctor()
 		{
-			Assert.Throws<ArgumentNullException>(() => new NhConversation(null));
-			Assert.Throws<ArgumentNullException>(() => new NhConversation(null, "aKey"));
+			Assert.Throws<ArgumentNullException>(() => new NhConversation(null, null));
+			Assert.Throws<ArgumentNullException>(() => new NhConversation(null, null, "aKey"));
+			Assert.Throws<ArgumentNullException>(() => new NhConversation(new SessionFactoryProviderStub(sessions), null));
+			Assert.Throws<ArgumentNullException>(() => new NhConversation(new SessionFactoryProviderStub(sessions), null, "aKey"));
 		}
 
 		[Test]
 		public void Start()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions));
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
 			ISession s;
 			Assert.Throws<ConversationException>(() => s = c.GetSession(sessions));
 			c.Start();
@@ -45,7 +47,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void End()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions));
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
 			c.End(); // end without start don't throw exception
 			c.Start();
 			c.End();
@@ -62,7 +64,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Pause()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions));
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
 			c.Pause(); // Pause without start don't throw exception
 			c.Start();
 			c.Pause();
@@ -76,7 +78,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Resume()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions));
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
 			c.Resume(); // Resume without start don't throw exception
 			ISession s = c.GetSession(sessions);
 			Assert.That(s, Is.Not.Null);
@@ -108,7 +110,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Destructor()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions));
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
 			c.Start();
 			ISession s = c.GetSession(sessions);
 			c.Dispose();
@@ -129,7 +131,7 @@ namespace uNhAddIns.Test.Conversations
 				tx.Commit();
 			}
 
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
+			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub()))
 			{
 				c.Start();
 				ISession s = c.GetSession(sessions);
@@ -148,7 +150,7 @@ namespace uNhAddIns.Test.Conversations
 				// the dispose auto-end the conversation
 			}
 
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions)))
+			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub()))
 			{
 				c.Start();
 				ISession s = c.GetSession(sessions);
