@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
+using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.Test.Conversations
@@ -30,7 +31,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			TestFixtureSetUp();
 			var provider = new SessionFactoryProviderStub(sessions);
-			cf = new DefaultConversationFactory(provider);
+			cf = new DefaultConversationFactory(provider, new SessionWrapperStub());
 			cca = new NhConversationsContainerAccessor(provider);
 		}
 

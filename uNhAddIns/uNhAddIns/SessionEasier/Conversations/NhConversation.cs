@@ -14,23 +14,41 @@ namespace uNhAddIns.SessionEasier.Conversations
 		private const string sessionsContextKey = "uNhAddIns.Conversations.NHSessions";
 		[NonSerialized] protected static readonly ILog log = LogManager.GetLogger(typeof (NhConversation));
 		[NonSerialized] private readonly ISessionFactoryProvider factoriesProvider;
+		[NonSerialized] private ISessionWrapper wrapper;
 
-		public NhConversation(ISessionFactoryProvider factoriesProvider)
+		public NhConversation(ISessionFactoryProvider factoriesProvider, ISessionWrapper wrapper)
 		{
 			if (factoriesProvider == null)
 			{
 				throw new ArgumentNullException("factoriesProvider");
 			}
+			if (wrapper == null)
+			{
+				throw new ArgumentNullException("wrapper");
+			}
 			this.factoriesProvider = factoriesProvider;
+			this.wrapper = wrapper;
 		}
 
-		public NhConversation(ISessionFactoryProvider factoriesProvider, string id) : base(id)
+		public NhConversation(ISessionFactoryProvider factoriesProvider, ISessionWrapper wrapper, string id)
+			: base(id)
 		{
 			if (factoriesProvider == null)
 			{
 				throw new ArgumentNullException("factoriesProvider");
 			}
+			if (wrapper == null)
+			{
+				throw new ArgumentNullException("wrapper");
+			}
 			this.factoriesProvider = factoriesProvider;
+			this.wrapper = wrapper;
+		}
+
+		public ISessionWrapper Wrapper
+		{
+			get { return wrapper; }
+			set { wrapper = value; }
 		}
 
 		#region Overrides of AbstractConversation
@@ -136,12 +154,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		protected virtual ISession Wrap(ISession session)
 		{
-			var wrapper = new TransactionProtectionWrapper(session, null, Unbind);
-			var wrapped =
-				(ISession)
-				Commons.ProxyGenerator.CreateInterfaceProxyWithTarget(typeof(ISession), Commons.SessionProxyInterfaces, session,
-																															wrapper);
-			return wrapped;
+			return Wrapper.Wrap(session, null, Unbind);
 		}
 
 		protected virtual ISession BuildSession(ISessionFactoryImplementor factory)
