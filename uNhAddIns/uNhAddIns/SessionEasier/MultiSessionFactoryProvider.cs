@@ -3,19 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using log4net;
 using NHibernate;
-using Configuration=NHibernate.Cfg.Configuration;
+using NHibernate.Cfg;
+using NHibernate.Engine;
 
 namespace uNhAddIns.SessionEasier
 {
 	[Serializable]
 	public class MultiSessionFactoryProvider : ISessionFactoryProvider
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(MultiSessionFactoryProvider));
+		private static readonly ILog log = LogManager.GetLogger(typeof (MultiSessionFactoryProvider));
 
-		private Dictionary<string, ISessionFactory> sfs= new Dictionary<string, ISessionFactory>(4);
+		[NonSerialized] private readonly IMultiFactoryConfigurator mfc;
 		private string defaultSessionFactoryName;
-		[NonSerialized]
-		private readonly IMultiFactoryConfigurator mfc;
+		private Dictionary<string, ISessionFactory> sfs = new Dictionary<string, ISessionFactory>(4);
 
 		public MultiSessionFactoryProvider() : this(new DefaultMultiFactoryConfigurator()) {}
 
@@ -39,7 +39,7 @@ namespace uNhAddIns.SessionEasier
 			log.Debug("Initialize new session factories reading the configuration.");
 			foreach (Configuration cfg in mfc.Configure())
 			{
-				ISessionFactory sf = cfg.BuildSessionFactory();
+				var sf = (ISessionFactoryImplementor) cfg.BuildSessionFactory();
 				if (string.IsNullOrEmpty(defaultSessionFactoryName))
 				{
 					defaultSessionFactoryName = sf.Settings.SessionFactoryName.Trim();
@@ -57,9 +57,11 @@ namespace uNhAddIns.SessionEasier
 			foreach (ISessionFactory sessionFactory in sfs.Values)
 			{
 				if (sessionFactory != null)
+				{
 					sessionFactory.Close();
+				}
 			}
-			sfs= new Dictionary<string, ISessionFactory>(4);
+			sfs = new Dictionary<string, ISessionFactory>(4);
 		}
 
 		#endregion
@@ -69,8 +71,12 @@ namespace uNhAddIns.SessionEasier
 		public ISessionFactory GetFactory(string factoryId)
 		{
 			Initialize();
-			return string.IsNullOrEmpty(factoryId) ? InternalGetFactory(defaultSessionFactoryName) : InternalGetFactory(factoryId);
+			return string.IsNullOrEmpty(factoryId)
+			       	? InternalGetFactory(defaultSessionFactoryName)
+			       	: InternalGetFactory(factoryId);
 		}
+
+		#endregion
 
 		private ISessionFactory InternalGetFactory(string factoryId)
 		{
@@ -82,13 +88,11 @@ namespace uNhAddIns.SessionEasier
 			{
 				throw new ArgumentException("The session-factory-id was not register", "factoryId");
 			}
-			catch(ArgumentNullException)
+			catch (ArgumentNullException)
 			{
-				throw new ArgumentException("The session-factory-id was not register; do you forgot the appSettings section ?");				
+				throw new ArgumentException("The session-factory-id was not register; do you forgot the appSettings section ?");
 			}
 		}
-
-		#endregion
 
 		#region Implementation of IEnumerable
 

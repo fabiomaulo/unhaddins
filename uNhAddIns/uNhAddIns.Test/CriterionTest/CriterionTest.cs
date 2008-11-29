@@ -25,7 +25,7 @@ namespace uNhAddIns.Test.CriterionTest
 			using (ISession session = OpenSession())
 			{
 				CriteriaImpl criteria = (CriteriaImpl) session.CreateCriteria(typeof (Simple));
-				CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator((ISessionFactoryImplementor) sessions, criteria, criteria.CriteriaClass.FullName, "sql_alias");
+				CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator(sessions, criteria, criteria.EntityOrClassName, "sql_alias");
 
 				ICriterion exp = Criterion.EqOrNull("Name", "foo");
 				SqlString sqlString = exp.ToSqlString(criteria, criteriaQuery, new CollectionHelper.EmptyMapClass<string, IFilter>());

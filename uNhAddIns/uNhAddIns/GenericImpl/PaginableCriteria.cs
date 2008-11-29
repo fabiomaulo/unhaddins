@@ -55,7 +55,7 @@ namespace uNhAddIns.GenericImpl
 		private static DetachedCriteria TransformToRowCount(DetachedCriteria criteria)
 		{
 			DetachedCriteria cloned = CriteriaTransformer.Clone(criteria);
-			cloned.Orders.Clear();
+			cloned.ClearOrders();
 			cloned
 				.SetResultTransformer(null)
 				.SetFirstResult(0)
