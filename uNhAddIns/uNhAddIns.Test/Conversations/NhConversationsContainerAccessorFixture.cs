@@ -1,52 +1,32 @@
 using System;
-using Castle.Core.Interceptor;
-using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
-using uNhAddIns.SessionEasier;
-using uNhAddIns.SessionEasier.Conversations;
+using LinFu.DynamicProxy;
 using NHibernate;
 using NHibernate.Engine;
+using NUnit.Framework;
+using NUnit.Framework.Syntax.CSharp;
+using uNhAddIns.SessionEasier.Conversations;
+using IInterceptor=LinFu.DynamicProxy.IInterceptor;
 
 namespace uNhAddIns.Test.Conversations
 {
 	[TestFixture]
 	public class NhConversationsContainerAccessorFixture
 	{
-		[Test]
-		public void Ctor()
+		private static readonly ProxyFactory proxyGenerator = new ProxyFactory();
+
+		private class InvalidSessionFactory : IInterceptor
 		{
-			Assert.Throws<ArgumentNullException>(() => new NhConversationsContainerAccessor(null));
-			Assert.Throws<ConversationException>(() => new NhConversationsContainerAccessor(new ISessionFactory[0]));
-			var invalidSFmock =
-				(ISessionFactory)
-				Commons.ProxyGenerator.CreateInterfaceProxyWithoutTarget(typeof(ISessionFactory), new InvalidSessionFactory());
-			Assert.Throws<ConversationException>(() => new NhConversationsContainerAccessor(new[] { invalidSFmock }));
+			#region IInterceptor Members
 
-			var notvalidSFmock =
-				(ISessionFactory)
-				Commons.ProxyGenerator.CreateInterfaceProxyWithoutTarget(
-				typeof(ISessionFactory), 
-				new[] { typeof(ISessionFactory), typeof(ISessionFactoryImplementor) }, 
-				new MayValidSessionFactory(null));
-			Assert.Throws<ConversationException>(() => new NhConversationsContainerAccessor(new[] { notvalidSFmock }));
+			public object Intercept(InvocationInfo info)
+			{
+				return null;
+			}
 
-			var container = new ThreadLocalConversationalSessionContext(null);
-			var validSFmock =
-				(ISessionFactoryImplementor)
-				Commons.ProxyGenerator.CreateInterfaceProxyWithoutTarget(
-				typeof(ISessionFactoryImplementor), 
-				new[] { typeof(ISessionFactory), typeof(ISessionFactoryImplementor) },
-				new MayValidSessionFactory(container));
-			var ca = new NhConversationsContainerAccessor(new[] { validSFmock });
-			Assert.That(ca.Container, Is.SameAs(container));
+			#endregion
 		}
 
-		private class InvalidSessionFactory : Castle.Core.Interceptor.IInterceptor
-		{
-			public void Intercept(IInvocation invocation) { }
-		}
-
-		private class MayValidSessionFactory : Castle.Core.Interceptor.IInterceptor
+		private class MayValidSessionFactory : IInterceptor
 		{
 			private readonly IConversationContainer container;
 
@@ -55,12 +35,43 @@ namespace uNhAddIns.Test.Conversations
 				this.container = container;
 			}
 
-			public void Intercept(IInvocation invocation)
+			#region IInterceptor Members
+
+			public object Intercept(InvocationInfo info)
 			{
-				invocation.ReturnValue = null;
-				if ("get_CurrentSessionContext".Equals(invocation.Method.Name))
-					invocation.ReturnValue = container;
+				if ("get_CurrentSessionContext".Equals(info.TargetMethod.Name))
+				{
+					return container;
+				}
+				return null;
 			}
+
+			#endregion
+		}
+
+		[Test]
+		public void Ctor()
+		{
+			Assert.Throws<ArgumentNullException>(() => new NhConversationsContainerAccessor(null));
+			Assert.Throws<ConversationException>(() => new NhConversationsContainerAccessor(new ISessionFactory[0]));
+			var invalidSFmock = proxyGenerator.CreateProxy<ISessionFactory>(new InvalidSessionFactory());
+			Assert.Throws<ConversationException>(() => new NhConversationsContainerAccessor(new[] {invalidSFmock}));
+
+			var notvalidSFmock = proxyGenerator.CreateProxy<ISessionFactoryImplementor>(new MayValidSessionFactory(null),
+			                                                                 new[]
+			                                                                 	{
+			                                                                 		typeof (ISessionFactory)
+			                                                                 	});
+			Assert.Throws<ConversationException>(() => new NhConversationsContainerAccessor(new[] {notvalidSFmock}));
+
+			var container = new ThreadLocalConversationalSessionContext(null);
+			var validSFmock = proxyGenerator.CreateProxy<ISessionFactoryImplementor>(new MayValidSessionFactory(container),
+			                                                              new[]
+			                                                              	{
+			                                                              		typeof (ISessionFactory)
+			                                                              	});
+			var ca = new NhConversationsContainerAccessor(new[] {validSFmock});
+			Assert.That(ca.Container, Is.SameAs(container));
 		}
 	}
 }
