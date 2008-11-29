@@ -39,11 +39,7 @@ namespace uNhAddIns.Test.Conversations
 
 			public object Intercept(InvocationInfo info)
 			{
-				if ("get_CurrentSessionContext".Equals(info.TargetMethod.Name))
-				{
-					return container;
-				}
-				return null;
+				return "get_CurrentSessionContext".Equals(info.TargetMethod.Name) ? container : null;
 			}
 
 			#endregion
