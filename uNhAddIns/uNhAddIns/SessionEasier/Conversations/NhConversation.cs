@@ -59,7 +59,15 @@ namespace uNhAddIns.SessionEasier.Conversations
 			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
 			foreach (var pair in sessions)
 			{
-				FlushAndCommit(pair.Value);
+				Commit(pair.Value);
+			}
+		}
+
+		private static void Commit(ISession session)
+		{
+			if (session.Transaction != null && session.Transaction.IsActive)
+			{
+				session.Transaction.Commit();
 			}
 		}
 
