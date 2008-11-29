@@ -5,6 +5,7 @@ using log4net;
 using log4net.Config;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
@@ -17,7 +18,7 @@ namespace uNhAddIns.Test
 	{
 		private const bool OutputDdl = false;
 		protected Configuration cfg;
-		protected ISessionFactory sessions;
+		protected ISessionFactoryImplementor sessions;
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(TestCase));
 
@@ -196,7 +197,7 @@ namespace uNhAddIns.Test
 
 		protected virtual void BuildSessionFactory()
 		{
-			sessions = cfg.BuildSessionFactory();
+			sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
 			connectionProvider = sessions.ConnectionProvider as DebugConnectionProvider;
 		}
 

@@ -43,6 +43,11 @@ namespace uNhAddIns.Criterions
 			return realCriterion.GetTypedValues(criteria, criteriaQuery);
 		}
 
+		public override IProjection[] GetProjections()
+		{
+			return realCriterion.GetProjections();
+		}
+
 		public override SqlString ToSqlString(ICriteria criteria, ICriteriaQuery criteriaQuery,
 		                                      IDictionary<string, IFilter> enabledFilters)
 		{
