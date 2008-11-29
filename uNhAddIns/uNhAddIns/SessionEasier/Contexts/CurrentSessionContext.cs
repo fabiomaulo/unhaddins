@@ -90,10 +90,9 @@ namespace uNhAddIns.SessionEasier.Contexts
 
 		private static bool NeedsWrapping(ISession session)
 		{
-			var sw = session as ISessionWrapper;
-			// try to make sure we don't wrap and already wrapped session
-			return (session != null && sw == null)
-			       || (sw != null && (sw.InvocationHandler != null && !(sw.InvocationHandler is TransactionProtectionWrapper)));
+			if (Wrapper == null)
+				return false;
+			return !Wrapper.IsWrapped(session);
 		}
 
 		/// <summary> 
@@ -108,12 +107,12 @@ namespace uNhAddIns.SessionEasier.Contexts
 
 		protected virtual ISession Wrap(ISession session)
 		{
-			var wrapper = new TransactionProtectionWrapper(session, UnbindSession);
-			var wrapped =
-				(ISession)
-				Commons.ProxyGenerator.CreateInterfaceProxyWithTarget(typeof (ISession), Commons.SessionProxyInterfaces, session,
-				                                                      wrapper);
-			return wrapped;
+			if (Wrapper == null)
+			{
+				log.Warn("Session wrapper not available.");
+				return session;
+			}
+			return Wrapper.Wrap(session, UnbindSession, null);
 		}
 
 		#region  Static helpers
@@ -187,6 +186,8 @@ namespace uNhAddIns.SessionEasier.Contexts
 				}
 			}
 		}
+
+		public static ISessionWrapper Wrapper { get; set; }
 
 		/// <summary> Unassociate a previously bound session from the current thread of execution. </summary>
 		/// <returns> The session which was unbound. </returns>

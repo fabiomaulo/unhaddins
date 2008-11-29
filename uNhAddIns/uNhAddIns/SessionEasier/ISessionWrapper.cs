@@ -1,7 +1,10 @@
+using NHibernate;
+
 namespace uNhAddIns.SessionEasier
 {
 	public interface ISessionWrapper
 	{
-		object InvocationHandler { get;}
+		ISession Wrap(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate);
+		bool IsWrapped(ISession session);
 	}
 }
