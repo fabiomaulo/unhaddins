@@ -1,7 +1,8 @@
 using Castle.DynamicProxy;
 using NHibernate;
+using uNhAddIns.SessionEasier;
 
-namespace uNhAddIns.SessionEasier
+namespace uNhAddIns.CastleAdapters
 {
 	public class SessionWrapper : ISessionWrapper
 	{
