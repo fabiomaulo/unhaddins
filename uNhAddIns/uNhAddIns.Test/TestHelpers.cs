@@ -13,7 +13,7 @@ namespace uNhAddIns.Test
 
 		private static string GetSessionWrapperQualifiedName()
 		{
-			return "uNhAddIns.CastleAdapters.SessionWrapper, uNhAddIns.CastleAdapters";
+			return "uNhAddIns.LinFuAdapters.SessionWrapper, uNhAddIns.LinFuAdapters";
 		}
 	}
 }

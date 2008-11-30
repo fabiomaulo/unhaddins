@@ -1,22 +1,19 @@
-using Castle.DynamicProxy;
+using LinFu.DynamicProxy;
 using NHibernate;
 using uNhAddIns.SessionEasier;
 
-namespace uNhAddIns.CastleAdapters
+namespace uNhAddIns.LinFuAdapters
 {
 	public class SessionWrapper : ISessionWrapper
 	{
-		private readonly ProxyGenerator proxyGenerator = new ProxyGenerator();
+		private readonly ProxyFactory proxyFactory = new ProxyFactory();
 
 		#region Implementation of ISessionWrapper
 
 		public ISession Wrap(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate)
 		{
 			var wrapper = new TransactionProtectionWrapper(realSession, closeDelegate, disposeDelegate);
-			var wrapped =
-				(ISession)
-				proxyGenerator.CreateInterfaceProxyWithTarget(typeof (ISession), Commons.SessionProxyInterfaces, realSession,
-				                                              wrapper);
+			var wrapped = proxyFactory.CreateProxy<ISession>(wrapper, Commons.SessionProxyInterfaces);
 			return wrapped;
 		}
 
