@@ -4,9 +4,10 @@ using Castle.Core.Interceptor;
 using log4net;
 using NHibernate;
 using NHibernate.Util;
+using uNhAddIns.SessionEasier;
 using IInterceptor=Castle.Core.Interceptor.IInterceptor;
 
-namespace uNhAddIns.SessionEasier
+namespace uNhAddIns.CastleAdapters
 {
 	[Serializable]
 	public class TransactionProtectionWrapper : IInterceptor

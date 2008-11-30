@@ -34,30 +34,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\uNhAddIns.xml</DocumentationFile>
+    <DocumentationFile>..\bin\Debug\uNhAddIns.xml</DocumentationFile>
     <NoWarn>1591;3001;3002;3003;3005</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.DynamicProxy2, Version=2.0.0.1, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Iesi.Collections.dll</HintPath>
@@ -139,8 +131,6 @@
     <Compile Include="SessionEasier\Contexts\CurrentSessionContext.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContext.cs" />
     <Compile Include="SessionEasier\ISessionWrapper.cs" />
-    <Compile Include="SessionEasier\SessionWrapper.cs" />
-    <Compile Include="SessionEasier\TransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\DefaultMultiFactoryConfigurator.cs" />
     <Compile Include="SessionEasier\IMultiFactoryConfigurator.cs" />
     <Compile Include="SessionEasier\ISessionFactoryProvider.cs" />

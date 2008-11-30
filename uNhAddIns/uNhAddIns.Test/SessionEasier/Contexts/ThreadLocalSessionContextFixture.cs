@@ -3,7 +3,6 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NUnit.Framework;
-using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Contexts;
 
 namespace uNhAddIns.Test.SessionEasier.Contexts
@@ -26,7 +25,7 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 		protected override void BuildSessionFactory()
 		{
 			base.BuildSessionFactory();
-			CurrentSessionContext.Wrapper = new SessionWrapper();
+			CurrentSessionContext.Wrapper = TestHelpers.GetSessionWrapper();
 		}
 
 		[Test]
