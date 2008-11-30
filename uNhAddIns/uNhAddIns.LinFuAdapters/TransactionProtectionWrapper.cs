@@ -1,16 +1,18 @@
 using System;
 using System.Reflection;
-using Castle.Core.Interceptor;
+using LinFu.DynamicProxy;
 using NHibernate;
 using NHibernate.Util;
 using uNhAddIns.SessionEasier;
-using IInterceptor=Castle.Core.Interceptor.IInterceptor;
+using IInterceptor=LinFu.DynamicProxy.IInterceptor;
 
-namespace uNhAddIns.CastleAdapters
+namespace uNhAddIns.LinFuAdapters
 {
 	[Serializable]
 	public class TransactionProtectionWrapper : BasicTransactionProtectionWrapper, IInterceptor
 	{
+		#region Implementation of IInterceptor
+
 		public TransactionProtectionWrapper(ISession realSession, SessionCloseDelegate closeDelegate)
 			: base(realSession, closeDelegate) {}
 
@@ -18,24 +20,14 @@ namespace uNhAddIns.CastleAdapters
 		                                    SessionDisposeDelegate disposeDelegate)
 			: base(realSession, closeDelegate, disposeDelegate) {}
 
-		#region IInterceptor Members
-
-		public void Intercept(IInvocation invocation)
+		public object Intercept(InvocationInfo info)
 		{
-			invocation.ReturnValue = null;
 			try
 			{
-				object returnValue = base.Invoke(invocation.Method, invocation.Arguments);
+				object returnValue = base.Invoke(info.TargetMethod, info.Arguments);
 
 				// Avoid invoking the actual implementation
-				if (returnValue != InvokeImplementation)
-				{
-					invocation.ReturnValue = returnValue;
-				}
-				else
-				{
-					invocation.Proceed();
-				}
+				return returnValue != InvokeImplementation ? returnValue : info.TargetMethod.Invoke(realSession, info.Arguments);
 			}
 			catch (TargetInvocationException ex)
 			{

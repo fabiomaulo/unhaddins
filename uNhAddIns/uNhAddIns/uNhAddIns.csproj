@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\Conversations\AbstractConversation.cs" />
     <Compile Include="SessionEasier\Conversations\AbstractConversationContainer.cs" />
     <Compile Include="SessionEasier\Conversations\ConversationException.cs" />
