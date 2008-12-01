@@ -140,6 +140,8 @@
     <Compile Include="SessionEasier\SessionFactoryManager.cs" />
     <Compile Include="SessionEasier\SessionFactoryProvider.cs" />
     <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\EncryptedString.cs" />
+    <Compile Include="UserTypes\EncryptionHelper.cs" />
     <Compile Include="UserTypes\UpperString.cs" />
   </ItemGroup>
   <ItemGroup>
