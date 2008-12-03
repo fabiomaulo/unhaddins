@@ -13,5 +13,9 @@ namespace GoldParsing.Engine
 
 		internal int State { get; set; }
 		public object Data { get; set; }
+		public void SetParent(Symbol parent)
+		{
+			CopyFrom(parent);
+		}
 	}
 }
