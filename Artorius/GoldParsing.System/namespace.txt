@@ -1,4 +1,0 @@
-﻿C# Translation of GoldParser, by Marcus Klimstra <klimstra@home.nl>.
-Based on GOLDParser by Devin Cook <http://www.devincook.com/goldparser>.
-
-http://www.devincook.com/GOLDParser/engine/c-sharp/index.htm
