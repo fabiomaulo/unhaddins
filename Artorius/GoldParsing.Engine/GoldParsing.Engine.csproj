@@ -55,6 +55,7 @@
     <Compile Include="IVisitor.cs" />
     <Compile Include="LALRAction.cs" />
     <Compile Include="LALRState.cs" />
+    <Compile Include="LookAheadReader.cs" />
     <Compile Include="ParserException.cs" />
     <Compile Include="Config\ParserSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
