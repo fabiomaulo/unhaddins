@@ -52,6 +52,7 @@
     <Compile Include="Rule.cs" />
     <Compile Include="Symbol.cs" />
     <Compile Include="Token.cs" />
+    <Compile Include="TokenStack.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="namespace.txt" />
