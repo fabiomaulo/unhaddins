@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldParsing.Engine", "GoldParsing.Engine\GoldParsing.Engine.csproj", "{B2C309FE-1535-4373-B259-DE96DDFE4182}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artorius", "Artorius\Artorius.csproj", "{2982610B-ACE4-462F-9662-92A2E5BACAEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artorius.Tests", "Artorius.Tests\Artorius.Tests.csproj", "{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{B2C309FE-1535-4373-B259-DE96DDFE4182}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2C309FE-1535-4373-B259-DE96DDFE4182}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2C309FE-1535-4373-B259-DE96DDFE4182}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2982610B-ACE4-462F-9662-92A2E5BACAEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2982610B-ACE4-462F-9662-92A2E5BACAEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2982610B-ACE4-462F-9662-92A2E5BACAEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2982610B-ACE4-462F-9662-92A2E5BACAEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
