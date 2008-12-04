@@ -1,0 +1,45 @@
+"Name"     = 'Hql'
+"Author"   = 'Fabio Maulo'
+"Version"  = '1.0.0'
+"About"    = 'This grammar parses the query language for NHibernate'
+
+"Start Symbol" = <Expression>
+
+! ------------------------------------------------- Sets
+
+{ID Head}      = {Letter} + [_]
+{ID Tail}      = {Alphanumeric} + [_]
+{String Chars} = {Printable} + {HT} - ["\]
+{Hex Digit} = {Digit} + [abcdefABCDEF]
+
+! ------------------------------------------------- Terminals
+
+Comment Start		= '/*'
+Comment End		= '*/'
+Comment Line		= '--'
+
+Identifier		= {ID Head}{ID Tail}*
+Path			= {ID Head}{ID Tail}* ('.' {ID Head}{ID Tail}*)+
+StringLiteral		= '"' ( {String Chars} | '\' {Printable} )* '"'
+IntegerLiteral	= {Digit}+
+FloatLiteral		= {Digit}+'.'{Digit}+
+HexLiteral		= 0x{Hex Digit}+
+ComparisonOperator	= '>' | '<' | '=' | '>=' | '<=' | '<>' | '!='
+Parameter		= ':'{ID Head}{ID Tail}* | '?'
+
+! ------------------------------------------------- Rules
+
+<Expression>  ::= <Expression> ComparisonOperator  <Add Exp> 
+               |  <Add Exp> 
+
+<Add Exp>     ::= <Add Exp> '+' <Mult Exp>
+               |  <Add Exp> '-' <Mult Exp>
+               |  <Mult Exp> 
+
+<Mult Exp>    ::= <Mult Exp> '*' <Negate Exp> 
+               |  <Mult Exp> '/' <Negate Exp> 
+               |  <Negate Exp> 
+
+<Negate Exp>  ::= '-' <Value> |  <Value> 
+
+<Value>       ::= Identifier | Path | StringLiteral | IntegerLiteral | FloatLiteral | HexLiteral | Parameter | '(' <Expression> ')'
