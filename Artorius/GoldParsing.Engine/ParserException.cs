@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace GoldParsing.Engine
 {
 	[Serializable]
-	public class ParserException : Exception
+	public class ParserException : ApplicationException
 	{
 		public ParserException() {}
 		public ParserException(string message) : base(message) {}
