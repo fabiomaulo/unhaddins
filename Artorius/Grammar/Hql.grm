@@ -29,17 +29,17 @@ Parameter		= ':'{ID Head}{ID Tail}* | '?'
 
 ! ------------------------------------------------- Rules
 
-<Expression>  ::= <Expression> ComparisonOperator  <Add Exp> 
-               |  <Add Exp> 
+<Expression>  ::= <Expression> ComparisonOperator  <MathAddExpression> 
+               |  <MathAddExpression> 
 
-<Add Exp>     ::= <Add Exp> '+' <Mult Exp>
-               |  <Add Exp> '-' <Mult Exp>
-               |  <Mult Exp> 
+<MathAddExpression> ::= <MathAddExpression> '+' <MathMultExpression>
+               |  <MathAddExpression> '-' <MathMultExpression>
+               |  <MathMultExpression>
 
-<Mult Exp>    ::= <Mult Exp> '*' <Negate Exp> 
-               |  <Mult Exp> '/' <Negate Exp> 
-               |  <Negate Exp> 
+<MathMultExpression>    ::= <MathMultExpression> '*' <MathNegateExpression> 
+               |  <MathMultExpression> '/' <MathNegateExpression> 
+               |  <MathNegateExpression> 
 
-<Negate Exp>  ::= '-' <Value> |  <Value> 
+<MathNegateExpression>  ::= '-' <Value> |  <Value> 
 
 <Value>       ::= Identifier | Path | StringLiteral | IntegerLiteral | FloatLiteral | HexLiteral | Parameter | '(' <Expression> ')'
