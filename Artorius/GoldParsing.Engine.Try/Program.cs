@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Linq;
 using GoldParsing.Engine.Config;
 
 namespace GoldParsing.Engine.Try
@@ -12,6 +13,7 @@ namespace GoldParsing.Engine.Try
 
 		private static void Main(string[] args)
 		{
+			const string symbolNameFromWhereStart = "Expression";
 			const string grammarPath = @"..\..\..\Grammar\Hql.cgt";
 			try
 			{
@@ -21,6 +23,9 @@ namespace GoldParsing.Engine.Try
 				}
 				var cgl = new CompiledGrammarLoader(grammarPath);
 				var parserSettings = cgl.Load();
+				Symbol whereStart = parserSettings.SymbolTable.FirstOrDefault(symbol => symbol.Name == symbolNameFromWhereStart);
+				if (whereStart != null)
+					((ParserSettings)parserSettings).StartSymbolIndex = whereStart.TableIndex;
 				parser = new Parser(parserSettings) {TrimReductions = true};
 				parser.TrimReductions = true;
 				Console.WriteLine(args[0]);
