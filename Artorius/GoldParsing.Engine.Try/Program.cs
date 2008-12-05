@@ -23,12 +23,15 @@ namespace GoldParsing.Engine.Try
 				var parserSettings = cgl.Load();
 				parser = new Parser(parserSettings) {TrimReductions = true};
 				parser.TrimReductions = true;
+				Console.WriteLine(args[0]);
+				Console.WriteLine();
 				Execute(args[0]);
 				Console.ReadLine();
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
+				Console.ReadLine();
 			}
 		}
 
@@ -104,6 +107,7 @@ namespace GoldParsing.Engine.Try
 			IEnumerable<Token> expected = parser.ExpectedTokens;
 
 			Console.WriteLine("Syntax error in line " + line + ".");
+			Console.WriteLine("  after column: " + parser.LastValidPosition);
 			Console.WriteLine("  found: " + parser.CurrentToken.Data);
 			Console.Write("  expected: ");
 

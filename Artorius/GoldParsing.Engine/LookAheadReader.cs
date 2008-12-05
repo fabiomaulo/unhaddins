@@ -25,6 +25,11 @@ namespace GoldParsing.Engine
 			buffer = new char[BufferSize];
 		}
 
+		public int CurrentPosition
+		{
+			get { return curpos; }
+		}
+
 		/// <summary>
 		/// Makes sure there are enough characters in the buffer.
 		/// </summary>
