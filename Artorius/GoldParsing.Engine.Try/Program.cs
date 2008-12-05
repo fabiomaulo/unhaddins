@@ -27,7 +27,6 @@ namespace GoldParsing.Engine.Try
 				if (whereStart != null)
 					((ParserSettings)parserSettings).StartSymbolIndex = whereStart.TableIndex;
 				parser = new Parser(parserSettings) {TrimReductions = true};
-				parser.TrimReductions = true;
 				Console.WriteLine(args[0]);
 				Console.WriteLine();
 				Execute(args[0]);
