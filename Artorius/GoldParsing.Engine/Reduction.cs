@@ -38,7 +38,7 @@ namespace GoldParsing.Engine
 		/// </summary>
 		public void ChildrenAccept(IVisitor visitor)
 		{
-			foreach (Reduction reduction in Tokens.Where(x => x.Kind == SymbolType.NonTerminal).OfType<Reduction>())
+			foreach (Reduction reduction in Tokens.Where(x => x.Kind == SymbolType.NonTerminal).Select((x, r) => x.Data).OfType<Reduction>())
 			{
 				reduction.Accept(visitor);
 			}
