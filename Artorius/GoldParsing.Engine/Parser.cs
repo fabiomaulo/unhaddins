@@ -236,6 +236,11 @@ namespace GoldParsing.Engine
 			}
 		}
 
+		public int LastValidPosition
+		{
+			get { return source.CurrentPosition; }
+		}
+
 		/// <summary>
 		/// Returns true if the specified token is a CommentLine or CommentStart-symbol.
 		/// </summary>
@@ -333,11 +338,11 @@ namespace GoldParsing.Engine
 		///   3. Errors and places the expected symbol indexes in the Tokens list
 		/// The Token is assumed to be valid and WILL be checked
 		/// </summary>
-		private ParseResult ParseToken(Token p_token)
+		private ParseResult ParseToken(Token token)
 		{
 			ParseResult result = ParseResult.InternalError;
 			LALRState table = settings.LALRTable[lalrStateIndex];
-			LALRAction action = table.GetActionForSymbol(p_token.TableIndex);
+			LALRAction action = table.GetActionForSymbol(token.TableIndex);
 
 			if (action != null)
 			{
@@ -351,8 +356,8 @@ namespace GoldParsing.Engine
 						result = ParseResult.Accept;
 						break;
 					case Action.Shift:
-						p_token.State = lalrStateIndex = action.Value;
-						tempStack.PushToken(p_token);
+						token.State = lalrStateIndex = action.Value;
+						tempStack.PushToken(token);
 						result = ParseResult.Shift;
 						break;
 					case Action.Reduce:
@@ -428,10 +433,10 @@ namespace GoldParsing.Engine
 			return result;
 		}
 
-		private void UpdateLineNumber(string p_string)
+		private void UpdateLineNumber(string line)
 		{
 			int index, pos = 0;
-			while ((index = p_string.IndexOf('\n', pos)) != -1)
+			while ((index = line.IndexOf('\n', pos)) != -1)
 			{
 				pos = index + 1;
 				lineNumber++;
