@@ -53,7 +53,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseParserTestCase.cs" />
+    <Compile Include="BaseParserTestCaseFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Artorius\Artorius.csproj">
+      <Project>{2982610B-ACE4-462F-9662-92A2E5BACAEB}</Project>
+      <Name>Artorius</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GoldParsing.Engine\GoldParsing.Engine.csproj">
+      <Project>{B2C309FE-1535-4373-B259-DE96DDFE4182}</Project>
+      <Name>GoldParsing.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
