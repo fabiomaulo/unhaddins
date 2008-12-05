@@ -50,7 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HqlParser.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="INodeVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GoldParsing.Engine\GoldParsing.Engine.csproj">
+      <Project>{B2C309FE-1535-4373-B259-DE96DDFE4182}</Project>
+      <Name>GoldParsing.Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tree\" />
