@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GoldParsing.Engine
@@ -103,6 +104,24 @@ namespace GoldParsing.Engine
 		public int CurrentLineNumber
 		{
 			get { return lineNumber; }
+		}
+
+		/// <summary>
+		/// Tokens for the reduced rule or
+		/// the tokens that where expected when a syntax error occures.
+		/// </summary>		
+		public IEnumerable<Token> ExpectedTokens
+		{
+			get { return outputTokens; }
+		}
+
+		/// <summary>
+		/// Pushes the specified token onto the internal input queue. 
+		/// It will be the next token analyzed by the parsing engine.
+		/// </summary>
+		public void PushInputToken(Token token)
+		{
+			inputTokens.PushToken(token);
 		}
 
 		/// <summary>

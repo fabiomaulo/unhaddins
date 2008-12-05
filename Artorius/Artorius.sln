@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GoldGrammar", "GoldGrammar"
 		Grammar\readme.txt = Grammar\readme.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoldParsing.Engine.Try", "GoldParsing.Engine.Try\GoldParsing.Engine.Try.csproj", "{C37AF5CF-AFEE-4960-A1B3-72D3C2CE6E0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6961E2BD-4E66-4EE3-9002-6113B6F1E6F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C37AF5CF-AFEE-4960-A1B3-72D3C2CE6E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C37AF5CF-AFEE-4960-A1B3-72D3C2CE6E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C37AF5CF-AFEE-4960-A1B3-72D3C2CE6E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C37AF5CF-AFEE-4960-A1B3-72D3C2CE6E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
