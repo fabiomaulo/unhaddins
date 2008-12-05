@@ -12,12 +12,18 @@ namespace GoldParsing.Engine.Try
 
 		private static void Main(string[] args)
 		{
-			string grammarPath = @"..\..\..\Grammar\Hql.cgt";
+			const string grammarPath = @"..\..\..\Grammar\Hql.cgt";
 			try
 			{
+				if (args == null || args.Length == 0)
+				{
+					throw new ArgumentException("you muste specify an argument as, for example: \"p.Age + 5*3-(a.Parent.Age + :pO)\"");
+				}
 				var cgl = new CompiledGrammarLoader(grammarPath);
-				parser = new Parser(cgl.Load()) {TrimReductions = true};
-				Execute("4+5*3");
+				var parserSettings = cgl.Load();
+				parser = new Parser(parserSettings) {TrimReductions = true};
+				parser.TrimReductions = true;
+				Execute(args[0]);
 				Console.ReadLine();
 			}
 			catch (Exception e)
@@ -34,12 +40,10 @@ namespace GoldParsing.Engine.Try
 				int errors = 0, errorLine = -1;
 
 				parser.OpenStream(sr);
-				parser.TrimReductions = true;
 
 				while (!done && !fatal)
 				{
 					ParseMessage result = parser.Parse();
-
 					switch (result)
 					{
 						case ParseMessage.TokenRead:
