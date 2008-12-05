@@ -17,7 +17,7 @@ namespace GoldParsing.Engine.Try
 			{
 				if (args == null || args.Length == 0)
 				{
-					throw new ArgumentException("you muste specify an argument as, for example: \"p.Age + 5*3-(a.Parent.Age + :pO)\"");
+					throw new ArgumentException("you must specify an argument as, for example: \"p.Age + 5*3-(a.Parent.Age + :pO)\"");
 				}
 				var cgl = new CompiledGrammarLoader(grammarPath);
 				var parserSettings = cgl.Load();
