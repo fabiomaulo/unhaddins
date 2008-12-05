@@ -55,7 +55,7 @@ namespace GoldParsing.Engine
 					endSymbol = symbol;
 				}
 			}
-			TrimReductions = false;
+			TrimReductions = true;
 		}
 
 		/// <summary>
