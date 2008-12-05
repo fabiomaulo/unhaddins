@@ -392,7 +392,7 @@ namespace GoldParsing.Engine
 			ParseResult result;
 			Token head;
 
-			if (TrimReductions && rule.ContainsOneNonTerminal)
+			if (TrimReductions && rule.ContainsOnlyOneNonTerminal)
 			{
 				// The current rule only consists of a single nonterminal and can be trimmed from the
 				// parse tree. Usually we create a new Reduction, assign it to the Data property

@@ -54,7 +54,7 @@ namespace GoldParsing.Engine
 			}
 		}
 
-		internal bool ContainsOneNonTerminal
+		internal bool ContainsOnlyOneNonTerminal
 		{
 			get { return symbols.Count == 1 && symbols[0].Kind == SymbolType.NonTerminal; }
 		}
