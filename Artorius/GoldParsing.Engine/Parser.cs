@@ -38,11 +38,11 @@ namespace GoldParsing.Engine
 
 			if (settings.IsCaseSensitive)
 			{
-				fixCase = x => char.ToLowerInvariant(x);
+				fixCase = x => x;
 			}
 			else
 			{
-				fixCase = x => x;
+				fixCase = x => char.ToLowerInvariant(x);
 			}
 			foreach (Symbol symbol in settings.SymbolTable)
 			{
