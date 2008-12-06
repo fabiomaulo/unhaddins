@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -25,7 +25,7 @@ namespace GoldParsing.Engine.Try
 				var parserSettings = cgl.Load();
 				Symbol whereStart = parserSettings.SymbolTable.FirstOrDefault(symbol => symbol.Name == symbolNameFromWhereStart);
 				if (whereStart != null)
-					((ParserSettings)parserSettings).StartSymbolIndex = whereStart.TableIndex;
+					((Grammar)parserSettings).StartSymbolIndex = whereStart.TableIndex;
 				parser = new Parser(parserSettings) {TrimReductions = true};
 				Console.WriteLine(args[0]);
 				Console.WriteLine();
