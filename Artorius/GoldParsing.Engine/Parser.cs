@@ -26,6 +26,7 @@ namespace GoldParsing.Engine
 		private bool haveReduction;
 		private int lalrStateIndex;
 		private int lineNumber;
+		private int columnInLastLine;
 		private LookAheadReader source;
 
 		public Parser(IParserSettings settings)
@@ -236,9 +237,9 @@ namespace GoldParsing.Engine
 			}
 		}
 
-		public int LastValidPosition
+		public int CurrentColumnInLine
 		{
-			get { return source.CurrentPosition; }
+			get { return columnInLastLine; }
 		}
 
 		/// <summary>
@@ -314,7 +315,7 @@ namespace GoldParsing.Engine
 				result = new Token(endSymbol) {Data = ""};
 			}
 
-			UpdateLineNumber((string) result.Data);
+			UpdateCursorPosition((string) result.Data);
 
 			return result;
 		}
@@ -433,20 +434,27 @@ namespace GoldParsing.Engine
 			return result;
 		}
 
-		private void UpdateLineNumber(string line)
+		private void UpdateCursorPosition(string line)
 		{
+			columnInLastLine += line.Length;
 			int index, pos = 0;
 			while ((index = line.IndexOf('\n', pos)) != -1)
 			{
 				pos = index + 1;
-				lineNumber++;
+				RegisterNewLine();
 			}
+		}
+
+		private void RegisterNewLine()
+		{
+			columnInLastLine = 0;
+			lineNumber++;
 		}
 
 		private void DiscardLine()
 		{
 			source.DiscardLine();
-			lineNumber++;
+			RegisterNewLine();
 		}
 
 		#region Nested type: FixCaseDelegate
