@@ -6,7 +6,7 @@ namespace GoldParsing.Engine
 	/// <summary>
 	/// This is a wrapper around StreamReader which supports lookahead.
 	/// </summary>
-	public class LookAheadReader : IDisposable
+	public class LookAheadReader
 	{
 		private const int BufferSize = 256;
 
@@ -35,7 +35,7 @@ namespace GoldParsing.Engine
 		/// </summary>
 		private void FillBuffer(int length)
 		{
-			int av = buflen - curpos; // het aantal chars na curpos
+			int av = buflen - curpos;
 
 			if (curpos == -1)
 			{
@@ -125,35 +125,5 @@ namespace GoldParsing.Engine
 		{
 			reader.Close();
 		}
-
-		#region Implementation of IDisposable
-
-		private bool disposed;
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
-
-		~LookAheadReader()
-		{
-			Dispose(false);
-		}
-
-		private void Dispose(bool disposing)
-		{
-			if (!disposed)
-			{
-				if (disposing)
-				{
-					reader.Dispose();
-				}
-
-				disposed = true;
-			}
-		}
-
-		#endregion
 	}
 }

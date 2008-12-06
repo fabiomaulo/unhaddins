@@ -109,7 +109,7 @@ namespace GoldParsing.Engine.Try
 			IEnumerable<Token> expected = parser.ExpectedTokens;
 
 			Console.WriteLine("Syntax error in line " + line + ".");
-			Console.WriteLine("  after column: " + parser.LastValidPosition);
+			Console.WriteLine("  after column: " + parser.CurrentColumnInLine);
 			Console.WriteLine("  found: " + parser.CurrentToken.Data);
 			Console.Write("  expected: ");
 

@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BaseParserTestCase.cs" />
     <Compile Include="BaseParserTestCaseFixture.cs" />
+    <Compile Include="Parsing\ParserErrorFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
