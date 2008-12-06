@@ -54,10 +54,8 @@ namespace GoldParsing.Engine.Try
 					switch (result)
 					{
 						case ParseMessage.TokenRead:
-							// do nothing
 							break;
 						case ParseMessage.Reduction:
-							// do nothing
 							break;
 						case ParseMessage.Accept:
 							// program accepted
@@ -141,7 +139,21 @@ namespace GoldParsing.Engine.Try
 		{
 			Print(reduction.ToString());
 			level++;
-			reduction.ChildrenAccept(this);
+			foreach (var token in reduction.Tokens)
+			{
+				if (token.Kind == SymbolType.Terminal)
+				{
+					Print(token.Data.ToString());
+				}
+				else 
+				{
+					var cr = token.Data as Reduction;
+					if(cr!=null)
+					{
+						cr.Accept(this);
+					}
+				}
+			}
 			level--;
 		}
 
