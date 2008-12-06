@@ -21,16 +21,38 @@ namespace Artorius.Tests
 
 		public HqlParser NewParser()
 		{
+			ParserSettings shallowCopy = GetShallowCopy(parserSettings);
 			Symbol whereStart = parserSettings.SymbolTable.FirstOrDefault(symbol => symbol.Name == SymbolNameFromWhereStart);
 			if (whereStart != null)
 			{
-				((ParserSettings) parserSettings).StartSymbolIndex = whereStart.TableIndex;
+				shallowCopy.StartSymbolIndex = whereStart.TableIndex;
 			}
 			else
 			{
 				throw new ArgumentException("Symbol name, from where start, not found");
 			}
-			return new HqlParser(parserSettings);
+			return new HqlParser(shallowCopy);
+		}
+
+		private static ParserSettings GetShallowCopy(IParserSettings settings)
+		{
+			var shallowCopy = new ParserSettings
+			                  	{
+			                  		CharSetTable = settings.CharSetTable,
+			                  		DFATable = settings.DFATable,
+			                  		DFAInitialStateIndex = settings.DFAInitialStateIndex,
+			                  		IsCaseSensitive = settings.IsCaseSensitive,
+			                  		LALRInitialStateIndex = settings.LALRInitialStateIndex,
+			                  		LALRTable = settings.LALRTable,
+			                  		RuleTable = settings.RuleTable,
+			                  		SymbolTable = settings.SymbolTable,
+			                  		StartSymbolIndex = settings.StartSymbolIndex
+			                  	};
+			foreach (var pair in settings.Parameters)
+			{
+				shallowCopy.Parameters.Add(pair);
+			}
+			return shallowCopy;
 		}
 	}
 }
