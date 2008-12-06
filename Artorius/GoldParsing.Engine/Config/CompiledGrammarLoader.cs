@@ -2,7 +2,7 @@ using System;
 
 namespace GoldParsing.Engine.Config
 {
-	public class CompiledGrammarLoader : IParserSettingsLoader
+	public class CompiledGrammarLoader : IGrammarLoader
 	{
 		private readonly string filePath;
 
@@ -17,9 +17,9 @@ namespace GoldParsing.Engine.Config
 
 		#region Implementation of IParserSettingsLoader
 
-		public IParserSettings Load()
+		public IGrammar Load()
 		{
-			var ps = new ParserSettings();
+			var ps = new Grammar();
 			using (var reader = new CompiledGrammarReader(filePath))
 			{
 				while (reader.MoveNext())

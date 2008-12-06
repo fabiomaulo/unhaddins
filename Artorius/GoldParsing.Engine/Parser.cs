@@ -19,7 +19,7 @@ namespace GoldParsing.Engine
 		private readonly TokenStack inputTokens = new TokenStack();
 		// The set of tokens for 1. Expecting during error, 2. Reduction
 		private readonly TokenStack outputTokens = new TokenStack();
-		private readonly IParserSettings settings;
+		private readonly IGrammar grammar;
 		// I often dont know what to call variables.
 		private readonly TokenStack tempStack = new TokenStack();
 		private int commentLevel;
@@ -29,15 +29,15 @@ namespace GoldParsing.Engine
 		private int columnInLastLine;
 		private LookAheadReader source;
 
-		public Parser(IParserSettings settings)
+		public Parser(IGrammar grammar)
 		{
-			if (settings == null)
+			if (grammar == null)
 			{
-				throw new ArgumentNullException("settings");
+				throw new ArgumentNullException("grammar");
 			}
-			this.settings = settings;
+			this.grammar = grammar;
 
-			if (settings.IsCaseSensitive)
+			if (grammar.IsCaseSensitive)
 			{
 				fixCase = x => x;
 			}
@@ -45,7 +45,7 @@ namespace GoldParsing.Engine
 			{
 				fixCase = x => char.ToLowerInvariant(x);
 			}
-			foreach (Symbol symbol in settings.SymbolTable)
+			foreach (Symbol symbol in grammar.SymbolTable)
 			{
 				if (symbol.Kind == SymbolType.Error)
 				{
@@ -137,7 +137,7 @@ namespace GoldParsing.Engine
 
 		private void PrepareToParse()
 		{
-			var token = new Token(settings.SymbolTable[settings.StartSymbolIndex]) {State = settings.LALRInitialStateIndex};
+			var token = new Token(grammar.SymbolTable[grammar.StartSymbolIndex]) {State = grammar.LALRInitialStateIndex};
 			tempStack.PushToken(token);
 		}
 
@@ -148,7 +148,7 @@ namespace GoldParsing.Engine
 			tempStack.Clear();
 			lineNumber = 1;
 			commentLevel = 0;
-			lalrStateIndex = settings.LALRInitialStateIndex;
+			lalrStateIndex = grammar.LALRInitialStateIndex;
 			haveReduction = false;
 		}
 
@@ -260,7 +260,7 @@ namespace GoldParsing.Engine
 			int currentPos = 0;
 			int lastAcceptState = -1;
 			int lastAcceptPos = -1;
-			DFAState currentState = settings.DFATable[settings.DFAInitialStateIndex];
+			DFAState currentState = grammar.DFATable[grammar.DFAInitialStateIndex];
 
 			try
 			{
@@ -286,13 +286,13 @@ namespace GoldParsing.Engine
 						// This code checks whether the target state accepts a token. If so, it sets the
 						// appropiate variables so when the algorithm is done, it can return the proper
 						// token and number of characters.
-						if (settings.DFATable[target].AcceptSymbol.HasValue)
+						if (grammar.DFATable[target].AcceptSymbol.HasValue)
 						{
 							lastAcceptState = target;
 							lastAcceptPos = currentPos;
 						}
 
-						currentState = settings.DFATable[target];
+						currentState = grammar.DFATable[target];
 						currentPos++;
 					}
 					else
@@ -303,7 +303,7 @@ namespace GoldParsing.Engine
 						}
 						else
 						{
-							Symbol symbol = settings.SymbolTable[settings.DFATable[lastAcceptState].AcceptSymbol.Value];
+							Symbol symbol = grammar.SymbolTable[grammar.DFATable[lastAcceptState].AcceptSymbol.Value];
 							result = new Token(symbol) {Data = source.Read(lastAcceptPos + 1)};
 						}
 						break;
@@ -342,7 +342,7 @@ namespace GoldParsing.Engine
 		private ParseResult ParseToken(Token token)
 		{
 			ParseResult result = ParseResult.InternalError;
-			LALRState table = settings.LALRTable[lalrStateIndex];
+			LALRState table = grammar.LALRTable[lalrStateIndex];
 			LALRAction action = table.GetActionForSymbol(token.TableIndex);
 
 			if (action != null)
@@ -362,7 +362,7 @@ namespace GoldParsing.Engine
 						result = ParseResult.Shift;
 						break;
 					case Action.Reduce:
-						result = Reduce(settings.RuleTable[action.Value]);
+						result = Reduce(grammar.RuleTable[action.Value]);
 						break;
 				}
 			}
@@ -419,7 +419,7 @@ namespace GoldParsing.Engine
 			}
 
 			int index = tempStack.PeekToken().State;
-			LALRAction action = settings.LALRTable[index].GetActionForSymbol(rule.Head.TableIndex);
+			LALRAction action = grammar.LALRTable[index].GetActionForSymbol(rule.Head.TableIndex);
 
 			if (action != null)
 			{

@@ -5,7 +5,7 @@ namespace GoldParsing.Engine
 	/// <summary>
 	/// 
 	/// </summary>
-	public interface IParserSettings
+	public interface IGrammar
 	{
 		IDictionary<string, string> Parameters { get; }
 		bool IsCaseSensitive { get; }

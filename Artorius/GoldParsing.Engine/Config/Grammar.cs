@@ -2,11 +2,11 @@ using System.Collections.Generic;
 
 namespace GoldParsing.Engine.Config
 {
-	public class ParserSettings : IParserSettings
+	public class Grammar : IGrammar
 	{
-		public ParserSettings()
+		public Grammar()
 		{
-			Parameters = new Dictionary<string, string>(5);
+			Parameters = new Dictionary<string, string>(10);
 		}
 		public IDictionary<string, string> Parameters { get; private set; }
 		public bool IsCaseSensitive { get; set; }

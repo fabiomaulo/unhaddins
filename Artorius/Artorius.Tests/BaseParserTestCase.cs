@@ -9,20 +9,20 @@ namespace Artorius.Tests
 	public abstract class BaseParserTestCase
 	{
 		private const string grammarPath = @"..\..\..\Grammar\Hql.cgt";
-		private static readonly IParserSettings parserSettings;
+		private static readonly IGrammar grammar;
 
 		static BaseParserTestCase()
 		{
 			var cgl = new CompiledGrammarLoader(grammarPath);
-			parserSettings = cgl.Load();
+			grammar = cgl.Load();
 		}
 
 		protected abstract string SymbolNameFromWhereStart { get; }
 
 		public HqlParser NewParser()
 		{
-			ParserSettings shallowCopy = GetShallowCopy(parserSettings);
-			Symbol whereStart = parserSettings.SymbolTable.FirstOrDefault(symbol => symbol.Name == SymbolNameFromWhereStart);
+			Grammar shallowCopy = GetShallowCopy(grammar);
+			Symbol whereStart = grammar.SymbolTable.FirstOrDefault(symbol => symbol.Name == SymbolNameFromWhereStart);
 			if (whereStart != null)
 			{
 				shallowCopy.StartSymbolIndex = whereStart.TableIndex;
@@ -34,21 +34,21 @@ namespace Artorius.Tests
 			return new HqlParser(shallowCopy);
 		}
 
-		private static ParserSettings GetShallowCopy(IParserSettings settings)
+		private static Grammar GetShallowCopy(IGrammar orgGrammar)
 		{
-			var shallowCopy = new ParserSettings
+			var shallowCopy = new Grammar
 			                  	{
-			                  		CharSetTable = settings.CharSetTable,
-			                  		DFATable = settings.DFATable,
-			                  		DFAInitialStateIndex = settings.DFAInitialStateIndex,
-			                  		IsCaseSensitive = settings.IsCaseSensitive,
-			                  		LALRInitialStateIndex = settings.LALRInitialStateIndex,
-			                  		LALRTable = settings.LALRTable,
-			                  		RuleTable = settings.RuleTable,
-			                  		SymbolTable = settings.SymbolTable,
-			                  		StartSymbolIndex = settings.StartSymbolIndex
+			                  		CharSetTable = orgGrammar.CharSetTable,
+			                  		DFATable = orgGrammar.DFATable,
+			                  		DFAInitialStateIndex = orgGrammar.DFAInitialStateIndex,
+			                  		IsCaseSensitive = orgGrammar.IsCaseSensitive,
+			                  		LALRInitialStateIndex = orgGrammar.LALRInitialStateIndex,
+			                  		LALRTable = orgGrammar.LALRTable,
+			                  		RuleTable = orgGrammar.RuleTable,
+			                  		SymbolTable = orgGrammar.SymbolTable,
+			                  		StartSymbolIndex = orgGrammar.StartSymbolIndex
 			                  	};
-			foreach (var pair in settings.Parameters)
+			foreach (var pair in orgGrammar.Parameters)
 			{
 				shallowCopy.Parameters.Add(pair);
 			}

@@ -47,11 +47,11 @@
   <ItemGroup>
     <Compile Include="Config\CompiledGrammarLoader.cs" />
     <Compile Include="Config\CompiledGrammarReader.cs" />
-    <Compile Include="Config\IParserSettingsLoader.cs" />
+    <Compile Include="Config\IGrammarLoader.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DFAEdge.cs" />
     <Compile Include="DFAState.cs" />
-    <Compile Include="IParserSettings.cs" />
+    <Compile Include="IGrammar.cs" />
     <Compile Include="IVisitor.cs" />
     <Compile Include="LALRAction.cs" />
     <Compile Include="LALRState.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="ParseMessage.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParserException.cs" />
-    <Compile Include="Config\ParserSettings.cs" />
+    <Compile Include="Config\Grammar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reduction.cs" />
     <Compile Include="Rule.cs" />

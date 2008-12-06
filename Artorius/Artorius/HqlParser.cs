@@ -9,9 +9,9 @@ namespace NHibernate.Hql.Ast
 	{
 		private readonly Parser parser;
 
-		public HqlParser(IParserSettings settings)
+		public HqlParser(IGrammar grammar)
 		{
-			parser = new Parser(settings);
+			parser = new Parser(grammar);
 		}
 
 		public INode Parse(string hql)
