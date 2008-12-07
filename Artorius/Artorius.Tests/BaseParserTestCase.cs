@@ -3,6 +3,7 @@ using System.Linq;
 using GoldParsing.Engine;
 using GoldParsing.Engine.Config;
 using NHibernate.Hql.Ast;
+using NHibernate.Hql.Ast.Tree;
 
 namespace Artorius.Tests
 {
@@ -10,6 +11,7 @@ namespace Artorius.Tests
 	{
 		private const string grammarPath = @"..\..\..\Grammar\Hql.cgt";
 		private static readonly IGrammar grammar;
+		private static readonly SyntaxNodeFactory syntaxNodeFactory= new SyntaxNodeFactory();
 
 		static BaseParserTestCase()
 		{
@@ -31,7 +33,7 @@ namespace Artorius.Tests
 			{
 				throw new ArgumentException("Symbol name, from where start, not found");
 			}
-			return new HqlParser(shallowCopy);
+			return new HqlParser(shallowCopy, syntaxNodeFactory);
 		}
 
 		private static Grammar GetShallowCopy(IGrammar orgGrammar)
