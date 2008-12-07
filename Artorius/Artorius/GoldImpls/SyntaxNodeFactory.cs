@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using GoldParsing.Engine;
+using NHibernate.Hql.Ast.Tree;
 
-namespace NHibernate.Hql.Ast.Tree
+namespace NHibernate.Hql.Ast.GoldImpls
 {
 	public class SyntaxNodeFactory : ISyntaxNodeFactory<Reduction, Token>
 	{

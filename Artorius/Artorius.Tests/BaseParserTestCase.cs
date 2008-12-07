@@ -2,8 +2,7 @@ using System;
 using System.Linq;
 using GoldParsing.Engine;
 using GoldParsing.Engine.Config;
-using NHibernate.Hql.Ast;
-using NHibernate.Hql.Ast.Tree;
+using NHibernate.Hql.Ast.GoldImpls;
 
 namespace Artorius.Tests
 {

@@ -3,13 +3,13 @@ using System.IO;
 using System.Text;
 using GoldParsing.Engine;
 
-namespace NHibernate.Hql.Ast
+namespace NHibernate.Hql.Ast.GoldImpls
 {
 	/// <summary>
-	/// The responsibility of HqlParser is parse an HQL-string, using grammar, and create
-	/// the correspondig HQL-syntax-tree
+	/// The responsibility of HqlParser is parse an HQL-string, using grammar, 
+	/// and create the correspondig HQL-syntax-tree
 	/// </summary>
-	public class HqlParser
+	public class HqlParser : IHqlParser<string>
 	{
 		private readonly ISyntaxNodeFactory<Reduction, Token> factory;
 		private readonly Parser parser;
