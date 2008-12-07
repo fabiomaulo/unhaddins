@@ -10,7 +10,7 @@ namespace Artorius.Tests.Parsing
 
 		protected override string SymbolNameFromWhereStart
 		{
-			get { return "Expression"; }
+			get { return "Value"; }
 		}
 
 		#endregion
