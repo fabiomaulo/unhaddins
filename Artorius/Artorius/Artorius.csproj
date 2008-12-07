@@ -51,20 +51,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HqlParser.cs" />
-    <Compile Include="INode.cs" />
-    <Compile Include="INodeVisitor.cs" />
+    <Compile Include="IClauseNode.cs" />
+    <Compile Include="ISyntaxNode.cs" />
+    <Compile Include="ISyntaxNodeFactory.cs" />
+    <Compile Include="ISyntaxNodeVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryParserException.cs" />
     <Compile Include="QueryParsingException.cs" />
     <Compile Include="QuerySyntaxException.cs" />
+    <Compile Include="Tree\SyntaxNodeFactory.cs" />
+    <Compile Include="Tree\AbstractClauseNode.cs" />
+    <Compile Include="Tree\AbstractLiteralNode.cs" />
+    <Compile Include="Tree\AbstractSyntaxNode.cs" />
+    <Compile Include="Tree\AbstractTerminalNode.cs" />
+    <Compile Include="Tree\IntegerLiteral.cs" />
+    <Compile Include="Tree\ValueClause.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoldParsing.Engine\GoldParsing.Engine.csproj">
       <Project>{B2C309FE-1535-4373-B259-DE96DDFE4182}</Project>
       <Name>GoldParsing.Engine</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tree\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

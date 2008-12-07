@@ -5,7 +5,7 @@ using System.Text;
 namespace NHibernate.Hql.Ast
 {
 	[Serializable]
-	public class QueryParsingException : ApplicationException
+	public class QueryParsingException : QueryParserException
 	{
 		protected readonly int column;
 		protected readonly int line;
