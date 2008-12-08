@@ -46,6 +46,10 @@ namespace NHibernate.Hql.Ast.Tree
 			{
 				throw new ArgumentNullException("node");
 			}
+			if(!ReferenceEquals(node.Parent,this))
+			{
+				throw new ArgumentNullException("node", "Invalid node reparenting.");				
+			}
 			children.Add(node);
 			return true;
 		}
