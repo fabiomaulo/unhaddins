@@ -1,22 +1,29 @@
 using System;
+using GoldParsing.Engine;
+using GoldParsing.Engine.Config;
 using NHibernate.Hql.Ast;
+using NHibernate.Hql.Ast.GoldImpls;
 using NUnit.Framework;
 
 namespace Artorius.Tests.Parsing
 {
 	[TestFixture]
-	public class ParserErrorFixture: BaseParserTestCase
+	public class ParserErrorFixture
 	{
-		#region Overrides of BaseParserTestCase
+		public const string GrammarPath = @"..\..\..\Grammar\TestExpression.cgt";
+		private readonly IGrammar grammar;
+		private readonly SyntaxNodeFactory syntaxNodeFactory = new SyntaxNodeFactory();
 
-		protected override string SymbolNameFromWhereStart
+		public ParserErrorFixture()
 		{
-			get { return "Expression"; }
+			var cgl = new CompiledGrammarLoader(GrammarPath);
+			grammar = cgl.Load();
 		}
 
-		#endregion
-
-		[Test]
+		public HqlParser NewParser()
+		{
+			return new HqlParser(grammar, syntaxNodeFactory);
+		}		[Test]
 		public void BaseError()
 		{
 			var parser = NewParser();
