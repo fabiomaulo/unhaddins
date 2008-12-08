@@ -4,7 +4,7 @@ namespace NHibernate.Hql.Ast.Tree
 {
 	public class FloatConstant : AbstractLiteralNode
 	{
-		private readonly Type returnType;
+		private readonly System.Type returnType;
 		private readonly double value;
 
 		internal FloatConstant(IClauseNode parentRule, string originalText) : base(parentRule, originalText)
@@ -32,7 +32,7 @@ namespace NHibernate.Hql.Ast.Tree
 
 		#region Overrides of AbstractLiteralNode
 
-		public override Type ReturnType
+		public override System.Type ReturnType
 		{
 			get { return returnType; }
 		}
