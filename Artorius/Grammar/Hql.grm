@@ -30,7 +30,7 @@ Parameter		= ':'{ID Head}{ID Tail}* | '?'
 ! ------------------------------------------------- Clauses
 <Statement> ::= <SelectClause> <FromClause> | <FromClause>
 
-<SelectClause>::= 'select' <AliasedExpressionList> <FromClause>
+<SelectClause>::= 'select' <AliasedExpressionList>
 
 <FromClause> ::= 'from' <EntityName>
               |  'from' <AliasedEntityNameList>
@@ -46,7 +46,7 @@ Parameter		= ':'{ID Head}{ID Tail}* | '?'
 <AliasedEntityNameList> ::= <AliasedEntityName> ',' <AliasedEntityNameList>
                          |  <AliasedEntityName>
 
-<AliasedExpression> ::= <Expression> as Identifier | <Expression>
+<AliasedExpression> ::= <Expression> 'as' Identifier | <Expression>
 <AliasedExpressionList> ::= <AliasedExpression> ',' <AliasedExpressionList>  | <AliasedExpression>
 
 <Expression>  ::= <Expression> ComparisonOperator  <MathAddExpression>
