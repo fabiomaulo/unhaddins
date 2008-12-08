@@ -1,9 +1,9 @@
-"Name"     = 'Hql'
+"Name"     = 'TestGrammar'
 "Author"   = 'Fabio Maulo'
 "Version"  = '1.0.0'
-"About"    = 'This grammar parses the query language for NHibernate'
+"About"    = 'Initial grammar to create the base structure'
 
-"Start Symbol" = <Statement>
+"Start Symbol" = <Expression>
 
 ! ------------------------------------------------- Sets
 
@@ -27,29 +27,9 @@ HexLiteral		= 0x{Hex Digit}+
 ComparisonOperator	= '>' | '<' | '=' | '>=' | '<=' | '<>' | '!='
 Parameter		= ':'{ID Head}{ID Tail}* | '?'
 
-! ------------------------------------------------- Clauses
-<Statement> ::= <SelectClause> <FromClause> | <FromClause>
-
-<SelectClause>::= 'select' <AliasedExpressionList> <FromClause>
-
-<FromClause> ::= 'from' <EntityName>
-              |  'from' <AliasedEntityNameList>
-
 ! ------------------------------------------------- Rules
 
-<EntityName> ::= Identifier | Path
-
-<AliasedEntityName> ::= <EntityName> Identifier
-                     |  <EntityName> 'as' Identifier
-                     |  Identifier 'in' 'class' <EntityName>
-
-<AliasedEntityNameList> ::= <AliasedEntityName> ',' <AliasedEntityNameList>
-                         |  <AliasedEntityName>
-
-<AliasedExpression> ::= <Expression> as Identifier | <Expression>
-<AliasedExpressionList> ::= <AliasedExpression> ',' <AliasedExpressionList>  | <AliasedExpression>
-
-<Expression>  ::= <Expression> ComparisonOperator  <MathAddExpression>
+<Expression>  ::= <Expression> ComparisonOperator  <MathAddExpression> 
                |  <MathAddExpression> 
 
 <MathAddExpression> ::= <MathAddExpression> '+' <MathMultExpression>
