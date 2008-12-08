@@ -23,7 +23,9 @@ namespace Artorius.Tests.Parsing
 		public HqlParser NewParser()
 		{
 			return new HqlParser(grammar, syntaxNodeFactory);
-		}		[Test]
+		}
+		
+		[Test]
 		public void BaseError()
 		{
 			var parser = NewParser();
