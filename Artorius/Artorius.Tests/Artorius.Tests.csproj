@@ -57,6 +57,7 @@
     <Compile Include="BaseParserTestCaseFixture.cs" />
     <Compile Include="Parsing\ParserErrorFixture.cs" />
     <Compile Include="Parsing\A_SimpleSyntaxTreeFixture.cs" />
+    <Compile Include="Parsing\SyntaxNodeFactoryFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

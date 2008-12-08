@@ -15,13 +15,54 @@ namespace NHibernate.Hql.Ast.GoldImpls
 
 		public SyntaxNodeFactory()
 		{
-			// register know converters
+			// register know default converters
+
 			#region register Terminals
-			RegisterTerminalConverter("IntegerLiteral", IntegerLiteralConvert);
+
+			RegisterTerminalConverter("+", SymbolNodeConvert);
+			RegisterTerminalConverter("-", SymbolNodeConvert);
+			RegisterTerminalConverter("*", SymbolNodeConvert);
+			RegisterTerminalConverter("/", SymbolNodeConvert);
+			RegisterTerminalConverter("(", SymbolNodeConvert);
+			RegisterTerminalConverter(")", SymbolNodeConvert);
+			RegisterTerminalConverter(":", SymbolNodeConvert);
+			RegisterTerminalConverter("?", SymbolNodeConvert);
+			RegisterTerminalConverter("ComparisonOperator", SymbolNodeConvert);
+			RegisterTerminalConverter(".", IgnoreToken);
+			RegisterTerminalConverter("IntegerLiteral", (token, owner) => new IntegerConstant(owner, token.Data.ToString()));
+			RegisterTerminalConverter("FloatLiteral", (token, owner) => new FloatConstant(owner, token.Data.ToString()));
+			RegisterTerminalConverter("HexLiteral", (token, owner) => new FloatConstant(owner, token.Data.ToString()));
+			RegisterTerminalConverter("StringLiteral", (token, owner) => new StringConstant(owner, token.Data.ToString()));
+			RegisterTerminalConverter("Parameter", (token, owner) =>
+			                                       	{
+			                                       		if ("?".Equals(token.Data))
+			                                       		{
+			                                       			return new PositionalParameter(owner);
+			                                       		}
+			                                       		else
+			                                       		{
+			                                       			return new NamedParameter(owner, token.Data.ToString());
+			                                       		}
+			                                       	});
+			RegisterTerminalConverter("Identifier", (token, owner) => new Identifier(owner, token.Data.ToString()));
+			RegisterTerminalConverter("Path", (token, owner) => new IdentifierPath(owner, token.Data.ToString()));
+
 			#endregion
+
 			#region register Clauses
-			RegisterClauseConverter("Value", ValueClauseConvert);
+
+			RegisterClauseConverter("Value", x => new ValueExpression());
+			RegisterClauseConverter("MathAddExpression", x => new MathExpression());
+			RegisterClauseConverter("MathMultExpression", x => new MathExpression());
+			RegisterClauseConverter("MathNegateExpression", x => new MathNegateExpression());
+			RegisterClauseConverter("Expression", x => new Expression());
+
 			#endregion
+		}
+
+		public bool IsRegisterConverter(string key)
+		{
+			return tconverters.ContainsKey(key) || rconverters.ContainsKey(key);
 		}
 
 		public void RegisterTerminalConverter(string key, Func<Token, IClauseNode, ISyntaxNode> converter)
@@ -75,17 +116,17 @@ namespace NHibernate.Hql.Ast.GoldImpls
 		#endregion
 
 		#region Terminals Converters
-		protected ISyntaxNode IntegerLiteralConvert(Token token, IClauseNode owner)
-		{
-			return new IntegerLiteral(owner) {OriginalText = ((string) token.Data)};
-		}
-		#endregion
 
-		#region Clause Converters
-		protected IClauseNode ValueClauseConvert(Reduction reduction)
+		protected static ISyntaxNode IgnoreToken(Token token, IClauseNode owner)
 		{
-			return new ValueClause();
+			return null;
 		}
+
+		protected static ISyntaxNode SymbolNodeConvert(Token token, IClauseNode owner)
+		{
+			return new SymbolNode(owner, token.Data.ToString());
+		}
+
 		#endregion
 	}
 }

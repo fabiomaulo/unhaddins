@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace NHibernate.Hql.Ast.Tree
 {
@@ -50,5 +51,15 @@ namespace NHibernate.Hql.Ast.Tree
 		}
 
 		#endregion
+
+		public override string ToString()
+		{
+			var result = new StringBuilder(50);
+			foreach (var node in children)
+			{
+				result.Append(node);
+			}
+			return result.ToString();
+		}
 	}
 }

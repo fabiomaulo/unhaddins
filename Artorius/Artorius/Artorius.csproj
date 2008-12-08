@@ -65,8 +65,18 @@
     <Compile Include="Tree\AbstractLiteralNode.cs" />
     <Compile Include="Tree\AbstractSyntaxNode.cs" />
     <Compile Include="Tree\AbstractTerminalNode.cs" />
-    <Compile Include="Tree\IntegerLiteral.cs" />
-    <Compile Include="Tree\ValueClause.cs" />
+    <Compile Include="Tree\Expression.cs" />
+    <Compile Include="Tree\FloatConstant.cs" />
+    <Compile Include="Tree\Identifier.cs" />
+    <Compile Include="Tree\IntegerConstant.cs" />
+    <Compile Include="Tree\MathExpression.cs" />
+    <Compile Include="Tree\MathNegateExpression.cs" />
+    <Compile Include="Tree\NamedParameter.cs" />
+    <Compile Include="Tree\IdentifierPath.cs" />
+    <Compile Include="Tree\PositionalParameter.cs" />
+    <Compile Include="Tree\StringConstant.cs" />
+    <Compile Include="Tree\SymbolNode.cs" />
+    <Compile Include="Tree\ValueExpression.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GoldParsing.Engine\GoldParsing.Engine.csproj">

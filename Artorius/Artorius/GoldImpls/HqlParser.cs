@@ -132,7 +132,8 @@ namespace NHibernate.Hql.Ast.GoldImpls
 							child = clause;
 						}
 					}
-					clauseNode.AddChild(child);
+					if (child != null)
+						clauseNode.AddChild(child);
 				}
 			}
 
