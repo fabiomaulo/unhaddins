@@ -8,13 +8,13 @@ namespace Artorius.Tests
 {
 	public abstract class BaseParserTestCase
 	{
-		private const string grammarPath = @"..\..\..\Grammar\Hql.cgt";
+		public const string GrammarPath = @"..\..\..\Grammar\Hql.cgt";
 		private static readonly IGrammar grammar;
 		private static readonly SyntaxNodeFactory syntaxNodeFactory= new SyntaxNodeFactory();
 
 		static BaseParserTestCase()
 		{
-			var cgl = new CompiledGrammarLoader(grammarPath);
+			var cgl = new CompiledGrammarLoader(GrammarPath);
 			grammar = cgl.Load();
 		}
 
