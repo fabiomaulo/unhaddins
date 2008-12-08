@@ -8,7 +8,7 @@ namespace NHibernate.Hql.Ast.Tree
 
 		#region Overrides of AbstractLiteralNode
 
-		public override Type ReturnType
+		public override System.Type ReturnType
 		{
 			get { return typeof (string); }
 		}

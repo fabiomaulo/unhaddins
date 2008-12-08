@@ -14,7 +14,7 @@ namespace NHibernate.Hql.Ast.Tree
 		}
 
 		public string OriginalText { get; internal set; }
-		public abstract Type ReturnType { get; }
+		public abstract System.Type ReturnType { get; }
 
 		public override string ToString()
 		{
