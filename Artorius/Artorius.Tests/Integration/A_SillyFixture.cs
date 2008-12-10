@@ -42,7 +42,7 @@ namespace Artorius.Tests.Integration
 			using (var session = sessions.OpenSession())
 			using (var tx = session.BeginTransaction())
 			{
-				var animal = new Silly { Description = "Reptile" };
+				var animal = new Silly { Description = "Artorius fight behind me." };
 				savedId=session.Save(animal);
 				tx.Commit();
 			}
