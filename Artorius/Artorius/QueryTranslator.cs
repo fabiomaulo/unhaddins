@@ -39,7 +39,11 @@ namespace NHibernate.Hql.Ast
 
 		public void Compile(IDictionary<string, string> replacements, bool shallow)
 		{
+			// phase 1 : string parse cheking grammar and partial lexer
 			ISyntaxNode root = parser.Parse(query);
+			// phase 2 : walk the nHQL-expression-tree cheking the other lexer part and creating the SQL
+			// An example of the phase2-lexer-check is: "from current_time_stamp"
+			// "current_time_stamp" is a valid Identifier but can't be used the "from" clause
 		}
 
 		public IList List(ISessionImplementor session, QueryParameters queryParameters)
