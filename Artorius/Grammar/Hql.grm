@@ -9,57 +9,205 @@
 
 {ID Head}      = {Letter} + [_]
 {ID Tail}      = {Alphanumeric} + [_]
-{String Chars} = {Printable} + {HT} - ["\]
+{String Chars} = {Printable} + {HT} - [''\]
 {Hex Digit} = {Digit} + [abcdefABCDEF]
 
 ! ------------------------------------------------- Terminals
 
-Comment Start		= '/*'
-Comment End		= '*/'
-Comment Line		= '--'
+Comment Start            = '/*'
+Comment End            = '*/'
+Comment Line            = '--'
 
-Identifier		= {ID Head}{ID Tail}*
-Path			= {ID Head}{ID Tail}* ('.' {ID Head}{ID Tail}*)+
-StringLiteral		= '"' ( {String Chars} | '\' {Printable} )* '"'
-IntegerLiteral	= {Digit}+
-FloatLiteral		= {Digit}+'.'{Digit}+
-HexLiteral		= 0x{Hex Digit}+
-ComparisonOperator	= '>' | '<' | '=' | '>=' | '<=' | '<>' | '!='
-Parameter		= ':'{ID Head}{ID Tail}* | '?'
+Identifier = {ID Head}{ID Tail}*
+Path = {ID Head}{ID Tail}* ('.' {ID Head}{ID Tail}*)+
+StringLiteral = '' ( {String Chars} | '\' {Printable} | '''' )* ''
+IntegerLiteral = {Digit}+
+FloatLiteral = {Digit}+'.'{Digit}+ | {Digit}+'.'{Digit}+'e'{Digit}+
+HexLiteral = 0x{Hex Digit}+
+ComparisonOperator = '>' | '<' | '=' | '>=' | '<=' | '<>' | '!='
+Parameter = ':'{ID Head}{ID Tail}* | '?'
 
 ! ------------------------------------------------- Clauses
 <Statement> ::= <SelectClause> <FromClause> | <FromClause>
 
-<SelectClause>::= 'select' <AliasedExpressionList>
+<SelectClause>::= SELECT <Restriction> <AliasedExpressionList>
+               |  SELECT NEW <EntityName>'('<ExpressionList>')'
 
-<FromClause> ::= 'from' <EntityName>
-              |  'from' <AliasedEntityNameList>
+<FromClause> ::= FROM <AliasedEntityNameList> <JoinClauseChain> <WhereClause> <GroupByClause> <OrderByClause>
+
+<JoinClauseChain> ::= <JoinClause> <JoinClauseChain>
+                   |  <JoinClause> ',' <AliasedEntityNameList> <JoinClauseChain>
+                   |  
+
+<JoinClause> ::= <JoinDefinition> <WithClause>
+
+<JoinDefinition> ::= LEFT JOIN <AliasedEntityName>
+                  |  RIGHT JOIN <AliasedEntityName>
+                  |  LEFT OUTER JOIN <AliasedEntityName>
+                  |  RIGHT OUTER JOIN <AliasedEntityName>
+                  |  FULL JOIN <AliasedEntityName>
+                  |  INNER JOIN <AliasedEntityName>
+                  |  LEFT JOIN FETCH <AliasedEntityName>
+                  |  LEFT OUTER JOIN FETCH <AliasedEntityName>
+                  |  INNER JOIN FETCH <AliasedEntityName>
+                  |  JOIN <AliasedEntityName>
+                  |  JOIN FETCH <AliasedEntityName>
+
+<WithClause>      ::= WITH <Expression>
+                   |  
+
+<WhereClause> ::= WHERE <Expression>
+               |  
+
+<GroupByClause>::= 'GROUP BY' <ExpressionList> <HavingClause>
+                |  
+
+<HavingClause> ::= HAVING <Expression>
+                |  
+
+<OrderByClause>::= 'ORDER BY' <OrderList>
+                |  
 
 ! ------------------------------------------------- Rules
+
+<OrderList>::= <Expression> <OrderType> ',' <OrderList>
+            |  <Expression> <OrderType>
+
+<OrderType> ::= ASC
+             |  DESC
+             |  ASCENDING
+             |  DESCENDING
+             |  
+
+<Restriction> ::= ALL
+               |  DISTINCT
+               |  
+
+<AggregateExpression> ::= COUNT '(' '*' ')'
+                       |  COUNT '(' <Restriction> <EntityName> ')'
+                       |  COUNT '(' <Restriction> <CollectionExpression> ')'
+                       |  AVG '(' <MathAddExpression> ')'
+                       |  MIN '(' <MathAddExpression> ')'
+                       |  MAX '(' <MathAddExpression> ')'
+
+<FunctionExpression>::= Identifier '('')'
+                     |  Identifier '('<ExpressionList>')'
+                     |  CAST'('<Expression> AS Identifier')'
+
+<CollectionExpression>::= ELEMENTS'(' Path ')'
+                       |  INDICES'(' Path ')'
 
 <EntityName> ::= Identifier | Path
 
 <AliasedEntityName> ::= <EntityName> Identifier
-                     |  <EntityName> 'as' Identifier
-                     |  Identifier 'in' 'class' <EntityName>
+                     |  <EntityName> AS Identifier
+                     |  Identifier IN CLASS <EntityName>
+                     |  <EntityName>
 
 <AliasedEntityNameList> ::= <AliasedEntityName> ',' <AliasedEntityNameList>
                          |  <AliasedEntityName>
 
-<AliasedExpression> ::= <Expression> 'as' Identifier | <Expression>
+<AliasedExpression> ::= <Expression> AS Identifier | <Expression>
 <AliasedExpressionList> ::= <AliasedExpression> ',' <AliasedExpressionList>  | <AliasedExpression>
 
-<Expression>  ::= <Expression> ComparisonOperator  <MathAddExpression>
-               |  <MathAddExpression> 
+<Expression> ::= <AndExpression> OR <Expression>
+              |  <AndExpression>
+
+<AndExpression> ::= <NotExpression> AND <AndExpression>
+                 |  <NotExpression>
+
+<NotExpression> ::= NOT <PredicateExpression>
+                 |  <PredicateExpression>
+
+<QuantifiedExpression>::= SOME Path
+                       |  ALL Path
+                       |  ANY Path
+                       |  SOME <CollectionExpression>
+                       |  ALL <CollectionExpression>
+                       |  ANY <CollectionExpression>
+                       |  SOME '(' <Statement> ')'
+                       |  ALL '(' <Statement> ')'
+                       |  ANY '(' <Statement> ')'
+
+<PredicateExpression> ::= <MathAddExpression> BETWEEN <MathAddExpression> AND <MathAddExpression>
+                       |  <MathAddExpression> NOT BETWEEN <MathAddExpression> AND <MathAddExpression>
+                       |  <Value> IS NOT NULL
+                       |  <Value> IS NULL
+                       |  <Value> IS EMPTY
+                       |  <Value> IS NOT EMPTY
+                       |  <MathAddExpression> LIKE <StringValueExpression> <LikeEscape>
+                       |  <MathAddExpression> NOT LIKE <StringValueExpression> <LikeEscape>
+                       |  <MathAddExpression> IN <Tuple>
+                       |  <MathAddExpression> NOT IN <Tuple>
+                       |  <MathAddExpression> IN <CollectionExpression>
+                       |  <MathAddExpression> NOT IN <CollectionExpression>
+                       |  <MemberPredicate>
+                       |  <ExistsPredicate>
+                       |  <MathAddExpression> ComparisonOperator <MathAddExpression>
+                       |  <MathAddExpression> ComparisonOperator <QuantifiedExpression>
+                       |  <MathAddExpression>
+
+<LikeEscape>::= ESCAPE concatenation
+             |  
+
+<ExistsPredicate>::= EXISTS Path
+                  |  EXISTS <CollectionExpression>
+                  |  EXISTS '(' <Statement> ')'
+
+<MemberPredicate>::= Path MEMBER OF Path
+                  |  Path MEMBER Path
 
 <MathAddExpression> ::= <MathAddExpression> '+' <MathMultExpression>
-               |  <MathAddExpression> '-' <MathMultExpression>
-               |  <MathMultExpression>
+                     |  <MathAddExpression> '-' <MathMultExpression>
+                     |  <MathMultExpression>
 
-<MathMultExpression>    ::= <MathMultExpression> '*' <MathNegateExpression> 
-               |  <MathMultExpression> '/' <MathNegateExpression> 
-               |  <MathNegateExpression> 
+<MathMultExpression>    ::= <MathMultExpression> '*' <MathNegateExpression>
+                         |  <MathMultExpression> '/' <MathNegateExpression>
+                         |  <MathNegateExpression>
 
-<MathNegateExpression>  ::= '-' <Value> |  <Value> 
+<MathNegateExpression>  ::= '-' <Value>
+                         |  <Value>
 
-<Value>       ::= Identifier | Path | StringLiteral | IntegerLiteral | FloatLiteral | HexLiteral | Parameter | '(' <Expression> ')'
+! ------------------------------ CASE rules ----------------------------
+
+<CaseExpression>::= <SimpleCaseExpression> | <SearchedCaseExpression>
+
+<SimpleCaseExpression>::= CASE <Value> <SimpleWhenClause> <ElseClause> END
+<SearchedCaseExpression>::= CASE <SearchedWhenClause> <ElseClause> END
+
+<SimpleWhenClause>::= WHEN <Value> THEN <CaseResult>
+                   |  WHEN <Value> THEN <CaseResult> <SimpleWhenClause>
+
+<SearchedWhenClause>::= WHEN <Expression> THEN <CaseResult>
+                     |  WHEN <Expression> THEN <CaseResult> <SearchedWhenClause>
+
+<CaseResult>::= <MathAddExpression> | NULL
+<ElseClause> ::= ELSE <CaseResult>
+              |  
+! ------------------------------ CASE rules END ------------------------
+<IndexedExpression>::= Path '[' <Expression> ']' '.' Path
+                    |  Path '[' <Expression> ']' '.' Identifier
+                    |  Path '[' <Expression> ']'
+
+<StringValueExpression>::= StringLiteral | Parameter
+
+!----- <ConcatenationExpression>::= <StringValueExpression> '||' <StringValueExpression>
+
+<Value>       ::= Identifier
+               |  Path
+               |  <StringValueExpression>
+               |  IntegerLiteral
+               |  FloatLiteral
+               |  HexLiteral
+               |  <Tuple>
+               |  <AggregateExpression>
+               |  <FunctionExpression>
+               |  <CaseExpression>
+               |  <IndexedExpression>
+               |  <CollectionExpression>
+
+<Tuple> ::= '(' <Statement> ')'
+         |  '(' <ExpressionList> ')'
+
+<ExpressionList> ::= <Expression> ',' <ExpressionList>
+                  |  <Expression>

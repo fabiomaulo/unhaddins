@@ -62,6 +62,7 @@
     <Compile Include="GoldImpls\HqlParser.cs" />
     <Compile Include="IClauseNode.cs" />
     <Compile Include="IHqlParser.cs" />
+    <Compile Include="ISqlQueryContext.cs" />
     <Compile Include="ISyntaxNode.cs" />
     <Compile Include="ISyntaxNodeFactory.cs" />
     <Compile Include="ISyntaxNodeVisitor.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="QuerySyntaxException.cs" />
     <Compile Include="GoldImpls\SyntaxNodeFactory.cs" />
     <Compile Include="QueryTranslator.cs" />
+    <Compile Include="SqlQueryContext.cs" />
     <Compile Include="Tree\AbstractClauseNode.cs" />
     <Compile Include="Tree\AbstractLiteralNode.cs" />
     <Compile Include="Tree\AbstractSyntaxNode.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Tree\NamedParameter.cs" />
     <Compile Include="Tree\IdentifierPath.cs" />
     <Compile Include="Tree\NhqlStatement.cs" />
+    <Compile Include="Tree\NoConvertedExpression.cs" />
     <Compile Include="Tree\PositionalParameter.cs" />
     <Compile Include="Tree\SelectClause.cs" />
     <Compile Include="Tree\StringConstant.cs" />
