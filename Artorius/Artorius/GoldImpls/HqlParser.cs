@@ -112,28 +112,33 @@ namespace NHibernate.Hql.Ast.GoldImpls
 
 			public void Visit(Reduction reduction)
 			{
-				IClauseNode clauseNode = ConvertRule(reduction);
-				reduction.Tag = clauseNode;
-				foreach (var token in reduction.Tokens)
+				if (reduction.Tokens.Count > 0)
 				{
-					ISyntaxNode child=null;
-					if (token.Kind == SymbolType.Terminal)
+					IClauseNode clauseNode = ConvertRule(reduction);
+					reduction.Tag = clauseNode;
+					foreach (var token in reduction.Tokens)
 					{
-						child = ConvertTerminal(token, clauseNode);
-					}
-					else
-					{
-						var cr = token.Data as Reduction;
-						if (cr != null)
+						if (token.Kind == SymbolType.Terminal)
 						{
-							cr.Accept(this);
-							var clause = (IClauseNode)cr.Tag;
-							clause.SetParent(clauseNode);
-							child = clause;
+							ISyntaxNode child = ConvertTerminal(token, clauseNode);
+							if (child != null)
+							clauseNode.AddChild(child);
+						}
+						else
+						{
+							var cr = token.Data as Reduction;
+							if (cr != null)
+							{
+								cr.Accept(this);
+								var clause = (IClauseNode) cr.Tag;
+								if (clause != null)
+								{
+									clause.SetParent(clauseNode);
+									clauseNode.AddChild(clause);
+								}
+							}
 						}
 					}
-					if (child != null)
-						clauseNode.AddChild(child);
 				}
 			}
 

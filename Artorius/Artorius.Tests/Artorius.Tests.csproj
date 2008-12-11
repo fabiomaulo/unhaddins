@@ -55,10 +55,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework.extensions, Version=2.5.0.8332, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Lib\nunit.framework.extensions.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -76,6 +72,7 @@
     <Compile Include="BaseParserTestCase.cs" />
     <Compile Include="Integration\A_SillyFixture.cs" />
     <Compile Include="Integration\Silly.cs" />
+    <Compile Include="Parsing\GrammarFixture.cs" />
     <Compile Include="Parsing\ParserErrorFixture.cs" />
     <Compile Include="Parsing\SyntaxNodeFactoryFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -29,6 +29,7 @@ namespace NHibernate.Hql.Ast
 													 IHqlParser<string> parser, ISessionFactoryImplementor factory)
 		{
 			this.queryIdentifier = queryIdentifier;
+			// NOTE take care. the query here was "pre-parsed" by the QuerySplitter; why? (probably unneeded)
 			this.query = query;
 			this.filters = filters;
 			this.parser = parser;
