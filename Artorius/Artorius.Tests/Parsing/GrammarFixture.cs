@@ -75,7 +75,7 @@ namespace Artorius.Tests.Parsing
 from Cat cat
     join cat.kittens kitten
 group by cat.id, cat.weight");
-			//TODO parse("select firstName||' '||initial||' '||upper(lastName) from Person");
+			//parse("select firstName||' '||initial||' '||upper(lastName) from Person");
 			parse("select distinct cat.name from Cat cat");
 			parse("select count(distinct cat.name), count(cat) from Cat cat");
 		}
@@ -1118,6 +1118,12 @@ group by cat.id, cat.weight");
 			parse("delete from EntityWithCrazyCompositeKey e where e.id.id = 1 and e.id.otherId = 2");
 		}
 		#endregion
+
+		[Test]
+		public void LikeWithEscape()
+		{
+			parse("from Animal a where a.description like 'x%ax%' escape 'x'");
+		}
 
 	}
 }

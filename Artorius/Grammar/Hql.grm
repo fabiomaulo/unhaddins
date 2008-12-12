@@ -179,7 +179,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                        |  <MathAddExpression> NotEqualOperator <QuantifiedExpression>
                        |  <MathAddExpression>
 
-<LikeEscape>::= ESCAPE concatenation
+<LikeEscape>::= ESCAPE StringLiteral 
              |  
 
 <ExistsPredicate>::= EXISTS Path
