@@ -11,9 +11,9 @@ namespace Artorius.Tests.Parsing
 	public class GrammarFixture
 	{
 		public const string GrammarPath = @"..\..\..\Grammar\Hql.cgt";
-		private static readonly IGrammar grammar;
+		private readonly IGrammar grammar;
 
-		static GrammarFixture()
+		public GrammarFixture()
 		{
 			var cgl = new CompiledGrammarLoader(GrammarPath);
 			grammar = cgl.Load();
@@ -960,7 +960,7 @@ group by cat.id, cat.weight");
 		{
 			// Super evil badness... a legitimate keyword!
 			parse("from Order order");
-			//parse( "from Order order join order.group" );
+			parse( "from Order order join order.group" );
 			parse("from X x order by x.group.by.from");
 			parse("from Order x order by x.order.group.by.from");
 			parse("select order.id from Order order");
@@ -1038,6 +1038,84 @@ group by cat.id, cat.weight");
 			parse("from Animal a inner join a.mother as m with m.bodyWeight < :someLimit");
 			parse("from Human h inner join h.friends as f with f.nickName like 'bubba'");
 			parse("from Human h where exists(from h.friends)");
+		}
+
+		[Test]
+		public void ExecutableQueries()
+		{
+			parse("update NonExistentEntity e set e.someProp = ?");
+			parse("delete from Vehicle");
+			parse("delete from Car");
+			parse("update BooleanLiteralEntity set yesNoBoolean = :b1, trueFalseBoolean = :b2, zeroOneBoolean = :b3");
+			parse("update BooleanLiteralEntity set yesNoBoolean = true, trueFalseBoolean = true, zeroOneBoolean = true");
+			parse("insert into Pickup (id, vin, owner) select id, vin, owner from Car");
+			parse("delete Vehicle");
+			parse("insert into Animal (description, bodyWeight, mother) select description, bodyWeight, mother from Human");
+			parse("insert into Pickup (owner, vin, id) select id, vin, owner from Car");
+			parse("insert into Human (id, bodyWeight) select id, bodyWeight from Lizard");
+			parse("delete Animal where mother is not null");
+			parse("delete Animal where father is not null");
+			parse("delete Animal");
+			parse("insert into Joiner (name, joinedName) select vin, owner from Car");
+			parse("delete Joiner");
+			parse("insert into PettingZoo (name) select name from Zoo");
+			parse("insert into IntegerVersioned ( name ) select name from IntegerVersioned");
+			parse("delete IntegerVersioned");
+			parse("insert into TimestampVersioned ( name ) select name from TimestampVersioned");
+			parse("insert into Animal (description, bodyWeight) select h.description, h.bodyWeight from Human h where h.mother.mother is not null");
+			parse("update Human set Human.description = 'xyz' where Human.id = 1 and Human.description is null");
+			string updateQryString = "update Human h " +
+												 "set h.description = 'updated' " +
+												 "where exists (" +
+												 "      select f.id " +
+												 "      from h.friends f " +
+												 "      where f.name.last = 'Public' " +
+												 ")";
+
+			parse(updateQryString);
+			updateQryString = "update SimpleEntityWithAssociation e " +
+												 "set e.name = 'updated' " +
+												 "where exists (" +
+												 "      select a.id " +
+												 "      from e.associatedEntities a " +
+												 "      where a.name = 'one-to-many-association' " +
+												 ")";
+			parse(updateQryString);
+			updateQryString = "update SimpleEntityWithAssociation e " +
+									 "set e.name = 'updated' " +
+									 "where exists (" +
+									 "      select a.id " +
+									 "      from e.manyToManyAssociatedEntities a " +
+									 "      where a.name = 'many-to-many-association' " +
+									 ")";
+			parse(updateQryString);
+			parse("update versioned IntegerVersioned set name = name");
+			parse("update Human set name.first = :correction where id = :id");
+			parse("update Animal a set a.mother = null where a.id = 2");
+			parse("update Human set mother.name.initial = :initial");
+			parse("delete Human where mother is not null");
+			parse("update PettingZoo set name = name");
+			parse("update PettingZoo pz set pz.name = pz.name where pz.id = :id");
+			parse("update Zoo as z set z.name = z.name");
+			parse("update Zoo as z set name = name where id = :id");
+			parse("update Animal set description = description where description = :desc");
+			parse("update Animal set description = :newDesc where description = :desc");
+			parse("update Animal set bodyWeight = bodyWeight + :w1 + :w2");
+			parse("update Mammal set description = description");
+			parse("update Mammal set bodyWeight = 25");
+			parse("update Mammal set bodyWeight = ( select max(bodyWeight) from Animal )");
+			parse("update Vehicle set owner = 'Steve'");
+			parse("update Vehicle set owner = null where owner = 'Steve'");
+			parse("delete Vehicle where owner is null");
+			parse("update PettingZoo set address.city = null");
+			parse("delete Zoo where address.city is null");
+			parse("update Mammal set bodyWeight = null");
+			parse("delete SimpleEntityWithAssociation e where size( e.associatedEntities ) = 0 and e.name like '%'");
+			parse("delete from Animal as a where a.id = :id");
+			parse("delete Animal where id = :id");
+			parse("delete from User u where u not in (select u from User u)");
+			parse("delete EntityWithCrazyCompositeKey where id.id = 1 and id.otherId = 2");
+			parse("delete from EntityWithCrazyCompositeKey e where e.id.id = 1 and e.id.otherId = 2");
 		}
 		#endregion
 

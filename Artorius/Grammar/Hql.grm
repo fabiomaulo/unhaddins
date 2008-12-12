@@ -3,7 +3,7 @@
 "Version"  = '1.0.0'
 "About"    = 'This grammar parses the query language for NHibernate'
 
-"Start Symbol" = <Statement>
+"Start Symbol" = <Query>
 
 ! ------------------------------------------------- Sets
 
@@ -24,11 +24,30 @@ StringLiteral = '' ( {String Chars} | '\' {Printable} | '''' )* ''
 IntegerLiteral = {Digit}+
 FloatLiteral = {Digit}+'.'{Digit}+ | {Digit}+'.'{Digit}+'e'{Digit}+
 HexLiteral = 0x{Hex Digit}+
-ComparisonOperator = '>' | '<' | '=' | '>=' | '<=' | '<>' | '!='
+NotEqualOperator = '<>' | '!=' | '^='
 Parameter = ':'{ID Head}{ID Tail}* | '?'
 
 ! ------------------------------------------------- Clauses
-<Statement> ::= <SelectClause> <FromClause> | <FromClause>
+<Query> ::= <SelectStatement>
+         |  <DeleteStatement>
+         |  <UpdateStatement>
+         |  <InsertStatement>
+
+<DeleteStatement>::= DELETE <AliasedEntityName> <WhereClause>
+                  |  DELETE FROM <AliasedEntityName> <WhereClause>
+
+<UpdateStatement>::= UPDATE <AliasedEntityName> SET <AssignList> <WhereClause>
+                  |  UPDATE VERSIONED <AliasedEntityName> SET <AssignList> <WhereClause>
+                  |  UPDATE FROM <AliasedEntityName> SET <AssignList> <WhereClause>
+                  |  UPDATE VERSIONED FROM <AliasedEntityName> SET <AssignList> <WhereClause>
+
+<AssignList> ::= <EntityName> '=' <Expression> ',' <AssignList>
+              |  <EntityName> '=' <Expression>
+
+<InsertStatement>::= INSERT INTO <EntityName> '(' <EntityNameList> ')' <SelectStatement>
+
+<SelectStatement> ::= <SelectClause> <FromClause>
+                   |  <FromClause>
 
 <SelectClause>::= SELECT <Restriction> <AliasedExpressionList>
                |  SELECT NEW <EntityName>'('<ExpressionList>')'
@@ -98,6 +117,8 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                        |  INDICES'(' Path ')'
 
 <EntityName> ::= Identifier | Path
+<EntityNameList> ::= <EntityName> ',' <EntityNameList>
+                  |  <EntityName>
 
 <AliasedEntityName> ::= <EntityName> Identifier
                      |  <EntityName> AS Identifier
@@ -126,9 +147,9 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                        |  SOME <CollectionExpression>
                        |  ALL <CollectionExpression>
                        |  ANY <CollectionExpression>
-                       |  SOME '(' <Statement> ')'
-                       |  ALL '(' <Statement> ')'
-                       |  ANY '(' <Statement> ')'
+                       |  SOME '(' <SelectStatement> ')'
+                       |  ALL '(' <SelectStatement> ')'
+                       |  ANY '(' <SelectStatement> ')'
 
 <PredicateExpression> ::= <MathAddExpression> BETWEEN <MathAddExpression> AND <MathAddExpression>
                        |  <MathAddExpression> NOT BETWEEN <MathAddExpression> AND <MathAddExpression>
@@ -144,8 +165,18 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                        |  <MathAddExpression> NOT IN <CollectionExpression>
                        |  <MemberPredicate>
                        |  <ExistsPredicate>
-                       |  <MathAddExpression> ComparisonOperator <MathAddExpression>
-                       |  <MathAddExpression> ComparisonOperator <QuantifiedExpression>
+                       |  <MathAddExpression> '>' <MathAddExpression>
+                       |  <MathAddExpression> '<' <MathAddExpression>
+                       |  <MathAddExpression> '=' <MathAddExpression>
+                       |  <MathAddExpression> '>=' <MathAddExpression>
+                       |  <MathAddExpression> '<=' <MathAddExpression>
+                       |  <MathAddExpression> NotEqualOperator <MathAddExpression>
+                       |  <MathAddExpression> '>' <QuantifiedExpression>
+                       |  <MathAddExpression> '<' <QuantifiedExpression>
+                       |  <MathAddExpression> '=' <QuantifiedExpression>
+                       |  <MathAddExpression> '>=' <QuantifiedExpression>
+                       |  <MathAddExpression> '<=' <QuantifiedExpression>
+                       |  <MathAddExpression> NotEqualOperator <QuantifiedExpression>
                        |  <MathAddExpression>
 
 <LikeEscape>::= ESCAPE concatenation
@@ -153,7 +184,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 
 <ExistsPredicate>::= EXISTS Path
                   |  EXISTS <CollectionExpression>
-                  |  EXISTS '(' <Statement> ')'
+                  |  EXISTS '(' <SelectStatement> ')'
 
 <MemberPredicate>::= Path MEMBER OF Path
                   |  Path MEMBER Path
@@ -182,7 +213,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 <SearchedWhenClause>::= WHEN <Expression> THEN <CaseResult>
                      |  WHEN <Expression> THEN <CaseResult> <SearchedWhenClause>
 
-<CaseResult>::= <MathAddExpression> | NULL
+<CaseResult>::= <MathAddExpression>
 <ElseClause> ::= ELSE <CaseResult>
               |  
 ! ------------------------------ CASE rules END ------------------------
@@ -200,6 +231,9 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                |  IntegerLiteral
                |  FloatLiteral
                |  HexLiteral
+               |  NULL
+               |  TRUE
+               |  FALSE
                |  <Tuple>
                |  <AggregateExpression>
                |  <FunctionExpression>
@@ -207,7 +241,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                |  <IndexedExpression>
                |  <CollectionExpression>
 
-<Tuple> ::= '(' <Statement> ')'
+<Tuple> ::= '(' <SelectStatement> ')'
          |  '(' <ExpressionList> ')'
 
 <ExpressionList> ::= <Expression> ',' <ExpressionList>
