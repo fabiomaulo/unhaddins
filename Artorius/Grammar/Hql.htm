@@ -217,10 +217,90 @@ H2
 <br>
 <h2>Syntax</h2>
 <br>
-<a name=statement></a>
+<a name=query></a>
 <table class="ssSyntaxTable">
 <tr>
-  <td nowrap><span class="ssNonTerminal"><a href=#statement>&lt;Statement&gt;</a></span></td>
+  <td nowrap><span class="ssNonTerminal"><a href=#query>&lt;Query&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#deletestatement">&lt;DeleteStatement&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#updatestatement">&lt;UpdateStatement&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#insertstatement">&lt;InsertStatement&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=deletestatement></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#deletestatement>&lt;DeleteStatement&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssTerminal">DELETE</span> <span class="ssNonTerminal"><a href="#aliasedentityname">&lt;AliasedEntityName&gt;</a></span> <span class="ssNonTerminal"><a href="#whereclause">&lt;WhereClause&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">DELETE</span> <span class="ssTerminal">FROM</span> <span class="ssNonTerminal"><a href="#aliasedentityname">&lt;AliasedEntityName&gt;</a></span> <span class="ssNonTerminal"><a href="#whereclause">&lt;WhereClause&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=updatestatement></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#updatestatement>&lt;UpdateStatement&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssTerminal">UPDATE</span> <span class="ssNonTerminal"><a href="#aliasedentityname">&lt;AliasedEntityName&gt;</a></span> <span class="ssTerminal">SET</span> <span class="ssNonTerminal"><a href="#assignlist">&lt;AssignList&gt;</a></span> <span class="ssNonTerminal"><a href="#whereclause">&lt;WhereClause&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">UPDATE</span> <span class="ssTerminal">VERSIONED</span> <span class="ssNonTerminal"><a href="#aliasedentityname">&lt;AliasedEntityName&gt;</a></span> <span class="ssTerminal">SET</span> <span class="ssNonTerminal"><a href="#assignlist">&lt;AssignList&gt;</a></span> <span class="ssNonTerminal"><a href="#whereclause">&lt;WhereClause&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">UPDATE</span> <span class="ssTerminal">FROM</span> <span class="ssNonTerminal"><a href="#aliasedentityname">&lt;AliasedEntityName&gt;</a></span> <span class="ssTerminal">SET</span> <span class="ssNonTerminal"><a href="#assignlist">&lt;AssignList&gt;</a></span> <span class="ssNonTerminal"><a href="#whereclause">&lt;WhereClause&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">UPDATE</span> <span class="ssTerminal">VERSIONED</span> <span class="ssTerminal">FROM</span> <span class="ssNonTerminal"><a href="#aliasedentityname">&lt;AliasedEntityName&gt;</a></span> <span class="ssTerminal">SET</span> <span class="ssNonTerminal"><a href="#assignlist">&lt;AssignList&gt;</a></span> <span class="ssNonTerminal"><a href="#whereclause">&lt;WhereClause&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=assignlist></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#assignlist>&lt;AssignList&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#entityname">&lt;EntityName&gt;</a></span> <span class="ssTerminal">'='</span> <span class="ssNonTerminal"><a href="#expression">&lt;Expression&gt;</a></span> <span class="ssTerminal">','</span> <span class="ssNonTerminal"><a href="#assignlist">&lt;AssignList&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#entityname">&lt;EntityName&gt;</a></span> <span class="ssTerminal">'='</span> <span class="ssNonTerminal"><a href="#expression">&lt;Expression&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=insertstatement></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#insertstatement>&lt;InsertStatement&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssTerminal">INSERT</span> <span class="ssTerminal">INTO</span> <span class="ssNonTerminal"><a href="#entityname">&lt;EntityName&gt;</a></span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#entitynamelist">&lt;EntityNameList&gt;</a></span> <span class="ssTerminal">')'</span> <span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=selectstatement></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#selectstatement>&lt;SelectStatement&gt;</a></span></td>
   <td align="center">::=</td>
   <td nowrap><span class="ssNonTerminal"><a href="#selectclause">&lt;SelectClause&gt;</a></span> <span class="ssNonTerminal"><a href="#fromclause">&lt;FromClause&gt;</a></span> </td>
 </tr>
@@ -536,6 +616,19 @@ H2
   <td nowrap><span class="ssTerminal">Path</span> </td>
 </tr>
 </table><br>
+<a name=entitynamelist></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#entitynamelist>&lt;EntityNameList&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#entityname">&lt;EntityName&gt;</a></span> <span class="ssTerminal">','</span> <span class="ssNonTerminal"><a href="#entitynamelist">&lt;EntityNameList&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#entityname">&lt;EntityName&gt;</a></span> </td>
+</tr>
+</table><br>
 <a name=aliasedentityname></a>
 <table class="ssSyntaxTable">
 <tr>
@@ -677,17 +770,17 @@ H2
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssTerminal">SOME</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#statement">&lt;Statement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
+  <td nowrap><span class="ssTerminal">SOME</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssTerminal">ALL</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#statement">&lt;Statement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
+  <td nowrap><span class="ssTerminal">ALL</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssTerminal">ANY</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#statement">&lt;Statement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
+  <td nowrap><span class="ssTerminal">ANY</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
 </tr>
 </table><br>
 <a name=predicateexpression></a>
@@ -725,12 +818,12 @@ H2
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">LIKE</span> <span class="ssNonTerminal"><a href="#stringvalueexpression">&lt;StringValueExpression&gt;</a></span> <span class="ssNonTerminal"><a href="#likeescape">&lt;LikeEscape&gt;</a></span> </td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">LIKE</span> <span class="ssNonTerminal"><a href="#concatenationexpression">&lt;ConcatenationExpression&gt;</a></span> <span class="ssNonTerminal"><a href="#likeescape">&lt;LikeEscape&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">NOT</span> <span class="ssTerminal">LIKE</span> <span class="ssNonTerminal"><a href="#stringvalueexpression">&lt;StringValueExpression&gt;</a></span> <span class="ssNonTerminal"><a href="#likeescape">&lt;LikeEscape&gt;</a></span> </td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">NOT</span> <span class="ssTerminal">LIKE</span> <span class="ssNonTerminal"><a href="#concatenationexpression">&lt;ConcatenationExpression&gt;</a></span> <span class="ssNonTerminal"><a href="#likeescape">&lt;LikeEscape&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
@@ -765,12 +858,62 @@ H2
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">ComparisonOperator</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&gt;'</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">ComparisonOperator</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&lt;'</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'='</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&gt;='</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&lt;='</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">NotEqualOperator</span> <span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&gt;'</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&lt;'</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'='</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&gt;='</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">'&lt;='</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> <span class="ssTerminal">NotEqualOperator</span> <span class="ssNonTerminal"><a href="#quantifiedexpression">&lt;QuantifiedExpression&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
@@ -783,7 +926,7 @@ H2
 <tr>
   <td nowrap><span class="ssNonTerminal"><a href=#likeescape>&lt;LikeEscape&gt;</a></span></td>
   <td align="center">::=</td>
-  <td nowrap><span class="ssTerminal">ESCAPE</span> <span class="ssTerminal">concatenation</span> </td>
+  <td nowrap><span class="ssTerminal">ESCAPE</span> <span class="ssTerminal">StringLiteral</span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
@@ -806,7 +949,7 @@ H2
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
-  <td nowrap><span class="ssTerminal">EXISTS</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#statement">&lt;Statement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
+  <td nowrap><span class="ssTerminal">EXISTS</span> <span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
 </tr>
 </table><br>
 <a name=memberpredicate></a>
@@ -933,11 +1076,6 @@ H2
   <td align="center">::=</td>
   <td nowrap><span class="ssNonTerminal"><a href="#mathaddexpression">&lt;MathAddExpression&gt;</a></span> </td>
 </tr>
-<tr>
-  <td>&nbsp;</td>
-  <td align="center">|</td>
-  <td nowrap><span class="ssTerminal">NULL</span> </td>
-</tr>
 </table><br>
 <a name=elseclause></a>
 <table class="ssSyntaxTable">
@@ -975,19 +1113,6 @@ H2
 <tr>
   <td nowrap><span class="ssNonTerminal"><a href=#stringvalueexpression>&lt;StringValueExpression&gt;</a></span></td>
   <td align="center">::=</td>
-  <td nowrap><span class="ssTerminal">StringLiteral</span> </td>
-</tr>
-<tr>
-  <td>&nbsp;</td>
-  <td align="center">|</td>
-  <td nowrap><span class="ssTerminal">Parameter</span> </td>
-</tr>
-</table><br>
-<a name=value></a>
-<table class="ssSyntaxTable">
-<tr>
-  <td nowrap><span class="ssNonTerminal"><a href=#value>&lt;Value&gt;</a></span></td>
-  <td align="center">::=</td>
   <td nowrap><span class="ssTerminal">Identifier</span> </td>
 </tr>
 <tr>
@@ -998,7 +1123,48 @@ H2
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">StringLiteral</span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">Parameter</span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#indexedexpression">&lt;IndexedExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#functionexpression">&lt;FunctionExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#caseexpression">&lt;CaseExpression&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=concatenationexpression></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#concatenationexpression>&lt;ConcatenationExpression&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#stringvalueexpression">&lt;StringValueExpression&gt;</a></span> <span class="ssTerminal">'||'</span> <span class="ssNonTerminal"><a href="#concatenationexpression">&lt;ConcatenationExpression&gt;</a></span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
   <td nowrap><span class="ssNonTerminal"><a href="#stringvalueexpression">&lt;StringValueExpression&gt;</a></span> </td>
+</tr>
+</table><br>
+<a name=value></a>
+<table class="ssSyntaxTable">
+<tr>
+  <td nowrap><span class="ssNonTerminal"><a href=#value>&lt;Value&gt;</a></span></td>
+  <td align="center">::=</td>
+  <td nowrap><span class="ssNonTerminal"><a href="#concatenationexpression">&lt;ConcatenationExpression&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
@@ -1018,27 +1184,27 @@ H2
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">NULL</span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">TRUE</span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
+  <td nowrap><span class="ssTerminal">FALSE</span> </td>
+</tr>
+<tr>
+  <td>&nbsp;</td>
+  <td align="center">|</td>
   <td nowrap><span class="ssNonTerminal"><a href="#tuple">&lt;Tuple&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
   <td align="center">|</td>
   <td nowrap><span class="ssNonTerminal"><a href="#aggregateexpression">&lt;AggregateExpression&gt;</a></span> </td>
-</tr>
-<tr>
-  <td>&nbsp;</td>
-  <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#functionexpression">&lt;FunctionExpression&gt;</a></span> </td>
-</tr>
-<tr>
-  <td>&nbsp;</td>
-  <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#caseexpression">&lt;CaseExpression&gt;</a></span> </td>
-</tr>
-<tr>
-  <td>&nbsp;</td>
-  <td align="center">|</td>
-  <td nowrap><span class="ssNonTerminal"><a href="#indexedexpression">&lt;IndexedExpression&gt;</a></span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
@@ -1051,7 +1217,7 @@ H2
 <tr>
   <td nowrap><span class="ssNonTerminal"><a href=#tuple>&lt;Tuple&gt;</a></span></td>
   <td align="center">::=</td>
-  <td nowrap><span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#statement">&lt;Statement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
+  <td nowrap><span class="ssTerminal">'('</span> <span class="ssNonTerminal"><a href="#selectstatement">&lt;SelectStatement&gt;</a></span> <span class="ssTerminal">')'</span> </td>
 </tr>
 <tr>
   <td>&nbsp;</td>
