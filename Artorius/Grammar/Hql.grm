@@ -157,8 +157,8 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                        |  <Value> IS NULL
                        |  <Value> IS EMPTY
                        |  <Value> IS NOT EMPTY
-                       |  <MathAddExpression> LIKE <StringValueExpression> <LikeEscape>
-                       |  <MathAddExpression> NOT LIKE <StringValueExpression> <LikeEscape>
+                       |  <MathAddExpression> LIKE <ConcatenationExpression> <LikeEscape>
+                       |  <MathAddExpression> NOT LIKE <ConcatenationExpression> <LikeEscape>
                        |  <MathAddExpression> IN <Tuple>
                        |  <MathAddExpression> NOT IN <Tuple>
                        |  <MathAddExpression> IN <CollectionExpression>
@@ -221,13 +221,18 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                     |  Path '[' <Expression> ']' '.' Identifier
                     |  Path '[' <Expression> ']'
 
-<StringValueExpression>::= StringLiteral | Parameter
+<StringValueExpression>::= Identifier
+                        |  Path
+                        |  StringLiteral
+                        |  Parameter
+                        |  <IndexedExpression>
+                        |  <FunctionExpression>
+                        |  <CaseExpression>
 
-!----- <ConcatenationExpression>::= <StringValueExpression> '||' <StringValueExpression>
+<ConcatenationExpression>::= <StringValueExpression> '||' <ConcatenationExpression>
+                          |  <StringValueExpression>
 
-<Value>       ::= Identifier
-               |  Path
-               |  <StringValueExpression>
+<Value>       ::= <ConcatenationExpression>
                |  IntegerLiteral
                |  FloatLiteral
                |  HexLiteral
@@ -236,9 +241,6 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                |  FALSE
                |  <Tuple>
                |  <AggregateExpression>
-               |  <FunctionExpression>
-               |  <CaseExpression>
-               |  <IndexedExpression>
                |  <CollectionExpression>
 
 <Tuple> ::= '(' <SelectStatement> ')'

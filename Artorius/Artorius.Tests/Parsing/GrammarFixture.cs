@@ -75,7 +75,7 @@ namespace Artorius.Tests.Parsing
 from Cat cat
     join cat.kittens kitten
 group by cat.id, cat.weight");
-			//parse("select firstName||' '||initial||' '||upper(lastName) from Person");
+			parse("select firstName||' '||initial||' '||upper(lastName) from Person");
 			parse("select distinct cat.name from Cat cat");
 			parse("select count(distinct cat.name), count(cat) from Cat cat");
 		}
@@ -305,7 +305,7 @@ group by cat.id, cat.weight");
 		public void OperatorPrecedence()
 		{
 			parse("from foo where foo.bar = 123 + foo.baz * foo.not");
-			// TODO concat parse("from foo where foo.bar like 'testzzz' || foo.baz or foo.bar in ('duh', 'gob')");
+			parse("from foo where foo.bar like 'testzzz' || foo.baz or foo.bar in ('duh', 'gob')");
 		}
 
 		[Test]
@@ -792,7 +792,7 @@ group by cat.id, cat.weight");
 			parse("from org.hibernate.test.Simple s where s.name=:name");
 			parse("from s in class org.hibernate.test.Simple where upper( s.name ) ='SIMPLE 1'");
 			parse("from s in class org.hibernate.test.Simple where not( upper( s.name ) ='yada' or 1=2 or 'foo'='bar' or not('foo'='foo') or 'foo' like 'bar' )");
-			// TODO Concat parse("from s in class org.hibernate.test.Simple where lower( s.name || ' foo' ) ='simple 1 foo'");
+			parse("from s in class org.hibernate.test.Simple where lower( s.name || ' foo' ) ='simple 1 foo'");
 			parse("from s in class org.hibernate.test.Simple where upper( s.other.name ) ='SIMPLE 2'");
 			parse("from s in class org.hibernate.test.Simple where not ( upper( s.other.name ) ='SIMPLE 2' )");
 			parse("select distinct s from s in class org.hibernate.test.Simple where ( ( s.other.count + 3 ) = (15*2)/2 and s.count = 69) or ( ( s.other.count + 2 ) / 7 ) = 2");
