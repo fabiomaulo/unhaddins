@@ -9,7 +9,7 @@
 
 {ID Head}      = {Letter} + [_]
 {ID Tail}      = {Alphanumeric} + [_]
-{String Chars} = {Printable} + {HT} - [''\]
+{String Chars} = {Printable} + {Printable Extended} + {HT} - [''\]
 {Hex Digit} = {Digit} + [abcdefABCDEF]
 
 ! ------------------------------------------------- Terminals
