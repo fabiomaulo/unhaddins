@@ -102,6 +102,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 <AliasedEntityName> ::= <EntityName> Identifier
                      |  <EntityName> AS Identifier
                      |  Identifier IN CLASS <EntityName>
+                     |  Identifier IN ELEMENTS'(' Path ')'
                      |  <EntityName>
 
 <AliasedEntityNameList> ::= <AliasedEntityName> ',' <AliasedEntityNameList>
