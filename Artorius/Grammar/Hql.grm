@@ -52,7 +52,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 <SelectClause>::= SELECT <Restriction> <AliasedExpressionList>
                |  SELECT NEW <EntityName>'('<ExpressionList>')'
 
-<FromClause> ::= FROM <AliasedEntityNameList> <JoinClauseChain> <WhereClause> <GroupByClause> <OrderByClause>
+<FromClause> ::= FROM <AliasedEntityNameList> <JoinClauseChain> <WhereClause> <GroupByClause> <HavingClause> <OrderByClause>
 
 <JoinClauseChain> ::= <JoinClause> <JoinClauseChain>
                    |  <JoinClause> ',' <AliasedEntityNameList> <JoinClauseChain>
@@ -78,7 +78,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 <WhereClause> ::= WHERE <Expression>
                |  
 
-<GroupByClause>::= 'GROUP BY' <ExpressionList> <HavingClause>
+<GroupByClause>::= 'GROUP BY' <ExpressionList>
                 |  
 
 <HavingClause> ::= HAVING <Expression>
@@ -109,9 +109,36 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                        |  MIN '(' <MathAddExpression> ')'
                        |  MAX '(' <MathAddExpression> ')'
 
+! The use of "Identifier" is to allow injectable function feature
 <FunctionExpression>::= Identifier '('')'
                      |  Identifier '('<ExpressionList>')'
                      |  CAST'('<Expression> AS Identifier')'
+                     |  <TrimFunctionExpression>
+                     |  <ExtractFunctionExpression>
+                     |  YEAR'('<Expression>')'
+                     |  MONTH'('<Expression>')'
+                     |  DAY'('<Expression>')'
+                     |  HOUR'('<Expression>')'
+                     |  MINUTE'('<Expression>')'
+                     |  SECOND'('<Expression>')'
+
+
+! -------------------- Special functions ----------------------------
+<TrimFunctionExpression>::= TRIM'('<StringValueExpression>')'
+                         |  TRIM'('<TrimOperands> <StringValueExpression>')'
+
+<TrimOperands>::= <StringValueExpression> FROM
+               |  <TrimSpecification> <StringValueExpression> FROM
+               |  <TrimSpecification> FROM
+               |  FROM
+
+<TrimSpecification> ::= LEADING | TRAILING | BOTH
+
+<ExtractFunctionExpression>::= EXTRACT '(' <ExtractField> FROM <Expression> ')'
+
+<ExtractField> ::= YEAR | MONTH | DAY | HOUR | MINUTE | SECOND | TIMEZONE_HOUR | TIMEZONE_MINUTE
+
+! -------------------- Special functions ----------------------------
 
 <CollectionExpression>::= ELEMENTS'(' Path ')'
                        |  INDICES'(' Path ')'
