@@ -47,7 +47,6 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		}
 
 		[Test]
-		[Ignore("Not Finished")]
 		public void ConversationAbort()
 		{
 			var scm1 = Container.Resolve<ISillyCrudModel>();
