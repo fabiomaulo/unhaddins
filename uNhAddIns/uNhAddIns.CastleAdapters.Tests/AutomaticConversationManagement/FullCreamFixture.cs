@@ -18,6 +18,7 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		[Test]
 		public void BasicUsage()
 		{
+			// This test show the what happen using something else than identity
 			var scm1 = Container.Resolve<ISillyCrudModel>();
 			var scm2 = Container.Resolve<ISillyCrudModel>();
 			Assert.That(scm1, Is.Not.SameAs(scm2),"El model estaría mal configurado porque devuelve siempre la misma instancia.");
@@ -30,6 +31,7 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			scm1.Save(s);
 			Assert.That(s.Id, Is.Not.EqualTo(0));
 			int savedId = s.Id;
+			scm1.AcceptAll(); // <== To have a result available to other conversation you must end your
 
 			var l2 = scm2.GetEntirelyList();
 			Assert.That(l2.Count, Is.EqualTo(1));
@@ -38,9 +40,6 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			scm2.Delete(l2[0]);
 			scm2.AcceptAll();
 
-			Assert.That(scm1.GetIfAvailable(savedId), Is.Not.Null,"Ya que la conversation no se terminó todavía debería estar el obj en la session.Cache");
-
-			scm1.AcceptAll();
 			// la conversation tendría que volver a empezar y la session.cache debería estar limpia
 			Assert.That(scm1.GetIfAvailable(savedId), Is.Null);
 			scm1.AcceptAll();
