@@ -9,19 +9,11 @@ namespace uNhAddIns.Adapters
 	public class PersistenceConversationAttribute : Attribute
 	{
 		/// <summary>
-		/// The conversation will end at the end of method execution.
+		/// The action to take after finishing this part of the conversation.
 		/// </summary>
 		/// <remarks>
-		/// Default: <c>false</c>.
+		/// Default: <c>continue</c>.
 		/// </remarks>
-		public bool EndConversation { get; set; }
-
-		/// <summary>
-		/// The conversation will abort at the end of method execution.
-		/// </summary>
-		/// <remarks>
-		/// Default: <c>false</c>.
-		/// </remarks>
-		public bool AbortConversation { get; set; }
+		public EndMode ConversationEndMode { get; set; }
 	}
 }

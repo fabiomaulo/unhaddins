@@ -138,13 +138,13 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			entity.Id = 0;
 		}
 
-		[PersistenceConversation(EndConversation = true)]
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public virtual void AcceptAll()
 		{
 			// metodo para fin de UseCase
 		}
 
-		[PersistenceConversation(AbortConversation = true)]
+		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
 		public virtual void Abort()
 		{
 			// metodo para abort de use case
