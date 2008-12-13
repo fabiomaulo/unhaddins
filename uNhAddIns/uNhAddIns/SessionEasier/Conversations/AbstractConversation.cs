@@ -24,11 +24,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public void Dispose()
 		{
-			End();
+			Abort();
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
+		
 		protected abstract void Dispose(bool disposing);
 
 		~AbstractConversation()
@@ -71,6 +72,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 		public virtual void End()
 		{
 			DoEnd();
+			RaiseEnded();
+		}
+
+		public virtual void Abort()
+		{
+			DoAbort();
 			RaiseEnded();
 		}
 
@@ -118,6 +125,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 				Ended(this, new EventArgs());
 			}
 		}
+
+		protected abstract void DoAbort();
 
 		#endregion
 

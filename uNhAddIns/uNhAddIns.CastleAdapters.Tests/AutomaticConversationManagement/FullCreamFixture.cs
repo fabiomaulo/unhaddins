@@ -45,5 +45,25 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			Assert.That(scm1.GetIfAvailable(savedId), Is.Null);
 			scm1.AcceptAll();
 		}
+
+		[Test]
+		[Ignore("The test is being written")]
+		public void ConversationAbort()
+		{
+			var scm1 = Container.Resolve<ISillyCrudModel>();
+			
+			var l1 = scm1.GetEntirelyList();
+			Assert.That(l1.Count, Is.EqualTo(0));
+
+			Silly s = new Silly { Name = "fiamma" };
+			scm1.Save(s);
+			Assert.That(s.Id, Is.Not.EqualTo(0));
+			int savedId = s.Id;
+			scm1.Abort();
+
+			var scm2 = Container.Resolve<ISillyCrudModel>();
+			Assert.That(scm2.GetIfAvailable(savedId), Is.Null);
+			scm2.AcceptAll();
+		}
 	}
 }

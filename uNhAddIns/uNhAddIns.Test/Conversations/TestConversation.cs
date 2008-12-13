@@ -42,6 +42,12 @@ namespace uNhAddIns.Test.Conversations
 				log.Debug("DoEnd called.");
 		}
 
+		protected override void DoAbort()
+		{
+			if (log.IsDebugEnabled)
+				log.Debug("DoAbort called.");
+		}
+
 		#endregion
 	}
 }

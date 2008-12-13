@@ -117,7 +117,7 @@ namespace uNhAddIns.Test.Conversations
 				}
 				var msgs = ls.Appender.GetEvents();
 				Assert.That(msgs.Length, Is.EqualTo(3));
-				Assert.That(msgs[0].RenderedMessage, Text.Contains("DoEnd called."));
+				Assert.That(msgs[0].RenderedMessage, Text.Contains("DoAbort called."));
 				Assert.That(msgs[1].RenderedMessage, Text.Contains("End called."));
 				Assert.That(msgs[2].RenderedMessage, Text.Contains("Dispose called."));
 			}

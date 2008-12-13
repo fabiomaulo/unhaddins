@@ -176,6 +176,19 @@ namespace uNhAddIns.SessionEasier.Conversations
 			}
 		}
 
+		protected override void DoAbort()
+		{
+			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
+			foreach (var pair in sessions)
+			{
+				ISession session = pair.Value;
+				if (session != null && session.IsOpen)
+				{
+					session.Close();
+				}
+			}
+		}
+
 		#endregion
 
 		protected IDictionary<ISessionFactory, ISession> GetFromContext()

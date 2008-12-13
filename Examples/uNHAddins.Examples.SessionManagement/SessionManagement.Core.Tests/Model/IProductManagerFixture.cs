@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using NHibernate.Cfg;
 using NUnit.Framework;
 using SessionManagement.Data.NH.Tests;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
-using uNhAddIns.SessionEasier.Conversations;
+using NUnit.Framework.Syntax.CSharp;
 
 namespace SessionManagement.Domain.Tests.Model
 {
@@ -27,31 +26,25 @@ namespace SessionManagement.Domain.Tests.Model
 			}
 		}
 
-		protected override void Configure(Configuration configuration)
-		{
-			configuration.Properties[Environment.CurrentSessionContextClass] =
-				typeof(ThreadLocalConversationalSessionContext).AssemblyQualifiedName;
-			base.Configure(configuration);
-		}
-
 		[Test]
-		public void cannot_create_product_outside_a_conversation()
+		public void can_save_product()
 		{
 			Product product = CreateProduct("A1", "A1 Product", 17.25);
-			productManager.Save(product);
+			Product savedProduct = productManager.Save(product);
+			Assert.That(savedProduct, Is.Not.Null);
+			Assert.That(savedProduct.Id > 0);
 		}
 
 		private Product CreateProduct(string code, string description, double price)
 		{
-			return new Product {Code = code, Description = description, Price = price};
-
+			return new Product { Code = code, Description = description, Price = price };
 		}
 
 		#region Overrides of TestCase
 
 		protected override IList Mappings
 		{
-			get { return new string[] { "Domain.Product.hbm.xml" }; }
+			get { return new ArrayList(); }
 		}
 
 		#endregion

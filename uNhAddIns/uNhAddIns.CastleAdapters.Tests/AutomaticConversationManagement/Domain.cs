@@ -90,6 +90,7 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		Silly Save(Silly entity);
 		void Delete(Silly entity);
 		void AcceptAll();
+		void Abort();
 	}
 
 	[PersistenceConversational]
@@ -141,6 +142,12 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		public virtual void AcceptAll()
 		{
 			// metodo para fin de UseCase
+		}
+
+		[PersistenceConversation(AbortConversation = true)]
+		public virtual void Abort()
+		{
+			// metodo para abort de use case
 		}
 
 		#endregion
