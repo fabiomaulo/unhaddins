@@ -28,5 +28,24 @@ namespace Artorius.Tests.Parsing
 			string message = notRegister.ToString();
 			Assert.That(message.Length, Is.EqualTo(0), "Not register symbols.\n" + message);
 		}
+
+		[Test, Ignore]
+		public void AllConverterAreSymbols()
+		{
+			var cgl = new CompiledGrammarLoader(BaseParserTestCase.GrammarPath);
+			IGrammar grammar = cgl.Load();
+			var toRemove = new StringBuilder(100);
+			var syntaxNodeFactory = new SyntaxNodeFactory();
+			foreach (var knowConverter in syntaxNodeFactory.KnowConverters)
+			{
+				if (grammar.SymbolTable.FirstOrDefault(x => knowConverter.Equals(x.Name)) == null)
+				{
+					toRemove.AppendLine(knowConverter);					
+				}
+			}
+
+			string message = toRemove.ToString();
+			Assert.That(message.Length, Is.EqualTo(0), "Converters to remove.\n" + message);
+		}
 	}
 }
