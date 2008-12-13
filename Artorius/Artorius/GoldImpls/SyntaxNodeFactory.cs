@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using GoldParsing.Engine;
 using NHibernate.Hql.Ast.Tree;
@@ -18,15 +19,12 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			// register know default converters
 
 			#region register Terminals
-
 			RegisterTerminalConverter("+", SymbolNodeConvert);
 			RegisterTerminalConverter("-", SymbolNodeConvert);
 			RegisterTerminalConverter("*", SymbolNodeConvert);
 			RegisterTerminalConverter("/", SymbolNodeConvert);
 			RegisterTerminalConverter("(", SymbolNodeConvert);
 			RegisterTerminalConverter(")", SymbolNodeConvert);
-			RegisterTerminalConverter(":", SymbolNodeConvert);
-			RegisterTerminalConverter("?", SymbolNodeConvert);
 			RegisterTerminalConverter("ALL", SymbolNodeConvert);
 			RegisterTerminalConverter("AND", SymbolNodeConvert);
 			RegisterTerminalConverter("ANY", SymbolNodeConvert);
@@ -34,7 +32,6 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter("ASCENDING", SymbolNodeConvert);
 			RegisterTerminalConverter("AVG", SymbolNodeConvert);
 			RegisterTerminalConverter("BETWEEN", SymbolNodeConvert);
-			RegisterTerminalConverter("BY", SymbolNodeConvert);
 			RegisterTerminalConverter("CASE", SymbolNodeConvert);
 			RegisterTerminalConverter("CAST", SymbolNodeConvert);
 			RegisterTerminalConverter("COUNT", SymbolNodeConvert);
@@ -47,7 +44,6 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter("EXISTS", SymbolNodeConvert);
 			RegisterTerminalConverter("FETCH", SymbolNodeConvert);
 			RegisterTerminalConverter("FULL", SymbolNodeConvert);
-			RegisterTerminalConverter("GROUP", SymbolNodeConvert);
 			RegisterTerminalConverter("HAVING", SymbolNodeConvert);
 			RegisterTerminalConverter("INDICES", SymbolNodeConvert);
 			RegisterTerminalConverter("INNER", SymbolNodeConvert);
@@ -72,6 +68,17 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter("WHERE", SymbolNodeConvert);
 			RegisterTerminalConverter("WITH", SymbolNodeConvert); 
 			RegisterTerminalConverter("AS", SymbolNodeConvert);
+			RegisterTerminalConverter("||", SymbolNodeConvert);
+			RegisterTerminalConverter("<", SymbolNodeConvert);
+			RegisterTerminalConverter("<=", SymbolNodeConvert);
+			RegisterTerminalConverter("=", SymbolNodeConvert);
+			RegisterTerminalConverter(">", SymbolNodeConvert);
+			RegisterTerminalConverter(">=", SymbolNodeConvert);
+			RegisterTerminalConverter("EMPTY", SymbolNodeConvert);
+			RegisterTerminalConverter("NotEqualOperator", SymbolNodeConvert);
+			RegisterTerminalConverter("TRUE", SymbolNodeConvert);
+			RegisterTerminalConverter("FALSE", SymbolNodeConvert);
+			RegisterTerminalConverter("VERSIONED", SymbolNodeConvert);
 
 			RegisterTerminalConverter("IN", InTerminalConvert);
 
@@ -79,6 +86,14 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter("CLASS", IgnoreToken);
 			RegisterTerminalConverter("SELECT", IgnoreToken);
 			RegisterTerminalConverter("FROM", IgnoreToken);
+			RegisterTerminalConverter("DELETE", IgnoreToken);
+			RegisterTerminalConverter("ESCAPE", IgnoreToken);
+			RegisterTerminalConverter("GROUP BY", IgnoreToken);
+			RegisterTerminalConverter("INSERT", IgnoreToken);
+			RegisterTerminalConverter("INTO", IgnoreToken);
+			RegisterTerminalConverter("SET", IgnoreToken);
+			RegisterTerminalConverter("UPDATE", IgnoreToken);
+
 			RegisterTerminalConverter(",", IgnoreToken);
 			RegisterTerminalConverter("[", IgnoreToken);
 			RegisterTerminalConverter("]", IgnoreToken);
@@ -89,14 +104,17 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter("IntegerLiteral", (token, owner) => new IntegerConstant(owner, token.Data.ToString()));
 			RegisterTerminalConverter("FloatLiteral", (token, owner) => new FloatConstant(owner, token.Data.ToString()));
 			RegisterTerminalConverter("HexLiteral", (token, owner) => new FloatConstant(owner, token.Data.ToString()));
-			RegisterTerminalConverter("ComparisonOperator", SymbolNodeConvert);
 			RegisterTerminalConverter("Parameter", ParameterConvert);
-
 			#endregion
 
 			#region register Clauses
+			RegisterClauseConverter("Query", x => new NoConvertedExpression());
+			RegisterClauseConverter("SelectStatement", x => new NhqlStatement());
+			RegisterClauseConverter("UpdateStatement", x => new NoConvertedExpression());
+			RegisterClauseConverter("DeleteStatement", x => new NoConvertedExpression());
+			RegisterClauseConverter("InsertStatement", x => new NoConvertedExpression());
 
-			RegisterClauseConverter("Statement", x => new NhqlStatement());
+
 			RegisterClauseConverter("SelectClause", x => new SelectClause());
 			RegisterClauseConverter("Value", x => new ValueExpression());
 			RegisterClauseConverter("MathAddExpression", x => new MathExpression());
@@ -124,7 +142,6 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterClauseConverter("JoinClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("JoinClauseChain", x => new NoConvertedExpression());
 			RegisterClauseConverter("JoinDefinition", x => new NoConvertedExpression());
-			RegisterClauseConverter("MemberExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("NotExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("OrderByClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("OrderList", x => new NoConvertedExpression());
@@ -139,7 +156,13 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterClauseConverter("Tuple", x => new NoConvertedExpression());
 			RegisterClauseConverter("WhereClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("WithClause", x => new NoConvertedExpression());
-			RegisterClauseConverter("ExistsExpression", x => new NoConvertedExpression());
+			RegisterClauseConverter("AssignList", x => new NoConvertedExpression());
+			RegisterClauseConverter("ConcatenationExpression", x => new NoConvertedExpression());
+			RegisterClauseConverter("EntityNameList", x => new NoConvertedExpression());
+			RegisterClauseConverter("ExistsPredicate", x => new NoConvertedExpression());
+			RegisterClauseConverter("LikeEscape", x => new NoConvertedExpression());
+			RegisterClauseConverter("MemberPredicate", x => new NoConvertedExpression());
+			RegisterClauseConverter("StringValueExpression", x => new NoConvertedExpression());
 			#endregion
 		}
 
@@ -158,6 +181,11 @@ namespace NHibernate.Hql.Ast.GoldImpls
 		{
 			// allow override
 			rconverters[key] = converter;
+		}
+
+		public IEnumerable<string> KnowConverters
+		{
+			get { return tconverters.Keys.Concat(rconverters.Keys); }
 		}
 
 		#region Implementation of ISyntaxNodeFactory<Reduction,Token>
