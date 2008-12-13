@@ -5,7 +5,7 @@
 	
 	<class name="Silly">
 		<id name="Id">
-			<generator class="native"/>
+			<generator class="hilo"/>
 		</id>
 		<property name="Name"/>
 		<many-to-one name="Other" class="Other" cascade="all"/>
