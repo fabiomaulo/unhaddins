@@ -24,6 +24,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public void Dispose()
 		{
+			// When the session is disposed we close every pending session.
+			// If End was not called then it will not be flushed and commited as expected for a Dispose
 			Abort();
 			Dispose(true);
 			GC.SuppressFinalize(this);
