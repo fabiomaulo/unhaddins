@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EndMode.cs" />
     <Compile Include="PersistenceConversationalAttribute.cs" />
     <Compile Include="PersistenceConversationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

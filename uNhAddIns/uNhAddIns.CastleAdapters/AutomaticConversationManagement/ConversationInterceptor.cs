@@ -51,13 +51,13 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 				{
 					invocation.Proceed();
 
-					if (att.EndConversation)
+					if (att.ConversationEndMode == EndMode.End)
 					{
 						c.End();
 					}
 					else
 					{
-						if (att.AbortConversation)
+						if (att.ConversationEndMode == EndMode.Abort)
 						{
 							c.Dispose();
 						}
