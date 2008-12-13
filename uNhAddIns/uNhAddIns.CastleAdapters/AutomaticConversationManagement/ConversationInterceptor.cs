@@ -50,13 +50,21 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 				try
 				{
 					invocation.Proceed();
-					if(att.EndConversation)
+
+					if (att.EndConversation)
 					{
 						c.End();
 					}
 					else
 					{
-						c.Pause();
+						if (att.AbortConversation)
+						{
+							c.Dispose();
+						}
+						else
+						{
+							c.Pause();
+						}
 					}
 				}
 				catch (Exception)

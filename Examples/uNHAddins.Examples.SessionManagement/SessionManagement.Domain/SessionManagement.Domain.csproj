@@ -35,10 +35,9 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\IEntity.cs" />
-    <Compile Include="Domain\Impl\BaseEntity.cs" />
-    <Compile Include="Domain\IProduct.cs" />
-    <Compile Include="Domain\Impl\Product.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Model\IProductManager.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

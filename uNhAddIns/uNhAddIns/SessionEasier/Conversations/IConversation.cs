@@ -8,8 +8,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 	/// </summary>
 	public interface IConversation : IDisposable, IEqualityComparer<IConversation>
 	{
-		// TODO : maybe we need something to abort a conversation... maybe not
-
 		/// <summary>
 		/// Conversation identifier.
 		/// </summary>
@@ -41,22 +39,27 @@ namespace uNhAddIns.SessionEasier.Conversations
 		void End();
 
 		/// <summary>
-		/// Fiered before start the conversation.
+		/// Abort the conversation
+		/// </summary>
+		void Abort();
+
+		/// <summary>
+		/// Fired before start the conversation.
 		/// </summary>
 		event EventHandler<EventArgs> Starting;
 
 		/// <summary>
-		/// Fiered after pause the conversation.
+		/// Fired after pause the conversation.
 		/// </summary>
 		event EventHandler<EventArgs> Paused;
 
 		/// <summary>
-		/// Fiered before resume the conversation.
+		/// Fired before resume the conversation.
 		/// </summary>
 		event EventHandler<EventArgs> Resuming;
 
 		/// <summary>
-		/// Fiered after end the conversation.
+		/// Fired after end the conversation.
 		/// </summary>
 		event EventHandler<EventArgs> Ended;
 	}

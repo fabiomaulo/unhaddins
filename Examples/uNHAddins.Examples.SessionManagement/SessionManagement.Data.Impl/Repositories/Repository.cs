@@ -1,6 +1,5 @@
 ﻿using NHibernate;
 using SessionManagement.Data.Repositories;
-using SessionManagement.Domain;
 
 namespace SessionManagement.Data.NH.Repositories
 {

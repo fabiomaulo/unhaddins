@@ -15,5 +15,13 @@ namespace uNhAddIns.Adapters
 		/// Default: <c>false</c>.
 		/// </remarks>
 		public bool EndConversation { get; set; }
+
+		/// <summary>
+		/// The conversation will abort at the end of method execution.
+		/// </summary>
+		/// <remarks>
+		/// Default: <c>false</c>.
+		/// </remarks>
+		public bool AbortConversation { get; set; }
 	}
 }
