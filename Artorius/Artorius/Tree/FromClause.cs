@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace NHibernate.Hql.Ast.Tree
 {
 	public class FromClause: AbstractClauseNode
@@ -14,5 +16,9 @@ namespace NHibernate.Hql.Ast.Tree
 			children.Add(entityNameList);
 		}
 
+		public OrderByClause OrderBy
+		{
+			get { return children.OfType<OrderByClause>().FirstOrDefault(); }
+		}
 	}
 }

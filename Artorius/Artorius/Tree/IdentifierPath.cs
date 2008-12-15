@@ -25,5 +25,10 @@ namespace NHibernate.Hql.Ast.Tree
 		{
 			get { return Path.Split('.'); }
 		}
+
+		public override string ToString()
+		{
+			return Path;
+		}
 	}
 }

@@ -9,7 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Artorius.Tests", "Artorius.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GoldGrammar", "GoldGrammar", "{975467A0-FF4B-4796-8584-7F557812CE72}"
 	ProjectSection(SolutionItems) = preProject
-		Grammar\Hql.grm = Grammar\Hql.grm
 		Grammar\readme.txt = Grammar\readme.txt
 	EndProjectSection
 EndProject

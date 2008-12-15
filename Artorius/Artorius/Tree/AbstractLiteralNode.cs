@@ -2,7 +2,7 @@ using System;
 
 namespace NHibernate.Hql.Ast.Tree
 {
-	public abstract class AbstractLiteralNode : AbstractTerminalNode
+	public abstract class AbstractLiteralNode : AbstractTerminalNode, ILiteralNode
 	{
 		protected AbstractLiteralNode(IClauseNode parentRule, string originalText) : base(parentRule)
 		{
@@ -10,15 +10,15 @@ namespace NHibernate.Hql.Ast.Tree
 			{
 				throw new ArgumentNullException("originalText");
 			}
-			OriginalText = originalText;
+			AsString = originalText;
 		}
 
-		public string OriginalText { get; internal set; }
+		public string AsString { get; internal set; }
 		public abstract System.Type ReturnType { get; }
 
 		public override string ToString()
 		{
-			return OriginalText;
+			return AsString;
 		}
 	}
 }

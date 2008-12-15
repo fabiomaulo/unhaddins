@@ -1,21 +1,27 @@
+using System;
+
 namespace NHibernate.Hql.Ast.Tree
 {
-	public class ValueExpression: AbstractClauseNode
+	public class ValueExpression : AbstractClauseNode, IExpression
 	{
-		public bool IsSingleValue
+		internal ValueExpression() {}
+
+		public ValueExpression(AbstractLiteralNode literal)
 		{
-			get
+			if (literal == null)
 			{
-				return !IsExpression;
+				throw new ArgumentNullException("literal");
 			}
+			children.Add(literal);
 		}
 
-		public bool IsExpression
+		#region Implementation of IExpression
+
+		public ExpType ExpressionType
 		{
-			get
-			{
-				return '('.Equals(children[0].ToString()) && ')'.Equals(children[children.Count - 1]);
-			}
+			get { throw new NotImplementedException(); }
 		}
+
+		#endregion
 	}
 }

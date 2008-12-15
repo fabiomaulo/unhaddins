@@ -76,9 +76,20 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter(">=", SymbolNodeConvert);
 			RegisterTerminalConverter("EMPTY", SymbolNodeConvert);
 			RegisterTerminalConverter("NotEqualOperator", SymbolNodeConvert);
-			RegisterTerminalConverter("TRUE", SymbolNodeConvert);
-			RegisterTerminalConverter("FALSE", SymbolNodeConvert);
 			RegisterTerminalConverter("VERSIONED", SymbolNodeConvert);
+			RegisterTerminalConverter("BOTH", SymbolNodeConvert);
+			RegisterTerminalConverter("DAY", SymbolNodeConvert);
+			RegisterTerminalConverter("EXTRACT", SymbolNodeConvert);
+			RegisterTerminalConverter("HOUR", SymbolNodeConvert);
+			RegisterTerminalConverter("LEADING", SymbolNodeConvert);
+			RegisterTerminalConverter("MINUTE", SymbolNodeConvert);
+			RegisterTerminalConverter("MONTH", SymbolNodeConvert);
+			RegisterTerminalConverter("SECOND", SymbolNodeConvert);
+			RegisterTerminalConverter("TIMEZONE_HOUR", SymbolNodeConvert);
+			RegisterTerminalConverter("TIMEZONE_MINUTE", SymbolNodeConvert);
+			RegisterTerminalConverter("TRAILING", SymbolNodeConvert);
+			RegisterTerminalConverter("TRIM", SymbolNodeConvert);
+			RegisterTerminalConverter("YEAR", SymbolNodeConvert);
 
 			RegisterTerminalConverter("IN", InTerminalConvert);
 
@@ -95,57 +106,67 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterTerminalConverter("UPDATE", IgnoreToken);
 
 			RegisterTerminalConverter(",", IgnoreToken);
-			RegisterTerminalConverter("[", IgnoreToken);
-			RegisterTerminalConverter("]", IgnoreToken);
+			RegisterTerminalConverter("[", SymbolNodeConvert);
+			RegisterTerminalConverter("]", SymbolNodeConvert);
 
 			RegisterTerminalConverter("Identifier", (token, owner) => new Identifier(owner, token.Data.ToString()));
 			RegisterTerminalConverter("Path", (token, owner) => new IdentifierPath(owner, token.Data.ToString()));
-			RegisterTerminalConverter("StringLiteral", (token, owner) => new StringConstant(owner, token.Data.ToString()));
-			RegisterTerminalConverter("IntegerLiteral", (token, owner) => new IntegerConstant(owner, token.Data.ToString()));
-			RegisterTerminalConverter("FloatLiteral", (token, owner) => new FloatConstant(owner, token.Data.ToString()));
-			RegisterTerminalConverter("HexLiteral", (token, owner) => new FloatConstant(owner, token.Data.ToString()));
+			RegisterTerminalConverter("StringLiteral", (token, owner) => new ConstantExpression<string>(owner, token.Data.ToString()));
+			RegisterTerminalConverter("IntegerLiteral", IntegerConstantConvert);
+			RegisterTerminalConverter("FloatLiteral", FloatConstantConvert);
+			RegisterTerminalConverter("HexLiteral", (token, owner) => new ConstantExpression<string>(owner, token.Data.ToString()));
+			RegisterTerminalConverter("BooleanLiteral", (token, owner) => new ConstantExpression<bool>(owner, bool.Parse(token.Data.ToString())));
 			RegisterTerminalConverter("Parameter", ParameterConvert);
 			#endregion
 
 			#region register Clauses
+			RegisterClauseConverter("Expression", NotSupportedConverter);
+
 			RegisterClauseConverter("Query", x => new NoConvertedExpression());
 			RegisterClauseConverter("SelectStatement", x => new NhqlStatement());
 			RegisterClauseConverter("UpdateStatement", x => new NoConvertedExpression());
 			RegisterClauseConverter("DeleteStatement", x => new NoConvertedExpression());
 			RegisterClauseConverter("InsertStatement", x => new NoConvertedExpression());
 
-
 			RegisterClauseConverter("SelectClause", x => new SelectClause());
-			RegisterClauseConverter("Value", x => new ValueExpression());
+			RegisterClauseConverter("FromClause", x => new FromClause());
+			RegisterClauseConverter("JoinClause", x => new NoConvertedExpression());
+			RegisterClauseConverter("JoinClauseChain", x => new NoConvertedExpression());
+			RegisterClauseConverter("WithClause", x => new NoConvertedExpression());
+			RegisterClauseConverter("WhereClause", x => new NoConvertedExpression());
+			RegisterClauseConverter("OrderByClause", x => new OrderByClause());
+			RegisterClauseConverter("GroupByClause", x => new NoConvertedExpression());
+			RegisterClauseConverter("HavingClause", x => new NoConvertedExpression());
+
+			RegisterClauseConverter("AndExpression", x => new LogicalExpression());
+			RegisterClauseConverter("OrExpression", x => new LogicalExpression());
 			RegisterClauseConverter("MathAddExpression", x => new MathExpression());
 			RegisterClauseConverter("MathMultExpression", x => new MathExpression());
 			RegisterClauseConverter("MathNegateExpression", x => new MathNegateExpression());
-			RegisterClauseConverter("Expression", x => new Expression());
 			RegisterClauseConverter("EntityName", x => new EntityNameExpression());
 			RegisterClauseConverter("AliasedEntityName", x => new AliasedEntityNameExpression());
 			RegisterClauseConverter("AliasedEntityNameList", x => new AliasedEntityNameList());
 			RegisterClauseConverter("AliasedExpression", x => new AliasedExpression());
 			RegisterClauseConverter("AliasedExpressionList", x => new AliasedExpressionList());
-			RegisterClauseConverter("FromClause", x => new FromClause());
+			RegisterClauseConverter("Value", x => new ValueExpression());
+			RegisterClauseConverter("StringValueExpression", x => new NoConvertedExpression());
 
-			RegisterClauseConverter("AggregateExpression", x => new NoConvertedExpression());
-			RegisterClauseConverter("AndExpression", x => new NoConvertedExpression());
+			RegisterClauseConverter("AggregateExpression", x => new FunctionExpression());
+			RegisterClauseConverter("FunctionExpression", x => new FunctionExpression());
+			RegisterClauseConverter("TrimFunctionExpression", x => new FunctionExpression());
+			RegisterClauseConverter("ExtractFunctionExpression", x => new FunctionExpression());
+
 			RegisterClauseConverter("CaseExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("CaseResult", x => new NoConvertedExpression());
 			RegisterClauseConverter("CollectionExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("ElseClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("ExpressionList", x => new NoConvertedExpression());
-			RegisterClauseConverter("FunctionExpression", x => new NoConvertedExpression());
-			RegisterClauseConverter("GroupByClause", x => new NoConvertedExpression());
-			RegisterClauseConverter("HavingClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("IndexedExpression", x => new NoConvertedExpression());
-			RegisterClauseConverter("JoinClause", x => new NoConvertedExpression());
-			RegisterClauseConverter("JoinClauseChain", x => new NoConvertedExpression());
 			RegisterClauseConverter("JoinDefinition", x => new NoConvertedExpression());
 			RegisterClauseConverter("NotExpression", x => new NoConvertedExpression());
-			RegisterClauseConverter("OrderByClause", x => new NoConvertedExpression());
-			RegisterClauseConverter("OrderList", x => new NoConvertedExpression());
-			RegisterClauseConverter("OrderType", x => new NoConvertedExpression());
+			RegisterClauseConverter("OrderList", x => new OrderByList());
+			RegisterClauseConverter("OrderItem", x => new OrderByItem());
+			RegisterClauseConverter("OrderType", x => new OrderingSpecification());
 			RegisterClauseConverter("PredicateExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("QuantifiedExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("Restriction", x => new NoConvertedExpression());
@@ -154,15 +175,15 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterClauseConverter("SimpleCaseExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("SimpleWhenClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("Tuple", x => new NoConvertedExpression());
-			RegisterClauseConverter("WhereClause", x => new NoConvertedExpression());
-			RegisterClauseConverter("WithClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("AssignList", x => new NoConvertedExpression());
 			RegisterClauseConverter("ConcatenationExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("EntityNameList", x => new NoConvertedExpression());
 			RegisterClauseConverter("ExistsPredicate", x => new NoConvertedExpression());
 			RegisterClauseConverter("LikeEscape", x => new NoConvertedExpression());
 			RegisterClauseConverter("MemberPredicate", x => new NoConvertedExpression());
-			RegisterClauseConverter("StringValueExpression", x => new NoConvertedExpression());
+			RegisterClauseConverter("ExtractField", x => new NoConvertedExpression());
+			RegisterClauseConverter("TrimOperands", x => new NoConvertedExpression());
+			RegisterClauseConverter("TrimSpecification", x => new NoConvertedExpression());
 			#endregion
 		}
 
@@ -262,6 +283,38 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			}
 		}
 
+		protected virtual ISyntaxNode IntegerConstantConvert(Token token, IClauseNode owner)
+		{
+			var originalText = token.Data.ToString();
+			if (originalText.EndsWith("l", StringComparison.InvariantCultureIgnoreCase))
+			{
+				return new ConstantExpression<long>(owner, long.Parse(originalText), originalText);
+			}
+			else
+			{
+				return new ConstantExpression<int>(owner, int.Parse(originalText), originalText);
+			}
+		}
+
+		protected virtual ISyntaxNode FloatConstantConvert(Token token, IClauseNode owner)
+		{
+			var originalText = token.Data.ToString();
+			if (originalText.EndsWith("f", StringComparison.InvariantCultureIgnoreCase))
+			{
+				return new ConstantExpression<float>(owner, float.Parse(originalText), originalText);
+			}
+			else
+			{
+				return new ConstantExpression<double>(owner, double.Parse(originalText), originalText);
+			}
+		}
+		#endregion
+
+		#region Clauses converters
+		private static IClauseNode NotSupportedConverter(Reduction x)
+		{
+			throw new NotSupportedException("The converter is not available; GOLD parser Reduction:" + x);
+		}
 		#endregion
 	}
 }
