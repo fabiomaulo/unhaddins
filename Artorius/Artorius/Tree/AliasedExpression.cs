@@ -8,7 +8,7 @@ namespace NHibernate.Hql.Ast.Tree
 	{
 		internal AliasedExpression() {}
 
-		public AliasedExpression(Expression expression, string alias)
+		public AliasedExpression(IExpression expression, string alias)
 		{
 			if (expression == null)
 			{
@@ -18,14 +18,18 @@ namespace NHibernate.Hql.Ast.Tree
 			{
 				throw new ArgumentException("Invalid node reparenting.", "expression");
 			}
-			expression.SetParent(this);
+			var cn = expression as IClauseNode;
+			if (cn != null)
+			{
+				cn.SetParent(this);
+			}
 			children.Add(expression);
 			children.Add(new Identifier(this, alias));
 		}
 
-		public Expression Expression
+		public IExpression Expression
 		{
-			get { return (Expression) children.First(x => x is Expression); }
+			get { return (IExpression) children.First(x => x is IExpression); }
 		}
 
 		public string Alias

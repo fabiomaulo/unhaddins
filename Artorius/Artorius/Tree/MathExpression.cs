@@ -10,35 +10,18 @@ namespace NHibernate.Hql.Ast.Tree
 		Divide
 	}
 
-	public class MathExpression : AbstractClauseNode
+	public class MathExpression : AbstractTwoOperandExpression
 	{
 		internal MathExpression() {}
 
-		public MathExpression(IClauseNode leftOperand, MathOp op, IClauseNode rightOperand)
+		public MathExpression(IExpression leftOperand, MathOp op, IExpression rightOperand)
+			:base(leftOperand, MathOpToString(op),rightOperand)
 		{
-			if (leftOperand == null)
-			{
-				throw new ArgumentNullException("leftOperand");
-			}
-			if (rightOperand == null)
-			{
-				throw new ArgumentNullException("rightOperand");
-			}
-			children.Add(leftOperand);
-			leftOperand.SetParent(this);
-			children.Add(new SymbolNode(this, MathOpToString(op)));
-			children.Add(rightOperand);
-			rightOperand.SetParent(this);
 		}
 
-		public IClauseNode LeftOperand
+		public override ExpType ExpressionType
 		{
-			get { return (IClauseNode) children[0]; }
-		}
-
-		public IClauseNode RightOperand
-		{
-			get { return (IClauseNode) children[2]; }
+			get { return ExpType.Math; }
 		}
 
 		public MathOp Operator

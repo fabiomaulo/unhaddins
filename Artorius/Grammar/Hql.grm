@@ -22,8 +22,19 @@ Identifier = {ID Head}{ID Tail}*
 Path = {ID Head}{ID Tail}* ('.' {ID Head}{ID Tail}*)+
 StringLiteral = '' ( {String Chars} | '\' {Printable} | '''' )* ''
 IntegerLiteral = {Digit}+
-FloatLiteral = {Digit}+'.'{Digit}+ | {Digit}+'.'{Digit}+'e'{Digit}+
+               | {Digit}+'l'
+FloatLiteral = {Digit}+'.'{Digit}+
+             | {Digit}+'.'{Digit}+'e'{Digit}+
+             | {Digit}+'.'{Digit}+'e''-'{Digit}
+             | {Digit}+'.'{Digit}+'e''+'{Digit}
+             | {Digit}+'.'{Digit}+ 'f'
+             | {Digit}+'.'{Digit}+ 'd'
+             | {Digit}+'.'{Digit}+ 'm'
+             | {Digit}+'f'
+             | {Digit}+'d'
+             | {Digit}+'m'
 HexLiteral = 0x{Hex Digit}+
+BooleanLiteral = 'true' | 'false'
 NotEqualOperator = '<>' | '!=' | '^='
 Parameter = ':'{ID Head}{ID Tail}* | '?'
 
@@ -159,8 +170,9 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 <AliasedExpression> ::= <Expression> AS Identifier | <Expression>
 <AliasedExpressionList> ::= <AliasedExpression> ',' <AliasedExpressionList>  | <AliasedExpression>
 
-<Expression> ::= <AndExpression> OR <Expression>
-              |  <AndExpression>
+<Expression> ::= <OrExpression> | <AndExpression>
+
+<OrExpression>::= <AndExpression> OR <Expression>
 
 <AndExpression> ::= <NotExpression> AND <AndExpression>
                  |  <NotExpression>
@@ -264,8 +276,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
                |  FloatLiteral
                |  HexLiteral
                |  NULL
-               |  TRUE
-               |  FALSE
+               |  BooleanLiteral
                |  <Tuple>
                |  <AggregateExpression>
                |  <CollectionExpression>

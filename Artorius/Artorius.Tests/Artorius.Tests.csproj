@@ -73,6 +73,7 @@
     <Compile Include="Integration\A_SillyFixture.cs" />
     <Compile Include="Integration\Silly.cs" />
     <Compile Include="Parsing\GrammarFixture.cs" />
+    <Compile Include="Parsing\HqlAstReductions.cs" />
     <Compile Include="Parsing\ParserErrorFixture.cs" />
     <Compile Include="Parsing\SyntaxNodeFactoryFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

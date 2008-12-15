@@ -4,7 +4,6 @@ namespace NHibernate.Hql.Ast.Tree
 {
 	public abstract class AbstractTerminalNode: AbstractSyntaxNode
 	{
-		// TODO : add abstract method for translation
 		protected readonly IClauseNode parentRule;
 
 		protected AbstractTerminalNode(IClauseNode parentRule)
