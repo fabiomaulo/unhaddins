@@ -18,29 +18,29 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		[Test]
 		public void BasicUsage()
 		{
-			// This test show the what happen using something else than identity
+			// This test shows what happens using something else than identity
 			var scm1 = Container.Resolve<ISillyCrudModel>();
 			var scm2 = Container.Resolve<ISillyCrudModel>();
-			Assert.That(scm1, Is.Not.SameAs(scm2),"El model estaría mal configurado porque devuelve siempre la misma instancia.");
+			Assert.That(scm1, Is.Not.SameAs(scm2),"The model is expected to be configured to return a new instance for every ISillyCrudModel.");
 
 			var l1 = scm1.GetEntirelyList();
 			Assert.That(l1.Count, Is.EqualTo(0));
 
-			// Guardo con una conversation y levanto con otra y las modificaciones estan
+			// We save in a conversation, and then retrieve the results from a different one.
 			Silly s = new Silly { Name = "fiamma" };
 			scm1.Save(s);
 			Assert.That(s.Id, Is.Not.EqualTo(0));
 			int savedId = s.Id;
-			scm1.AcceptAll(); // <== To have a result available to other conversation you must end your
+			scm1.AcceptAll(); // <== To have a result available to other conversation you must end yours
 
 			var l2 = scm2.GetEntirelyList();
 			Assert.That(l2.Count, Is.EqualTo(1));
 			Assert.That("fiamma", Is.EqualTo(l2[0].Name));
-			Assert.That(l2[0], Is.Not.SameAs(s), "las dos instancias no deberían ser de la misma session");
+			Assert.That(l2[0], Is.Not.SameAs(s), "the two instances of Silly should be of different a session");
 			scm2.Delete(l2[0]);
 			scm2.AcceptAll();
 
-			// la conversation tendría que volver a empezar y la session.cache debería estar limpia
+			// the conversation should resume and the entity should not be associated to the current session
 			Assert.That(scm1.GetIfAvailable(savedId), Is.Null);
 			scm1.AcceptAll();
 		}
