@@ -55,12 +55,12 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 
 			Silly s = new Silly { Name = "fiamma" };
 			scm1.Save(s);
-			Assert.That(s.Id, Is.Not.EqualTo(0));
+			Assert.That(s.Id, Is.Not.EqualTo(0), "The entity didn't receive the hilo id!?!");
 			int savedId = s.Id;
 			scm1.Abort();
 
 			var scm2 = Container.Resolve<ISillyCrudModel>();
-			Assert.That(scm2.GetIfAvailable(savedId), Is.Null);
+			Assert.That(scm2.GetIfAvailable(savedId), Is.Null, "If it was aborted then it is not present in another conversation");
 			scm2.AcceptAll();
 		}
 	}
