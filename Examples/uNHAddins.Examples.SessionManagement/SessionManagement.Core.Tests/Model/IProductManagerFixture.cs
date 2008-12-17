@@ -10,11 +10,11 @@ namespace SessionManagement.Domain.Tests.Model
 	[TestFixture]
 	public class IProductManagerFixture : TestCase
 	{
-		private IProductManager productManager;
+		private IProductModel productManager;
 
 		protected override void OnSetUp()
 		{
-			productManager = IoC.Resolve<IProductManager>();
+			productManager = IoC.Resolve<IProductModel>();
 		}
 
 		protected override void OnTearDown()

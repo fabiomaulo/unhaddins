@@ -1,12 +1,19 @@
+using SessionManagement.Domain;
+
 namespace SessionManagement.Presentation.Presenters
 {
 	public class Presenter<TView>
 	{
-		protected TView View { get; set; }
+		private TView view;
+		protected virtual TView View
+		{
+			get { return view; }
+			set { view = value; }
+		}
 
 		public Presenter(TView view)
 		{
-			View = view;
+			this.view = view;
 		}
 	}
 }
