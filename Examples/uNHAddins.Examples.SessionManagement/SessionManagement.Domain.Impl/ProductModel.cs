@@ -5,11 +5,11 @@ using uNhAddIns.Adapters;
 namespace SessionManagement.Domain.Impl
 {
 	[PersistenceConversational]
-	public class ProductManager : IProductManager
+	public class ProductModel : IProductModel
 	{
 		private readonly IProductRepository productRepository;
 
-		public ProductManager(IProductRepository productRepository)
+		public ProductModel(IProductRepository productRepository)
 		{
 			this.productRepository = productRepository;
 		}
@@ -22,8 +22,14 @@ namespace SessionManagement.Domain.Impl
 			return productRepository.MakePersistent(product);
 		}
 
-		[PersistenceConversation(EndConversation = true)]
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public void EndConversation()
+		{
+			// Commits the use case
+		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
+		public void AbortConversation()
 		{
 			// Commits the use case
 		}

@@ -1,6 +1,6 @@
 ﻿namespace SessionManagement.Domain.Model
 {
-	public interface IProductManager
+	public interface IProductModel
 	{
 		Product Save(Product product);
 		void EndConversation();

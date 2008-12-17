@@ -34,6 +34,11 @@ namespace SessionManagement.Infrastructure.InversionOfControl
 			return underlyingContainer.Resolve<T>();
 		}
 
+		public object Resolve(string key)
+		{
+			return underlyingContainer.Resolve(key);
+		}
+
 		public void RegisterImplementationOf(string id, Type service, Type implementation, LifeStyle lifeStyle)
 		{
 			underlyingContainer.AddComponentLifeStyle(id, service, implementation, lifeStyleTranslation[lifeStyle]);
@@ -42,6 +47,11 @@ namespace SessionManagement.Infrastructure.InversionOfControl
 		public void RegisterImplementationOf(string id, Type service, Type implementation)
 		{
 			underlyingContainer.AddComponent(id, service, implementation);
+		}
+
+		public void RegisterImplementationOf(string id, Type implementation, LifeStyle lifeStyle)
+		{
+			underlyingContainer.AddComponentLifeStyle(id, implementation, lifeStyleTranslation[lifeStyle]);
 		}
 
 		#endregion

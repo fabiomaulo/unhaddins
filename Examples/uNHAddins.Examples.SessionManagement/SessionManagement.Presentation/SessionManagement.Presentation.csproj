@@ -36,10 +36,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Presenters\AddUserPresenter.cs" />
+    <Compile Include="Presenters\AddProductPresenter.cs" />
     <Compile Include="Presenters\Presenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInterfaces\IAddProductView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
+      <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
+      <Name>SessionManagement.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

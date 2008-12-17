@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SessionManagement.Presentation.ViewInterfaces
+﻿namespace SessionManagement.Presentation.ViewInterfaces
 {
-	public interface IAddProductView
+	public interface IAddProductView : IView
 	{
+		string Code { get; }
+		string Description { get; }
+		double Price { get; }
+		
+	}
+
+	public interface IView
+	{
+		void Clean();
+		void ShowMessage(string message);
 	}
 }

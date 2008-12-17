@@ -31,8 +31,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.MicroKernel, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.MicroKernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=1.0.3.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="NHibernate, Version=2.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -40,6 +60,14 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="uNhAddIns, Version=0.2.0.38779, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\uNhAddIns.dll</HintPath>
+    </Reference>
+    <Reference Include="uNhAddIns.CastleAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\uNhAddIns.CastleAdapters.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -68,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="castle.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -91,10 +122,31 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SessionManagement.Data.Impl\SessionManagement.Data.NH.csproj">
+      <Project>{B7B6F6D8-A067-4943-B048-720F46D352CE}</Project>
+      <Name>SessionManagement.Data.NH</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SessionManagement.Domain.Impl\SessionManagement.Domain.Impl.csproj">
+      <Project>{A9F5D23B-AD4D-4CC1-8F26-449C084606A8}</Project>
+      <Name>SessionManagement.Domain.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
+      <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
+      <Name>SessionManagement.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SessionManagement.Infrastructure\SessionManagement.Infrastructure.csproj">
+      <Project>{092F2475-7592-45D9-9BCC-93445A1EC3C2}</Project>
+      <Name>SessionManagement.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SessionManagement.Presentation\SessionManagement.Presentation.csproj">
       <Project>{59AC786D-C2FB-425B-BC03-0990B6FD5ACE}</Project>
       <Name>SessionManagement.Presentation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -104,4 +156,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
