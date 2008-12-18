@@ -41,5 +41,28 @@ namespace Artorius.Tests.Parsing
 			Assert.That(orderByClause.OrderList.ElementAt(2).ToString(), Is.EqualTo("a.Weight"));
 		}
 
+		[Test]
+		public void ExpressionListReduction()
+		{
+			string hql = "from Animal a group by a.Father.Name, a.Name, a.Weight";
+			GroupByClause groupByClause = ((FromClause)Parse(hql)).GroupBy;
+			Assert.That(groupByClause, Is.Not.Null);
+			Assert.That(groupByClause.ExpressionList, Is.Not.Null);
+			Assert.That(groupByClause.ExpressionList.Count, Is.EqualTo(3));
+			Assert.That(groupByClause.ExpressionList.ElementAt(0).ToString(), Is.EqualTo("a.Father.Name"));
+			Assert.That(groupByClause.ExpressionList.ElementAt(1).ToString(), Is.EqualTo("a.Name"));
+			Assert.That(groupByClause.ExpressionList.ElementAt(2).ToString(), Is.EqualTo("a.Weight"));
+		}
+
+		[Test]
+		public void GroupByReduction()
+		{
+			string hql = "from Animal a group by a.Father.Name";
+			GroupByClause groupByClause = ((FromClause)Parse(hql)).GroupBy;
+			Assert.That(groupByClause, Is.Not.Null);
+			Assert.That(groupByClause.ExpressionList, Is.Not.Null);
+			Assert.That(groupByClause.ExpressionList.Count, Is.EqualTo(1));
+			Assert.That(groupByClause.ExpressionList.ElementAt(0).ToString(), Is.EqualTo("a.Father.Name"));
+		}
 	}
 }
