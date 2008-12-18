@@ -20,5 +20,10 @@ namespace NHibernate.Hql.Ast.Tree
 		{
 			get { return children.OfType<OrderByClause>().FirstOrDefault(); }
 		}
+
+		public GroupByClause GroupBy
+		{
+			get { return children.OfType<GroupByClause>().FirstOrDefault(); }
+		}
 	}
 }

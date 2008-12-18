@@ -135,7 +135,7 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterClauseConverter("WithClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("WhereClause", x => new NoConvertedExpression());
 			RegisterClauseConverter("OrderByClause", x => new OrderByClause());
-			RegisterClauseConverter("GroupByClause", x => new NoConvertedExpression());
+			RegisterClauseConverter("GroupByClause", x => new GroupByClause());
 			RegisterClauseConverter("HavingClause", x => new NoConvertedExpression());
 
 			RegisterClauseConverter("AndExpression", x => new LogicalExpression());
@@ -160,7 +160,7 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterClauseConverter("CaseResult", x => new NoConvertedExpression());
 			RegisterClauseConverter("CollectionExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("ElseClause", x => new NoConvertedExpression());
-			RegisterClauseConverter("ExpressionList", x => new NoConvertedExpression());
+			RegisterClauseConverter("ExpressionList", x => new ExpressionList());
 			RegisterClauseConverter("IndexedExpression", x => new NoConvertedExpression());
 			RegisterClauseConverter("JoinDefinition", x => new NoConvertedExpression());
 			RegisterClauseConverter("NotExpression", x => new NoConvertedExpression());

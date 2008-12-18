@@ -89,6 +89,7 @@
     <Compile Include="Tree\ExpType.cs" />
     <Compile Include="Tree\FromClause.cs" />
     <Compile Include="Tree\FunctionExpression.cs" />
+    <Compile Include="Tree\GroupByClause.cs" />
     <Compile Include="Tree\Identifier.cs" />
     <Compile Include="Tree\IExpression.cs" />
     <Compile Include="Tree\ILiteralNode.cs" />
