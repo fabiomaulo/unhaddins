@@ -100,9 +100,9 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 
 ! ------------------------------------------------- Rules
 
-<OrderList>::= <Expression> <OrderType> ',' <OrderList>
-            |  <Expression> <OrderType>
-
+<OrderList>::= <OrderItem> ',' <OrderList>
+            |  <OrderItem>
+<OrderItem>::= <Expression> <OrderType>
 <OrderType> ::= ASC
              |  DESC
              |  ASCENDING
