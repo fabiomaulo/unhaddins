@@ -13,7 +13,7 @@ namespace Artorius.Tests.ClausesExpressions
 			var fromClause = new FromClause("Animal");
 			Assert.That(fromClause.EntityNames, Is.Not.Null);
 			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(1));
-			Assert.That(fromClause.EntityNames.ElementAt(0).EntityName, Is.EqualTo("Animal"));
+			Assert.That(fromClause.EntityNames.ElementAt(0).Alieased.ToString(), Is.EqualTo("Animal"));
 			Assert.That(fromClause.EntityNames.ElementAt(0).Alias, Is.Null);
 		}
 
@@ -24,14 +24,14 @@ namespace Artorius.Tests.ClausesExpressions
 			fromClause.AddChild(new EntityNameExpression("Animal"));
 			Assert.That(fromClause.EntityNames, Is.Not.Null);
 			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(1));
-			Assert.That(fromClause.EntityNames.ElementAt(0).EntityName, Is.EqualTo("Animal"));
+			Assert.That(fromClause.EntityNames.ElementAt(0).Alieased.ToString(), Is.EqualTo("Animal"));
 			Assert.That(fromClause.EntityNames.ElementAt(0).Alias, Is.Null);
 
 			fromClause = new FromClause();
 			fromClause.AddChild(new AliasedEntityNameExpression("Animal","a"));
 			Assert.That(fromClause.EntityNames, Is.Not.Null);
 			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(1));
-			Assert.That(fromClause.EntityNames.ElementAt(0).EntityName, Is.EqualTo("Animal"));
+			Assert.That(fromClause.EntityNames.ElementAt(0).Alieased.ToString(), Is.EqualTo("Animal"));
 			Assert.That(fromClause.EntityNames.ElementAt(0).Alias, Is.EqualTo("a"));
 		}
 	}

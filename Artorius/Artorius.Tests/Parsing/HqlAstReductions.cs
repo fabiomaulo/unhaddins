@@ -88,5 +88,17 @@ namespace Artorius.Tests.Parsing
 			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(1));
 			Assert.That(fromClause.EntityNames.ElementAt(0).ToString(), Is.EqualTo("Something"));
 		}
+
+		[Test]
+		public void From_ElementsAlias()
+		{
+			string hql = "from bar in class org.hibernate.test.Bar, foo in elements( bar.baz.fooArray )";
+			FromClause fromClause = (FromClause)Parse(hql);
+			Assert.That(fromClause, Is.Not.Null);
+			Assert.That(fromClause.EntityNames, Is.Not.Null);
+			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(2));
+			Assert.That(fromClause.EntityNames.ElementAt(0).ToString(), Is.EqualTo("org.hibernate.test.Bar as bar"));
+			Assert.That(fromClause.EntityNames.ElementAt(1).ToString(), Is.EqualTo("elements_of(bar.baz.fooArray) as foo"));
+		}
 	}
 }

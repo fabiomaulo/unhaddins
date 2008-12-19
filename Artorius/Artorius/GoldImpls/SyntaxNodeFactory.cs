@@ -144,12 +144,13 @@ namespace NHibernate.Hql.Ast.GoldImpls
 			RegisterClauseConverter("MathMultExpression", x => new MathExpression());
 			RegisterClauseConverter("MathNegateExpression", x => new MathNegateExpression());
 			RegisterClauseConverter("EntityName", x => new EntityNameExpression());
-			RegisterClauseConverter("AliasedEntityName", x => new AliasedEntityNameExpression());
+			RegisterClauseConverter("AliasedEntityName", AliasedEntityConverter);
 			RegisterClauseConverter("AliasedEntityNameList", x => new AliasedEntityNameList());
 			RegisterClauseConverter("AliasedExpression", x => new AliasedExpression());
 			RegisterClauseConverter("AliasedExpressionList", x => new AliasedExpressionList());
 			RegisterClauseConverter("Value", x => new ValueExpression());
 			RegisterClauseConverter("StringValueExpression", x => new NoConvertedExpression());
+			RegisterClauseConverter("ElementsExpression", x => new ElementsExpression());
 
 			RegisterClauseConverter("AggregateExpression", x => new FunctionExpression());
 			RegisterClauseConverter("FunctionExpression", x => new FunctionExpression());
@@ -315,6 +316,19 @@ namespace NHibernate.Hql.Ast.GoldImpls
 		{
 			throw new NotSupportedException("The converter is not available; GOLD parser Reduction:" + x);
 		}
+
+		private static IClauseNode AliasedEntityConverter(Reduction reduction)
+		{
+			if (reduction.Tokens.Select(x => x.Name).Contains("ElementsExpression"))
+			{
+				return new AliasedElementsExpression();
+			}
+			else
+			{
+				return new AliasedEntityNameExpression();
+			}
+		}
+
 		#endregion
 	}
 }

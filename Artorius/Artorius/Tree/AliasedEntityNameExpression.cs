@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace NHibernate.Hql.Ast.Tree
 {
-	public class AliasedEntityNameExpression : AbstractClauseNode, IEqualityComparer<AliasedEntityNameExpression>
+	public class AliasedEntityNameExpression : AbstractAliasedEntityExpression
 	{
 		internal AliasedEntityNameExpression() {}
 
@@ -30,40 +29,20 @@ namespace NHibernate.Hql.Ast.Tree
 
 		public string EntityName
 		{
-			get { return children.First(x => x is EntityNameExpression).ToString(); }
-		}
-
-		public string Alias
-		{
-			get
-			{
-				ISyntaxNode result = children.FirstOrDefault(x => x is Identifier);
-				return result != null ? result.ToString() : null;
-			}
+			get { return children.OfType<EntityNameExpression>().First().ToString(); }
 		}
 
 		public override string ToString()
 		{
 			string a = Alias;
-			return a != null ? string.Concat(EntityName, " as ", Alias) : EntityName;
+			return a != null ? string.Concat(EntityName, " as ", a) : EntityName;
 		}
 
-		#region Implementation of IEqualityComparer<AliasedEntityNameExpression>
+		#region Overrides of AbstractAliasedEntityExpression
 
-		private int? requestedHash;
-
-		public bool Equals(AliasedEntityNameExpression x, AliasedEntityNameExpression y)
+		public override ISyntaxNode Alieased
 		{
-			return x.GetHashCode() == y.GetHashCode();
-		}
-
-		public int GetHashCode(AliasedEntityNameExpression obj)
-		{
-			if (!requestedHash.HasValue)
-			{
-				requestedHash = 317 ^ EntityName.GetHashCode() ^ Alias.GetHashCode();
-			}
-			return requestedHash.Value;
+			get { return children.First(x => x is EntityNameExpression); }
 		}
 
 		#endregion
