@@ -1,48 +1,62 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace NHibernate.Hql.Ast.Tree
 {
 	public class AliasedEntityNameExpression : AbstractClauseNode, IEqualityComparer<AliasedEntityNameExpression>
 	{
 		internal AliasedEntityNameExpression() {}
 
-		public AliasedEntityNameExpression(string entityName, string alias)
+		public AliasedEntityNameExpression(EntityNameExpression entityName, string alias)
 		{
-			var item = new EntityNameExpression(entityName);
+			if (entityName == null)
+			{
+				throw new ArgumentNullException("entityName");
+			}
+
+			EntityNameExpression item = entityName;
 			item.SetParent(this);
 			children.Add(item);
-			children.Add(new Identifier(this, alias));
+			string a = string.IsNullOrEmpty(alias) ? alias : alias.Trim();
+			if (!string.IsNullOrEmpty(a))
+			{
+				children.Add(new Identifier(this, a));
+			}
 		}
+
+		public AliasedEntityNameExpression(string entityName, string alias)
+			: this(new EntityNameExpression(entityName), alias) {}
 
 		public string EntityName
 		{
-			get
-			{
-				return children.First(x => x is EntityNameExpression).ToString();
-			}
+			get { return children.First(x => x is EntityNameExpression).ToString(); }
 		}
 
 		public string Alias
 		{
 			get
 			{
-				return children.First(x => x is Identifier).ToString();
+				ISyntaxNode result = children.FirstOrDefault(x => x is Identifier);
+				return result != null ? result.ToString() : null;
 			}
 		}
 
 		public override string ToString()
 		{
-			return string.Concat(EntityName, " as ", Alias);
+			string a = Alias;
+			return a != null ? string.Concat(EntityName, " as ", Alias) : EntityName;
 		}
 
 		#region Implementation of IEqualityComparer<AliasedEntityNameExpression>
+
+		private int? requestedHash;
 
 		public bool Equals(AliasedEntityNameExpression x, AliasedEntityNameExpression y)
 		{
 			return x.GetHashCode() == y.GetHashCode();
 		}
 
-		private int? requestedHash;
 		public int GetHashCode(AliasedEntityNameExpression obj)
 		{
 			if (!requestedHash.HasValue)
