@@ -11,4 +11,9 @@
     <property name="Description"/>
     <property name="Price"/>
   </class>
+
+  <query name="GetAllProductsOrderedByCode">
+    from Product product
+    order by product.Code
+  </query>
 </hibernate-mapping>

@@ -36,7 +36,7 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			var l2 = scm2.GetEntirelyList();
 			Assert.That(l2.Count, Is.EqualTo(1));
 			Assert.That("fiamma", Is.EqualTo(l2[0].Name));
-			Assert.That(l2[0], Is.Not.SameAs(s), "the two instances of Silly should be of different a session");
+			Assert.That(l2[0], Is.Not.SameAs(s), "the two instances of Silly should be of a different session");
 			scm2.Delete(l2[0]);
 			scm2.AcceptAll();
 
