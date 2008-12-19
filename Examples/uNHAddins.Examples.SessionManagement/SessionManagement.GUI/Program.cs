@@ -28,6 +28,7 @@ namespace SessionManagement.GUI
 			IWindsorContainer container = new WindsorContainer(new XmlInterpreter("castle.config"));
 			IoC.RegisterResolver(new WindsorDependencyResolver(container));
 			IoC.RegisterImplementationOf("CreateProduct", typeof(AddProductView), LifeStyle.Transient);
+			IoC.RegisterImplementationOf("ViewProducts", typeof(BrowseProductsView), LifeStyle.Transient);
 		}
 	}
 }

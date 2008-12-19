@@ -7,16 +7,14 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
-using SessionManagement.Data.NH.Repositories;
-using SessionManagement.Domain.Impl;
+using SessionManagement.Data.NH.Tests;
 using Assert=NUnit.Framework.Assert;
 using NUnit.Framework;
 using Castle.Windsor;
 using SessionManagement.Infrastructure.InversionOfControl;
-using SessionManagement.Domain.Model;
 using Castle.Windsor.Configuration.Interpreters;
 
-namespace SessionManagement.Data.NH.Tests
+namespace SessionManagement.Domain.Tests
 {
 	/// <summary>
 	/// Ported from NH oficial tests.
