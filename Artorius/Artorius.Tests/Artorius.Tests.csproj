@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseParserTestCase.cs" />
+    <Compile Include="ClausesExpressions\FromFixture.cs" />
     <Compile Include="Integration\A_SillyFixture.cs" />
     <Compile Include="Integration\Silly.cs" />
     <Compile Include="Parsing\GrammarFixture.cs" />

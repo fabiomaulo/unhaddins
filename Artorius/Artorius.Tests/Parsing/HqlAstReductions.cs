@@ -64,5 +64,29 @@ namespace Artorius.Tests.Parsing
 			Assert.That(groupByClause.ExpressionList.Count, Is.EqualTo(1));
 			Assert.That(groupByClause.ExpressionList.ElementAt(0).ToString(), Is.EqualTo("a.Father.Name"));
 		}
+
+		[Test]
+		public void AliasedExpressionListReduction()
+		{
+			string hql = "from Animal a, b in class Something, Human as h";
+			FromClause fromClause = (FromClause)Parse(hql);
+			Assert.That(fromClause, Is.Not.Null);
+			Assert.That(fromClause.EntityNames, Is.Not.Null);
+			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(3));
+			Assert.That(fromClause.EntityNames.ElementAt(0).ToString(), Is.EqualTo("Animal as a"));
+			Assert.That(fromClause.EntityNames.ElementAt(1).ToString(), Is.EqualTo("Something as b"));
+			Assert.That(fromClause.EntityNames.ElementAt(2).ToString(), Is.EqualTo("Human as h"));
+		}
+
+		[Test]
+		public void From_EntityNameReduction()
+		{
+			string hql = "from Something";
+			FromClause fromClause = (FromClause)Parse(hql);
+			Assert.That(fromClause, Is.Not.Null);
+			Assert.That(fromClause.EntityNames, Is.Not.Null);
+			Assert.That(fromClause.EntityNames.Count, Is.EqualTo(1));
+			Assert.That(fromClause.EntityNames.ElementAt(0).ToString(), Is.EqualTo("Something"));
+		}
 	}
 }

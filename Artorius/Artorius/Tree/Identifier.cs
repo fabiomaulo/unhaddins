@@ -10,6 +10,10 @@ namespace NHibernate.Hql.Ast.Tree
 		internal Identifier(IClauseNode parentRule, string name)
 			: base(parentRule)
 		{
+			if (name == null)
+			{
+				throw new ArgumentNullException("name");
+			}
 			var trimmed = name.Trim();
 			Name = trimmed;
 			if (string.IsNullOrEmpty(trimmed))
@@ -19,5 +23,10 @@ namespace NHibernate.Hql.Ast.Tree
 		}
 
 		public string Name { get; private set; }
+
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 }
