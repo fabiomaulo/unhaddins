@@ -1,4 +1,5 @@
-﻿using SessionManagement.Data.Repositories;
+﻿using System.Collections.Generic;
+using SessionManagement.Data.Repositories;
 using SessionManagement.Domain.Model;
 using uNhAddIns.Adapters;
 
@@ -26,6 +27,12 @@ namespace SessionManagement.Domain.Impl
 		public void EndConversation()
 		{
 			// Commits the use case
+		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
+		public IList<Product> GetProducts()
+		{
+			return productRepository.GetAllProducts();
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]

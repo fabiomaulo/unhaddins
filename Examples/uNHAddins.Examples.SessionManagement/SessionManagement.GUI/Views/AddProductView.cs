@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using SessionManagement.Domain.Model;
 using SessionManagement.Presentation.Presenters;
 using SessionManagement.Presentation.ViewInterfaces;
@@ -28,12 +29,12 @@ namespace SessionManagement.GUI.Views
 			}
 		}
 
-		private void AddButton_Click(object sender, System.EventArgs e)
+		private void AddButton_Click(object sender, EventArgs e)
 		{
 			presenter.CreateNewProduct();
 		}
 
-		private void AddProductView_Load(object sender, System.EventArgs e)
+		private void AddProductView_Load(object sender, EventArgs e)
 		{
 			if (!DesignMode)
 			{
@@ -78,6 +79,13 @@ namespace SessionManagement.GUI.Views
 		{
 			MessageBox.Show(message);
 		}
+
+		#endregion
+
+		#region IView Members
+
+
+		public event EventHandler ViewInitialized;
 
 		#endregion
 	}
