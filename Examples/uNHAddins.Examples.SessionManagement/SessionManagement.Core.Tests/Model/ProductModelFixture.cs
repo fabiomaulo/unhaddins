@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace SessionManagement.Domain.Tests.Model
 {
 	[TestFixture]
-	public class IProductModelFixture : TestCase
+	public class ProductModelFixture : TestCase
 	{
 		private IProductModel productModel;
 
