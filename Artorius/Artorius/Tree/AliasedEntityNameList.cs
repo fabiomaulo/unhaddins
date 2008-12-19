@@ -3,9 +3,10 @@ using System.Linq;
 
 namespace NHibernate.Hql.Ast.Tree
 {
-	public class AliasedEntityNameList : AbstractClauseList<AliasedEntityNameExpression>
+	public class AliasedEntityNameList : AbstractClauseList<AbstractAliasedEntityExpression>
 	{
-		internal AliasedEntityNameList() { }
+		internal AliasedEntityNameList() {}
+
 		public AliasedEntityNameList(params AliasedEntityNameExpression[] list)
 		{
 			if (list == null || list.Length == 0)
@@ -18,7 +19,7 @@ namespace NHibernate.Hql.Ast.Tree
 		public override bool AddChild(ISyntaxNode node)
 		{
 			var inner = node as AliasedEntityNameList;
-			if(inner != null)
+			if (inner != null)
 			{
 				return AddChild(inner);
 			}
@@ -27,7 +28,7 @@ namespace NHibernate.Hql.Ast.Tree
 
 		public bool AddChild(AliasedEntityNameList node)
 		{
-			foreach (AliasedEntityNameExpression child in node.Children.OfType<AliasedEntityNameExpression>())
+			foreach (AbstractAliasedEntityExpression child in node.Children.OfType<AbstractAliasedEntityExpression>())
 			{
 				base.AddChild(child);
 			}

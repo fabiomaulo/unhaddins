@@ -151,8 +151,10 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 
 ! -------------------- Special functions ----------------------------
 
-<CollectionExpression>::= ELEMENTS'(' Path ')'
+<CollectionExpression>::= <ElementsExpression>
                        |  INDICES'(' Path ')'
+
+<ElementsExpression>::= ELEMENTS'(' Path ')'
 
 <EntityName> ::= Identifier | Path
 <EntityNameList> ::= <EntityName> ',' <EntityNameList>
@@ -161,7 +163,7 @@ Parameter = ':'{ID Head}{ID Tail}* | '?'
 <AliasedEntityName> ::= <EntityName> Identifier
                      |  <EntityName> AS Identifier
                      |  Identifier IN CLASS <EntityName>
-                     |  Identifier IN ELEMENTS'(' Path ')'
+                     |  Identifier IN <ElementsExpression>
                      |  <EntityName>
 
 <AliasedEntityNameList> ::= <AliasedEntityName> ',' <AliasedEntityNameList>
