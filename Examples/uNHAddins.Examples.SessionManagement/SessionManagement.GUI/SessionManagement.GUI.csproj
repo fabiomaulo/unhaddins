@@ -49,10 +49,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\NHibernate.ByteCode.Castle.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -60,14 +56,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="uNhAddIns, Version=0.2.0.38779, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\uNhAddIns.dll</HintPath>
-    </Reference>
-    <Reference Include="uNhAddIns.CastleAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\lib\uNhAddIns.CastleAdapters.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">
@@ -132,14 +120,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SessionManagement.Data.Impl\SessionManagement.Data.NH.csproj">
-      <Project>{B7B6F6D8-A067-4943-B048-720F46D352CE}</Project>
-      <Name>SessionManagement.Data.NH</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SessionManagement.Domain.Impl\SessionManagement.Domain.Impl.csproj">
-      <Project>{A9F5D23B-AD4D-4CC1-8F26-449C084606A8}</Project>
-      <Name>SessionManagement.Domain.Impl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
       <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
       <Name>SessionManagement.Domain</Name>
