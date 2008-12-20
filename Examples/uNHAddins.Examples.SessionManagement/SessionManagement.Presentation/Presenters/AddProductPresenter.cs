@@ -5,7 +5,7 @@ using SessionManagement.Domain.Model;
 
 namespace SessionManagement.Presentation.Presenters
 {
-	public class AddProductPresenter : Presenter<IAddProductView>
+	public class AddProductPresenter : Presenter<IAddProductView>, IAddProductPresenter
 	{
 		private readonly IProductModel productModel;
 
@@ -13,28 +13,34 @@ namespace SessionManagement.Presentation.Presenters
 			: base(view)
 		{
 			this.productModel = productModel;
+			view.AddButtonPressed += view_AddButtonPressed;
 		}
 
-		public void CreateNewProduct()
+		void view_AddButtonPressed(object sender, TEventArgs<Product> e)
+		{
+			CreateNewProduct(e.Data);
+		}
+
+		private void CreateNewProduct(Product product)
 		{
 			try
 			{
-				var product = new Product
+				if (!productModel.ProductExists(product))
 				{
-					Code = View.Code,
-					Description = View.Description,
-					Price = View.Price
-				};
+					productModel.Save(product);
+					View.ShowMessage("Product added");
+					View.Clean();
+				}
+				else
+				{
+					View.ShowMessage("Product already exists");
+				}
 
-				productModel.Save(product);
-				productModel.EndConversation();
-				View.ShowMessage("Product added");
-				View.Clean();
-
+				productModel.AcceptConversation();
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				View.ShowMessage("An error has occured while trying to save the product");
+				View.ShowMessage(ex.Message);
 			}	
 		}
 	}

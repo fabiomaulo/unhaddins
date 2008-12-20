@@ -1,15 +1,31 @@
-﻿using System;
+﻿#region usings
+
+using System;
 using System.Windows.Forms;
+using SessionManagement.Domain;
 using SessionManagement.Domain.Model;
 using SessionManagement.Presentation.Presenters;
 using SessionManagement.Presentation.ViewInterfaces;
+
+#endregion
 
 namespace SessionManagement.GUI.Views
 {
 	public partial class AddProductView : UserControl, IAddProductView
 	{
-		private AddProductPresenter presenter;
+		#region Readonly & Static Fields
+
 		private readonly IProductModel productModel;
+
+		#endregion
+
+		#region Fields
+
+		private AddProductPresenter presenter;
+
+		#endregion
+
+		#region C'tors
 
 		public AddProductView()
 		{
@@ -21,29 +37,9 @@ namespace SessionManagement.GUI.Views
 			this.productModel = productModel;
 		}
 
-		private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-		{
-			if (!char.IsDigit(e.KeyChar) && !char.IsPunctuation(e.KeyChar) && !char.IsControl(e.KeyChar))
-			{
-				e.Handled = true;
-			}
-		}
+		#endregion
 
-		private void AddButton_Click(object sender, EventArgs e)
-		{
-			presenter.CreateNewProduct();
-		}
-
-		private void AddProductView_Load(object sender, EventArgs e)
-		{
-			if (!DesignMode)
-			{
-				presenter = new AddProductPresenter(this, productModel);
-				CodeTextBox.Focus();
-			}
-		}
-
-		#region IAddProductView Members
+		#region Instance Properties
 
 		public string Code
 		{
@@ -61,10 +57,81 @@ namespace SessionManagement.GUI.Views
 			{
 				double price;
 
-				return double.TryParse(PriceTextBox.Text, out price) 
-							? price 
-							: 0.0;
+				return double.TryParse(PriceTextBox.Text, out price)
+				       	? price
+				       	: 0.0;
 			}
+		}
+
+		#endregion
+
+		#region Instance Methods
+
+		private Product GetProduct()
+		{
+			return new Product
+			       	{
+			       		Code = Code,
+			       		Description = Description,
+			       		Price = Price
+			       	};
+		}
+
+		private void InvokeAddButtonPressed(TEventArgs<Product> e)
+		{
+			var addButtonPressedHandler = addButtonPressed;
+			if (addButtonPressedHandler != null) addButtonPressedHandler(this, e);
+		}
+
+		private void InvokeViewInitialized(EventArgs e)
+		{
+			var viewInitializedHandler = viewInitialized;
+			if (viewInitializedHandler != null) viewInitializedHandler(this, e);
+		}
+
+		#endregion
+
+		#region Event Handling
+
+		private void AddButton_Click(object sender, EventArgs e)
+		{
+			var product = GetProduct();
+			InvokeAddButtonPressed(new TEventArgs<Product>(product));
+		}
+
+		private void AddProductView_Load(object sender, EventArgs e)
+		{
+			if (!DesignMode)
+			{
+				presenter = new AddProductPresenter(this, productModel);
+				InvokeViewInitialized(EventArgs.Empty);
+				CodeTextBox.Focus();
+			}
+		}
+
+		private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (!char.IsDigit(e.KeyChar) && !char.IsPunctuation(e.KeyChar) && !char.IsControl(e.KeyChar))
+			{
+				e.Handled = true;
+			}
+		}
+
+		#endregion
+
+		#region Event Declarations
+
+		private event EventHandler<TEventArgs<Product>> addButtonPressed;
+		private event EventHandler viewInitialized;
+
+		#endregion
+
+		#region IAddProductView Members
+
+		public event EventHandler<TEventArgs<Product>> AddButtonPressed
+		{
+			add { addButtonPressed += value; }
+			remove { addButtonPressed -= value; }
 		}
 
 		public void Clean()
@@ -80,12 +147,11 @@ namespace SessionManagement.GUI.Views
 			MessageBox.Show(message);
 		}
 
-		#endregion
-
-		#region IView Members
-
-
-		public event EventHandler ViewInitialized;
+		public event EventHandler ViewInitialized
+		{
+			add { viewInitialized += value; }
+			remove { viewInitialized -= value; }
+		}
 
 		#endregion
 	}

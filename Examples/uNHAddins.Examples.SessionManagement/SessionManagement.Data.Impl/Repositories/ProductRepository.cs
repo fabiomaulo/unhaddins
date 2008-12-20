@@ -11,8 +11,17 @@ namespace SessionManagement.Data.NH.Repositories
 
 		public IList<Product> GetAllProducts()
 		{
-			IQuery query = Session.GetNamedQuery("GetAllProductsOrderedByCode");
+			var query = Session.GetNamedQuery("GetAllProductsOrderedByCode");
 			return query.List<Product>();
+		}
+
+		public Product GetProductByCode(string code)
+		{
+			var query = Session
+				.GetNamedQuery("GetProductByCode")
+				.SetParameter("code", code);
+
+			return query.UniqueResult<Product>();
 		}
 	}
 }

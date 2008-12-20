@@ -16,4 +16,9 @@
     from Product product
     order by product.Code
   </query>
+
+  <query name="GetProductByCode">
+    from Product product
+    where product.Code = :code
+  </query>
 </hibernate-mapping>

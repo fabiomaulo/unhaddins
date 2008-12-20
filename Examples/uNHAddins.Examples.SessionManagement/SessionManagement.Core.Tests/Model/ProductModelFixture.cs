@@ -4,6 +4,7 @@ using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
 using NUnit.Framework.Syntax.CSharp;
 using System.Collections.Generic;
+using SessionManagement.TestUtils;
 
 namespace SessionManagement.Domain.Tests.Model
 {
@@ -47,7 +48,7 @@ namespace SessionManagement.Domain.Tests.Model
 		public void get_products_returns_list_with_one_element_when_one_product_exists()
 		{
 			productModel.Save(CreateProduct("A1", "A1 Product", 17.25));
-			productModel.EndConversation();
+			productModel.AcceptConversation();
 			Assert.That(productModel.GetProducts().Count, Is.EqualTo(1));
 		}
 
@@ -58,8 +59,33 @@ namespace SessionManagement.Domain.Tests.Model
 			productModel.Save(CreateProduct("A2", "A2 Product", 17.25));
 			productModel.Save(CreateProduct("A3", "A3 Product", 17.25));
 			productModel.Save(CreateProduct("A4", "A4 Product", 17.25));
-			productModel.EndConversation();
+			productModel.AcceptConversation();
 			Assert.That(productModel.GetProducts().Count, Is.EqualTo(4));
+		}
+
+		[Test]
+		public void product_exists_returns_false_if_no_products()
+		{
+			Assert.That(productModel.ProductExists(CreateProduct("A1", "A1 Product", 1.0)), Is.False);
+		}
+
+		[Test]
+		public void product_exists_returns_false_if_some_different_product_exists()
+		{
+			productModel.Save(CreateProduct("1", "A1 Product", 17.25));
+			productModel.Save(CreateProduct("2", "A2 Product", 17.25));
+			productModel.AcceptConversation();
+
+			Assert.That(productModel.ProductExists(CreateProduct("A1", "A1 Product", 1.0)), Is.False);
+		}
+
+		[Test]
+		public void product_exists_returns_true_if_the__product_exists()
+		{
+			productModel.Save(CreateProduct("A1", "A1 Product", 17.25));
+			productModel.AcceptConversation();
+
+			Assert.That(productModel.ProductExists(CreateProduct("A1", "A1 Product", 1.0)), Is.True);
 		}
 
 		private Product CreateProduct(string code, string description, double price)

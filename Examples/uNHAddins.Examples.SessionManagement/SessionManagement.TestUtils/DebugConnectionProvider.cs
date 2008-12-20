@@ -3,7 +3,7 @@ using System.Data;
 using Iesi.Collections;
 using NHibernate.Connection;
 
-namespace SessionManagement.Data.NH.Tests
+namespace SessionManagement.TestUtils
 {
 	/// <summary>
 	/// Ported from NH oficial tests.

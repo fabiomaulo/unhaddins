@@ -48,7 +48,7 @@
 			this.CodeTextBox.Location = new System.Drawing.Point(84, 42);
 			this.CodeTextBox.Name = "CodeTextBox";
 			this.CodeTextBox.Size = new System.Drawing.Size(76, 20);
-			this.CodeTextBox.TabIndex = 0;
+			this.CodeTextBox.TabIndex = 1;
 			// 
 			// label1
 			// 
@@ -67,7 +67,7 @@
 			this.DescriptionTextBox.Location = new System.Drawing.Point(84, 68);
 			this.DescriptionTextBox.Name = "DescriptionTextBox";
 			this.DescriptionTextBox.Size = new System.Drawing.Size(193, 20);
-			this.DescriptionTextBox.TabIndex = 0;
+			this.DescriptionTextBox.TabIndex = 2;
 			// 
 			// label2
 			// 
@@ -100,7 +100,7 @@
 			this.label4.Location = new System.Drawing.Point(0, 0);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(289, 24);
-			this.label4.TabIndex = 3;
+			this.label4.TabIndex = 0;
 			this.label4.Text = "Add Product";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
@@ -120,7 +120,7 @@
 			this.button3.Location = new System.Drawing.Point(196, 134);
 			this.button3.Name = "button3";
 			this.button3.Size = new System.Drawing.Size(81, 29);
-			this.button3.TabIndex = 4;
+			this.button3.TabIndex = 5;
 			this.button3.Text = "Cancel";
 			this.button3.UseVisualStyleBackColor = true;
 			// 
@@ -129,7 +129,7 @@
 			this.PriceTextBox.Location = new System.Drawing.Point(84, 94);
 			this.PriceTextBox.Name = "PriceTextBox";
 			this.PriceTextBox.Size = new System.Drawing.Size(76, 20);
-			this.PriceTextBox.TabIndex = 5;
+			this.PriceTextBox.TabIndex = 3;
 			this.PriceTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
 			// 
 			// errorProvider1
