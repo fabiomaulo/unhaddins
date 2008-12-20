@@ -1,10 +1,10 @@
-﻿namespace SessionManagement.Presentation.ViewInterfaces
+﻿using System;
+using SessionManagement.Domain;
+
+namespace SessionManagement.Presentation.ViewInterfaces
 {
 	public interface IAddProductView : IView
 	{
-		string Code { get; }
-		string Description { get; }
-		double Price { get; }
-		
+		event EventHandler<TEventArgs<Product>> AddButtonPressed;
 	}
 }

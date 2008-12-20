@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SessionManagement.Data.Repositories;
 using SessionManagement.Domain.Model;
 using uNhAddIns.Adapters;
@@ -20,11 +21,14 @@ namespace SessionManagement.Domain.Impl
 		[PersistenceConversation]
 		public Product Save(Product product)
 		{
+			if (ProductExists(product))
+				throw new Exception("Product exists");
+
 			return productRepository.MakePersistent(product);
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
-		public void EndConversation()
+		public void AcceptConversation()
 		{
 			// Commits the use case
 		}
@@ -34,11 +38,18 @@ namespace SessionManagement.Domain.Impl
 		{
 			return productRepository.GetAllProducts();
 		}
+		
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
+		public bool ProductExists(Product product)
+		{
+			Product existingProduct = productRepository.GetProductByCode(product.Code);
+			return existingProduct != null;
+		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
 		public void AbortConversation()
 		{
-			// Commits the use case
+			// Rollback the use case
 		}
 
 		#endregion

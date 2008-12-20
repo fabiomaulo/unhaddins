@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Reflection;
+using Castle.Windsor;
+using Castle.Windsor.Configuration.Interpreters;
 using log4net;
 using log4net.Config;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
-using SessionManagement.Data.NH.Tests;
-using Assert=NUnit.Framework.Assert;
-using NUnit.Framework;
-using Castle.Windsor;
 using SessionManagement.Infrastructure.InversionOfControl;
-using Castle.Windsor.Configuration.Interpreters;
+using NUnit.Framework;
 
-namespace SessionManagement.Domain.Tests
+namespace SessionManagement.TestUtils
 {
 	/// <summary>
 	/// Ported from NH oficial tests.
@@ -34,7 +32,7 @@ namespace SessionManagement.Domain.Tests
 		/// <summary>
 		/// Mapping files used in the TestCase
 		/// </summary>
-		protected abstract System.Collections.IList Mappings { get; }
+		protected abstract IList Mappings { get; }
 
 		/// <summary>
 		/// Assembly to load mapping files from (default is NHibernate.DomainModel).
@@ -74,7 +72,7 @@ namespace SessionManagement.Domain.Tests
 			}
 		}
 
-		private void ConfigureIoC()
+		private static void ConfigureIoC()
 		{
 			IWindsorContainer container = new WindsorContainer(new XmlInterpreter("core.config"));
 			IoC.RegisterResolver(new WindsorDependencyResolver(container));

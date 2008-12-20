@@ -154,9 +154,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="hibernate.cfg.xml.template">
+    <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
