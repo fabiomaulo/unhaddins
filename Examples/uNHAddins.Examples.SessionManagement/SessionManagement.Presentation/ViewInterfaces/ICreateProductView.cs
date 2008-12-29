@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using SessionManagement.Domain;
 
 namespace SessionManagement.Presentation.ViewInterfaces
 {
 	public interface ICreateOrderView : IView
 	{
-		event EventHandler<TEventArgs<PurchaseOrder>> AddButtonPressed;
+		event EventHandler AddButtonPressed;
+		event EventHandler SaveButtonPressed;
+		DateTime OrderDate { get; }
+		string OrderNumber { get; }
+		void ShowLines(IList<OrderLine> lines);
 	}
 }

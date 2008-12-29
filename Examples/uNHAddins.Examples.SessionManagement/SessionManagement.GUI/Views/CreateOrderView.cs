@@ -1,6 +1,8 @@
 ﻿#region usings
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using SessionManagement.Domain;
 using SessionManagement.Domain.Model;
@@ -13,11 +15,7 @@ namespace SessionManagement.GUI.Views
 {
 	public partial class CreateOrderView : UserControl, ICreateOrderView
 	{
-		#region Readonly & Static Fields
-
-		private readonly IOrderModel orderModel;
-
-		#endregion
+		private readonly IModifyOrderModel orderModel;
 
 		#region Fields
 
@@ -32,7 +30,7 @@ namespace SessionManagement.GUI.Views
 			InitializeComponent();
 		}
 
-		public CreateOrderView(IOrderModel orderModel)
+		public CreateOrderView(IModifyOrderModel orderModel)
 			: this()
 		{
 			this.orderModel = orderModel;
@@ -47,13 +45,26 @@ namespace SessionManagement.GUI.Views
 			get { return NumberTextBox.Text; }
 		}
 
+		public DateTime OrderDate
+		{
+			get { return dateTimePicker1.Value; }
+		}
+
+		public string OrderNumber
+		{
+			get { return NumberTextBox.Text; }
+		}
+
+		public void ShowLines(IList<OrderLine> lines)
+		{
+			orderLineBindingSource.DataSource = new BindingList<OrderLine>(lines);
+		}
 
 		#endregion
 
 		#region Instance Methods
 
-
-		private void InvokeAddButtonPressed(TEventArgs<PurchaseOrder> e)
+		private void InvokeAddButtonPressed(EventArgs e)
 		{
 			var addButtonPressedHandler = addButtonPressed;
 			if (addButtonPressedHandler != null) addButtonPressedHandler(this, e);
@@ -71,23 +82,7 @@ namespace SessionManagement.GUI.Views
 
 		private void AddButton_Click(object sender, EventArgs e)
 		{
-			var order = GetOrder();
-			InvokeAddButtonPressed(new TEventArgs<PurchaseOrder>(order));
-		}
-
-		private PurchaseOrder GetOrder()
-		{
-			return orderModel.FindOrderOrCreateNew();
-		}
-
-		private DateTime OrderDate
-		{
-			get { return dateTimePicker1.Value; }
-		}
-
-		private string OrderNumber
-		{
-			get { return NumberTextBox.Text; }
+			InvokeAddButtonPressed(EventArgs.Empty);
 		}
 
 		private void AddProductView_Load(object sender, EventArgs e)
@@ -103,17 +98,33 @@ namespace SessionManagement.GUI.Views
 
 		#region Event Declarations
 
-		private event EventHandler<TEventArgs<PurchaseOrder>> addButtonPressed;
+		private event EventHandler addButtonPressed;
+		private event EventHandler saveButtonPressed;
 		private event EventHandler viewInitialized;
 
 		#endregion
 
-		#region IAddProductView Members
+		#region ICreateOrderView Members
 
-		public event EventHandler<TEventArgs<PurchaseOrder>> AddButtonPressed
+		public event EventHandler AddButtonPressed
 		{
 			add { addButtonPressed += value; }
 			remove { addButtonPressed -= value; }
+		}
+		
+		public event EventHandler SaveButtonPressed
+		{
+			add { saveButtonPressed += value; }
+			remove { saveButtonPressed -= value; }
+		}
+
+		private void InvokeSaveButtonPressed(EventArgs e)
+		{
+			var saveButtonPressedHandler = saveButtonPressed;
+			if (saveButtonPressedHandler != null)
+			{
+				saveButtonPressedHandler(this, e);
+			}
 		}
 
 		public void Clean()
@@ -134,5 +145,10 @@ namespace SessionManagement.GUI.Views
 		}
 
 		#endregion
+
+		private void SaveButton_Click(object sender, EventArgs e)
+		{
+			InvokeSaveButtonPressed(EventArgs.Empty);
+		}
 	}
 }

@@ -43,5 +43,14 @@ namespace SessionManagement.Presentation.Presenters
 				View.ShowMessage(ex.Message);
 			}	
 		}
+
+		#region Overrides of Presenter<IAddProductView>
+
+		protected override void ViewInitialized(object sender, EventArgs e)
+		{
+			
+		}
+
+		#endregion
 	}
 }
