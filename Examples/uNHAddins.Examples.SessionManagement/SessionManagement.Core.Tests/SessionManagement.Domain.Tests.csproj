@@ -60,18 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SessionManagement.Data.Impl\SessionManagement.Data.NH.csproj">
-      <Project>{B7B6F6D8-A067-4943-B048-720F46D352CE}</Project>
-      <Name>SessionManagement.Data.NH</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SessionManagement.Data\SessionManagement.Data.csproj">
-      <Project>{D822B956-ED20-4454-94B9-A4A4A96773E4}</Project>
-      <Name>SessionManagement.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SessionManagement.Domain.Impl\SessionManagement.Domain.Impl.csproj">
-      <Project>{A9F5D23B-AD4D-4CC1-8F26-449C084606A8}</Project>
-      <Name>SessionManagement.Domain.Impl</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
       <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
       <Name>SessionManagement.Domain</Name>
