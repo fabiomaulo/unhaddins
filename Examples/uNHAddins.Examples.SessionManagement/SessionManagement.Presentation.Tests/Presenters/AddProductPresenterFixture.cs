@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SessionManagement.Domain;
 using SessionManagement.Domain.Model;
 using SessionManagement.Presentation.Presenters;

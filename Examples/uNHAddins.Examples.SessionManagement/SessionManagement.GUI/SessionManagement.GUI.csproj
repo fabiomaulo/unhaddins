@@ -93,6 +93,7 @@
     <None Include="castle.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\DataSources\SessionManagement.Domain.OrderLine.datasource" />
     <None Include="Properties\DataSources\SessionManagement.Domain.Product.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

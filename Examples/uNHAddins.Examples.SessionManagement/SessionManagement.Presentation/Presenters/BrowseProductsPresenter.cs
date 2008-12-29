@@ -14,18 +14,12 @@ namespace SessionManagement.Presentation.Presenters
 			: base(view)
 		{
 			this.productModel = productModel;
-			view.ViewInitialized += view_ViewInitialized;
 		}
 
-		void view_ViewInitialized(object sender, EventArgs e)
+		protected override void ViewInitialized(object sender, EventArgs e)
 		{
-			IList<Product> products = productModel.GetProducts();
+			var products = productModel.GetProducts();
 			View.SetProducts(products);
-		}
-
-		public void CreateNewProduct()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
