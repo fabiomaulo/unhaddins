@@ -80,6 +80,9 @@
     <EmbeddedResource Include="Views\BrowseProductsView.resx">
       <DependentUpon>BrowseProductsView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CreateOrderView.resx">
+      <DependentUpon>CreateOrderView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PopupForm.resx">
       <DependentUpon>PopupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +114,12 @@
     </Compile>
     <Compile Include="Views\BrowseProductsView.Designer.cs">
       <DependentUpon>BrowseProductsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CreateOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CreateOrderView.Designer.cs">
+      <DependentUpon>CreateOrderView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PopupForm.cs">
       <SubType>Form</SubType>
