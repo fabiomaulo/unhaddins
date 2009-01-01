@@ -153,6 +153,8 @@ namespace SessionManagement.GUI.Views
 			remove { viewInitialized -= value; }
 		}
 
+		public event EventHandler CloseView;
+
 		#endregion
 	}
 }

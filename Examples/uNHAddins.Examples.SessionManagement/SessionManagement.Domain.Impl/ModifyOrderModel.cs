@@ -35,7 +35,7 @@ namespace SessionManagement.Domain.Impl
 		[PersistenceConversation]
 		public PurchaseOrder FindOrderOrCreateNew(string number, DateTime dateTime)
 		{
-			var order = orderRepository.GetOrderByNumberAndDate(number, dateTime);
+			var order = orderRepository.GetOrderByNumberAndDate(number, dateTime.Date);
 
 			if (order == null)
 			{

@@ -10,6 +10,7 @@ namespace SessionManagement.Presentation.ViewInterfaces
 		event EventHandler SaveButtonPressed;
 		DateTime OrderDate { get; }
 		string OrderNumber { get; }
+		IList<OrderLine> OrderLines { get; }
 		void ShowLines(IList<OrderLine> lines);
 	}
 }

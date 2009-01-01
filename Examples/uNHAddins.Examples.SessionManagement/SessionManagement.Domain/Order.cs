@@ -45,5 +45,10 @@ namespace SessionManagement.Domain
 				orderLine.Order = null;
 			}
 		}
+
+		public virtual void ClearLines()
+		{
+			orderLines.Clear();
+		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SessionManagement.Domain;
 namespace SessionManagement.Presentation.ViewInterfaces
 {
@@ -6,5 +7,6 @@ namespace SessionManagement.Presentation.ViewInterfaces
 	{
 		Product SelectedProduct { get; }
 		void SetProducts(IList<Product> products);
+		event EventHandler<TEventArgs<Product>> ProductSelected;
 	}
 }
