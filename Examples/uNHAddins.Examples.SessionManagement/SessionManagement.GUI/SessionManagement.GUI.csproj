@@ -130,6 +130,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SessionManagement.Data\SessionManagement.Data.csproj">
+      <Project>{D822B956-ED20-4454-94B9-A4A4A96773E4}</Project>
+      <Name>SessionManagement.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
       <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
       <Name>SessionManagement.Domain</Name>

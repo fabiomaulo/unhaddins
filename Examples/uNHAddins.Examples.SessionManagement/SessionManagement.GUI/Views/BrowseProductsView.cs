@@ -24,7 +24,30 @@ namespace SessionManagement.GUI.Views
 		#region Fields
 
 		private BrowseProductsPresenter presenter;
-		private EventHandler viewInitialized;
+		
+		private EventHandler<TEventArgs<Product>> productSelected;
+		public event EventHandler<TEventArgs<Product>> ProductSelected
+		{
+			add
+			{
+				productSelected += value;
+				SelectionPanel.Visible = true;
+			}
+			remove
+			{
+				productSelected -= value;
+				SelectionPanel.Visible = false;
+			}
+		}
+
+		private void InvokeProductSelected(TEventArgs<Product> e)
+		{
+			var productSelectedHandler = productSelected;
+			if (productSelectedHandler != null)
+			{
+				productSelectedHandler(this, e);
+			}
+		}
 
 		#endregion
 
@@ -47,7 +70,7 @@ namespace SessionManagement.GUI.Views
 
 		private void InvokeViewInitialized(EventArgs e)
 		{
-			EventHandler viewInitializedHandler = viewInitialized;
+			EventHandler viewInitializedHandler = ViewInitialized;
 			if (viewInitializedHandler != null) viewInitializedHandler(this, e);
 		}
 
@@ -77,6 +100,16 @@ namespace SessionManagement.GUI.Views
 			MessageBox.Show(message);
 		}
 
+		public event EventHandler ViewInitialized;
+
+		public event EventHandler CloseView;
+
+		private void InvokeCloseView(EventArgs e)
+		{
+			EventHandler closeViewHandler = CloseView;
+			if (closeViewHandler != null) closeViewHandler(this, e);
+		}
+
 		public Product SelectedProduct
 		{
 			get
@@ -95,12 +128,15 @@ namespace SessionManagement.GUI.Views
 			productBindingSource.DataSource = new BindingList<Product>(products);
 		}
 
-		public event EventHandler ViewInitialized
-		{
-			add { viewInitialized += value; }
-			remove { viewInitialized -= value; }
-		}
-
 		#endregion
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			if (SelectedProduct != null)
+			{
+				InvokeProductSelected(new TEventArgs<Product>(SelectedProduct));
+				InvokeCloseView(EventArgs.Empty);
+			}
+		}
 	}
 }

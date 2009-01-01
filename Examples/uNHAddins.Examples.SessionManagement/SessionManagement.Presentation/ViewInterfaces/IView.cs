@@ -6,5 +6,6 @@ namespace SessionManagement.Presentation.ViewInterfaces
 		void Clean();
 		void ShowMessage(string message);
 		event EventHandler ViewInitialized;
+		event EventHandler CloseView;
 	}
 }

@@ -12,7 +12,7 @@ namespace SessionManagement.Domain
 
 		public virtual string ProductCode
 		{
-			get { return Product.Code; }
+			get { return Product == null ? string.Empty : Product.Code; }
 		}
 	}
 }

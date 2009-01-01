@@ -8,6 +8,7 @@ using SessionManagement.Domain;
 using SessionManagement.Domain.Model;
 using SessionManagement.Presentation.Presenters;
 using SessionManagement.Presentation.ViewInterfaces;
+using SessionManagement.Infrastructure.InversionOfControl;
 
 #endregion
 
@@ -55,6 +56,14 @@ namespace SessionManagement.GUI.Views
 			get { return NumberTextBox.Text; }
 		}
 
+		public IList<OrderLine> OrderLines
+		{
+			get
+			{
+				return orderLineBindingSource.DataSource as IList<OrderLine>;
+			}
+		}
+
 		public void ShowLines(IList<OrderLine> lines)
 		{
 			orderLineBindingSource.DataSource = new BindingList<OrderLine>(lines);
@@ -66,13 +75,13 @@ namespace SessionManagement.GUI.Views
 
 		private void InvokeAddButtonPressed(EventArgs e)
 		{
-			var addButtonPressedHandler = addButtonPressed;
+			var addButtonPressedHandler = AddButtonPressed;
 			if (addButtonPressedHandler != null) addButtonPressedHandler(this, e);
 		}
 
 		private void InvokeViewInitialized(EventArgs e)
 		{
-			var viewInitializedHandler = viewInitialized;
+			var viewInitializedHandler = ViewInitialized;
 			if (viewInitializedHandler != null) viewInitializedHandler(this, e);
 		}
 
@@ -98,29 +107,18 @@ namespace SessionManagement.GUI.Views
 
 		#region Event Declarations
 
-		private event EventHandler addButtonPressed;
-		private event EventHandler saveButtonPressed;
-		private event EventHandler viewInitialized;
+		public event EventHandler AddButtonPressed;
+		public event EventHandler SaveButtonPressed;
+		public event EventHandler ViewInitialized;
+		public event EventHandler CloseView;
 
 		#endregion
 
 		#region ICreateOrderView Members
 
-		public event EventHandler AddButtonPressed
-		{
-			add { addButtonPressed += value; }
-			remove { addButtonPressed -= value; }
-		}
-		
-		public event EventHandler SaveButtonPressed
-		{
-			add { saveButtonPressed += value; }
-			remove { saveButtonPressed -= value; }
-		}
-
 		private void InvokeSaveButtonPressed(EventArgs e)
 		{
-			var saveButtonPressedHandler = saveButtonPressed;
+			var saveButtonPressedHandler = SaveButtonPressed;
 			if (saveButtonPressedHandler != null)
 			{
 				saveButtonPressedHandler(this, e);
@@ -138,17 +136,36 @@ namespace SessionManagement.GUI.Views
 			MessageBox.Show(message);
 		}
 
-		public event EventHandler ViewInitialized
-		{
-			add { viewInitialized += value; }
-			remove { viewInitialized -= value; }
-		}
-
 		#endregion
 
 		private void SaveButton_Click(object sender, EventArgs e)
 		{
 			InvokeSaveButtonPressed(EventArgs.Empty);
+		}
+
+		private void browseProductsView_ProductSelected(object sender, TEventArgs<Product> e)
+		{
+			var line = orderLineBindingSource.Current as OrderLine;
+			if (line != null && line.Product != e.Data)
+			{
+				line.Product = e.Data;
+			}
+		}
+
+		private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.RowIndex < 0) return;
+
+			if (e.ColumnIndex == ProductCodeColumn.DisplayIndex)
+			{
+				var browseProductsView = IoC.Resolve<BrowseProductsView>();
+				browseProductsView.ProductSelected += browseProductsView_ProductSelected;
+
+				using (var form = new PopupForm(browseProductsView))
+				{
+					form.ShowDialog();
+				}
+			}
 		}
 	}
 }

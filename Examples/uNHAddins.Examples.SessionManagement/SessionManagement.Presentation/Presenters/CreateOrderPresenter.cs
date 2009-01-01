@@ -21,15 +21,23 @@ namespace SessionManagement.Presentation.Presenters
 
 		void view_SaveButtonPressed(object sender, EventArgs e)
 		{
+			currentOrder.ClearLines();
+			foreach (var line in View.OrderLines)
+			{
+				currentOrder.AddOrderLine(line);
+			}
+
 			modifyOrderModel.Persist(currentOrder);
+			modifyOrderModel.AcceptConversation();
 		}
 
 		void AddButtonPressed(object sender, EventArgs e)
 		{
+			// If a conversation was pending then abort it.
+			modifyOrderModel.AbortConversation();
+
 			currentOrder = modifyOrderModel.FindOrderOrCreateNew(View.OrderNumber, View.OrderDate);
-
-			var orderLines = !currentOrder.IsNew ? currentOrder.OrderLines : new List<OrderLine>();
-
+			var orderLines = !currentOrder.IsNew ? new List<OrderLine>(currentOrder.OrderLines) : new List<OrderLine>();
 			View.ShowLines(orderLines);
 		}
 
