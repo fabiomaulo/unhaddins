@@ -67,6 +67,12 @@ namespace SessionManagement.GUI.Views
 		public void ShowLines(IList<OrderLine> lines)
 		{
 			orderLineBindingSource.DataSource = new BindingList<OrderLine>(lines);
+			if (orderLineBindingSource.Count == 0)
+			{
+				orderLineBindingSource.AddNew();
+			}
+
+			dataGridView1.Focus();
 		}
 
 		#endregion
@@ -91,7 +97,7 @@ namespace SessionManagement.GUI.Views
 
 		private void AddButton_Click(object sender, EventArgs e)
 		{
-			InvokeAddButtonPressed(EventArgs.Empty);
+			InvokeAddButtonPressed(EventArgs.Empty);			
 		}
 
 		private void AddProductView_Load(object sender, EventArgs e)
@@ -158,10 +164,10 @@ namespace SessionManagement.GUI.Views
 
 			if (e.ColumnIndex == ProductCodeColumn.DisplayIndex)
 			{
-				var browseProductsView = IoC.Resolve<BrowseProductsView>();
+				var browseProductsView = IoC.Resolve<IBrowseProductsView>();
 				browseProductsView.ProductSelected += browseProductsView_ProductSelected;
 
-				using (var form = new PopupForm(browseProductsView))
+				using (var form = new PopupForm((Control)browseProductsView))
 				{
 					form.ShowDialog();
 				}
