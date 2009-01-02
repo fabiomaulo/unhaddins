@@ -132,11 +132,21 @@ namespace SessionManagement.GUI.Views
 
 		private void button1_Click(object sender, EventArgs e)
 		{
+			SelectCurrentProduct();
+		}
+
+		private void SelectCurrentProduct()
+		{
 			if (SelectedProduct != null)
 			{
 				InvokeProductSelected(new TEventArgs<Product>(SelectedProduct));
 				InvokeCloseView(EventArgs.Empty);
 			}
+		}
+
+		private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			SelectCurrentProduct();
 		}
 	}
 }
