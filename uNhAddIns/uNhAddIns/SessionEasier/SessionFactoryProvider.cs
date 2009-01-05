@@ -11,20 +11,12 @@ namespace uNhAddIns.SessionEasier
 	[Serializable]
 	public class SessionFactoryProvider : ISessionFactoryProvider
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(SessionFactoryProvider));
+		private static readonly ILog log = LogManager.GetLogger(typeof (SessionFactoryProvider));
 
-		private ISessionFactory sf;
 		private IEnumerable<ISessionFactory> esf;
-		#region Implementation of IDisposable
+		private ISessionFactory sf;
 
-		public void Dispose()
-		{
-			if (sf != null)
-			{
-				sf.Close();
-				sf = null;
-			}
-		}
+		#region ISessionFactoryProvider Members
 
 		public ISessionFactory GetFactory(string factoryId)
 		{
@@ -34,20 +26,38 @@ namespace uNhAddIns.SessionEasier
 
 		#endregion
 
-		#region Implementation of IInitializable
+		public event EventHandler<ConfigurationEventArgs> BeforeConfigure;
+		public event EventHandler<ConfigurationEventArgs> AfterConfigure;
 
 		public void Initialize()
 		{
 			if (sf == null)
 			{
 				log.Debug("Initialize a new session factory reading the configuration.");
-				Configuration cfg = new Configuration().Configure();
+				var cfg = new Configuration();
+				DoBeforeConfigure(cfg);
+				cfg.Configure();
+				DoAfterConfigure(cfg);
 				sf = cfg.BuildSessionFactory();
 				esf = new SingletonEnumerable<ISessionFactory>(sf);
 			}
 		}
 
-		#endregion
+		private void DoAfterConfigure(Configuration cfg)
+		{
+			if (AfterConfigure != null)
+			{
+				AfterConfigure(this, new ConfigurationEventArgs(cfg));
+			}
+		}
+
+		private void DoBeforeConfigure(Configuration cfg)
+		{
+			if (BeforeConfigure != null)
+			{
+				BeforeConfigure(this, new ConfigurationEventArgs(cfg));
+			}
+		}
 
 		#region Implementation of IEnumerable
 
@@ -60,6 +70,19 @@ namespace uNhAddIns.SessionEasier
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		#endregion
+
+		#region Implementation of IDisposable
+
+		public void Dispose()
+		{
+			if (sf != null)
+			{
+				sf.Close();
+				sf = null;
+			}
 		}
 
 		#endregion
