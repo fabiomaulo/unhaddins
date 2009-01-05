@@ -35,6 +35,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hql", "Hql", "{3579E6DC-1B8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.LinFuAdapters", "uNhAddIns.LinFuAdapters\uNhAddIns.LinFuAdapters.csproj", "{9547F8DD-20D1-4451-88BF-07579CE475D0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{AFF23570-8C14-4AE6-80F2-CC227EC21F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.Example.ConversationUsage", "uNhAddIns.Example.ConversationUsage\uNhAddIns.Example.ConversationUsage.csproj", "{63741EE4-3A1F-4021-AD44-11AD359F162B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -74,6 +78,10 @@ Global
 		{9547F8DD-20D1-4451-88BF-07579CE475D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9547F8DD-20D1-4451-88BF-07579CE475D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9547F8DD-20D1-4451-88BF-07579CE475D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63741EE4-3A1F-4021-AD44-11AD359F162B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63741EE4-3A1F-4021-AD44-11AD359F162B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63741EE4-3A1F-4021-AD44-11AD359F162B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63741EE4-3A1F-4021-AD44-11AD359F162B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +96,6 @@ Global
 		{22FC518C-41B7-43E8-A24E-75220A159B51} = {66B89542-4137-4902-9A5D-B84BD565DA90}
 		{0140ED11-A9A2-4795-9BE9-22E86A9F0057} = {66B89542-4137-4902-9A5D-B84BD565DA90}
 		{9547F8DD-20D1-4451-88BF-07579CE475D0} = {66B89542-4137-4902-9A5D-B84BD565DA90}
+		{63741EE4-3A1F-4021-AD44-11AD359F162B} = {AFF23570-8C14-4AE6-80F2-CC227EC21F4A}
 	EndGlobalSection
 EndGlobal
