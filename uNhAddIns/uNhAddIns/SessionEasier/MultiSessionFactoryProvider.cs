@@ -28,7 +28,17 @@ namespace uNhAddIns.SessionEasier
 			mfc = multiFactoryConfigurator;
 		}
 
-		#region Implementation of IInitializable
+		#region ISessionFactoryProvider Members
+
+		public ISessionFactory GetFactory(string factoryId)
+		{
+			Initialize();
+			return string.IsNullOrEmpty(factoryId)
+			       	? InternalGetFactory(defaultSessionFactoryName)
+			       	: InternalGetFactory(factoryId);
+		}
+
+		#endregion
 
 		public void Initialize()
 		{
@@ -47,36 +57,6 @@ namespace uNhAddIns.SessionEasier
 				sfs.Add(sf.Settings.SessionFactoryName.Trim(), sf);
 			}
 		}
-
-		#endregion
-
-		#region Implementation of IDisposable
-
-		public void Dispose()
-		{
-			foreach (ISessionFactory sessionFactory in sfs.Values)
-			{
-				if (sessionFactory != null)
-				{
-					sessionFactory.Close();
-				}
-			}
-			sfs = new Dictionary<string, ISessionFactory>(4);
-		}
-
-		#endregion
-
-		#region ISessionFactoryProvider Members
-
-		public ISessionFactory GetFactory(string factoryId)
-		{
-			Initialize();
-			return string.IsNullOrEmpty(factoryId)
-			       	? InternalGetFactory(defaultSessionFactoryName)
-			       	: InternalGetFactory(factoryId);
-		}
-
-		#endregion
 
 		private ISessionFactory InternalGetFactory(string factoryId)
 		{
@@ -105,6 +85,22 @@ namespace uNhAddIns.SessionEasier
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		#endregion
+
+		#region Implementation of IDisposable
+
+		public void Dispose()
+		{
+			foreach (ISessionFactory sessionFactory in sfs.Values)
+			{
+				if (sessionFactory != null)
+				{
+					sessionFactory.Close();
+				}
+			}
+			sfs = new Dictionary<string, ISessionFactory>(4);
 		}
 
 		#endregion
