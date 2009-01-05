@@ -5,6 +5,7 @@ using NHibernate;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier.Conversations;
+using uNhAddIns.SessionEasier;
 
 namespace uNhAddIns.Test.Conversations
 {
@@ -32,7 +33,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Start()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper());
 			ISession s;
 			Assert.Throws<ConversationException>(() => s = c.GetSession(sessions));
 			c.Start();
@@ -47,7 +48,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void End()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper());
 			c.End(); // end without start don't throw exception
 			c.Start();
 			c.End();
@@ -64,7 +65,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Pause()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper());
 			c.Pause(); // Pause without start don't throw exception
 			c.Start();
 			c.Pause();
@@ -78,7 +79,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Resume()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper());
 			c.Resume(); // Resume without start don't throw exception
 			ISession s = c.GetSession(sessions);
 			Assert.That(s, Is.Not.Null);
@@ -110,7 +111,7 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void Destructor()
 		{
-			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub());
+			var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper());
 			c.Start();
 			ISession s = c.GetSession(sessions);
 			c.Dispose();
@@ -131,7 +132,7 @@ namespace uNhAddIns.Test.Conversations
 				tx.Commit();
 			}
 
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub()))
+			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper()))
 			{
 				c.Start();
 				ISession s = c.GetSession(sessions);
@@ -150,7 +151,7 @@ namespace uNhAddIns.Test.Conversations
 				// the dispose auto-end the conversation
 			}
 
-			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions), new SessionWrapperStub()))
+			using (var c = new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper()))
 			{
 				c.Start();
 				ISession s = c.GetSession(sessions);

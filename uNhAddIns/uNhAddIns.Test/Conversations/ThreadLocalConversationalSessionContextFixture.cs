@@ -31,7 +31,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			TestFixtureSetUp();
 			var provider = new SessionFactoryProviderStub(sessions);
-			cf = new DefaultConversationFactory(provider, new SessionWrapperStub());
+			cf = new DefaultConversationFactory(provider, new NoWrappedSessionWrapper());
 			cca = new NhConversationsContainerAccessor(provider);
 		}
 

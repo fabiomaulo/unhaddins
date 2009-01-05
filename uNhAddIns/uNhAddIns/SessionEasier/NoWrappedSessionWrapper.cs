@@ -1,9 +1,8 @@
 using NHibernate;
-using uNhAddIns.SessionEasier;
 
-namespace uNhAddIns.Test.Conversations
+namespace uNhAddIns.SessionEasier
 {
-	public class SessionWrapperStub: ISessionWrapper
+	public class NoWrappedSessionWrapper : ISessionWrapper
 	{
 		#region Implementation of ISessionWrapper
 
