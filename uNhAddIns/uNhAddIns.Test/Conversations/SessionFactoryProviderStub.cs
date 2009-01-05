@@ -17,14 +17,6 @@ namespace uNhAddIns.Test.Conversations
 			esf = new SingletonEnumerable<ISessionFactory>(factory);
 		}
 
-		#region Implementation of IInitializable
-
-		public void Initialize()
-		{
-		}
-
-		#endregion
-
 		#region Implementation of IEnumerable
 
 		public IEnumerator<ISessionFactory> GetEnumerator()
