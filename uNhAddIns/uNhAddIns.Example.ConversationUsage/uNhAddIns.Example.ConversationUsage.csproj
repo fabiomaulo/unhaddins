@@ -95,6 +95,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="BusinessLogic\BusinessLogicDiagram.cd" />
+    <None Include="DataAccessObjects\DataDiagram.cd" />
     <None Include="Entities\DomainDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
