@@ -14,6 +14,8 @@ namespace uNhAddIns.Example.ConversationUsage
 			AppConfigure();
 			CreateNewCrocodileFamilyInOneForm();
 
+			WorkWithHumanFamilyInTwoForms();
+
 			Console.ReadLine();
 		}
 
@@ -75,6 +77,59 @@ namespace uNhAddIns.Example.ConversationUsage
 			foreach (Reptile reptile in family.Childs)
 			{
 				Console.WriteLine("Child=> " + reptile.Description);
+			}
+			Console.WriteLine("-----------------------");
+		}
+
+
+		private static void WorkWithHumanFamilyInTwoForms()
+		{
+			var familyCrudModel1 = ServiceLocator.GetService<IFamilyCrudModel<Human>>();
+			var familyCrudModel2 = ServiceLocator.GetService<IFamilyCrudModel<Human>>();
+
+			// work for form 1
+			Family<Human> hfamily1 = CreateHumanFamily("Flinstone");
+			familyCrudModel1.Save(hfamily1);
+
+			// work for form 2
+			Family<Human> hfamily2 = CreateHumanFamily("Stoneflin");
+			familyCrudModel2.Save(hfamily2);
+
+			// work for form 1
+			familyCrudModel1.AcceptAll();
+			IList<Family<Human>> l = familyCrudModel1.GetEntirelyList();
+			Console.WriteLine("Saved Family<Human> after Accept in Form1; count:" + l.Count);
+			ShowTheHumanFamily(l[0]);
+
+			// work in form 2
+			familyCrudModel2.AcceptAll();
+
+			// Refresh the list of saved families from Form1
+			l = familyCrudModel1.GetEntirelyList();
+			Console.WriteLine("Saved Family<Human> after Accept in Form2; count:" + l.Count);
+			foreach (var family in l)
+			{
+				ShowTheHumanFamily(family);
+			}
+		}
+
+		private static Family<Human> CreateHumanFamily(string surname)
+		{
+			var hf = new Human { Description = surname, Name = "Fred"};
+			var hm = new Human { Description = surname, Name= "Wilma" };
+			var hc1 = new Human { Description = surname, Name = "Pebbles" };
+			return new Family<Human> { Father = hf, Mother = hm, Childs = new HashedSet<Human> { hc1} };
+		}
+
+		private static void ShowTheHumanFamily(Family<Human> family)
+		{
+			Console.WriteLine();
+			Console.WriteLine("The Reptile family is :");
+			Console.WriteLine("Father=> " + family.Father.Description + " " + family.Father.Name );
+			Console.WriteLine("Mother=> " + family.Mother.Description + " " + family.Mother.Name);
+			foreach (Human human in family.Childs)
+			{
+				Console.WriteLine("Child=> " + human.Description + " " + human.Name);
 			}
 			Console.WriteLine("-----------------------");
 		}
