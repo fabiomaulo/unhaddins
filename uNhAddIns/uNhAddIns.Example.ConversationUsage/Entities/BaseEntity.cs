@@ -7,7 +7,7 @@ namespace uNhAddIns.Example.ConversationUsage.Entities
 
 		#region IEntity Members
 
-		public int Id { get; private set; }
+		public virtual int Id { get; private set; }
 
 		public virtual bool Equals(IEntity other)
 		{

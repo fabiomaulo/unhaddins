@@ -50,7 +50,7 @@ namespace uNhAddIns.Example.ConversationUsage.MultiTiers
 			LoadSingletonService(typeof (T).AssemblyQualifiedName, service);
 		}
 
-		public void LoadTransientService<T>(string key, Func<T> constructorDelegate)
+		public void LoadDelegatedService<T>(string key, Func<T> constructorDelegate)
 		{
 			if (string.IsNullOrEmpty(key))
 			{
@@ -63,9 +63,9 @@ namespace uNhAddIns.Example.ConversationUsage.MultiTiers
 			transientServices[typeof (T).AssemblyQualifiedName] = constructorDelegate;
 		}
 
-		public void LoadTransientService<T>(Func<T> constructorDelegate)
+		public void LoadDelegatedService<T>(Func<T> constructorDelegate)
 		{
-			LoadTransientService(typeof (T).AssemblyQualifiedName, constructorDelegate);
+			LoadDelegatedService(typeof (T).AssemblyQualifiedName, constructorDelegate);
 		}
 	}
 }
