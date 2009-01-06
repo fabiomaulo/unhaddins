@@ -11,6 +11,7 @@ namespace uNhAddIns.Example.ConversationUsage
 	{
 		private static void Main(string[] args)
 		{
+			// http://fabiomaulo.blogspot.com/2009/01/using-conversation-per-business.html
 			AppConfigure();
 			CreateNewCrocodileFamilyInOneForm();
 
