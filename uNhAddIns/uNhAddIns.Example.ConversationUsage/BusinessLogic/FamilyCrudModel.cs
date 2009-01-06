@@ -12,7 +12,7 @@ namespace uNhAddIns.Example.ConversationUsage.BusinessLogic
 		private readonly IAnimalReadOnlyDao<TAnimal> animalDao;
 		private readonly IFamilyDao<TAnimal> familyDao;
 
-		protected FamilyCrudModel(IConversationsContainerAccessor cca, IConversationFactory cf, IDaoFactory factory)
+		public FamilyCrudModel(IConversationsContainerAccessor cca, IConversationFactory cf, IDaoFactory factory)
 			: base(cca, cf)
 		{
 			animalDao = factory.GetDao<IAnimalReadOnlyDao<TAnimal>>();

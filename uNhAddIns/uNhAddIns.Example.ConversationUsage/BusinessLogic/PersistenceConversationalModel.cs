@@ -55,6 +55,7 @@ namespace uNhAddIns.Example.ConversationUsage.BusinessLogic
 			IConversation c = cca.Container.Get(GetConvesationId());
 			if(c!=null)
 			{
+				c.Resume();
 				c.End();
 			}
 		}
@@ -105,9 +106,9 @@ namespace uNhAddIns.Example.ConversationUsage.BusinessLogic
 
 		private void Dispose(bool disposing)
 		{
-			IConversation c = cca.Container.Unbind(conversationId);
 			if (disposing)
 			{
+				IConversation c = cca.Container.Unbind(conversationId);
 				if (c != null)
 				{
 					c.Dispose();
