@@ -20,7 +20,7 @@ namespace SessionManagement.GUI
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			ConfigureIoC();
-			Application.Run(new MainForm());
+			Application.Run(IoC.Resolve<MainForm>());
 
 		}
 
@@ -29,6 +29,7 @@ namespace SessionManagement.GUI
 			IWindsorContainer container = new WindsorContainer(new XmlInterpreter("castle.config"));
 			IoC.RegisterResolver(new WindsorDependencyResolver(container));
 
+			IoC.RegisterImplementationOf("main.form", typeof(MainForm), LifeStyle.Singleton);
 			IoC.RegisterImplementationOf("CreateProduct", typeof(IAddProductView), typeof(AddProductView), LifeStyle.Transient);
 			IoC.RegisterImplementationOf("ViewProducts", typeof(IBrowseProductsView), typeof(BrowseProductsView), LifeStyle.Transient);
 			IoC.RegisterImplementationOf("CreateOrder", typeof(ICreateOrderView), typeof(CreateOrderView), LifeStyle.Transient);
