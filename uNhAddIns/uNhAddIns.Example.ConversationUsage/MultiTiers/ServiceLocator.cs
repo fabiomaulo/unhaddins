@@ -16,7 +16,7 @@ namespace uNhAddIns.Example.ConversationUsage.MultiTiers
 
 		public static T GetService<T>()
 		{
-			return GetService<T>(typeof (T).AssemblyQualifiedName);
+			return soleInstance.Resolve<T>();
 		}
 	}
 }
