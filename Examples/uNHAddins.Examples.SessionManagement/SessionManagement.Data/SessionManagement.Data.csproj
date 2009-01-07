@@ -40,6 +40,7 @@
     <Compile Include="Repositories\IOrderRepository.cs" />
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="SchemaCreation\ISchemaCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">

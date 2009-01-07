@@ -56,6 +56,7 @@
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="SchemaCreation\SchemaCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Domain\Product.hbm.xml" />
