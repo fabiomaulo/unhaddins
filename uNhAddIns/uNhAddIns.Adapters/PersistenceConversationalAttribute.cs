@@ -9,24 +9,23 @@ namespace uNhAddIns.Adapters
 	public class PersistenceConversationalAttribute : Attribute
 	{
 		/// <summary>
-		/// Id de la conversación que se usará siempre para la target-class.
+		/// Fixed Conversation's Id for the target class.
 		/// </summary>
 		/// <remarks>
-		/// Opcionál.
+		/// Optional.
 		/// <para>
-		/// Es de usar solo en caso se requiere siempre el mismo Id para la
-		/// clase.
+		/// Only use it when multiple instances of the target class must work in the same conversation.
 		/// </para>
 		/// </remarks>
 		public string ConversationId { get; set; }
 
 		/// <summary>
-		/// Prefijo del Id de la conversación.
+		/// Conversation's Id prefix.
 		/// </summary>
 		/// <remarks>
-		/// Opcionál
+		/// Optional.
 		/// <para>
-		/// El Id de la conversación será compuesto por el IdPrefix + UniqueId
+		/// The result conversation's Id will be composed by IdPrefix + UniqueId
 		/// </para>
 		/// </remarks>
 		public string IdPrefix { get; set; }
