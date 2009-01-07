@@ -13,9 +13,6 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 
 		public override void ProcessModel(IKernel kernel, ComponentModel model)
 		{
-			// La configuración por XML no es suportada porque no sabemos si
-			// vamos a continuar a usar Castle para AOP de conversaciones.
-			// O sea no sabemos si nos mudamos a un AOP que no necesite dynamic-proxies
 			if (metaStore == null)
 			{
 				metaStore = (ConversationMetaInfoStore) kernel[typeof (ConversationMetaInfoStore)];
