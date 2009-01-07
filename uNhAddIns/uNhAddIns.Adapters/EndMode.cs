@@ -2,7 +2,6 @@ namespace uNhAddIns.Adapters
 {
 	///<summary>
 	/// Enum types to decide what to do with the conversation after executing the current action
-	/// 
 	///</summary>
 	public enum EndMode
 	{
