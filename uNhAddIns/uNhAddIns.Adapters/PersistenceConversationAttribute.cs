@@ -12,8 +12,16 @@ namespace uNhAddIns.Adapters
 		/// The action to take after finishing this part of the conversation.
 		/// </summary>
 		/// <remarks>
-		/// Default: <see cref="EndMode.Continue"/>.
+		/// Default <see cref="PersistenceConversationalAttribute.DefaultEndMode"/>
 		/// </remarks>
 		public EndMode ConversationEndMode { get; set; }
+
+		///<summary>
+		/// <see langword="true"/> if you want explicit exclude a method from a persistence-conversation.
+		///</summary>
+		/// <remarks>
+		/// Default <see langword="false"/>.
+		/// </remarks>
+		public bool Exclude { get; set; }
 	}
 }
