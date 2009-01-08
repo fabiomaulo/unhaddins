@@ -1,15 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using SessionManagement.Domain;
+using SessionManagement.Infrastructure.InversionOfControl;
 using SessionManagement.Presentation.ViewInterfaces;
 using SessionManagement.Domain.Model;
 
 namespace SessionManagement.Presentation.Presenters
 {
-	public class CreateOrderPresenter : Presenter<ICreateOrderView>, IAddProductPresenter
+	public class CreateOrderPresenter : Presenter<ICreateOrderView>
 	{
 		private readonly IModifyOrderModel modifyOrderModel;
 		private PurchaseOrder currentOrder;
+
+		public CreateOrderPresenter(ICreateOrderView view) : this(view, IoC.Resolve<IModifyOrderModel>())
+		{
+			
+		}
 
 		public CreateOrderPresenter(ICreateOrderView view, IModifyOrderModel modifyOrderModel)
 			: base(view)

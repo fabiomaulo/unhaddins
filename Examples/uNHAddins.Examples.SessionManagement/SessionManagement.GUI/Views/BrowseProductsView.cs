@@ -17,8 +17,6 @@ namespace SessionManagement.GUI.Views
 	{
 		#region Readonly & Static Fields
 
-		private readonly IProductModel productModel;
-
 		#endregion
 
 		#region Fields
@@ -58,12 +56,6 @@ namespace SessionManagement.GUI.Views
 			InitializeComponent();
 		}
 
-		public BrowseProductsView(IProductModel productModel)
-			: this()
-		{
-			this.productModel = productModel;
-		}
-
 		#endregion
 
 		#region Instance Methods
@@ -82,7 +74,7 @@ namespace SessionManagement.GUI.Views
 		{
 			if (!DesignMode)
 			{
-				presenter = new BrowseProductsPresenter(this, productModel);
+				presenter = new BrowseProductsPresenter(this);
 				InvokeViewInitialized(EventArgs.Empty);
 			}
 		}
