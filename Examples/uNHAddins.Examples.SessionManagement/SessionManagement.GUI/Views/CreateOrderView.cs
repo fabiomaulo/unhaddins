@@ -16,8 +16,6 @@ namespace SessionManagement.GUI.Views
 {
 	public partial class CreateOrderView : UserControl, ICreateOrderView
 	{
-		private readonly IModifyOrderModel orderModel;
-
 		#region Fields
 
 		private CreateOrderPresenter presenter;
@@ -29,12 +27,6 @@ namespace SessionManagement.GUI.Views
 		public CreateOrderView()
 		{
 			InitializeComponent();
-		}
-
-		public CreateOrderView(IModifyOrderModel orderModel)
-			: this()
-		{
-			this.orderModel = orderModel;
 		}
 
 		#endregion
@@ -104,7 +96,7 @@ namespace SessionManagement.GUI.Views
 		{
 			if (!DesignMode)
 			{
-				presenter = new CreateOrderPresenter(this, orderModel);
+				presenter = new CreateOrderPresenter(this);
 				InvokeViewInitialized(EventArgs.Empty);
 			}
 		}

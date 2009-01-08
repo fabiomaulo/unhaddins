@@ -15,8 +15,6 @@ namespace SessionManagement.GUI.Views
 	{
 		#region Readonly & Static Fields
 
-		private readonly IProductModel productModel;
-
 		#endregion
 
 		#region Fields
@@ -30,11 +28,6 @@ namespace SessionManagement.GUI.Views
 		public AddProductView()
 		{
 			InitializeComponent();
-		}
-
-		public AddProductView(IProductModel productModel) : this()
-		{
-			this.productModel = productModel;
 		}
 
 		#endregion
@@ -103,7 +96,7 @@ namespace SessionManagement.GUI.Views
 		{
 			if (!DesignMode)
 			{
-				presenter = new AddProductPresenter(this, productModel);
+				presenter = new AddProductPresenter(this);
 				InvokeViewInitialized(EventArgs.Empty);
 				CodeTextBox.Focus();
 			}

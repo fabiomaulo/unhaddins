@@ -1,13 +1,19 @@
 ﻿using System;
 using SessionManagement.Domain;
+using SessionManagement.Infrastructure.InversionOfControl;
 using SessionManagement.Presentation.ViewInterfaces;
 using SessionManagement.Domain.Model;
 
 namespace SessionManagement.Presentation.Presenters
 {
-	public class AddProductPresenter : Presenter<IAddProductView>, IAddProductPresenter
+	public class AddProductPresenter : Presenter<IAddProductView>
 	{
 		private readonly IProductModel productModel;
+
+		public AddProductPresenter(IAddProductView view) : this(view, IoC.Resolve<IProductModel>())
+		{
+			
+		}
 
 		public AddProductPresenter(IAddProductView view, IProductModel productModel)
 			: base(view)

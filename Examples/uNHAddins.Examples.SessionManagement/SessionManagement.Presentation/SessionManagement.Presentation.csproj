@@ -39,7 +39,6 @@
     <Compile Include="Presenters\AddProductPresenter.cs" />
     <Compile Include="Presenters\BrowseProductsPresenter.cs" />
     <Compile Include="Presenters\CreateOrderPresenter.cs" />
-    <Compile Include="Presenters\IAddProductPresenter.cs" />
     <Compile Include="Presenters\Presenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInterfaces\ICreateProductView.cs" />
@@ -52,6 +51,10 @@
     <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
       <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
       <Name>SessionManagement.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SessionManagement.Infrastructure\SessionManagement.Infrastructure.csproj">
+      <Project>{092F2475-7592-45D9-9BCC-93445A1EC3C2}</Project>
+      <Name>SessionManagement.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
