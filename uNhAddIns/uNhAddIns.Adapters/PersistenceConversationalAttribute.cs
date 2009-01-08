@@ -29,5 +29,21 @@ namespace uNhAddIns.Adapters
 		/// </para>
 		/// </remarks>
 		public string IdPrefix { get; set; }
+
+		/// <summary>
+		/// Define the way each method, of the target class, will be included in a persistent conversation.
+		/// </summary>
+		/// <remarks>
+		/// Optional, default <see cref="uNhAddIns.Adapters.MethodsIncludeMode.Implicit"/>
+		/// </remarks>
+		public MethodsIncludeMode MethodsIncludeMode { get; set; }
+
+		/// <summary>
+		/// Define the <see cref="EndMode"/> of each method where not explicity declared.
+		/// </summary>
+		/// <remarks>
+		/// Optional, default <see cref="EndMode.Continue"/>
+		/// </remarks>
+		public EndMode DefaultEndMode { get; set; }
 	}
 }
