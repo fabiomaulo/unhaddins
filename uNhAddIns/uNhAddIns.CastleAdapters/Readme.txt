@@ -1,7 +1,7 @@
 ﻿Components configuration trough XML
 
  <component id="someid" type="YourPersistenceConversationalComponent, YourAssembly"
-	persistence-conversational="each" 
+	persistence-conversational="implicit" 
 	persistence-conversational-id="yourFixedId" 
 	persistence-conversational-idPrefix="yourIdPrefix"
 	lifestyle="transient">
@@ -16,8 +16,8 @@
 component attributes 
 
 	- persistence-conversational : optional if one of the others attributes is present or if <persistence-conversation> section is present.
-			"each" : (default) each method is involved in a persistence-conversation if not explicit excluded.
-			"byOne": methods involved must be explicid declared in the <persistence-conversation> section.
+			"implicit"	: (default) each method is involved in a persistence-conversation if not explicitly excluded.
+			"explicit"	: methods involved must be explicitly declared in the <persistence-conversation> section.
 			
 	- persistence-conversational-id : a fixed Id if all components instances must share the same conversation
 	
@@ -66,7 +66,7 @@ Conversation-per-BusinessTransaction (WARNING):
   </component>
 or
  <component id="someid" type="YourPersistenceConversationalComponent, YourAssembly"
-	persistence-conversational="each" 
+	persistence-conversational="implicit" 
 	lifestyle="transient">
   
     <persistence-conversation default-endMode="continue">
