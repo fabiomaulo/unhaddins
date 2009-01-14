@@ -7,7 +7,7 @@
       <generator class="hilo"/>
     </id>
 
-		<bag name="OrderLines" inverse="true" access="field.camelcase" cascade="all">
+		<bag name="OrderLines" inverse="true" access="field.camelcase" cascade="all-delete-orphan">
 			<key column="OrderId" />
 			<one-to-many class="OrderLine" />
 		</bag>

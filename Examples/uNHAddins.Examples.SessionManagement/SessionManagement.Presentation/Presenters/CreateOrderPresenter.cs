@@ -27,10 +27,8 @@ namespace SessionManagement.Presentation.Presenters
 
 		void view_SaveButtonPressed(object sender, EventArgs e)
 		{
-			foreach (var line in View.OrderLines)
-			{
-				currentOrder.AddOrUpdate(line);
-			}
+			currentOrder.ClearLines();
+			currentOrder.AddLines(View.OrderLines);
 
 			modifyOrderModel.Persist(currentOrder);
 			modifyOrderModel.AcceptConversation();
