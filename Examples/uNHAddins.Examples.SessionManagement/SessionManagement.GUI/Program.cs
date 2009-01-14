@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
+using log4net.Config;
 using SessionManagement.Infrastructure.InversionOfControl;
 using SessionManagement.GUI.Views;
 using SessionManagement.Presentation.ViewInterfaces;
@@ -16,6 +17,7 @@ namespace SessionManagement.GUI
 		[STAThread]
 		static void Main()
 		{
+			XmlConfigurator.Configure();
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 

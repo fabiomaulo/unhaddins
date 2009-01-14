@@ -50,5 +50,17 @@ namespace SessionManagement.Domain
 		{
 			orderLines.Clear();
 		}
+
+		public virtual void AddOrUpdate(OrderLine line)
+		{
+			if (!orderLines.Contains(line))
+			{
+				AddOrderLine(line);
+			}
+			else
+			{
+				orderLines[orderLines.IndexOf(line)] = line;
+			}
+		}
 	}
 }
