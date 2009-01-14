@@ -27,10 +27,9 @@ namespace SessionManagement.Presentation.Presenters
 
 		void view_SaveButtonPressed(object sender, EventArgs e)
 		{
-			currentOrder.ClearLines();
 			foreach (var line in View.OrderLines)
 			{
-				currentOrder.AddOrderLine(line);
+				currentOrder.AddOrUpdate(line);
 			}
 
 			modifyOrderModel.Persist(currentOrder);
@@ -43,8 +42,10 @@ namespace SessionManagement.Presentation.Presenters
 			modifyOrderModel.AbortConversation();
 
 			currentOrder = modifyOrderModel.FindOrderOrCreateNew(View.OrderNumber, View.OrderDate);
-			var orderLines = !currentOrder.IsNew ? new List<OrderLine>(currentOrder.OrderLines) : new List<OrderLine>();
-			View.ShowLines(orderLines);
+
+			IList<OrderLine> orderLines = currentOrder.OrderLines;
+			
+			View.ShowLines(new List<OrderLine>(orderLines));
 		}
 
 		#region Overrides of Presenter<ICreateOrderView>
