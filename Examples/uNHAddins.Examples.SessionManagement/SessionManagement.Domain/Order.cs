@@ -51,6 +51,14 @@ namespace SessionManagement.Domain
 			orderLines.Clear();
 		}
 
+		public virtual void AddLines(IList<OrderLine> lines)
+		{
+			foreach (var line in lines)
+			{
+				AddOrderLine(line);
+			}
+		}
+
 		public virtual void AddOrUpdate(OrderLine line)
 		{
 			if (!orderLines.Contains(line))
