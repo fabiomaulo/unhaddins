@@ -33,11 +33,11 @@
   <ItemGroup>
     <Reference Include="antlr.runtime, Version=2.7.7.3, Culture=neutral, PublicKeyToken=d7701e059243744f">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Steve\Desktop\ANTLR-DOT-NET-runtime-3.1.1\bin\net-2.0\antlr.runtime.dll</HintPath>
+      <HintPath>..\Lib\antlr.runtime.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.1.0.39271, Culture=neutral, PublicKeyToken=3a9cab8f8d22bfb7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Users\Steve\Desktop\ANTLR-DOT-NET-runtime-3.1.1\bin\net-2.0\Antlr3.Runtime.dll</HintPath>
+      <HintPath>..\Lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
