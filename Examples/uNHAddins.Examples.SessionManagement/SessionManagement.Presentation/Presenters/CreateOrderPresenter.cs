@@ -31,7 +31,6 @@ namespace SessionManagement.Presentation.Presenters
 			currentOrder.AddLines(View.OrderLines);
 
 			modifyOrderModel.Persist(currentOrder);
-			modifyOrderModel.AcceptConversation();
 		}
 
 		void AddButtonPressed(object sender, EventArgs e)
