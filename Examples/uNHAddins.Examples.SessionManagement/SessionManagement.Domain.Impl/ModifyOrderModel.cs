@@ -20,12 +20,6 @@ namespace SessionManagement.Domain.Impl
 
 		#region Implementation of IProductManager
 
-		[PersistenceConversation(ConversationEndMode = EndMode.End)]
-		public void AcceptConversation()
-		{
-			// Commits the use case
-		}
-
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
 		public void AbortConversation()
 		{
