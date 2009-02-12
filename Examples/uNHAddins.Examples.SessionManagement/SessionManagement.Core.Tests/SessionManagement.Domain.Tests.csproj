@@ -56,7 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\OrderModelFixture.cs" />
     <Compile Include="Model\ProductModelFixture.cs" />
+    <Compile Include="Model\ProductModelMultiThreadFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -30,7 +30,6 @@ namespace SessionManagement.Domain.Impl
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public void AcceptConversation()
 		{
-			// Commits the use case
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]

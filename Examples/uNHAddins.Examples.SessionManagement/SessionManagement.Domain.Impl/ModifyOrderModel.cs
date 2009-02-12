@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
+using log4net;
 using SessionManagement.Data.Repositories;
+using SessionManagement.Domain.Events;
 using SessionManagement.Domain.Model;
 using uNhAddIns.Adapters;
 
 namespace SessionManagement.Domain.Impl
 {
-	[PersistenceConversational]
+	[PersistenceConversational(IdPrefix = "Notify")]
 	public class ModifyOrderModel : IModifyOrderModel
 	{
 		private readonly IOrderRepository orderRepository;
-		private readonly IProductRepository productRepository;
+		private static readonly ILog log = LogManager.GetLogger(typeof(ModifyOrderModel));
 
-		public ModifyOrderModel(IOrderRepository orderRepository, IProductRepository productRepository)
+		public ModifyOrderModel(IOrderRepository orderRepository)
 		{
 			this.orderRepository = orderRepository;
-			this.productRepository = productRepository;
 		}
 
 		#region Implementation of IProductManager
@@ -42,14 +42,15 @@ namespace SessionManagement.Domain.Impl
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public void Persist(PurchaseOrder order)
 		{
+			EventSource.ConversationEnded += EventSource_ConversationEnded;
+			log.Info("Before persisting");
 			orderRepository.MakePersistent(order);
+			log.Info("Persisted");
 		}
 
-		[PersistenceConversation]
-		public IList<string> GetProductNumbers()
+		void EventSource_ConversationEnded(object sender, EventArgs e)
 		{
-			var products = new List<Product>(productRepository.GetAllProducts());
-			return products.ConvertAll(p => p.Code);
+			log.Info("Conversation ended");
 		}
 
 		#endregion

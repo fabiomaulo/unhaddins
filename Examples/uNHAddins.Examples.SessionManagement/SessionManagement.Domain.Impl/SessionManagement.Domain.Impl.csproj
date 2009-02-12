@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SessionManagement.Domain.Impl</RootNamespace>
     <AssemblyName>SessionManagement.Domain.Impl</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,7 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="uNhAddIns, Version=0.2.0.23301, Culture=neutral, processorArchitecture=MSIL">
@@ -60,6 +67,10 @@
     <ProjectReference Include="..\SessionManagement.Domain\SessionManagement.Domain.csproj">
       <Project>{B5552095-8C1E-45F4-9F73-5183E2EF0244}</Project>
       <Name>SessionManagement.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SessionManagement.Infrastructure\SessionManagement.Infrastructure.csproj">
+      <Project>{092F2475-7592-45D9-9BCC-93445A1EC3C2}</Project>
+      <Name>SessionManagement.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
