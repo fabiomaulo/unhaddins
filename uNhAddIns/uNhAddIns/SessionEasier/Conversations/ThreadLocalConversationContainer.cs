@@ -6,7 +6,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 	public class ThreadLocalConversationContainer : AbstractConversationContainer
 	{
 		[ThreadStatic]
-		protected static Dictionary<string, IConversation> store= new Dictionary<string, IConversation>(10);
+		protected static Dictionary<string, IConversation> store;
 
 		[ThreadStatic]
 		protected static string currentId;
@@ -21,7 +21,14 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		protected override IDictionary<string, IConversation> Store
 		{
-			get { return store; }
+			get
+			{
+				if (store == null)
+				{
+					store = new Dictionary<string, IConversation>(10);
+				}
+				return store;
+			}
 		}
 
 		#endregion
