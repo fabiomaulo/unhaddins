@@ -11,6 +11,7 @@ using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
 using SessionManagement.Infrastructure.InversionOfControl;
 using NUnit.Framework;
+using uNhAddIns.SessionEasier.Conversations;
 
 namespace SessionManagement.TestUtils
 {
@@ -75,6 +76,7 @@ namespace SessionManagement.TestUtils
 		private static void ConfigureIoC()
 		{
 			IWindsorContainer container = new WindsorContainer(new XmlInterpreter("core.config"));
+			var conversationFactory = container.Resolve<IConversationFactory>();
 			IoC.RegisterResolver(new WindsorDependencyResolver(container));
 		}
 
