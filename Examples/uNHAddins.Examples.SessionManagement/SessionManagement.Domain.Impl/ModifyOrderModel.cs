@@ -16,6 +16,7 @@ namespace SessionManagement.Domain.Impl
 		public ModifyOrderModel(IOrderRepository orderRepository)
 		{
 			this.orderRepository = orderRepository;
+			EventSource.ConversationEnded += EventSource_ConversationEnded;
 		}
 
 		#region Implementation of IProductManager
@@ -42,7 +43,6 @@ namespace SessionManagement.Domain.Impl
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public void Persist(PurchaseOrder order)
 		{
-			EventSource.ConversationEnded += EventSource_ConversationEnded;
 			log.Info("Before persisting");
 			orderRepository.MakePersistent(order);
 			log.Info("Persisted");
@@ -51,6 +51,7 @@ namespace SessionManagement.Domain.Impl
 		void EventSource_ConversationEnded(object sender, EventArgs e)
 		{
 			log.Info("Conversation ended");
+			EventSource.ConversationEnded += EventSource_ConversationEnded;
 		}
 
 		#endregion
