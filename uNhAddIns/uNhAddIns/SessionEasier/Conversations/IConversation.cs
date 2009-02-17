@@ -49,6 +49,16 @@ namespace uNhAddIns.SessionEasier.Conversations
 		event EventHandler<EventArgs> Starting;
 
 		/// <summary>
+		/// Fired after start the conversation.
+		/// </summary>
+		event EventHandler<EventArgs> Started;
+
+		/// <summary>
+		/// Fired before pause the conversation.
+		/// </summary>
+		event EventHandler<EventArgs> Pausing;
+
+		/// <summary>
 		/// Fired after pause the conversation.
 		/// </summary>
 		event EventHandler<EventArgs> Paused;
@@ -59,8 +69,34 @@ namespace uNhAddIns.SessionEasier.Conversations
 		event EventHandler<EventArgs> Resuming;
 
 		/// <summary>
+		/// Fired after resume the conversation.
+		/// </summary>
+		event EventHandler<EventArgs> Resumed;
+
+		/// <summary>
+		/// Fired before end the conversation.
+		/// </summary>
+		event EventHandler<EventArgs> Ending;
+
+		/// <summary>
+		/// Fired before abort the conversation.
+		/// </summary>
+		event EventHandler<EventArgs> Aborting;
+
+		/// <summary>
 		/// Fired after end the conversation.
 		/// </summary>
-		event EventHandler<EventArgs> Ended;
+		event EventHandler<EndedEventArgs> Ended;
 	}
+
+	public class EndedEventArgs: EventArgs
+	{
+		public bool Disposing { get; set; }
+
+		public EndedEventArgs(bool disposing)
+		{
+			Disposing = disposing;
+		}
+	}
+
 }
