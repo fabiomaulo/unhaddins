@@ -68,6 +68,13 @@ namespace uNhAddIns.SessionEasier.Conversations
 			RaisePaused();
 		}
 
+		public virtual void PauseAndFlush()
+		{
+			RaisePausing();
+			DoPauseAndFlush();
+			RaisePaused();
+		}
+
 		public virtual void Resume()
 		{
 			RaiseResuming();
@@ -116,6 +123,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 				Started(this, new EventArgs());
 			}
 		}
+
+		protected abstract void DoPauseAndFlush();
 
 		protected abstract void DoPause();
 
@@ -224,5 +233,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 		}
 
 		#endregion
+
 	}
 }

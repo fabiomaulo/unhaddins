@@ -30,6 +30,12 @@ namespace uNhAddIns.Test.Conversations
 				log.Debug("DoPause called.");
 		}
 
+		protected override void DoPauseAndFlush()
+		{
+			if (log.IsDebugEnabled)
+				log.Debug("DoPauseAndFlush called.");
+		}
+
 		protected override void DoResume()
 		{
 			if (log.IsDebugEnabled)

@@ -63,5 +63,26 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			Assert.That(scm2.GetIfAvailable(savedId), Is.Null, "If it was aborted then it is not present in another conversation");
 			scm2.AcceptAll();
 		}
+
+		[Test]
+		public void ConversationCommitAndContinue()
+		{
+			var scm1 = Container.Resolve<ISillyCrudModel>();
+
+			var l1 = scm1.GetEntirelyList();
+			Assert.That(l1.Count, Is.EqualTo(0));
+
+			Silly s = new Silly { Name = "fiamma" };
+			scm1.Save(s);
+			Assert.That(s.Id, Is.Not.EqualTo(0), "The entity didn't receive the hilo id!?!");
+			scm1.AcceptAll();
+			int savedId = s.Id;
+			
+			scm1.ImmediateDelete(s);
+
+			var scm2 = Container.Resolve<ISillyCrudModel>();
+			var silly = scm2.GetIfAvailable(savedId);
+			Assert.That(silly, Is.Null, "Silly was supposed to be removed immediately");
+		}
 	}
 }

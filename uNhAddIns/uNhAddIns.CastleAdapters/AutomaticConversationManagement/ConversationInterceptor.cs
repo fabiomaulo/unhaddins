@@ -63,7 +63,14 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 						}
 						else
 						{
-							c.Pause();
+							if (att.ConversationEndMode == EndMode.CommitAndContinue)
+							{
+								c.PauseAndFlush();
+							}
+							else
+							{
+								c.Pause();	
+							}
 						}
 					}
 				}

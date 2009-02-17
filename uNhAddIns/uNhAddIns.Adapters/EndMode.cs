@@ -8,7 +8,11 @@ namespace uNhAddIns.Adapters
 		///<summary>
 		/// Continue the conversation
 		///</summary>
-		Continue, 
+		Continue,
+		///<summary>
+		/// Flushes the results and continues the conversation
+		///</summary>
+		CommitAndContinue,
 		///<summary>
 		/// end and accept the changes
 		///</summary>
