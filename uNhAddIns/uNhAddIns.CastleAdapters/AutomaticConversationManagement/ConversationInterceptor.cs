@@ -69,7 +69,6 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 				}
 				catch (Exception)
 				{
-					// TODO : acá puede ir el control de StaleObjectStateException
 					cca.Container.Unbind(c.Id).Dispose();
 					throw;
 				}
