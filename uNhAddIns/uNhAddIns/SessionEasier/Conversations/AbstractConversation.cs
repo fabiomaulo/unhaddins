@@ -15,7 +15,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 		{
 			if (string.IsNullOrEmpty(id))
 			{
-				throw new ArgumentNullException("id", "Conversation Id is not optional; Use the empty Ctor if you don't have an available Id.");
+				throw new ArgumentNullException("id",
+				                                "Conversation Id is not optional; Use the empty Ctor if you don't have an available Id.");
 			}
 			this.id = id;
 		}
@@ -26,12 +27,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 		{
 			// When the session is disposed we close every pending session.
 			// If End was not called then it will not be flushed and commited as expected for a Dispose
-			Abort();
+			DoAbort();
+			RaiseEnded(true);
 			Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
-		
 		protected abstract void Dispose(bool disposing);
 
 		~AbstractConversation()
@@ -57,10 +58,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 		{
 			RaiseStarting();
 			DoStart();
+			RaiseStarted();
 		}
 
 		public virtual void Pause()
 		{
+			RaisePausing();
 			DoPause();
 			RaisePaused();
 		}
@@ -69,24 +72,32 @@ namespace uNhAddIns.SessionEasier.Conversations
 		{
 			RaiseResuming();
 			DoResume();
+			RaiseResumed();
 		}
 
 		public virtual void End()
 		{
+			RaiseEnding();
 			DoEnd();
-			RaiseEnded();
+			RaiseEnded(false);
 		}
 
 		public virtual void Abort()
 		{
+			RaiseAborting();
 			DoAbort();
-			RaiseEnded();
+			RaiseEnded(false);
 		}
 
 		public event EventHandler<EventArgs> Starting;
+		public event EventHandler<EventArgs> Started;
+		public event EventHandler<EventArgs> Pausing;
 		public event EventHandler<EventArgs> Paused;
 		public event EventHandler<EventArgs> Resuming;
-		public event EventHandler<EventArgs> Ended;
+		public event EventHandler<EventArgs> Resumed;
+		public event EventHandler<EventArgs> Ending;
+		public event EventHandler<EventArgs> Aborting;
+		public event EventHandler<EndedEventArgs> Ended;
 
 		protected abstract void DoStart();
 
@@ -98,7 +109,23 @@ namespace uNhAddIns.SessionEasier.Conversations
 			}
 		}
 
+		private void RaiseStarted()
+		{
+			if (Started != null)
+			{
+				Started(this, new EventArgs());
+			}
+		}
+
 		protected abstract void DoPause();
+
+		protected void RaisePausing()
+		{
+			if (Pausing != null)
+			{
+				Pausing(this, new EventArgs());
+			}
+		}
 
 		protected void RaisePaused()
 		{
@@ -118,17 +145,41 @@ namespace uNhAddIns.SessionEasier.Conversations
 			}
 		}
 
+		protected void RaiseResumed()
+		{
+			if (Resumed != null)
+			{
+				Resumed(this, new EventArgs());
+			}
+		}
+
 		protected abstract void DoEnd();
 
-		protected void RaiseEnded()
+		protected void RaiseEnding()
+		{
+			if (Ending != null)
+			{
+				Ending(this, new EventArgs());
+			}
+		}
+
+		protected void RaiseEnded(bool disposing)
 		{
 			if (Ended != null)
 			{
-				Ended(this, new EventArgs());
+				Ended(this, new EndedEventArgs(disposing));
 			}
 		}
 
 		protected abstract void DoAbort();
+
+		protected void RaiseAborting()
+		{
+			if (Aborting != null)
+			{
+				Aborting(this, new EventArgs());
+			}
+		}
 
 		#endregion
 
@@ -156,12 +207,14 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public bool Equals(IConversation x, IConversation y)
 		{
-			if(x == null && y == null)
+			if (x == null && y == null)
 			{
 				return true;
 			}
-			if(x == null || y == null)
+			if (x == null || y == null)
+			{
 				return false;
+			}
 			return x.Id.Equals(y.Id);
 		}
 

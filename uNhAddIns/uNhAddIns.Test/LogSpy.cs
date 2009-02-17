@@ -55,8 +55,8 @@ namespace uNhAddIns.Test
 		public void Dispose()
 		{
 			// Restore the previous log level of the SQL logger and remove the MemoryAppender
-			logger.Level = prevLogLevel;
 			logger.RemoveAppender(appender);
+			logger.Level = prevLogLevel;
 		}
 
 		#endregion
