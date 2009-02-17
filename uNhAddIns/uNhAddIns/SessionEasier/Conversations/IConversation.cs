@@ -29,6 +29,11 @@ namespace uNhAddIns.SessionEasier.Conversations
 		void Pause();
 
 		/// <summary>
+		/// Pause and Flushes the conversation.
+		/// </summary>
+		void PauseAndFlush();
+
+		/// <summary>
 		/// Resume the conversation.
 		/// </summary>
 		void Resume();

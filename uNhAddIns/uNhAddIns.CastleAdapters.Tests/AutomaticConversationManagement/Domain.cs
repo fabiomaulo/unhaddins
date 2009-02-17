@@ -89,6 +89,7 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		Silly GetIfAvailable(int id);
 		Silly Save(Silly entity);
 		void Delete(Silly entity);
+		void ImmediateDelete(Silly entity);
 		void AcceptAll();
 		void Abort();
 	}
@@ -133,6 +134,13 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 
 		[PersistenceConversation]
 		public virtual void Delete(Silly entity)
+		{
+			EntityDao.MakeTransient(entity);
+			entity.Id = 0;
+		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
+		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 			entity.Id = 0;

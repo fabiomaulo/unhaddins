@@ -86,6 +86,25 @@ namespace uNhAddIns.Test.Conversations
 		}
 
 		[Test]
+		public void PauseAndFlushCallSequence()
+		{
+			using (var t = new TestConversation())
+			{
+				t.Pausing += ((x, y) => TestConversation.log.Debug("Pausing called."));
+				t.Paused += ((x, y) => TestConversation.log.Debug("Paused called."));
+				using (var ls = new LogSpy(typeof(TestConversation)))
+				{
+					t.PauseAndFlush();
+					var msgs = ls.Appender.GetEvents();
+					Assert.That(msgs.Length, Is.EqualTo(3));
+					Assert.That(msgs[0].RenderedMessage, Text.Contains("Pausing called."));
+					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoPauseAndFlush called."));
+					Assert.That(msgs[2].RenderedMessage, Text.Contains("Paused called."));
+				}
+			}
+		}
+
+		[Test]
 		public void ResumeCallSequence()
 		{
 			using (var t = new TestConversation())

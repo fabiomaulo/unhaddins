@@ -81,6 +81,15 @@ namespace uNhAddIns.SessionEasier.Conversations
 			}
 		}
 
+		protected override void DoPauseAndFlush()
+		{
+			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
+			foreach (var pair in sessions)
+			{
+				FlushAndCommit(pair.Value);
+			}
+		}
+
 		private static void Commit(ISession session)
 		{
 			if (session.Transaction != null && session.Transaction.IsActive)
