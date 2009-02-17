@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Data;
 using NHibernate;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
 using uNhAddIns.UserTypes;
-using System.Security.Cryptography;
 
 namespace uNHAddIns.UserTypes
 {
@@ -12,9 +12,9 @@ namespace uNHAddIns.UserTypes
 	/// Hashes a string when it's saved
 	/// and salt hashes it when it gets it from the database.
 	/// </summary>
-	public class EncryptedString : IUserType
+	public class EncryptedString : IUserType, IParameterizedType
 	{
-		readonly EncryptionHelper encryption = new EncryptionHelper();
+		IEncryptor encryptor;
 		/// <summary>
 		/// Retrieve an instance of the mapped class from a Ado.Net resultset. 
 		/// Implementors should handle possibility of null values. 
@@ -29,7 +29,7 @@ namespace uNHAddIns.UserTypes
 			string passwordString = (string)NHibernateUtil.String.NullSafeGet(rs, names[0]);
 			if (passwordString != null)
 			{
-				return encryption.Decrypt(passwordString);
+				return encryptor.Decrypt(passwordString);
 			}
 			return null;
 		}
@@ -50,7 +50,7 @@ namespace uNHAddIns.UserTypes
 				return;
 			}
 
-			string hashedPassword = encryption.Encrypt((string)value);
+			string hashedPassword = encryptor.Encrypt((string)value);
 			NHibernateUtil.String.NullSafeSet(cmd, hashedPassword, index);
 		}
 
@@ -162,5 +162,27 @@ namespace uNHAddIns.UserTypes
 		{
 			return x.GetHashCode();
 		}
+
+		#region Implementation of IParameterizedType
+
+		public void SetParameterValues(IDictionary parameters)
+		{
+			if (parameters.Contains("encryptor"))
+			{
+				encryptor = (IEncryptor) Activator.CreateInstance(Type.GetType(parameters["encryptor"].ToString()));
+			}
+			else
+			{
+				// if the user didn't pass the parameter we set our default Encryptor
+				encryptor = new uNHAddinsEncryptor();
+			}
+
+			if (parameters.Contains("encryptionKey"))
+			{
+				encryptor.EncriptionKey = parameters["encryptionKey"].ToString();
+			}
+		}
+
+		#endregion
 	}
 }
