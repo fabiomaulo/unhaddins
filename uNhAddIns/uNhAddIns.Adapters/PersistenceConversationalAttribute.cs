@@ -45,5 +45,12 @@ namespace uNhAddIns.Adapters
 		/// Optional, default <see cref="EndMode.Continue"/>
 		/// </remarks>
 		public EndMode DefaultEndMode { get; set; }
+
+		///<summary>
+		/// Define the class where conversation's events handlers are implemented.
+		///</summary>
+		/// <remarks>
+		/// </remarks>
+		public Type EventsSubscriber { get; set; }
 	}
 }
