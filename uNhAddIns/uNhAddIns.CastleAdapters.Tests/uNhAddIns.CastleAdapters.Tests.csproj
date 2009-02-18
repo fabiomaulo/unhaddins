@@ -81,6 +81,7 @@
     <Compile Include="AutomaticConversationManagement\Domain.cs" />
     <Compile Include="AutomaticConversationManagement\FullCreamFixture.cs" />
     <Compile Include="BaseTestFixture.cs" />
+    <Compile Include="LogSpy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

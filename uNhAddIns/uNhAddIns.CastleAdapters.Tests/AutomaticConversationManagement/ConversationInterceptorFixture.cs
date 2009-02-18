@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using log4net.Config;
+using log4net.Core;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
@@ -30,7 +31,6 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 
 			container.Register(Component.For<IDaoFactory>().ImplementedBy<DaoFactoryStub>());
 			container.Register(Component.For<ISillyDao>().ImplementedBy<SillyDaoStub>());
-			container.Register(Component.For<ISillyCrudModel>().ImplementedBy<SillyCrudModel>().LifeStyle.Transient);
 			return container;
 		}
 
@@ -168,6 +168,29 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			#endregion
 		}
 
+		private class NoOpConversationStub : AbstractConversation
+		{
+			public NoOpConversationStub(string id) : base(id) {}
+
+			#region Overrides of AbstractConversation
+
+			protected override void Dispose(bool disposing) {}
+
+			protected override void DoStart() {}
+
+			protected override void DoFlushAndPause() {}
+
+			protected override void DoPause() {}
+
+			protected override void DoResume() {}
+
+			protected override void DoEnd() {}
+
+			protected override void DoAbort() {}
+
+			#endregion
+		}
+
 		private class ThreadLocalConversationContainerStub : ThreadLocalConversationContainer
 		{
 			public int BindedConversationCount
@@ -181,6 +204,8 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		{
 			using (WindsorContainer windsor = InitializeWindsor())
 			{
+				windsor.Register(Component.For<ISillyCrudModel>().ImplementedBy<SillyCrudModel>().LifeStyle.Transient);
+
 				var wca = new TestWindsorContainerAccessor(windsor);
 				windsor.Register(Component.For<IContainerAccessor>().Instance(wca));
 				var convFactory = new ConversationFactoryStub(delegate(string id)
@@ -192,9 +217,6 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 
 				windsor.Register(Component.For<IConversationFactory>().Instance(convFactory));
 
-				windsor.Register(
-					Component.For<IConversation>().ImplementedBy<ExceptionOnFlushConversationStub>().LifeStyle.Transient);
-
 				var scm = windsor.Resolve<ISillyCrudModel>();
 				Silly e = scm.GetIfAvailable(1);
 				var conversationContainer = (ThreadLocalConversationContainerStub) windsor.Resolve<IConversationContainer>();
@@ -205,33 +227,97 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 				            "Don't unbind the conversation with exception catch by custom event handler");
 			}
 		}
+
 		[Test]
 		public void ShouldUnbindOnEndException()
 		{
 			using (WindsorContainer windsor = InitializeWindsor())
 			{
+				windsor.Register(Component.For<ISillyCrudModel>().ImplementedBy<SillyCrudModel>().LifeStyle.Transient);
 				var wca = new TestWindsorContainerAccessor(windsor);
 				windsor.Register(Component.For<IContainerAccessor>().Instance(wca));
 				var convFactory = new ConversationFactoryStub(delegate(string id)
-				{
-					IConversation result = new ExceptionOnFlushConversationStub(id);
-					result.OnException += ((sender, args) => args.ReThrow = false);
-					return result;
-				});
+				                                              	{
+				                                              		IConversation result = new ExceptionOnFlushConversationStub(id);
+				                                              		result.OnException += ((sender, args) => args.ReThrow = false);
+				                                              		return result;
+				                                              	});
 
 				windsor.Register(Component.For<IConversationFactory>().Instance(convFactory));
 
-				windsor.Register(
-					Component.For<IConversation>().ImplementedBy<ExceptionOnFlushConversationStub>().LifeStyle.Transient);
-
 				var scm = windsor.Resolve<ISillyCrudModel>();
-				Silly e = scm.GetIfAvailable(1);
-				var conversationContainer = (ThreadLocalConversationContainerStub)windsor.Resolve<IConversationContainer>();
+				scm.GetIfAvailable(1);
+				var conversationContainer = (ThreadLocalConversationContainerStub) windsor.Resolve<IConversationContainer>();
 				Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
-										"Don't start and bind the conversation inmediately");
+				            "Don't start and bind the conversation inmediately");
 				scm.AcceptAll();
 				Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(0),
-										"Don't unbind the conversation with exception catch by custom event handler");
+				            "Don't unbind the conversation with exception catch by custom event handler");
+			}
+		}
+
+		[Test]
+		public void ShouldWorkWithConcreteCtorInterceptor()
+		{
+			using (WindsorContainer windsor = InitializeWindsor())
+			{
+				windsor.Register(
+					Component.For<ISillyCrudModel>().ImplementedBy<InheritedSillyCrudModelWithConcreteConversationCreationInterceptor>()
+						.LifeStyle.Transient);
+				var wca = new TestWindsorContainerAccessor(windsor);
+				windsor.Register(Component.For<IContainerAccessor>().Instance(wca));
+				var convFactory = new ConversationFactoryStub(delegate(string id)
+				                                              	{
+				                                              		IConversation result = new NoOpConversationStub(id);
+				                                              		return result;
+				                                              	});
+
+				windsor.Register(Component.For<IConversationFactory>().Instance(convFactory));
+
+				var scm = windsor.Resolve<ISillyCrudModel>();
+				using (var ls = new LogSpy(typeof (ConversationCreationInterceptor)))
+				{
+					scm.GetIfAvailable(1);
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
+					Assert.That(msgs.Length, Is.EqualTo(2));
+					Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting"));
+					Assert.That(msgs[1].RenderedMessage, Text.Contains("Started"));
+				}
+			}
+		}
+
+		[Test]
+		public void ShouldWorkWithServiceCtorInterceptor()
+		{
+			using (WindsorContainer windsor = InitializeWindsor())
+			{
+				windsor.Register(
+					Component.For<ISillyCrudModel>().ImplementedBy<InheritedSillyCrudModelWithServiceConversationCreationInterceptor>()
+						.LifeStyle.Transient);
+				var wca = new TestWindsorContainerAccessor(windsor);
+				windsor.Register(Component.For<IContainerAccessor>().Instance(wca));
+				var convFactory = new ConversationFactoryStub(delegate(string id)
+				                                              	{
+				                                              		IConversation result = new NoOpConversationStub(id);
+				                                              		return result;
+				                                              	});
+
+				windsor.Register(Component.For<IConversationFactory>().Instance(convFactory));
+
+				// Registr the IConversationCreationInterceptor implementation
+				windsor.Register(
+					Component.For<IMyServiceConversationCreationInterceptor>().ImplementedBy<ConversationCreationInterceptor>().
+						LifeStyle.Transient);
+
+				var scm = windsor.Resolve<ISillyCrudModel>();
+				using (var ls = new LogSpy(typeof (ConversationCreationInterceptor)))
+				{
+					scm.GetIfAvailable(1);
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
+					Assert.That(msgs.Length, Is.EqualTo(2));
+					Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting"));
+					Assert.That(msgs[1].RenderedMessage, Text.Contains("Started"));
+				}
 			}
 		}
 	}
