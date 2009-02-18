@@ -320,5 +320,40 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 				}
 			}
 		}
+
+		[Test]
+		public void ShouldWorkWithConventionCtorInterceptor()
+		{
+			using (WindsorContainer windsor = InitializeWindsor())
+			{
+				windsor.Register(
+					Component.For<ISillyCrudModel>().ImplementedBy<InheritedSillyCrudModelWithConvetionConversationCreationInterceptor>()
+						.LifeStyle.Transient);
+				var wca = new TestWindsorContainerAccessor(windsor);
+				windsor.Register(Component.For<IContainerAccessor>().Instance(wca));
+				var convFactory = new ConversationFactoryStub(delegate(string id)
+				{
+					IConversation result = new NoOpConversationStub(id);
+					return result;
+				});
+
+				windsor.Register(Component.For<IConversationFactory>().Instance(convFactory));
+
+				// Registr the IConversationCreationInterceptor implementation using the convention
+				windsor.Register(
+					Component.For<IConversationCreationInterceptorConvention<InheritedSillyCrudModelWithConvetionConversationCreationInterceptor>>().ImplementedBy<ConvetionConversationCreationInterceptor>().
+						LifeStyle.Transient);
+
+				var scm = windsor.Resolve<ISillyCrudModel>();
+				using (var ls = new LogSpy(typeof(ConvetionConversationCreationInterceptor)))
+				{
+					scm.GetIfAvailable(1);
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
+					Assert.That(msgs.Length, Is.EqualTo(2));
+					Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting with convention"));
+					Assert.That(msgs[1].RenderedMessage, Text.Contains("Started with convention"));
+				}
+			}
+		}
 	}
 }

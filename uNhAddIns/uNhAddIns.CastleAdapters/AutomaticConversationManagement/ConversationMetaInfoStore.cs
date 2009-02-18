@@ -14,7 +14,7 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			if (!implementation.IsDefined(typeof(PersistenceConversationalAttribute), true))
 				return null;
 			object[] atts = implementation.GetCustomAttributes(typeof (PersistenceConversationalAttribute), true);
-			var metaInfo = new ConversationMetaInfo(atts[0] as PersistenceConversationalAttribute);
+			var metaInfo = new ConversationMetaInfo(implementation, atts[0] as PersistenceConversationalAttribute);
 
 			PopulateMetaInfoFromType(metaInfo, implementation);
 

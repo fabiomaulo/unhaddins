@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using uNhAddIns.Adapters;
@@ -9,12 +10,19 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 		private readonly Dictionary<MethodInfo, PersistenceConversationAttribute> info =
 			new Dictionary<MethodInfo, PersistenceConversationAttribute>(20);
 
+		private readonly Type conversationalClass;
 		private readonly PersistenceConversationalAttribute setting;
 		private readonly object locker = new object();
 
-		public ConversationMetaInfo(PersistenceConversationalAttribute setting)
+		public ConversationMetaInfo(Type conversationalClass, PersistenceConversationalAttribute setting)
 		{
+			this.conversationalClass = conversationalClass;
 			this.setting = setting;
+		}
+
+		public Type ConversationalClass
+		{
+			get { return conversationalClass; }
 		}
 
 		public PersistenceConversationalAttribute Setting
