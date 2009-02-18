@@ -5,53 +5,71 @@ namespace uNhAddIns.Test.Conversations
 {
 	public class TestConversation : AbstractConversation
 	{
-		internal static readonly ILog log = LogManager.GetLogger(typeof (TestConversation));
-
 		public TestConversation() {}
+
 		public TestConversation(string id) : base(id) {}
+
+		public ILog Log
+		{
+			get { return LogManager.GetLogger(typeof (TestConversation)); }
+		}
 
 		#region Overrides of AbstractConversation
 
 		protected override void Dispose(bool disposing)
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("Dispose called.");
+			if (disposing && Log.IsDebugEnabled)
+			{
+				Log.Debug("Dispose called.");
+			}
 		}
 
 		protected override void DoStart()
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("DoStart called.");
+			if (Log.IsDebugEnabled)
+			{
+				Log.Debug("DoStart called.");
+			}
 		}
 
 		protected override void DoPause()
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("DoPause called.");
+			if (Log.IsDebugEnabled)
+			{
+				Log.Debug("DoPause called.");
+			}
 		}
 
-		protected override void DoPauseAndFlush()
+		protected override void DoFlushAndPause()
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("DoPauseAndFlush called.");
+			if (Log.IsDebugEnabled)
+			{
+				Log.Debug("DoPauseAndFlush called.");
+			}
 		}
 
 		protected override void DoResume()
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("DoResume called.");
+			if (Log.IsDebugEnabled)
+			{
+				Log.Debug("DoResume called.");
+			}
 		}
 
 		protected override void DoEnd()
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("DoEnd called.");
+			if (Log.IsDebugEnabled)
+			{
+				Log.Debug("DoEnd called.");
+			}
 		}
 
 		protected override void DoAbort()
 		{
-			if (log.IsDebugEnabled)
-				log.Debug("DoAbort called.");
+			if (Log.IsDebugEnabled)
+			{
+				Log.Debug("DoAbort called.");
+			}
 		}
 
 		#endregion
