@@ -16,4 +16,17 @@ namespace uNhAddIns.SessionEasier.Conversations
 		/// <param name="conversation">The new conversation.</param>
 		void Configure(IConversation conversation);
 	}
+
+	/// <summary>
+	/// A contract for a persistent conversation configurator.
+	/// </summary>
+	/// <typeparam name="T">The type of the class involved to the persistent-conversation</typeparam>
+	/// <remarks>
+	/// Implementor of this class should be injected trough IoC and managed by IoC/AOP adapters.
+	/// </remarks>
+	/// <seealso cref="IConversationCreationInterceptor"/>
+	public interface IConversationCreationInterceptorConvention<T> : IConversationCreationInterceptor where T: class
+	{
+
+	}
 }

@@ -36,9 +36,9 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			}
 			else
 			{
-				var att = metaInfo.GetConversationAttributeFor(methodInfo);
-				var cca = kernel[typeof(IConversationsContainerAccessor)] as IConversationsContainerAccessor;
-				var cf = kernel[typeof(IConversationFactory)] as IConversationFactory;
+				PersistenceConversationAttribute att = metaInfo.GetConversationAttributeFor(methodInfo);
+				var cca = kernel[typeof (IConversationsContainerAccessor)] as IConversationsContainerAccessor;
+				var cf = kernel[typeof (IConversationFactory)] as IConversationFactory;
 				if (cca == null || cf == null)
 				{
 					invocation.Proceed();
@@ -93,12 +93,14 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			}
 		}
 
+		private static readonly Type baseConventionType = typeof (IConversationCreationInterceptorConvention<>);
+
 		private void ConfigureConversation(IConversation conversation)
 		{
+			IConversationCreationInterceptor cci = null;
 			Type creationInterceptorType = metaInfo.Setting.ConversationCreationInterceptor;
 			if (creationInterceptorType != null)
 			{
-				IConversationCreationInterceptor cci;
 				if (creationInterceptorType.IsInterface)
 				{
 					cci = (IConversationCreationInterceptor) kernel[creationInterceptorType];
@@ -107,6 +109,20 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 				{
 					cci = ReflectionExtensions.Instantiate<IConversationCreationInterceptor>(creationInterceptorType);
 				}
+			}
+			else
+			{
+				if (metaInfo.Setting.UseConversationCreationInterceptorConvention)
+				{
+					Type concreteImplementationType = baseConventionType.MakeGenericType(metaInfo.ConversationalClass);
+					if (kernel.HasComponent(concreteImplementationType))
+					{
+						cci = (IConversationCreationInterceptor) kernel[concreteImplementationType];
+					}
+				}
+			}
+			if (cci != null)
+			{
 				cci.Configure(conversation);
 			}
 		}
@@ -136,7 +152,7 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 				}
 				else
 				{
-					conversationId = Guid.NewGuid().ToString();					
+					conversationId = Guid.NewGuid().ToString();
 				}
 			}
 			return conversationId;

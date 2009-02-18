@@ -198,4 +198,30 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 	{
 		
 	}
+
+	[PersistenceConversational]
+	public class InheritedSillyCrudModelWithConvetionConversationCreationInterceptor : SillyCrudModel
+	{
+		public InheritedSillyCrudModelWithConvetionConversationCreationInterceptor(IDaoFactory factory) : base(factory) { }
+	}
+
+	public class ConvetionConversationCreationInterceptor: IConversationCreationInterceptorConvention<InheritedSillyCrudModelWithConvetionConversationCreationInterceptor>
+	{
+		public ILog Log
+		{
+			get { return LogManager.GetLogger(typeof(ConvetionConversationCreationInterceptor)); }
+		}
+
+
+		#region Implementation of IConversationCreationInterceptor
+
+		public void Configure(IConversation conversation)
+		{
+			conversation.Starting += ((x, y) => Log.Debug("Starting with convention"));
+			conversation.Started += ((x, y) => Log.Debug("Started with convention"));
+		}
+
+		#endregion
+	}
+
 }

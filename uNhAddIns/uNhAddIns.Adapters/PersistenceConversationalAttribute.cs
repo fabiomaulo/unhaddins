@@ -3,11 +3,19 @@ using System;
 namespace uNhAddIns.Adapters
 {
 	/// <summary>
-	/// Decorate a class as involved in a persistentes conversation.
+	/// Indicates that a class is involved in a persistentes conversation.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 	public class PersistenceConversationalAttribute : Attribute
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PersistenceConversationalAttribute"/> class.
+		/// </summary>
+		public PersistenceConversationalAttribute()
+		{
+			UseConversationCreationInterceptorConvention = true;
+		}
+
 		/// <summary>
 		/// Fixed Conversation's Id for the target class.
 		/// </summary>
@@ -53,5 +61,11 @@ namespace uNhAddIns.Adapters
 		/// The class must implements IConversationCreationInterceptor.
 		/// </remarks>
 		public Type ConversationCreationInterceptor { get; set; }
+
+		/// <summary>
+		/// Use the IoC container to discover the implementor of IConversationCreationInterceptorConvention{T}
+		/// where T is the class indicated by <seealso cref="PersistenceConversationalAttribute"/>.
+		/// </summary>
+		public bool UseConversationCreationInterceptorConvention { get; set; }
 	}
 }
