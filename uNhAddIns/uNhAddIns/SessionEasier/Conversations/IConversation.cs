@@ -99,10 +99,21 @@ namespace uNhAddIns.SessionEasier.Conversations
 		event EventHandler<OnExceptionEventArgs> OnException;
 	}
 
+	/// <summary>
+	/// An <see cref="EventArgs"/> for <see cref="IConversation.Ended"/>
+	/// </summary>
 	public class EndedEventArgs: EventArgs
 	{
+		/// <summary>
+		/// true if the event happen during disposing; false when the <see cref="IConversation.End"/>
+		/// is explicit called. 
+		/// </summary>
 		public bool Disposing { get; set; }
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="EndedEventArgs"/> class
+		/// </summary>
+		/// <param name="disposing">true if the event happen during disposing</param>
 		public EndedEventArgs(bool disposing)
 		{
 			Disposing = disposing;
