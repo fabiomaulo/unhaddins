@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Castle.Windsor;
+using log4net;
 using NHibernate;
 using uNhAddIns.Adapters;
+using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 {
@@ -159,5 +161,41 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		}
 
 		#endregion
+	}
+
+	[PersistenceConversational(ConversationCreationInterceptor = typeof(ConversationCreationInterceptor))]
+	public class InheritedSillyCrudModelWithConcreteConversationCreationInterceptor: SillyCrudModel
+	{
+		public InheritedSillyCrudModelWithConcreteConversationCreationInterceptor(IDaoFactory factory) : base(factory) {}
+	}
+
+	public class ConversationCreationInterceptor : IMyServiceConversationCreationInterceptor
+	{
+		public ILog Log
+		{
+			get { return LogManager.GetLogger(typeof(ConversationCreationInterceptor)); }
+		}
+
+
+		#region Implementation of IConversationCreationInterceptor
+
+		public void Configure(IConversation conversation)
+		{
+			conversation.Starting += ((x, y) => Log.Debug("Starting"));
+			conversation.Started += ((x, y) => Log.Debug("Started"));
+		}
+
+		#endregion
+	}
+
+	[PersistenceConversational(ConversationCreationInterceptor = typeof(IMyServiceConversationCreationInterceptor))]
+	public class InheritedSillyCrudModelWithServiceConversationCreationInterceptor : SillyCrudModel
+	{
+		public InheritedSillyCrudModelWithServiceConversationCreationInterceptor(IDaoFactory factory) : base(factory) { }
+	}
+
+	public interface IMyServiceConversationCreationInterceptor: IConversationCreationInterceptor
+	{
+		
 	}
 }

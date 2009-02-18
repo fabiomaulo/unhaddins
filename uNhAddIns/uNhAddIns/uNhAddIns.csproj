@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\ConfigurationEvents.cs" />
     <Compile Include="SessionEasier\Conversations\AbstractConversation.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="SessionEasier\Conversations\DefaultConversationFactory.cs" />
     <Compile Include="SessionEasier\Conversations\IConversation.cs" />
     <Compile Include="SessionEasier\Conversations\IConversationContainer.cs" />
+    <Compile Include="SessionEasier\Conversations\IConversationCreationInterceptor.cs" />
     <Compile Include="SessionEasier\Conversations\IConversationFactory.cs" />
     <Compile Include="SessionEasier\Conversations\IConversationsContainerAccessor.cs" />
     <Compile Include="SessionEasier\Conversations\NhConversation.cs" />

@@ -4,6 +4,7 @@ using Castle.Core;
 using Castle.Core.Interceptor;
 using Castle.MicroKernel;
 using uNhAddIns.Adapters;
+using uNhAddIns.Extensions;
 using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
@@ -52,9 +53,15 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 					// but we must Unbind the conversation from the container
 					// and we must dispose the conversation itself (high probability UoW inconsistence).
 					c.OnException += ((conversation, args) => cca.Container.Unbind(c.Id).Dispose());
+					ConfigureConversation(c);
+					cca.Container.SetAsCurrent(c);
+					c.Start();
 				}
-				cca.Container.SetAsCurrent(c);
-				c.Resume();
+				else
+				{
+					cca.Container.SetAsCurrent(c);
+					c.Resume();
+				}
 				try
 				{
 					invocation.Proceed();
@@ -83,6 +90,24 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 					c.Dispose();
 					throw;
 				}
+			}
+		}
+
+		private void ConfigureConversation(IConversation conversation)
+		{
+			Type creationInterceptorType = metaInfo.Setting.ConversationCreationInterceptor;
+			if (creationInterceptorType != null)
+			{
+				IConversationCreationInterceptor cci;
+				if (creationInterceptorType.IsInterface)
+				{
+					cci = (IConversationCreationInterceptor) kernel[creationInterceptorType];
+				}
+				else
+				{
+					cci = ReflectionExtensions.Instantiate<IConversationCreationInterceptor>(creationInterceptorType);
+				}
+				cci.Configure(conversation);
 			}
 		}
 

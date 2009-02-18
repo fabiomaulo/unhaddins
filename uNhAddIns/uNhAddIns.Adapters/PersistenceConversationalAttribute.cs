@@ -50,7 +50,8 @@ namespace uNhAddIns.Adapters
 		/// Define the class where conversation's events handlers are implemented.
 		///</summary>
 		/// <remarks>
+		/// The class must implements IConversationCreationInterceptor.
 		/// </remarks>
-		public Type EventsSubscriber { get; set; }
+		public Type ConversationCreationInterceptor { get; set; }
 	}
 }
