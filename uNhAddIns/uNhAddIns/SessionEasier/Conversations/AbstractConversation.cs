@@ -57,43 +57,74 @@ namespace uNhAddIns.SessionEasier.Conversations
 		public virtual void Start()
 		{
 			RaiseStarting();
-			DoStart();
+			EncloseWithExceptionManagement(ConversationAction.Start, DoStart);
 			RaiseStarted();
 		}
 
 		public virtual void Pause()
 		{
 			RaisePausing();
-			DoPause();
+			EncloseWithExceptionManagement(ConversationAction.Pause, DoPause);
 			RaisePaused();
 		}
 
-		public virtual void PauseAndFlush()
+		public virtual void FlushAndPause()
 		{
 			RaisePausing();
-			DoPauseAndFlush();
+			EncloseWithExceptionManagement(ConversationAction.FlushAndPause, DoFlushAndPause);
 			RaisePaused();
 		}
 
 		public virtual void Resume()
 		{
 			RaiseResuming();
-			DoResume();
+			EncloseWithExceptionManagement(ConversationAction.Resume, DoResume);
 			RaiseResumed();
 		}
 
 		public virtual void End()
 		{
 			RaiseEnding();
-			DoEnd();
+			EncloseWithExceptionManagement(ConversationAction.End, DoEnd);
 			RaiseEnded(false);
 		}
 
 		public virtual void Abort()
 		{
 			RaiseAborting();
-			DoAbort();
+			EncloseWithExceptionManagement(ConversationAction.Abort, DoAbort);
 			RaiseEnded(false);
+		}
+
+		protected bool RaiseOnException(ConversationAction actionType, Exception e)
+		{
+			bool reThrow = true;
+			if (OnException != null)
+			{
+				var eventArgs = new OnExceptionEventArgs(actionType, e);
+				OnException(this, eventArgs);
+				reThrow = eventArgs.ReThrow;
+			}
+			return reThrow;
+		}
+
+		protected delegate void ConvAction();
+
+		private void EncloseWithExceptionManagement(ConversationAction actionType, ConvAction action)
+		{
+			try
+			{
+				action();
+			}
+			catch (Exception e)
+			{
+				bool reThrow = RaiseOnException(actionType, e);
+				if (reThrow)
+				{
+					throw new ConversationException(
+						string.Format("Exception during persistent conversation {0}:{1}", actionType, e.Message), e);
+				}
+			}
 		}
 
 		public event EventHandler<EventArgs> Starting;
@@ -105,6 +136,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 		public event EventHandler<EventArgs> Ending;
 		public event EventHandler<EventArgs> Aborting;
 		public event EventHandler<EndedEventArgs> Ended;
+		public event EventHandler<OnExceptionEventArgs> OnException;
 
 		protected abstract void DoStart();
 
@@ -124,7 +156,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 			}
 		}
 
-		protected abstract void DoPauseAndFlush();
+		protected abstract void DoFlushAndPause();
 
 		protected abstract void DoPause();
 
@@ -233,6 +265,5 @@ namespace uNhAddIns.SessionEasier.Conversations
 		}
 
 		#endregion
-
 	}
 }

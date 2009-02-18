@@ -44,39 +44,43 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 					return;
 				}
 				string convId = GetConvesationId(metaInfo.Setting);
-				IConversation c = cca.Container.Get(convId) ?? cf.CreateConversation(convId);
+				IConversation c = cca.Container.Get(convId);
+				if (c == null)
+				{
+					c = cf.CreateConversation(convId);
+					// we are using the event because a custom eventHandler can prevent the rethrow
+					// but we must Unbind the conversation from the container
+					// and we must dispose the conversation itself (high probability UoW inconsistence).
+					c.OnException += ((conversation, args) => cca.Container.Unbind(c.Id).Dispose());
+				}
 				cca.Container.SetAsCurrent(c);
 				c.Resume();
 				try
 				{
 					invocation.Proceed();
 
-					if (att.ConversationEndMode == EndMode.End)
+					switch (att.ConversationEndMode)
 					{
-						c.End();
-					}
-					else
-					{
-						if (att.ConversationEndMode == EndMode.Abort)
-						{
+						case EndMode.End:
+							c.End();
 							c.Dispose();
-						}
-						else
-						{
-							if (att.ConversationEndMode == EndMode.CommitAndContinue)
-							{
-								c.PauseAndFlush();
-							}
-							else
-							{
-								c.Pause();	
-							}
-						}
+							break;
+						case EndMode.Abort:
+							c.Abort();
+							c.Dispose();
+							break;
+						case EndMode.CommitAndContinue:
+							c.FlushAndPause();
+							break;
+						default:
+							c.Pause();
+							break;
 					}
 				}
 				catch (Exception)
 				{
-					cca.Container.Unbind(c.Id).Dispose();
+					cca.Container.Unbind(c.Id);
+					c.Dispose();
 					throw;
 				}
 			}

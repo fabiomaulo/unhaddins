@@ -31,7 +31,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 		/// <summary>
 		/// Pause and Flushes the conversation.
 		/// </summary>
-		void PauseAndFlush();
+		void FlushAndPause();
 
 		/// <summary>
 		/// Resume the conversation.
@@ -92,6 +92,11 @@ namespace uNhAddIns.SessionEasier.Conversations
 		/// Fired after end the conversation.
 		/// </summary>
 		event EventHandler<EndedEventArgs> Ended;
+
+		/// <summary>
+		/// Fired when a conversation-method exits with an exception.
+		/// </summary>
+		event EventHandler<OnExceptionEventArgs> OnException;
 	}
 
 	public class EndedEventArgs: EventArgs
@@ -104,4 +109,27 @@ namespace uNhAddIns.SessionEasier.Conversations
 		}
 	}
 
+	public enum ConversationAction
+	{
+		Start,
+		Pause,
+		FlushAndPause,
+		Resume,
+		End,
+		Abort
+	}
+
+	public class OnExceptionEventArgs : EventArgs
+	{
+		public OnExceptionEventArgs(ConversationAction action, Exception exception)
+		{
+			Action = action;
+			Exception = exception;
+			ReThrow = true;
+		}
+
+		public ConversationAction Action { get; set; }
+		public Exception Exception { get; private set; }
+		public bool ReThrow { get; set; }
+	}
 }

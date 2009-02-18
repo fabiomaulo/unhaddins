@@ -1,5 +1,6 @@
 using System;
 using log4net.Config;
+using log4net.Core;
 using NUnit.Framework;
 using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier.Conversations;
@@ -52,12 +53,12 @@ namespace uNhAddIns.Test.Conversations
 			// I'm using log instad a mock, I know
 			using (var t = new TestConversation())
 			{
-				t.Starting += ((x, y) => TestConversation.log.Debug("Starting called."));
-				t.Started += ((x, y) => TestConversation.log.Debug("Started called."));
+				t.Starting += ((x, y) => t.Log.Debug("Starting called."));
+				t.Started += ((x, y) => t.Log.Debug("Started called."));
 				using (var ls = new LogSpy(typeof (TestConversation)))
 				{
 					t.Start();
-					var msgs = ls.Appender.GetEvents();
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
 					Assert.That(msgs.Length, Is.EqualTo(3));
 					Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting called."));
 					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoStart called."));
@@ -71,12 +72,12 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Pausing += ((x, y) => TestConversation.log.Debug("Pausing called."));
-				t.Paused += ((x, y) => TestConversation.log.Debug("Paused called."));
+				t.Pausing += ((x, y) => t.Log.Debug("Pausing called."));
+				t.Paused += ((x, y) => t.Log.Debug("Paused called."));
 				using (var ls = new LogSpy(typeof (TestConversation)))
 				{
 					t.Pause();
-					var msgs = ls.Appender.GetEvents();
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
 					Assert.That(msgs.Length, Is.EqualTo(3));
 					Assert.That(msgs[0].RenderedMessage, Text.Contains("Pausing called."));
 					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoPause called."));
@@ -90,12 +91,12 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Pausing += ((x, y) => TestConversation.log.Debug("Pausing called."));
-				t.Paused += ((x, y) => TestConversation.log.Debug("Paused called."));
-				using (var ls = new LogSpy(typeof(TestConversation)))
+				t.Pausing += ((x, y) => t.Log.Debug("Pausing called."));
+				t.Paused += ((x, y) => t.Log.Debug("Paused called."));
+				using (var ls = new LogSpy(typeof (TestConversation)))
 				{
-					t.PauseAndFlush();
-					var msgs = ls.Appender.GetEvents();
+					t.FlushAndPause();
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
 					Assert.That(msgs.Length, Is.EqualTo(3));
 					Assert.That(msgs[0].RenderedMessage, Text.Contains("Pausing called."));
 					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoPauseAndFlush called."));
@@ -109,12 +110,12 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Resuming += ((x, y) => TestConversation.log.Debug("Resuming called."));
-				t.Resumed += ((x, y) => TestConversation.log.Debug("Resumed called."));
+				t.Resuming += ((x, y) => t.Log.Debug("Resuming called."));
+				t.Resumed += ((x, y) => t.Log.Debug("Resumed called."));
 				using (var ls = new LogSpy(typeof (TestConversation)))
 				{
 					t.Resume();
-					var msgs = ls.Appender.GetEvents();
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
 					Assert.That(msgs.Length, Is.EqualTo(3));
 					Assert.That(msgs[0].RenderedMessage, Text.Contains("Resuming called."));
 					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoResume called."));
@@ -128,13 +129,13 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Ending += ((x, y) => TestConversation.log.Debug("Ending called."));
-				t.Ended += ((x, y) => TestConversation.log.Debug("Ended called."));
+				t.Ending += ((x, y) => t.Log.Debug("Ending called."));
+				t.Ended += ((x, y) => t.Log.Debug("Ended called."));
 				t.Ended += EndedAssertionOutOfDisposing;
-				using (var ls = new LogSpy(typeof(TestConversation)))
+				using (var ls = new LogSpy(typeof (TestConversation)))
 				{
 					t.End();
-					var msgs = ls.Appender.GetEvents();
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
 					Assert.That(msgs.Length, Is.EqualTo(3));
 					Assert.That(msgs[0].RenderedMessage, Text.Contains("Ending called."));
 					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoEnd called."));
@@ -154,14 +155,14 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Ending += ((x, y) => TestConversation.log.Debug("Ending called."));
-				t.Aborting += ((x, y) => TestConversation.log.Debug("Aborting called."));
-				t.Ended += ((x, y) => TestConversation.log.Debug("Ended called."));
+				t.Ending += ((x, y) => t.Log.Debug("Ending called."));
+				t.Aborting += ((x, y) => t.Log.Debug("Aborting called."));
+				t.Ended += ((x, y) => t.Log.Debug("Ended called."));
 				t.Ended += EndedAssertionOutOfDisposing;
-				using (var ls = new LogSpy(typeof(TestConversation)))
+				using (var ls = new LogSpy(typeof (TestConversation)))
 				{
 					t.Abort();
-					var msgs = ls.Appender.GetEvents();
+					LoggingEvent[] msgs = ls.Appender.GetEvents();
 					Assert.That(msgs.Length, Is.EqualTo(3));
 					Assert.That(msgs[0].RenderedMessage, Text.Contains("Aborting called."));
 					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoAbort called."));
@@ -174,19 +175,108 @@ namespace uNhAddIns.Test.Conversations
 		[Test]
 		public void DisposeCallSequence()
 		{
-			using (var ls = new LogSpy(typeof(TestConversation)))
+			using (var ls = new LogSpy(typeof (TestConversation)))
 			{
-				using(var t = new TestConversation())
+				using (var t = new TestConversation())
 				{
-					t.Ended += ((x, y) => TestConversation.log.Debug("End called."));
+					t.Ended += ((x, y) => t.Log.Debug("End called."));
 					t.Ended += ((x, y) => Assert.That(y.Disposing));
 				}
-				var msgs = ls.Appender.GetEvents();
+				LoggingEvent[] msgs = ls.Appender.GetEvents();
 				Assert.That(msgs.Length, Is.EqualTo(3));
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("DoAbort called."));
 				Assert.That(msgs[1].RenderedMessage, Text.Contains("End called."));
 				Assert.That(msgs[2].RenderedMessage, Text.Contains("Dispose called."));
 			}
+		}
+
+		public class ConversationError : AbstractConversation
+		{
+			#region Overrides of AbstractConversation
+
+			protected override void Dispose(bool disposing) {}
+
+			protected override void DoStart()
+			{
+				throw new NotImplementedException(ConversationAction.Start.ToString());
+			}
+
+			protected override void DoFlushAndPause()
+			{
+				throw new NotImplementedException(ConversationAction.FlushAndPause.ToString());
+			}
+
+			protected override void DoPause()
+			{
+				throw new NotImplementedException(ConversationAction.Pause.ToString());
+			}
+
+			protected override void DoResume()
+			{
+				throw new NotImplementedException(ConversationAction.Resume.ToString());
+			}
+
+			protected override void DoEnd()
+			{
+				throw new NotImplementedException(ConversationAction.End.ToString());
+			}
+
+			protected override void DoAbort()
+			{
+				throw new NotImplementedException(ConversationAction.Abort.ToString());
+			}
+
+			#endregion
+		}
+
+		[Test]
+		public void OnExceptionWithoutReThrow()
+		{
+			try
+			{
+				using (var t = new ConversationError())
+				{
+					t.OnException += AssertException;
+					t.Start();
+					t.Pause();
+					t.FlushAndPause();
+					t.Resume();
+					t.End();
+					t.Abort();
+				}
+			}
+			catch (NotImplementedException)
+			{
+				// The Abort during Dispose is not managed by the OnException events
+			}
+		}
+
+		[Test]
+		public void OnExceptionReThrow()
+		{
+			try
+			{
+				using (var t = new ConversationError())
+				{
+					Assert.Throws<ConversationException>(t.Start);
+					Assert.Throws<ConversationException>(t.Resume);
+					Assert.Throws<ConversationException>(t.Pause);
+					Assert.Throws<ConversationException>(t.FlushAndPause);
+					Assert.Throws<ConversationException>(t.End);
+					Assert.Throws<ConversationException>(t.Abort);
+				}
+			}
+			catch (NotImplementedException)
+			{
+				// The Abort during Dispose
+			}
+		}
+
+		private static void AssertException(object conversation, OnExceptionEventArgs args)
+		{
+			Assert.That(args.Exception, Is.InstanceOfType(typeof (NotImplementedException)));
+			Assert.That(args.Exception.Message, Is.EqualTo(args.Action.ToString()));
+			args.ReThrow = false;
 		}
 	}
 }
