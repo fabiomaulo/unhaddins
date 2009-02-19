@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using System.Threading;
 using NHibernate;
 using NHibernate.Cfg;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 

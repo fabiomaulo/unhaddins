@@ -2,7 +2,6 @@ using System;
 using log4net.Config;
 using log4net.Core;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.Test.Conversations
@@ -274,7 +273,7 @@ namespace uNhAddIns.Test.Conversations
 
 		private static void AssertException(object conversation, OnExceptionEventArgs args)
 		{
-			Assert.That(args.Exception, Is.InstanceOfType(typeof (NotImplementedException)));
+			Assert.That(args.Exception, Is.InstanceOf(typeof (NotImplementedException)));
 			Assert.That(args.Exception.Message, Is.EqualTo(args.Action.ToString()));
 			args.ReThrow = false;
 		}

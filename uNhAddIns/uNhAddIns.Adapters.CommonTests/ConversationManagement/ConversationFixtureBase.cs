@@ -2,7 +2,6 @@ using log4net.Config;
 using log4net.Core;
 using Microsoft.Practices.ServiceLocation;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
