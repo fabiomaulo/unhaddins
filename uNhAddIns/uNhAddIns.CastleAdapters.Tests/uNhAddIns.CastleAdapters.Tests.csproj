@@ -49,9 +49,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Castle.Windsor.dll</HintPath>
     </Reference>
+    <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=2.0.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,13 +88,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomaticConversationManagement\ConversationInterceptorFixture.cs" />
-    <Compile Include="AutomaticConversationManagement\Domain.cs" />
     <Compile Include="AutomaticConversationManagement\FullCreamFixture.cs" />
     <Compile Include="BaseTestFixture.cs" />
     <Compile Include="LogSpy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.Adapters.CommonTests\uNhAddIns.Adapters.CommonTests.csproj">
+      <Project>{2F125B66-33E5-4C9A-849E-6CB763FF1001}</Project>
+      <Name>uNhAddIns.Adapters.CommonTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
       <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
       <Name>uNhAddIns.Adapters</Name>
@@ -103,9 +114,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="hibernate.cfg.template" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AutomaticConversationManagement\Silly.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
