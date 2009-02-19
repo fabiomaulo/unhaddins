@@ -7,19 +7,31 @@
 		<param name="encryptor">uNhAddIns.UserTypes.uNHAddinsEncryptor, uNhAddIns</param>
 		<param name="encryptionKey">myRGBKey</param>
 	</typedef>
-
+	
 	<typedef class="uNHAddIns.UserTypes.EncryptedString, uNHAddIns" name="EncryptedDefault"/>
 
-	<class name="User" table="Users">
-		<id name="Id" type="int">
-			<generator class="assigned"/>
-		</id>
+	<typedef class="uNHAddIns.UserTypes.TrimString, uNHAddIns" name="Trimmed" />
+	
+  <class name="User" table="Users">
+    <id name="Id" type="int">
+      <generator class="assigned"/>
+    </id>
+    
+    <property name="Name"/>
+    
+    <property name="Password" 
+              type="Encrypted"
+              not-null="false"/>
 
-		<property name="Name"/>
-
-		<property name="Password" type="Encrypted"/>
-		
 		<property name="OtherEncripted" type="EncryptedDefault"/>
-	</class>
 
+		<property name="Description">
+			<column name="Description" sql-type="CHAR(32)" />
+		</property>
+
+		<property name="TrimmedDescription"
+							type="Trimmed">
+			<column name="TrimmedDescription" sql-type="CHAR(32)" />
+		</property>
+  </class>
 </hibernate-mapping>

@@ -9,5 +9,7 @@ namespace uNhAddIns.Test.UserTypes
 		public virtual string Name { get; set; }
 		public virtual string Password { get; set; }
 		public virtual string OtherEncripted { get; set; }
+		public virtual string Description { get; set; }
+		public virtual string TrimmedDescription{ get; set; }
 	}
 }

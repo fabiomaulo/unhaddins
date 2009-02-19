@@ -9,7 +9,7 @@ namespace uNhAddIns.Test.UserTypes
 	{
 		protected override IList Mappings
 		{
-			get { return new[] {"UserTypes.User.hbm.xml"}; }
+			get { return new[] { "UserTypes.User.hbm.xml" }; }
 		}
 
 		protected override void OnTearDown()
@@ -24,7 +24,7 @@ namespace uNhAddIns.Test.UserTypes
 		[Test]
 		public void SaveEncryptedPasswords()
 		{
-			var user = new User{Id=1, Name = "Astor Piazolla",Password = "tango", OtherEncripted = "Adios Nonino"};
+			var user = new User { Id = 1, Name = "Astor Piazolla", Password = "tango", OtherEncripted = "Adios Nonino" };
 
 			using (ISession s = OpenSession())
 			{
