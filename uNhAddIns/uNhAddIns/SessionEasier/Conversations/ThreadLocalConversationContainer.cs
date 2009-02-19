@@ -5,6 +5,8 @@ namespace uNhAddIns.SessionEasier.Conversations
 {
 	public class ThreadLocalConversationContainer : AbstractConversationContainer
 	{
+		private bool? autoUnBind;
+
 		[ThreadStatic]
 		protected static Dictionary<string, IConversation> store;
 
@@ -32,5 +34,12 @@ namespace uNhAddIns.SessionEasier.Conversations
 		}
 
 		#endregion
+
+		public override bool AutoUnbindAfterEndConversation
+		{
+			// default autoUnbind is: true
+			get { return autoUnBind.HasValue ? autoUnBind.Value : true; }
+			set { autoUnBind = value; }
+		}
 	}
 }

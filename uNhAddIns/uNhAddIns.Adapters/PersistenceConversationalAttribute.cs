@@ -13,6 +13,7 @@ namespace uNhAddIns.Adapters
 		/// </summary>
 		public PersistenceConversationalAttribute()
 		{
+			DefaultEndMode = EndMode.Continue;
 			UseConversationCreationInterceptorConvention = true;
 		}
 

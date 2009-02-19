@@ -5,18 +5,26 @@ namespace uNhAddIns.Adapters
 	///</summary>
 	public enum EndMode
 	{
+		/// <summary>
+		/// Use <see cref="PersistenceConversationalAttribute.DefaultEndMode"/>.
+		/// </summary>
+		Unspecified,
+
 		///<summary>
 		/// Continue the conversation
 		///</summary>
 		Continue,
+
 		///<summary>
 		/// Flushes the results and continues the conversation
 		///</summary>
 		CommitAndContinue,
+
 		///<summary>
 		/// end and accept the changes
 		///</summary>
-		End, 
+		End,
+
 		///<summary>
 		/// end and abort the changes
 		///</summary>

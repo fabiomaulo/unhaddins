@@ -127,13 +127,23 @@ namespace uNhAddIns.Test.Conversations
 		}
 
 		[Test]
-		public void AutoUnBind()
+		public void TheAutoUnBindDefaultShouldBeTrue()
 		{
-			var tc = new ThreadLocalConversationContainerStub {AutoUnbindAfterEndConversation = true};
+			var tc = new ThreadLocalConversationContainerStub();
 			IConversation c = new TestConversation();
 			tc.Bind(c);
 			c.End();
 			Assert.That(tc.BindedConversationCount, Is.EqualTo(0));
+		}
+
+		[Test]
+		public void ShouldWorkWithAutoUnBindFalse()
+		{
+			var tc = new ThreadLocalConversationContainerStub { AutoUnbindAfterEndConversation = false };
+			IConversation c = new TestConversation();
+			tc.Bind(c);
+			c.End();
+			Assert.That(tc.BindedConversationCount, Is.EqualTo(1));
 		}
 	}
 }
