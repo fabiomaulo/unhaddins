@@ -233,5 +233,63 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			// cleanup
 			conversationContainer.Reset();
 		}
+
+		[Test]
+		public void ShouldSupportsImplicitMethodsInclusion()
+		{
+			IServiceLocator serviceLocator = NewServiceLocator();
+
+			RegisterAsTransient<ISillyCrudModelExtended, SillyCrudModelWithImplicit>(serviceLocator);
+
+			bool resumedCalled = false;
+			bool startedCalled = false;
+			var convFactory = new ConversationFactoryStub(delegate(string id)
+			                                              	{
+			                                              		IConversation result = new NoOpConversationStub(id);
+			                                              		result.Resumed += ((s, a) => resumedCalled = true);
+			                                              		result.Started += ((s, a) => startedCalled = true);
+			                                              		return result;
+			                                              	});
+
+			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
+
+			var scm = serviceLocator.GetInstance<ISillyCrudModelExtended>();
+
+			scm.GetEntirelyList();
+			Assert.That(startedCalled, "An implicit method inclusion don't start the conversation.");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+			            "Should have one active conversation because the default mode is continue.");
+			resumedCalled = false;
+			startedCalled = false;
+
+			scm.GetIfAvailable(1);
+			Assert.That(resumedCalled, "An implicit method inclusion don't resume the conversation.");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+			            "Should have one active conversation because the default mode is continue.");
+			resumedCalled = false;
+
+			scm.DoSomethingNoPersistent();
+			Assert.That(!resumedCalled, "An explicit method exclusion resume the conversation; shouldn't");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+			            "Should have one active conversation because the default mode is continue.");
+
+			string value = scm.PropertyOutConversation;
+			Assert.That(!resumedCalled, "An explicit method exclusion resume the conversation; shouldn't");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+			            "Should have one active conversation because the default mode is continue.");
+
+			value = scm.PropertyInConversation;
+			Assert.That(resumedCalled, "An implicit method inclusion don't resume the conversation.");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+			            "Should have one active conversation because the default mode is continue.");
+			resumedCalled = false;
+
+			scm.AcceptAll();
+			Assert.That(resumedCalled, "An explicit method inclusion should resume the conversation");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(0),
+			            "Should have NO active conversation because the method AcceptAll end the conversation.");
+		}
 	}
 }

@@ -37,33 +37,49 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 
 		public bool Contains(MethodInfo methodInfo)
 		{
+			return GetMetaInfoIfAvailable(methodInfo) != null;
+		}
+
+		public void AddMethodMetadata(MethodInfo methodInfo)
+		{
 			lock (locker)
 			{
-				return info.ContainsKey(methodInfo) || IsMethodConversational(methodInfo);
+				// Add all methods, even when is not involved,
+				// to have better performance when the Interceptor call Contains method.
+				info[methodInfo] = GetMetaInfoIfAvailable(methodInfo);
 			}
 		}
 
-		public void AddIfSupported(MethodInfo methodInfo)
+		private PersistenceConversationAttribute GetMetaInfoIfAvailable(MethodInfo methodInfo)
 		{
-			IsMethodConversational(methodInfo);
-		}
+			PersistenceConversationAttribute result;
+			if(info.TryGetValue(methodInfo, out result))
+			{
+				// short cut
+				return result;
+			}
 
-		private bool IsMethodConversational(MethodInfo methodInfo)
-		{
 			object[] atts = methodInfo.GetCustomAttributes(typeof(PersistenceConversationAttribute), true);
-
 			if (atts.Length != 0)
 			{
-				var conversationAttribute = (PersistenceConversationAttribute) atts[0];
-				if (conversationAttribute.ConversationEndMode == EndMode.Unspecified)
+				result = (PersistenceConversationAttribute) atts[0];
+				if(result.Exclude)
 				{
-					conversationAttribute.ConversationEndMode = setting.DefaultEndMode;
+					return null;
 				}
-				info[methodInfo] = conversationAttribute;
-				return true;
 			}
-
-			return false;
+			else
+			{
+				if(setting.MethodsIncludeMode == MethodsIncludeMode.Implicit)
+				{
+					result = new PersistenceConversationAttribute();
+				}
+			}
+			if (result != null && result.ConversationEndMode == EndMode.Unspecified)
+			{
+				result.ConversationEndMode = setting.DefaultEndMode;
+			}
+			return result;
 		}
 
 		internal PersistenceConversationAttribute GetConversationAttributeFor(MethodInfo methodInfo)
