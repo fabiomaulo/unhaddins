@@ -8,8 +8,7 @@ namespace uNhAddIns.UserTypes
 	public class uNHAddinsEncryptor : IEncryptor
 	{
 		private readonly SymmetricAlgorithm cryptoProvider;
-		private byte[] bytes;
-		private string encriptionKey;
+		private byte[] myBytes;
 
 		public uNHAddinsEncryptor()
 		{
@@ -17,18 +16,11 @@ namespace uNhAddIns.UserTypes
 			EncryptionKey = "uNHAddin";
 		}
 
-		public string EncryptionKey
-		{
-			get { return encriptionKey; } 
-			set
-			{
-				bytes = Encoding.ASCII.GetBytes(value);
-				encriptionKey = value;
-			}
-		}
+		public string EncryptionKey { get; set; }
 
 		public string Encrypt(string password)
 		{
+			var bytes = GetBytes();
 			using (var memoryStream = new MemoryStream())
 			{
 				ICryptoTransform encryptor = cryptoProvider.CreateEncryptor(bytes, bytes);
@@ -39,14 +31,23 @@ namespace uNhAddIns.UserTypes
 						writer.Write(password);
 						writer.Flush();
 						cryptoStream.FlushFinalBlock();
-						return Convert.ToBase64String(memoryStream.GetBuffer(), 0, (int) memoryStream.Length);
+						return Convert.ToBase64String(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
 					}
 				}
 			}
 		}
 
+		private byte[] GetBytes()
+		{
+			if (myBytes == null)
+				myBytes = Encoding.ASCII.GetBytes(EncryptionKey);
+
+			return myBytes;
+		}
+
 		public string Decrypt(string encryptedPassword)
 		{
+			var bytes = GetBytes();
 			using (var memoryStream = new MemoryStream(Convert.FromBase64String(encryptedPassword)))
 			{
 				ICryptoTransform decryptor = cryptoProvider.CreateDecryptor(bytes, bytes);
