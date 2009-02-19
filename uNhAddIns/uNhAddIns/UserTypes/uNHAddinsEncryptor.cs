@@ -14,10 +14,10 @@ namespace uNhAddIns.UserTypes
 		public uNHAddinsEncryptor()
 		{
 			cryptoProvider = new DESCryptoServiceProvider();
-			EncriptionKey = "uNHAddin";
+			EncryptionKey = "uNHAddin";
 		}
 
-		public string EncriptionKey
+		public string EncryptionKey
 		{
 			get { return encriptionKey; } 
 			set
