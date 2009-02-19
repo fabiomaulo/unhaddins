@@ -144,6 +144,7 @@
     <Compile Include="SessionEasier\SessionFactoryManager.cs" />
     <Compile Include="SessionEasier\SessionFactoryProvider.cs" />
     <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\TrimString.cs" />
     <Compile Include="UserTypes\EncryptedString.cs" />
     <Compile Include="UserTypes\uNHAddinsEncryptor.cs" />
     <Compile Include="UserTypes\IEncryptor.cs" />

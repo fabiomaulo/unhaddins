@@ -125,6 +125,7 @@
     <Compile Include="TestCase.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\TrimmedStringFixture.cs" />
     <Compile Include="UserTypes\EncryptedStringFixture.cs" />
     <Compile Include="UserTypes\Foo.cs" />
     <Compile Include="UserTypes\UpperStringFixture.cs" />
