@@ -3,6 +3,7 @@ using System.Collections;
 using NHibernate;
 using NHibernate.Properties;
 using NHibernate.Transform;
+using uNhAddIns.Extensions;
 
 namespace uNhAddIns.Transform
 {
@@ -25,7 +26,7 @@ namespace uNhAddIns.Transform
 	/// <see cref="NHibernate.Transform.AliasToBeanResultTransformer"/> class.
 	/// </remarks>
 	[Serializable]
-	public class PositionalToBeanResultTransformer: IResultTransformer
+	public class PositionalToBeanResultTransformer : IResultTransformer
 	{
 		private readonly Type resultClass;
 		private readonly string[] positionalAliases;
@@ -40,17 +41,21 @@ namespace uNhAddIns.Transform
 		public PositionalToBeanResultTransformer(Type resultClass, string[] positionalAliases)
 		{
 			if (resultClass == null)
+			{
 				throw new ArgumentNullException("resultClass");
+			}
 			this.resultClass = resultClass;
 			if (positionalAliases == null || positionalAliases.Length == 0)
+			{
 				throw new ArgumentNullException("positionalAliases");
+			}
 			this.positionalAliases = positionalAliases;
-			propertyAccessor = new ChainedPropertyAccessor(
-				new IPropertyAccessor[]
-					{
-						PropertyAccessorFactory.GetPropertyAccessor("field"),
-						PropertyAccessorFactory.GetPropertyAccessor(null)
-					});
+			propertyAccessor =
+				new ChainedPropertyAccessor(new[]
+				                            	{
+				                            		PropertyAccessorFactory.GetPropertyAccessor("field"),
+				                            		PropertyAccessorFactory.GetPropertyAccessor(null)
+				                            	});
 			AssignSetters();
 		}
 
@@ -60,7 +65,7 @@ namespace uNhAddIns.Transform
 			for (int i = 0; i < positionalAliases.Length; i++)
 			{
 				string alias = positionalAliases[i];
-				if (alias != null && alias.Length > 0)
+				if (!string.IsNullOrEmpty(alias))
 				{
 					setters[i] = propertyAccessor.GetSetter(resultClass, alias);
 				}
@@ -76,12 +81,9 @@ namespace uNhAddIns.Transform
 
 		public object TransformTuple(object[] tuple, string[] aliases)
 		{
-			object result;
-
+			var result = ReflectionExtensions.Instantiate<object>(resultClass);
 			try
 			{
-				result = Activator.CreateInstance(resultClass);
-
 				for (int i = 0; i < setters.Length; i++)
 				{
 					if (setters[i] != null)
@@ -90,20 +92,12 @@ namespace uNhAddIns.Transform
 					}
 				}
 			}
-			catch (InstantiationException e)
-			{
-				throw new HibernateException("Could not instantiate result class: " + resultClass.FullName, e);
-			}
-			catch (MethodAccessException e)
-			{
-				throw new HibernateException("Could not instantiate result class: " + resultClass.FullName, e);
-			}
-			catch(IndexOutOfRangeException)
+			catch (IndexOutOfRangeException)
 			{
 				throw new HibernateException("Tuple have less scalars then trasformer class: " + resultClass.FullName);
 			}
 
-			return result;			
+			return result;
 		}
 
 		#endregion
