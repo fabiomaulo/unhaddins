@@ -35,10 +35,14 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 		protected override IServiceLocator NewServiceLocator()
 		{
 			var container = new WindsorContainer();
+			container.AddFacility<PersistenceConversationFacility>();
 			var wca = new TestWindsorContainerAccessor(container);
 			container.Register(Component.For<IContainerAccessor>().Instance(wca));
 
-			container.AddFacility<PersistenceConversationFacility>();
+			// Services for this test
+			var sl = new WindsorServiceLocator(container);
+			container.Register(Component.For<IServiceLocator>().Instance(sl));
+
 			container.Register(Component.For<IConversationContainer>().ImplementedBy<ThreadLocalConversationContainerStub>());
 			container.Register(
 				Component.For<IConversationsContainerAccessor>().ImplementedBy<ConversationsContainerAccessorStub>());
@@ -46,9 +50,6 @@ namespace uNhAddIns.CastleAdapters.Tests.AutomaticConversationManagement
 			container.Register(Component.For<IDaoFactory>().ImplementedBy<DaoFactoryStub>());
 			container.Register(Component.For<ISillyDao>().ImplementedBy<SillyDaoStub>());
 
-			var sl = new WindsorServiceLocator(container);
-			container.Register(Component.For<IServiceLocator>().Instance(sl));
-			ServiceLocator.SetLocatorProvider(() => sl);
 			return sl;
 		}
 
