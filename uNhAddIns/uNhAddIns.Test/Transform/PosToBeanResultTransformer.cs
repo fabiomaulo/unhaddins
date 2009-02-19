@@ -30,44 +30,44 @@ namespace uNhAddIns.Test.Transform
 			}
 		}
 
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void ConstructorInvalidType()
 		{
-			PositionalToBeanResultTransformer t = new PositionalToBeanResultTransformer(null, new string[] {"a", "b"});
+			Assert.Throws<ArgumentNullException>(() => new PositionalToBeanResultTransformer(null, new[] {"a", "b"}));
 		}
 
-		[Test, ExpectedException(typeof(ArgumentNullException))]
+		[Test]
 		public void ConstructorInvalidAliases()
 		{
-			PositionalToBeanResultTransformer t = new PositionalToBeanResultTransformer(typeof(ASimplePOCO), new string[] { });
+			Assert.Throws<ArgumentNullException>(
+				() => new PositionalToBeanResultTransformer(typeof (ASimplePOCO), new string[] {}));
 		}
 
 		[Test]
 		public void Setters()
 		{
-			string[] aliases = new string[] {"_intProp", "_stringProp"};
-			string[] propAliases = new string[] { "IntProp", "StringProp" };
+			var aliases = new[] {"_intProp", "_stringProp"};
+			var propAliases = new[] {"IntProp", "StringProp"};
 
 			// Test with field
-			PositionalToBeanResultTransformer t = new PositionalToBeanResultTransformer(typeof(ASimplePOCO), aliases);
-			ASimplePOCO asp = (ASimplePOCO) t.TransformTuple(new object[] {1, "test"}, aliases);
+			var t = new PositionalToBeanResultTransformer(typeof (ASimplePOCO), aliases);
+			var asp = (ASimplePOCO) t.TransformTuple(new object[] {1, "test"}, aliases);
 			Assert.AreEqual(1, asp.IntProp);
 			Assert.AreEqual("test", asp.StringProp);
 
 			// Test with properties
-			t = new PositionalToBeanResultTransformer(typeof(ASimplePOCO), propAliases);
-			asp = (ASimplePOCO)t.TransformTuple(new object[] { 1, "test" }, propAliases);
+			t = new PositionalToBeanResultTransformer(typeof (ASimplePOCO), propAliases);
+			asp = (ASimplePOCO) t.TransformTuple(new object[] {1, "test"}, propAliases);
 			Assert.AreEqual(1, asp.IntProp);
 			Assert.AreEqual("test", asp.StringProp);
 		}
 
-		[Test, ExpectedException(typeof(HibernateException))]
+		[Test]
 		public void TupleDifferentScalars()
 		{
-			string[] aliases = new string[] { "_intProp", "_stringProp" };
-			PositionalToBeanResultTransformer t = new PositionalToBeanResultTransformer(typeof(ASimplePOCO), aliases);
-			ASimplePOCO asp = (ASimplePOCO)t.TransformTuple(new object[] { 1 }, aliases);
+			var aliases = new[] {"_intProp", "_stringProp"};
+			var t = new PositionalToBeanResultTransformer(typeof (ASimplePOCO), aliases);
+			Assert.Throws<HibernateException>(() => t.TransformTuple(new object[] {1}, aliases));
 		}
-
 	}
 }
