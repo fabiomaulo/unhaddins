@@ -22,9 +22,9 @@ namespace uNhAddIns.Test.UserTypes
 		}
 
 		[Test]
-		public void SaveEncryptedPassword()
+		public void SaveEncryptedPasswords()
 		{
-			var user = new User(1, "Astor Piazolla", "tango");
+			var user = new User{Id=1, Name = "Astor Piazolla",Password = "tango", OtherEncripted = "Adios Nonino"};
 
 			using (ISession s = OpenSession())
 			{
@@ -39,13 +39,14 @@ namespace uNhAddIns.Test.UserTypes
 				Assert.AreEqual(1, decryptedUser.Id);
 				Assert.AreEqual("Astor Piazolla", decryptedUser.Name);
 				Assert.AreEqual("tango", decryptedUser.Password);
+				Assert.That(decryptedUser.OtherEncripted, Is.EqualTo("Adios Nonino"));
 			}
 		}
 
 		[Test]
 		public void SaveNullPropertyAndGetItBack()
 		{
-			var user = new User(2, "Pat Metheny", null);
+			var user = new User { Id = 2, Name = "Pat Metheny", Password = null };
 
 			using (ISession s = OpenSession())
 			{
