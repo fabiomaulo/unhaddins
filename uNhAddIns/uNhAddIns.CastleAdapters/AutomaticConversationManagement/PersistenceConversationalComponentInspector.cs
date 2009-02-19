@@ -21,10 +21,10 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			ConfigureBasedOnAttributes(model);
 			Validate(model, metaStore);
 
-			AddTransactionInterceptorIfIsTransactional(model, metaStore);
+			AddConversationInterceptorIfIsConversational(model, metaStore);
 		}
 
-		private static void AddTransactionInterceptorIfIsTransactional(ComponentModel model, ConversationMetaInfoStore store)
+		private static void AddConversationInterceptorIfIsConversational(ComponentModel model, ConversationMetaInfoStore store)
 		{
 			ConversationMetaInfo meta = store.GetMetaFor(model.Implementation);
 
