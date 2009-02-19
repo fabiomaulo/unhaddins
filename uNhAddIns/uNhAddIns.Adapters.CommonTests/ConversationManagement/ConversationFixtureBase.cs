@@ -77,6 +77,8 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			scm.ImmediateDelete(e);
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(0),
 			            "Don't unbind the conversation with exception catch by custom event handler");
+
+			conversationContainer.Reset();
 		}
 
 		[Test]
@@ -102,6 +104,8 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			scm.AcceptAll();
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(0),
 			            "Don't unbind the conversation with exception catch by custom event handler");
+
+			conversationContainer.Reset();
 		}
 
 		[Test]
@@ -127,6 +131,11 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting"));
 				Assert.That(msgs[1].RenderedMessage, Text.Contains("Started"));
 			}
+
+			// cleanup
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
+			conversationContainer.Reset();
 		}
 
 		[Test]
@@ -155,6 +164,11 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting"));
 				Assert.That(msgs[1].RenderedMessage, Text.Contains("Started"));
 			}
+
+			// cleanup
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub)serviceLocator.GetInstance<IConversationContainer>();
+			conversationContainer.Reset();
 		}
 
 		[Test]
@@ -185,6 +199,39 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting with convention"));
 				Assert.That(msgs[1].RenderedMessage, Text.Contains("Started with convention"));
 			}
+
+			// cleanup
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub)serviceLocator.GetInstance<IConversationContainer>();
+			conversationContainer.Reset();
+		}
+
+		[Test]
+		public void ShouldSupportsDefaultEndMode()
+		{
+			IServiceLocator serviceLocator = NewServiceLocator();
+
+			RegisterAsTransient<ISillyCrudModel, SillyCrudModelDefaultEnd>(serviceLocator);
+
+			bool endedCalled = false;
+			var convFactory = new ConversationFactoryStub(delegate(string id)
+			                                              	{
+			                                              		IConversation result = new NoOpConversationStub(id);
+			                                              		result.Ended += ((s, a) => endedCalled = true);
+			                                              		return result;
+			                                              	});
+
+			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
+			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
+			scm.GetIfAvailable(1);
+			Assert.That(endedCalled);
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(0),
+									"Don't unbind the conversation after end. The Adapter are changing the conversation AutoUnbindAfterEndConversation");
+
+			// cleanup
+			conversationContainer.Reset();
 		}
 	}
 }

@@ -54,7 +54,12 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 
 			if (atts.Length != 0)
 			{
-				info[methodInfo] = atts[0] as PersistenceConversationAttribute;
+				var conversationAttribute = (PersistenceConversationAttribute) atts[0];
+				if (conversationAttribute.ConversationEndMode == EndMode.Unspecified)
+				{
+					conversationAttribute.ConversationEndMode = setting.DefaultEndMode;
+				}
+				info[methodInfo] = conversationAttribute;
 				return true;
 			}
 

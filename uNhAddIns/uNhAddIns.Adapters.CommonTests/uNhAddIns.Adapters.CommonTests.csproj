@@ -59,6 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttributesDefaults\PersistenceConversationalAttributeFixture.cs" />
+    <Compile Include="AttributesDefaults\PersistenceConversationAttributeFixture.cs" />
     <Compile Include="BaseDomain.cs" />
     <Compile Include="ConversationManagement\ConversationFixtureBase.cs" />
     <Compile Include="ConversationManagement\DomainImpl.cs" />

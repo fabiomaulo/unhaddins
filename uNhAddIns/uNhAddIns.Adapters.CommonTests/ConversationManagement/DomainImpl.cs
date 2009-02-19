@@ -146,6 +146,14 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 
 	public class ThreadLocalConversationContainerStub : ThreadLocalConversationContainer
 	{
+		// The fixture is executed in one trhead so we need something to clean the cotainer
+		// at the end of each test.
+		public void Reset()
+		{
+			store.Clear();
+			currentId = null;
+		}
+
 		public int BindedConversationCount
 		{
 			get { return store.Count; }
@@ -207,5 +215,11 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		}
 
 		#endregion
+	}
+
+	[PersistenceConversational(DefaultEndMode = EndMode.End)]
+	public class SillyCrudModelDefaultEnd : SillyCrudModel
+	{
+		public SillyCrudModelDefaultEnd(IDaoFactory factory) : base(factory) { }
 	}
 }
