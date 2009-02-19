@@ -4,6 +4,6 @@ namespace uNhAddIns.UserTypes
 	{
 		string Encrypt(string password);
 		string Decrypt(string encryptedPassword);
-		string EncriptionKey { get; set; }
+		string EncryptionKey { get; set; }
 	}
 }

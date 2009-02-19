@@ -179,7 +179,7 @@ namespace uNHAddIns.UserTypes
 
 			if (parameters.Contains("encryptionKey"))
 			{
-				encryptor.EncriptionKey = parameters["encryptionKey"].ToString();
+				encryptor.EncryptionKey = parameters["encryptionKey"].ToString();
 			}
 		}
 
