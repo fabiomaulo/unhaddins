@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\NHibernate.dll</HintPath>
@@ -55,8 +59,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDomain.cs" />
+    <Compile Include="ConversationManagement\ConversationFixtureBase.cs" />
+    <Compile Include="ConversationManagement\DomainImpl.cs" />
+    <Compile Include="Integration\DomainImpl.cs" />
+    <Compile Include="Integration\FullCreamFixtureBase.cs" />
     <Compile Include="LogSpy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Silly.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
+      <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
+      <Name>uNhAddIns.Adapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
+      <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
+      <Name>uNhAddIns</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -66,4 +88,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
