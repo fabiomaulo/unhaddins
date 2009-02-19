@@ -18,45 +18,41 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		/// Initialize a new ServiceLocator registering base services needed by this test.
 		/// </summary>
 		/// <remarks>
-		/// The initialization must include the initialization of <see cref="ServiceLocator"/>.
-		/// 
 		/// Services needed, in this test, are:
-		/// 
-		/// - uNhAddIns.SessionEasier.ISessionFactoryProvider 
-		///		This is a factory where we need to use GetFactory
-		///		Implementation: uNhAddIns.SessionEasier.SessionFactoryProvider
-		/// 
-		/// - uNhAddIns.SessionEasier.ISessionWrapper
-		///		Implementation: uNhAddIns.YourAdapter.SessionWrapper if available
-		/// 
-		/// - uNhAddIns.SessionEasier.Conversations.IConversationFactory
-		///		Implementation: uNhAddIns.SessionEasier.Conversations.DefaultConversationFactory
-		/// 
-		/// - uNhAddIns.SessionEasier.Conversations.IConversationsContainerAccessor
-		///		Implementation: uNhAddIns.SessionEasier.Conversations.NhConversationsContainerAccessor
-		/// 
-		/// - NHibernate.ISessionFactory
-		///		Taking the instance using ISessionFactoryProvider.GetFactory with a string parameter setted
-		///		using the name of session-factory-configuration (from available template the name is "uNhAddIns")
 		/// 
 		/// - Microsoft.Practices.ServiceLocation.IServiceLocator
 		///		The service locator itself is used by the implementation of DaoFactory
 		/// 
+		/// - uNhAddIns.SessionEasier.Conversations.IConversationContainer
+		///		Implementation: uNhAddIns.Adapters.CommonTests.ConversationManagement.ThreadLocalConversationContainerStub
+		/// 
+		/// - uNhAddIns.SessionEasier.Conversations.IConversationsContainerAccessor
+		///		Implementation: uNhAddIns.Adapters.CommonTests.ConversationManagement.ConversationsContainerAccessorStub
+		/// 
 		/// - uNhAddIns.Adapters.CommonTests.IDaoFactory
-		///		Implementation: uNhAddIns.Adapters.CommonTests.Integration.DaoFactory
+		///		Implementation: uNhAddIns.Adapters.CommonTests.ConversationManagement.DaoFactoryStub
 		/// 
 		/// - uNhAddIns.Adapters.CommonTests.ISillyDao
-		///		Implementation : uNhAddIns.Adapters.CommonTests.Integration.SillyDao
+		///		Implementation : uNhAddIns.Adapters.CommonTests.ConversationManagement.SillyDaoStub
 		/// 
-		/// - uNhAddIns.Adapters.CommonTests.ISillyCrudModel
-		///		Implementation : uNhAddIns.Adapters.CommonTests.Integration.SillyCrudModel
-		///		Lyfe : Transient
 		/// </remarks>
 		protected abstract IServiceLocator NewServiceLocator();
 
+		/// <summary>
+		/// Register a new service and its implementor as Transient (new instance per service get)
+		/// </summary>
+		/// <typeparam name="TService">The service type.</typeparam>
+		/// <typeparam name="TImplementor">The type of the implementor.</typeparam>
+		/// <param name="serviceLocator">The ServiceLocator instance</param>
 		protected abstract void RegisterAsTransient<TService, TImplementor>(IServiceLocator serviceLocator)
 			where TService : class where TImplementor : TService;
 
+		/// <summary>
+		/// Enlist an instance of a service.
+		/// </summary>
+		/// <typeparam name="T">The type of the service.</typeparam>
+		/// <param name="serviceLocator">The ServiceLocator instance</param>
+		/// <param name="instance">The instance of the given service type.</param>
 		protected abstract void RegisterInstanceForService<T>(IServiceLocator serviceLocator, T instance);
 
 		[Test]
