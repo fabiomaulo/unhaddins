@@ -3,7 +3,6 @@ using LinFu.DynamicProxy;
 using NHibernate;
 using NHibernate.Engine;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier.Conversations;
 using IInterceptor=LinFu.DynamicProxy.IInterceptor;
 

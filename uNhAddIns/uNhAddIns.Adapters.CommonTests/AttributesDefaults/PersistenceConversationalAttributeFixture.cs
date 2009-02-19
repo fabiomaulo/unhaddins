@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 
 namespace uNhAddIns.Adapters.CommonTests.AttributesDefaults
 {

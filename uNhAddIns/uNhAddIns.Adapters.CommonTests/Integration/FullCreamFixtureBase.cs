@@ -3,7 +3,6 @@ using Microsoft.Practices.ServiceLocation;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 
 namespace uNhAddIns.Adapters.CommonTests.Integration
 {

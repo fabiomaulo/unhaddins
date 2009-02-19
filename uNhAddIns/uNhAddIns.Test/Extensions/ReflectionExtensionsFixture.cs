@@ -2,7 +2,6 @@ using System;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.Extensions;
-using NUnit.Framework.Syntax.CSharp;
 
 namespace uNhAddIns.Test.Extensions
 {

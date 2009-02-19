@@ -2,7 +2,6 @@ using System;
 using log4net.Config;
 using NHibernate;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 using uNhAddIns.SessionEasier;
 
 namespace uNhAddIns.Test.SessionEasier
