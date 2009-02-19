@@ -222,4 +222,89 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 	{
 		public SillyCrudModelDefaultEnd(IDaoFactory factory) : base(factory) { }
 	}
+
+	public interface ISillyCrudModelExtended : ISillyCrudModel
+	{
+		string PropertyOutConversation { get; }
+		string PropertyInConversation { get; }
+		void DoSomethingNoPersistent();
+	}
+
+	[PersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit)]
+	public class SillyCrudModelWithImplicit : ISillyCrudModelExtended
+	{
+		private readonly IDaoFactory factory;
+
+		public SillyCrudModelWithImplicit(IDaoFactory factory)
+		{
+			if (factory == null)
+			{
+				throw new ArgumentNullException("factory");
+			}
+			this.factory = factory;
+		}
+
+		protected ISillyDao EntityDao
+		{
+			get { return factory.GetDao<ISillyDao>(); }
+		}
+
+		#region Implementation of ISillyCrudModel
+
+		public virtual IList<Silly> GetEntirelyList()
+		{
+			return EntityDao.GetAll();
+		}
+
+		public virtual Silly GetIfAvailable(int id)
+		{
+			return EntityDao.Get(id);
+		}
+
+		public virtual Silly Save(Silly entity)
+		{
+			return EntityDao.MakePersistent(entity);
+		}
+
+		public virtual void Delete(Silly entity)
+		{
+			EntityDao.MakeTransient(entity);
+			entity.Id = 0;
+		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
+		public virtual void ImmediateDelete(Silly entity)
+		{
+			EntityDao.MakeTransient(entity);
+			entity.Id = 0;
+		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
+		public virtual void AcceptAll()
+		{
+			// method for use-case End
+		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
+		public virtual void Abort()
+		{
+			// method for use-case Abort
+		}
+
+		#endregion
+
+		public string PropertyOutConversation
+		{
+			[PersistenceConversation(Exclude = true)]
+			get { return null; }
+		}
+
+		public string PropertyInConversation
+		{
+			get { return null; }
+		}
+
+		[PersistenceConversation(Exclude = true)]
+		public virtual void DoSomethingNoPersistent() {}
+	}
 }

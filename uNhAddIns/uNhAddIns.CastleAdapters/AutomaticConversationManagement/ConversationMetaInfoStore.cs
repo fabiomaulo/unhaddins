@@ -31,7 +31,7 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 
 			foreach (MethodInfo method in methods)
 			{
-				metaInfo.AddIfSupported(method);
+				metaInfo.AddMethodMetadata(method);
 			}
 
 			PopulateMetaInfoFromType(metaInfo, implementation.BaseType);
