@@ -2,21 +2,24 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
 				   assembly="uNhAddIns.Test"
 				   namespace="uNhAddIns.Test.UserTypes" default-lazy="false">
+	
 	<typedef class="uNHAddIns.UserTypes.EncryptedString, uNHAddIns" name="Encrypted">
 		<param name="encryptor">uNhAddIns.UserTypes.uNHAddinsEncryptor, uNhAddIns</param>
 		<param name="encryptionKey">myRGBKey</param>
 	</typedef>
-	
-  <class name="User" table="Users">
-    <id name="Id" type="int">
-      <generator class="assigned"/>
-    </id>
-    
-    <property name="Name"/>
-    
-    <property name="Password" 
-              type="Encrypted"
-              not-null="false"/>
-  </class>
+
+	<typedef class="uNHAddIns.UserTypes.EncryptedString, uNHAddIns" name="EncryptedDefault"/>
+
+	<class name="User" table="Users">
+		<id name="Id" type="int">
+			<generator class="assigned"/>
+		</id>
+
+		<property name="Name"/>
+
+		<property name="Password" type="Encrypted"/>
+		
+		<property name="OtherEncripted" type="EncryptedDefault"/>
+	</class>
 
 </hibernate-mapping>

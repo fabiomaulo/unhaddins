@@ -168,15 +168,22 @@ namespace uNHAddIns.UserTypes
 
 		public void SetParameterValues(IDictionary parameters)
 		{
-			object parmValue = parameters["encryptor"];
-			encryptor = parmValue != null
-			            	? ReflectionExtensions.Instantiate<IEncryptor>(Type.GetType(parmValue.ToString()))
-			            	: new uNHAddinsEncryptor();
-
-			parmValue = parameters["encryptionKey"];
-			if (parmValue != null)
+			if (parameters != null)
 			{
-				encryptor.EncryptionKey = parameters["encryptionKey"].ToString();
+				object parmValue = parameters["encryptor"];
+				encryptor = parmValue != null
+				            	? ReflectionExtensions.Instantiate<IEncryptor>(Type.GetType(parmValue.ToString()))
+				            	: new uNHAddinsEncryptor();
+
+				parmValue = parameters["encryptionKey"];
+				if (parmValue != null)
+				{
+					encryptor.EncryptionKey = parameters["encryptionKey"].ToString();
+				}
+			}
+			else
+			{
+				encryptor = new uNHAddinsEncryptor();
 			}
 		}
 
