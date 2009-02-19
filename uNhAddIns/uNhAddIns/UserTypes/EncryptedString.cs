@@ -4,6 +4,7 @@ using System.Data;
 using NHibernate;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
+using uNhAddIns.Extensions;
 using uNhAddIns.UserTypes;
 
 namespace uNHAddIns.UserTypes
@@ -14,7 +15,8 @@ namespace uNHAddIns.UserTypes
 	/// </summary>
 	public class EncryptedString : IUserType, IParameterizedType
 	{
-		IEncryptor encryptor;
+		private IEncryptor encryptor;
+
 		/// <summary>
 		/// Retrieve an instance of the mapped class from a Ado.Net resultset. 
 		/// Implementors should handle possibility of null values. 
@@ -26,10 +28,10 @@ namespace uNHAddIns.UserTypes
 		public object NullSafeGet(IDataReader rs, string[] names, object owner)
 		{
 			//treat for the posibility of null values
-			string passwordString = (string)NHibernateUtil.String.NullSafeGet(rs, names[0]);
+			object passwordString = NHibernateUtil.String.NullSafeGet(rs, names[0]);
 			if (passwordString != null)
 			{
-				return encryptor.Decrypt(passwordString);
+				return encryptor.Decrypt((string) passwordString);
 			}
 			return null;
 		}
@@ -50,7 +52,7 @@ namespace uNHAddIns.UserTypes
 				return;
 			}
 
-			string hashedPassword = encryptor.Encrypt((string)value);
+			string hashedPassword = encryptor.Encrypt((string) value);
 			NHibernateUtil.String.NullSafeSet(cmd, hashedPassword, index);
 		}
 
@@ -62,8 +64,7 @@ namespace uNHAddIns.UserTypes
 		/// <returns></returns>
 		public object DeepCopy(object value)
 		{
-			if (value == null) return null;
-			return string.Copy((string)value);
+			return value == null ? null : string.Copy((string) value);
 		}
 
 		/// <summary>
@@ -116,12 +117,7 @@ namespace uNHAddIns.UserTypes
 		/// </summary>
 		public SqlType[] SqlTypes
 		{
-			get
-			{
-				SqlType[] types = new SqlType[1];
-				types[0] = new SqlType(DbType.String);
-				return types;
-			}
+			get { return new[] {new SqlType(DbType.String)}; }
 		}
 
 		/// <summary>
@@ -129,7 +125,7 @@ namespace uNHAddIns.UserTypes
 		/// </summary>
 		public Type ReturnedType
 		{
-			get { return typeof(string); }
+			get { return typeof (string); }
 		}
 
 		/// <summary>
@@ -148,18 +144,23 @@ namespace uNHAddIns.UserTypes
 		/// <returns>If are equals or not</returns>
 		public new bool Equals(object x, object y)
 		{
-			if (ReferenceEquals(x, y)) return true;
-			if (x == null || y == null) return false;
+			if (ReferenceEquals(x, y))
+			{
+				return true;
+			}
+			if (x == null || y == null)
+			{
+				return false;
+			}
 			return x.Equals(y);
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="x"></param>
-		/// <returns></returns>
 		public int GetHashCode(object x)
 		{
+			if (x == null)
+			{
+				throw new ArgumentNullException("x");
+			}
 			return x.GetHashCode();
 		}
 
@@ -167,17 +168,13 @@ namespace uNHAddIns.UserTypes
 
 		public void SetParameterValues(IDictionary parameters)
 		{
-			if (parameters.Contains("encryptor"))
-			{
-				encryptor = (IEncryptor) Activator.CreateInstance(Type.GetType(parameters["encryptor"].ToString()));
-			}
-			else
-			{
-				// if the user didn't pass the parameter we set our default Encryptor
-				encryptor = new uNHAddinsEncryptor();
-			}
+			object parmValue = parameters["encryptor"];
+			encryptor = parmValue != null
+			            	? ReflectionExtensions.Instantiate<IEncryptor>(Type.GetType(parmValue.ToString()))
+			            	: new uNHAddinsEncryptor();
 
-			if (parameters.Contains("encryptionKey"))
+			parmValue = parameters["encryptionKey"];
+			if (parmValue != null)
 			{
 				encryptor.EncryptionKey = parameters["encryptionKey"].ToString();
 			}
