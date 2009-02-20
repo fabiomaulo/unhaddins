@@ -3,23 +3,52 @@ using System.Collections.Generic;
 
 namespace uNhAddIns.Adapters.CommonTests
 {
-	[Serializable]
-	public class Other
-	{
-		public virtual int Id { get; set; }
+    [Serializable]
+    public class Other
+    {
+        private readonly Guid _id = Guid.NewGuid();
+        public virtual Guid Id
+        {
+            get { return _id; }
+        }
 
-		public virtual string Name { get; set; }
-	}
+        private readonly int _concurrencyId = -1;
+        public virtual int ConcurrencyId
+        {
+            get { return _concurrencyId; }
+        }
 
-	[Serializable]
-	public class Silly
-	{
-		public virtual int Id { get; set; }
+        public virtual string Name { get; set; }
+    }
 
-		public virtual string Name { get; set; }
 
-		public virtual Other Other { get; set; }
-	}
+    [Serializable]
+    public class Silly
+    {
+        public Silly() {}
+
+        public Silly(Guid id)
+        {
+            _id = id;
+        }
+
+        private readonly Guid _id = Guid.NewGuid();
+        public virtual Guid Id
+        {
+            get { return _id; }
+        }
+
+        private readonly int _concurrencyId = -1;
+        public virtual int ConcurrencyId
+        {
+            get { return _concurrencyId; }
+        }
+
+        public virtual string Name { get; set; }
+
+        public virtual Other Other { get; set; }
+    }
+
 
 	public interface IDaoFactory
 	{
@@ -28,7 +57,7 @@ namespace uNhAddIns.Adapters.CommonTests
 
 	public interface ISillyDao
 	{
-		Silly Get(int id);
+		Silly Get(Guid id);
 		IList<Silly> GetAll();
 		Silly MakePersistent(Silly entity);
 		void MakeTransient(Silly entity);
@@ -37,7 +66,7 @@ namespace uNhAddIns.Adapters.CommonTests
 	public interface ISillyCrudModel
 	{
 		IList<Silly> GetEntirelyList();
-		Silly GetIfAvailable(int id);
+		Silly GetIfAvailable(Guid id);
 		Silly Save(Silly entity);
 		void Delete(Silly entity);
 		void ImmediateDelete(Silly entity);
@@ -72,7 +101,7 @@ namespace uNhAddIns.Adapters.CommonTests
 		}
 
 		[PersistenceConversation]
-		public virtual Silly GetIfAvailable(int id)
+		public virtual Silly GetIfAvailable(Guid id)
 		{
 			return EntityDao.Get(id);
 		}
@@ -86,15 +115,13 @@ namespace uNhAddIns.Adapters.CommonTests
 		[PersistenceConversation]
 		public virtual void Delete(Silly entity)
 		{
-			EntityDao.MakeTransient(entity);
-			entity.Id = 0;
+		    EntityDao.MakeTransient(entity);
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
-			entity.Id = 0;
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]

@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using log4net;
 using log4net.Appender;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
+using System.Linq;
 
 namespace uNhAddIns.Adapters.CommonTests
 {
@@ -38,6 +40,12 @@ namespace uNhAddIns.Adapters.CommonTests
 		{
 			get { return appender; }
 		}
+
+	    public ICollection<string> GetMessages()
+	    {
+	        return Appender.GetEvents().Select(e => e.MessageObject).Cast<string>().ToList();
+	    }
+
 
 		public string GetWholeMessages()
 		{
