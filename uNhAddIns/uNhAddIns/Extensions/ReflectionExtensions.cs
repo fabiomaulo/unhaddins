@@ -22,7 +22,7 @@ namespace uNhAddIns.Extensions
 			}
 			catch (Exception ex)
 			{
-				throw new InstantiationException("Unable to instanciate: " + type, ex, type);
+				throw new InstantiationException("Unable to instantiate: " + type, ex, type);
 			}
 		}
 	}
