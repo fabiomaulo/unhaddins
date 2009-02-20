@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using NUnit.Framework;
+using SessionManagement.Domain.Impl;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
 using NUnit.Framework.Syntax.CSharp;
@@ -38,6 +39,25 @@ namespace SessionManagement.Domain.Tests.Model
 			modifyOrderModel.Persist(purchaseOrder);
 			Assert.That(purchaseOrder, Is.Not.Null);
 			Assert.That(purchaseOrder.Id > 0);
+		}
+
+		[Test]
+		public void persisting_an_order_should_log_message()
+		{
+			var purchaseOrder = new PurchaseOrder
+			{
+				Date = DateTime.Now,
+				Number = "N1"
+			};
+
+			using (var ls = new LogSpy(typeof(MyConversationCreationInterceptor)))
+			{
+				modifyOrderModel.Persist(purchaseOrder);
+
+				var loggingEvents = ls.Appender.GetEvents();
+				Assert.That(loggingEvents.Length, Is.EqualTo(1));
+				Assert.That(loggingEvents[0].RenderedMessage, Text.Contains("My conversation ended"));
+			}
 		}
 
 		[Test]
