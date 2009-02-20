@@ -5,7 +5,7 @@ using uNhAddIns.Adapters;
 
 namespace SessionManagement.Domain.Impl
 {
-	[PersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit, ConversationCreationInterceptor = typeof(MyConversationCreationInterceptor))]
+	[PersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit)]
 	public class ModifyOrderModel : IModifyOrderModel
 	{
 		private readonly IOrderRepository orderRepository;

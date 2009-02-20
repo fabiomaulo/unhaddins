@@ -3,9 +3,9 @@ using uNhAddIns.SessionEasier.Conversations;
 
 namespace SessionManagement.Domain.Impl
 {
-	public class MyConversationCreationInterceptor : IConversationCreationInterceptor
+	public class MyConversationCreationInterceptor<T> : IConversationCreationInterceptorConvention<T> where T : class
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof (MyConversationCreationInterceptor));
+		private static readonly ILog log = LogManager.GetLogger(typeof (MyConversationCreationInterceptor<>));
 		#region Implementation of IConversationCreationInterceptor
 
 		public void Configure(IConversation conversation)
