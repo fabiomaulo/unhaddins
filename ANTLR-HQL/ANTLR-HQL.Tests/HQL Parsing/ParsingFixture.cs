@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Engine;
+using NHibernate.Hql;
 using NHibernate.Hql.Ast.ANTLR;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 using NUnit.Framework;
 
 namespace ANTLR_HQL.Tests.HQL_Parsing
@@ -12,10 +19,20 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 		[Test]
 		public void BasicQuery()
 		{
+			string input = "from ANTLR_HQL.Tests.Animal a where a.Legs > 7";
+
+			ISessionFactoryImplementor sfi = SetupSFI();
+
+			IQueryTranslatorFactory factory = new ASTQueryTranslatorFactory();
+			IQueryTranslator qti = factory.CreateQueryTranslator(null, input, new Dictionary<string, IFilter>(), sfi);
+
+			qti.Compile(null, false);
+
+			/*
 			// string input = "from o in class org.hibernate.test.Top";
 
-			string input = "from Animal a where a.Legs > 7";
 
+			// Phase 1
 			HqlLexer lex = new HqlLexer(new ANTLRStringStream(input));
 			CommonTokenStream tokens = new CommonTokenStream(lex);
 
@@ -23,7 +40,26 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 
 			HqlParser.statement_return ret = parser.statement();
 
-			DumpTree((ITree)ret.Tree);
+			Console.WriteLine(((ITree)ret.Tree).ToStringTree());
+
+			// Phase 2
+			CommonTreeNodeStream nodes = new CommonTreeNodeStream(ret.Tree);
+			nodes.TokenStream = tokens;
+
+			QueryTranslatorImpl qti = new QueryTranslatorImpl();
+			HqlSqlWalker p2 = new HqlSqlWalker(qti, sfi, nodes, new Dictionary<string, string>(), null);
+			p2.TreeAdaptor = new HqlTreeAdaptor(p2);
+
+			HqlSqlWalker.statement_return ret2 = p2.statement();
+
+			DumpTree((ITree)ret2.Tree);*/
+		}
+
+		ISessionFactoryImplementor SetupSFI()
+		{
+			Configuration cfg = new Configuration();
+			cfg.AddAssembly(this.GetType().Assembly);
+			return (ISessionFactoryImplementor)cfg.BuildSessionFactory();
 		}
 
 		void DumpTree(ITree node)

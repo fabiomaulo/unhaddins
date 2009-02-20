@@ -265,7 +265,7 @@ selectFrom
 	:  (s=selectClause)? (f=fromClause)? 
 		{
 			if ($f.tree == null && !filter) 
-				throw new antlr.SemanticException("FROM expected (non-filter queries must contain a FROM clause)");
+				throw new RecognitionException("FROM expected (non-filter queries must contain a FROM clause)");
 		}
 		-> {$f.tree == null && filter}? ^(SELECT_FROM FROM["{filter-implied FROM}"])
 		-> ^(SELECT_FROM fromClause? selectClause?)
@@ -901,7 +901,7 @@ constant
 	| NUM_FLOAT
 	| NUM_LONG
 	| NUM_DOUBLE
-	| QUOTED_STRING
+	| QUOTED_String
 	| NULL
 	| TRUE
 	| FALSE
@@ -1004,7 +1004,7 @@ ID_LETTER
     |    '0'..'9'
     ;
 
-QUOTED_STRING
+QUOTED_String
 	  : '\'' ( (ESCqs)=> ESCqs | ~'\'' )* '\''
 	;
 

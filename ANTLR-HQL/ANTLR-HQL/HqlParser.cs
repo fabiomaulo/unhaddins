@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Antlr.Runtime.Tree;
 using Antlr.Runtime;
 
@@ -9,10 +6,23 @@ namespace NHibernate.Hql.Ast.ANTLR
 {
     public partial class HqlParser
     {
+		private Logger log = new Logger();
+
         /** True if this is a filter query (allow no FROM clause). **/
         private bool filter;
+    	private IParseErrorHandler _parseErrorHandler = new ErrorCounter();
 
-        private Logger log = new Logger();
+    	public IParseErrorHandler ParseErrorHandler
+    	{
+			get { return _parseErrorHandler; }
+			set { _parseErrorHandler = value; }
+    	}
+
+    	public bool Filter
+    	{
+			get { return filter; }
+			set { filter = value; }
+    	}
 
         public void WeakKeywords()
         {
@@ -80,6 +90,7 @@ namespace NHibernate.Hql.Ast.ANTLR
             if (type == EQ || type == NE)
             {
                 bool negated = type == NE;
+
                 if (x.ChildCount == 2)
                 {
                     ITree a = x.GetChild(0);
@@ -90,28 +101,18 @@ namespace NHibernate.Hql.Ast.ANTLR
                         return CreateIsNullParent(b, negated);
                     }
                     // (EQ a NULL) => (IS_NULL a)
-                    else if (b.Type == NULL && a.Type != NULL)
+                    if (b.Type == NULL && a.Type != NULL)
                     {
                         return CreateIsNullParent(a, negated);
                     }
-                    else if (b.Type == EMPTY)
+                    if (b.Type == EMPTY)
                     {
                         return ProcessIsEmpty(a, negated);
                     }
-                    else
-                    {
-                        return x;
-                    }
-                }
-                else
-                {
-                    return x;
                 }
             }
-            else
-            {
-                return x;
-            }
+
+			return x;
         }
 
         public void HandleDotIdent()
@@ -137,7 +138,7 @@ namespace NHibernate.Hql.Ast.ANTLR
         private ITree CreateIsNullParent(ITree node, bool negated)
         {
             int type = negated ? IS_NOT_NULL : IS_NULL;
-            String text = negated ? "is not null" : "is null";
+            string text = negated ? "is not null" : "is null";
 
             return (ITree) adaptor.BecomeRoot(adaptor.Create(type, text), node);
         }
@@ -167,7 +168,9 @@ namespace NHibernate.Hql.Ast.ANTLR
                                    adaptor.Create(SELECT_FROM, "SELECT_FROM"),
                                    adaptor.BecomeRoot(
                                        adaptor.Create(FROM, "FROM"),
-                                       adaptor.Create(RANGE, "RANGE")))
+									   adaptor.BecomeRoot(
+										adaptor.Create(RANGE, "RANGE"),
+										node)))
                                );
         }
 
