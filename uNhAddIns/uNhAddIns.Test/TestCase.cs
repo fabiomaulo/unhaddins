@@ -223,5 +223,24 @@ namespace uNhAddIns.Test
 		}
 
 		#endregion
+
+	    protected void CommitInNewSession(Action<ISession> executeInNewSession)
+	    {
+            using (ISession session = sessions.OpenSession())
+            using (ITransaction tx = session.BeginTransaction())
+	        {
+	            executeInNewSession(session);
+	            session.Flush();
+	            tx.Commit();
+	        }
+	    }
+
+	    protected bool ExistsInDb<T>(object id)
+	    {
+	        using(ISession s = OpenSession())
+	        {
+	            return !ReferenceEquals(s.Get<T>(id), null);
+	        }
+	    }
 	}
 }

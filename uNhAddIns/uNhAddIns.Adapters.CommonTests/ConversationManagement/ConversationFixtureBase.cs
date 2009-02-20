@@ -1,3 +1,4 @@
+using System;
 using log4net.Config;
 using log4net.Core;
 using Microsoft.Practices.ServiceLocation;
@@ -68,7 +69,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
 
 			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
-			Silly e = scm.GetIfAvailable(1);
+            Silly e = scm.GetIfAvailable(Guid.NewGuid());
 			var conversationContainer =
 				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
@@ -95,7 +96,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
 
 			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
-			scm.GetIfAvailable(1);
+			scm.GetIfAvailable(Guid.NewGuid());
 			var conversationContainer =
 				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
@@ -124,7 +125,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
 			using (var ls = new LogSpy(typeof (ConversationCreationInterceptor)))
 			{
-				scm.GetIfAvailable(1);
+                scm.GetIfAvailable(Guid.NewGuid());
 				LoggingEvent[] msgs = ls.Appender.GetEvents();
 				Assert.That(msgs.Length, Is.EqualTo(2));
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting"));
@@ -157,7 +158,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
 			using (var ls = new LogSpy(typeof (ConversationCreationInterceptor)))
 			{
-				scm.GetIfAvailable(1);
+                scm.GetIfAvailable(Guid.NewGuid());
 				LoggingEvent[] msgs = ls.Appender.GetEvents();
 				Assert.That(msgs.Length, Is.EqualTo(2));
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting"));
@@ -192,7 +193,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
 			using (var ls = new LogSpy(typeof (ConvetionConversationCreationInterceptor)))
 			{
-				scm.GetIfAvailable(1);
+                scm.GetIfAvailable(Guid.NewGuid());
 				LoggingEvent[] msgs = ls.Appender.GetEvents();
 				Assert.That(msgs.Length, Is.EqualTo(2));
 				Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting with convention"));
@@ -222,7 +223,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 
 			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
 			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
-			scm.GetIfAvailable(1);
+			scm.GetIfAvailable(Guid.NewGuid());
 			Assert.That(endedCalled);
 			var conversationContainer =
 				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
@@ -263,7 +264,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			resumedCalled = false;
 			startedCalled = false;
 
-			scm.GetIfAvailable(1);
+            scm.GetIfAvailable(Guid.NewGuid());
 			Assert.That(resumedCalled, "An implicit method inclusion don't resume the conversation.");
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
 			            "Should have one active conversation because the default mode is continue.");

@@ -29,7 +29,15 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 			this.factory = factory;
 		}
 
-		public Silly Get(int id)
+        /// <summary>
+        /// Required for testing - don't do this in production code
+        /// </summary>
+	    public ISessionFactory Factory
+	    {
+	        get { return factory; }
+	    }
+
+	    public Silly Get(Guid id)
 		{
 			return factory.GetCurrentSession().Get<Silly>(id);
 		}
@@ -78,7 +86,7 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 		}
 
 		[PersistenceConversation]
-		public virtual Silly GetIfAvailable(int id)
+		public virtual Silly GetIfAvailable(Guid id)
 		{
 			return EntityDao.Get(id);
 		}
@@ -93,14 +101,12 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 		public virtual void Delete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
-			entity.Id = 0;
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
-			entity.Id = 0;
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]

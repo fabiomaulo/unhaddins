@@ -66,6 +66,7 @@
     <Compile Include="ConversationManagement\DomainImpl.cs" />
     <Compile Include="Integration\DomainImpl.cs" />
     <Compile Include="Integration\FullCreamFixtureBase.cs" />
+    <Compile Include="With.cs" />
     <Compile Include="LogSpy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

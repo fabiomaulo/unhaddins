@@ -72,14 +72,14 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 	{
 		#region Implementation of ISillyDao
 
-		public Silly Get(int id)
+		public Silly Get(Guid id)
 		{
-			return new Silly {Id = id};
+            return new Silly(id);
 		}
 
 		public IList<Silly> GetAll()
 		{
-			return new List<Silly>(new[] {new Silly {Id = 1}});
+			return new List<Silly>(new[] {new Silly(Guid.NewGuid())});
 		}
 
 		public Silly MakePersistent(Silly entity)
@@ -256,7 +256,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			return EntityDao.GetAll();
 		}
 
-		public virtual Silly GetIfAvailable(int id)
+		public virtual Silly GetIfAvailable(Guid id)
 		{
 			return EntityDao.Get(id);
 		}
@@ -269,14 +269,12 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		public virtual void Delete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
-			entity.Id = 0;
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
-			entity.Id = 0;
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
