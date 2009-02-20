@@ -48,6 +48,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private JoinType _impliedJoinType;
 
 		private IParseErrorHandler _parseErrorHandler = new ErrorCounter();
+		private string[][] columnNames;
 
 		public HqlSqlWalker(QueryTranslatorImpl qti,
 					  ISessionFactoryImplementor sfi,
@@ -95,9 +96,29 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get { return _impliedJoinType; }
 		}
 
+		public String[] ReturnAliases
+		{
+			get { return _selectClause.QueryReturnAliases; }
+		}
+
+		public IType[] ReturnTypes
+		{
+			get { return _selectClause.QueryReturnTypes; }	
+		}
+
 		public string CollectionFilterRole
 		{
 			get { return _collectionFilterRole; }	
+		}
+
+		public SelectClause SelectClause
+		{
+			get { return _selectClause; }
+		}
+
+		public IList<IParameterSpecification> Parameters
+		{
+			get { return _parameters; }
 		}
 
 		void beforeStatement(string statementName, int statementType)

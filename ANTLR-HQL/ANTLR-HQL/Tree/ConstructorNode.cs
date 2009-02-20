@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using NHibernate.Type;
@@ -10,6 +11,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	public class ConstructorNode : SelectExpressionList, ISelectExpression 
 	{
 		private IType[] _constructorArgumentTypes;
+		private ConstructorInfo _constructor;
+		private bool _isMap;
+		private bool _isList;
 
 		public ConstructorNode(IToken token) : base(token)
 		{
@@ -75,5 +79,22 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { throw new InvalidOperationException("constructor may not be aliased"); }
 			set { throw new InvalidOperationException("constructor may not be aliased"); }
 		}
+
+		public ConstructorInfo Constructor
+		{
+			get { return _constructor; }
+		}
+
+		public bool IsMap
+		{
+			get { return _isMap; }
+		}
+
+		public bool IsList
+		{
+			get { return _isList; }
+		}
+
+
 	}
 }

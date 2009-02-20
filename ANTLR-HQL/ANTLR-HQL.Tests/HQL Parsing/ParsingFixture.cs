@@ -23,11 +23,19 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 
 			ISessionFactoryImplementor sfi = SetupSFI();
 
+			ISession session = sfi.OpenSession();
+
+			foreach (Animal o in session.CreateQuery(input).Enumerable())
+			{
+				Console.WriteLine(o.Description);
+			}
+
+			/*
 			IQueryTranslatorFactory factory = new ASTQueryTranslatorFactory();
 			IQueryTranslator qti = factory.CreateQueryTranslator(null, input, new Dictionary<string, IFilter>(), sfi);
 
 			qti.Compile(null, false);
-
+			*/
 			/*
 			// string input = "from o in class org.hibernate.test.Top";
 

@@ -210,6 +210,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return _elementType.IsCollectionOfValuesOrComponents; }
 		}
 
+		public bool IsCollectionJoin
+		{
+			get { return _collectionJoin; }
+		}
+
 		public void SetRole(string role)
 		{
 			_role = role;
