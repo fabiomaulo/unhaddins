@@ -36,7 +36,7 @@ namespace SessionManagement.Presentation.Presenters
 		void AddButtonPressed(object sender, EventArgs e)
 		{
 			// If a conversation was pending then abort it.
-			modifyOrderModel.AbortConversation();
+			modifyOrderModel.EndConversation();
 
 			currentOrder = modifyOrderModel.FindOrderOrCreateNew(View.OrderNumber, View.OrderDate);
 

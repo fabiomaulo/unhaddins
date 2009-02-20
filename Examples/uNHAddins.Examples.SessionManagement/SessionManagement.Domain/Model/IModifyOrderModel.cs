@@ -6,6 +6,6 @@ namespace SessionManagement.Domain.Model
 	{
 		PurchaseOrder FindOrderOrCreateNew(string number, DateTime dateTime);
 		void Persist(PurchaseOrder order);
-		void AbortConversation();
+		void EndConversation();
 	}
 }

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections;
 using NUnit.Framework;
-using SessionManagement.Domain.Impl;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
 using NUnit.Framework.Syntax.CSharp;
-using System.Collections.Generic;
 using SessionManagement.TestUtils;
 
 namespace SessionManagement.Domain.Tests.Model
@@ -40,6 +38,30 @@ namespace SessionManagement.Domain.Tests.Model
 			modifyOrderModel.Persist(purchaseOrder);
 			Assert.That(purchaseOrder, Is.Not.Null);
 			Assert.That(purchaseOrder.Id > 0);
+		}
+
+		[Test]
+		public void find_or_create_new_will_create_a_new_order_for_nonexisting_one()
+		{
+			var order = modifyOrderModel.FindOrderOrCreateNew("A0001", DateTime.Now);
+			Assert.That(order, Is.Not.Null);
+			Assert.That(order.IsNew, Is.True);
+			modifyOrderModel.EndConversation();
+		}
+
+		[Test]
+		public void find_or_create_new_will_obtain_an_existing_order()
+		{
+			var orderDateTime = DateTime.Now;
+			var orderNumber = "A0001";
+
+			var order = modifyOrderModel.FindOrderOrCreateNew(orderNumber, orderDateTime);
+			modifyOrderModel.Persist(order);
+
+			var order2 = modifyOrderModel.FindOrderOrCreateNew(orderNumber, orderDateTime);
+			Assert.That(order2, Is.Not.Null);
+			Assert.That(order2.IsNew, Is.False);
+			modifyOrderModel.EndConversation();
 		}
 
 		#region Overrides of TestCase
