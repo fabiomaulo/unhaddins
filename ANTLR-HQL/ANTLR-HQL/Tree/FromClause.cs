@@ -105,6 +105,16 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return isAlias;
 		}
 
+		/// <summary>
+		/// Returns true if the from node contains the table alias name.
+		/// </summary>
+		/// <param name="alias">The SQL table alias name.</param>
+		/// <returns>true if the from node contains the table alias name.</returns>
+		public bool ContainsTableAlias(String alias)
+		{
+			return _fromElementByTableAlias.ContainsKey(alias);
+		}
+
 		public void AddJoinByPathMap(string path, FromElement destination)
 		{
 			if (log.isDebugEnabled())

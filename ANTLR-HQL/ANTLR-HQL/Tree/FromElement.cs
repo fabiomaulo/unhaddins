@@ -129,6 +129,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
+		public bool IsDereferencedBySubclassProperty
+		{
+			get { return _dereferencedBySubclassProperty; }
+		}
+
 		public IEntityPersister EntityPersister
 		{
 			get { return _elementType.EntityPersister; }

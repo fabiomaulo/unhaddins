@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g 2009-02-20 10:52:53
+// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g 2009-02-20 14:14:53
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
 // Unreachable code detected.
@@ -667,7 +667,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          w, f, s, u
+            	// elements:          u, f, w, s
             	// token labels:      u
             	// rule labels:       w, f, retval, s
             	// token list labels: 
@@ -1623,7 +1623,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          o, f, g, s, w
+            	// elements:          w, s, o, g, f
             	// token labels:      
             	// rule labels:       o, w, f, retval, g, s
             	// token list labels: 
@@ -2145,7 +2145,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          x, d
+            	// elements:          d, x
             	// token labels:      d
             	// rule labels:       retval, x
             	// token list labels: 
@@ -4252,7 +4252,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          w, b
+            	// elements:          b, w
             	// token labels:      w
             	// rule labels:       retval, b
             	// token list labels: 
@@ -6685,7 +6685,7 @@ public partial class HqlSqlWalker : TreeParser
                     	 _inCase = true; 
 
                     	Match(input, Token.DOWN, null); 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:30: ( ^( WHEN logicalExpr expr ) )+
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:31: ( ^( WHEN logicalExpr expr ) )+
                     	int cnt48 = 0;
                     	do 
                     	{
@@ -6701,7 +6701,7 @@ public partial class HqlSqlWalker : TreeParser
                     	    switch (alt48) 
                     		{
                     			case 1 :
-                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:31: ^( WHEN logicalExpr expr )
+                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:32: ^( WHEN logicalExpr expr )
                     			    {
                     			    	_last = (CommonTree)input.LT(1);
                     			    	{
@@ -6748,7 +6748,7 @@ public partial class HqlSqlWalker : TreeParser
                     	loop48:
                     		;	// Stops C# compiler whinging that label 'loop48' has no statements
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:58: ( ^( ELSE expr ) )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:59: ( ^( ELSE expr ) )?
                     	int alt49 = 2;
                     	int LA49_0 = input.LA(1);
 
@@ -6759,7 +6759,7 @@ public partial class HqlSqlWalker : TreeParser
                     	switch (alt49) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:59: ^( ELSE expr )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:610:60: ^( ELSE expr )
                     	        {
                     	        	_last = (CommonTree)input.LT(1);
                     	        	{
@@ -6823,7 +6823,7 @@ public partial class HqlSqlWalker : TreeParser
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, expr161.Tree);
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:36: ( ^( WHEN expr expr ) )+
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:37: ( ^( WHEN expr expr ) )+
                     	int cnt50 = 0;
                     	do 
                     	{
@@ -6839,7 +6839,7 @@ public partial class HqlSqlWalker : TreeParser
                     	    switch (alt50) 
                     		{
                     			case 1 :
-                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:37: ^( WHEN expr expr )
+                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:38: ^( WHEN expr expr )
                     			    {
                     			    	_last = (CommonTree)input.LT(1);
                     			    	{
@@ -6886,7 +6886,7 @@ public partial class HqlSqlWalker : TreeParser
                     	loop50:
                     		;	// Stops C# compiler whinging that label 'loop50' has no statements
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:57: ( ^( ELSE expr ) )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:58: ( ^( ELSE expr ) )?
                     	int alt51 = 2;
                     	int LA51_0 = input.LA(1);
 
@@ -6897,7 +6897,7 @@ public partial class HqlSqlWalker : TreeParser
                     	switch (alt51) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:58: ^( ELSE expr )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:611:59: ^( ELSE expr )
                     	        {
                     	        	_last = (CommonTree)input.LT(1);
                     	        	{
@@ -7179,7 +7179,7 @@ public partial class HqlSqlWalker : TreeParser
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, pathAsIdent168.Tree);
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:54: ( ^( EXPR_LIST ( expr )* ) )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:55: ( ^( EXPR_LIST ( expr )* ) )?
                     	int alt55 = 2;
                     	int LA55_0 = input.LA(1);
 
@@ -7190,7 +7190,7 @@ public partial class HqlSqlWalker : TreeParser
                     	switch (alt55) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:56: ^( EXPR_LIST ( expr )* )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:57: ^( EXPR_LIST ( expr )* )
                     	        {
                     	        	_last = (CommonTree)input.LT(1);
                     	        	{
@@ -7207,7 +7207,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	if ( input.LA(1) == Token.DOWN )
                     	        	{
                     	        	    Match(input, Token.DOWN, null); 
-                    	        	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:68: ( expr )*
+                    	        	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:69: ( expr )*
                     	        	    do 
                     	        	    {
                     	        	        int alt54 = 2;
@@ -7222,7 +7222,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	        switch (alt54) 
                     	        	    	{
                     	        	    		case 1 :
-                    	        	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:69: expr
+                    	        	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:641:70: expr
                     	        	    		    {
                     	        	    		    	_last = (CommonTree)input.LT(1);
                     	        	    		    	PushFollow(FOLLOW_expr_in_functionCall2020);
@@ -8074,7 +8074,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          i, rhs2, lhs2
+            	// elements:          rhs2, i, lhs2
             	// token labels:      i
             	// rule labels:       rhs2, retval, lhs2
             	// token list labels: 
@@ -8501,7 +8501,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
                     	// AST REWRITE
-                    	// elements:          lhs, d, rhs
+                    	// elements:          rhs, lhs, d
                     	// token labels:      d
                     	// rule labels:       lhs, retval, rhs
                     	// token list labels: 

@@ -64,6 +64,7 @@
     <Compile Include="IErrorReporter.cs" />
     <Compile Include="InvalidPathException.cs" />
     <Compile Include="IParseErrorHandler.cs" />
+    <Compile Include="Output\SqlGenerator.cs" />
     <Compile Include="Parameters\AggregatedIndexCollectionSelectorParameterSpecifications.cs" />
     <Compile Include="Parameters\DynamicFilterParameterSpecification.cs" />
     <Compile Include="QuerySyntaxException.cs" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Hql.g" />
+    <None Include="HqlSqlWalker.g" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
