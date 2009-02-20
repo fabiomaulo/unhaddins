@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
@@ -241,6 +242,65 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			FinishInitialization( /*sqlResultTypeList,*/ queryReturnTypeList );
 		}
 
+		/// <summary>
+		/// FromElements which need to be accounted for in the load phase (either for return or for fetch).
+		/// </summary>
+		public IList<FromElement> FromElementsForLoad
+		{
+			get { return _fromElementsForLoad; }
+		}
+
+		public bool IsScalarSelect
+		{
+			get { return _scalarSelect; }
+		}
+
+		/// <summary>
+		/// The column alias names being used in the generated SQL.
+		/// </summary>
+		public string[][] ColumnNames
+		{
+			get { return _columnNames; }
+		}
+
+		/// <summary>
+		/// The constructor to use for dynamic instantiation queries.
+		/// </summary>
+		public ConstructorInfo Constructor
+		{
+			get { return _constructorNode == null ? null : _constructorNode.Constructor; }
+		}
+
+		public bool IsMap
+		{
+			get { return _constructorNode == null ? false : _constructorNode.IsMap; }
+		}
+
+		public bool IsList
+		{
+			get { return _constructorNode == null ? false : _constructorNode.IsList; }
+		}
+
+		/// <summary>
+		/// The HQL aliases, or generated aliases
+		/// </summary>
+		public string[] QueryReturnAliases
+		{
+			get { return _aliases; }
+		}
+
+		public IList<FromElement> CollectionFromElements
+		{
+			get { return _collectionFromElements; }
+		}
+
+		/// <summary>
+		/// The types actually being returned from this query at the "object level".
+		/// </summary>
+		public IType[] QueryReturnTypes
+		{
+			get { return _queryReturnTypes; }
+		}
 
 		protected override ITree GetFirstSelectExpression()
 		{

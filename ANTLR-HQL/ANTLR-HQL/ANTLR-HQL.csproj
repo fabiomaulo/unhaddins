@@ -64,9 +64,15 @@
     <Compile Include="IErrorReporter.cs" />
     <Compile Include="InvalidPathException.cs" />
     <Compile Include="IParseErrorHandler.cs" />
+    <Compile Include="Loader\QueryLoader.cs" />
     <Compile Include="Output\SqlGenerator.cs" />
+    <Compile Include="Parameters\AbstractExplicitParameterSpecification.cs" />
     <Compile Include="Parameters\AggregatedIndexCollectionSelectorParameterSpecifications.cs" />
     <Compile Include="Parameters\DynamicFilterParameterSpecification.cs" />
+    <Compile Include="Parameters\ExplicitParameterSpecification.cs" />
+    <Compile Include="Parameters\NamedParameterSpecification.cs" />
+    <Compile Include="Parameters\ParameterTranslationsImpl.cs" />
+    <Compile Include="Parameters\PositionalParameterSpecification.cs" />
     <Compile Include="QuerySyntaxException.cs" />
     <Compile Include="QueryTranslatorImpl.cs" />
     <Compile Include="SemanticException.cs" />
@@ -137,6 +143,7 @@
   <ItemGroup>
     <None Include="Hql.g" />
     <None Include="HqlSqlWalker.g" />
+    <None Include="SqlGenerator.g" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

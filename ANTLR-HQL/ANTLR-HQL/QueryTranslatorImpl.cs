@@ -5,6 +5,7 @@ using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using Iesi.Collections.Generic;
 using NHibernate.Engine;
+using NHibernate.Hql.Ast.ANTLR.Loader;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
@@ -25,6 +26,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private IDictionary<string, string> _tokenReplacements;
 		private CommonTokenStream _tokens;
 		private IList<IParameterSpecification> _collectedParameterSpecifications;
+		private QueryLoader _queryLoader;
+		private IStatement _sqlAst;
+		private IParameterTranslations _paramTranslations;
 
 		/// <summary>
 		/// Creates a new AST-based query translator.
@@ -65,7 +69,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public IEnumerable GetEnumerable(QueryParameters queryParameters, ISessionImplementor session)
 		{
-			throw new System.NotImplementedException();
+			ErrorIfDML();
+			return _queryLoader.GetEnumerable(queryParameters, session);
 		}
 
 		public int ExecuteUpdate(QueryParameters queryParameters, ISessionImplementor session)
@@ -75,27 +80,51 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public string[][] GetColumnNames()
 		{
-			throw new System.NotImplementedException();
+			ErrorIfDML();
+			return _sqlAst.Walker.SelectClause.ColumnNames;
 		}
 
 		public IParameterTranslations GetParameterTranslations()
 		{
-			throw new System.NotImplementedException();
+			if (_paramTranslations == null)
+			{
+				_paramTranslations = new ParameterTranslationsImpl(_sqlAst.Walker.Parameters);
+			}
+			return _paramTranslations;
 		}
 
 		public ISet<string> QuerySpaces
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return _sqlAst.Walker.QuerySpaces; }
 		}
 
 		public string SQLString
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return _sql; }
 		}
 
 		public IList<string> CollectSqlStrings
 		{
-			get { throw new System.NotImplementedException(); }
+			get
+			{
+				List<string> list = new List<string>();
+				if (IsManipulationStatement)
+				{
+					throw new NotImplementedException();
+					/*
+					String[] sqlStatements = statementExecutor.getSqlStatements();
+					for (int i = 0; i < sqlStatements.length; i++)
+					{
+						list.Add(sqlStatements[i]);
+					}
+					*/
+				}
+				else
+				{
+					list.Add(_sql);
+				}
+				return list;
+			}
 		}
 
 		public string QueryString
@@ -110,12 +139,20 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public IType[] ReturnTypes
 		{
-			get { throw new System.NotImplementedException(); }
+			get
+			{
+				ErrorIfDML();
+				return _sqlAst.Walker.ReturnTypes;
+			}
 		}
 
 		public string[] ReturnAliases
 		{
-			get { throw new System.NotImplementedException(); }
+			get
+			{
+				ErrorIfDML();
+				return _sqlAst.Walker.ReturnAliases;
+			}
 		}
 
 		public bool ContainsCollectionFetches
@@ -125,7 +162,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public bool IsManipulationStatement
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return _sqlAst.NeedsExecutor; }
 		}
 
 		public bool IsShallowQuery
@@ -165,8 +202,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 				ITree hqlAst = Parse( true );
 
 				// PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
-				ITree sqlAst = Analyze( hqlAst, collectionRole );
-
+				_sqlAst = Analyze(hqlAst, collectionRole);
+				
 				// at some point the generate phase needs to be moved out of here,
 				// because a single object-level DML might spawn multiple SQL DML
 				// command executions.
@@ -178,14 +215,17 @@ namespace NHibernate.Hql.Ast.ANTLR
 				// QueryLoader currently even has a dependency on this at all; does
 				// it need it?  Ideally like to see the walker itself given to the delegates directly...
 
-//				if ( sqlAst.needsExecutor() ) {
+				if ( _sqlAst.NeedsExecutor) 
+				{
+					throw new NotImplementedException();
 //					statementExecutor = buildAppropriateStatementExecutor( w );
-//				}
-//				else {
+				}
+				else 
+				{
 					// PHASE 3 : Generate the SQL.
-					Generate( sqlAst );
-//					queryLoader = new QueryLoader( this, factory, w.getSelectClause() );
-//				}
+					Generate( _sqlAst );
+					_queryLoader = new QueryLoader( this, _factory, _sqlAst.Walker.SelectClause );
+				}
 
 				_compiled = true;
 			}/*
@@ -215,7 +255,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			_enabledFilters = null; //only needed during compilation phase...
 		}
 
-		private void Generate(ITree sqlAst)
+		private void Generate(IStatement sqlAst)
 		{
 			if ( _sql == null ) 
 			{
@@ -238,20 +278,22 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 		}
 
-		private ITree Analyze(ITree hqlAst, string collectionRole)
+		private IStatement Analyze(ITree hqlAst, string collectionRole)
 		{
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(hqlAst);
 			nodes.TokenStream = _tokens;
 
-			HqlSqlWalker w = new HqlSqlWalker( this, _factory, nodes, _tokenReplacements, collectionRole );
-			w.TreeAdaptor = new HqlTreeAdaptor(w);
+			HqlSqlWalker hqlSqlWalker = new HqlSqlWalker(this, _factory, nodes, _tokenReplacements, collectionRole);
+			hqlSqlWalker.TreeAdaptor = new HqlTreeAdaptor(hqlSqlWalker);
 
+			// TODO - debug, remove
 			Console.WriteLine(hqlAst.ToStringTree());
 
 			// Transform the tree.
-			ITree sqlAst = (ITree) w.statement().Tree;
+			IStatement sqlAst = (IStatement)hqlSqlWalker.statement().Tree;
 
-			Console.WriteLine(sqlAst.ToStringTree());
+			// TODO - debug, remove
+			Console.WriteLine(((ITree)sqlAst).ToStringTree());
 
 			/*
 			if ( AST_LOG.isDebugEnabled() ) {
@@ -260,8 +302,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 			*/
 
-			w.ParseErrorHandler.ThrowQueryException();
-
+			hqlSqlWalker.ParseErrorHandler.ThrowQueryException();
+		
 			return sqlAst;
 		}
 
@@ -291,6 +333,14 @@ namespace NHibernate.Hql.Ast.ANTLR
 			parser.ParseErrorHandler.ThrowQueryException();
 
 			return hqlAst;
+		}
+
+		private void ErrorIfDML()
+		{
+			if (_sqlAst.NeedsExecutor)
+			{
+				throw new QueryExecutionRequestException("Not supported for DML operations", _hql);
+			}
 		}
 
 		public class JavaConstantConverter : IVisitationStrategy
