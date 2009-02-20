@@ -6,7 +6,7 @@ using uNhAddIns.Adapters;
 
 namespace SessionManagement.Domain.Impl
 {
-	[PersistenceConversational]
+	[PersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit)]
 	public class ProductModel : IProductModel
 	{
 		private readonly IProductRepository productRepository;
@@ -18,7 +18,7 @@ namespace SessionManagement.Domain.Impl
 
 		#region Implementation of IProductManager
 
-		[PersistenceConversation]
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public Product Save(Product product)
 		{
 			if (ProductExists(product))
@@ -28,27 +28,21 @@ namespace SessionManagement.Domain.Impl
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
-		public void AcceptConversation()
-		{
-		}
-
-		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public IList<Product> GetProducts()
 		{
 			return productRepository.GetAllProducts();
 		}
 		
-		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public bool ProductExists(Product product)
 		{
-			Product existingProduct = productRepository.GetProductByCode(product.Code);
+			var existingProduct = productRepository.GetProductByCode(product.Code);
 			return existingProduct != null;
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
-		public void AbortConversation()
+		public void EndConversation()
 		{
-			// Rollback the use case
+			// Ends the conversation without commiting changes
 		}
 
 		#endregion

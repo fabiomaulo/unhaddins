@@ -32,8 +32,6 @@ namespace SessionManagement.Domain.Tests.Model
 
 			Assert.That(savedProduct, Is.Not.Null);
 			Assert.That(savedProduct.Id > 0);
-
-			productModel.AcceptConversation();
 		}
 
 		#endregion

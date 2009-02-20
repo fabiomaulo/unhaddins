@@ -20,6 +20,13 @@ namespace SessionManagement.Presentation.Presenters
 		{
 			this.productModel = productModel;
 			view.AddButtonPressed += view_AddButtonPressed;
+			view.CloseView += view_CloseView;
+		}
+
+		void view_CloseView(object sender, EventArgs e)
+		{
+			// If there is an existing conversation end it
+			productModel.EndConversation();
 		}
 
 		void view_AddButtonPressed(object sender, TEventArgs<Product> e)
@@ -31,7 +38,9 @@ namespace SessionManagement.Presentation.Presenters
 		{
 			try
 			{
-				if (!productModel.ProductExists(product))
+				var productExists = productModel.ProductExists(product);
+
+				if (!productExists)
 				{
 					productModel.Save(product);
 					View.ShowMessage("Product added");
@@ -41,8 +50,6 @@ namespace SessionManagement.Presentation.Presenters
 				{
 					View.ShowMessage("Product already exists");
 				}
-
-				productModel.AcceptConversation();
 			}
 			catch (Exception ex)
 			{

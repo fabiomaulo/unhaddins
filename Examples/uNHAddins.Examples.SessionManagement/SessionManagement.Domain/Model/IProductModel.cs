@@ -8,7 +8,6 @@ namespace SessionManagement.Domain.Model
 		IList<Product> GetProducts();
 		bool ProductExists(Product product);
 
-		void AcceptConversation();
-		void AbortConversation();
+		void EndConversation();
 	}
 }
