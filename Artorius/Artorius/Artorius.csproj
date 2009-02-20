@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GoldParsing.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GoldParsing.Engine\bin\Debug\GoldParsing.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Iesi.Collections.dll</HintPath>
@@ -111,12 +115,6 @@
     <Compile Include="Tree\SelectClause.cs" />
     <Compile Include="Tree\SymbolNode.cs" />
     <Compile Include="Tree\ValueExpression.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GoldParsing.Engine\GoldParsing.Engine.csproj">
-      <Project>{B2C309FE-1535-4373-B259-DE96DDFE4182}</Project>
-      <Name>GoldParsing.Engine</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Tree\_developmentNote.txt" />

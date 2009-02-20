@@ -17,6 +17,8 @@ namespace NHibernate.Hql.Ast
 		private readonly string query;
 		private readonly string queryIdentifier;
 
+
+
 		/// <summary> 
 		/// Creates a new AST-based query translator. 
 		/// </summary>
@@ -42,9 +44,15 @@ namespace NHibernate.Hql.Ast
 		{
 			// phase 1 : string parse cheking grammar and partial lexer
 			ISyntaxNode root = parser.Parse(query);
+
 			// phase 2 : walk the nHQL-expression-tree cheking the other lexer part and creating the SQL
 			// An example of the phase2-lexer-check is: "from current_time_stamp"
 			// "current_time_stamp" is a valid Identifier but can't be used the "from" clause
+
+            // ss additions
+            // PHASE2 : Analyze the HQL ASL and produce a SQL AST
+
+
 		}
 
 		public IList List(ISessionImplementor session, QueryParameters queryParameters)
@@ -74,7 +82,7 @@ namespace NHibernate.Hql.Ast
 
 		public ISet<string> QuerySpaces
 		{
-			get { throw new NotImplementedException(); }
+            get { return querySpaces; }
 		}
 
 		public string SQLString
@@ -118,5 +126,16 @@ namespace NHibernate.Hql.Ast
 		}
 
 		#endregion
-	}
+
+        // ss additions here
+        private readonly ISet<string> querySpaces = new HashedSet<string>();
+        
+        internal void AddQuerySpaces(string[] spaces)
+        {
+            for (int i = 0; i < spaces.Length; i++)
+            {
+                querySpaces.Add(spaces[i]);
+            }
+        }
+    }
 }
