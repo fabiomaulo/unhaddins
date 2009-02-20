@@ -6,7 +6,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 {
 	public class ThreadLocalConversationalSessionContext : ThreadLocalConversationContainer, ICurrentSessionContext
 	{
-		private bool? autoUnBind;
 		private readonly ISessionFactoryImplementor factory;
 
 		public ThreadLocalConversationalSessionContext(ISessionFactoryImplementor factory)
