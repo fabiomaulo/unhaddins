@@ -67,27 +67,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			// Iterate through the alias,JoinSequence pairs and generate SQL token nodes.
 			foreach (FromElement fromElement in fromElements)
 			{
-				JoinSequence join = fromElement.JoinSequence;/*
-				join.setSelector(
-						new JoinSequence.Selector() {
-							public boolean includeSubclasses(String alias) {
-								// The uber-rule here is that we need to include  subclass joins if
-								// the FromElement is in any way dereferenced by a property from
-								// the subclass table; otherwise we end up with column references
-								// qualified by a non-existent table reference in the resulting SQL...
-								boolean containsTableAlias = fromClause.containsTableAlias( alias );
-								if ( fromElement.isDereferencedBySubclassProperty() ) {
-									// TODO : or should we return 'containsTableAlias'??
-									log.trace( "forcing inclusion of extra joins [alias=" + alias + ", containsTableAlias=" + containsTableAlias + "]" );
-									return true;
-								}
-								boolean shallowQuery = walker.isShallowQuery();
-								boolean includeSubclasses = fromElement.isIncludeSubclasses();
-								boolean subQuery = fromClause.isSubQuery();
-								return includeSubclasses && containsTableAlias && !subQuery && !shallowQuery;
-							}
-						}
-				);*/
+				JoinSequence join = fromElement.JoinSequence;
+
+				join.SetSelector(new JoinSequenceSelector(_walker, fromClause, fromElement));
 
 				AddJoinNodes( query, join, fromElement );
 			}
@@ -210,5 +192,38 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			return sqlFragment.IndexOfCaseInsensitive("?") < 0;
 		}
 
+		private class JoinSequenceSelector : JoinSequence.ISelector
+		{
+			private FromClause _fromClause;
+			private FromElement _fromElement;
+			private HqlSqlWalker _walker;
+
+			internal JoinSequenceSelector(HqlSqlWalker walker, FromClause fromClause, FromElement fromElement)
+			{
+				_walker = walker;
+				_fromClause = fromClause;
+				_fromElement = fromElement;
+			}
+
+			public bool IncludeSubclasses(string alias) 
+			{
+				// The uber-rule here is that we need to include  subclass joins if
+				// the FromElement is in any way dereferenced by a property from
+				// the subclass table; otherwise we end up with column references
+				// qualified by a non-existent table reference in the resulting SQL...
+				bool containsTableAlias = _fromClause.ContainsTableAlias( alias );
+
+				if ( _fromElement.IsDereferencedBySubclassProperty) 
+				{
+					// TODO : or should we return 'containsTableAlias'??
+					log.trace( "forcing inclusion of extra joins [alias=" + alias + ", containsTableAlias=" + containsTableAlias + "]" );
+					return true;
+				}
+				bool shallowQuery = _walker.IsShallowQuery;
+				bool includeSubclasses = _fromElement.IncludeSubclasses;
+				bool subQuery = _fromClause.IsSubQuery;
+				return includeSubclasses && containsTableAlias && !subQuery && !shallowQuery;
+			}
+		}
 	}
 }

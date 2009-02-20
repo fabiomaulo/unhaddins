@@ -235,11 +235,11 @@ selectClause!
 	;
 
 selectExprList @init{
-		bool oldInSelect = inSelect;
-		inSelect = true;
+		bool oldInSelect = _inSelect;
+		_inSelect = true;
 	}
 	: ( selectExpr | aliasedSelectExpr )+ {
-		inSelect = oldInSelect;
+		_inSelect = oldInSelect;
 	}
 	;
 
@@ -331,11 +331,11 @@ fromClause
 	;
 
 fromElementList @init{
-		bool oldInFrom = inFrom;
-		inFrom = true;
+		bool oldInFrom = _inFrom;
+		_inFrom = true;
 		}
 	: (fromElement)+ {
-		inFrom = oldInFrom;
+		_inFrom = oldInFrom;
 		}
 	;
 
@@ -607,8 +607,8 @@ arithmeticExpr
 	;
 
 caseExpr
-	: ^(CASE { inCase = true; } (^(WHEN logicalExpr expr))+ (^(ELSE expr))?) { inCase = false; }
-	| ^(CASE2 { inCase = true; } expr (^(WHEN expr expr))+ (^(ELSE expr))?) { inCase = false; }
+	: ^(CASE { _inCase = true; } (^(WHEN logicalExpr expr))+ (^(ELSE expr))?) { _inCase = false; }
+	| ^(CASE2 { _inCase = true; } expr (^(WHEN expr expr))+ (^(ELSE expr))?) { _inCase = false; }
 	;
 
 //TODO: I don't think we need this anymore .. how is it different to 
@@ -623,10 +623,10 @@ collectionFunction
 	;
 */
 collectionFunction
-	: ^(e=ELEMENTS {inFunctionCall=true;} p1=propertyRef { resolve($p1.tree); } ) 
-		{ processFunction($e.tree,inSelect); } {inFunctionCall=false;}
-	| ^(i=INDICES {inFunctionCall=true;} p2=propertyRef { resolve($p2.tree); } ) 
-		{ processFunction($i.tree,inSelect); } {inFunctionCall=false;}
+	: ^(e=ELEMENTS {_inFunctionCall=true;} p1=propertyRef { resolve($p1.tree); } ) 
+		{ processFunction($e.tree,_inSelect); } {_inFunctionCall=false;}
+	| ^(i=INDICES {_inFunctionCall=true;} p2=propertyRef { resolve($p2.tree); } ) 
+		{ processFunction($i.tree,_inSelect); } {_inFunctionCall=false;}
 	;
 
 /*
@@ -638,8 +638,8 @@ functionCall
 	;
 */
 functionCall
-	: ^(METHOD_CALL  {inFunctionCall=true;} pathAsIdent ( ^(EXPR_LIST (expr)* ) )? )
-		{ processFunction($functionCall.tree,inSelect); } {inFunctionCall=false;}
+	: ^(METHOD_CALL  {_inFunctionCall=true;} pathAsIdent ( ^(EXPR_LIST (expr)* ) )? )
+		{ processFunction($functionCall.tree,_inSelect); } {_inFunctionCall=false;}
 	| ^(AGGREGATE aggregateExpr )
 	;
 

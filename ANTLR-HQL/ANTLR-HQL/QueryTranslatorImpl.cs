@@ -5,6 +5,7 @@ using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using Iesi.Collections.Generic;
 using NHibernate.Engine;
+using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Type;
@@ -17,11 +18,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private bool _shallowQuery;
 		private bool _compiled;
 		private string _queryIdentifier;
-		private string _hql;
+		private readonly string _hql;
+		private string _sql;
 		private IDictionary<string, IFilter> _enabledFilters;
-		private ISessionFactoryImplementor _factory;
+		private readonly ISessionFactoryImplementor _factory;
 		private IDictionary<string, string> _tokenReplacements;
 		private CommonTokenStream _tokens;
+		private IList<IParameterSpecification> _collectedParameterSpecifications;
 
 		/// <summary>
 		/// Creates a new AST-based query translator.
@@ -130,14 +133,12 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get { return _shallowQuery; }
 		}
 
-				/**
-		 * Performs both filter and non-filter compiling.
-		 *
-		 * @param replacements   Defined query substitutions.
-		 * @param shallow        Does this represent a shallow (scalar or entity-id) select?
-		 * @param collectionRole the role name of the collection used as the basis for the filter, NULL if this
-		 *                       is not a filter.
-		 */
+		/// <summary>
+		/// Performs both filter and non-filter compiling.
+		/// </summary>
+		/// <param name="replacements">Defined query substitutions.</param>
+		/// <param name="shallow">Does this represent a shallow (scalar or entity-id) select?</param>
+		/// <param name="collectionRole">the role name of the collection used as the basis for the filter, NULL if this is not a filter.</param>
 		private void DoCompile(IDictionary<string, string> replacements, bool shallow, String collectionRole) 
 		{
 			// If the query is already compiled, skip the compilation.
@@ -156,7 +157,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				_tokenReplacements = new Dictionary<string, string>();
 			}
 
-			this._shallowQuery = shallow;
+			_shallowQuery = shallow;
 
 			try 
 			{
@@ -165,9 +166,6 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 				// PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
 				ITree sqlAst = Analyze( hqlAst, collectionRole );
-
-				/*
-				sqlAst = ( Statement ) w.getAST();
 
 				// at some point the generate phase needs to be moved out of here,
 				// because a single object-level DML might spawn multiple SQL DML
@@ -180,16 +178,16 @@ namespace NHibernate.Hql.Ast.ANTLR
 				// QueryLoader currently even has a dependency on this at all; does
 				// it need it?  Ideally like to see the walker itself given to the delegates directly...
 
-				if ( sqlAst.needsExecutor() ) {
-					statementExecutor = buildAppropriateStatementExecutor( w );
-				}
-				else {
+//				if ( sqlAst.needsExecutor() ) {
+//					statementExecutor = buildAppropriateStatementExecutor( w );
+//				}
+//				else {
 					// PHASE 3 : Generate the SQL.
-					generate( ( QueryNode ) sqlAst );
-					queryLoader = new QueryLoader( this, factory, w.getSelectClause() );
-				}
+					Generate( sqlAst );
+//					queryLoader = new QueryLoader( this, factory, w.getSelectClause() );
+//				}
 
-				compiled = true;*/
+				_compiled = true;
 			}/*
 			catch ( QueryException qe ) {
 				qe.setQueryString( hql );
@@ -217,21 +215,29 @@ namespace NHibernate.Hql.Ast.ANTLR
 			_enabledFilters = null; //only needed during compilation phase...
 		}
 
-		/*
-		private void generate(AST sqlAst) throws QueryException, RecognitionException {
-			if ( sql == null ) {
-				SqlGenerator gen = new SqlGenerator(factory);
-				gen.statement( sqlAst );
-				sql = gen.getSQL();
+		private void Generate(ITree sqlAst)
+		{
+			if ( _sql == null ) 
+			{
+				CommonTreeNodeStream nodes = new CommonTreeNodeStream(sqlAst);
+				nodes.TokenStream = _tokens;
+
+				SqlGenerator gen = new SqlGenerator(_factory, nodes);
+
+				gen.statement();
+
+				_sql = gen.GetSQL();
+
 				if ( log.isDebugEnabled() ) {
-					log.debug( "HQL: " + hql );
-					log.debug( "SQL: " + sql );
+					log.debug( "HQL: " + _hql );
+					log.debug( "SQL: " + _sql );
 				}
-				gen.getParseErrorHandler().throwQueryException();
-				collectedParameterSpecifications = gen.getCollectedParameters();
+				gen.ParseErrorHandler.ThrowQueryException();
+
+				_collectedParameterSpecifications = gen.GetCollectedParameters();
 			}
 		}
-		*/
+
 		private ITree Analyze(ITree hqlAst, string collectionRole)
 		{
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(hqlAst);

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g 2009-02-16 21:15:10
+// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g 2009-02-20 13:04:41
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
 // Unreachable code detected.
@@ -1026,7 +1026,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          FROM, asAlias, path
+            	// elements:          asAlias, path, FROM
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -2789,7 +2789,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          propertyFetch, path, asAlias
+            	// elements:          propertyFetch, asAlias, path
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -3130,7 +3130,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          alias, path
+            	// elements:          path, alias
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -6007,7 +6007,7 @@ public partial class HqlParser : Parser
 
 
                     	// AST REWRITE
-                    	// elements:          a, c, mu, q, pu
+                    	// elements:          c, mu, a, q, pu
                     	// token labels:      
                     	// rule labels:       mu, a, pu, c, retval, q
                     	// token list labels: 
@@ -7651,7 +7651,7 @@ public partial class HqlParser : Parser
 
 
                     	// AST REWRITE
-                    	// elements:          id1, exprList, id1, exprList, exprList, e, id1, id1, d, id2, id1, d, id1, d, d, d, d, e, id2
+                    	// elements:          id2, id1, id1, id2, d, exprList, e, d, id1, e, d, id1, d, d, id1, exprList, id1, d, exprList
                     	// token labels:      d, e
                     	// rule labels:       id1, id2, retval
                     	// token list labels: 
