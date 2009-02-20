@@ -7,7 +7,7 @@ using uNhAddIns.Adapters;
 
 namespace SessionManagement.Domain.Impl
 {
-	[PersistenceConversational(IdPrefix = "Notify")]
+	[PersistenceConversational(IdPrefix = "Notify", MethodsIncludeMode = MethodsIncludeMode.Implicit)]
 	public class ModifyOrderModel : IModifyOrderModel
 	{
 		private readonly IOrderRepository orderRepository;
@@ -22,12 +22,11 @@ namespace SessionManagement.Domain.Impl
 		#region Implementation of IProductManager
 
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
-		public void AbortConversation()
+		public void EndConversation()
 		{
-			// Rollback the use case
+			// Ends the conversation without commiting pending changes
 		}
 
-		[PersistenceConversation]
 		public PurchaseOrder FindOrderOrCreateNew(string number, DateTime dateTime)
 		{
 			var order = orderRepository.GetOrderByNumberAndDate(number, dateTime.Date);

@@ -38,7 +38,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Events\EventSource.cs" />
     <Compile Include="OrderLine.cs" />
-    <Compile Include="Order.cs" />
+    <Compile Include="PurchaseOrder.cs" />
     <Compile Include="Model\IModifyOrderModel.cs" />
     <Compile Include="Model\IProductModel.cs" />
     <Compile Include="Product.cs" />

@@ -19,7 +19,7 @@
   <query name="GetOrderByNumberAndDate">
 		<![CDATA[
 			select po
-			from PurchaseOrder po join fetch po.OrderLines
+			from PurchaseOrder po left join fetch po.OrderLines
 			where po.Number = :number
 			and po.Date = :dateTime
 		]]>
