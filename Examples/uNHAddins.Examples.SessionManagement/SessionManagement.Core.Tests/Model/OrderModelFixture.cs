@@ -50,7 +50,7 @@ namespace SessionManagement.Domain.Tests.Model
 				Number = "N1"
 			};
 
-			using (var ls = new LogSpy(typeof(MyConversationCreationInterceptor)))
+			using (var ls = new LogSpy(typeof(MyConversationCreationInterceptor<>)))
 			{
 				modifyOrderModel.Persist(purchaseOrder);
 
