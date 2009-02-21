@@ -132,19 +132,5 @@ namespace uNhAddIns.Test.Pagination
 				s.Flush();
 			}
 		}
-
-		[Test]
-		public void PaginableRowsCount()
-		{
-			DetachedQuery dq = new DetachedQuery("from Foo f where f.Name like :p1");
-			dq.SetString("p1", "N_");
-			using (ISession s = OpenSession())
-			{
-				IPaginable<Foo> fp = new PaginableRowsCounterQuery<Foo>(LastOpenedSession, dq);
-				IList<Foo> l = fp.GetPage(5, 1);
-				Assert.AreEqual(5, l.Count);
-				Assert.AreEqual(10, ((IRowsCounter)fp).GetRowsCount(s));
-			}
-		}
 	}
 }
