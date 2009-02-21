@@ -116,6 +116,7 @@
     <Compile Include="Serialization\ClonerFixture.cs" />
     <Compile Include="Serialization\Foo.cs" />
     <Compile Include="Serialization\FooChild.cs" />
+    <Compile Include="SessionEasier\BasicTransactionProtectionWrapperFixture.cs" />
     <Compile Include="SessionEasier\Contexts\Other.cs" />
     <Compile Include="SessionEasier\Contexts\Silly.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContextFixture.cs" />
