@@ -13,7 +13,7 @@ namespace uNhAddIns.Test.Conversations
 		private IConversationFactory cf;
 		private IConversationsContainerAccessor cca;
 
-		protected override System.Collections.IList Mappings
+		protected override IList<string> Mappings
 		{
             get { return new[] { "Conversations.Silly.hbm.xml" }; }
 		}

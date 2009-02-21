@@ -1,7 +1,6 @@
-using System.Collections;
+using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Criterion;
-using NHibernate.Engine;
 using NHibernate.Impl;
 using NHibernate.Loader.Criteria;
 using NHibernate.SqlCommand;
@@ -14,7 +13,7 @@ namespace uNhAddIns.Test.CriterionTest
 	[TestFixture]
 	public class CriterionTest : TestCase
 	{
-		protected override IList Mappings
+		protected override IList<string> Mappings
 		{
 			get { return new string[] { "CriterionTest.Simple.hbm.xml" }; }
 		}

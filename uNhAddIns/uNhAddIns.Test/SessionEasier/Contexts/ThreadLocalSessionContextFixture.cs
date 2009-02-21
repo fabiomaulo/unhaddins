@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
@@ -10,7 +10,7 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 	[TestFixture]
 	public class ThreadLocalSessionContextFixture: TestCase
 	{
-		protected override IList Mappings
+		protected override IList<string> Mappings
 		{
 			get { return new[] { "SessionEasier.Contexts.Silly.hbm.xml" }; }
 		}

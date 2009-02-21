@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
 
@@ -7,7 +7,7 @@ namespace uNhAddIns.Test.UserTypes
     [TestFixture]
     public class UpperStringFixture : TestCase
     {
-        protected override IList Mappings
+        protected override IList<string> Mappings
         {
             get { return new string[] { "UserTypes.UpperStringMappings.hbm.xml" }; }
         }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Impl;
@@ -12,7 +11,7 @@ namespace uNhAddIns.Test.Pagination
 	[TestFixture]
 	public class PaginableRowsCounterQueryFixture : TestCase
 	{
-		protected override IList Mappings
+		protected override IList<string> Mappings
 		{
 			get { return new[] {"Pagination.PagTest.hbm.xml"}; }
 		}
