@@ -33,10 +33,6 @@ namespace uNhAddIns.SessionEasier
 		public virtual object Invoke(MethodBase method, object[] args)
 		{
 			string methodName = method.Name;
-			if ("get_InvocationHandler".Equals(methodName))
-			{
-				return this;
-			}
 			// If Close() is called, guarantee Unbind()
 			if ("Close".Equals(methodName) || "Dispose".Equals(methodName))
 			{
