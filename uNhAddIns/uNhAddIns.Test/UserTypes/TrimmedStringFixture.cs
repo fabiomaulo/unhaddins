@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
 
@@ -7,9 +7,9 @@ namespace uNhAddIns.Test.UserTypes
     [TestFixture]
 	public class TrimmedStringFixture : TestCase
     {
-        protected override IList Mappings
+        protected override IList<string> Mappings
         {
-            get { return new string[] { "UserTypes.User.hbm.xml" }; }
+            get { return new[] { "UserTypes.User.hbm.xml" }; }
         }
 
         protected override void OnTearDown()

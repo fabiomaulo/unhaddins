@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using log4net;
 using log4net.Config;
@@ -20,16 +20,15 @@ namespace uNhAddIns.Test
 		protected Configuration cfg;
 		protected ISessionFactoryImplementor sessions;
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(TestCase));
+		private static readonly ILog log = LogManager.GetLogger(typeof (TestCase));
 
 		private ISession lastOpenedSession;
 		private DebugConnectionProvider connectionProvider;
 
-
 		/// <summary>
 		/// Mapping files used in the TestCase
 		/// </summary>
-		protected abstract IList Mappings { get; }
+		protected abstract IList<string> Mappings { get; }
 
 		/// <summary>
 		/// Assembly to load mapping files from (default is NHibernate.DomainModel).
@@ -84,9 +83,7 @@ namespace uNhAddIns.Test
 			Cleanup();
 		}
 
-		protected virtual void OnSetUp()
-		{
-		}
+		protected virtual void OnSetUp() {}
 
 		/// <summary>
 		/// Set up the test. This method is not overridable, but it calls
@@ -98,9 +95,7 @@ namespace uNhAddIns.Test
 			OnSetUp();
 		}
 
-		protected virtual void OnTearDown()
-		{
-		}
+		protected virtual void OnTearDown() {}
 
 		/// <summary>
 		/// Checks that the test case cleans up after itself. This method
@@ -146,8 +141,7 @@ namespace uNhAddIns.Test
 			bool empty;
 			using (ISession s = sessions.OpenSession())
 			{
-				IList objects = s.CreateQuery("from System.Object o").List();
-				empty = objects.Count == 0;
+				empty = s.CreateQuery("from System.Object o").List().Count == 0;
 			}
 
 			if (!empty)
@@ -178,11 +172,10 @@ namespace uNhAddIns.Test
 			Assembly assembly = Assembly.Load(MappingsAssembly);
 			Configure(cfg);
 
-			foreach (string file in Mappings)
+			foreach (var file in Mappings)
 			{
 				cfg.AddResource(MappingsAssembly + "." + file, assembly);
 			}
-
 		}
 
 		private void CreateSchema()
@@ -197,7 +190,7 @@ namespace uNhAddIns.Test
 
 		protected virtual void BuildSessionFactory()
 		{
-			sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
+			sessions = (ISessionFactoryImplementor) cfg.BuildSessionFactory();
 			connectionProvider = sessions.ConnectionProvider as DebugConnectionProvider;
 		}
 
@@ -217,6 +210,7 @@ namespace uNhAddIns.Test
 		}
 
 		#region Properties overridable by subclasses
+
 		protected virtual void Configure(Configuration configuration)
 		{
 			configuration.Configure();
@@ -224,23 +218,25 @@ namespace uNhAddIns.Test
 
 		#endregion
 
-	    protected void CommitInNewSession(Action<ISession> executeInNewSession)
-	    {
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-	        {
-	            executeInNewSession(session);
-	            session.Flush();
-	            tx.Commit();
-	        }
-	    }
+		protected void CommitInNewSession(Action<ISession> executeInNewSession)
+		{
+			using (ISession session = sessions.OpenSession())
+			{
+				using (ITransaction tx = session.BeginTransaction())
+				{
+					executeInNewSession(session);
+					session.Flush();
+					tx.Commit();
+				}
+			}
+		}
 
-	    protected bool ExistsInDb<T>(object id)
-	    {
-	        using(ISession s = OpenSession())
-	        {
-	            return !ReferenceEquals(s.Get<T>(id), null);
-	        }
-	    }
+		protected bool ExistsInDb<T>(object id)
+		{
+			using (ISession s = OpenSession())
+			{
+				return !ReferenceEquals(s.Get<T>(id), null);
+			}
+		}
 	}
 }

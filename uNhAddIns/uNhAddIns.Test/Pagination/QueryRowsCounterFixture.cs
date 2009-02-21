@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Impl;
 using NUnit.Framework;
@@ -9,7 +9,7 @@ namespace uNhAddIns.Test.Pagination
 	[TestFixture]
 	public class QueryRowsCounterFixture : TestCase
 	{
-		protected override IList Mappings
+		protected override IList<string> Mappings
 		{
 			get { return new string[] { "Pagination.PagTest.hbm.xml" }; }
 		}

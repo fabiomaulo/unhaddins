@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.SessionEasier.Conversations;
@@ -12,9 +13,9 @@ namespace uNhAddIns.Test.Conversations
 	{
 		#region Overrides of TestCase
 
-		protected override IList Mappings
+		protected override IList<string> Mappings
 		{
-            get { return new[] { "Conversations.Silly.hbm.xml" }; }
+			get { return new[] { "Conversations.Silly.hbm.xml" }; }
 		}
 
 		#endregion

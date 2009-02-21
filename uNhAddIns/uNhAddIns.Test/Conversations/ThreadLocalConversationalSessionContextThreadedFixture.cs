@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using NHibernate;
 using NHibernate.Cfg;
@@ -12,7 +13,7 @@ namespace uNhAddIns.Test.Conversations
 	{
 		private readonly object locker = new object();
 		
-		protected override System.Collections.IList Mappings
+		protected override IList<string> Mappings
 		{
 			get { return new[] { "Conversations.Silly.hbm.xml" }; }
 		}
