@@ -15,7 +15,7 @@ namespace uNhAddIns.Test.CriterionTest
 	{
 		protected override IList<string> Mappings
 		{
-			get { return new string[] { "CriterionTest.Simple.hbm.xml" }; }
+			get { return new[] {"CriterionTest.Simple.hbm.xml"}; }
 		}
 
 		[Test]
@@ -23,8 +23,8 @@ namespace uNhAddIns.Test.CriterionTest
 		{
 			using (ISession session = OpenSession())
 			{
-				CriteriaImpl criteria = (CriteriaImpl) session.CreateCriteria(typeof (Simple));
-				CriteriaQueryTranslator criteriaQuery = new CriteriaQueryTranslator(sessions, criteria, criteria.EntityOrClassName, "sql_alias");
+				var criteria = (CriteriaImpl) session.CreateCriteria(typeof (Simple));
+				var criteriaQuery = new CriteriaQueryTranslator(sessions, criteria, criteria.EntityOrClassName, "sql_alias");
 
 				ICriterion exp = Criterion.EqOrNull("Name", "foo");
 				SqlString sqlString = exp.ToSqlString(criteria, criteriaQuery, new CollectionHelper.EmptyMapClass<string, IFilter>());
@@ -42,13 +42,49 @@ namespace uNhAddIns.Test.CriterionTest
 				Assert.AreEqual(expectedSql, sqlString.ToString());
 				Assert.AreEqual(0, sqlString.GetParameterCount());
 
-				// Check that the result is the same than using official Expression
-				ICriterion orExpExpected = Expression.Or(Expression.IsNull("Name"), Expression.Eq("Name", "foo"));
-				ICriterion orExpActual = Expression.Or(Criterion.EqOrNull("Name", null), Criterion.EqOrNull("Name", "foo"));
+				// Check that the result is the same than using official Restriction
+				ICriterion orExpExpected = Restrictions.Or(Restrictions.IsNull("Name"), Restrictions.Eq("Name", "foo"));
+				ICriterion orExpActual = Restrictions.Or(Criterion.EqOrNull("Name", null), Criterion.EqOrNull("Name", "foo"));
 
-				SqlString sqlStringExpected = orExpExpected.ToSqlString(criteria, criteriaQuery, new CollectionHelper.EmptyMapClass<string, IFilter>());
-				SqlString sqlStringActual = orExpActual.ToSqlString(criteria, criteriaQuery, new CollectionHelper.EmptyMapClass<string, IFilter>());
+				SqlString sqlStringExpected = orExpExpected.ToSqlString(criteria, criteriaQuery,
+				                                                        new CollectionHelper.EmptyMapClass<string, IFilter>());
+				SqlString sqlStringActual = orExpActual.ToSqlString(criteria, criteriaQuery,
+				                                                    new CollectionHelper.EmptyMapClass<string, IFilter>());
 				Assert.AreEqual(sqlStringExpected.ToString(), sqlStringActual.ToString());
+			}
+		}
+
+		[Test]
+		public void EqOrNullShouldWorkAsOfficialRestriction()
+		{
+			const string propertyName = "name";
+			const string propertyValue = "something";
+
+			var equalsOrNullWinthNull = new EqOrNullExpression(propertyName, null);
+			var equalsOrNullWinthValue = new EqOrNullExpression(propertyName, propertyValue);
+			var nullExpression = new NullExpression(propertyName);
+			var equalsExpression = new SimpleExpression(propertyName, propertyValue, " = ", false);
+
+			Assert.That(equalsOrNullWinthNull.ToString(), Is.EqualTo(nullExpression.ToString()));
+			IEnumerable<IProjection> actual = equalsOrNullWinthNull.GetProjections();
+			IEnumerable<IProjection> expected = nullExpression.GetProjections();
+			AssertAreEquivalent(actual, expected);
+
+			Assert.That(equalsOrNullWinthValue.ToString(), Is.EqualTo(equalsExpression.ToString()));
+			actual = equalsOrNullWinthNull.GetProjections();
+			expected = equalsExpression.GetProjections();
+			AssertAreEquivalent(actual, expected);
+		}
+
+		private static void AssertAreEquivalent(IEnumerable<IProjection> actual, IEnumerable<IProjection> expected)
+		{
+			if (actual == null)
+			{
+				Assert.That(expected, Is.Null);
+			}
+			else
+			{
+				Assert.That(new List<IProjection>(actual), Is.EquivalentTo(expected));
 			}
 		}
 	}
