@@ -104,6 +104,7 @@
     <Compile Include="LogSpy.cs" />
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
     <Compile Include="Pagination\PaginableCriteriaFixture.cs" />
+    <Compile Include="Pagination\PaginableRowsCounterQueryFixture.cs" />
     <Compile Include="Pagination\QueryRowsCounterFixture.cs" />
     <Compile Include="Pagination\Foo.cs" />
     <Compile Include="Pagination\NamedQueryRowsCounterFixture.cs" />

@@ -23,6 +23,10 @@ namespace uNhAddIns.GenericImpl
 		private readonly DetachedQuery detachedQuery;
 		public PaginableRowsCounterQuery(ISession session, DetachedQuery detachedQuery)
 		{
+			if (session == null)
+			{
+				throw new ArgumentNullException("session");
+			}
 			if (detachedQuery == null)
 			{
 				throw new ArgumentNullException("detachedQuery");
@@ -45,7 +49,7 @@ namespace uNhAddIns.GenericImpl
 		{
 			if (!detachedQuery.Hql.StartsWith("from", StringComparison.InvariantCultureIgnoreCase))
 				throw new HibernateException(string.Format("Can't trasform the HQL to it's counter, the query must start with 'from' clause:{0}", detachedQuery.Hql));
-			DetachedQuery result = new DetachedQuery("select count(*) " + detachedQuery.Hql);
+			var result = new DetachedQuery("select count(*) " + detachedQuery.Hql);
 			result.CopyParametersFrom(detachedQuery);
 			return result;
 		}
