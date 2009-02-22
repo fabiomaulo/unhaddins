@@ -9,11 +9,9 @@ namespace uNhAddIns.Test.Pagination
 	{
 		private class GPPaginatorCrack : BasePaginator
 		{
-			public GPPaginatorCrack()
-			{ }
+			public GPPaginatorCrack() {}
 
-			public GPPaginatorCrack(int lastPageNumber)
-				: base(lastPageNumber) { }
+			public GPPaginatorCrack(int lastPageNumber) : base(lastPageNumber) {}
 
 			public new void GotoPageNumber(int pageNumber)
 			{
@@ -24,7 +22,7 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void UnknowLastPage()
 		{
-			GPPaginatorCrack pg = new GPPaginatorCrack();
+			var pg = new GPPaginatorCrack();
 			Assert.IsFalse(pg.CurrentPageNumber.HasValue);
 			Assert.IsFalse(pg.LastPageNumber.HasValue);
 			Assert.AreEqual(1, pg.FirstPageNumber);
@@ -46,7 +44,7 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void KnowLastPage()
 		{
-			GPPaginatorCrack pg = new GPPaginatorCrack(100);
+			var pg = new GPPaginatorCrack(100);
 			Assert.AreEqual(100, pg.LastPageNumber);
 			Assert.AreEqual(1, pg.CurrentPageNumber);
 			Assert.AreEqual(1, pg.FirstPageNumber);
@@ -71,7 +69,7 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void NoPageAvailable()
 		{
-			GPPaginatorCrack pg = new GPPaginatorCrack(0);
+			var pg = new GPPaginatorCrack(0);
 			Assert.AreEqual(0, pg.LastPageNumber);
 			Assert.AreEqual(0, pg.CurrentPageNumber);
 			Assert.AreEqual(0, pg.NextPageNumber);
@@ -81,12 +79,11 @@ namespace uNhAddIns.Test.Pagination
 			Assert.IsFalse(pg.HasNext);
 		}
 
-		[Test, ExpectedException(typeof(ArgumentOutOfRangeException))]
+		[Test]
 		public void GotoOutOfPages()
 		{
-			GPPaginatorCrack pg = new GPPaginatorCrack(10);
-			pg.GotoPageNumber(11);
-
+			var pg = new GPPaginatorCrack(10);
+			Assert.Throws<ArgumentOutOfRangeException>(() => pg.GotoPageNumber(11));
 		}
 	}
 }
