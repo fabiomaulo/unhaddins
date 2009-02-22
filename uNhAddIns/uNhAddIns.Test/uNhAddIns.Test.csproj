@@ -29,6 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,6 +77,9 @@
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -116,7 +120,6 @@
     <Compile Include="Serialization\ClonerFixture.cs" />
     <Compile Include="Serialization\Foo.cs" />
     <Compile Include="Serialization\FooChild.cs" />
-    <Compile Include="SessionEasier\BasicTransactionProtectionWrapperFixture.cs" />
     <Compile Include="SessionEasier\Contexts\Other.cs" />
     <Compile Include="SessionEasier\Contexts\Silly.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContextFixture.cs" />
@@ -134,6 +137,10 @@
     <Compile Include="UserTypes\User.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.TestUtils\uNhAddIns.TestUtils.csproj">
+      <Project>{7512944F-2C52-44E2-8287-2BD39DE552F1}</Project>
+      <Name>uNhAddIns.TestUtils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
