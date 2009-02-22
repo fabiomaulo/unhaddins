@@ -105,6 +105,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extensions\ReflectionExtensionsFixture.cs" />
+    <Compile Include="IntegrationTest.cs" />
     <Compile Include="LogSpy.cs" />
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
     <Compile Include="Pagination\PaginableCriteriaFixture.cs" />

@@ -9,10 +9,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		public FunctionalTestCase()
 		{
 			// Convention: mappings are in the same namespace of the test
-			string ns = GetType().Namespace;
-			var mns = ns.Substring(ns.LastIndexOf('.') + 1);
-
-			var ml = new NamespaceMappingsLoader(GetType().Assembly, mns);
+			var ml = new NamespaceMappingsLoader(GetType().Assembly, GetType().Namespace);
 			var s = new DefaultFunctionalTestSettings(ml);
 			settings = s;
 		}

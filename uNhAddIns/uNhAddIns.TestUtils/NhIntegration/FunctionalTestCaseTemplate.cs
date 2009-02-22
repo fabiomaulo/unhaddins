@@ -69,14 +69,14 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		{
 			if (Settings.AssertAllDataRemoved)
 			{
-				if (CheckDatabaseWasCleaned())
+				if (!DatabaseWasCleaned())
 				{
 					Assert.Fail("Test didn't clean up after itself");
 				}
 			}
 		}
 
-		private bool CheckDatabaseWasCleaned()
+		private bool DatabaseWasCleaned()
 		{
 			if (SessionFactory.GetAllClassMetadata().Count == 0)
 			{
