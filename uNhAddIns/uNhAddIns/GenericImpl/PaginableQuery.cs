@@ -7,7 +7,7 @@ namespace uNhAddIns.GenericImpl
 	/// <summary>
 	/// Generic implementation of <see cref="IPaginable{T}"/> based on <see cref="IDetachedQuery"/>.
 	/// </summary>
-	/// <typeparam name="T">The type of DAO.</typeparam>
+	/// <typeparam name="T">The type of entity.</typeparam>
 	/// <seealso cref="IDetachedQuery"/>
 	/// <seealso cref="NHibernate.Impl.DetachedQuery"/>
 	/// <seealso cref="NHibernate.Impl.DetachedNamedQuery"/>

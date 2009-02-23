@@ -4,11 +4,11 @@ using uNhAddIns.Pagination;
 
 namespace uNhAddIns.DynQuery
 {
-	public abstract class PaginableDynQuery<T> : AbstractPaginableRowsCounterQuery<T>
+	public abstract class AbstractPaginableDynQuery<T> : AbstractPaginableRowsCounterQuery<T>
 	{
 		private readonly DetachedDynQuery query;
 
-		public PaginableDynQuery(DetachedDynQuery query)
+		protected AbstractPaginableDynQuery(DetachedDynQuery query)
 		{
 			if (query == null)
 				throw new ArgumentNullException("query");

@@ -109,6 +109,7 @@
     <Compile Include="LogSpy.cs" />
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
     <Compile Include="Pagination\PaginableCriteriaFixture.cs" />
+    <Compile Include="Pagination\PaginableDynQueryFixture.cs" />
     <Compile Include="Pagination\PaginableRowsCounterQueryFixture.cs" />
     <Compile Include="Pagination\AbstractPaginableCommonTest.cs" />
     <Compile Include="Pagination\PaginationTestBase.cs" />

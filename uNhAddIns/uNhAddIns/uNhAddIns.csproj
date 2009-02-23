@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ReflectionExtensions.cs" />
+    <Compile Include="GenericImpl\PaginableDynQuery.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\ConfigurationEvents.cs" />
     <Compile Include="SessionEasier\Conversations\AbstractConversation.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="DynQuery\OrderBy.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DynQuery\PaginableDynQuery.cs">
+    <Compile Include="DynQuery\AbstractPaginableDynQuery.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DynQuery\Select.cs">
