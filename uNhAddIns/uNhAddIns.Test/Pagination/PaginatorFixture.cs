@@ -143,7 +143,7 @@ namespace uNhAddIns.Test.Pagination
 		{
 			using (ISession session = SessionFactory.OpenSession())
 			{
-				var ptor = new Paginator<Foo>(5, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")),
+				var ptor = new Paginator<Foo>(5, new PaginableQuery<Foo>(session, new DetachedNamedQuery("Foo.All")),
 				                              new NamedQueryRowsCounter("Foo.Count.All"));
 				Assert.AreEqual(3, ptor.LastPageNumber);
 			}

@@ -13,6 +13,12 @@
 	</class>
 
 	<!-- Query read Only -->
+	<query name="Foo.All">
+		from Foo f
+	</query>
+	<query name="Foo.Parameters">
+		from Foo f where f.Name like :p1
+	</query>
 	<query name="Foo.Count.All" flush-mode="never">
 		select count(*) from Foo f
 	</query>
