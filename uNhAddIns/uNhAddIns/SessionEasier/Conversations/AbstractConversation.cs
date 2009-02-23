@@ -261,7 +261,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public int GetHashCode(IConversation obj)
 		{
-			return obj != null ? obj.Id.GetHashCode() : 0;
+			return obj != null ? obj.GetHashCode() : 0;
 		}
 
 		#endregion

@@ -5,6 +5,13 @@ namespace uNhAddIns.Test.Conversations
 {
 	public class TestConversation : AbstractConversation
 	{
+		public static readonly string DisposeMessage = "Dispose called.";
+		public static readonly string StartMessage = "DoStart called.";
+		public static readonly string PauseMessage = "DoPause called.";
+		public static readonly string FlushAndPauseMessage = "DoPauseAndFlush called.";
+		public static readonly string ResumeMessage = "DoResume called.";
+		public static readonly string EndMessage = "DoEnd called.";
+		public static readonly string AbortMessage = "DoAbort called.";
 		public TestConversation() {}
 
 		public TestConversation(string id) : base(id) {}
@@ -20,7 +27,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (disposing && Log.IsDebugEnabled)
 			{
-				Log.Debug("Dispose called.");
+				Log.Debug(DisposeMessage);
 			}
 		}
 
@@ -28,7 +35,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (Log.IsDebugEnabled)
 			{
-				Log.Debug("DoStart called.");
+				Log.Debug(StartMessage);
 			}
 		}
 
@@ -36,7 +43,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (Log.IsDebugEnabled)
 			{
-				Log.Debug("DoPause called.");
+				Log.Debug(PauseMessage);
 			}
 		}
 
@@ -44,7 +51,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (Log.IsDebugEnabled)
 			{
-				Log.Debug("DoPauseAndFlush called.");
+				Log.Debug(FlushAndPauseMessage);
 			}
 		}
 
@@ -52,7 +59,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (Log.IsDebugEnabled)
 			{
-				Log.Debug("DoResume called.");
+				Log.Debug(ResumeMessage);
 			}
 		}
 
@@ -60,7 +67,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (Log.IsDebugEnabled)
 			{
-				Log.Debug("DoEnd called.");
+				Log.Debug(EndMessage);
 			}
 		}
 
@@ -68,7 +75,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			if (Log.IsDebugEnabled)
 			{
-				Log.Debug("DoAbort called.");
+				Log.Debug(AbortMessage);
 			}
 		}
 
