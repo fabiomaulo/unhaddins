@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynQuery\GroupBy.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="GenericImpl\PaginableDynQuery.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />

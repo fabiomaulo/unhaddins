@@ -1,3 +1,4 @@
+using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.DynQuery;
 
@@ -102,7 +103,7 @@ namespace uNhAddIns.Test.DynamicQuery
 			s.From().SetWhere(where);
 
 			// Create a basic order by
-			OrderBy order = new OrderBy().Add("b.Asociated",true);
+			OrderBy order = new OrderBy().Add("b.Asociated", true);
 
 			// Check some condition and add an order
 			order.Add("f.Name");
@@ -113,6 +114,123 @@ namespace uNhAddIns.Test.DynamicQuery
 			// And: The winner is....
 			string expected = "select f.Name, f.Description, b.Descriptoin from Foo f join f.Bar b where ((f.Name like :pName) and (b.Asociated > :pAso)) order by b.Asociated desc, f.Name";
 			Assert.AreEqual(expected, s.Clause);
+		}
+
+		public class BlogPostCriteria
+		{
+			public int? BlogId { get; set; }
+			public int? UserId { get; set; }
+			public int? CategoryId { get; set; }
+		}
+
+		public class BlogPostQueryCreator
+		{
+			private readonly BlogPostCriteria bpc;
+			public BlogPostQueryCreator(BlogPostCriteria criteria)
+			{
+				bpc = criteria;
+			}
+
+			private const string defaultAlias = "bp";
+			public IDetachedQuery GetSelection()
+			{
+				var selection = new From("BlogPost " + defaultAlias);
+				selection.OrderBy("bp.ID", true);
+
+				return GetQueryWithConstraints(selection);
+			}
+
+			private IDetachedQuery GetQueryWithConstraints(From selection)
+			{
+				var result = new DetachedDynQuery(selection);
+				InjectConstraintsTo(result);
+
+				return result;
+			}
+
+			private IDetachedQuery GetQueryWithConstraints(Select selection)
+			{
+				var result = new DetachedDynQuery(selection);
+				InjectConstraintsTo(result);
+
+				return result;
+			}
+
+			public IDetachedQuery GetStatistic(string propertyPath)
+			{
+				string qualifyProperty = QualifyProperty(propertyPath);
+				var selection = new Select(qualifyProperty + ", count(*)").From("BlogPost " + defaultAlias);
+				selection.From().GroupBy(qualifyProperty).OrderBy(qualifyProperty);
+				return GetQueryWithConstraints(selection);
+			}
+
+			public void InjectConstraintsTo(DetachedDynQuery ddq)
+			{
+				var from = ddq.Query;
+
+				from.Where("bp.State.ID = 1");
+
+				if (bpc.BlogId.HasValue)
+				{
+					from.Where().And(QualifyProperty("Blog.ID") + " = :BlogID");
+					ddq.SetInt32("BlogID", bpc.BlogId.Value);
+				}
+
+				if (bpc.CategoryId.HasValue)
+				{
+					from.Join(QualifyProperty("Category") + " c");
+					from.Where().And("c.ID = :CategoryID");
+					ddq.SetInt32("CategoryID", bpc.CategoryId.Value);
+				}
+
+				if (bpc.UserId.HasValue)
+				{
+					from.Where().And(QualifyProperty("BlogUsuser.ID") + " = :UserID");
+					ddq.SetInt32("UserID", bpc.UserId.Value);
+				}
+			}
+
+			private static string QualifyProperty(string propertyPath)
+			{
+				return string.Concat(defaultAlias, ".", propertyPath);
+			}
+		}
+
+		[Test]
+		public void ExampleWithDetachedQuery()
+		{
+			var bpc = new BlogPostCriteria { BlogId = 1, CategoryId = 2, UserId = 3 };
+			var queryCreator = new BlogPostQueryCreator(bpc);
+
+			var ddq = (DetachedDynQuery)queryCreator.GetSelection();
+
+			const string expected = "from BlogPost bp join bp.Category c where ((bp.State.ID = 1) and (bp.Blog.ID = :BlogID) and (c.ID = :CategoryID) and (bp.BlogUsuser.ID = :UserID)) order by bp.ID desc";
+			Assert.That(ddq.Hql, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void ExampleForStatistics()
+		{
+			var bpc = new BlogPostCriteria { UserId = 3 };
+			var queryCreator = new BlogPostQueryCreator(bpc);
+			var ddq = (DetachedDynQuery)queryCreator.GetStatistic("Category.Name");
+
+			string expected = "select bp.Category.Name, count(*) from BlogPost bp where ((bp.State.ID = 1) and (bp.BlogUsuser.ID = :UserID)) group by bp.Category.Name order by bp.Category.Name";
+			Assert.That(ddq.Hql, Is.EqualTo(expected));
+
+			bpc = new BlogPostCriteria();
+			queryCreator = new BlogPostQueryCreator(bpc);
+			ddq = (DetachedDynQuery)queryCreator.GetStatistic("BlogUsuser.Name");
+
+			expected = "select bp.BlogUsuser.Name, count(*) from BlogPost bp where ((bp.State.ID = 1)) group by bp.BlogUsuser.Name order by bp.BlogUsuser.Name";
+			Assert.That(ddq.Hql, Is.EqualTo(expected));
+
+			bpc = new BlogPostCriteria { CategoryId = 11 };
+			queryCreator = new BlogPostQueryCreator(bpc);
+			ddq = (DetachedDynQuery)queryCreator.GetStatistic("BlogUsuser.Name");
+
+			expected = "select bp.BlogUsuser.Name, count(*) from BlogPost bp join bp.Category c where ((bp.State.ID = 1) and (c.ID = :CategoryID)) group by bp.BlogUsuser.Name order by bp.BlogUsuser.Name";
+			Assert.That(ddq.Hql, Is.EqualTo(expected));
 		}
 	}
 }

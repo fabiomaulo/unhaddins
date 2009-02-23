@@ -32,6 +32,11 @@ namespace uNhAddIns.DynQuery
 			get { return (select != null) ? select.Clause : from.Clause; }
 		}
 
+		public From Query
+		{
+			get { return (select != null) ? select.From() : from; }
+		}
+
 		/// <summary>
 		/// Get an executable instance of <see cref="IQuery"/>, to actually run the query.
 		/// </summary>
