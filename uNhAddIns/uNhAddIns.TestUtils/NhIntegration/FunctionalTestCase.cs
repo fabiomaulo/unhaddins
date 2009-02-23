@@ -4,7 +4,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 {
 	public class FunctionalTestCase : FunctionalTestCaseTemplate
 	{
-		protected readonly IFunctionalTestSettings settings;
+		protected IFunctionalTestSettings settings;
 
 		public FunctionalTestCase()
 		{

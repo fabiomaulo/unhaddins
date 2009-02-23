@@ -40,6 +40,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 
 		public void ShutdownNhibernate()
 		{
+			Settings.BeforeSchemaShutdown(SessionFactory);
 			Settings.SchemaShutdown(Cfg);
 			Cleanup();
 		}
@@ -90,7 +91,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 				empty = s.CreateQuery("from System.Object o").List().Count == 0;
 			}
 
-			if (Settings.SchemaShutdownAfterFailure)
+			if (!empty && Settings.SchemaShutdownAfterFailure)
 			{
 				log.Error("Test case didn't clean up the database after itself.");
 				Settings.SchemaShutdown(Cfg);
