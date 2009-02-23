@@ -9,46 +9,12 @@ using uNhAddIns.Pagination;
 namespace uNhAddIns.Test.Pagination
 {
 	[TestFixture]
-	public class PaginableRowsCounterQueryFixture : TestCase
+	public class PaginableRowsCounterQueryFixture : PaginationTestBase
 	{
-		protected override IList<string> Mappings
-		{
-			get { return new[] {"Pagination.PagTest.hbm.xml"}; }
-		}
-
-		public const int totalFoo = 15;
-
-		private void CreateDomain()
-		{
-			using (ISession s = OpenSession())
-			{
-				using (ITransaction tx = s.BeginTransaction())
-				{
-					for (int i = 0; i < totalFoo; i++)
-					{
-						s.Save(new Foo("N" + i, "D" + i));
-					}
-					tx.Commit();
-				}
-			}
-		}
-
-		private void CleanupDomain()
-		{
-			using (ISession s = OpenSession())
-			{
-				using (ITransaction tx = s.BeginTransaction())
-				{
-					s.Delete("from Foo");
-					tx.Commit();
-				}
-			}
-		}
-
 		[Test]
 		public void Ctor()
 		{
-			using (ISession s = OpenSession())
+			using (ISession s = SessionFactory.OpenSession())
 			{
 				Assert.Throws<ArgumentNullException>(() => new PaginableRowsCounterQuery<Foo>(s, null),
 				                                     "Should not accept null query");
@@ -61,25 +27,22 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void ShouldWorkAsPaginatorAndAsRowCounter()
 		{
-			CreateDomain();
 			var dq = new DetachedQuery("from Foo f where f.Name like :p1");
 			dq.SetString("p1", "N_");
-			using (ISession s = OpenSession())
+			using (ISession s = SessionFactory.OpenSession())
 			{
 				IPaginable<Foo> fp = new PaginableRowsCounterQuery<Foo>(s, dq);
 				IList<Foo> l = fp.GetPage(5, 1);
 				Assert.That(l.Count, Is.EqualTo(5));
 				Assert.That(((IRowsCounter) fp).GetRowsCount(s), Is.EqualTo(10));
 			}
-			CleanupDomain();
 		}
 
 		[Test]
 		public void ShouldNotTransformAUnsafeHQL()
 		{
-			var dq = new DetachedQuery("select f.Name from Foo f where f.Name like :p1");
-			dq.SetString("p1", "N_");
-			using (ISession s = OpenSession())
+			var dq = new DetachedQuery("select f.Name from Foo f");
+			using (ISession s = SessionFactory.OpenSession())
 			{
 				IPaginable<Foo> fp = new PaginableRowsCounterQuery<Foo>(s, dq);
 				Assert.Throws<HibernateException>(() => ((IRowsCounter) fp).GetRowsCount(s),

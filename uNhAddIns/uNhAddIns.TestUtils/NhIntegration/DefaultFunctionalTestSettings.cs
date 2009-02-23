@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Reflection;
 using NHibernate.Cfg;
 using NHibernate.Engine;
@@ -54,7 +53,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 
 		public void LoadMappings(Configuration configuration)
 		{
-			foreach (string resource in assembly.GetManifestResourceNames())
+			foreach (var resource in assembly.GetManifestResourceNames())
 			{
 				if (resource.StartsWith(mappingNamespace) && resource.EndsWith(".hbm.xml"))
 				{
@@ -83,7 +82,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 
 		public void LoadMappings(Configuration configuration)
 		{
-			foreach (string file in mappingsName)
+			foreach (var file in mappingsName)
 			{
 				configuration.AddResource(baseName + "." + file, assembly);
 			}
@@ -103,14 +102,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 
 		#region Implementation of IFunctionalTestSettings
 
-		public IEnumerable<string> MappingResourceRelativeNames { get; set; }
-
-		public string BaseMappingsNameSpace { get; set; }
-
-		public bool AssertAllDataRemoved
-		{
-			get { return true; }
-		}
+		public bool AssertAllDataRemoved { get; set; }
 
 		public virtual void Configure(Configuration configuration)
 		{
@@ -127,10 +119,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 			new SchemaExport(configuration).Drop(false, true);
 		}
 
-		public bool SchemaShutdownAfterFailure
-		{
-			get { return true; }
-		}
+		public bool SchemaShutdownAfterFailure { get; set; }
 
 		public void LoadMappings(Configuration configuration)
 		{
@@ -140,6 +129,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		public virtual void BeforeSessionFactoryBuilt(Configuration configuration) {}
 
 		public virtual void AfterSessionFactoryBuilt(ISessionFactoryImplementor sessionFactory) {}
+		public virtual void BeforeSchemaShutdown(ISessionFactoryImplementor factory) {}
 
 		#endregion
 	}

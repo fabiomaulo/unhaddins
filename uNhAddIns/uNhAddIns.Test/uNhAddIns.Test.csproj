@@ -110,11 +110,11 @@
     <Compile Include="Pagination\BasePaginatorFixture.cs" />
     <Compile Include="Pagination\PaginableCriteriaFixture.cs" />
     <Compile Include="Pagination\PaginableRowsCounterQueryFixture.cs" />
+    <Compile Include="Pagination\AbstractPaginableCommonTest.cs" />
+    <Compile Include="Pagination\PaginationTestBase.cs" />
     <Compile Include="Pagination\QueryRowsCounterFixture.cs" />
     <Compile Include="Pagination\Foo.cs" />
     <Compile Include="Pagination\NamedQueryRowsCounterFixture.cs" />
-    <Compile Include="Pagination\NoFoo.cs" />
-    <Compile Include="Pagination\NoFooPaginable.cs" />
     <Compile Include="Pagination\PaginableQueryFixture.cs" />
     <Compile Include="Pagination\PaginatorFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
