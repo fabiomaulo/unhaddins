@@ -11,7 +11,6 @@ namespace uNhAddIns.Pagination
 	[Serializable]
 	public class BasePaginator:IPaginator 
 	{
-		private int? currentPageNumber;
 		private int? lastPageNumber;
 
 		public BasePaginator() {}
@@ -37,11 +36,7 @@ namespace uNhAddIns.Pagination
 		/// <summary>
 		/// The number of the current page.
 		/// </summary>
-		public int? CurrentPageNumber
-		{
-			get { return currentPageNumber; }
-			protected set { currentPageNumber = value; }
-		}
+		public int? CurrentPageNumber { get; protected set; }
 
 		/// <summary>
 		/// The number of the last page.
@@ -52,8 +47,8 @@ namespace uNhAddIns.Pagination
 			protected set 
 			{
 				lastPageNumber = value; 
-				if (!currentPageNumber.HasValue && lastPageNumber.HasValue)
-					currentPageNumber = NextPageNumber;
+				if (!CurrentPageNumber.HasValue && lastPageNumber.HasValue)
+					CurrentPageNumber = NextPageNumber;
 			}
 		}
 
@@ -66,10 +61,10 @@ namespace uNhAddIns.Pagination
 			{
 				return
 					(!LastPageNumber.HasValue)
-						? currentPageNumber.GetValueOrDefault() + 1
-						: (currentPageNumber.GetValueOrDefault() + 1) > LastPageNumber.Value
+						? CurrentPageNumber.GetValueOrDefault() + 1
+						: (CurrentPageNumber.GetValueOrDefault() + 1) > LastPageNumber.Value
 						  	? LastPageNumber.Value
-						  	: currentPageNumber.GetValueOrDefault() + 1;
+						  	: CurrentPageNumber.GetValueOrDefault() + 1;
 			}
 		}
 
@@ -81,9 +76,9 @@ namespace uNhAddIns.Pagination
 			get 
 			{
 				return
-					((currentPageNumber.GetValueOrDefault() - 1) < FirstPageNumber)
+					((CurrentPageNumber.GetValueOrDefault() - 1) < FirstPageNumber)
 						? FirstPageNumber
-						: currentPageNumber.GetValueOrDefault() - 1;
+						: CurrentPageNumber.GetValueOrDefault() - 1;
 			}
 		}
 
@@ -103,7 +98,7 @@ namespace uNhAddIns.Pagination
 		/// </summary>
 		public bool HasPrevious
 		{
-			get { return currentPageNumber > FirstPageNumber; }
+			get { return CurrentPageNumber > FirstPageNumber; }
 		}
 
 		/// <summary>
@@ -111,7 +106,7 @@ namespace uNhAddIns.Pagination
 		/// </summary>
 		public bool HasNext
 		{
-			get { return !LastPageNumber.HasValue || currentPageNumber < LastPageNumber; }
+			get { return !LastPageNumber.HasValue || CurrentPageNumber < LastPageNumber; }
 		}
 
 		#endregion
@@ -127,7 +122,7 @@ namespace uNhAddIns.Pagination
 		{
 			if (LastPageNumber.HasValue && pageNumber > LastPageNumber)
 				throw new ArgumentOutOfRangeException("pageNumber");
-			currentPageNumber = pageNumber;
+			CurrentPageNumber = pageNumber;
 		}
 	}
 }
