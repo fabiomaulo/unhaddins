@@ -12,6 +12,16 @@ namespace uNhAddIns.Test.Pagination
 	public class PaginatorFixture : PaginationTestBase
 	{
 		[Test]
+		public void CtorProtection()
+		{
+			Assert.Throws<ArgumentNullException>(() => new Paginator<Foo>(3, null));
+			EnclosingInTransaction(
+				session =>
+				Assert.Throws<ArgumentOutOfRangeException>(
+					() => new Paginator<Foo>(0, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")))));
+		}
+
+		[Test]
 		public void SimplePaginator()
 		{
 			using (ISession session = SessionFactory.OpenSession())
@@ -53,6 +63,78 @@ namespace uNhAddIns.Test.Pagination
 				// Partial last page
 				ptor = new Paginator<Foo>(10, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")), true);
 				Assert.AreEqual(2, ptor.LastPageNumber);
+			}
+		}
+
+		[Test]
+		public void ShouldAutoResetLastPageNumber()
+		{
+			using (ISession session = SessionFactory.OpenSession())
+			{
+				var ptor = new Paginator<Foo>(3, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")), true);
+				Assert.That(ptor.LastPageNumber, Is.EqualTo(5));
+				ptor.PageSize = 5;
+				Assert.That(ptor.LastPageNumber, Is.EqualTo(3));
+			}
+		}
+
+		[Test]
+		public void AllowRowCountImmediatlyWithAutoCalc()
+		{
+			using (ISession session = SessionFactory.OpenSession())
+			{
+				var ptor = new Paginator<Foo>(3, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")), true);
+				Assert.That(ptor.RowsCount, Is.EqualTo(TotalFoo));
+				Assert.That(ptor.LastPageNumber.HasValue);
+			}
+		}
+
+		[Test]
+		public void BehaviorWithoutAutoCalcWorkFine()
+		{
+			using (ISession session = SessionFactory.OpenSession())
+			{
+				var ptor = new Paginator<Foo>(3, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")), false);
+				Assert.That(ptor.Counter, Is.Null);
+				Assert.That(!ptor.RowsCount.HasValue);
+				Assert.That(!ptor.LastPageNumber.HasValue);
+				Assert.Throws<NotSupportedException>(() => ptor.GetLastPage());
+			}
+		}
+
+		[Test]
+		public void PageMovingShouldSetTheCurrentPage()
+		{
+			using (ISession session = SessionFactory.OpenSession())
+			{
+				var ptor = new Paginator<Foo>(3, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")), true);
+				Assert.That(!ptor.CurrentPageNumber.HasValue, "The current page number shouldn't be set implicitly");
+				Assert.Throws<NotSupportedException>(() => ptor.GetCurrentPage(), "The current page shouldn't be available implicitly");
+
+				IList<Foo> explicitPage = ptor.GetPage(2);
+				Assert.That(ptor.CurrentPageNumber, Is.EqualTo(2));
+				IList<Foo> currentPage = ptor.GetCurrentPage();
+				Assert.That(currentPage, Is.EqualTo(explicitPage));
+
+				explicitPage = ptor.GetNextPage();
+				Assert.That(ptor.CurrentPageNumber, Is.EqualTo(3));
+				currentPage = ptor.GetCurrentPage();
+				Assert.That(currentPage, Is.EqualTo(explicitPage));
+
+				explicitPage = ptor.GetPreviousPage();
+				Assert.That(ptor.CurrentPageNumber, Is.EqualTo(2));
+				currentPage = ptor.GetCurrentPage();
+				Assert.That(currentPage, Is.EqualTo(explicitPage));
+
+				explicitPage = ptor.GetFirstPage();
+				Assert.That(ptor.CurrentPageNumber, Is.EqualTo(1));
+				currentPage = ptor.GetCurrentPage();
+				Assert.That(currentPage, Is.EqualTo(explicitPage));
+
+				explicitPage = ptor.GetLastPage();
+				Assert.That(ptor.CurrentPageNumber, Is.EqualTo(5));
+				currentPage = ptor.GetCurrentPage();
+				Assert.That(currentPage, Is.EqualTo(explicitPage));
 			}
 		}
 

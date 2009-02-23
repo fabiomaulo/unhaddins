@@ -6,7 +6,7 @@ namespace uNhAddIns.Pagination
 	/// <summary>
 	/// Results paginator.
 	/// </summary>
-	/// <typeparam name="T">The type of DAO.</typeparam>
+	/// <typeparam name="T">The type of Entity.</typeparam>
 	/// <seealso cref="IPaginator"/>
 	/// <seealso cref="BasePaginator"/>
 	/// <seealso cref="IPageProvider{T}"/>
@@ -14,15 +14,14 @@ namespace uNhAddIns.Pagination
 	{
 		private int pageSize;
 		private long? rowsCount;
-		private bool autoCalcPages = false;
 		private IRowsCounter counter;
 		private readonly IPaginable<T> source;
 
 		/// <summary>
 		/// Create a new instance of <see cref="Paginator{T}"/>.
 		/// </summary>
-		/// <param name="pageSize">The page's elements quantity.</param>
-		/// <param name="paginable">The paginable DAO.</param>
+		/// <param name="pageSize">The page's elements size.</param>
+		/// <param name="paginable">The paginable.</param>
 		/// <exception cref="ArgumentNullException">If <paramref name="paginable"/> is null.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">If <paramref name="pageSize"/> equal or less than zero.</exception>
 		/// <remarks>
@@ -45,22 +44,22 @@ namespace uNhAddIns.Pagination
 		/// <summary>
 		/// Create a new instance of <see cref="Paginator{T}"/>.
 		/// </summary>
-		/// <param name="pageSize">The page's elements quantity.</param>
-		/// <param name="paginable">The paginable DAO.</param>
+		/// <param name="pageSize">The page's elements size.</param>
+		/// <param name="paginable">The paginable.</param>
 		/// <param name="autoCalcPages">Enable or disable the "AutoCalcPages mode"; for more detail <see cref="AutoCalcPages"/>.</param>
 		/// <exception cref="ArgumentNullException">If <paramref name="paginable"/> is null.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">If <paramref name="pageSize"/> equal or less than zero.</exception>
 		public Paginator(int pageSize, IPaginable<T> paginable, bool autoCalcPages)
 			: this(pageSize, paginable)
 		{
-			this.autoCalcPages = autoCalcPages;
+			AutoCalcPages = autoCalcPages;
 		}
 
 		/// <summary>
 		/// Create a new instance of <see cref="Paginator{T}"/>.
 		/// </summary>
 		/// <param name="pageSize">The page's elements quantity.</param>
-		/// <param name="paginable">The paginable DAO.</param>
+		/// <param name="paginable">The paginable.</param>
 		/// <param name="counter">The rows counter.</param>
 		/// <exception cref="ArgumentNullException">If <paramref name="paginable"/> is null.</exception>
 		/// <exception cref="ArgumentOutOfRangeException">If <paramref name="pageSize"/> equal or less than zero.</exception>
@@ -68,10 +67,10 @@ namespace uNhAddIns.Pagination
 		/// If <paramref name="counter"/> is null it is simply ignored.
 		/// If <paramref name="counter"/> is available the paginator work with "AutoCalcPages mode" enabled.
 		/// <para>
-		/// Paginator don't make any check about queries. 
+		/// The Paginator don't make any check about queries. 
 		/// This mean, for example, that the resposablity to check if the <paramref name="counter"/> query 
-		/// work according the <paramref name="paginable"/> query is a responsability of the paginator user.
-		/// Write your tests to be secure.
+		/// work according the <paramref name="paginable"/> query is by the paginator user.
+		/// Write your tests to be sure.
 		/// </para>
 		/// </remarks>
 		public Paginator(int pageSize, IPaginable<T> paginable, IRowsCounter counter)
@@ -89,18 +88,13 @@ namespace uNhAddIns.Pagination
 		/// If <see cref="Counter"/> is null and "AutoCalcPages mode" is enabled the paginator use 
 		/// the <see cref="IPaginable{T}.ListAll()"/> to know the amount of availables pages.
 		/// <para>
-		/// Be carefully enabling "AutoCalcPages mode" because the first time you try to get
-		/// <see cref="LastPageNumber"/> or <see cref="RowsCount"/> the paginator automatically
-		/// fecth all DAO of the entity only to know the value to return.
-		/// The "AutoCalcPages mode" can be useful if you are secure that you don't retrieve many entities AND
-		/// you are using lazy-loading.
+		/// Be carefully enabling "AutoCalcPages mode", without a specific <see cref="IRowsCounter"/>,
+		/// because the first time you try to get <see cref="LastPageNumber"/> or <see cref="RowsCount"/> 
+		/// the paginator automatically fecth all entities only to know the value to return.
 		/// </para>
 		/// The best practice is: use the constructor with <see cref="IRowsCounter"/>.
 		/// </remarks>
-		public bool AutoCalcPages
-		{
-			get { return autoCalcPages; }
-		}
+		public bool AutoCalcPages { get; private set; }
 
 		/// <summary>
 		/// The <see cref="IRowsCounter"/> settled by constructor.
@@ -111,7 +105,7 @@ namespace uNhAddIns.Pagination
 			protected set
 			{
 				counter = value;
-				autoCalcPages = counter != null;
+				AutoCalcPages = counter != null;
 			}
 		}
 
@@ -142,7 +136,7 @@ namespace uNhAddIns.Pagination
 		{
 			get
 			{
-				if (!LastPageNumber.HasValue && AutoCalcPages) CalcLastPage();
+				CheckRowCount();
 				return rowsCount;
 			}
 		}
@@ -152,10 +146,7 @@ namespace uNhAddIns.Pagination
 		/// </summary>
 		public bool HasPages
 		{
-			get
-			{
-				return this.FirstPageNumber != 0;
-			}		
+			get { return FirstPageNumber != 0; }
 		}
 
 		/// <summary>
@@ -239,17 +230,22 @@ namespace uNhAddIns.Pagination
 		{
 			get
 			{
-				if (!base.LastPageNumber.HasValue && AutoCalcPages) CalcLastPage();
+				CheckRowCount();
 				return base.LastPageNumber;
 			}
 		}
 
-		private void CalcLastPage()
+		private void CheckRowCount()
 		{
-			if (counter != null)
-				rowsCount = counter.GetRowsCount(source.GetSession());
-			else
-				rowsCount = source.ListAll().Count;
+			if (!base.LastPageNumber.HasValue && AutoCalcPages)
+			{
+				CalcLastPageAndRowCount();
+			}
+		}
+
+		private void CalcLastPageAndRowCount()
+		{
+			rowsCount = counter != null ? counter.GetRowsCount(source.GetSession()) : source.ListAll().Count;
 			ResetLastPageNumber();
 		}
 
