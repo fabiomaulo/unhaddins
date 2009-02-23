@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Iesi.Collections.Generic;
 
 namespace uNhAddIns.DynQuery
 {
@@ -13,6 +14,7 @@ namespace uNhAddIns.DynQuery
 	public class From : IDynClause
 	{
 		private readonly string partialClause;
+		private readonly HashedSet<string> joins = new HashedSet<string>();
 
 		/// <summary>
 		/// Create a new instance of <see cref="From"/>.
@@ -23,6 +25,12 @@ namespace uNhAddIns.DynQuery
 			if (string.IsNullOrEmpty(partialClause) || partialClause.Trim().Length == 0)
 				throw new ArgumentNullException("partialClause");
 			this.partialClause = partialClause.Trim();
+		}
+
+		public From Join(string joinPathAlias)
+		{
+			joins.Add(joinPathAlias);
+			return this;
 		}
 
 		private Where where;
@@ -80,9 +88,26 @@ namespace uNhAddIns.DynQuery
 			orderBy = orderClause;
 		}
 
+		private GroupBy groupBy;
+		public GroupBy GroupBy()
+		{
+			if (groupBy == null)
+				groupBy = new GroupBy(this);
+			return groupBy;
+		}
+
+		public GroupBy GroupBy(string propertyPath)
+		{
+			return GroupBy().Add(propertyPath);
+		}
+
 		public From FromWhereClause()
 		{
-			From result = new From(partialClause);
+			var result = new From(partialClause);
+			foreach (var s in joins)
+			{
+				result.Join(s);
+			}
 			if (where != null)
 				result.SetWhere(where.Clone());
 			return result;
@@ -98,8 +123,17 @@ namespace uNhAddIns.DynQuery
 			get
 			{
 				StringBuilder result = new StringBuilder().Append(Expression);
+				if(joins.Count>0)
+				{
+					foreach (var s in joins)
+					{
+						result.Append(" join ").Append(s);
+					}
+				}
 				if (Where().HasMembers)
 					result.Append(' ').Append(Where().Clause);
+				if (GroupBy().HasMembers)
+					result.Append(' ').Append(GroupBy().Clause);
 				if (OrderBy().HasMembers)
 					result.Append(' ').Append(OrderBy().Clause);
 				return result.ToString();
