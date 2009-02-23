@@ -1,8 +1,8 @@
 using System;
 using log4net.Config;
-using log4net.Core;
 using NUnit.Framework;
 using uNhAddIns.SessionEasier.Conversations;
+using uNhAddIns.TestUtils.Logging;
 
 namespace uNhAddIns.Test.Conversations
 {
@@ -32,18 +32,25 @@ namespace uNhAddIns.Test.Conversations
 			Assert.That(!t.Equals(new object()));
 
 			string key1 = "ModelName" + Guid.NewGuid();
-			string key2 = "ModelName" + Guid.NewGuid();
+			string key2 = Guid.NewGuid().ToString();
 			t = new TestConversation(key1);
 			Assert.That(t.Equals(new TestConversation(key1)));
 			Assert.That(!t.Equals(new TestConversation(key2)));
+			Assert.That(t.Equals(null, null));
+			Assert.That(!t.Equals(new TestConversation(key1), null));
+			Assert.That(!t.Equals(null, new TestConversation(key1)));
+			Assert.That(t.Equals(new TestConversation(key1), new TestConversation(key1)));
+			Assert.That(!t.Equals(new TestConversation(key1), new TestConversation(key2)));
 		}
 
 		[Test]
 		public void HashCode()
 		{
 			string key1 = "ModelName" + Guid.NewGuid();
+			string key2 = Guid.NewGuid().ToString();
 			var t = new TestConversation(key1);
 			Assert.That(t.GetHashCode(), Is.EqualTo(key1.GetHashCode()));
+			Assert.That(t.GetHashCode(new TestConversation(key2)), Is.EqualTo(key2.GetHashCode()));
 		}
 
 		[Test]
@@ -52,17 +59,15 @@ namespace uNhAddIns.Test.Conversations
 			// I'm using log instad a mock, I know
 			using (var t = new TestConversation())
 			{
-				t.Starting += ((x, y) => t.Log.Debug("Starting called."));
-				t.Started += ((x, y) => t.Log.Debug("Started called."));
-				using (var ls = new LogSpy(typeof (TestConversation)))
-				{
-					t.Start();
-					LoggingEvent[] msgs = ls.Appender.GetEvents();
-					Assert.That(msgs.Length, Is.EqualTo(3));
-					Assert.That(msgs[0].RenderedMessage, Text.Contains("Starting called."));
-					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoStart called."));
-					Assert.That(msgs[2].RenderedMessage, Text.Contains("Started called."));
-				}
+				const string starting = "Starting called.";
+				const string started = "Started called.";
+				t.Starting += ((x, y) => t.Log.Debug(starting));
+				t.Started += ((x, y) => t.Log.Debug(started));
+
+				Assert.That(Spying.Logger<TestConversation>()
+					.Execute(t.Start)
+					.MessageSequence, 
+					Is.EqualTo(new[] { starting, TestConversation.StartMessage,started }));
 			}
 		}
 
@@ -71,17 +76,14 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Pausing += ((x, y) => t.Log.Debug("Pausing called."));
-				t.Paused += ((x, y) => t.Log.Debug("Paused called."));
-				using (var ls = new LogSpy(typeof (TestConversation)))
-				{
-					t.Pause();
-					LoggingEvent[] msgs = ls.Appender.GetEvents();
-					Assert.That(msgs.Length, Is.EqualTo(3));
-					Assert.That(msgs[0].RenderedMessage, Text.Contains("Pausing called."));
-					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoPause called."));
-					Assert.That(msgs[2].RenderedMessage, Text.Contains("Paused called."));
-				}
+				const string pausing = "Pausing called.";
+				const string paused = "Paused called.";
+				t.Pausing += ((x, y) => t.Log.Debug(pausing));
+				t.Paused += ((x, y) => t.Log.Debug(paused));
+				Assert.That(Spying.Logger<TestConversation>()
+					.Execute(t.Pause)
+					.MessageSequence,
+					Is.EqualTo(new[] { pausing, TestConversation.PauseMessage, paused}));
 			}
 		}
 
@@ -90,17 +92,14 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Pausing += ((x, y) => t.Log.Debug("Pausing called."));
-				t.Paused += ((x, y) => t.Log.Debug("Paused called."));
-				using (var ls = new LogSpy(typeof (TestConversation)))
-				{
-					t.FlushAndPause();
-					LoggingEvent[] msgs = ls.Appender.GetEvents();
-					Assert.That(msgs.Length, Is.EqualTo(3));
-					Assert.That(msgs[0].RenderedMessage, Text.Contains("Pausing called."));
-					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoPauseAndFlush called."));
-					Assert.That(msgs[2].RenderedMessage, Text.Contains("Paused called."));
-				}
+				const string pausing = "Pausing called.";
+				const string paused = "Paused called.";
+				t.Pausing += ((x, y) => t.Log.Debug(pausing));
+				t.Paused += ((x, y) => t.Log.Debug(paused));
+				Assert.That(Spying.Logger<TestConversation>()
+					.Execute(t.FlushAndPause)
+					.MessageSequence,
+					Is.EqualTo(new[] { pausing, TestConversation.FlushAndPauseMessage, paused }));
 			}
 		}
 
@@ -109,17 +108,14 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Resuming += ((x, y) => t.Log.Debug("Resuming called."));
-				t.Resumed += ((x, y) => t.Log.Debug("Resumed called."));
-				using (var ls = new LogSpy(typeof (TestConversation)))
-				{
-					t.Resume();
-					LoggingEvent[] msgs = ls.Appender.GetEvents();
-					Assert.That(msgs.Length, Is.EqualTo(3));
-					Assert.That(msgs[0].RenderedMessage, Text.Contains("Resuming called."));
-					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoResume called."));
-					Assert.That(msgs[2].RenderedMessage, Text.Contains("Resumed called."));
-				}
+				const string resuming = "Resuming called.";
+				const string resumed = "Resumed called.";
+				t.Resuming += ((x, y) => t.Log.Debug(resuming));
+				t.Resumed += ((x, y) => t.Log.Debug(resumed));
+				Assert.That(Spying.Logger<TestConversation>()
+					.Execute(t.Resume)
+					.MessageSequence,
+					Is.EqualTo(new[] { resuming, TestConversation.ResumeMessage, resumed}));
 			}
 		}
 
@@ -128,23 +124,21 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
-				t.Ending += ((x, y) => t.Log.Debug("Ending called."));
-				t.Ended += ((x, y) => t.Log.Debug("Ended called."));
-				t.Ended += EndedAssertionOutOfDisposing;
-				using (var ls = new LogSpy(typeof (TestConversation)))
-				{
-					t.End();
-					LoggingEvent[] msgs = ls.Appender.GetEvents();
-					Assert.That(msgs.Length, Is.EqualTo(3));
-					Assert.That(msgs[0].RenderedMessage, Text.Contains("Ending called."));
-					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoEnd called."));
-					Assert.That(msgs[2].RenderedMessage, Text.Contains("Ended called."));
-				}
-				t.Ended -= EndedAssertionOutOfDisposing;
+				const string ending = "Ending called.";
+				const string ended = "Ended called.";
+				t.Ending += ((x, y) => t.Log.Debug(ending));
+				t.Ended += ((x, y) => t.Log.Debug(ended));
+				t.Ended += AssertEndedOutOfDisposing;
+				Assert.That(Spying.Logger<TestConversation>()
+					.Execute(t.End)
+					.MessageSequence,
+					Is.EqualTo(new[] { ending, TestConversation.EndMessage, ended }));
+
+				t.Ended -= AssertEndedOutOfDisposing;
 			}
 		}
 
-		public void EndedAssertionOutOfDisposing(object x, EndedEventArgs y)
+		public void AssertEndedOutOfDisposing(object x, EndedEventArgs y)
 		{
 			Assert.That(!y.Disposing);
 		}
@@ -154,39 +148,37 @@ namespace uNhAddIns.Test.Conversations
 		{
 			using (var t = new TestConversation())
 			{
+				const string ended = "Ended called.";
+				const string aborting = "Aborting called.";
 				t.Ending += ((x, y) => t.Log.Debug("Ending called."));
-				t.Aborting += ((x, y) => t.Log.Debug("Aborting called."));
-				t.Ended += ((x, y) => t.Log.Debug("Ended called."));
-				t.Ended += EndedAssertionOutOfDisposing;
-				using (var ls = new LogSpy(typeof (TestConversation)))
-				{
-					t.Abort();
-					LoggingEvent[] msgs = ls.Appender.GetEvents();
-					Assert.That(msgs.Length, Is.EqualTo(3));
-					Assert.That(msgs[0].RenderedMessage, Text.Contains("Aborting called."));
-					Assert.That(msgs[1].RenderedMessage, Text.Contains("DoAbort called."));
-					Assert.That(msgs[2].RenderedMessage, Text.Contains("Ended called."));
-				}
-				t.Ended -= EndedAssertionOutOfDisposing;
+				t.Aborting += ((x, y) => t.Log.Debug(aborting));
+				t.Ended += ((x, y) => t.Log.Debug(ended));
+				t.Ended += AssertEndedOutOfDisposing;
+				Assert.That(Spying.Logger<TestConversation>()
+					.Execute(t.Abort)
+					.MessageSequence,
+					Is.EqualTo(new[] { aborting, TestConversation.AbortMessage, ended }));
+
+				t.Ended -= AssertEndedOutOfDisposing;
 			}
 		}
 
 		[Test]
 		public void DisposeCallSequence()
 		{
-			using (var ls = new LogSpy(typeof (TestConversation)))
-			{
-				using (var t = new TestConversation())
-				{
-					t.Ended += ((x, y) => t.Log.Debug("End called."));
-					t.Ended += ((x, y) => Assert.That(y.Disposing));
-				}
-				LoggingEvent[] msgs = ls.Appender.GetEvents();
-				Assert.That(msgs.Length, Is.EqualTo(3));
-				Assert.That(msgs[0].RenderedMessage, Text.Contains("DoAbort called."));
-				Assert.That(msgs[1].RenderedMessage, Text.Contains("End called."));
-				Assert.That(msgs[2].RenderedMessage, Text.Contains("Dispose called."));
-			}
+			const string ended = "End called.";
+			Assert.That(Spying.Logger<TestConversation>()
+				.Execute(() =>
+				         	{
+										using (var t = new TestConversation())
+										{
+											t.Ended += ((x, y) => t.Log.Debug(ended));
+											t.Ended += ((x, y) => Assert.That(y.Disposing));
+										}
+
+				         	})
+				.MessageSequence,
+				Is.EqualTo(new[] { TestConversation.AbortMessage, ended, TestConversation.DisposeMessage }));
 		}
 
 		public class ConversationError : AbstractConversation
