@@ -20,6 +20,12 @@ namespace uNhAddIns.Test.Pagination
 		}
 
 		[Test]
+		public void Ctor()
+		{
+			Assert.Throws<ArgumentOutOfRangeException>(() => new GPPaginatorCrack(-1));
+		}
+
+		[Test]
 		public void UnknowLastPage()
 		{
 			var pg = new GPPaginatorCrack();
