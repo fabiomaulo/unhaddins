@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System;
 using NHibernate;
 using NHibernate.Impl;
 using NUnit.Framework;
@@ -7,44 +7,33 @@ using uNhAddIns.Pagination;
 namespace uNhAddIns.Test.Pagination
 {
 	[TestFixture]
-	public class QueryRowsCounterFixture : TestCase
+	public class QueryRowsCounterFixture : PaginationTestBase
 	{
-		protected override IList<string> Mappings
+		[Test]
+		public void CtorProtection()
 		{
-			get { return new string[] { "Pagination.PagTest.hbm.xml" }; }
-		}
-
-		public const int totalFoo = 15;
-		protected override void OnSetUp()
-		{
-			using (ISession s = OpenSession())
-			{
-				for (int i = 0; i < totalFoo; i++)
-				{
-					Foo f = new Foo("N" + i, "D" + i);
-					s.Save(f);
-				}
-				s.Flush();
-			}
-		}
-
-		protected override void OnTearDown()
-		{
-			using (ISession s = OpenSession())
-			{
-				s.Delete("from Foo");
-				s.Flush();
-			}
+			string nothing=null;
+			IDetachedQuery dq = null;
+			Assert.Throws<ArgumentNullException>(() => new QueryRowsCounter(nothing));
+			Assert.Throws<ArgumentNullException>(() => new QueryRowsCounter(dq));
 		}
 
 		[Test]
 		public void RowsCount()
 		{
 			IRowsCounter rc = new QueryRowsCounter("select count(*) from Foo");
-			using (ISession s = OpenSession())
-			{
-				Assert.AreEqual(totalFoo, rc.GetRowsCount(s));
-			}
+			
+			EnclosingInTransaction(s => Assert.AreEqual(TotalFoo, rc.GetRowsCount(s)));
+		}
+
+		[Test]
+		public void InvalidRowsCount()
+		{
+			IRowsCounter rc = new QueryRowsCounter("select f.Name from Foo f");
+			EnclosingInTransaction(s => Assert.Throws<HibernateException>(()=> rc.GetRowsCount(s)));
+
+			rc = new QueryRowsCounter("select f.Name from Foo f where f.Name='N1'");
+			EnclosingInTransaction(s => Assert.Throws<HibernateException>(() => rc.GetRowsCount(s)));
 		}
 
 		[Test]
@@ -54,22 +43,38 @@ namespace uNhAddIns.Test.Pagination
 				new DetachedQuery("select count(*) from Foo f where f.Name like :p1")
 				.SetString("p1", "%1_");
 			IRowsCounter rc = new QueryRowsCounter(dq);
-			using (ISession s = OpenSession())
-			{
-				Assert.AreEqual(5, rc.GetRowsCount(s));
-			}
+			EnclosingInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
 		}
 
 		[Test]
 		public void RowsCountTransforming()
 		{
-			DetachedQuery dq =new DetachedQuery("from Foo f where f.Name like :p1");
-			dq.SetString("p1", "%1_");
-			IRowsCounter rc = QueryRowsCounter.Transforming(dq);
-			using (ISession s = OpenSession())
-			{
-				Assert.AreEqual(5, rc.GetRowsCount(s));
-			}			
+			Assert.Throws<ArgumentNullException>(() => QueryRowsCounter.Transforming(null));
+		
+			var originalQuery =new DetachedQuery("from Foo f where f.Name like :p1");
+			originalQuery.SetString("p1", "%1_");
+			
+			IRowsCounter rc = QueryRowsCounter.Transforming(originalQuery);
+			
+			EnclosingInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
 		}
+
+		[Test]
+		public void TransformingUnsafeQuery()
+		{
+			Assert.Throws<ArgumentNullException>(() => QueryRowsCounter.Transforming(new DetachedQuery("select f.Name from Foo f")));
+		}
+
+		[Test]
+		public void TransformingShouldDelayingParameterCopy()
+		{
+			var originalQuery = new DetachedQuery("from Foo f where f.Name like :p1");
+			IRowsCounter rc = QueryRowsCounter.Transforming(originalQuery);
+			
+			originalQuery.SetString("p1", "%1_");
+
+			EnclosingInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
+		}
+
 	}
 }

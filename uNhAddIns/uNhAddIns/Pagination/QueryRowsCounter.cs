@@ -7,8 +7,11 @@ namespace uNhAddIns.Pagination
 	/// <summary>
 	/// 
 	/// </summary>
-	public class QueryRowsCounter : AbstractRowsCounter
+	public class QueryRowsCounter : AbstractQueryRowsCounter
 	{
+		private readonly IDetachedQuery detachedQuery;
+		private readonly DetachedQuery origin;
+
 		/// <summary>
 		/// Create a new instance of <see cref="QueryRowsCounter"/>.
 		/// </summary>
@@ -20,31 +23,11 @@ namespace uNhAddIns.Pagination
 		/// <exception cref="ArgumentNullException">If <paramref name="hqlRowsCount"/> is null or empty.</exception>
 		public QueryRowsCounter(string hqlRowsCount)
 		{
-			if (string.IsNullOrEmpty(hqlRowsCount))
-				throw new ArgumentNullException("hqlRowsCount");
-			dq = new DetachedQuery(hqlRowsCount);
-		}
-
-		/// <summary>
-		/// Transform an gigen <see cref="DetachedQuery"/> (HQL query) to it's rows count.
-		/// </summary>
-		/// <param name="query">The given <see cref="DetachedQuery"/>.</param>
-		/// <returns>
-		/// A <see cref="QueryRowsCounter"/> based on <paramref name="query"/>, with row count, using
-		/// same parameters and it's values.
-		/// </returns>
-		/// <exception cref="HibernateException">When the query don't start with 'from' clause.</exception>
-		/// <remarks>
-		/// Take care to the query; it can't contain any other clause than "from" and "where".
-		/// Set the parameters and it's values, of <paramref name="query"/> befor call this method.
-		/// </remarks>
-		public static QueryRowsCounter Transforming(DetachedQuery query)
-		{
-			if (!query.Hql.StartsWith("from", StringComparison.InvariantCultureIgnoreCase))
-				throw new HibernateException(string.Format("Can't trasform the HQL to it's counter, the query must start with 'from' clause:{0}", query.Hql));
-			QueryRowsCounter result = new QueryRowsCounter("select count(*) " + query.Hql);
-			result.CopyParametersFrom(query);
-			return result;
+			if(string.IsNullOrEmpty(hqlRowsCount))
+			{
+				throw new ArgumentNullException(hqlRowsCount);
+			}
+			detachedQuery = new DetachedQuery(hqlRowsCount);
 		}
 
 		/// <summary>
@@ -59,9 +42,59 @@ namespace uNhAddIns.Pagination
 		public QueryRowsCounter(IDetachedQuery queryRowCount)
 		{
 			if (queryRowCount == null)
+			{
 				throw new ArgumentNullException("queryRowCount");
+			}
 
-			dq = queryRowCount;
+			detachedQuery = queryRowCount;
+		}
+
+		private QueryRowsCounter(DetachedQuery origin)
+		{
+			this.origin = origin;
+		}
+
+		#region Overrides of AbstractQueryRowsCounter
+
+		protected override IDetachedQuery GetDetachedQuery()
+		{
+			if (origin != null)
+			{
+				var result = new DetachedQuery("select count(*) " + origin.Hql);
+				result.CopyParametersFrom(origin);
+				return result;
+			}
+			return detachedQuery;
+		}
+
+		#endregion
+
+		/// <summary>
+		/// Transform an gigen <see cref="DetachedQuery"/> (HQL query) to it's rows count.
+		/// </summary>
+		/// <param name="origin">The given <see cref="DetachedQuery"/>.</param>
+		/// <returns>
+		/// A <see cref="QueryRowsCounter"/> based on <paramref name="origin"/>, with row count, using
+		/// same parameters and it's values.
+		/// </returns>
+		/// <exception cref="HibernateException">When the query don't start with 'from' clause.</exception>
+		/// <remarks>
+		/// Take care to the query; it can't contain any other clause than "from" and "where".
+		/// Set the parameters and it's values, of <paramref name="origin"/> befor call this method.
+		/// </remarks>
+		public static QueryRowsCounter Transforming(DetachedQuery origin)
+		{
+			if (origin == null)
+			{
+				throw new ArgumentNullException("origin");
+			}
+			if (!origin.Hql.StartsWith("from", StringComparison.InvariantCultureIgnoreCase))
+			{
+				throw new HibernateException(
+					string.Format("Can't trasform the HQL to it's counter, the query must start with 'from' clause:{0}", origin.Hql));
+			}
+			var result = new QueryRowsCounter(origin);
+			return result;
 		}
 	}
 }

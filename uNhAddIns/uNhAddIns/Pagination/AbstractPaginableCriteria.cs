@@ -16,7 +16,12 @@ namespace uNhAddIns.Pagination
 
 		private IList<T> InternalExecute(DetachedCriteria criteria)
 		{
-			return criteria.GetExecutableCriteria(GetSession()).List<T>();
+			ISession session = GetSession();
+			if (session == null)
+			{
+				throw new ArgumentException("The NHibernate session is null; not available during pagination.");
+			}
+			return criteria.GetExecutableCriteria(session).List<T>();
 		}
 
 		private static void ResetPagination(DetachedCriteria criteria)

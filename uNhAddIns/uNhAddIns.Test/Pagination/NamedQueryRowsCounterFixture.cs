@@ -1,3 +1,4 @@
+using System;
 using NHibernate.Impl;
 using NUnit.Framework;
 using uNhAddIns.Pagination;
@@ -7,6 +8,15 @@ namespace uNhAddIns.Test.Pagination
 	[TestFixture]
 	public class NamedQueryRowsCounterFixture : PaginationTestBase
 	{
+		[Test]
+		public void CtorProtection()
+		{
+			string nothing = null;
+			DetachedNamedQuery dq = null;
+			Assert.Throws<ArgumentNullException>(() => new NamedQueryRowsCounter(nothing));
+			Assert.Throws<ArgumentNullException>(() => new NamedQueryRowsCounter(dq));
+		}
+
 		[Test]
 		public void RowsCount()
 		{
@@ -20,6 +30,15 @@ namespace uNhAddIns.Test.Pagination
 			var q = new DetachedNamedQuery("Foo.Count.Parameters");
 			q.SetString("p1", "%1_");
 			IRowsCounter rc = new NamedQueryRowsCounter(q);
+			EnclosingInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(5)));
+		}
+
+		[Test]
+		public void UsingParametersTemplate()
+		{
+			var q = new DetachedNamedQuery("Foo.Parameters");
+			IRowsCounter rc = new NamedQueryRowsCounter("Foo.Count.Parameters", q);
+			q.SetString("p1", "%1_");
 			EnclosingInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(5)));
 		}
 	}

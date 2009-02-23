@@ -119,7 +119,7 @@
     <Compile Include="GenericImpl\PaginableRowsCounterQuery.cs" />
     <Compile Include="Pagination\AbstractPaginableCriteria.cs" />
     <Compile Include="Pagination\AbstractPaginableQuery.cs" />
-    <Compile Include="Pagination\AbstractRowsCounter.cs" />
+    <Compile Include="Pagination\AbstractQueryRowsCounter.cs" />
     <Compile Include="Pagination\BasePaginator.cs" />
     <Compile Include="Pagination\IPageProvider.cs" />
     <Compile Include="Pagination\IPaginable.cs" />
