@@ -19,8 +19,10 @@ namespace uNhAddIns.Example.AopConversationUsage
 		{
 			var container = new WindsorContainer();
 			container.AddFacility<PersistenceConversationFacility>();
-			var sfp = new SessionFactoryProvider();
-			sfp.AfterConfigure += ((sender, e) => new SchemaExport(e.Configuration).Create(false, true));
+
+			var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
+			nhConfigurator.AfterConfigure += ((sender, e) => new SchemaExport(e.Configuration).Create(false, true));
+			var sfp = new SessionFactoryProvider(nhConfigurator);
 			container.Register(Component.For<ISessionFactoryProvider>().Instance(sfp));
 			container.Register(Component.For<ISessionWrapper>().ImplementedBy<SessionWrapper>());
 			container.Register(Component.For<IConversationFactory>().ImplementedBy<DefaultConversationFactory>());

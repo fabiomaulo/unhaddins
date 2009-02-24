@@ -62,7 +62,7 @@ namespace uNhAddIns.Test.Pagination
 		[Test]
 		public void TransformingUnsafeQuery()
 		{
-			Assert.Throws<ArgumentNullException>(() => QueryRowsCounter.Transforming(new DetachedQuery("select f.Name from Foo f")));
+			Assert.Throws<HibernateException>(() => QueryRowsCounter.Transforming(new DetachedQuery("select f.Name from Foo f")));
 		}
 
 		[Test]

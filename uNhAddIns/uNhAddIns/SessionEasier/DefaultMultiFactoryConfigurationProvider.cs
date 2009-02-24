@@ -5,13 +5,16 @@ using Configuration=NHibernate.Cfg.Configuration;
 
 namespace uNhAddIns.SessionEasier
 {
-	public class DefaultMultiFactoryConfigurator : IMultiFactoryConfigurator
+	public class DefaultMultiFactoryConfigurationProvider : IConfigurationProvider
 	{
 		private const string factoriesStart = "nhfactory";
+
+		#region IConfigurationProvider Members
+
 		public event EventHandler<ConfigurationEventArgs> BeforeConfigure;
 		public event EventHandler<ConfigurationEventArgs> AfterConfigure;
 
-		public Configuration[] Configure()
+		public IEnumerable<Configuration> Configure()
 		{
 			var result = new List<Configuration>(4);
 			foreach (string setting in ConfigurationManager.AppSettings.Keys)
@@ -29,6 +32,8 @@ namespace uNhAddIns.SessionEasier
 			return result.ToArray();
 		}
 
+		#endregion
+
 		private void DoAfterConfigure(Configuration cfg)
 		{
 			if (AfterConfigure != null)
@@ -44,6 +49,5 @@ namespace uNhAddIns.SessionEasier
 				BeforeConfigure(this, new ConfigurationEventArgs(cfg));
 			}
 		}
-
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NHibernate;
 using NHibernate.Util;
@@ -42,6 +43,8 @@ namespace uNhAddIns.Test.Conversations
 		{
 			return factory;
 		}
+
+		public event EventHandler<EventArgs> BeforeCloseSessionFactory;
 
 		#endregion
 

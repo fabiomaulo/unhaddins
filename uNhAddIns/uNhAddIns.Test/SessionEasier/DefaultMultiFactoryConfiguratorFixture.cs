@@ -1,3 +1,4 @@
+using System.Linq;
 using NHibernate.Cfg;
 using NUnit.Framework;
 using uNhAddIns.SessionEasier;
@@ -10,9 +11,9 @@ namespace uNhAddIns.Test.SessionEasier
 		[Test]
 		public void Configure()
 		{
-			var mfc = new DefaultMultiFactoryConfigurator();
-			Configuration[] actual = mfc.Configure();
-			Assert.That(actual.Length, Is.EqualTo(2));
+			var mfc = new DefaultMultiFactoryConfigurationProvider();
+			var actual = (Configuration[]) mfc.Configure();
+			Assert.That(actual.Count(), Is.EqualTo(2));
 			Assert.That(actual[0].Properties.ContainsKey("query.substitutions"));
 			Assert.That(!actual[1].Properties.ContainsKey("query.substitutions"));
 		}

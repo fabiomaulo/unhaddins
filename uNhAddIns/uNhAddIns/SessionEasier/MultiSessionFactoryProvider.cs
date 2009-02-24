@@ -11,21 +11,22 @@ namespace uNhAddIns.SessionEasier
 	[Serializable]
 	public class MultiSessionFactoryProvider : ISessionFactoryProvider
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof (MultiSessionFactoryProvider));
+		private static readonly ILog log = LogManager.GetLogger(typeof(MultiSessionFactoryProvider));
 
-		[NonSerialized] private readonly IMultiFactoryConfigurator mfc;
+		[NonSerialized]
+		private IConfigurationProvider mfc;
 		private string defaultSessionFactoryName;
 		private Dictionary<string, ISessionFactory> sfs = new Dictionary<string, ISessionFactory>(4);
 
-		public MultiSessionFactoryProvider() : this(new DefaultMultiFactoryConfigurator()) {}
+		public MultiSessionFactoryProvider() : this(new DefaultMultiFactoryConfigurationProvider()) { }
 
-		public MultiSessionFactoryProvider(IMultiFactoryConfigurator multiFactoryConfigurator)
+		public MultiSessionFactoryProvider(IConfigurationProvider configurationProvider)
 		{
-			if (multiFactoryConfigurator == null)
+			if (configurationProvider == null)
 			{
-				throw new ArgumentNullException("multiFactoryConfigurator");
+				throw new ArgumentNullException("configurationProvider");
 			}
-			mfc = multiFactoryConfigurator;
+			mfc = configurationProvider;
 		}
 
 		#region ISessionFactoryProvider Members
@@ -34,9 +35,11 @@ namespace uNhAddIns.SessionEasier
 		{
 			Initialize();
 			return string.IsNullOrEmpty(factoryId)
-			       	? InternalGetFactory(defaultSessionFactoryName)
-			       	: InternalGetFactory(factoryId);
+							? InternalGetFactory(defaultSessionFactoryName)
+							: InternalGetFactory(factoryId);
 		}
+
+		public event EventHandler<EventArgs> BeforeCloseSessionFactory;
 
 		#endregion
 
@@ -49,13 +52,14 @@ namespace uNhAddIns.SessionEasier
 			log.Debug("Initialize new session factories reading the configuration.");
 			foreach (Configuration cfg in mfc.Configure())
 			{
-				var sf = (ISessionFactoryImplementor) cfg.BuildSessionFactory();
+				var sf = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
 				if (string.IsNullOrEmpty(defaultSessionFactoryName))
 				{
 					defaultSessionFactoryName = sf.Settings.SessionFactoryName.Trim();
 				}
 				sfs.Add(sf.Settings.SessionFactoryName.Trim(), sf);
 			}
+			mfc = null; // after built the SessionFactories the configuration is not needed
 		}
 
 		private ISessionFactory InternalGetFactory(string factoryId)
@@ -71,6 +75,14 @@ namespace uNhAddIns.SessionEasier
 			catch (ArgumentNullException)
 			{
 				throw new ArgumentException("The session-factory-id was not register; do you forgot the appSettings section ?");
+			}
+		}
+
+		private void DoBeforeCloseSessionFactory()
+		{
+			if (BeforeCloseSessionFactory != null)
+			{
+				BeforeCloseSessionFactory(this, new EventArgs());
 			}
 		}
 
@@ -91,16 +103,37 @@ namespace uNhAddIns.SessionEasier
 
 		#region Implementation of IDisposable
 
+		private bool disposed;
+
+		~MultiSessionFactoryProvider()
+		{
+			Dispose(false);
+		}
+
 		public void Dispose()
 		{
-			foreach (ISessionFactory sessionFactory in sfs.Values)
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (!disposed)
 			{
-				if (sessionFactory != null)
+				if (disposing)
 				{
-					sessionFactory.Close();
+					foreach (ISessionFactory sessionFactory in sfs.Values)
+					{
+						if (sessionFactory != null)
+						{
+							DoBeforeCloseSessionFactory();
+							sessionFactory.Close();
+						}
+					}
+					sfs = new Dictionary<string, ISessionFactory>(4);
 				}
+				disposed = true;
 			}
-			sfs = new Dictionary<string, ISessionFactory>(4);
 		}
 
 		#endregion

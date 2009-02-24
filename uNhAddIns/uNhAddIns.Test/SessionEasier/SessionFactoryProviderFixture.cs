@@ -1,3 +1,4 @@
+using System;
 using log4net.Config;
 using NHibernate;
 using NUnit.Framework;
@@ -29,11 +30,17 @@ namespace uNhAddIns.Test.SessionEasier
 		{
 			SessionFactoryProvider sfp;
 			ISessionFactory sf1;
+			bool disposed = false;
 			using (sfp = new SessionFactoryProvider())
 			{
+				sfp.BeforeCloseSessionFactory += ((sender, e) => disposed = true);
 				sf1 = sfp.GetFactory(null);
 			}
-			Assert.That(sfp.GetFactory(null), Is.Not.EqualTo(sf1));
+			Assert.That(disposed);
+			Assert.That(sf1.IsClosed);
+			disposed = false;
+			sfp.Dispose();
+			Assert.That(!disposed);
 		}
 
 		[Test]
