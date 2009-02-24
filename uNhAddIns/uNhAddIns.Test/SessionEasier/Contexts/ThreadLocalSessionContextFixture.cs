@@ -29,6 +29,15 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 		}
 
 		[Test]
+		public void ShouldBeWrapped()
+		{
+			ISession session = sessions.GetCurrentSession();
+			var wrapper = CurrentSessionContext.Wrapper;
+			Assert.That(wrapper.IsWrapped(session));
+			session.Close();
+		}
+
+		[Test]
 		public void ContextCleanup()
 		{
 			ISession session = sessions.GetCurrentSession();
