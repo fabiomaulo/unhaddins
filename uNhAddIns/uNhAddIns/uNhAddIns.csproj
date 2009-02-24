@@ -136,9 +136,10 @@
     <Compile Include="SessionEasier\Commons.cs" />
     <Compile Include="SessionEasier\Contexts\CurrentSessionContext.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContext.cs" />
+    <Compile Include="SessionEasier\DefaultSessionFactoryConfigurationProvider.cs" />
     <Compile Include="SessionEasier\ISessionWrapper.cs" />
-    <Compile Include="SessionEasier\DefaultMultiFactoryConfigurator.cs" />
-    <Compile Include="SessionEasier\IMultiFactoryConfigurator.cs" />
+    <Compile Include="SessionEasier\DefaultMultiFactoryConfigurationProvider.cs" />
+    <Compile Include="SessionEasier\IConfigurationProvider.cs" />
     <Compile Include="SessionEasier\ISessionFactoryProvider.cs" />
     <Compile Include="SessionEasier\ISessionProxy.cs" />
     <Compile Include="SessionEasier\MultiSessionFactoryProvider.cs" />

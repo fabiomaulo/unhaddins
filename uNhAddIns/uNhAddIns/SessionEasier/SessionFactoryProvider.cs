@@ -14,7 +14,19 @@ namespace uNhAddIns.SessionEasier
 		private static readonly ILog log = LogManager.GetLogger(typeof (SessionFactoryProvider));
 
 		private IEnumerable<ISessionFactory> esf;
+		private IConfigurationProvider fcp;
 		private ISessionFactory sf;
+
+		public SessionFactoryProvider() : this(new DefaultSessionFactoryConfigurationProvider()) {}
+
+		public SessionFactoryProvider(IConfigurationProvider configurationProvider)
+		{
+			if (configurationProvider == null)
+			{
+				throw new ArgumentNullException("configurationProvider");
+			}
+			fcp = configurationProvider;
+		}
 
 		#region ISessionFactoryProvider Members
 
@@ -24,38 +36,36 @@ namespace uNhAddIns.SessionEasier
 			return sf;
 		}
 
-		#endregion
+		public event EventHandler<EventArgs> BeforeCloseSessionFactory;
 
-		public event EventHandler<ConfigurationEventArgs> BeforeConfigure;
-		public event EventHandler<ConfigurationEventArgs> AfterConfigure;
+		#endregion
 
 		public void Initialize()
 		{
 			if (sf == null)
 			{
 				log.Debug("Initialize a new session factory reading the configuration.");
-				var cfg = new Configuration();
-				DoBeforeConfigure(cfg);
-				cfg.Configure();
-				DoAfterConfigure(cfg);
-				sf = cfg.BuildSessionFactory();
-				esf = new SingletonEnumerable<ISessionFactory>(sf);
+				IEnumerator<Configuration> conf = fcp.Configure().GetEnumerator();
+				if (conf.MoveNext())
+				{
+					sf = conf.Current.BuildSessionFactory();
+					esf = new SingletonEnumerable<ISessionFactory>(sf);
+				}
+				fcp = null; // after built the SessionFactory the configuration is not needed
+				if (conf.MoveNext())
+				{
+					log.Warn(
+						@"More than one configurations are available but only the first was used.
+Check your configuration or use a Multi-RDBS session-factory provider.");
+				}
 			}
 		}
 
-		private void DoAfterConfigure(Configuration cfg)
+		private void DoBeforeCloseSessionFactory()
 		{
-			if (AfterConfigure != null)
+			if (BeforeCloseSessionFactory != null)
 			{
-				AfterConfigure(this, new ConfigurationEventArgs(cfg));
-			}
-		}
-
-		private void DoBeforeConfigure(Configuration cfg)
-		{
-			if (BeforeConfigure != null)
-			{
-				BeforeConfigure(this, new ConfigurationEventArgs(cfg));
+				BeforeCloseSessionFactory(this, new EventArgs());
 			}
 		}
 
@@ -76,12 +86,33 @@ namespace uNhAddIns.SessionEasier
 
 		#region Implementation of IDisposable
 
+		private bool disposed;
+
 		public void Dispose()
 		{
-			if (sf != null)
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		~SessionFactoryProvider()
+		{
+			Dispose(false);
+		}
+
+		private void Dispose(bool disposing)
+		{
+			if (!disposed)
 			{
-				sf.Close();
-				sf = null;
+				if (disposing)
+				{
+					if (sf != null)
+					{
+						DoBeforeCloseSessionFactory();
+						sf.Close();
+						sf = null;
+					}
+				}
+				disposed = true;
 			}
 		}
 

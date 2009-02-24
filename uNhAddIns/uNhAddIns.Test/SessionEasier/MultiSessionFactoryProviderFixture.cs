@@ -36,11 +36,17 @@ namespace uNhAddIns.Test.SessionEasier
 		{
 			MultiSessionFactoryProvider sfp;
 			ISessionFactory sf1;
+			int disposed = 0;
 			using (sfp = new MultiSessionFactoryProvider())
 			{
+				sfp.BeforeCloseSessionFactory += ((sender, e) => disposed++);
 				sf1 = sfp.GetFactory(null);
 			}
-			Assert.That(sfp.GetFactory(null), Is.Not.EqualTo(sf1));
+			Assert.That(disposed, Is.EqualTo(2));
+			Assert.That(sf1.IsClosed);
+			disposed = 0;
+			sfp.Dispose();
+			Assert.That(disposed, Is.EqualTo(0));
 		}
 
 		[Test]

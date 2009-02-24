@@ -15,8 +15,9 @@ namespace uNhAddIns.Example.ConversationUsage
 		{
 			var sl = new HomeMadeServiceLocator();
 
-			var sfp = new SessionFactoryProvider();
-			sfp.AfterConfigure += ((sender, e) => new SchemaExport(e.Configuration).Create(false, true));
+			var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
+			nhConfigurator.AfterConfigure += ((sender, e) => new SchemaExport(e.Configuration).Create(false, true));
+			var sfp = new SessionFactoryProvider(nhConfigurator);
 			sl.LoadSingletonService<ISessionFactoryProvider>(sfp);
 
 			sl.LoadSingletonService<IConversationFactory>(new DefaultConversationFactory(sfp, new NoWrappedSessionWrapper()));
