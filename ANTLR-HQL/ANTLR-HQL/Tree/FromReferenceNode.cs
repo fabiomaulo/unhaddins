@@ -1,12 +1,12 @@
 ﻿using System;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
+using log4net;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	public abstract class FromReferenceNode : AbstractSelectExpression, IResolvableNode, IDisplayableNode, IPathNode
 	{
-		protected Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(FromReferenceNode));
 
 		public static int ROOT_LEVEL = 0;
 		private FromElement _fromElement;
@@ -28,9 +28,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set
 			{
 				_resolved = true;
-				if (log.isDebugEnabled())
+				if (log.IsDebugEnabled)
 				{
-					log.debug("Resolved :  " + Path + " -> " + Text);
+					log.Debug("Resolved :  " + Path + " -> " + Text);
 				}
 			}
 		}
@@ -46,7 +46,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			throw new NotImplementedException();
 		}
 
-		public abstract void Resolve(bool generateJoin, bool implicitJoin, string classAlias, ITree parent);
+		public abstract void Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent);
 
 		public void Resolve(bool generateJoin, bool implicitJoin, string classAlias)
 		{
@@ -63,16 +63,16 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			Resolve(generateJoin, implicitJoin, null);
 		}
 
-		public abstract void ResolveIndex(ITree parent);
+		public abstract void ResolveIndex(IASTNode parent);
 
 		public string GetPath()
 		{
 			return getOriginalText();
 		}
 
-		public void RecursiveResolve(int level, bool impliedAtRoot, string classAlias, ITree parent)
+		public void RecursiveResolve(int level, bool impliedAtRoot, string classAlias, IASTNode parent)
 		{
-			ITree lhs = this.GetChild(0);
+			IASTNode lhs = this.GetChild(0);
 			int nextLevel = level + 1;
 			if ( lhs != null ) 
 			{

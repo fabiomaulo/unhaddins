@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Persister.Collection;
@@ -16,6 +16,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	/// </summary>
 	public class IndexNode : FromReferenceNode
 	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(IndexNode));
 		private bool _isResolved;
 
 		public IndexNode(IToken token) : base(token)
@@ -27,12 +28,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			throw new InvalidOperationException("An IndexNode cannot generate column text!");
 		}
 
-		public override void ResolveIndex(ITree parent)
+		public override void ResolveIndex(IASTNode parent)
 		{
 			throw new InvalidOperationException();
 		}
 
-		public override void  Resolve(bool generateJoin, bool implicitJoin, string classAlias, Antlr.Runtime.Tree.ITree parent)
+		public override void  Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent)
 		{
 			if ( _isResolved ) 
 			{
@@ -67,17 +68,17 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			{
 				FromElementFactory factory = new FromElementFactory( fromClause, fromElement, path );
 				elem = factory.CreateCollectionElementsJoin( queryableCollection, elementTable );
-				if ( log.isDebugEnabled() )
+				if ( log.IsDebugEnabled )
 				{
-					log.debug( "No FROM element found for the elements of collection join path " + path
+					log.Debug( "No FROM element found for the elements of collection join path " + path
 							+ ", created " + elem );
 				}
 			}
 			else 
 			{
-				if ( log.isDebugEnabled() ) 
+				if ( log.IsDebugEnabled ) 
 				{
-					log.debug( "FROM element found for collection join path " + path );
+					log.Debug( "FROM element found for collection join path " + path );
 				}
 			}
 
@@ -85,7 +86,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			FromElement = fromElement;
 
 			// Add the condition to the join sequence that qualifies the indexed element.
-			ITree selector = GetChild(1);
+			IASTNode selector = GetChild(1);
 			if ( selector == null ) 
 			{
 				throw new QueryException( "No index value!" );
@@ -142,16 +143,16 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 			// Now, set the text for this node.  It should be the element columns.
 			String[] elementColumns = queryableCollection.GetElementColumnNames( elementTable );
-			SetText( elementColumns[0] );
+			Text = elementColumns[0];
 			SetResolved();
 		}
 
 		public void SetResolved()
 		{
 			_isResolved = true;
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("Resolved :  " + Path + " -> " + Text);
+				log.Debug("Resolved :  " + Path + " -> " + Text);
 			}
 		}
 	}

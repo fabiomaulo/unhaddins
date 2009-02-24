@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using Antlr.Runtime.Tree;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
@@ -23,7 +24,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
  	/// </summary>
 	public class JoinProcessor
 	{
-		private static readonly Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(JoinProcessor));
 
 		private readonly HqlSqlWalker _walker;
 		private readonly SyntheticAndFactory _syntheticAndFactory;
@@ -42,7 +43,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 		{
 			FromClause fromClause = query.FromClause;
 
-			IList<ITree> fromElements;
+			IList<IASTNode> fromElements;
 			if ( DotNode.UseThetaStyleImplicitJoins ) 
 			{
 				// for regression testing against output from the old parser...
@@ -51,8 +52,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				// expected by the old parser; this is definitely another of those "only needed
 				// for regression purposes".  The SyntheticAndFactory, then, simply injects them as it
 				// encounters them.
-				fromElements = new List<ITree>();
-				IList<ITree> t = fromClause.GetFromElements();
+				fromElements = new List<IASTNode>();
+				IList<IASTNode> t = fromClause.GetFromElements();
 
 				for (int i = t.Count - 1; i >= 0; i--)
 				{
@@ -93,7 +94,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			if ( fromElement.Type == HqlSqlWalker.JOIN_FRAGMENT &&
 					( join.IsThetaStyle || StringHelper.IsNotEmpty( whereFrag ) ) ) 
 			{
-				fromElement.SetType( HqlSqlWalker.FROM_FRAGMENT );
+				fromElement.Type = HqlSqlWalker.FROM_FRAGMENT;
 				fromElement.JoinSequence.SetUseThetaStyle( true ); // this is used during SqlGenerator processing
 			}
 
@@ -101,9 +102,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			if ( fromElement.UseFromFragment /*&& StringHelper.isNotEmpty( frag )*/ ) 
 			{
 				SqlString fromFragment = ProcessFromFragment( frag, join ).Trim();
-				if ( log.isDebugEnabled() ) 
+				if ( log.IsDebugEnabled ) 
 				{
-					log.debug( "Using FROM fragment [" + fromFragment + "]" );
+					log.Debug( "Using FROM fragment [" + fromFragment + "]" );
 				}
 
 				ProcessDynamicFilterParameters(
@@ -179,7 +180,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				}
 			}
 
-			container.SetText( result.ToString() );
+			container.Text = result.ToString();
 		}
 
 		private static bool HasDynamicFilterParam(SqlString sqlFragment)
@@ -216,7 +217,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				if ( _fromElement.IsDereferencedBySubclassProperty) 
 				{
 					// TODO : or should we return 'containsTableAlias'??
-					log.trace( "forcing inclusion of extra joins [alias=" + alias + ", containsTableAlias=" + containsTableAlias + "]" );
+					log.Info( "forcing inclusion of extra joins [alias=" + alias + ", containsTableAlias=" + containsTableAlias + "]" );
 					return true;
 				}
 				bool shallowQuery = _walker.IsShallowQuery;

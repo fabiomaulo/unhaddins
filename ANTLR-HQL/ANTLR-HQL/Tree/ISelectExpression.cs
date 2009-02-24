@@ -39,8 +39,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <summary>
 		/// Sets the text of the node.
 		/// </summary>
-		/// <param name="text">the new node text.</param>
-		void SetText(string text);
+		string Text { set; }
 
 		bool IsScalar { get; }
 

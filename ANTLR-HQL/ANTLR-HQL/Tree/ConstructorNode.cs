@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
@@ -37,7 +36,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		}
 
 
-		protected override ITree GetFirstSelectExpression()
+		protected override IASTNode GetFirstSelectExpression()
 		{
 			// Collect the select expressions, skip the first child because it is the class name.
 			return GetChild(1);

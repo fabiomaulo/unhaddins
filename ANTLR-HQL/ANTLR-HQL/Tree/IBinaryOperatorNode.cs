@@ -1,6 +1,4 @@
-﻿using Antlr.Runtime.Tree;
-
-namespace NHibernate.Hql.Ast.ANTLR.Tree
+﻿namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	/// <summary>
 	/// Contract for nodes representing binary operators.
@@ -12,7 +10,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <summary>
 		/// The left-hand operand of the operator.
 		/// </summary>
-		ITree LeftHandOperand
+		IASTNode LeftHandOperand
 		{ 
 			get;
 		}
@@ -20,7 +18,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <summary>
 		/// The right-hand operand of the operator.
 		/// </summary>
-		ITree RightHandOperand
+		IASTNode RightHandOperand
 		{ 
 			get;
 		}

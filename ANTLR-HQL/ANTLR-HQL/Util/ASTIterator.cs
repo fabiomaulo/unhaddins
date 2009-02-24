@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Antlr.Runtime.Tree;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Util
 {
@@ -9,17 +9,17 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 	/// Author: josh
 	/// Ported by: Steve Strong
 	/// </summary>
-	public class ASTIterator : IEnumerable<ITree>
+	public class ASTIterator : IEnumerable<IASTNode>
 	{
-		private ITree _current;
-		private readonly Stack<ITree> _stack = new Stack<ITree>();
+		private IASTNode _current;
+		private readonly Stack<IASTNode> _stack = new Stack<IASTNode>();
 
-		public ASTIterator(ITree tree)
+		public ASTIterator(IASTNode tree)
 		{
 			_current = tree;
 		}
 
-		public IEnumerator<ITree> GetEnumerator()
+		public IEnumerator<IASTNode> GetEnumerator()
 		{
 			Down();
 
@@ -27,7 +27,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			{
 				yield return _current;
 
-				_current = _current.GetNextSibling();
+				_current = _current.RightHandSibling;
 
 				if (_current == null)
 				{

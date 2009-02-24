@@ -1,6 +1,5 @@
 ﻿using System;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Util;
@@ -20,12 +19,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 		}
 
-		public ITree LeftHandOperand
+		public IASTNode LeftHandOperand
 		{
 			get { return GetChild(0);}
 		}
 
-		public ITree RightHandOperand
+		public IASTNode RightHandOperand
 		{
 			get { return GetChild(1);}
 		}
@@ -38,12 +37,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			base.Initialize(param);
 
-			ITree lhs = LeftHandOperand;
+			IASTNode lhs = LeftHandOperand;
 			if ( lhs == null ) 
 			{
 				throw new SemanticException( "left-hand operand of a binary operator was null" );
 			}
-			ITree rhs = RightHandOperand;
+			IASTNode rhs = RightHandOperand;
 			if ( rhs == null ) 
 			{
 				throw new SemanticException( "right-hand operand of a binary operator was null" );
@@ -118,8 +117,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			// mutation depends on the types of nodes invloved...
 			int comparisonType = Type;
 			string comparisonText = Text;
-			this.SetType( HqlSqlWalker.AND);
-			SetText( "AND" );
+			Type = HqlSqlWalker.AND;
+			Text = "AND";
 
 			String[] lhsElementTexts = ExtractMutationTexts( LeftHandOperand, valueElements );
 			String[] rhsElementTexts = ExtractMutationTexts( RightHandOperand, valueElements );
@@ -134,24 +133,24 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 							? null
 							: ( ( ParameterNode ) RightHandOperand ).HqlParameterSpecification;
 
-			CommonTree container = this;
-			ASTTreeBuilder tb = new ASTTreeBuilder(ASTFactory);
+			IASTNode container = this;
+
 			for ( int i = valueElements - 1; i > 0; i-- ) 
 			{
 				if ( i == 1 ) 
 				{
-					container.Children.Clear();
+					container.ClearChildren();
 
 					container.AddChildren(
-						tb.CreateNode(
+						ASTFactory.CreateNode(
 							comparisonType, comparisonText,
-							tb.CreateNode(HqlSqlWalker.SQL_TOKEN, lhsElementTexts[0]),
-							tb.CreateNode(HqlSqlWalker.SQL_TOKEN, rhsElementTexts[0])
+							ASTFactory.CreateNode(HqlSqlWalker.SQL_TOKEN, lhsElementTexts[0]),
+							ASTFactory.CreateNode(HqlSqlWalker.SQL_TOKEN, rhsElementTexts[0])
 							),
-						tb.CreateNode(
+						ASTFactory.CreateNode(
 							comparisonType, comparisonText,
-							tb.CreateNode(HqlSqlWalker.SQL_TOKEN, lhsElementTexts[1]),
-							tb.CreateNode(HqlSqlWalker.SQL_TOKEN, rhsElementTexts[1])
+							ASTFactory.CreateNode(HqlSqlWalker.SQL_TOKEN, lhsElementTexts[1]),
+							ASTFactory.CreateNode(HqlSqlWalker.SQL_TOKEN, rhsElementTexts[1])
 							));
 
 					// "pass along" our initial embedded parameter node(s) to the first generated
@@ -166,21 +165,21 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				}
 				else
 				{
-					container.Children.Clear();
+					container.ClearChildren();
 					container.AddChildren(
-						tb.CreateNode(HqlSqlWalker.AND, "AND"),
-						tb.CreateNode(
+						ASTFactory.CreateNode(HqlSqlWalker.AND, "AND"),
+						ASTFactory.CreateNode(
 							comparisonType, comparisonText,
-							tb.CreateNode(HqlSqlWalker.SQL_TOKEN, lhsElementTexts[i]),
-							tb.CreateNode(HqlSqlWalker.SQL_TOKEN, rhsElementTexts[i])
+							ASTFactory.CreateNode(HqlSqlWalker.SQL_TOKEN, lhsElementTexts[i]),
+							ASTFactory.CreateNode(HqlSqlWalker.SQL_TOKEN, rhsElementTexts[i])
 							));
 
-					container = (CommonTree) container.GetChild(0);
+					container = container.GetChild(0);
 				}
 			}
 		}
 
-		private static string[] ExtractMutationTexts(ITree operand, int count) 
+		private static string[] ExtractMutationTexts(IASTNode operand, int count) 
 		{
 			if ( operand is ParameterNode ) 
 			{
@@ -228,7 +227,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
-		protected static IType ExtractDataType(ITree operand) 
+		protected static IType ExtractDataType(IASTNode operand) 
 		{
 			IType type = null;
 

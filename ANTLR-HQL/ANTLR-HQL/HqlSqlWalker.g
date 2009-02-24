@@ -5,7 +5,7 @@ options
 	language=CSharp2;
 	output=AST;
 	tokenVocab=Hql;
-	ASTLabelType=CommonTree;
+	ASTLabelType=IASTNode;
 }
 
 tokens
@@ -34,7 +34,6 @@ tokens
 {
 using System.Text;
 using NHibernate.Hql.Ast.ANTLR.Tree;
-
 }
 
 // The main statement rule.
@@ -325,7 +324,7 @@ fromClause
 @init{
 		// NOTE: This references the INPUT AST! (see http://www.antlr.org/doc/trees.html#Action Translation)
 		// the ouput AST (#fromClause) has not been built yet.
-		PrepareFromClauseInputTree((ITree) input.LT(1));
+		PrepareFromClauseInputTree((IASTNode) input.LT(1));
 	}
 	: ^(f=FROM { PushFromClause($f.tree, null); handleClauseStart( FROM ); } fromElementList )
 	;

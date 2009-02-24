@@ -1,6 +1,5 @@
 ﻿using System;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
@@ -8,7 +7,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	/// <summary>
 	/// A base AST node for the intermediate tree.
 	/// </summary>
-	public class SqlNode : CommonTree
+	public class SqlNode : ASTNode
 	{
 		/**
 		 * The original text for the node, mostly for debugging.
@@ -23,14 +22,21 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		public SqlNode(IToken token) : base(token)
 		{
 		}
-	
-		public void SetText(string s)
-		{
-			base.Token.Text = s;
 
-			if (!string.IsNullOrEmpty(s) && _originalText == null)
+		public override string Text
+		{
+			get
 			{
-				_originalText = s;
+				return base.Text;
+			}
+			set
+			{
+				base.Text = value;
+
+				if (!string.IsNullOrEmpty(value) && _originalText == null)
+				{
+					_originalText = value;
+				}
 			}
 		}
 

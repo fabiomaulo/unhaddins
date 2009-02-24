@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Type;
 
@@ -47,7 +46,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	//			// NOTE : the isSubQuery() bit is a temporary hack...
 	//			throw new QuerySyntaxException( "JPA-QL compliance requires select clause" );
 	//		}
-			IList<ITree> fromElements = fromClause.GetProjectionList();
+			IList<IASTNode> fromElements = fromClause.GetProjectionList();
 
 			ASTAppender appender = new ASTAppender( ASTFactory, this );	// Get ready to start adding nodes.
 			int size = fromElements.Count;
@@ -168,7 +167,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			if ( !Walker.IsShallowQuery )
 			{
 				// add the fetched entities
-				IList<ITree> fromElements = fromClause.GetProjectionList();
+				IList<IASTNode> fromElements = fromClause.GetProjectionList();
 		
 				ASTAppender appender = new ASTAppender( ASTFactory, this );	// Get ready to start adding nodes.
 				int size = fromElements.Count;
@@ -302,9 +301,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return _queryReturnTypes; }
 		}
 
-		protected override ITree GetFirstSelectExpression()
+		protected override IASTNode GetFirstSelectExpression()
 		{
-			foreach (ITree child in Children)
+			foreach (IASTNode child in this)
 			{
 				if (!(child.Type == HqlSqlWalker.DISTINCT || child.Type == HqlSqlWalker.ALL))
 				{
@@ -405,7 +404,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				if (!_scalarSelect && !Walker.IsShallowQuery)
 				{
 					//TODO: is this a bit ugly?
-					expr.SetText(text);
+					expr.Text = text;
 				}
 				else
 				{

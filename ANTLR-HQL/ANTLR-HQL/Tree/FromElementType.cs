@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Persister.Collection;
@@ -17,7 +18,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	/// </summary>
 	public class FromElementType
 	{
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(FromElementType));
 
 		private FromElement _fromElement;
 		private IEntityPersister _persister;
@@ -36,7 +37,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 			if (persister != null)
 			{
-				fromElement.SetText(((IQueryable)persister).TableName + " " + TableAlias);
+				fromElement.Text = ((IQueryable)persister).TableName + " " + TableAlias;
 			}
 		}
 
@@ -364,7 +365,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				if (!_queryableCollection.IsOneToMany)
 				{
 					// For many-to-many joins, use the tablename from the queryable collection for the default text.
-					_fromElement.SetText(_queryableCollection.TableName + " " + TableAlias);
+					_fromElement.Text = _queryableCollection.TableName + " " + TableAlias;
 				}
 				
 			}
@@ -386,9 +387,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 						enabledFilters,
 						propertyMapping.ToColumns(tableAlias, path)
 				);
-				if (log.isDebugEnabled())
+				if (log.IsDebugEnabled)
 				{
-					log.debug("toColumns(" + tableAlias + "," + path + ") : subquery = " + subquery);
+					log.Debug("toColumns(" + tableAlias + "," + path + ") : subquery = " + subquery);
 				}
 				return new string[] { "(" + subquery + ")" };
 			}
@@ -440,7 +441,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				else
 				{
 					string[] columns = propertyMapping.ToColumns(path);
-					log.trace("Using non-qualified column reference [" + path + " -> (" + ArrayHelper.ToString(columns) + ")]");
+					log.Info("Using non-qualified column reference [" + path + " -> (" + ArrayHelper.ToString(columns) + ")]");
 					return columns;
 				}
 			}

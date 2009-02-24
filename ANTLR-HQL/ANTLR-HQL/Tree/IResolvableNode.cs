@@ -1,6 +1,4 @@
-﻿using Antlr.Runtime.Tree;
-
-namespace NHibernate.Hql.Ast.ANTLR.Tree
+﻿namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	/// <summary>
 	/// The contract for expression sub-trees that can resolve themselves.
@@ -12,7 +10,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <summary>
 		/// Does the work of resolving an identifier or a dot
 		/// </summary>
-		void Resolve(bool generateJoin, bool implicitJoin, string classAlias, ITree parent);
+		void Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent);
 
 		/// <summary>
 		/// Does the work of resolving an identifier or a dot, but without a parent node
@@ -32,6 +30,6 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <summary>
 		/// Does the work of resolving an an index [].
 		/// </summary>
-		void ResolveIndex(ITree parent);
+		void ResolveIndex(IASTNode parent);
 	}
 }

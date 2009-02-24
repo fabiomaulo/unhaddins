@@ -1,6 +1,5 @@
 ﻿using System;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
@@ -15,18 +14,17 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 		}
 
-		public override void ResolveIndex(ITree parent)
+		public override void ResolveIndex(IASTNode parent)
 		{
 			throw new InvalidOperationException();
 		}
 
 		public override void SetScalarColumnText(int i)
 		{
-			String text = FromElement.RenderScalarIdentifierSelect( i );
-			SetText( text );
+			Text = FromElement.RenderScalarIdentifierSelect(i);
 		}
 
-		public override void Resolve(bool generateJoin, bool implicitJoin, string classAlias, ITree parent)
+		public override void Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent)
 		{
 			// Generated select expressions are already resolved, nothing to do.
 			return;

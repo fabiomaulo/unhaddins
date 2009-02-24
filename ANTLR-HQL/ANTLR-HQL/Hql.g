@@ -4,6 +4,7 @@ options
 {
 	language=CSharp2;
 	output=AST;
+	ASTLabelType=IASTNode;
 	k=3;
 }
 
@@ -120,6 +121,7 @@ tokens
 
 @header
 {
+using NHibernate.Hql.Ast.ANTLR.Tree;
 }
 
 /*
@@ -521,7 +523,7 @@ negatedExpression!
 negatedExpression
 @init{ WeakKeywords(); } // Weak keywords can appear in an expression, so look ahead.
 	: NOT x=negatedExpression
-		-> ^({NegateNode((ITree) $x.tree)})
+		-> ^({NegateNode($x.tree)})
 	| equalityExpression
 		-> ^(equalityExpression)
 	;

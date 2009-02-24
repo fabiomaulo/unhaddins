@@ -1,10 +1,13 @@
-// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g 2009-02-20 14:14:14
+// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g 2009-02-23 10:57:36
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
 // Unreachable code detected.
 #pragma warning disable 162
 namespace  NHibernate.Hql.Ast.ANTLR 
 {
+
+using NHibernate.Hql.Ast.ANTLR.Tree;
+
 
 using System;
 using Antlr.Runtime;
@@ -355,25 +358,25 @@ public partial class SqlGenerator : TreeParser
 
     public class statement_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "statement"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:22:1: statement : ( selectStatement | updateStatement | deleteStatement | insertStatement );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:27:1: statement : ( selectStatement | updateStatement | deleteStatement | insertStatement );
     public SqlGenerator.statement_return statement() // throws RecognitionException [1]
     {   
         SqlGenerator.statement_return retval = new SqlGenerator.statement_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.selectStatement_return selectStatement1 = default(SqlGenerator.selectStatement_return);
 
@@ -387,7 +390,7 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:23:2: ( selectStatement | updateStatement | deleteStatement | insertStatement )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:28:2: ( selectStatement | updateStatement | deleteStatement | insertStatement )
             int alt1 = 4;
             switch ( input.LA(1) ) 
             {
@@ -422,12 +425,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt1) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:23:4: selectStatement
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:28:4: selectStatement
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_selectStatement_in_statement51);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_selectStatement_in_statement57);
                     	selectStatement1 = selectStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -439,12 +442,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:24:4: updateStatement
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:29:4: updateStatement
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_updateStatement_in_statement56);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_updateStatement_in_statement62);
                     	updateStatement2 = updateStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -456,12 +459,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:25:4: deleteStatement
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:30:4: deleteStatement
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_deleteStatement_in_statement61);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_deleteStatement_in_statement67);
                     	deleteStatement3 = deleteStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -473,12 +476,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:26:4: insertStatement
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:31:4: insertStatement
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_insertStatement_in_statement66);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_insertStatement_in_statement72);
                     	insertStatement4 = insertStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -492,7 +495,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -509,31 +512,31 @@ public partial class SqlGenerator : TreeParser
 
     public class selectStatement_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "selectStatement"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:29:1: selectStatement : ^( SELECT selectClause from ( ^( WHERE whereExpr ) )? ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )? ( ^( ORDER orderExprs ) )? ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:34:1: selectStatement : ^( SELECT selectClause from ( ^( WHERE whereExpr ) )? ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )? ( ^( ORDER orderExprs ) )? ) ;
     public SqlGenerator.selectStatement_return selectStatement() // throws RecognitionException [1]
     {   
         SqlGenerator.selectStatement_return retval = new SqlGenerator.selectStatement_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree SELECT5 = null;
-        CommonTree WHERE8 = null;
-        CommonTree GROUP10 = null;
-        CommonTree HAVING12 = null;
-        CommonTree ORDER14 = null;
+        IASTNode SELECT5 = null;
+        IASTNode WHERE8 = null;
+        IASTNode GROUP10 = null;
+        IASTNode HAVING12 = null;
+        IASTNode ORDER14 = null;
         SqlGenerator.selectClause_return selectClause6 = default(SqlGenerator.selectClause_return);
 
         SqlGenerator.from_return from7 = default(SqlGenerator.from_return);
@@ -547,29 +550,29 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.orderExprs_return orderExprs15 = default(SqlGenerator.orderExprs_return);
 
 
-        CommonTree SELECT5_tree=null;
-        CommonTree WHERE8_tree=null;
-        CommonTree GROUP10_tree=null;
-        CommonTree HAVING12_tree=null;
-        CommonTree ORDER14_tree=null;
+        IASTNode SELECT5_tree=null;
+        IASTNode WHERE8_tree=null;
+        IASTNode GROUP10_tree=null;
+        IASTNode HAVING12_tree=null;
+        IASTNode ORDER14_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:30:2: ( ^( SELECT selectClause from ( ^( WHERE whereExpr ) )? ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )? ( ^( ORDER orderExprs ) )? ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:30:4: ^( SELECT selectClause from ( ^( WHERE whereExpr ) )? ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )? ( ^( ORDER orderExprs ) )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:35:2: ( ^( SELECT selectClause from ( ^( WHERE whereExpr ) )? ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )? ( ^( ORDER orderExprs ) )? ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:35:4: ^( SELECT selectClause from ( ^( WHERE whereExpr ) )? ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )? ( ^( ORDER orderExprs ) )? )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	SELECT5=(CommonTree)Match(input,SELECT,FOLLOW_SELECT_in_selectStatement78); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	SELECT5=(IASTNode)Match(input,SELECT,FOLLOW_SELECT_in_selectStatement84); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{SELECT5_tree = (CommonTree)adaptor.DupNode(SELECT5);
+            	{SELECT5_tree = (IASTNode)adaptor.DupNode(SELECT5);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(SELECT5_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(SELECT5_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -578,21 +581,21 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_selectClause_in_selectStatement84);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_selectClause_in_selectStatement90);
             	selectClause6 = selectClause();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_1, selectClause6.Tree);
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_from_in_selectStatement88);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_from_in_selectStatement94);
             	from7 = from();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_1, from7.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:33:3: ( ^( WHERE whereExpr ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:38:3: ( ^( WHERE whereExpr ) )?
             	int alt2 = 2;
             	int LA2_0 = input.LA(1);
 
@@ -603,18 +606,18 @@ public partial class SqlGenerator : TreeParser
             	switch (alt2) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:33:5: ^( WHERE whereExpr )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:38:5: ^( WHERE whereExpr )
             	        {
-            	        	_last = (CommonTree)input.LT(1);
+            	        	_last = (IASTNode)input.LT(1);
             	        	{
-            	        	CommonTree _save_last_2 = _last;
-            	        	CommonTree _first_2 = null;
-            	        	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	        	WHERE8=(CommonTree)Match(input,WHERE,FOLLOW_WHERE_in_selectStatement95); if (state.failed) return retval;
+            	        	IASTNode _save_last_2 = _last;
+            	        	IASTNode _first_2 = null;
+            	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	        	WHERE8=(IASTNode)Match(input,WHERE,FOLLOW_WHERE_in_selectStatement101); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
-            	        	{WHERE8_tree = (CommonTree)adaptor.DupNode(WHERE8);
+            	        	{WHERE8_tree = (IASTNode)adaptor.DupNode(WHERE8);
 
-            	        		root_2 = (CommonTree)adaptor.BecomeRoot(WHERE8_tree, root_2);
+            	        		root_2 = (IASTNode)adaptor.BecomeRoot(WHERE8_tree, root_2);
             	        	}
 
             	        	if ( state.backtracking == 0 ) 
@@ -623,8 +626,8 @@ public partial class SqlGenerator : TreeParser
             	        	}
 
             	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_whereExpr_in_selectStatement99);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_whereExpr_in_selectStatement105);
             	        	whereExpr9 = whereExpr();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -642,7 +645,7 @@ public partial class SqlGenerator : TreeParser
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:34:3: ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:39:3: ( ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? ) )?
             	int alt4 = 2;
             	int LA4_0 = input.LA(1);
 
@@ -653,18 +656,18 @@ public partial class SqlGenerator : TreeParser
             	switch (alt4) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:34:5: ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:39:5: ^( GROUP groupExprs ( ^( HAVING booleanExpr[false] ) )? )
             	        {
-            	        	_last = (CommonTree)input.LT(1);
+            	        	_last = (IASTNode)input.LT(1);
             	        	{
-            	        	CommonTree _save_last_2 = _last;
-            	        	CommonTree _first_2 = null;
-            	        	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	        	GROUP10=(CommonTree)Match(input,GROUP,FOLLOW_GROUP_in_selectStatement111); if (state.failed) return retval;
+            	        	IASTNode _save_last_2 = _last;
+            	        	IASTNode _first_2 = null;
+            	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	        	GROUP10=(IASTNode)Match(input,GROUP,FOLLOW_GROUP_in_selectStatement117); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
-            	        	{GROUP10_tree = (CommonTree)adaptor.DupNode(GROUP10);
+            	        	{GROUP10_tree = (IASTNode)adaptor.DupNode(GROUP10);
 
-            	        		root_2 = (CommonTree)adaptor.BecomeRoot(GROUP10_tree, root_2);
+            	        		root_2 = (IASTNode)adaptor.BecomeRoot(GROUP10_tree, root_2);
             	        	}
 
             	        	if ( state.backtracking == 0 ) 
@@ -673,14 +676,14 @@ public partial class SqlGenerator : TreeParser
             	        	}
 
             	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_groupExprs_in_selectStatement115);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_groupExprs_in_selectStatement121);
             	        	groupExprs11 = groupExprs();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
             	        	if ( state.backtracking==0 ) 
             	        	adaptor.AddChild(root_2, groupExprs11.Tree);
-            	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:34:47: ( ^( HAVING booleanExpr[false] ) )?
+            	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:39:47: ( ^( HAVING booleanExpr[false] ) )?
             	        	int alt3 = 2;
             	        	int LA3_0 = input.LA(1);
 
@@ -691,18 +694,18 @@ public partial class SqlGenerator : TreeParser
             	        	switch (alt3) 
             	        	{
             	        	    case 1 :
-            	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:34:49: ^( HAVING booleanExpr[false] )
+            	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:39:49: ^( HAVING booleanExpr[false] )
             	        	        {
-            	        	        	_last = (CommonTree)input.LT(1);
+            	        	        	_last = (IASTNode)input.LT(1);
             	        	        	{
-            	        	        	CommonTree _save_last_3 = _last;
-            	        	        	CommonTree _first_3 = null;
-            	        	        	CommonTree root_3 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	        	        	HAVING12=(CommonTree)Match(input,HAVING,FOLLOW_HAVING_in_selectStatement120); if (state.failed) return retval;
+            	        	        	IASTNode _save_last_3 = _last;
+            	        	        	IASTNode _first_3 = null;
+            	        	        	IASTNode root_3 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	        	        	HAVING12=(IASTNode)Match(input,HAVING,FOLLOW_HAVING_in_selectStatement126); if (state.failed) return retval;
             	        	        	if ( state.backtracking == 0 )
-            	        	        	{HAVING12_tree = (CommonTree)adaptor.DupNode(HAVING12);
+            	        	        	{HAVING12_tree = (IASTNode)adaptor.DupNode(HAVING12);
 
-            	        	        		root_3 = (CommonTree)adaptor.BecomeRoot(HAVING12_tree, root_3);
+            	        	        		root_3 = (IASTNode)adaptor.BecomeRoot(HAVING12_tree, root_3);
             	        	        	}
 
             	        	        	if ( state.backtracking == 0 ) 
@@ -711,8 +714,8 @@ public partial class SqlGenerator : TreeParser
             	        	        	}
 
             	        	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	        	        	_last = (CommonTree)input.LT(1);
-            	        	        	PushFollow(FOLLOW_booleanExpr_in_selectStatement124);
+            	        	        	_last = (IASTNode)input.LT(1);
+            	        	        	PushFollow(FOLLOW_booleanExpr_in_selectStatement130);
             	        	        	booleanExpr13 = booleanExpr(false);
             	        	        	state.followingStackPointer--;
             	        	        	if (state.failed) return retval;
@@ -742,7 +745,7 @@ public partial class SqlGenerator : TreeParser
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:35:3: ( ^( ORDER orderExprs ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:40:3: ( ^( ORDER orderExprs ) )?
             	int alt5 = 2;
             	int LA5_0 = input.LA(1);
 
@@ -753,18 +756,18 @@ public partial class SqlGenerator : TreeParser
             	switch (alt5) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:35:5: ^( ORDER orderExprs )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:40:5: ^( ORDER orderExprs )
             	        {
-            	        	_last = (CommonTree)input.LT(1);
+            	        	_last = (IASTNode)input.LT(1);
             	        	{
-            	        	CommonTree _save_last_2 = _last;
-            	        	CommonTree _first_2 = null;
-            	        	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	        	ORDER14=(CommonTree)Match(input,ORDER,FOLLOW_ORDER_in_selectStatement141); if (state.failed) return retval;
+            	        	IASTNode _save_last_2 = _last;
+            	        	IASTNode _first_2 = null;
+            	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	        	ORDER14=(IASTNode)Match(input,ORDER,FOLLOW_ORDER_in_selectStatement147); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
-            	        	{ORDER14_tree = (CommonTree)adaptor.DupNode(ORDER14);
+            	        	{ORDER14_tree = (IASTNode)adaptor.DupNode(ORDER14);
 
-            	        		root_2 = (CommonTree)adaptor.BecomeRoot(ORDER14_tree, root_2);
+            	        		root_2 = (IASTNode)adaptor.BecomeRoot(ORDER14_tree, root_2);
             	        	}
 
             	        	if ( state.backtracking == 0 ) 
@@ -773,8 +776,8 @@ public partial class SqlGenerator : TreeParser
             	        	}
 
             	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_orderExprs_in_selectStatement145);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_orderExprs_in_selectStatement151);
             	        	orderExprs15 = orderExprs();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -802,7 +805,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -819,28 +822,28 @@ public partial class SqlGenerator : TreeParser
 
     public class updateStatement_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "updateStatement"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:42:1: updateStatement : ^( UPDATE ^( FROM fromTable ) setClause ( whereClause )? ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:47:1: updateStatement : ^( UPDATE ^( FROM fromTable ) setClause ( whereClause )? ) ;
     public SqlGenerator.updateStatement_return updateStatement() // throws RecognitionException [1]
     {   
         SqlGenerator.updateStatement_return retval = new SqlGenerator.updateStatement_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree UPDATE16 = null;
-        CommonTree FROM17 = null;
+        IASTNode UPDATE16 = null;
+        IASTNode FROM17 = null;
         SqlGenerator.fromTable_return fromTable18 = default(SqlGenerator.fromTable_return);
 
         SqlGenerator.setClause_return setClause19 = default(SqlGenerator.setClause_return);
@@ -848,26 +851,26 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.whereClause_return whereClause20 = default(SqlGenerator.whereClause_return);
 
 
-        CommonTree UPDATE16_tree=null;
-        CommonTree FROM17_tree=null;
+        IASTNode UPDATE16_tree=null;
+        IASTNode FROM17_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:43:2: ( ^( UPDATE ^( FROM fromTable ) setClause ( whereClause )? ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:43:4: ^( UPDATE ^( FROM fromTable ) setClause ( whereClause )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:48:2: ( ^( UPDATE ^( FROM fromTable ) setClause ( whereClause )? ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:48:4: ^( UPDATE ^( FROM fromTable ) setClause ( whereClause )? )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	UPDATE16=(CommonTree)Match(input,UPDATE,FOLLOW_UPDATE_in_updateStatement168); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	UPDATE16=(IASTNode)Match(input,UPDATE,FOLLOW_UPDATE_in_updateStatement174); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{UPDATE16_tree = (CommonTree)adaptor.DupNode(UPDATE16);
+            	{UPDATE16_tree = (IASTNode)adaptor.DupNode(UPDATE16);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(UPDATE16_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(UPDATE16_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -876,22 +879,22 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_2 = _last;
-            	CommonTree _first_2 = null;
-            	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	FROM17=(CommonTree)Match(input,FROM,FOLLOW_FROM_in_updateStatement176); if (state.failed) return retval;
+            	IASTNode _save_last_2 = _last;
+            	IASTNode _first_2 = null;
+            	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	FROM17=(IASTNode)Match(input,FROM,FOLLOW_FROM_in_updateStatement182); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{FROM17_tree = (CommonTree)adaptor.DupNode(FROM17);
+            	{FROM17_tree = (IASTNode)adaptor.DupNode(FROM17);
 
-            		root_2 = (CommonTree)adaptor.BecomeRoot(FROM17_tree, root_2);
+            		root_2 = (IASTNode)adaptor.BecomeRoot(FROM17_tree, root_2);
             	}
 
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_fromTable_in_updateStatement178);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_fromTable_in_updateStatement184);
             	fromTable18 = fromTable();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -901,14 +904,14 @@ public partial class SqlGenerator : TreeParser
             	Match(input, Token.UP, null); if (state.failed) return retval;adaptor.AddChild(root_1, root_2);_last = _save_last_2;
             	}
 
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_setClause_in_updateStatement184);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_setClause_in_updateStatement190);
             	setClause19 = setClause();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_1, setClause19.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:46:3: ( whereClause )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:51:3: ( whereClause )?
             	int alt6 = 2;
             	int LA6_0 = input.LA(1);
 
@@ -919,10 +922,10 @@ public partial class SqlGenerator : TreeParser
             	switch (alt6) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:46:4: whereClause
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:51:4: whereClause
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_whereClause_in_updateStatement189);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_whereClause_in_updateStatement195);
             	        	whereClause20 = whereClause();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -946,7 +949,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -963,51 +966,51 @@ public partial class SqlGenerator : TreeParser
 
     public class deleteStatement_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "deleteStatement"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:50:1: deleteStatement : ^( DELETE from ( whereClause )? ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:55:1: deleteStatement : ^( DELETE from ( whereClause )? ) ;
     public SqlGenerator.deleteStatement_return deleteStatement() // throws RecognitionException [1]
     {   
         SqlGenerator.deleteStatement_return retval = new SqlGenerator.deleteStatement_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree DELETE21 = null;
+        IASTNode DELETE21 = null;
         SqlGenerator.from_return from22 = default(SqlGenerator.from_return);
 
         SqlGenerator.whereClause_return whereClause23 = default(SqlGenerator.whereClause_return);
 
 
-        CommonTree DELETE21_tree=null;
+        IASTNode DELETE21_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:52:2: ( ^( DELETE from ( whereClause )? ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:52:4: ^( DELETE from ( whereClause )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:57:2: ( ^( DELETE from ( whereClause )? ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:57:4: ^( DELETE from ( whereClause )? )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	DELETE21=(CommonTree)Match(input,DELETE,FOLLOW_DELETE_in_deleteStatement208); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	DELETE21=(IASTNode)Match(input,DELETE,FOLLOW_DELETE_in_deleteStatement214); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{DELETE21_tree = (CommonTree)adaptor.DupNode(DELETE21);
+            	{DELETE21_tree = (IASTNode)adaptor.DupNode(DELETE21);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(DELETE21_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(DELETE21_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -1016,14 +1019,14 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_from_in_deleteStatement214);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_from_in_deleteStatement220);
             	from22 = from();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_1, from22.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:54:3: ( whereClause )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:59:3: ( whereClause )?
             	int alt7 = 2;
             	int LA7_0 = input.LA(1);
 
@@ -1034,10 +1037,10 @@ public partial class SqlGenerator : TreeParser
             	switch (alt7) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:54:4: whereClause
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:59:4: whereClause
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_whereClause_in_deleteStatement219);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_whereClause_in_deleteStatement225);
             	        	whereClause23 = whereClause();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -1061,7 +1064,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1078,51 +1081,51 @@ public partial class SqlGenerator : TreeParser
 
     public class insertStatement_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "insertStatement"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:58:1: insertStatement : ^( INSERT i= INTO selectStatement ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:63:1: insertStatement : ^( INSERT i= INTO selectStatement ) ;
     public SqlGenerator.insertStatement_return insertStatement() // throws RecognitionException [1]
     {   
         SqlGenerator.insertStatement_return retval = new SqlGenerator.insertStatement_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree i = null;
-        CommonTree INSERT24 = null;
+        IASTNode i = null;
+        IASTNode INSERT24 = null;
         SqlGenerator.selectStatement_return selectStatement25 = default(SqlGenerator.selectStatement_return);
 
 
-        CommonTree i_tree=null;
-        CommonTree INSERT24_tree=null;
+        IASTNode i_tree=null;
+        IASTNode INSERT24_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:59:2: ( ^( INSERT i= INTO selectStatement ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:59:4: ^( INSERT i= INTO selectStatement )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:64:2: ( ^( INSERT i= INTO selectStatement ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:64:4: ^( INSERT i= INTO selectStatement )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	INSERT24=(CommonTree)Match(input,INSERT,FOLLOW_INSERT_in_insertStatement236); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	INSERT24=(IASTNode)Match(input,INSERT,FOLLOW_INSERT_in_insertStatement242); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{INSERT24_tree = (CommonTree)adaptor.DupNode(INSERT24);
+            	{INSERT24_tree = (IASTNode)adaptor.DupNode(INSERT24);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(INSERT24_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(INSERT24_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -1131,10 +1134,10 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	i=(CommonTree)Match(input,INTO,FOLLOW_INTO_in_insertStatement244); if (state.failed) return retval;
+            	_last = (IASTNode)input.LT(1);
+            	i=(IASTNode)Match(input,INTO,FOLLOW_INTO_in_insertStatement250); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{i_tree = (CommonTree)adaptor.DupNode(i);
+            	{i_tree = (IASTNode)adaptor.DupNode(i);
 
             		adaptor.AddChild(root_1, i_tree);
             	}
@@ -1142,8 +1145,8 @@ public partial class SqlGenerator : TreeParser
             	{
             	   Out( i ); Out( " " ); 
             	}
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_selectStatement_in_insertStatement250);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_selectStatement_in_insertStatement256);
             	selectStatement25 = selectStatement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -1159,7 +1162,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1176,51 +1179,51 @@ public partial class SqlGenerator : TreeParser
 
     public class setClause_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "setClause"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:65:1: setClause : ^( SET comparisonExpr[false] ( comparisonExpr[false] )* ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:70:1: setClause : ^( SET comparisonExpr[false] ( comparisonExpr[false] )* ) ;
     public SqlGenerator.setClause_return setClause() // throws RecognitionException [1]
     {   
         SqlGenerator.setClause_return retval = new SqlGenerator.setClause_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree SET26 = null;
+        IASTNode SET26 = null;
         SqlGenerator.comparisonExpr_return comparisonExpr27 = default(SqlGenerator.comparisonExpr_return);
 
         SqlGenerator.comparisonExpr_return comparisonExpr28 = default(SqlGenerator.comparisonExpr_return);
 
 
-        CommonTree SET26_tree=null;
+        IASTNode SET26_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:68:2: ( ^( SET comparisonExpr[false] ( comparisonExpr[false] )* ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:68:4: ^( SET comparisonExpr[false] ( comparisonExpr[false] )* )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:73:2: ( ^( SET comparisonExpr[false] ( comparisonExpr[false] )* ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:73:4: ^( SET comparisonExpr[false] ( comparisonExpr[false] )* )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	SET26=(CommonTree)Match(input,SET,FOLLOW_SET_in_setClause270); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	SET26=(IASTNode)Match(input,SET,FOLLOW_SET_in_setClause276); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{SET26_tree = (CommonTree)adaptor.DupNode(SET26);
+            	{SET26_tree = (IASTNode)adaptor.DupNode(SET26);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(SET26_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(SET26_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -1229,14 +1232,14 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_comparisonExpr_in_setClause274);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_comparisonExpr_in_setClause280);
             	comparisonExpr27 = comparisonExpr(false);
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_1, comparisonExpr27.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:68:51: ( comparisonExpr[false] )*
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:73:51: ( comparisonExpr[false] )*
             	do 
             	{
             	    int alt8 = 2;
@@ -1251,14 +1254,14 @@ public partial class SqlGenerator : TreeParser
             	    switch (alt8) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:68:53: comparisonExpr[false]
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:73:53: comparisonExpr[false]
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	   Out(", "); 
             			    	}
-            			    	_last = (CommonTree)input.LT(1);
-            			    	PushFollow(FOLLOW_comparisonExpr_in_setClause281);
+            			    	_last = (IASTNode)input.LT(1);
+            			    	PushFollow(FOLLOW_comparisonExpr_in_setClause287);
             			    	comparisonExpr28 = comparisonExpr(false);
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -1288,7 +1291,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1305,49 +1308,49 @@ public partial class SqlGenerator : TreeParser
 
     public class whereClause_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "whereClause"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:71:1: whereClause : ^( WHERE whereClauseExpr ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:76:1: whereClause : ^( WHERE whereClauseExpr ) ;
     public SqlGenerator.whereClause_return whereClause() // throws RecognitionException [1]
     {   
         SqlGenerator.whereClause_return retval = new SqlGenerator.whereClause_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree WHERE29 = null;
+        IASTNode WHERE29 = null;
         SqlGenerator.whereClauseExpr_return whereClauseExpr30 = default(SqlGenerator.whereClauseExpr_return);
 
 
-        CommonTree WHERE29_tree=null;
+        IASTNode WHERE29_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:72:2: ( ^( WHERE whereClauseExpr ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:72:4: ^( WHERE whereClauseExpr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:77:2: ( ^( WHERE whereClauseExpr ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:77:4: ^( WHERE whereClauseExpr )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	WHERE29=(CommonTree)Match(input,WHERE,FOLLOW_WHERE_in_whereClause299); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	WHERE29=(IASTNode)Match(input,WHERE,FOLLOW_WHERE_in_whereClause305); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{WHERE29_tree = (CommonTree)adaptor.DupNode(WHERE29);
+            	{WHERE29_tree = (IASTNode)adaptor.DupNode(WHERE29);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(WHERE29_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(WHERE29_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -1356,8 +1359,8 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_whereClauseExpr_in_whereClause303);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_whereClauseExpr_in_whereClause309);
             	whereClauseExpr30 = whereClauseExpr();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -1373,7 +1376,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1390,25 +1393,25 @@ public partial class SqlGenerator : TreeParser
 
     public class whereClauseExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "whereClauseExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:75:1: whereClauseExpr : ( ( SQL_TOKEN )=> conditionList | booleanExpr[ false ] );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:80:1: whereClauseExpr : ( ( SQL_TOKEN )=> conditionList | booleanExpr[ false ] );
     public SqlGenerator.whereClauseExpr_return whereClauseExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.whereClauseExpr_return retval = new SqlGenerator.whereClauseExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.conditionList_return conditionList31 = default(SqlGenerator.conditionList_return);
 
@@ -1418,7 +1421,7 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:76:2: ( ( SQL_TOKEN )=> conditionList | booleanExpr[ false ] )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:81:2: ( ( SQL_TOKEN )=> conditionList | booleanExpr[ false ] )
             int alt9 = 2;
             int LA9_0 = input.LA(1);
 
@@ -1458,12 +1461,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt9) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:76:4: ( SQL_TOKEN )=> conditionList
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:81:4: ( SQL_TOKEN )=> conditionList
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_conditionList_in_whereClauseExpr322);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_conditionList_in_whereClauseExpr328);
                     	conditionList31 = conditionList();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1475,12 +1478,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:77:4: booleanExpr[ false ]
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:4: booleanExpr[ false ]
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_whereClauseExpr327);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_whereClauseExpr333);
                     	booleanExpr32 = booleanExpr(false);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -1494,7 +1497,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1511,25 +1514,25 @@ public partial class SqlGenerator : TreeParser
 
     public class orderExprs_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "orderExprs"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:80:1: orderExprs : ( expr ) (dir= orderDirection )? ( orderExprs )? ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:85:1: orderExprs : ( expr ) (dir= orderDirection )? ( orderExprs )? ;
     public SqlGenerator.orderExprs_return orderExprs() // throws RecognitionException [1]
     {   
         SqlGenerator.orderExprs_return retval = new SqlGenerator.orderExprs_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.orderDirection_return dir = default(SqlGenerator.orderDirection_return);
 
@@ -1541,16 +1544,16 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:2: ( ( expr ) (dir= orderDirection )? ( orderExprs )? )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:4: ( expr ) (dir= orderDirection )? ( orderExprs )?
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:2: ( ( expr ) (dir= orderDirection )? ( orderExprs )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:4: ( expr ) (dir= orderDirection )? ( orderExprs )?
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:4: ( expr )
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:6: expr
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:4: ( expr )
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:6: expr
             	{
-            		_last = (CommonTree)input.LT(1);
-            		PushFollow(FOLLOW_expr_in_orderExprs343);
+            		_last = (IASTNode)input.LT(1);
+            		PushFollow(FOLLOW_expr_in_orderExprs349);
             		expr33 = expr();
             		state.followingStackPointer--;
             		if (state.failed) return retval;
@@ -1561,7 +1564,7 @@ public partial class SqlGenerator : TreeParser
             		}
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:13: (dir= orderDirection )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:13: (dir= orderDirection )?
             	int alt10 = 2;
             	int LA10_0 = input.LA(1);
 
@@ -1572,10 +1575,10 @@ public partial class SqlGenerator : TreeParser
             	switch (alt10) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:14: dir= orderDirection
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:14: dir= orderDirection
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_orderDirection_in_orderExprs350);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_orderDirection_in_orderExprs356);
             	        	dir = orderDirection();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -1583,7 +1586,7 @@ public partial class SqlGenerator : TreeParser
             	        	adaptor.AddChild(root_0, dir.Tree);
             	        	if ( state.backtracking == 0 ) 
             	        	{
-            	        	   Out(" "); Out(((dir != null) ? ((CommonTree)dir.Tree) : null)); 
+            	        	   Out(" "); Out(((dir != null) ? ((IASTNode)dir.Tree) : null)); 
             	        	}
 
             	        	if ( state.backtracking==0 ) {
@@ -1593,7 +1596,7 @@ public partial class SqlGenerator : TreeParser
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:65: ( orderExprs )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:65: ( orderExprs )?
             	int alt11 = 2;
             	int LA11_0 = input.LA(1);
 
@@ -1604,14 +1607,14 @@ public partial class SqlGenerator : TreeParser
             	switch (alt11) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:82:67: orderExprs
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:67: orderExprs
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	  Out(", "); 
             	        	}
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_orderExprs_in_orderExprs360);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_orderExprs_in_orderExprs366);
             	        	orderExprs34 = orderExprs();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -1631,7 +1634,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1648,25 +1651,25 @@ public partial class SqlGenerator : TreeParser
 
     public class groupExprs_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "groupExprs"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:85:1: groupExprs : expr ( groupExprs )? ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:90:1: groupExprs : expr ( groupExprs )? ;
     public SqlGenerator.groupExprs_return groupExprs() // throws RecognitionException [1]
     {   
         SqlGenerator.groupExprs_return retval = new SqlGenerator.groupExprs_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.expr_return expr35 = default(SqlGenerator.expr_return);
 
@@ -1676,19 +1679,19 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:2: ( expr ( groupExprs )? )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:4: expr ( groupExprs )?
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:92:2: ( expr ( groupExprs )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:92:4: expr ( groupExprs )?
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_expr_in_groupExprs375);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_expr_in_groupExprs381);
             	expr35 = expr();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_0, expr35.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:9: ( groupExprs )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:92:9: ( groupExprs )?
             	int alt12 = 2;
             	int LA12_0 = input.LA(1);
 
@@ -1699,14 +1702,14 @@ public partial class SqlGenerator : TreeParser
             	switch (alt12) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:11: groupExprs
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:92:11: groupExprs
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	  Out(" , "); 
             	        	}
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_groupExprs_in_groupExprs381);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_groupExprs_in_groupExprs387);
             	        	groupExprs36 = groupExprs();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -1726,7 +1729,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1743,45 +1746,45 @@ public partial class SqlGenerator : TreeParser
 
     public class orderDirection_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "orderDirection"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:90:1: orderDirection : ( ASCENDING | DESCENDING );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:95:1: orderDirection : ( ASCENDING | DESCENDING );
     public SqlGenerator.orderDirection_return orderDirection() // throws RecognitionException [1]
     {   
         SqlGenerator.orderDirection_return retval = new SqlGenerator.orderDirection_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree set37 = null;
+        IASTNode set37 = null;
 
-        CommonTree set37_tree=null;
+        IASTNode set37_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:91:2: ( ASCENDING | DESCENDING )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:96:2: ( ASCENDING | DESCENDING )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	set37 = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
+            	set37 = (IASTNode)input.LT(1);
             	if ( input.LA(1) == ASCENDING || input.LA(1) == DESCENDING ) 
             	{
             	    input.Consume();
 
             	    if ( state.backtracking==0 ) {
-            	    set37_tree = (CommonTree)adaptor.DupNode(set37);
+            	    set37_tree = (IASTNode)adaptor.DupNode(set37);
 
             	    adaptor.AddChild(root_0, set37_tree);
             	    }
@@ -1800,7 +1803,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -1817,25 +1820,25 @@ public partial class SqlGenerator : TreeParser
 
     public class whereExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "whereExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:95:1: whereExpr : ( filters ( thetaJoins )? ( booleanExpr[ true ] )? | thetaJoins ( booleanExpr[ true ] )? | booleanExpr[false] );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:100:1: whereExpr : ( filters ( thetaJoins )? ( booleanExpr[ true ] )? | thetaJoins ( booleanExpr[ true ] )? | booleanExpr[false] );
     public SqlGenerator.whereExpr_return whereExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.whereExpr_return retval = new SqlGenerator.whereExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.filters_return filters38 = default(SqlGenerator.filters_return);
 
@@ -1853,7 +1856,7 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:99:2: ( filters ( thetaJoins )? ( booleanExpr[ true ] )? | thetaJoins ( booleanExpr[ true ] )? | booleanExpr[false] )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:104:2: ( filters ( thetaJoins )? ( booleanExpr[ true ] )? | thetaJoins ( booleanExpr[ true ] )? | booleanExpr[false] )
             int alt16 = 3;
             switch ( input.LA(1) ) 
             {
@@ -1901,18 +1904,18 @@ public partial class SqlGenerator : TreeParser
             switch (alt16) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:99:4: filters ( thetaJoins )? ( booleanExpr[ true ] )?
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:104:4: filters ( thetaJoins )? ( booleanExpr[ true ] )?
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_filters_in_whereExpr416);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_filters_in_whereExpr422);
                     	filters38 = filters();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking==0 ) 
                     	adaptor.AddChild(root_0, filters38.Tree);
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:100:3: ( thetaJoins )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:105:3: ( thetaJoins )?
                     	int alt13 = 2;
                     	int LA13_0 = input.LA(1);
 
@@ -1923,14 +1926,14 @@ public partial class SqlGenerator : TreeParser
                     	switch (alt13) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:100:5: thetaJoins
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:105:5: thetaJoins
                     	        {
                     	        	if ( state.backtracking == 0 ) 
                     	        	{
                     	        	   Out(" and "); 
                     	        	}
-                    	        	_last = (CommonTree)input.LT(1);
-                    	        	PushFollow(FOLLOW_thetaJoins_in_whereExpr424);
+                    	        	_last = (IASTNode)input.LT(1);
+                    	        	PushFollow(FOLLOW_thetaJoins_in_whereExpr430);
                     	        	thetaJoins39 = thetaJoins();
                     	        	state.followingStackPointer--;
                     	        	if (state.failed) return retval;
@@ -1944,7 +1947,7 @@ public partial class SqlGenerator : TreeParser
 
                     	}
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:101:3: ( booleanExpr[ true ] )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:106:3: ( booleanExpr[ true ] )?
                     	int alt14 = 2;
                     	int LA14_0 = input.LA(1);
 
@@ -1955,14 +1958,14 @@ public partial class SqlGenerator : TreeParser
                     	switch (alt14) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:101:5: booleanExpr[ true ]
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:106:5: booleanExpr[ true ]
                     	        {
                     	        	if ( state.backtracking == 0 ) 
                     	        	{
                     	        	   Out(" and "); 
                     	        	}
-                    	        	_last = (CommonTree)input.LT(1);
-                    	        	PushFollow(FOLLOW_booleanExpr_in_whereExpr435);
+                    	        	_last = (IASTNode)input.LT(1);
+                    	        	PushFollow(FOLLOW_booleanExpr_in_whereExpr441);
                     	        	booleanExpr40 = booleanExpr(true);
                     	        	state.followingStackPointer--;
                     	        	if (state.failed) return retval;
@@ -1982,18 +1985,18 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:102:4: thetaJoins ( booleanExpr[ true ] )?
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:107:4: thetaJoins ( booleanExpr[ true ] )?
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_thetaJoins_in_whereExpr445);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_thetaJoins_in_whereExpr451);
                     	thetaJoins41 = thetaJoins();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking==0 ) 
                     	adaptor.AddChild(root_0, thetaJoins41.Tree);
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:103:3: ( booleanExpr[ true ] )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:108:3: ( booleanExpr[ true ] )?
                     	int alt15 = 2;
                     	int LA15_0 = input.LA(1);
 
@@ -2004,14 +2007,14 @@ public partial class SqlGenerator : TreeParser
                     	switch (alt15) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:103:5: booleanExpr[ true ]
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:108:5: booleanExpr[ true ]
                     	        {
                     	        	if ( state.backtracking == 0 ) 
                     	        	{
                     	        	   Out(" and "); 
                     	        	}
-                    	        	_last = (CommonTree)input.LT(1);
-                    	        	PushFollow(FOLLOW_booleanExpr_in_whereExpr453);
+                    	        	_last = (IASTNode)input.LT(1);
+                    	        	PushFollow(FOLLOW_booleanExpr_in_whereExpr459);
                     	        	booleanExpr42 = booleanExpr(true);
                     	        	state.followingStackPointer--;
                     	        	if (state.failed) return retval;
@@ -2031,12 +2034,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:104:4: booleanExpr[false]
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:109:4: booleanExpr[false]
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_whereExpr464);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_whereExpr470);
                     	booleanExpr43 = booleanExpr(false);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2050,7 +2053,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2067,55 +2070,55 @@ public partial class SqlGenerator : TreeParser
 
     public class filters_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "filters"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:107:1: filters : ^( FILTERS conditionList ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:112:1: filters : ^( FILTERS conditionList ) ;
     public SqlGenerator.filters_return filters() // throws RecognitionException [1]
     {   
         SqlGenerator.filters_return retval = new SqlGenerator.filters_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree FILTERS44 = null;
+        IASTNode FILTERS44 = null;
         SqlGenerator.conditionList_return conditionList45 = default(SqlGenerator.conditionList_return);
 
 
-        CommonTree FILTERS44_tree=null;
+        IASTNode FILTERS44_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:108:2: ( ^( FILTERS conditionList ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:108:4: ^( FILTERS conditionList )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:113:2: ( ^( FILTERS conditionList ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:113:4: ^( FILTERS conditionList )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	FILTERS44=(CommonTree)Match(input,FILTERS,FOLLOW_FILTERS_in_filters477); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	FILTERS44=(IASTNode)Match(input,FILTERS,FOLLOW_FILTERS_in_filters483); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{FILTERS44_tree = (CommonTree)adaptor.DupNode(FILTERS44);
+            	{FILTERS44_tree = (IASTNode)adaptor.DupNode(FILTERS44);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(FILTERS44_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(FILTERS44_tree, root_1);
             	}
 
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_conditionList_in_filters479);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_conditionList_in_filters485);
             	conditionList45 = conditionList();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -2131,7 +2134,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2148,55 +2151,55 @@ public partial class SqlGenerator : TreeParser
 
     public class thetaJoins_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "thetaJoins"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:111:1: thetaJoins : ^( THETA_JOINS conditionList ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:116:1: thetaJoins : ^( THETA_JOINS conditionList ) ;
     public SqlGenerator.thetaJoins_return thetaJoins() // throws RecognitionException [1]
     {   
         SqlGenerator.thetaJoins_return retval = new SqlGenerator.thetaJoins_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree THETA_JOINS46 = null;
+        IASTNode THETA_JOINS46 = null;
         SqlGenerator.conditionList_return conditionList47 = default(SqlGenerator.conditionList_return);
 
 
-        CommonTree THETA_JOINS46_tree=null;
+        IASTNode THETA_JOINS46_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:112:2: ( ^( THETA_JOINS conditionList ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:112:4: ^( THETA_JOINS conditionList )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:117:2: ( ^( THETA_JOINS conditionList ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:117:4: ^( THETA_JOINS conditionList )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	THETA_JOINS46=(CommonTree)Match(input,THETA_JOINS,FOLLOW_THETA_JOINS_in_thetaJoins493); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	THETA_JOINS46=(IASTNode)Match(input,THETA_JOINS,FOLLOW_THETA_JOINS_in_thetaJoins499); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{THETA_JOINS46_tree = (CommonTree)adaptor.DupNode(THETA_JOINS46);
+            	{THETA_JOINS46_tree = (IASTNode)adaptor.DupNode(THETA_JOINS46);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(THETA_JOINS46_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(THETA_JOINS46_tree, root_1);
             	}
 
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_conditionList_in_thetaJoins495);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_conditionList_in_thetaJoins501);
             	conditionList47 = conditionList();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -2212,7 +2215,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2229,25 +2232,25 @@ public partial class SqlGenerator : TreeParser
 
     public class conditionList_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "conditionList"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:115:1: conditionList : sqlToken ( conditionList )? ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:1: conditionList : sqlToken ( conditionList )? ;
     public SqlGenerator.conditionList_return conditionList() // throws RecognitionException [1]
     {   
         SqlGenerator.conditionList_return retval = new SqlGenerator.conditionList_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.sqlToken_return sqlToken48 = default(SqlGenerator.sqlToken_return);
 
@@ -2257,19 +2260,19 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:116:2: ( sqlToken ( conditionList )? )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:116:4: sqlToken ( conditionList )?
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:121:2: ( sqlToken ( conditionList )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:121:4: sqlToken ( conditionList )?
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_sqlToken_in_conditionList508);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_sqlToken_in_conditionList514);
             	sqlToken48 = sqlToken();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_0, sqlToken48.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:116:13: ( conditionList )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:121:13: ( conditionList )?
             	int alt17 = 2;
             	int LA17_0 = input.LA(1);
 
@@ -2280,14 +2283,14 @@ public partial class SqlGenerator : TreeParser
             	switch (alt17) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:116:15: conditionList
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:121:15: conditionList
             	        {
             	        	if ( state.backtracking == 0 ) 
             	        	{
             	        	   Out(" and "); 
             	        	}
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_conditionList_in_conditionList514);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_conditionList_in_conditionList520);
             	        	conditionList49 = conditionList();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -2307,7 +2310,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2324,56 +2327,56 @@ public partial class SqlGenerator : TreeParser
 
     public class selectClause_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "selectClause"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:119:1: selectClause : ^( SELECT_CLAUSE ( distinctOrAll )? ( selectColumn )+ ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:124:1: selectClause : ^( SELECT_CLAUSE ( distinctOrAll )? ( selectColumn )+ ) ;
     public SqlGenerator.selectClause_return selectClause() // throws RecognitionException [1]
     {   
         SqlGenerator.selectClause_return retval = new SqlGenerator.selectClause_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree SELECT_CLAUSE50 = null;
+        IASTNode SELECT_CLAUSE50 = null;
         SqlGenerator.distinctOrAll_return distinctOrAll51 = default(SqlGenerator.distinctOrAll_return);
 
         SqlGenerator.selectColumn_return selectColumn52 = default(SqlGenerator.selectColumn_return);
 
 
-        CommonTree SELECT_CLAUSE50_tree=null;
+        IASTNode SELECT_CLAUSE50_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:2: ( ^( SELECT_CLAUSE ( distinctOrAll )? ( selectColumn )+ ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:4: ^( SELECT_CLAUSE ( distinctOrAll )? ( selectColumn )+ )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:125:2: ( ^( SELECT_CLAUSE ( distinctOrAll )? ( selectColumn )+ ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:125:4: ^( SELECT_CLAUSE ( distinctOrAll )? ( selectColumn )+ )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	SELECT_CLAUSE50=(CommonTree)Match(input,SELECT_CLAUSE,FOLLOW_SELECT_CLAUSE_in_selectClause529); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	SELECT_CLAUSE50=(IASTNode)Match(input,SELECT_CLAUSE,FOLLOW_SELECT_CLAUSE_in_selectClause535); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{SELECT_CLAUSE50_tree = (CommonTree)adaptor.DupNode(SELECT_CLAUSE50);
+            	{SELECT_CLAUSE50_tree = (IASTNode)adaptor.DupNode(SELECT_CLAUSE50);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(SELECT_CLAUSE50_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(SELECT_CLAUSE50_tree, root_1);
             	}
 
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:20: ( distinctOrAll )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:125:20: ( distinctOrAll )?
             	int alt18 = 2;
             	int LA18_0 = input.LA(1);
 
@@ -2384,10 +2387,10 @@ public partial class SqlGenerator : TreeParser
             	switch (alt18) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:21: distinctOrAll
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:125:21: distinctOrAll
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_distinctOrAll_in_selectClause532);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_distinctOrAll_in_selectClause538);
             	        	distinctOrAll51 = distinctOrAll();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -2401,7 +2404,7 @@ public partial class SqlGenerator : TreeParser
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:37: ( selectColumn )+
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:125:37: ( selectColumn )+
             	int cnt19 = 0;
             	do 
             	{
@@ -2417,10 +2420,10 @@ public partial class SqlGenerator : TreeParser
             	    switch (alt19) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:120:39: selectColumn
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:125:39: selectColumn
             			    {
-            			    	_last = (CommonTree)input.LT(1);
-            			    	PushFollow(FOLLOW_selectColumn_in_selectClause538);
+            			    	_last = (IASTNode)input.LT(1);
+            			    	PushFollow(FOLLOW_selectColumn_in_selectClause544);
             			    	selectColumn52 = selectColumn();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -2455,7 +2458,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2472,47 +2475,47 @@ public partial class SqlGenerator : TreeParser
 
     public class selectColumn_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "selectColumn"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:123:1: selectColumn : p= selectExpr (sc= SELECT_COLUMNS )? ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:128:1: selectColumn : p= selectExpr (sc= SELECT_COLUMNS )? ;
     public SqlGenerator.selectColumn_return selectColumn() // throws RecognitionException [1]
     {   
         SqlGenerator.selectColumn_return retval = new SqlGenerator.selectColumn_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree sc = null;
+        IASTNode sc = null;
         SqlGenerator.selectExpr_return p = default(SqlGenerator.selectExpr_return);
 
 
-        CommonTree sc_tree=null;
+        IASTNode sc_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:124:2: (p= selectExpr (sc= SELECT_COLUMNS )? )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:124:4: p= selectExpr (sc= SELECT_COLUMNS )?
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:129:2: (p= selectExpr (sc= SELECT_COLUMNS )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:129:4: p= selectExpr (sc= SELECT_COLUMNS )?
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_selectExpr_in_selectColumn556);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_selectExpr_in_selectColumn562);
             	p = selectExpr();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_0, p.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:124:17: (sc= SELECT_COLUMNS )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:129:17: (sc= SELECT_COLUMNS )?
             	int alt20 = 2;
             	int LA20_0 = input.LA(1);
 
@@ -2523,12 +2526,12 @@ public partial class SqlGenerator : TreeParser
             	switch (alt20) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:124:18: sc= SELECT_COLUMNS
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:129:18: sc= SELECT_COLUMNS
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	sc=(CommonTree)Match(input,SELECT_COLUMNS,FOLLOW_SELECT_COLUMNS_in_selectColumn561); if (state.failed) return retval;
+            	        	_last = (IASTNode)input.LT(1);
+            	        	sc=(IASTNode)Match(input,SELECT_COLUMNS,FOLLOW_SELECT_COLUMNS_in_selectColumn567); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
-            	        	{sc_tree = (CommonTree)adaptor.DupNode(sc);
+            	        	{sc_tree = (IASTNode)adaptor.DupNode(sc);
 
             	        		adaptor.AddChild(root_0, sc_tree);
             	        	}
@@ -2546,7 +2549,7 @@ public partial class SqlGenerator : TreeParser
 
             	if ( state.backtracking == 0 ) 
             	{
-            	   separator( (sc != null) ? sc : ((p != null) ? ((CommonTree)p.Tree) : null) ,", "); 
+            	   separator( (sc != null) ? sc : ((p != null) ? ((IASTNode)p.Tree) : null) ,", "); 
             	}
 
             	if ( state.backtracking==0 ) {
@@ -2554,7 +2557,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2571,29 +2574,29 @@ public partial class SqlGenerator : TreeParser
 
     public class selectExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "selectExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:127:1: selectExpr : (e= selectAtom | count | ^( CONSTRUCTOR ( DOT | IDENT ) ( selectColumn )+ ) | methodCall | aggregate | c= constant | arithmeticExpr | param= PARAM | selectStatement );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:132:1: selectExpr : (e= selectAtom | count | ^( CONSTRUCTOR ( DOT | IDENT ) ( selectColumn )+ ) | methodCall | aggregate | c= constant | arithmeticExpr | param= PARAM | selectStatement );
     public SqlGenerator.selectExpr_return selectExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.selectExpr_return retval = new SqlGenerator.selectExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree param = null;
-        CommonTree CONSTRUCTOR54 = null;
-        CommonTree set55 = null;
+        IASTNode param = null;
+        IASTNode CONSTRUCTOR54 = null;
+        IASTNode set55 = null;
         SqlGenerator.selectAtom_return e = default(SqlGenerator.selectAtom_return);
 
         SqlGenerator.constant_return c = default(SqlGenerator.constant_return);
@@ -2611,13 +2614,13 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.selectStatement_return selectStatement60 = default(SqlGenerator.selectStatement_return);
 
 
-        CommonTree param_tree=null;
-        CommonTree CONSTRUCTOR54_tree=null;
-        CommonTree set55_tree=null;
+        IASTNode param_tree=null;
+        IASTNode CONSTRUCTOR54_tree=null;
+        IASTNode set55_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:128:2: (e= selectAtom | count | ^( CONSTRUCTOR ( DOT | IDENT ) ( selectColumn )+ ) | methodCall | aggregate | c= constant | arithmeticExpr | param= PARAM | selectStatement )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:133:2: (e= selectAtom | count | ^( CONSTRUCTOR ( DOT | IDENT ) ( selectColumn )+ ) | methodCall | aggregate | c= constant | arithmeticExpr | param= PARAM | selectStatement )
             int alt22 = 9;
             switch ( input.LA(1) ) 
             {
@@ -2695,12 +2698,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt22) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:128:4: e= selectAtom
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:133:4: e= selectAtom
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_selectAtom_in_selectExpr581);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_selectAtom_in_selectExpr587);
                     	e = selectAtom();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2708,7 +2711,7 @@ public partial class SqlGenerator : TreeParser
                     	adaptor.AddChild(root_0, e.Tree);
                     	if ( state.backtracking == 0 ) 
                     	{
-                    	   Out(((e != null) ? ((CommonTree)e.Tree) : null)); 
+                    	   Out(((e != null) ? ((IASTNode)e.Tree) : null)); 
                     	}
 
                     	if ( state.backtracking==0 ) {
@@ -2716,12 +2719,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:129:4: count
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:134:4: count
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_count_in_selectExpr588);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_count_in_selectExpr594);
                     	count53 = count();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2733,32 +2736,32 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:130:4: ^( CONSTRUCTOR ( DOT | IDENT ) ( selectColumn )+ )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:135:4: ^( CONSTRUCTOR ( DOT | IDENT ) ( selectColumn )+ )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	CONSTRUCTOR54=(CommonTree)Match(input,CONSTRUCTOR,FOLLOW_CONSTRUCTOR_in_selectExpr594); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	CONSTRUCTOR54=(IASTNode)Match(input,CONSTRUCTOR,FOLLOW_CONSTRUCTOR_in_selectExpr600); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{CONSTRUCTOR54_tree = (CommonTree)adaptor.DupNode(CONSTRUCTOR54);
+                    	{CONSTRUCTOR54_tree = (IASTNode)adaptor.DupNode(CONSTRUCTOR54);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(CONSTRUCTOR54_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(CONSTRUCTOR54_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	set55 = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
+                    	set55 = (IASTNode)input.LT(1);
                     	if ( input.LA(1) == DOT || input.LA(1) == IDENT ) 
                     	{
                     	    input.Consume();
 
                     	    if ( state.backtracking==0 ) {
-                    	    set55_tree = (CommonTree)adaptor.DupNode(set55);
+                    	    set55_tree = (IASTNode)adaptor.DupNode(set55);
 
                     	    adaptor.AddChild(root_1, set55_tree);
                     	    }
@@ -2771,7 +2774,7 @@ public partial class SqlGenerator : TreeParser
                     	    throw mse;
                     	}
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:130:32: ( selectColumn )+
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:135:32: ( selectColumn )+
                     	int cnt21 = 0;
                     	do 
                     	{
@@ -2787,10 +2790,10 @@ public partial class SqlGenerator : TreeParser
                     	    switch (alt21) 
                     		{
                     			case 1 :
-                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:130:34: selectColumn
+                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:135:34: selectColumn
                     			    {
-                    			    	_last = (CommonTree)input.LT(1);
-                    			    	PushFollow(FOLLOW_selectColumn_in_selectExpr606);
+                    			    	_last = (IASTNode)input.LT(1);
+                    			    	PushFollow(FOLLOW_selectColumn_in_selectExpr612);
                     			    	selectColumn56 = selectColumn();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -2825,12 +2828,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:131:4: methodCall
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:136:4: methodCall
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_methodCall_in_selectExpr616);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_methodCall_in_selectExpr622);
                     	methodCall57 = methodCall();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2842,12 +2845,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 5 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:132:4: aggregate
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:137:4: aggregate
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_aggregate_in_selectExpr621);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_aggregate_in_selectExpr627);
                     	aggregate58 = aggregate();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2859,12 +2862,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 6 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:133:4: c= constant
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:138:4: c= constant
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_constant_in_selectExpr628);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_constant_in_selectExpr634);
                     	c = constant();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2872,7 +2875,7 @@ public partial class SqlGenerator : TreeParser
                     	adaptor.AddChild(root_0, c.Tree);
                     	if ( state.backtracking == 0 ) 
                     	{
-                    	   Out(((c != null) ? ((CommonTree)c.Tree) : null)); 
+                    	   Out(((c != null) ? ((IASTNode)c.Tree) : null)); 
                     	}
 
                     	if ( state.backtracking==0 ) {
@@ -2880,12 +2883,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 7 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:134:4: arithmeticExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:139:4: arithmeticExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_arithmeticExpr_in_selectExpr635);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_arithmeticExpr_in_selectExpr641);
                     	arithmeticExpr59 = arithmeticExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2897,14 +2900,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 8 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:135:4: param= PARAM
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:140:4: param= PARAM
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	param=(CommonTree)Match(input,PARAM,FOLLOW_PARAM_in_selectExpr642); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	param=(IASTNode)Match(input,PARAM,FOLLOW_PARAM_in_selectExpr648); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{param_tree = (CommonTree)adaptor.DupNode(param);
+                    	{param_tree = (IASTNode)adaptor.DupNode(param);
 
                     		adaptor.AddChild(root_0, param_tree);
                     	}
@@ -2918,16 +2921,16 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 9 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:137:4: selectStatement
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:142:4: selectStatement
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	if ( state.backtracking == 0 ) 
                     	{
                     	   Out("("); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_selectStatement_in_selectExpr652);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_selectStatement_in_selectExpr658);
                     	selectStatement60 = selectStatement();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -2945,7 +2948,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -2962,51 +2965,51 @@ public partial class SqlGenerator : TreeParser
 
     public class count_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "count"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:140:1: count : ^( COUNT ( distinctOrAll )? countExpr ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:145:1: count : ^( COUNT ( distinctOrAll )? countExpr ) ;
     public SqlGenerator.count_return count() // throws RecognitionException [1]
     {   
         SqlGenerator.count_return retval = new SqlGenerator.count_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree COUNT61 = null;
+        IASTNode COUNT61 = null;
         SqlGenerator.distinctOrAll_return distinctOrAll62 = default(SqlGenerator.distinctOrAll_return);
 
         SqlGenerator.countExpr_return countExpr63 = default(SqlGenerator.countExpr_return);
 
 
-        CommonTree COUNT61_tree=null;
+        IASTNode COUNT61_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:141:2: ( ^( COUNT ( distinctOrAll )? countExpr ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:141:4: ^( COUNT ( distinctOrAll )? countExpr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:146:2: ( ^( COUNT ( distinctOrAll )? countExpr ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:146:4: ^( COUNT ( distinctOrAll )? countExpr )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	COUNT61=(CommonTree)Match(input,COUNT,FOLLOW_COUNT_in_count666); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	COUNT61=(IASTNode)Match(input,COUNT,FOLLOW_COUNT_in_count672); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{COUNT61_tree = (CommonTree)adaptor.DupNode(COUNT61);
+            	{COUNT61_tree = (IASTNode)adaptor.DupNode(COUNT61);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(COUNT61_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(COUNT61_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -3015,7 +3018,7 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:141:32: ( distinctOrAll )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:146:32: ( distinctOrAll )?
             	int alt23 = 2;
             	int LA23_0 = input.LA(1);
 
@@ -3026,10 +3029,10 @@ public partial class SqlGenerator : TreeParser
             	switch (alt23) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:141:34: distinctOrAll
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:146:34: distinctOrAll
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_distinctOrAll_in_count673);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_distinctOrAll_in_count679);
             	        	distinctOrAll62 = distinctOrAll();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -3043,8 +3046,8 @@ public partial class SqlGenerator : TreeParser
 
             	}
 
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_countExpr_in_count679);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_countExpr_in_count685);
             	countExpr63 = countExpr();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -3064,7 +3067,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3081,35 +3084,35 @@ public partial class SqlGenerator : TreeParser
 
     public class distinctOrAll_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "distinctOrAll"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:144:1: distinctOrAll : ( DISTINCT | ALL );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:149:1: distinctOrAll : ( DISTINCT | ALL );
     public SqlGenerator.distinctOrAll_return distinctOrAll() // throws RecognitionException [1]
     {   
         SqlGenerator.distinctOrAll_return retval = new SqlGenerator.distinctOrAll_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree DISTINCT64 = null;
-        CommonTree ALL65 = null;
+        IASTNode DISTINCT64 = null;
+        IASTNode ALL65 = null;
 
-        CommonTree DISTINCT64_tree=null;
-        CommonTree ALL65_tree=null;
+        IASTNode DISTINCT64_tree=null;
+        IASTNode ALL65_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:145:2: ( DISTINCT | ALL )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:150:2: ( DISTINCT | ALL )
             int alt24 = 2;
             int LA24_0 = input.LA(1);
 
@@ -3132,14 +3135,14 @@ public partial class SqlGenerator : TreeParser
             switch (alt24) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:145:4: DISTINCT
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:150:4: DISTINCT
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	DISTINCT64=(CommonTree)Match(input,DISTINCT,FOLLOW_DISTINCT_in_distinctOrAll694); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	DISTINCT64=(IASTNode)Match(input,DISTINCT,FOLLOW_DISTINCT_in_distinctOrAll700); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{DISTINCT64_tree = (CommonTree)adaptor.DupNode(DISTINCT64);
+                    	{DISTINCT64_tree = (IASTNode)adaptor.DupNode(DISTINCT64);
 
                     		adaptor.AddChild(root_0, DISTINCT64_tree);
                     	}
@@ -3153,14 +3156,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:146:4: ALL
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:151:4: ALL
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	ALL65=(CommonTree)Match(input,ALL,FOLLOW_ALL_in_distinctOrAll701); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	ALL65=(IASTNode)Match(input,ALL,FOLLOW_ALL_in_distinctOrAll707); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{ALL65_tree = (CommonTree)adaptor.DupNode(ALL65);
+                    	{ALL65_tree = (IASTNode)adaptor.DupNode(ALL65);
 
                     		adaptor.AddChild(root_0, ALL65_tree);
                     	}
@@ -3176,7 +3179,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3193,35 +3196,35 @@ public partial class SqlGenerator : TreeParser
 
     public class countExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "countExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:149:1: countExpr : ( ROW_STAR | simpleExpr );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:154:1: countExpr : ( ROW_STAR | simpleExpr );
     public SqlGenerator.countExpr_return countExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.countExpr_return retval = new SqlGenerator.countExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree ROW_STAR66 = null;
+        IASTNode ROW_STAR66 = null;
         SqlGenerator.simpleExpr_return simpleExpr67 = default(SqlGenerator.simpleExpr_return);
 
 
-        CommonTree ROW_STAR66_tree=null;
+        IASTNode ROW_STAR66_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:151:2: ( ROW_STAR | simpleExpr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:156:2: ( ROW_STAR | simpleExpr )
             int alt25 = 2;
             int LA25_0 = input.LA(1);
 
@@ -3244,14 +3247,14 @@ public partial class SqlGenerator : TreeParser
             switch (alt25) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:151:4: ROW_STAR
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:156:4: ROW_STAR
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	ROW_STAR66=(CommonTree)Match(input,ROW_STAR,FOLLOW_ROW_STAR_in_countExpr716); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	ROW_STAR66=(IASTNode)Match(input,ROW_STAR,FOLLOW_ROW_STAR_in_countExpr722); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{ROW_STAR66_tree = (CommonTree)adaptor.DupNode(ROW_STAR66);
+                    	{ROW_STAR66_tree = (IASTNode)adaptor.DupNode(ROW_STAR66);
 
                     		adaptor.AddChild(root_0, ROW_STAR66_tree);
                     	}
@@ -3265,12 +3268,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:152:4: simpleExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:157:4: simpleExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_simpleExpr_in_countExpr723);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_simpleExpr_in_countExpr729);
                     	simpleExpr67 = simpleExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -3284,7 +3287,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3301,45 +3304,45 @@ public partial class SqlGenerator : TreeParser
 
     public class selectAtom_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "selectAtom"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:155:1: selectAtom : ( DOT | SQL_TOKEN | ALIAS_REF | SELECT_EXPR );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:160:1: selectAtom : ( DOT | SQL_TOKEN | ALIAS_REF | SELECT_EXPR );
     public SqlGenerator.selectAtom_return selectAtom() // throws RecognitionException [1]
     {   
         SqlGenerator.selectAtom_return retval = new SqlGenerator.selectAtom_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree set68 = null;
+        IASTNode set68 = null;
 
-        CommonTree set68_tree=null;
+        IASTNode set68_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:156:2: ( DOT | SQL_TOKEN | ALIAS_REF | SELECT_EXPR )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:161:2: ( DOT | SQL_TOKEN | ALIAS_REF | SELECT_EXPR )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	set68 = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
+            	set68 = (IASTNode)input.LT(1);
             	if ( input.LA(1) == DOT || input.LA(1) == ALIAS_REF || input.LA(1) == SQL_TOKEN || input.LA(1) == SELECT_EXPR ) 
             	{
             	    input.Consume();
 
             	    if ( state.backtracking==0 ) {
-            	    set68_tree = (CommonTree)adaptor.DupNode(set68);
+            	    set68_tree = (IASTNode)adaptor.DupNode(set68);
 
             	    adaptor.AddChild(root_0, set68_tree);
             	    }
@@ -3358,7 +3361,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3375,49 +3378,49 @@ public partial class SqlGenerator : TreeParser
 
     public class from_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "from"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:167:1: from : ^(f= FROM ( fromTable )* ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:172:1: from : ^(f= FROM ( fromTable )* ) ;
     public SqlGenerator.from_return from() // throws RecognitionException [1]
     {   
         SqlGenerator.from_return retval = new SqlGenerator.from_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree f = null;
+        IASTNode f = null;
         SqlGenerator.fromTable_return fromTable69 = default(SqlGenerator.fromTable_return);
 
 
-        CommonTree f_tree=null;
+        IASTNode f_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:168:2: ( ^(f= FROM ( fromTable )* ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:168:4: ^(f= FROM ( fromTable )* )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:173:2: ( ^(f= FROM ( fromTable )* ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:173:4: ^(f= FROM ( fromTable )* )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	f=(CommonTree)Match(input,FROM,FOLLOW_FROM_in_from768); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	f=(IASTNode)Match(input,FROM,FOLLOW_FROM_in_from774); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{f_tree = (CommonTree)adaptor.DupNode(f);
+            	{f_tree = (IASTNode)adaptor.DupNode(f);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(f_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(f_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -3428,7 +3431,7 @@ public partial class SqlGenerator : TreeParser
             	if ( input.LA(1) == Token.DOWN )
             	{
             	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:169:3: ( fromTable )*
+            	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:174:3: ( fromTable )*
             	    do 
             	    {
             	        int alt26 = 2;
@@ -3443,10 +3446,10 @@ public partial class SqlGenerator : TreeParser
             	        switch (alt26) 
             	    	{
             	    		case 1 :
-            	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:169:4: fromTable
+            	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:174:4: fromTable
             	    		    {
-            	    		    	_last = (CommonTree)input.LT(1);
-            	    		    	PushFollow(FOLLOW_fromTable_in_from775);
+            	    		    	_last = (IASTNode)input.LT(1);
+            	    		    	PushFollow(FOLLOW_fromTable_in_from781);
             	    		    	fromTable69 = fromTable();
             	    		    	state.followingStackPointer--;
             	    		    	if (state.failed) return retval;
@@ -3477,7 +3480,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3494,39 +3497,39 @@ public partial class SqlGenerator : TreeParser
 
     public class fromTable_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "fromTable"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:172:1: fromTable : ( ^(a= FROM_FRAGMENT ( tableJoin[ a ] )* ) | ^(b= JOIN_FRAGMENT ( tableJoin[ b ] )* ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:177:1: fromTable : ( ^(a= FROM_FRAGMENT ( tableJoin[ a ] )* ) | ^(b= JOIN_FRAGMENT ( tableJoin[ b ] )* ) );
     public SqlGenerator.fromTable_return fromTable() // throws RecognitionException [1]
     {   
         SqlGenerator.fromTable_return retval = new SqlGenerator.fromTable_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree a = null;
-        CommonTree b = null;
+        IASTNode a = null;
+        IASTNode b = null;
         SqlGenerator.tableJoin_return tableJoin70 = default(SqlGenerator.tableJoin_return);
 
         SqlGenerator.tableJoin_return tableJoin71 = default(SqlGenerator.tableJoin_return);
 
 
-        CommonTree a_tree=null;
-        CommonTree b_tree=null;
+        IASTNode a_tree=null;
+        IASTNode b_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:174:2: ( ^(a= FROM_FRAGMENT ( tableJoin[ a ] )* ) | ^(b= JOIN_FRAGMENT ( tableJoin[ b ] )* ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:2: ( ^(a= FROM_FRAGMENT ( tableJoin[ a ] )* ) | ^(b= JOIN_FRAGMENT ( tableJoin[ b ] )* ) )
             int alt29 = 2;
             int LA29_0 = input.LA(1);
 
@@ -3549,20 +3552,20 @@ public partial class SqlGenerator : TreeParser
             switch (alt29) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:174:4: ^(a= FROM_FRAGMENT ( tableJoin[ a ] )* )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:4: ^(a= FROM_FRAGMENT ( tableJoin[ a ] )* )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	a=(CommonTree)Match(input,FROM_FRAGMENT,FOLLOW_FROM_FRAGMENT_in_fromTable796); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	a=(IASTNode)Match(input,FROM_FRAGMENT,FOLLOW_FROM_FRAGMENT_in_fromTable802); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{a_tree = (CommonTree)adaptor.DupNode(a);
+                    	{a_tree = (IASTNode)adaptor.DupNode(a);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(a_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(a_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -3573,7 +3576,7 @@ public partial class SqlGenerator : TreeParser
                     	if ( input.LA(1) == Token.DOWN )
                     	{
                     	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:174:36: ( tableJoin[ a ] )*
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:36: ( tableJoin[ a ] )*
                     	    do 
                     	    {
                     	        int alt27 = 2;
@@ -3588,10 +3591,10 @@ public partial class SqlGenerator : TreeParser
                     	        switch (alt27) 
                     	    	{
                     	    		case 1 :
-                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:174:37: tableJoin[ a ]
+                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:37: tableJoin[ a ]
                     	    		    {
-                    	    		    	_last = (CommonTree)input.LT(1);
-                    	    		    	PushFollow(FOLLOW_tableJoin_in_fromTable802);
+                    	    		    	_last = (IASTNode)input.LT(1);
+                    	    		    	PushFollow(FOLLOW_tableJoin_in_fromTable808);
                     	    		    	tableJoin70 = tableJoin(a);
                     	    		    	state.followingStackPointer--;
                     	    		    	if (state.failed) return retval;
@@ -3626,20 +3629,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:175:4: ^(b= JOIN_FRAGMENT ( tableJoin[ b ] )* )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:180:4: ^(b= JOIN_FRAGMENT ( tableJoin[ b ] )* )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	b=(CommonTree)Match(input,JOIN_FRAGMENT,FOLLOW_JOIN_FRAGMENT_in_fromTable819); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	b=(IASTNode)Match(input,JOIN_FRAGMENT,FOLLOW_JOIN_FRAGMENT_in_fromTable825); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{b_tree = (CommonTree)adaptor.DupNode(b);
+                    	{b_tree = (IASTNode)adaptor.DupNode(b);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(b_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(b_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -3650,7 +3653,7 @@ public partial class SqlGenerator : TreeParser
                     	if ( input.LA(1) == Token.DOWN )
                     	{
                     	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:175:36: ( tableJoin[ b ] )*
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:180:36: ( tableJoin[ b ] )*
                     	    do 
                     	    {
                     	        int alt28 = 2;
@@ -3665,10 +3668,10 @@ public partial class SqlGenerator : TreeParser
                     	        switch (alt28) 
                     	    	{
                     	    		case 1 :
-                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:175:37: tableJoin[ b ]
+                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:180:37: tableJoin[ b ]
                     	    		    {
-                    	    		    	_last = (CommonTree)input.LT(1);
-                    	    		    	PushFollow(FOLLOW_tableJoin_in_fromTable825);
+                    	    		    	_last = (IASTNode)input.LT(1);
+                    	    		    	PushFollow(FOLLOW_tableJoin_in_fromTable831);
                     	    		    	tableJoin71 = tableJoin(b);
                     	    		    	state.followingStackPointer--;
                     	    		    	if (state.failed) return retval;
@@ -3705,7 +3708,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3722,39 +3725,39 @@ public partial class SqlGenerator : TreeParser
 
     public class tableJoin_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "tableJoin"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:178:1: tableJoin[ ITree parent ] : ( ^(c= JOIN_FRAGMENT ( tableJoin[ c ] )* ) | ^(d= FROM_FRAGMENT ( tableJoin[ d ] )* ) );
-    public SqlGenerator.tableJoin_return tableJoin(ITree parent) // throws RecognitionException [1]
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:183:1: tableJoin[ IASTNode parent ] : ( ^(c= JOIN_FRAGMENT ( tableJoin[ c ] )* ) | ^(d= FROM_FRAGMENT ( tableJoin[ d ] )* ) );
+    public SqlGenerator.tableJoin_return tableJoin(IASTNode parent) // throws RecognitionException [1]
     {   
         SqlGenerator.tableJoin_return retval = new SqlGenerator.tableJoin_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree c = null;
-        CommonTree d = null;
+        IASTNode c = null;
+        IASTNode d = null;
         SqlGenerator.tableJoin_return tableJoin72 = default(SqlGenerator.tableJoin_return);
 
         SqlGenerator.tableJoin_return tableJoin73 = default(SqlGenerator.tableJoin_return);
 
 
-        CommonTree c_tree=null;
-        CommonTree d_tree=null;
+        IASTNode c_tree=null;
+        IASTNode d_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:2: ( ^(c= JOIN_FRAGMENT ( tableJoin[ c ] )* ) | ^(d= FROM_FRAGMENT ( tableJoin[ d ] )* ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:184:2: ( ^(c= JOIN_FRAGMENT ( tableJoin[ c ] )* ) | ^(d= FROM_FRAGMENT ( tableJoin[ d ] )* ) )
             int alt32 = 2;
             int LA32_0 = input.LA(1);
 
@@ -3777,20 +3780,20 @@ public partial class SqlGenerator : TreeParser
             switch (alt32) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:4: ^(c= JOIN_FRAGMENT ( tableJoin[ c ] )* )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:184:4: ^(c= JOIN_FRAGMENT ( tableJoin[ c ] )* )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	c=(CommonTree)Match(input,JOIN_FRAGMENT,FOLLOW_JOIN_FRAGMENT_in_tableJoin850); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	c=(IASTNode)Match(input,JOIN_FRAGMENT,FOLLOW_JOIN_FRAGMENT_in_tableJoin856); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{c_tree = (CommonTree)adaptor.DupNode(c);
+                    	{c_tree = (IASTNode)adaptor.DupNode(c);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(c_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(c_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -3801,7 +3804,7 @@ public partial class SqlGenerator : TreeParser
                     	if ( input.LA(1) == Token.DOWN )
                     	{
                     	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:46: ( tableJoin[ c ] )*
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:184:46: ( tableJoin[ c ] )*
                     	    do 
                     	    {
                     	        int alt30 = 2;
@@ -3816,10 +3819,10 @@ public partial class SqlGenerator : TreeParser
                     	        switch (alt30) 
                     	    	{
                     	    		case 1 :
-                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:179:47: tableJoin[ c ]
+                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:184:47: tableJoin[ c ]
                     	    		    {
-                    	    		    	_last = (CommonTree)input.LT(1);
-                    	    		    	PushFollow(FOLLOW_tableJoin_in_tableJoin855);
+                    	    		    	_last = (IASTNode)input.LT(1);
+                    	    		    	PushFollow(FOLLOW_tableJoin_in_tableJoin861);
                     	    		    	tableJoin72 = tableJoin(c);
                     	    		    	state.followingStackPointer--;
                     	    		    	if (state.failed) return retval;
@@ -3850,20 +3853,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:180:4: ^(d= FROM_FRAGMENT ( tableJoin[ d ] )* )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:185:4: ^(d= FROM_FRAGMENT ( tableJoin[ d ] )* )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	d=(CommonTree)Match(input,FROM_FRAGMENT,FOLLOW_FROM_FRAGMENT_in_tableJoin871); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	d=(IASTNode)Match(input,FROM_FRAGMENT,FOLLOW_FROM_FRAGMENT_in_tableJoin877); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{d_tree = (CommonTree)adaptor.DupNode(d);
+                    	{d_tree = (IASTNode)adaptor.DupNode(d);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(d_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(d_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -3874,7 +3877,7 @@ public partial class SqlGenerator : TreeParser
                     	if ( input.LA(1) == Token.DOWN )
                     	{
                     	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:180:58: ( tableJoin[ d ] )*
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:185:58: ( tableJoin[ d ] )*
                     	    do 
                     	    {
                     	        int alt31 = 2;
@@ -3889,10 +3892,10 @@ public partial class SqlGenerator : TreeParser
                     	        switch (alt31) 
                     	    	{
                     	    		case 1 :
-                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:180:59: tableJoin[ d ]
+                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:185:59: tableJoin[ d ]
                     	    		    {
-                    	    		    	_last = (CommonTree)input.LT(1);
-                    	    		    	PushFollow(FOLLOW_tableJoin_in_tableJoin876);
+                    	    		    	_last = (IASTNode)input.LT(1);
+                    	    		    	PushFollow(FOLLOW_tableJoin_in_tableJoin882);
                     	    		    	tableJoin73 = tableJoin(d);
                     	    		    	state.followingStackPointer--;
                     	    		    	if (state.failed) return retval;
@@ -3925,7 +3928,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -3942,29 +3945,29 @@ public partial class SqlGenerator : TreeParser
 
     public class booleanOp_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "booleanOp"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:183:1: booleanOp[ bool parens ] : ( ^( AND booleanExpr[true] booleanExpr[true] ) | ^( OR booleanExpr[false] booleanExpr[false] ) | ^( NOT booleanExpr[false] ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:188:1: booleanOp[ bool parens ] : ( ^( AND booleanExpr[true] booleanExpr[true] ) | ^( OR booleanExpr[false] booleanExpr[false] ) | ^( NOT booleanExpr[false] ) );
     public SqlGenerator.booleanOp_return booleanOp(bool parens) // throws RecognitionException [1]
     {   
         SqlGenerator.booleanOp_return retval = new SqlGenerator.booleanOp_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree AND74 = null;
-        CommonTree OR77 = null;
-        CommonTree NOT80 = null;
+        IASTNode AND74 = null;
+        IASTNode OR77 = null;
+        IASTNode NOT80 = null;
         SqlGenerator.booleanExpr_return booleanExpr75 = default(SqlGenerator.booleanExpr_return);
 
         SqlGenerator.booleanExpr_return booleanExpr76 = default(SqlGenerator.booleanExpr_return);
@@ -3976,13 +3979,13 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.booleanExpr_return booleanExpr81 = default(SqlGenerator.booleanExpr_return);
 
 
-        CommonTree AND74_tree=null;
-        CommonTree OR77_tree=null;
-        CommonTree NOT80_tree=null;
+        IASTNode AND74_tree=null;
+        IASTNode OR77_tree=null;
+        IASTNode NOT80_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:184:2: ( ^( AND booleanExpr[true] booleanExpr[true] ) | ^( OR booleanExpr[false] booleanExpr[false] ) | ^( NOT booleanExpr[false] ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:189:2: ( ^( AND booleanExpr[true] booleanExpr[true] ) | ^( OR booleanExpr[false] booleanExpr[false] ) | ^( NOT booleanExpr[false] ) )
             int alt33 = 3;
             switch ( input.LA(1) ) 
             {
@@ -4012,26 +4015,26 @@ public partial class SqlGenerator : TreeParser
             switch (alt33) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:184:4: ^( AND booleanExpr[true] booleanExpr[true] )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:189:4: ^( AND booleanExpr[true] booleanExpr[true] )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	AND74=(CommonTree)Match(input,AND,FOLLOW_AND_in_booleanOp896); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	AND74=(IASTNode)Match(input,AND,FOLLOW_AND_in_booleanOp902); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{AND74_tree = (CommonTree)adaptor.DupNode(AND74);
+                    	{AND74_tree = (IASTNode)adaptor.DupNode(AND74);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(AND74_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(AND74_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp898);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp904);
                     	booleanExpr75 = booleanExpr(true);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4041,8 +4044,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" and "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp903);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp909);
                     	booleanExpr76 = booleanExpr(true);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4058,20 +4061,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:185:4: ^( OR booleanExpr[false] booleanExpr[false] )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:190:4: ^( OR booleanExpr[false] booleanExpr[false] )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	OR77=(CommonTree)Match(input,OR,FOLLOW_OR_in_booleanOp911); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	OR77=(IASTNode)Match(input,OR,FOLLOW_OR_in_booleanOp917); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{OR77_tree = (CommonTree)adaptor.DupNode(OR77);
+                    	{OR77_tree = (IASTNode)adaptor.DupNode(OR77);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(OR77_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(OR77_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -4080,8 +4083,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp915);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp921);
                     	booleanExpr78 = booleanExpr(false);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4091,8 +4094,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" or "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp920);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp926);
                     	booleanExpr79 = booleanExpr(false);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4112,20 +4115,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:186:4: ^( NOT booleanExpr[false] )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:191:4: ^( NOT booleanExpr[false] )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	NOT80=(CommonTree)Match(input,NOT,FOLLOW_NOT_in_booleanOp930); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	NOT80=(IASTNode)Match(input,NOT,FOLLOW_NOT_in_booleanOp936); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{NOT80_tree = (CommonTree)adaptor.DupNode(NOT80);
+                    	{NOT80_tree = (IASTNode)adaptor.DupNode(NOT80);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(NOT80_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(NOT80_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -4134,8 +4137,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp934);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanExpr_in_booleanOp940);
                     	booleanExpr81 = booleanExpr(false);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4157,7 +4160,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -4174,37 +4177,37 @@ public partial class SqlGenerator : TreeParser
 
     public class booleanExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "booleanExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:189:1: booleanExpr[ bool parens ] : ( booleanOp[ parens ] | comparisonExpr[ parens ] | st= SQL_TOKEN );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:194:1: booleanExpr[ bool parens ] : ( booleanOp[ parens ] | comparisonExpr[ parens ] | st= SQL_TOKEN );
     public SqlGenerator.booleanExpr_return booleanExpr(bool parens) // throws RecognitionException [1]
     {   
         SqlGenerator.booleanExpr_return retval = new SqlGenerator.booleanExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree st = null;
+        IASTNode st = null;
         SqlGenerator.booleanOp_return booleanOp82 = default(SqlGenerator.booleanOp_return);
 
         SqlGenerator.comparisonExpr_return comparisonExpr83 = default(SqlGenerator.comparisonExpr_return);
 
 
-        CommonTree st_tree=null;
+        IASTNode st_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:190:2: ( booleanOp[ parens ] | comparisonExpr[ parens ] | st= SQL_TOKEN )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:195:2: ( booleanOp[ parens ] | comparisonExpr[ parens ] | st= SQL_TOKEN )
             int alt34 = 3;
             switch ( input.LA(1) ) 
             {
@@ -4250,12 +4253,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt34) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:190:4: booleanOp[ parens ]
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:195:4: booleanOp[ parens ]
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_booleanOp_in_booleanExpr951);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_booleanOp_in_booleanExpr957);
                     	booleanOp82 = booleanOp(parens);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4267,12 +4270,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:191:4: comparisonExpr[ parens ]
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:196:4: comparisonExpr[ parens ]
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_comparisonExpr_in_booleanExpr958);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_comparisonExpr_in_booleanExpr964);
                     	comparisonExpr83 = comparisonExpr(parens);
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4284,14 +4287,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:192:4: st= SQL_TOKEN
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:197:4: st= SQL_TOKEN
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	st=(CommonTree)Match(input,SQL_TOKEN,FOLLOW_SQL_TOKEN_in_booleanExpr967); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	st=(IASTNode)Match(input,SQL_TOKEN,FOLLOW_SQL_TOKEN_in_booleanExpr973); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{st_tree = (CommonTree)adaptor.DupNode(st);
+                    	{st_tree = (IASTNode)adaptor.DupNode(st);
 
                     		adaptor.AddChild(root_0, st_tree);
                     	}
@@ -4307,7 +4310,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -4324,25 +4327,25 @@ public partial class SqlGenerator : TreeParser
 
     public class comparisonExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "comparisonExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:195:1: comparisonExpr[ bool parens ] : ( binaryComparisonExpression | exoticComparisonExpression );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:200:1: comparisonExpr[ bool parens ] : ( binaryComparisonExpression | exoticComparisonExpression );
     public SqlGenerator.comparisonExpr_return comparisonExpr(bool parens) // throws RecognitionException [1]
     {   
         SqlGenerator.comparisonExpr_return retval = new SqlGenerator.comparisonExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.binaryComparisonExpression_return binaryComparisonExpression84 = default(SqlGenerator.binaryComparisonExpression_return);
 
@@ -4352,7 +4355,7 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:196:2: ( binaryComparisonExpression | exoticComparisonExpression )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:201:2: ( binaryComparisonExpression | exoticComparisonExpression )
             int alt35 = 2;
             int LA35_0 = input.LA(1);
 
@@ -4375,12 +4378,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt35) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:196:4: binaryComparisonExpression
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:201:4: binaryComparisonExpression
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_binaryComparisonExpression_in_comparisonExpr983);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_binaryComparisonExpression_in_comparisonExpr989);
                     	binaryComparisonExpression84 = binaryComparisonExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4392,16 +4395,16 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:197:4: exoticComparisonExpression
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:202:4: exoticComparisonExpression
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	if ( state.backtracking == 0 ) 
                     	{
                     	   if (parens) Out("("); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_exoticComparisonExpression_in_comparisonExpr990);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_exoticComparisonExpression_in_comparisonExpr996);
                     	exoticComparisonExpression85 = exoticComparisonExpression();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4419,7 +4422,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -4436,32 +4439,32 @@ public partial class SqlGenerator : TreeParser
 
     public class binaryComparisonExpression_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "binaryComparisonExpression"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:200:1: binaryComparisonExpression : ( ^( EQ expr expr ) | ^( NE expr expr ) | ^( GT expr expr ) | ^( GE expr expr ) | ^( LT expr expr ) | ^( LE expr expr ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:205:1: binaryComparisonExpression : ( ^( EQ expr expr ) | ^( NE expr expr ) | ^( GT expr expr ) | ^( GE expr expr ) | ^( LT expr expr ) | ^( LE expr expr ) );
     public SqlGenerator.binaryComparisonExpression_return binaryComparisonExpression() // throws RecognitionException [1]
     {   
         SqlGenerator.binaryComparisonExpression_return retval = new SqlGenerator.binaryComparisonExpression_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree EQ86 = null;
-        CommonTree NE89 = null;
-        CommonTree GT92 = null;
-        CommonTree GE95 = null;
-        CommonTree LT98 = null;
-        CommonTree LE101 = null;
+        IASTNode EQ86 = null;
+        IASTNode NE89 = null;
+        IASTNode GT92 = null;
+        IASTNode GE95 = null;
+        IASTNode LT98 = null;
+        IASTNode LE101 = null;
         SqlGenerator.expr_return expr87 = default(SqlGenerator.expr_return);
 
         SqlGenerator.expr_return expr88 = default(SqlGenerator.expr_return);
@@ -4487,16 +4490,16 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.expr_return expr103 = default(SqlGenerator.expr_return);
 
 
-        CommonTree EQ86_tree=null;
-        CommonTree NE89_tree=null;
-        CommonTree GT92_tree=null;
-        CommonTree GE95_tree=null;
-        CommonTree LT98_tree=null;
-        CommonTree LE101_tree=null;
+        IASTNode EQ86_tree=null;
+        IASTNode NE89_tree=null;
+        IASTNode GT92_tree=null;
+        IASTNode GE95_tree=null;
+        IASTNode LT98_tree=null;
+        IASTNode LE101_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:201:2: ( ^( EQ expr expr ) | ^( NE expr expr ) | ^( GT expr expr ) | ^( GE expr expr ) | ^( LT expr expr ) | ^( LE expr expr ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:206:2: ( ^( EQ expr expr ) | ^( NE expr expr ) | ^( GT expr expr ) | ^( GE expr expr ) | ^( LT expr expr ) | ^( LE expr expr ) )
             int alt36 = 6;
             switch ( input.LA(1) ) 
             {
@@ -4541,26 +4544,26 @@ public partial class SqlGenerator : TreeParser
             switch (alt36) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:201:4: ^( EQ expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:206:4: ^( EQ expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	EQ86=(CommonTree)Match(input,EQ,FOLLOW_EQ_in_binaryComparisonExpression1005); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	EQ86=(IASTNode)Match(input,EQ,FOLLOW_EQ_in_binaryComparisonExpression1011); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{EQ86_tree = (CommonTree)adaptor.DupNode(EQ86);
+                    	{EQ86_tree = (IASTNode)adaptor.DupNode(EQ86);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(EQ86_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(EQ86_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1007);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1013);
                     	expr87 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4570,8 +4573,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("="); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1011);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1017);
                     	expr88 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4587,26 +4590,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:202:4: ^( NE expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:207:4: ^( NE expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	NE89=(CommonTree)Match(input,NE,FOLLOW_NE_in_binaryComparisonExpression1018); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	NE89=(IASTNode)Match(input,NE,FOLLOW_NE_in_binaryComparisonExpression1024); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{NE89_tree = (CommonTree)adaptor.DupNode(NE89);
+                    	{NE89_tree = (IASTNode)adaptor.DupNode(NE89);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(NE89_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(NE89_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1020);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1026);
                     	expr90 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4616,8 +4619,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("<>"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1024);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1030);
                     	expr91 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4633,26 +4636,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:203:4: ^( GT expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:208:4: ^( GT expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	GT92=(CommonTree)Match(input,GT,FOLLOW_GT_in_binaryComparisonExpression1031); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	GT92=(IASTNode)Match(input,GT,FOLLOW_GT_in_binaryComparisonExpression1037); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{GT92_tree = (CommonTree)adaptor.DupNode(GT92);
+                    	{GT92_tree = (IASTNode)adaptor.DupNode(GT92);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(GT92_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(GT92_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1033);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1039);
                     	expr93 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4662,8 +4665,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(">"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1037);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1043);
                     	expr94 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4679,26 +4682,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:204:4: ^( GE expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:209:4: ^( GE expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	GE95=(CommonTree)Match(input,GE,FOLLOW_GE_in_binaryComparisonExpression1044); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	GE95=(IASTNode)Match(input,GE,FOLLOW_GE_in_binaryComparisonExpression1050); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{GE95_tree = (CommonTree)adaptor.DupNode(GE95);
+                    	{GE95_tree = (IASTNode)adaptor.DupNode(GE95);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(GE95_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(GE95_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1046);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1052);
                     	expr96 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4708,8 +4711,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(">="); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1050);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1056);
                     	expr97 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4725,26 +4728,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 5 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:205:4: ^( LT expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:210:4: ^( LT expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	LT98=(CommonTree)Match(input,LT,FOLLOW_LT_in_binaryComparisonExpression1057); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	LT98=(IASTNode)Match(input,LT,FOLLOW_LT_in_binaryComparisonExpression1063); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{LT98_tree = (CommonTree)adaptor.DupNode(LT98);
+                    	{LT98_tree = (IASTNode)adaptor.DupNode(LT98);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(LT98_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(LT98_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1059);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1065);
                     	expr99 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4754,8 +4757,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("<"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1063);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1069);
                     	expr100 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4771,26 +4774,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 6 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:206:4: ^( LE expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:211:4: ^( LE expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	LE101=(CommonTree)Match(input,LE,FOLLOW_LE_in_binaryComparisonExpression1070); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	LE101=(IASTNode)Match(input,LE,FOLLOW_LE_in_binaryComparisonExpression1076); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{LE101_tree = (CommonTree)adaptor.DupNode(LE101);
+                    	{LE101_tree = (IASTNode)adaptor.DupNode(LE101);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(LE101_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(LE101_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1072);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1078);
                     	expr102 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4800,8 +4803,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("<="); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1076);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_binaryComparisonExpression1082);
                     	expr103 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -4819,7 +4822,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -4836,35 +4839,35 @@ public partial class SqlGenerator : TreeParser
 
     public class exoticComparisonExpression_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "exoticComparisonExpression"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:209:1: exoticComparisonExpression : ( ^( LIKE expr expr likeEscape ) | ^( NOT_LIKE expr expr likeEscape ) | ^( BETWEEN expr expr expr ) | ^( NOT_BETWEEN expr expr expr ) | ^( IN expr inList ) | ^( NOT_IN expr inList ) | ^( EXISTS quantified ) | ^( IS_NULL expr ) | ^( IS_NOT_NULL expr ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:214:1: exoticComparisonExpression : ( ^( LIKE expr expr likeEscape ) | ^( NOT_LIKE expr expr likeEscape ) | ^( BETWEEN expr expr expr ) | ^( NOT_BETWEEN expr expr expr ) | ^( IN expr inList ) | ^( NOT_IN expr inList ) | ^( EXISTS quantified ) | ^( IS_NULL expr ) | ^( IS_NOT_NULL expr ) );
     public SqlGenerator.exoticComparisonExpression_return exoticComparisonExpression() // throws RecognitionException [1]
     {   
         SqlGenerator.exoticComparisonExpression_return retval = new SqlGenerator.exoticComparisonExpression_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree LIKE104 = null;
-        CommonTree NOT_LIKE108 = null;
-        CommonTree BETWEEN112 = null;
-        CommonTree NOT_BETWEEN116 = null;
-        CommonTree IN120 = null;
-        CommonTree NOT_IN123 = null;
-        CommonTree EXISTS126 = null;
-        CommonTree IS_NULL128 = null;
-        CommonTree IS_NOT_NULL130 = null;
+        IASTNode LIKE104 = null;
+        IASTNode NOT_LIKE108 = null;
+        IASTNode BETWEEN112 = null;
+        IASTNode NOT_BETWEEN116 = null;
+        IASTNode IN120 = null;
+        IASTNode NOT_IN123 = null;
+        IASTNode EXISTS126 = null;
+        IASTNode IS_NULL128 = null;
+        IASTNode IS_NOT_NULL130 = null;
         SqlGenerator.expr_return expr105 = default(SqlGenerator.expr_return);
 
         SqlGenerator.expr_return expr106 = default(SqlGenerator.expr_return);
@@ -4904,19 +4907,19 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.expr_return expr131 = default(SqlGenerator.expr_return);
 
 
-        CommonTree LIKE104_tree=null;
-        CommonTree NOT_LIKE108_tree=null;
-        CommonTree BETWEEN112_tree=null;
-        CommonTree NOT_BETWEEN116_tree=null;
-        CommonTree IN120_tree=null;
-        CommonTree NOT_IN123_tree=null;
-        CommonTree EXISTS126_tree=null;
-        CommonTree IS_NULL128_tree=null;
-        CommonTree IS_NOT_NULL130_tree=null;
+        IASTNode LIKE104_tree=null;
+        IASTNode NOT_LIKE108_tree=null;
+        IASTNode BETWEEN112_tree=null;
+        IASTNode NOT_BETWEEN116_tree=null;
+        IASTNode IN120_tree=null;
+        IASTNode NOT_IN123_tree=null;
+        IASTNode EXISTS126_tree=null;
+        IASTNode IS_NULL128_tree=null;
+        IASTNode IS_NOT_NULL130_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:210:2: ( ^( LIKE expr expr likeEscape ) | ^( NOT_LIKE expr expr likeEscape ) | ^( BETWEEN expr expr expr ) | ^( NOT_BETWEEN expr expr expr ) | ^( IN expr inList ) | ^( NOT_IN expr inList ) | ^( EXISTS quantified ) | ^( IS_NULL expr ) | ^( IS_NOT_NULL expr ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:215:2: ( ^( LIKE expr expr likeEscape ) | ^( NOT_LIKE expr expr likeEscape ) | ^( BETWEEN expr expr expr ) | ^( NOT_BETWEEN expr expr expr ) | ^( IN expr inList ) | ^( NOT_IN expr inList ) | ^( EXISTS quantified ) | ^( IS_NULL expr ) | ^( IS_NOT_NULL expr ) )
             int alt37 = 9;
             switch ( input.LA(1) ) 
             {
@@ -4976,26 +4979,26 @@ public partial class SqlGenerator : TreeParser
             switch (alt37) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:210:4: ^( LIKE expr expr likeEscape )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:215:4: ^( LIKE expr expr likeEscape )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	LIKE104=(CommonTree)Match(input,LIKE,FOLLOW_LIKE_in_exoticComparisonExpression1090); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	LIKE104=(IASTNode)Match(input,LIKE,FOLLOW_LIKE_in_exoticComparisonExpression1096); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{LIKE104_tree = (CommonTree)adaptor.DupNode(LIKE104);
+                    	{LIKE104_tree = (IASTNode)adaptor.DupNode(LIKE104);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(LIKE104_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(LIKE104_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1092);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1098);
                     	expr105 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5005,15 +5008,15 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" like "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1096);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1102);
                     	expr106 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking==0 ) 
                     	adaptor.AddChild(root_1, expr106.Tree);
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_likeEscape_in_exoticComparisonExpression1098);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_likeEscape_in_exoticComparisonExpression1104);
                     	likeEscape107 = likeEscape();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5029,26 +5032,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:211:4: ^( NOT_LIKE expr expr likeEscape )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:216:4: ^( NOT_LIKE expr expr likeEscape )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	NOT_LIKE108=(CommonTree)Match(input,NOT_LIKE,FOLLOW_NOT_LIKE_in_exoticComparisonExpression1106); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	NOT_LIKE108=(IASTNode)Match(input,NOT_LIKE,FOLLOW_NOT_LIKE_in_exoticComparisonExpression1112); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{NOT_LIKE108_tree = (CommonTree)adaptor.DupNode(NOT_LIKE108);
+                    	{NOT_LIKE108_tree = (IASTNode)adaptor.DupNode(NOT_LIKE108);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(NOT_LIKE108_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(NOT_LIKE108_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1108);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1114);
                     	expr109 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5058,15 +5061,15 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" not like "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1112);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1118);
                     	expr110 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking==0 ) 
                     	adaptor.AddChild(root_1, expr110.Tree);
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_likeEscape_in_exoticComparisonExpression1114);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_likeEscape_in_exoticComparisonExpression1120);
                     	likeEscape111 = likeEscape();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5082,26 +5085,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:212:4: ^( BETWEEN expr expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:217:4: ^( BETWEEN expr expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	BETWEEN112=(CommonTree)Match(input,BETWEEN,FOLLOW_BETWEEN_in_exoticComparisonExpression1121); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	BETWEEN112=(IASTNode)Match(input,BETWEEN,FOLLOW_BETWEEN_in_exoticComparisonExpression1127); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{BETWEEN112_tree = (CommonTree)adaptor.DupNode(BETWEEN112);
+                    	{BETWEEN112_tree = (IASTNode)adaptor.DupNode(BETWEEN112);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(BETWEEN112_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(BETWEEN112_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1123);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1129);
                     	expr113 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5111,8 +5114,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" between "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1127);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1133);
                     	expr114 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5122,8 +5125,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" and "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1131);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1137);
                     	expr115 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5139,26 +5142,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:213:4: ^( NOT_BETWEEN expr expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:218:4: ^( NOT_BETWEEN expr expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	NOT_BETWEEN116=(CommonTree)Match(input,NOT_BETWEEN,FOLLOW_NOT_BETWEEN_in_exoticComparisonExpression1138); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	NOT_BETWEEN116=(IASTNode)Match(input,NOT_BETWEEN,FOLLOW_NOT_BETWEEN_in_exoticComparisonExpression1144); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{NOT_BETWEEN116_tree = (CommonTree)adaptor.DupNode(NOT_BETWEEN116);
+                    	{NOT_BETWEEN116_tree = (IASTNode)adaptor.DupNode(NOT_BETWEEN116);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(NOT_BETWEEN116_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(NOT_BETWEEN116_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1140);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1146);
                     	expr117 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5168,8 +5171,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" not between "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1144);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1150);
                     	expr118 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5179,8 +5182,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" and "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1148);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1154);
                     	expr119 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5196,26 +5199,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 5 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:214:4: ^( IN expr inList )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:219:4: ^( IN expr inList )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	IN120=(CommonTree)Match(input,IN,FOLLOW_IN_in_exoticComparisonExpression1155); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	IN120=(IASTNode)Match(input,IN,FOLLOW_IN_in_exoticComparisonExpression1161); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{IN120_tree = (CommonTree)adaptor.DupNode(IN120);
+                    	{IN120_tree = (IASTNode)adaptor.DupNode(IN120);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(IN120_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(IN120_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1157);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1163);
                     	expr121 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5225,8 +5228,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" in"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_inList_in_exoticComparisonExpression1161);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_inList_in_exoticComparisonExpression1167);
                     	inList122 = inList();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5242,26 +5245,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 6 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:215:4: ^( NOT_IN expr inList )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:220:4: ^( NOT_IN expr inList )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	NOT_IN123=(CommonTree)Match(input,NOT_IN,FOLLOW_NOT_IN_in_exoticComparisonExpression1169); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	NOT_IN123=(IASTNode)Match(input,NOT_IN,FOLLOW_NOT_IN_in_exoticComparisonExpression1175); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{NOT_IN123_tree = (CommonTree)adaptor.DupNode(NOT_IN123);
+                    	{NOT_IN123_tree = (IASTNode)adaptor.DupNode(NOT_IN123);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(NOT_IN123_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(NOT_IN123_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1171);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1177);
                     	expr124 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5271,8 +5274,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out(" not in "); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_inList_in_exoticComparisonExpression1175);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_inList_in_exoticComparisonExpression1181);
                     	inList125 = inList();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5288,20 +5291,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 7 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:216:4: ^( EXISTS quantified )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:221:4: ^( EXISTS quantified )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	EXISTS126=(CommonTree)Match(input,EXISTS,FOLLOW_EXISTS_in_exoticComparisonExpression1183); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	EXISTS126=(IASTNode)Match(input,EXISTS,FOLLOW_EXISTS_in_exoticComparisonExpression1189); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{EXISTS126_tree = (CommonTree)adaptor.DupNode(EXISTS126);
+                    	{EXISTS126_tree = (IASTNode)adaptor.DupNode(EXISTS126);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(EXISTS126_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(EXISTS126_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -5310,8 +5313,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_quantified_in_exoticComparisonExpression1187);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_quantified_in_exoticComparisonExpression1193);
                     	quantified127 = quantified();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5327,26 +5330,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 8 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:217:4: ^( IS_NULL expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:222:4: ^( IS_NULL expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	IS_NULL128=(CommonTree)Match(input,IS_NULL,FOLLOW_IS_NULL_in_exoticComparisonExpression1195); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	IS_NULL128=(IASTNode)Match(input,IS_NULL,FOLLOW_IS_NULL_in_exoticComparisonExpression1201); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{IS_NULL128_tree = (CommonTree)adaptor.DupNode(IS_NULL128);
+                    	{IS_NULL128_tree = (IASTNode)adaptor.DupNode(IS_NULL128);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(IS_NULL128_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(IS_NULL128_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1197);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1203);
                     	expr129 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5366,26 +5369,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 9 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:218:4: ^( IS_NOT_NULL expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:223:4: ^( IS_NOT_NULL expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	IS_NOT_NULL130=(CommonTree)Match(input,IS_NOT_NULL,FOLLOW_IS_NOT_NULL_in_exoticComparisonExpression1206); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	IS_NOT_NULL130=(IASTNode)Match(input,IS_NOT_NULL,FOLLOW_IS_NOT_NULL_in_exoticComparisonExpression1212); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{IS_NOT_NULL130_tree = (CommonTree)adaptor.DupNode(IS_NOT_NULL130);
+                    	{IS_NOT_NULL130_tree = (IASTNode)adaptor.DupNode(IS_NOT_NULL130);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(IS_NOT_NULL130_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(IS_NOT_NULL130_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1208);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_exoticComparisonExpression1214);
                     	expr131 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5407,7 +5410,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -5424,40 +5427,40 @@ public partial class SqlGenerator : TreeParser
 
     public class likeEscape_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "likeEscape"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:221:1: likeEscape : ( ^( ESCAPE expr ) )? ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:226:1: likeEscape : ( ^( ESCAPE expr ) )? ;
     public SqlGenerator.likeEscape_return likeEscape() // throws RecognitionException [1]
     {   
         SqlGenerator.likeEscape_return retval = new SqlGenerator.likeEscape_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree ESCAPE132 = null;
+        IASTNode ESCAPE132 = null;
         SqlGenerator.expr_return expr133 = default(SqlGenerator.expr_return);
 
 
-        CommonTree ESCAPE132_tree=null;
+        IASTNode ESCAPE132_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:222:2: ( ( ^( ESCAPE expr ) )? )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:222:4: ( ^( ESCAPE expr ) )?
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:227:2: ( ( ^( ESCAPE expr ) )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:227:4: ( ^( ESCAPE expr ) )?
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:222:4: ( ^( ESCAPE expr ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:227:4: ( ^( ESCAPE expr ) )?
             	int alt38 = 2;
             	int LA38_0 = input.LA(1);
 
@@ -5468,18 +5471,18 @@ public partial class SqlGenerator : TreeParser
             	switch (alt38) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:222:6: ^( ESCAPE expr )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:227:6: ^( ESCAPE expr )
             	        {
-            	        	_last = (CommonTree)input.LT(1);
+            	        	_last = (IASTNode)input.LT(1);
             	        	{
-            	        	CommonTree _save_last_1 = _last;
-            	        	CommonTree _first_1 = null;
-            	        	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	        	ESCAPE132=(CommonTree)Match(input,ESCAPE,FOLLOW_ESCAPE_in_likeEscape1225); if (state.failed) return retval;
+            	        	IASTNode _save_last_1 = _last;
+            	        	IASTNode _first_1 = null;
+            	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	        	ESCAPE132=(IASTNode)Match(input,ESCAPE,FOLLOW_ESCAPE_in_likeEscape1231); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
-            	        	{ESCAPE132_tree = (CommonTree)adaptor.DupNode(ESCAPE132);
+            	        	{ESCAPE132_tree = (IASTNode)adaptor.DupNode(ESCAPE132);
 
-            	        		root_1 = (CommonTree)adaptor.BecomeRoot(ESCAPE132_tree, root_1);
+            	        		root_1 = (IASTNode)adaptor.BecomeRoot(ESCAPE132_tree, root_1);
             	        	}
 
             	        	if ( state.backtracking == 0 ) 
@@ -5488,8 +5491,8 @@ public partial class SqlGenerator : TreeParser
             	        	}
 
             	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_expr_in_likeEscape1229);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_expr_in_likeEscape1235);
             	        	expr133 = expr();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -5513,7 +5516,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -5530,51 +5533,51 @@ public partial class SqlGenerator : TreeParser
 
     public class inList_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "inList"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:225:1: inList : ^( IN_LIST ( parenSelect | simpleExprList ) ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:230:1: inList : ^( IN_LIST ( parenSelect | simpleExprList ) ) ;
     public SqlGenerator.inList_return inList() // throws RecognitionException [1]
     {   
         SqlGenerator.inList_return retval = new SqlGenerator.inList_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree IN_LIST134 = null;
+        IASTNode IN_LIST134 = null;
         SqlGenerator.parenSelect_return parenSelect135 = default(SqlGenerator.parenSelect_return);
 
         SqlGenerator.simpleExprList_return simpleExprList136 = default(SqlGenerator.simpleExprList_return);
 
 
-        CommonTree IN_LIST134_tree=null;
+        IASTNode IN_LIST134_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:226:2: ( ^( IN_LIST ( parenSelect | simpleExprList ) ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:226:4: ^( IN_LIST ( parenSelect | simpleExprList ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:231:2: ( ^( IN_LIST ( parenSelect | simpleExprList ) ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:231:4: ^( IN_LIST ( parenSelect | simpleExprList ) )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	IN_LIST134=(CommonTree)Match(input,IN_LIST,FOLLOW_IN_LIST_in_inList1245); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	IN_LIST134=(IASTNode)Match(input,IN_LIST,FOLLOW_IN_LIST_in_inList1251); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{IN_LIST134_tree = (CommonTree)adaptor.DupNode(IN_LIST134);
+            	{IN_LIST134_tree = (IASTNode)adaptor.DupNode(IN_LIST134);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(IN_LIST134_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(IN_LIST134_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -5585,7 +5588,7 @@ public partial class SqlGenerator : TreeParser
             	if ( input.LA(1) == Token.DOWN )
             	{
             	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:226:28: ( parenSelect | simpleExprList )
+            	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:231:28: ( parenSelect | simpleExprList )
             	    int alt39 = 2;
             	    int LA39_0 = input.LA(1);
 
@@ -5608,10 +5611,10 @@ public partial class SqlGenerator : TreeParser
             	    switch (alt39) 
             	    {
             	        case 1 :
-            	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:226:30: parenSelect
+            	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:231:30: parenSelect
             	            {
-            	            	_last = (CommonTree)input.LT(1);
-            	            	PushFollow(FOLLOW_parenSelect_in_inList1251);
+            	            	_last = (IASTNode)input.LT(1);
+            	            	PushFollow(FOLLOW_parenSelect_in_inList1257);
             	            	parenSelect135 = parenSelect();
             	            	state.followingStackPointer--;
             	            	if (state.failed) return retval;
@@ -5623,10 +5626,10 @@ public partial class SqlGenerator : TreeParser
             	            }
             	            break;
             	        case 2 :
-            	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:226:44: simpleExprList
+            	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:231:44: simpleExprList
             	            {
-            	            	_last = (CommonTree)input.LT(1);
-            	            	PushFollow(FOLLOW_simpleExprList_in_inList1255);
+            	            	_last = (IASTNode)input.LT(1);
+            	            	PushFollow(FOLLOW_simpleExprList_in_inList1261);
             	            	simpleExprList136 = simpleExprList();
             	            	state.followingStackPointer--;
             	            	if (state.failed) return retval;
@@ -5651,7 +5654,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -5668,25 +5671,25 @@ public partial class SqlGenerator : TreeParser
 
     public class simpleExprList_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "simpleExprList"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:229:1: simpleExprList : (e= simpleExpr )* ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:234:1: simpleExprList : (e= simpleExpr )* ;
     public SqlGenerator.simpleExprList_return simpleExprList() // throws RecognitionException [1]
     {   
         SqlGenerator.simpleExprList_return retval = new SqlGenerator.simpleExprList_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.simpleExpr_return e = default(SqlGenerator.simpleExpr_return);
 
@@ -5694,16 +5697,16 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:230:2: ( (e= simpleExpr )* )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:230:4: (e= simpleExpr )*
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:235:2: ( (e= simpleExpr )* )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:235:4: (e= simpleExpr )*
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	if ( state.backtracking == 0 ) 
             	{
             	   Out("("); 
             	}
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:230:18: (e= simpleExpr )*
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:235:18: (e= simpleExpr )*
             	do 
             	{
             	    int alt40 = 2;
@@ -5718,10 +5721,10 @@ public partial class SqlGenerator : TreeParser
             	    switch (alt40) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:230:19: e= simpleExpr
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:235:19: e= simpleExpr
             			    {
-            			    	_last = (CommonTree)input.LT(1);
-            			    	PushFollow(FOLLOW_simpleExpr_in_simpleExprList1276);
+            			    	_last = (IASTNode)input.LT(1);
+            			    	PushFollow(FOLLOW_simpleExpr_in_simpleExprList1282);
             			    	e = simpleExpr();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -5729,7 +5732,7 @@ public partial class SqlGenerator : TreeParser
             			    	adaptor.AddChild(root_0, e.Tree);
             			    	if ( state.backtracking == 0 ) 
             			    	{
-            			    	   separator(((e != null) ? ((CommonTree)e.Tree) : null)," , "); 
+            			    	   separator(((e != null) ? ((IASTNode)e.Tree) : null)," , "); 
             			    	}
 
             			    	if ( state.backtracking==0 ) {
@@ -5755,7 +5758,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -5772,30 +5775,30 @@ public partial class SqlGenerator : TreeParser
 
     public class expr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "expr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:234:1: expr : ( simpleExpr | ^( VECTOR_EXPR (e= expr )* ) | parenSelect | ^( ANY quantified ) | ^( ALL quantified ) | ^( SOME quantified ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:239:1: expr : ( simpleExpr | ^( VECTOR_EXPR (e= expr )* ) | parenSelect | ^( ANY quantified ) | ^( ALL quantified ) | ^( SOME quantified ) );
     public SqlGenerator.expr_return expr() // throws RecognitionException [1]
     {   
         SqlGenerator.expr_return retval = new SqlGenerator.expr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree VECTOR_EXPR138 = null;
-        CommonTree ANY140 = null;
-        CommonTree ALL142 = null;
-        CommonTree SOME144 = null;
+        IASTNode VECTOR_EXPR138 = null;
+        IASTNode ANY140 = null;
+        IASTNode ALL142 = null;
+        IASTNode SOME144 = null;
         SqlGenerator.expr_return e = default(SqlGenerator.expr_return);
 
         SqlGenerator.simpleExpr_return simpleExpr137 = default(SqlGenerator.simpleExpr_return);
@@ -5809,14 +5812,14 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.quantified_return quantified145 = default(SqlGenerator.quantified_return);
 
 
-        CommonTree VECTOR_EXPR138_tree=null;
-        CommonTree ANY140_tree=null;
-        CommonTree ALL142_tree=null;
-        CommonTree SOME144_tree=null;
+        IASTNode VECTOR_EXPR138_tree=null;
+        IASTNode ANY140_tree=null;
+        IASTNode ALL142_tree=null;
+        IASTNode SOME144_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:235:2: ( simpleExpr | ^( VECTOR_EXPR (e= expr )* ) | parenSelect | ^( ANY quantified ) | ^( ALL quantified ) | ^( SOME quantified ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:240:2: ( simpleExpr | ^( VECTOR_EXPR (e= expr )* ) | parenSelect | ^( ANY quantified ) | ^( ALL quantified ) | ^( SOME quantified ) )
             int alt42 = 6;
             switch ( input.LA(1) ) 
             {
@@ -5887,12 +5890,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt42) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:235:4: simpleExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:240:4: simpleExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_simpleExpr_in_expr1295);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_simpleExpr_in_expr1301);
                     	simpleExpr137 = simpleExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -5904,20 +5907,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:236:4: ^( VECTOR_EXPR (e= expr )* )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:241:4: ^( VECTOR_EXPR (e= expr )* )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	VECTOR_EXPR138=(CommonTree)Match(input,VECTOR_EXPR,FOLLOW_VECTOR_EXPR_in_expr1302); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	VECTOR_EXPR138=(IASTNode)Match(input,VECTOR_EXPR,FOLLOW_VECTOR_EXPR_in_expr1308); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{VECTOR_EXPR138_tree = (CommonTree)adaptor.DupNode(VECTOR_EXPR138);
+                    	{VECTOR_EXPR138_tree = (IASTNode)adaptor.DupNode(VECTOR_EXPR138);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(VECTOR_EXPR138_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(VECTOR_EXPR138_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -5928,7 +5931,7 @@ public partial class SqlGenerator : TreeParser
                     	if ( input.LA(1) == Token.DOWN )
                     	{
                     	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:236:33: (e= expr )*
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:241:33: (e= expr )*
                     	    do 
                     	    {
                     	        int alt41 = 2;
@@ -5943,10 +5946,10 @@ public partial class SqlGenerator : TreeParser
                     	        switch (alt41) 
                     	    	{
                     	    		case 1 :
-                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:236:34: e= expr
+                    	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:241:34: e= expr
                     	    		    {
-                    	    		    	_last = (CommonTree)input.LT(1);
-                    	    		    	PushFollow(FOLLOW_expr_in_expr1309);
+                    	    		    	_last = (IASTNode)input.LT(1);
+                    	    		    	PushFollow(FOLLOW_expr_in_expr1315);
                     	    		    	e = expr();
                     	    		    	state.followingStackPointer--;
                     	    		    	if (state.failed) return retval;
@@ -5954,7 +5957,7 @@ public partial class SqlGenerator : TreeParser
                     	    		    	adaptor.AddChild(root_1, e.Tree);
                     	    		    	if ( state.backtracking == 0 ) 
                     	    		    	{
-                    	    		    	   separator(((e != null) ? ((CommonTree)e.Tree) : null)," , "); 
+                    	    		    	   separator(((e != null) ? ((IASTNode)e.Tree) : null)," , "); 
                     	    		    	}
 
                     	    		    	if ( state.backtracking==0 ) {
@@ -5985,12 +5988,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:237:4: parenSelect
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:242:4: parenSelect
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_parenSelect_in_expr1324);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_parenSelect_in_expr1330);
                     	parenSelect139 = parenSelect();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6002,20 +6005,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:238:4: ^( ANY quantified )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:243:4: ^( ANY quantified )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	ANY140=(CommonTree)Match(input,ANY,FOLLOW_ANY_in_expr1330); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	ANY140=(IASTNode)Match(input,ANY,FOLLOW_ANY_in_expr1336); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{ANY140_tree = (CommonTree)adaptor.DupNode(ANY140);
+                    	{ANY140_tree = (IASTNode)adaptor.DupNode(ANY140);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(ANY140_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(ANY140_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -6024,8 +6027,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_quantified_in_expr1334);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_quantified_in_expr1340);
                     	quantified141 = quantified();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6041,20 +6044,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 5 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:239:4: ^( ALL quantified )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:244:4: ^( ALL quantified )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	ALL142=(CommonTree)Match(input,ALL,FOLLOW_ALL_in_expr1342); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	ALL142=(IASTNode)Match(input,ALL,FOLLOW_ALL_in_expr1348); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{ALL142_tree = (CommonTree)adaptor.DupNode(ALL142);
+                    	{ALL142_tree = (IASTNode)adaptor.DupNode(ALL142);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(ALL142_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(ALL142_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -6063,8 +6066,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_quantified_in_expr1346);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_quantified_in_expr1352);
                     	quantified143 = quantified();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6080,20 +6083,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 6 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:240:4: ^( SOME quantified )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:245:4: ^( SOME quantified )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	SOME144=(CommonTree)Match(input,SOME,FOLLOW_SOME_in_expr1354); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	SOME144=(IASTNode)Match(input,SOME,FOLLOW_SOME_in_expr1360); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{SOME144_tree = (CommonTree)adaptor.DupNode(SOME144);
+                    	{SOME144_tree = (IASTNode)adaptor.DupNode(SOME144);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(SOME144_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(SOME144_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -6102,8 +6105,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_quantified_in_expr1358);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_quantified_in_expr1364);
                     	quantified145 = quantified();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6121,7 +6124,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -6138,25 +6141,25 @@ public partial class SqlGenerator : TreeParser
 
     public class quantified_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "quantified"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:243:1: quantified : ( sqlToken | selectStatement ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:248:1: quantified : ( sqlToken | selectStatement ) ;
     public SqlGenerator.quantified_return quantified() // throws RecognitionException [1]
     {   
         SqlGenerator.quantified_return retval = new SqlGenerator.quantified_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.sqlToken_return sqlToken146 = default(SqlGenerator.sqlToken_return);
 
@@ -6166,16 +6169,16 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:244:2: ( ( sqlToken | selectStatement ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:244:4: ( sqlToken | selectStatement )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:249:2: ( ( sqlToken | selectStatement ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:249:4: ( sqlToken | selectStatement )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	if ( state.backtracking == 0 ) 
             	{
             	   Out("("); 
             	}
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:244:18: ( sqlToken | selectStatement )
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:249:18: ( sqlToken | selectStatement )
             	int alt43 = 2;
             	int LA43_0 = input.LA(1);
 
@@ -6198,10 +6201,10 @@ public partial class SqlGenerator : TreeParser
             	switch (alt43) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:244:20: sqlToken
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:249:20: sqlToken
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_sqlToken_in_quantified1376);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_sqlToken_in_quantified1382);
             	        	sqlToken146 = sqlToken();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -6213,10 +6216,10 @@ public partial class SqlGenerator : TreeParser
             	        }
             	        break;
             	    case 2 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:244:31: selectStatement
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:249:31: selectStatement
             	        {
-            	        	_last = (CommonTree)input.LT(1);
-            	        	PushFollow(FOLLOW_selectStatement_in_quantified1380);
+            	        	_last = (IASTNode)input.LT(1);
+            	        	PushFollow(FOLLOW_selectStatement_in_quantified1386);
             	        	selectStatement147 = selectStatement();
             	        	state.followingStackPointer--;
             	        	if (state.failed) return retval;
@@ -6240,7 +6243,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -6257,25 +6260,25 @@ public partial class SqlGenerator : TreeParser
 
     public class parenSelect_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "parenSelect"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:247:1: parenSelect : selectStatement ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:252:1: parenSelect : selectStatement ;
     public SqlGenerator.parenSelect_return parenSelect() // throws RecognitionException [1]
     {   
         SqlGenerator.parenSelect_return retval = new SqlGenerator.parenSelect_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.selectStatement_return selectStatement148 = default(SqlGenerator.selectStatement_return);
 
@@ -6283,17 +6286,17 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:248:2: ( selectStatement )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:248:4: selectStatement
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:253:2: ( selectStatement )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:253:4: selectStatement
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	if ( state.backtracking == 0 ) 
             	{
             	   Out("("); 
             	}
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_selectStatement_in_parenSelect1399);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_selectStatement_in_parenSelect1405);
             	selectStatement148 = selectStatement();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -6309,7 +6312,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -6326,27 +6329,27 @@ public partial class SqlGenerator : TreeParser
 
     public class simpleExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "simpleExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:251:1: simpleExpr : (c= constant | NULL | addrExpr | sqlToken | aggregate | methodCall | count | parameter | arithmeticExpr );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:256:1: simpleExpr : (c= constant | NULL | addrExpr | sqlToken | aggregate | methodCall | count | parameter | arithmeticExpr );
     public SqlGenerator.simpleExpr_return simpleExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.simpleExpr_return retval = new SqlGenerator.simpleExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree NULL149 = null;
+        IASTNode NULL149 = null;
         SqlGenerator.constant_return c = default(SqlGenerator.constant_return);
 
         SqlGenerator.addrExpr_return addrExpr150 = default(SqlGenerator.addrExpr_return);
@@ -6364,11 +6367,11 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.arithmeticExpr_return arithmeticExpr156 = default(SqlGenerator.arithmeticExpr_return);
 
 
-        CommonTree NULL149_tree=null;
+        IASTNode NULL149_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:252:2: (c= constant | NULL | addrExpr | sqlToken | aggregate | methodCall | count | parameter | arithmeticExpr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:257:2: (c= constant | NULL | addrExpr | sqlToken | aggregate | methodCall | count | parameter | arithmeticExpr )
             int alt44 = 9;
             switch ( input.LA(1) ) 
             {
@@ -6446,12 +6449,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt44) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:252:4: c= constant
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:257:4: c= constant
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_constant_in_simpleExpr1415);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_constant_in_simpleExpr1421);
                     	c = constant();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6459,7 +6462,7 @@ public partial class SqlGenerator : TreeParser
                     	adaptor.AddChild(root_0, c.Tree);
                     	if ( state.backtracking == 0 ) 
                     	{
-                    	   Out(((c != null) ? ((CommonTree)c.Tree) : null)); 
+                    	   Out(((c != null) ? ((IASTNode)c.Tree) : null)); 
                     	}
 
                     	if ( state.backtracking==0 ) {
@@ -6467,14 +6470,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:253:4: NULL
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:258:4: NULL
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	NULL149=(CommonTree)Match(input,NULL,FOLLOW_NULL_in_simpleExpr1422); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	NULL149=(IASTNode)Match(input,NULL,FOLLOW_NULL_in_simpleExpr1428); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{NULL149_tree = (CommonTree)adaptor.DupNode(NULL149);
+                    	{NULL149_tree = (IASTNode)adaptor.DupNode(NULL149);
 
                     		adaptor.AddChild(root_0, NULL149_tree);
                     	}
@@ -6488,12 +6491,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:254:4: addrExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:259:4: addrExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_addrExpr_in_simpleExpr1429);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_addrExpr_in_simpleExpr1435);
                     	addrExpr150 = addrExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6505,12 +6508,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:255:4: sqlToken
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:260:4: sqlToken
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_sqlToken_in_simpleExpr1434);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_sqlToken_in_simpleExpr1440);
                     	sqlToken151 = sqlToken();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6522,12 +6525,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 5 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:256:4: aggregate
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:261:4: aggregate
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_aggregate_in_simpleExpr1439);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_aggregate_in_simpleExpr1445);
                     	aggregate152 = aggregate();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6539,12 +6542,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 6 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:257:4: methodCall
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:262:4: methodCall
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_methodCall_in_simpleExpr1444);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_methodCall_in_simpleExpr1450);
                     	methodCall153 = methodCall();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6556,12 +6559,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 7 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:258:4: count
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:263:4: count
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_count_in_simpleExpr1449);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_count_in_simpleExpr1455);
                     	count154 = count();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6573,12 +6576,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 8 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:259:4: parameter
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:264:4: parameter
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_parameter_in_simpleExpr1454);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_parameter_in_simpleExpr1460);
                     	parameter155 = parameter();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6590,12 +6593,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 9 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:260:4: arithmeticExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:265:4: arithmeticExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_arithmeticExpr_in_simpleExpr1459);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_arithmeticExpr_in_simpleExpr1465);
                     	arithmeticExpr156 = arithmeticExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6609,7 +6612,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -6626,45 +6629,45 @@ public partial class SqlGenerator : TreeParser
 
     public class constant_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "constant"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:263:1: constant : ( NUM_DOUBLE | NUM_FLOAT | NUM_INT | NUM_LONG | QUOTED_STRING | CONSTANT | JAVA_CONSTANT | TRUE | FALSE | IDENT );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:268:1: constant : ( NUM_DOUBLE | NUM_FLOAT | NUM_INT | NUM_LONG | QUOTED_STRING | CONSTANT | JAVA_CONSTANT | TRUE | FALSE | IDENT );
     public SqlGenerator.constant_return constant() // throws RecognitionException [1]
     {   
         SqlGenerator.constant_return retval = new SqlGenerator.constant_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree set157 = null;
+        IASTNode set157 = null;
 
-        CommonTree set157_tree=null;
+        IASTNode set157_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:264:2: ( NUM_DOUBLE | NUM_FLOAT | NUM_INT | NUM_LONG | QUOTED_STRING | CONSTANT | JAVA_CONSTANT | TRUE | FALSE | IDENT )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:269:2: ( NUM_DOUBLE | NUM_FLOAT | NUM_INT | NUM_LONG | QUOTED_STRING | CONSTANT | JAVA_CONSTANT | TRUE | FALSE | IDENT )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	set157 = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
+            	set157 = (IASTNode)input.LT(1);
             	if ( input.LA(1) == FALSE || input.LA(1) == TRUE || (input.LA(1) >= CONSTANT && input.LA(1) <= JAVA_CONSTANT) || input.LA(1) == IDENT || input.LA(1) == QUOTED_STRING ) 
             	{
             	    input.Consume();
 
             	    if ( state.backtracking==0 ) {
-            	    set157_tree = (CommonTree)adaptor.DupNode(set157);
+            	    set157_tree = (IASTNode)adaptor.DupNode(set157);
 
             	    adaptor.AddChild(root_0, set157_tree);
             	    }
@@ -6683,7 +6686,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -6700,27 +6703,27 @@ public partial class SqlGenerator : TreeParser
 
     public class arithmeticExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "arithmeticExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:276:1: arithmeticExpr : ( additiveExpr | multiplicativeExpr | ^( UNARY_MINUS expr ) | caseExpr );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:281:1: arithmeticExpr : ( additiveExpr | multiplicativeExpr | ^( UNARY_MINUS expr ) | caseExpr );
     public SqlGenerator.arithmeticExpr_return arithmeticExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.arithmeticExpr_return retval = new SqlGenerator.arithmeticExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree UNARY_MINUS160 = null;
+        IASTNode UNARY_MINUS160 = null;
         SqlGenerator.additiveExpr_return additiveExpr158 = default(SqlGenerator.additiveExpr_return);
 
         SqlGenerator.multiplicativeExpr_return multiplicativeExpr159 = default(SqlGenerator.multiplicativeExpr_return);
@@ -6730,11 +6733,11 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.caseExpr_return caseExpr162 = default(SqlGenerator.caseExpr_return);
 
 
-        CommonTree UNARY_MINUS160_tree=null;
+        IASTNode UNARY_MINUS160_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:277:2: ( additiveExpr | multiplicativeExpr | ^( UNARY_MINUS expr ) | caseExpr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:282:2: ( additiveExpr | multiplicativeExpr | ^( UNARY_MINUS expr ) | caseExpr )
             int alt45 = 4;
             switch ( input.LA(1) ) 
             {
@@ -6772,12 +6775,12 @@ public partial class SqlGenerator : TreeParser
             switch (alt45) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:277:4: additiveExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:282:4: additiveExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_additiveExpr_in_arithmeticExpr1528);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_additiveExpr_in_arithmeticExpr1534);
                     	additiveExpr158 = additiveExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6789,12 +6792,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:278:4: multiplicativeExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:283:4: multiplicativeExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_multiplicativeExpr_in_arithmeticExpr1533);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_multiplicativeExpr_in_arithmeticExpr1539);
                     	multiplicativeExpr159 = multiplicativeExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6806,20 +6809,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:280:4: ^( UNARY_MINUS expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:285:4: ^( UNARY_MINUS expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	UNARY_MINUS160=(CommonTree)Match(input,UNARY_MINUS,FOLLOW_UNARY_MINUS_in_arithmeticExpr1540); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	UNARY_MINUS160=(IASTNode)Match(input,UNARY_MINUS,FOLLOW_UNARY_MINUS_in_arithmeticExpr1546); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{UNARY_MINUS160_tree = (CommonTree)adaptor.DupNode(UNARY_MINUS160);
+                    	{UNARY_MINUS160_tree = (IASTNode)adaptor.DupNode(UNARY_MINUS160);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(UNARY_MINUS160_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(UNARY_MINUS160_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -6828,8 +6831,8 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1544);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1550);
                     	expr161 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6845,12 +6848,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 4 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:281:4: caseExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:286:4: caseExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_caseExpr_in_arithmeticExpr1550);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_caseExpr_in_arithmeticExpr1556);
                     	caseExpr162 = caseExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6864,7 +6867,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -6881,28 +6884,28 @@ public partial class SqlGenerator : TreeParser
 
     public class additiveExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "additiveExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:284:1: additiveExpr : ( ^( PLUS expr expr ) | ^( MINUS expr nestedExprAfterMinusDiv ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:289:1: additiveExpr : ( ^( PLUS expr expr ) | ^( MINUS expr nestedExprAfterMinusDiv ) );
     public SqlGenerator.additiveExpr_return additiveExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.additiveExpr_return retval = new SqlGenerator.additiveExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree PLUS163 = null;
-        CommonTree MINUS166 = null;
+        IASTNode PLUS163 = null;
+        IASTNode MINUS166 = null;
         SqlGenerator.expr_return expr164 = default(SqlGenerator.expr_return);
 
         SqlGenerator.expr_return expr165 = default(SqlGenerator.expr_return);
@@ -6912,12 +6915,12 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.nestedExprAfterMinusDiv_return nestedExprAfterMinusDiv168 = default(SqlGenerator.nestedExprAfterMinusDiv_return);
 
 
-        CommonTree PLUS163_tree=null;
-        CommonTree MINUS166_tree=null;
+        IASTNode PLUS163_tree=null;
+        IASTNode MINUS166_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:285:2: ( ^( PLUS expr expr ) | ^( MINUS expr nestedExprAfterMinusDiv ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:290:2: ( ^( PLUS expr expr ) | ^( MINUS expr nestedExprAfterMinusDiv ) )
             int alt46 = 2;
             int LA46_0 = input.LA(1);
 
@@ -6940,26 +6943,26 @@ public partial class SqlGenerator : TreeParser
             switch (alt46) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:285:4: ^( PLUS expr expr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:290:4: ^( PLUS expr expr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	PLUS163=(CommonTree)Match(input,PLUS,FOLLOW_PLUS_in_additiveExpr1562); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	PLUS163=(IASTNode)Match(input,PLUS,FOLLOW_PLUS_in_additiveExpr1568); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{PLUS163_tree = (CommonTree)adaptor.DupNode(PLUS163);
+                    	{PLUS163_tree = (IASTNode)adaptor.DupNode(PLUS163);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(PLUS163_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(PLUS163_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_additiveExpr1564);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_additiveExpr1570);
                     	expr164 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6969,8 +6972,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("+"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_additiveExpr1568);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_additiveExpr1574);
                     	expr165 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -6986,26 +6989,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:286:4: ^( MINUS expr nestedExprAfterMinusDiv )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:291:4: ^( MINUS expr nestedExprAfterMinusDiv )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	MINUS166=(CommonTree)Match(input,MINUS,FOLLOW_MINUS_in_additiveExpr1575); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	MINUS166=(IASTNode)Match(input,MINUS,FOLLOW_MINUS_in_additiveExpr1581); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{MINUS166_tree = (CommonTree)adaptor.DupNode(MINUS166);
+                    	{MINUS166_tree = (IASTNode)adaptor.DupNode(MINUS166);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(MINUS166_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(MINUS166_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_additiveExpr1577);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_additiveExpr1583);
                     	expr167 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7015,8 +7018,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("-"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_nestedExprAfterMinusDiv_in_additiveExpr1581);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_nestedExprAfterMinusDiv_in_additiveExpr1587);
                     	nestedExprAfterMinusDiv168 = nestedExprAfterMinusDiv();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7034,7 +7037,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -7051,28 +7054,28 @@ public partial class SqlGenerator : TreeParser
 
     public class multiplicativeExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "multiplicativeExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:289:1: multiplicativeExpr : ( ^( STAR nestedExpr nestedExpr ) | ^( DIV nestedExpr nestedExprAfterMinusDiv ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:294:1: multiplicativeExpr : ( ^( STAR nestedExpr nestedExpr ) | ^( DIV nestedExpr nestedExprAfterMinusDiv ) );
     public SqlGenerator.multiplicativeExpr_return multiplicativeExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.multiplicativeExpr_return retval = new SqlGenerator.multiplicativeExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree STAR169 = null;
-        CommonTree DIV172 = null;
+        IASTNode STAR169 = null;
+        IASTNode DIV172 = null;
         SqlGenerator.nestedExpr_return nestedExpr170 = default(SqlGenerator.nestedExpr_return);
 
         SqlGenerator.nestedExpr_return nestedExpr171 = default(SqlGenerator.nestedExpr_return);
@@ -7082,12 +7085,12 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.nestedExprAfterMinusDiv_return nestedExprAfterMinusDiv174 = default(SqlGenerator.nestedExprAfterMinusDiv_return);
 
 
-        CommonTree STAR169_tree=null;
-        CommonTree DIV172_tree=null;
+        IASTNode STAR169_tree=null;
+        IASTNode DIV172_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:290:2: ( ^( STAR nestedExpr nestedExpr ) | ^( DIV nestedExpr nestedExprAfterMinusDiv ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:295:2: ( ^( STAR nestedExpr nestedExpr ) | ^( DIV nestedExpr nestedExprAfterMinusDiv ) )
             int alt47 = 2;
             int LA47_0 = input.LA(1);
 
@@ -7110,26 +7113,26 @@ public partial class SqlGenerator : TreeParser
             switch (alt47) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:290:4: ^( STAR nestedExpr nestedExpr )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:295:4: ^( STAR nestedExpr nestedExpr )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	STAR169=(CommonTree)Match(input,STAR,FOLLOW_STAR_in_multiplicativeExpr1594); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	STAR169=(IASTNode)Match(input,STAR,FOLLOW_STAR_in_multiplicativeExpr1600); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{STAR169_tree = (CommonTree)adaptor.DupNode(STAR169);
+                    	{STAR169_tree = (IASTNode)adaptor.DupNode(STAR169);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(STAR169_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(STAR169_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_nestedExpr_in_multiplicativeExpr1596);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_nestedExpr_in_multiplicativeExpr1602);
                     	nestedExpr170 = nestedExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7139,8 +7142,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("*"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_nestedExpr_in_multiplicativeExpr1600);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_nestedExpr_in_multiplicativeExpr1606);
                     	nestedExpr171 = nestedExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7156,26 +7159,26 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:291:4: ^( DIV nestedExpr nestedExprAfterMinusDiv )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:296:4: ^( DIV nestedExpr nestedExprAfterMinusDiv )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	DIV172=(CommonTree)Match(input,DIV,FOLLOW_DIV_in_multiplicativeExpr1607); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	DIV172=(IASTNode)Match(input,DIV,FOLLOW_DIV_in_multiplicativeExpr1613); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{DIV172_tree = (CommonTree)adaptor.DupNode(DIV172);
+                    	{DIV172_tree = (IASTNode)adaptor.DupNode(DIV172);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(DIV172_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(DIV172_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_nestedExpr_in_multiplicativeExpr1609);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_nestedExpr_in_multiplicativeExpr1615);
                     	nestedExpr173 = nestedExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7185,8 +7188,8 @@ public partial class SqlGenerator : TreeParser
                     	{
                     	   Out("/"); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_nestedExprAfterMinusDiv_in_multiplicativeExpr1613);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_nestedExprAfterMinusDiv_in_multiplicativeExpr1619);
                     	nestedExprAfterMinusDiv174 = nestedExprAfterMinusDiv();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7204,7 +7207,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -7221,25 +7224,25 @@ public partial class SqlGenerator : TreeParser
 
     public class nestedExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "nestedExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:294:1: nestedExpr : ( ( additiveExpr )=> additiveExpr | expr );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:299:1: nestedExpr : ( ( additiveExpr )=> additiveExpr | expr );
     public SqlGenerator.nestedExpr_return nestedExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.nestedExpr_return retval = new SqlGenerator.nestedExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.additiveExpr_return additiveExpr175 = default(SqlGenerator.additiveExpr_return);
 
@@ -7249,22 +7252,22 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:296:2: ( ( additiveExpr )=> additiveExpr | expr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:301:2: ( ( additiveExpr )=> additiveExpr | expr )
             int alt48 = 2;
             alt48 = dfa48.Predict(input);
             switch (alt48) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:296:4: ( additiveExpr )=> additiveExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:301:4: ( additiveExpr )=> additiveExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	if ( state.backtracking == 0 ) 
                     	{
                     	   Out("("); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_additiveExpr_in_nestedExpr1635);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_additiveExpr_in_nestedExpr1641);
                     	additiveExpr175 = additiveExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7280,12 +7283,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:297:4: expr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:302:4: expr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_nestedExpr1642);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_nestedExpr1648);
                     	expr176 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7299,7 +7302,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -7316,25 +7319,25 @@ public partial class SqlGenerator : TreeParser
 
     public class nestedExprAfterMinusDiv_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "nestedExprAfterMinusDiv"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:300:1: nestedExprAfterMinusDiv : ( ( arithmeticExpr )=> arithmeticExpr | expr );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:305:1: nestedExprAfterMinusDiv : ( ( arithmeticExpr )=> arithmeticExpr | expr );
     public SqlGenerator.nestedExprAfterMinusDiv_return nestedExprAfterMinusDiv() // throws RecognitionException [1]
     {   
         SqlGenerator.nestedExprAfterMinusDiv_return retval = new SqlGenerator.nestedExprAfterMinusDiv_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.arithmeticExpr_return arithmeticExpr177 = default(SqlGenerator.arithmeticExpr_return);
 
@@ -7344,22 +7347,22 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:302:2: ( ( arithmeticExpr )=> arithmeticExpr | expr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:307:2: ( ( arithmeticExpr )=> arithmeticExpr | expr )
             int alt49 = 2;
             alt49 = dfa49.Predict(input);
             switch (alt49) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:302:4: ( arithmeticExpr )=> arithmeticExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:307:4: ( arithmeticExpr )=> arithmeticExpr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	if ( state.backtracking == 0 ) 
                     	{
                     	   Out("("); 
                     	}
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_arithmeticExpr_in_nestedExprAfterMinusDiv1664);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_arithmeticExpr_in_nestedExprAfterMinusDiv1670);
                     	arithmeticExpr177 = arithmeticExpr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7375,12 +7378,12 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:303:4: expr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:308:4: expr
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_nestedExprAfterMinusDiv1671);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_nestedExprAfterMinusDiv1677);
                     	expr178 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
@@ -7394,7 +7397,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -7411,32 +7414,32 @@ public partial class SqlGenerator : TreeParser
 
     public class caseExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "caseExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:306:1: caseExpr : ( ^( CASE ( ^( WHEN booleanExpr[false] expr ) )+ ( ^( ELSE expr ) )? ) | ^( CASE2 expr ( ^( WHEN expr expr ) )+ ( ^( ELSE expr ) )? ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:311:1: caseExpr : ( ^( CASE ( ^( WHEN booleanExpr[false] expr ) )+ ( ^( ELSE expr ) )? ) | ^( CASE2 expr ( ^( WHEN expr expr ) )+ ( ^( ELSE expr ) )? ) );
     public SqlGenerator.caseExpr_return caseExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.caseExpr_return retval = new SqlGenerator.caseExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree CASE179 = null;
-        CommonTree WHEN180 = null;
-        CommonTree ELSE183 = null;
-        CommonTree CASE2185 = null;
-        CommonTree WHEN187 = null;
-        CommonTree ELSE190 = null;
+        IASTNode CASE179 = null;
+        IASTNode WHEN180 = null;
+        IASTNode ELSE183 = null;
+        IASTNode CASE2185 = null;
+        IASTNode WHEN187 = null;
+        IASTNode ELSE190 = null;
         SqlGenerator.booleanExpr_return booleanExpr181 = default(SqlGenerator.booleanExpr_return);
 
         SqlGenerator.expr_return expr182 = default(SqlGenerator.expr_return);
@@ -7452,16 +7455,16 @@ public partial class SqlGenerator : TreeParser
         SqlGenerator.expr_return expr191 = default(SqlGenerator.expr_return);
 
 
-        CommonTree CASE179_tree=null;
-        CommonTree WHEN180_tree=null;
-        CommonTree ELSE183_tree=null;
-        CommonTree CASE2185_tree=null;
-        CommonTree WHEN187_tree=null;
-        CommonTree ELSE190_tree=null;
+        IASTNode CASE179_tree=null;
+        IASTNode WHEN180_tree=null;
+        IASTNode ELSE183_tree=null;
+        IASTNode CASE2185_tree=null;
+        IASTNode WHEN187_tree=null;
+        IASTNode ELSE190_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:307:2: ( ^( CASE ( ^( WHEN booleanExpr[false] expr ) )+ ( ^( ELSE expr ) )? ) | ^( CASE2 expr ( ^( WHEN expr expr ) )+ ( ^( ELSE expr ) )? ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:312:2: ( ^( CASE ( ^( WHEN booleanExpr[false] expr ) )+ ( ^( ELSE expr ) )? ) | ^( CASE2 expr ( ^( WHEN expr expr ) )+ ( ^( ELSE expr ) )? ) )
             int alt54 = 2;
             int LA54_0 = input.LA(1);
 
@@ -7484,20 +7487,20 @@ public partial class SqlGenerator : TreeParser
             switch (alt54) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:307:4: ^( CASE ( ^( WHEN booleanExpr[false] expr ) )+ ( ^( ELSE expr ) )? )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:312:4: ^( CASE ( ^( WHEN booleanExpr[false] expr ) )+ ( ^( ELSE expr ) )? )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	CASE179=(CommonTree)Match(input,CASE,FOLLOW_CASE_in_caseExpr1683); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	CASE179=(IASTNode)Match(input,CASE,FOLLOW_CASE_in_caseExpr1689); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{CASE179_tree = (CommonTree)adaptor.DupNode(CASE179);
+                    	{CASE179_tree = (IASTNode)adaptor.DupNode(CASE179);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(CASE179_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(CASE179_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -7506,7 +7509,7 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:308:3: ( ^( WHEN booleanExpr[false] expr ) )+
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:313:3: ( ^( WHEN booleanExpr[false] expr ) )+
                     	int cnt50 = 0;
                     	do 
                     	{
@@ -7522,18 +7525,18 @@ public partial class SqlGenerator : TreeParser
                     	    switch (alt50) 
                     		{
                     			case 1 :
-                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:308:5: ^( WHEN booleanExpr[false] expr )
+                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:313:5: ^( WHEN booleanExpr[false] expr )
                     			    {
-                    			    	_last = (CommonTree)input.LT(1);
+                    			    	_last = (IASTNode)input.LT(1);
                     			    	{
-                    			    	CommonTree _save_last_2 = _last;
-                    			    	CommonTree _first_2 = null;
-                    			    	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    			    	WHEN180=(CommonTree)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1693); if (state.failed) return retval;
+                    			    	IASTNode _save_last_2 = _last;
+                    			    	IASTNode _first_2 = null;
+                    			    	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    			    	WHEN180=(IASTNode)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1699); if (state.failed) return retval;
                     			    	if ( state.backtracking == 0 )
-                    			    	{WHEN180_tree = (CommonTree)adaptor.DupNode(WHEN180);
+                    			    	{WHEN180_tree = (IASTNode)adaptor.DupNode(WHEN180);
 
-                    			    		root_2 = (CommonTree)adaptor.BecomeRoot(WHEN180_tree, root_2);
+                    			    		root_2 = (IASTNode)adaptor.BecomeRoot(WHEN180_tree, root_2);
                     			    	}
 
                     			    	if ( state.backtracking == 0 ) 
@@ -7542,8 +7545,8 @@ public partial class SqlGenerator : TreeParser
                     			    	}
 
                     			    	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    			    	_last = (CommonTree)input.LT(1);
-                    			    	PushFollow(FOLLOW_booleanExpr_in_caseExpr1697);
+                    			    	_last = (IASTNode)input.LT(1);
+                    			    	PushFollow(FOLLOW_booleanExpr_in_caseExpr1703);
                     			    	booleanExpr181 = booleanExpr(false);
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -7553,8 +7556,8 @@ public partial class SqlGenerator : TreeParser
                     			    	{
                     			    	   Out(" then "); 
                     			    	}
-                    			    	_last = (CommonTree)input.LT(1);
-                    			    	PushFollow(FOLLOW_expr_in_caseExpr1702);
+                    			    	_last = (IASTNode)input.LT(1);
+                    			    	PushFollow(FOLLOW_expr_in_caseExpr1708);
                     			    	expr182 = expr();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -7583,7 +7586,7 @@ public partial class SqlGenerator : TreeParser
                     	loop50:
                     		;	// Stops C# compiler whinging that label 'loop50' has no statements
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:309:3: ( ^( ELSE expr ) )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:314:3: ( ^( ELSE expr ) )?
                     	int alt51 = 2;
                     	int LA51_0 = input.LA(1);
 
@@ -7594,18 +7597,18 @@ public partial class SqlGenerator : TreeParser
                     	switch (alt51) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:309:5: ^( ELSE expr )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:314:5: ^( ELSE expr )
                     	        {
-                    	        	_last = (CommonTree)input.LT(1);
+                    	        	_last = (IASTNode)input.LT(1);
                     	        	{
-                    	        	CommonTree _save_last_2 = _last;
-                    	        	CommonTree _first_2 = null;
-                    	        	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	        	ELSE183=(CommonTree)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1714); if (state.failed) return retval;
+                    	        	IASTNode _save_last_2 = _last;
+                    	        	IASTNode _first_2 = null;
+                    	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	        	ELSE183=(IASTNode)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1720); if (state.failed) return retval;
                     	        	if ( state.backtracking == 0 )
-                    	        	{ELSE183_tree = (CommonTree)adaptor.DupNode(ELSE183);
+                    	        	{ELSE183_tree = (IASTNode)adaptor.DupNode(ELSE183);
 
-                    	        		root_2 = (CommonTree)adaptor.BecomeRoot(ELSE183_tree, root_2);
+                    	        		root_2 = (IASTNode)adaptor.BecomeRoot(ELSE183_tree, root_2);
                     	        	}
 
                     	        	if ( state.backtracking == 0 ) 
@@ -7614,8 +7617,8 @@ public partial class SqlGenerator : TreeParser
                     	        	}
 
                     	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	        	_last = (CommonTree)input.LT(1);
-                    	        	PushFollow(FOLLOW_expr_in_caseExpr1718);
+                    	        	_last = (IASTNode)input.LT(1);
+                    	        	PushFollow(FOLLOW_expr_in_caseExpr1724);
                     	        	expr184 = expr();
                     	        	state.followingStackPointer--;
                     	        	if (state.failed) return retval;
@@ -7647,20 +7650,20 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:311:4: ^( CASE2 expr ( ^( WHEN expr expr ) )+ ( ^( ELSE expr ) )? )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:316:4: ^( CASE2 expr ( ^( WHEN expr expr ) )+ ( ^( ELSE expr ) )? )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	CASE2185=(CommonTree)Match(input,CASE2,FOLLOW_CASE2_in_caseExpr1734); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	CASE2185=(IASTNode)Match(input,CASE2,FOLLOW_CASE2_in_caseExpr1740); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{CASE2185_tree = (CommonTree)adaptor.DupNode(CASE2185);
+                    	{CASE2185_tree = (IASTNode)adaptor.DupNode(CASE2185);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(CASE2185_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(CASE2185_tree, root_1);
                     	}
 
                     	if ( state.backtracking == 0 ) 
@@ -7669,14 +7672,14 @@ public partial class SqlGenerator : TreeParser
                     	}
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	_last = (CommonTree)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_caseExpr1738);
+                    	_last = (IASTNode)input.LT(1);
+                    	PushFollow(FOLLOW_expr_in_caseExpr1744);
                     	expr186 = expr();
                     	state.followingStackPointer--;
                     	if (state.failed) return retval;
                     	if ( state.backtracking==0 ) 
                     	adaptor.AddChild(root_1, expr186.Tree);
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:312:3: ( ^( WHEN expr expr ) )+
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:317:3: ( ^( WHEN expr expr ) )+
                     	int cnt52 = 0;
                     	do 
                     	{
@@ -7692,18 +7695,18 @@ public partial class SqlGenerator : TreeParser
                     	    switch (alt52) 
                     		{
                     			case 1 :
-                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:312:5: ^( WHEN expr expr )
+                    			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:317:5: ^( WHEN expr expr )
                     			    {
-                    			    	_last = (CommonTree)input.LT(1);
+                    			    	_last = (IASTNode)input.LT(1);
                     			    	{
-                    			    	CommonTree _save_last_2 = _last;
-                    			    	CommonTree _first_2 = null;
-                    			    	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    			    	WHEN187=(CommonTree)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1745); if (state.failed) return retval;
+                    			    	IASTNode _save_last_2 = _last;
+                    			    	IASTNode _first_2 = null;
+                    			    	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    			    	WHEN187=(IASTNode)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1751); if (state.failed) return retval;
                     			    	if ( state.backtracking == 0 )
-                    			    	{WHEN187_tree = (CommonTree)adaptor.DupNode(WHEN187);
+                    			    	{WHEN187_tree = (IASTNode)adaptor.DupNode(WHEN187);
 
-                    			    		root_2 = (CommonTree)adaptor.BecomeRoot(WHEN187_tree, root_2);
+                    			    		root_2 = (IASTNode)adaptor.BecomeRoot(WHEN187_tree, root_2);
                     			    	}
 
                     			    	if ( state.backtracking == 0 ) 
@@ -7712,8 +7715,8 @@ public partial class SqlGenerator : TreeParser
                     			    	}
 
                     			    	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    			    	_last = (CommonTree)input.LT(1);
-                    			    	PushFollow(FOLLOW_expr_in_caseExpr1749);
+                    			    	_last = (IASTNode)input.LT(1);
+                    			    	PushFollow(FOLLOW_expr_in_caseExpr1755);
                     			    	expr188 = expr();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -7723,8 +7726,8 @@ public partial class SqlGenerator : TreeParser
                     			    	{
                     			    	   Out(" then "); 
                     			    	}
-                    			    	_last = (CommonTree)input.LT(1);
-                    			    	PushFollow(FOLLOW_expr_in_caseExpr1753);
+                    			    	_last = (IASTNode)input.LT(1);
+                    			    	PushFollow(FOLLOW_expr_in_caseExpr1759);
                     			    	expr189 = expr();
                     			    	state.followingStackPointer--;
                     			    	if (state.failed) return retval;
@@ -7753,7 +7756,7 @@ public partial class SqlGenerator : TreeParser
                     	loop52:
                     		;	// Stops C# compiler whinging that label 'loop52' has no statements
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:313:3: ( ^( ELSE expr ) )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:318:3: ( ^( ELSE expr ) )?
                     	int alt53 = 2;
                     	int LA53_0 = input.LA(1);
 
@@ -7764,18 +7767,18 @@ public partial class SqlGenerator : TreeParser
                     	switch (alt53) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:313:5: ^( ELSE expr )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:318:5: ^( ELSE expr )
                     	        {
-                    	        	_last = (CommonTree)input.LT(1);
+                    	        	_last = (IASTNode)input.LT(1);
                     	        	{
-                    	        	CommonTree _save_last_2 = _last;
-                    	        	CommonTree _first_2 = null;
-                    	        	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	        	ELSE190=(CommonTree)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1765); if (state.failed) return retval;
+                    	        	IASTNode _save_last_2 = _last;
+                    	        	IASTNode _first_2 = null;
+                    	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	        	ELSE190=(IASTNode)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1771); if (state.failed) return retval;
                     	        	if ( state.backtracking == 0 )
-                    	        	{ELSE190_tree = (CommonTree)adaptor.DupNode(ELSE190);
+                    	        	{ELSE190_tree = (IASTNode)adaptor.DupNode(ELSE190);
 
-                    	        		root_2 = (CommonTree)adaptor.BecomeRoot(ELSE190_tree, root_2);
+                    	        		root_2 = (IASTNode)adaptor.BecomeRoot(ELSE190_tree, root_2);
                     	        	}
 
                     	        	if ( state.backtracking == 0 ) 
@@ -7784,8 +7787,8 @@ public partial class SqlGenerator : TreeParser
                     	        	}
 
                     	        	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	        	_last = (CommonTree)input.LT(1);
-                    	        	PushFollow(FOLLOW_expr_in_caseExpr1769);
+                    	        	_last = (IASTNode)input.LT(1);
+                    	        	PushFollow(FOLLOW_expr_in_caseExpr1775);
                     	        	expr191 = expr();
                     	        	state.followingStackPointer--;
                     	        	if (state.failed) return retval;
@@ -7819,7 +7822,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -7836,49 +7839,49 @@ public partial class SqlGenerator : TreeParser
 
     public class aggregate_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "aggregate"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:317:1: aggregate : ^(a= AGGREGATE expr ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:322:1: aggregate : ^(a= AGGREGATE expr ) ;
     public SqlGenerator.aggregate_return aggregate() // throws RecognitionException [1]
     {   
         SqlGenerator.aggregate_return retval = new SqlGenerator.aggregate_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree a = null;
+        IASTNode a = null;
         SqlGenerator.expr_return expr192 = default(SqlGenerator.expr_return);
 
 
-        CommonTree a_tree=null;
+        IASTNode a_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:318:2: ( ^(a= AGGREGATE expr ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:318:4: ^(a= AGGREGATE expr )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:323:2: ( ^(a= AGGREGATE expr ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:323:4: ^(a= AGGREGATE expr )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	a=(CommonTree)Match(input,AGGREGATE,FOLLOW_AGGREGATE_in_aggregate1793); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	a=(IASTNode)Match(input,AGGREGATE,FOLLOW_AGGREGATE_in_aggregate1799); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{a_tree = (CommonTree)adaptor.DupNode(a);
+            	{a_tree = (IASTNode)adaptor.DupNode(a);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(a_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(a_tree, root_1);
             	}
 
             	if ( state.backtracking == 0 ) 
@@ -7887,8 +7890,8 @@ public partial class SqlGenerator : TreeParser
             	}
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_expr_in_aggregate1798);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_expr_in_aggregate1804);
             	expr192 = expr();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
@@ -7908,7 +7911,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -7925,61 +7928,61 @@ public partial class SqlGenerator : TreeParser
 
     public class methodCall_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "methodCall"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:322:1: methodCall : ^(m= METHOD_CALL i= METHOD_NAME ( ^( EXPR_LIST ( arguments )? ) )? ) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:327:1: methodCall : ^(m= METHOD_CALL i= METHOD_NAME ( ^( EXPR_LIST ( arguments )? ) )? ) ;
     public SqlGenerator.methodCall_return methodCall() // throws RecognitionException [1]
     {   
         SqlGenerator.methodCall_return retval = new SqlGenerator.methodCall_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree m = null;
-        CommonTree i = null;
-        CommonTree EXPR_LIST193 = null;
+        IASTNode m = null;
+        IASTNode i = null;
+        IASTNode EXPR_LIST193 = null;
         SqlGenerator.arguments_return arguments194 = default(SqlGenerator.arguments_return);
 
 
-        CommonTree m_tree=null;
-        CommonTree i_tree=null;
-        CommonTree EXPR_LIST193_tree=null;
+        IASTNode m_tree=null;
+        IASTNode i_tree=null;
+        IASTNode EXPR_LIST193_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:323:2: ( ^(m= METHOD_CALL i= METHOD_NAME ( ^( EXPR_LIST ( arguments )? ) )? ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:323:4: ^(m= METHOD_CALL i= METHOD_NAME ( ^( EXPR_LIST ( arguments )? ) )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:328:2: ( ^(m= METHOD_CALL i= METHOD_NAME ( ^( EXPR_LIST ( arguments )? ) )? ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:328:4: ^(m= METHOD_CALL i= METHOD_NAME ( ^( EXPR_LIST ( arguments )? ) )? )
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
+            	_last = (IASTNode)input.LT(1);
             	{
-            	CommonTree _save_last_1 = _last;
-            	CommonTree _first_1 = null;
-            	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	m=(CommonTree)Match(input,METHOD_CALL,FOLLOW_METHOD_CALL_in_methodCall1817); if (state.failed) return retval;
+            	IASTNode _save_last_1 = _last;
+            	IASTNode _first_1 = null;
+            	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	m=(IASTNode)Match(input,METHOD_CALL,FOLLOW_METHOD_CALL_in_methodCall1823); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{m_tree = (CommonTree)adaptor.DupNode(m);
+            	{m_tree = (IASTNode)adaptor.DupNode(m);
 
-            		root_1 = (CommonTree)adaptor.BecomeRoot(m_tree, root_1);
+            		root_1 = (IASTNode)adaptor.BecomeRoot(m_tree, root_1);
             	}
 
 
             	Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	_last = (CommonTree)input.LT(1);
-            	i=(CommonTree)Match(input,METHOD_NAME,FOLLOW_METHOD_NAME_in_methodCall1821); if (state.failed) return retval;
+            	_last = (IASTNode)input.LT(1);
+            	i=(IASTNode)Match(input,METHOD_NAME,FOLLOW_METHOD_NAME_in_methodCall1827); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{i_tree = (CommonTree)adaptor.DupNode(i);
+            	{i_tree = (IASTNode)adaptor.DupNode(i);
 
             		adaptor.AddChild(root_1, i_tree);
             	}
@@ -7987,7 +7990,7 @@ public partial class SqlGenerator : TreeParser
             	{
             	   beginFunctionTemplate(m,i); 
             	}
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:324:3: ( ^( EXPR_LIST ( arguments )? ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:3: ( ^( EXPR_LIST ( arguments )? ) )?
             	int alt56 = 2;
             	int LA56_0 = input.LA(1);
 
@@ -7998,25 +8001,25 @@ public partial class SqlGenerator : TreeParser
             	switch (alt56) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:324:5: ^( EXPR_LIST ( arguments )? )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:5: ^( EXPR_LIST ( arguments )? )
             	        {
-            	        	_last = (CommonTree)input.LT(1);
+            	        	_last = (IASTNode)input.LT(1);
             	        	{
-            	        	CommonTree _save_last_2 = _last;
-            	        	CommonTree _first_2 = null;
-            	        	CommonTree root_2 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-            	        	EXPR_LIST193=(CommonTree)Match(input,EXPR_LIST,FOLLOW_EXPR_LIST_in_methodCall1830); if (state.failed) return retval;
+            	        	IASTNode _save_last_2 = _last;
+            	        	IASTNode _first_2 = null;
+            	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+            	        	EXPR_LIST193=(IASTNode)Match(input,EXPR_LIST,FOLLOW_EXPR_LIST_in_methodCall1836); if (state.failed) return retval;
             	        	if ( state.backtracking == 0 )
-            	        	{EXPR_LIST193_tree = (CommonTree)adaptor.DupNode(EXPR_LIST193);
+            	        	{EXPR_LIST193_tree = (IASTNode)adaptor.DupNode(EXPR_LIST193);
 
-            	        		root_2 = (CommonTree)adaptor.BecomeRoot(EXPR_LIST193_tree, root_2);
+            	        		root_2 = (IASTNode)adaptor.BecomeRoot(EXPR_LIST193_tree, root_2);
             	        	}
 
 
             	        	if ( input.LA(1) == Token.DOWN )
             	        	{
             	        	    Match(input, Token.DOWN, null); if (state.failed) return retval;
-            	        	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:324:17: ( arguments )?
+            	        	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:17: ( arguments )?
             	        	    int alt55 = 2;
             	        	    int LA55_0 = input.LA(1);
 
@@ -8027,10 +8030,10 @@ public partial class SqlGenerator : TreeParser
             	        	    switch (alt55) 
             	        	    {
             	        	        case 1 :
-            	        	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:324:18: arguments
+            	        	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:18: arguments
             	        	            {
-            	        	            	_last = (CommonTree)input.LT(1);
-            	        	            	PushFollow(FOLLOW_arguments_in_methodCall1833);
+            	        	            	_last = (IASTNode)input.LT(1);
+            	        	            	PushFollow(FOLLOW_arguments_in_methodCall1839);
             	        	            	arguments194 = arguments();
             	        	            	state.followingStackPointer--;
             	        	            	if (state.failed) return retval;
@@ -8071,7 +8074,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -8088,25 +8091,25 @@ public partial class SqlGenerator : TreeParser
 
     public class arguments_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "arguments"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:328:1: arguments : expr ( expr )* ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:333:1: arguments : expr ( expr )* ;
     public SqlGenerator.arguments_return arguments() // throws RecognitionException [1]
     {   
         SqlGenerator.arguments_return retval = new SqlGenerator.arguments_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
         SqlGenerator.expr_return expr195 = default(SqlGenerator.expr_return);
 
@@ -8116,19 +8119,19 @@ public partial class SqlGenerator : TreeParser
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:2: ( expr ( expr )* )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:4: expr ( expr )*
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:334:2: ( expr ( expr )* )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:334:4: expr ( expr )*
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	PushFollow(FOLLOW_expr_in_arguments1857);
+            	_last = (IASTNode)input.LT(1);
+            	PushFollow(FOLLOW_expr_in_arguments1863);
             	expr195 = expr();
             	state.followingStackPointer--;
             	if (state.failed) return retval;
             	if ( state.backtracking==0 ) 
             	adaptor.AddChild(root_0, expr195.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:9: ( expr )*
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:334:9: ( expr )*
             	do 
             	{
             	    int alt57 = 2;
@@ -8143,14 +8146,14 @@ public partial class SqlGenerator : TreeParser
             	    switch (alt57) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:329:11: expr
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:334:11: expr
             			    {
             			    	if ( state.backtracking == 0 ) 
             			    	{
             			    	   commaBetweenParameters(", "); 
             			    	}
-            			    	_last = (CommonTree)input.LT(1);
-            			    	PushFollow(FOLLOW_expr_in_arguments1863);
+            			    	_last = (IASTNode)input.LT(1);
+            			    	PushFollow(FOLLOW_expr_in_arguments1869);
             			    	expr196 = expr();
             			    	state.followingStackPointer--;
             			    	if (state.failed) return retval;
@@ -8176,7 +8179,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -8193,35 +8196,35 @@ public partial class SqlGenerator : TreeParser
 
     public class parameter_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "parameter"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:332:1: parameter : (n= NAMED_PARAM | p= PARAM );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:337:1: parameter : (n= NAMED_PARAM | p= PARAM );
     public SqlGenerator.parameter_return parameter() // throws RecognitionException [1]
     {   
         SqlGenerator.parameter_return retval = new SqlGenerator.parameter_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree n = null;
-        CommonTree p = null;
+        IASTNode n = null;
+        IASTNode p = null;
 
-        CommonTree n_tree=null;
-        CommonTree p_tree=null;
+        IASTNode n_tree=null;
+        IASTNode p_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:333:2: (n= NAMED_PARAM | p= PARAM )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:338:2: (n= NAMED_PARAM | p= PARAM )
             int alt58 = 2;
             int LA58_0 = input.LA(1);
 
@@ -8244,14 +8247,14 @@ public partial class SqlGenerator : TreeParser
             switch (alt58) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:333:4: n= NAMED_PARAM
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:338:4: n= NAMED_PARAM
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	n=(CommonTree)Match(input,NAMED_PARAM,FOLLOW_NAMED_PARAM_in_parameter1879); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	n=(IASTNode)Match(input,NAMED_PARAM,FOLLOW_NAMED_PARAM_in_parameter1885); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{n_tree = (CommonTree)adaptor.DupNode(n);
+                    	{n_tree = (IASTNode)adaptor.DupNode(n);
 
                     		adaptor.AddChild(root_0, n_tree);
                     	}
@@ -8265,14 +8268,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:334:4: p= PARAM
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:339:4: p= PARAM
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	p=(CommonTree)Match(input,PARAM,FOLLOW_PARAM_in_parameter1888); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	p=(IASTNode)Match(input,PARAM,FOLLOW_PARAM_in_parameter1894); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{p_tree = (CommonTree)adaptor.DupNode(p);
+                    	{p_tree = (IASTNode)adaptor.DupNode(p);
 
                     		adaptor.AddChild(root_0, p_tree);
                     	}
@@ -8288,7 +8291,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -8305,41 +8308,41 @@ public partial class SqlGenerator : TreeParser
 
     public class addrExpr_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "addrExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:337:1: addrExpr : ( ^(r= DOT . . ) | i= ALIAS_REF | j= INDEX_OP );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:342:1: addrExpr : ( ^(r= DOT . . ) | i= ALIAS_REF | j= INDEX_OP );
     public SqlGenerator.addrExpr_return addrExpr() // throws RecognitionException [1]
     {   
         SqlGenerator.addrExpr_return retval = new SqlGenerator.addrExpr_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree r = null;
-        CommonTree i = null;
-        CommonTree j = null;
-        CommonTree wildcard197 = null;
-        CommonTree wildcard198 = null;
+        IASTNode r = null;
+        IASTNode i = null;
+        IASTNode j = null;
+        IASTNode wildcard197 = null;
+        IASTNode wildcard198 = null;
 
-        CommonTree r_tree=null;
-        CommonTree i_tree=null;
-        CommonTree j_tree=null;
-        CommonTree wildcard197_tree=null;
-        CommonTree wildcard198_tree=null;
+        IASTNode r_tree=null;
+        IASTNode i_tree=null;
+        IASTNode j_tree=null;
+        IASTNode wildcard197_tree=null;
+        IASTNode wildcard198_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:338:2: ( ^(r= DOT . . ) | i= ALIAS_REF | j= INDEX_OP )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:343:2: ( ^(r= DOT . . ) | i= ALIAS_REF | j= INDEX_OP )
             int alt59 = 3;
             switch ( input.LA(1) ) 
             {
@@ -8369,27 +8372,27 @@ public partial class SqlGenerator : TreeParser
             switch (alt59) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:338:4: ^(r= DOT . . )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:343:4: ^(r= DOT . . )
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
+                    	_last = (IASTNode)input.LT(1);
                     	{
-                    	CommonTree _save_last_1 = _last;
-                    	CommonTree _first_1 = null;
-                    	CommonTree root_1 = (CommonTree)adaptor.GetNilNode();_last = (CommonTree)input.LT(1);
-                    	r=(CommonTree)Match(input,DOT,FOLLOW_DOT_in_addrExpr1904); if (state.failed) return retval;
+                    	IASTNode _save_last_1 = _last;
+                    	IASTNode _first_1 = null;
+                    	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
+                    	r=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_addrExpr1910); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{r_tree = (CommonTree)adaptor.DupNode(r);
+                    	{r_tree = (IASTNode)adaptor.DupNode(r);
 
-                    		root_1 = (CommonTree)adaptor.BecomeRoot(r_tree, root_1);
+                    		root_1 = (IASTNode)adaptor.BecomeRoot(r_tree, root_1);
                     	}
 
 
                     	Match(input, Token.DOWN, null); if (state.failed) return retval;
-                    	wildcard197 = (CommonTree)input.LT(1);
+                    	wildcard197 = (IASTNode)input.LT(1);
                     	MatchAny(input); if (state.failed) return retval;
-                    	wildcard198 = (CommonTree)input.LT(1);
+                    	wildcard198 = (IASTNode)input.LT(1);
                     	MatchAny(input); if (state.failed) return retval;
 
                     	Match(input, Token.UP, null); if (state.failed) return retval;adaptor.AddChild(root_0, root_1);_last = _save_last_1;
@@ -8405,14 +8408,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:339:4: i= ALIAS_REF
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:344:4: i= ALIAS_REF
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	i=(CommonTree)Match(input,ALIAS_REF,FOLLOW_ALIAS_REF_in_addrExpr1918); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	i=(IASTNode)Match(input,ALIAS_REF,FOLLOW_ALIAS_REF_in_addrExpr1924); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{i_tree = (CommonTree)adaptor.DupNode(i);
+                    	{i_tree = (IASTNode)adaptor.DupNode(i);
 
                     		adaptor.AddChild(root_0, i_tree);
                     	}
@@ -8426,14 +8429,14 @@ public partial class SqlGenerator : TreeParser
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:340:4: j= INDEX_OP
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:345:4: j= INDEX_OP
                     {
-                    	root_0 = (CommonTree)adaptor.GetNilNode();
+                    	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	_last = (CommonTree)input.LT(1);
-                    	j=(CommonTree)Match(input,INDEX_OP,FOLLOW_INDEX_OP_in_addrExpr1927); if (state.failed) return retval;
+                    	_last = (IASTNode)input.LT(1);
+                    	j=(IASTNode)Match(input,INDEX_OP,FOLLOW_INDEX_OP_in_addrExpr1933); if (state.failed) return retval;
                     	if ( state.backtracking == 0 )
-                    	{j_tree = (CommonTree)adaptor.DupNode(j);
+                    	{j_tree = (IASTNode)adaptor.DupNode(j);
 
                     		adaptor.AddChild(root_0, j_tree);
                     	}
@@ -8449,7 +8452,7 @@ public partial class SqlGenerator : TreeParser
 
             }
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -8466,41 +8469,41 @@ public partial class SqlGenerator : TreeParser
 
     public class sqlToken_return : TreeRuleReturnScope
     {
-        private CommonTree tree;
+        private IASTNode tree;
         override public object Tree
         {
         	get { return tree; }
-        	set { tree = (CommonTree) value; }
+        	set { tree = (IASTNode) value; }
         }
     };
 
     // $ANTLR start "sqlToken"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:343:1: sqlToken : t= SQL_TOKEN ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:348:1: sqlToken : t= SQL_TOKEN ;
     public SqlGenerator.sqlToken_return sqlToken() // throws RecognitionException [1]
     {   
         SqlGenerator.sqlToken_return retval = new SqlGenerator.sqlToken_return();
         retval.Start = input.LT(1);
 
-        CommonTree root_0 = null;
+        IASTNode root_0 = null;
 
-        CommonTree _first_0 = null;
-        CommonTree _last = null;
+        IASTNode _first_0 = null;
+        IASTNode _last = null;
 
-        CommonTree t = null;
+        IASTNode t = null;
 
-        CommonTree t_tree=null;
+        IASTNode t_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:344:2: (t= SQL_TOKEN )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:344:4: t= SQL_TOKEN
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:349:2: (t= SQL_TOKEN )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:349:4: t= SQL_TOKEN
             {
-            	root_0 = (CommonTree)adaptor.GetNilNode();
+            	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	_last = (CommonTree)input.LT(1);
-            	t=(CommonTree)Match(input,SQL_TOKEN,FOLLOW_SQL_TOKEN_in_sqlToken1942); if (state.failed) return retval;
+            	_last = (IASTNode)input.LT(1);
+            	t=(IASTNode)Match(input,SQL_TOKEN,FOLLOW_SQL_TOKEN_in_sqlToken1948); if (state.failed) return retval;
             	if ( state.backtracking == 0 )
-            	{t_tree = (CommonTree)adaptor.DupNode(t);
+            	{t_tree = (IASTNode)adaptor.DupNode(t);
 
             		adaptor.AddChild(root_0, t_tree);
             	}
@@ -8514,7 +8517,7 @@ public partial class SqlGenerator : TreeParser
             }
 
             if ( state.backtracking==0 )
-            {	retval.Tree = (CommonTree)adaptor.RulePostProcessing(root_0);
+            {	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
             }
         }
         catch (RecognitionException re) 
@@ -8531,10 +8534,10 @@ public partial class SqlGenerator : TreeParser
 
     // $ANTLR start "synpred1_SqlGenerator"
     public void synpred1_SqlGenerator_fragment() {
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:76:4: ( SQL_TOKEN )
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:76:5: SQL_TOKEN
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:81:4: ( SQL_TOKEN )
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:81:5: SQL_TOKEN
         {
-        	Match(input,SQL_TOKEN,FOLLOW_SQL_TOKEN_in_synpred1_SqlGenerator317); if (state.failed) return ;
+        	Match(input,SQL_TOKEN,FOLLOW_SQL_TOKEN_in_synpred1_SqlGenerator323); if (state.failed) return ;
 
         }
     }
@@ -8542,10 +8545,10 @@ public partial class SqlGenerator : TreeParser
 
     // $ANTLR start "synpred2_SqlGenerator"
     public void synpred2_SqlGenerator_fragment() {
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:296:4: ( additiveExpr )
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:296:5: additiveExpr
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:301:4: ( additiveExpr )
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:301:5: additiveExpr
         {
-        	PushFollow(FOLLOW_additiveExpr_in_synpred2_SqlGenerator1628);
+        	PushFollow(FOLLOW_additiveExpr_in_synpred2_SqlGenerator1634);
         	additiveExpr();
         	state.followingStackPointer--;
         	if (state.failed) return ;
@@ -8556,10 +8559,10 @@ public partial class SqlGenerator : TreeParser
 
     // $ANTLR start "synpred3_SqlGenerator"
     public void synpred3_SqlGenerator_fragment() {
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:302:4: ( arithmeticExpr )
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:302:5: arithmeticExpr
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:307:4: ( arithmeticExpr )
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:307:5: arithmeticExpr
         {
-        	PushFollow(FOLLOW_arithmeticExpr_in_synpred3_SqlGenerator1657);
+        	PushFollow(FOLLOW_arithmeticExpr_in_synpred3_SqlGenerator1663);
         	arithmeticExpr();
         	state.followingStackPointer--;
         	if (state.failed) return ;
@@ -8708,7 +8711,7 @@ public partial class SqlGenerator : TreeParser
 
         override public string Description
         {
-            get { return "294:1: nestedExpr : ( ( additiveExpr )=> additiveExpr | expr );"; }
+            get { return "299:1: nestedExpr : ( ( additiveExpr )=> additiveExpr | expr );"; }
         }
 
     }
@@ -8830,7 +8833,7 @@ public partial class SqlGenerator : TreeParser
 
         override public string Description
         {
-            get { return "300:1: nestedExprAfterMinusDiv : ( ( arithmeticExpr )=> arithmeticExpr | expr );"; }
+            get { return "305:1: nestedExprAfterMinusDiv : ( ( arithmeticExpr )=> arithmeticExpr | expr );"; }
         }
 
     }
@@ -8956,230 +8959,230 @@ public partial class SqlGenerator : TreeParser
     }
  
 
-    public static readonly BitSet FOLLOW_selectStatement_in_statement51 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_updateStatement_in_statement56 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_deleteStatement_in_statement61 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_insertStatement_in_statement66 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SELECT_in_selectStatement78 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_selectClause_in_selectStatement84 = new BitSet(new ulong[]{0x0000000000400000UL});
-    public static readonly BitSet FOLLOW_from_in_selectStatement88 = new BitSet(new ulong[]{0x0020020001000008UL});
-    public static readonly BitSet FOLLOW_WHERE_in_selectStatement95 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_whereExpr_in_selectStatement99 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_GROUP_in_selectStatement111 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_groupExprs_in_selectStatement115 = new BitSet(new ulong[]{0x0000000002000008UL});
-    public static readonly BitSet FOLLOW_HAVING_in_selectStatement120 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_selectStatement124 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ORDER_in_selectStatement141 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_orderExprs_in_selectStatement145 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_UPDATE_in_updateStatement168 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_FROM_in_updateStatement176 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_fromTable_in_updateStatement178 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_setClause_in_updateStatement184 = new BitSet(new ulong[]{0x0020000000000008UL});
-    public static readonly BitSet FOLLOW_whereClause_in_updateStatement189 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_DELETE_in_deleteStatement208 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_from_in_deleteStatement214 = new BitSet(new ulong[]{0x0020000000000008UL});
-    public static readonly BitSet FOLLOW_whereClause_in_deleteStatement219 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_INSERT_in_insertStatement236 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_INTO_in_insertStatement244 = new BitSet(new ulong[]{0x0000200000000000UL});
-    public static readonly BitSet FOLLOW_selectStatement_in_insertStatement250 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_SET_in_setClause270 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_comparisonExpr_in_setClause274 = new BitSet(new ulong[]{0x0000000404080408UL,0x00000F4800076000UL});
-    public static readonly BitSet FOLLOW_comparisonExpr_in_setClause281 = new BitSet(new ulong[]{0x0000000404080408UL,0x00000F4800076000UL});
-    public static readonly BitSet FOLLOW_WHERE_in_whereClause299 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_whereClauseExpr_in_whereClause303 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_conditionList_in_whereClauseExpr322 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_whereClauseExpr327 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expr_in_orderExprs343 = new BitSet(new ulong[]{0x0082A0800010D132UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_orderDirection_in_orderExprs350 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_orderExprs_in_orderExprs360 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expr_in_groupExprs375 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_groupExprs_in_groupExprs381 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_selectStatement_in_statement57 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_updateStatement_in_statement62 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_deleteStatement_in_statement67 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_insertStatement_in_statement72 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SELECT_in_selectStatement84 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_selectClause_in_selectStatement90 = new BitSet(new ulong[]{0x0000000000400000UL});
+    public static readonly BitSet FOLLOW_from_in_selectStatement94 = new BitSet(new ulong[]{0x0020020001000008UL});
+    public static readonly BitSet FOLLOW_WHERE_in_selectStatement101 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_whereExpr_in_selectStatement105 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_GROUP_in_selectStatement117 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_groupExprs_in_selectStatement121 = new BitSet(new ulong[]{0x0000000002000008UL});
+    public static readonly BitSet FOLLOW_HAVING_in_selectStatement126 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_selectStatement130 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ORDER_in_selectStatement147 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_orderExprs_in_selectStatement151 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_UPDATE_in_updateStatement174 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_FROM_in_updateStatement182 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_fromTable_in_updateStatement184 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_setClause_in_updateStatement190 = new BitSet(new ulong[]{0x0020000000000008UL});
+    public static readonly BitSet FOLLOW_whereClause_in_updateStatement195 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_DELETE_in_deleteStatement214 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_from_in_deleteStatement220 = new BitSet(new ulong[]{0x0020000000000008UL});
+    public static readonly BitSet FOLLOW_whereClause_in_deleteStatement225 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_INSERT_in_insertStatement242 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_INTO_in_insertStatement250 = new BitSet(new ulong[]{0x0000200000000000UL});
+    public static readonly BitSet FOLLOW_selectStatement_in_insertStatement256 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_SET_in_setClause276 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_comparisonExpr_in_setClause280 = new BitSet(new ulong[]{0x0000000404080408UL,0x00000F4800076000UL});
+    public static readonly BitSet FOLLOW_comparisonExpr_in_setClause287 = new BitSet(new ulong[]{0x0000000404080408UL,0x00000F4800076000UL});
+    public static readonly BitSet FOLLOW_WHERE_in_whereClause305 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_whereClauseExpr_in_whereClause309 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_conditionList_in_whereClauseExpr328 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_whereClauseExpr333 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expr_in_orderExprs349 = new BitSet(new ulong[]{0x0082A0800010D132UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_orderDirection_in_orderExprs356 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_orderExprs_in_orderExprs366 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expr_in_groupExprs381 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_groupExprs_in_groupExprs387 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_set_in_orderDirection0 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_filters_in_whereExpr416 = new BitSet(new ulong[]{0x0000014404080442UL,0x00000F4800076000UL,0x0000000000000900UL});
-    public static readonly BitSet FOLLOW_thetaJoins_in_whereExpr424 = new BitSet(new ulong[]{0x0000014404080442UL,0x00000F4800076000UL,0x0000000000000100UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_whereExpr435 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_thetaJoins_in_whereExpr445 = new BitSet(new ulong[]{0x0000014404080442UL,0x00000F4800076000UL,0x0000000000000100UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_whereExpr453 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_whereExpr464 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FILTERS_in_filters477 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_conditionList_in_filters479 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_THETA_JOINS_in_thetaJoins493 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_conditionList_in_thetaJoins495 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_sqlToken_in_conditionList508 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000000UL,0x0000000000000100UL});
-    public static readonly BitSet FOLLOW_conditionList_in_conditionList514 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SELECT_CLAUSE_in_selectClause529 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_distinctOrAll_in_selectClause532 = new BitSet(new ulong[]{0x0082208000109000UL,0x0051E003F10091A0UL,0x0000000000014540UL});
-    public static readonly BitSet FOLLOW_selectColumn_in_selectClause538 = new BitSet(new ulong[]{0x0082208000109008UL,0x0051E003F10091A0UL,0x0000000000014540UL});
-    public static readonly BitSet FOLLOW_selectExpr_in_selectColumn556 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000000UL,0x0000000000000200UL});
-    public static readonly BitSet FOLLOW_SELECT_COLUMNS_in_selectColumn561 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_selectAtom_in_selectExpr581 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_count_in_selectExpr588 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CONSTRUCTOR_in_selectExpr594 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_set_in_selectExpr596 = new BitSet(new ulong[]{0x0082208000109000UL,0x0051E003F10091A0UL,0x0000000000014540UL});
-    public static readonly BitSet FOLLOW_selectColumn_in_selectExpr606 = new BitSet(new ulong[]{0x0082208000109008UL,0x0051E003F10091A0UL,0x0000000000014540UL});
-    public static readonly BitSet FOLLOW_methodCall_in_selectExpr616 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_aggregate_in_selectExpr621 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_constant_in_selectExpr628 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arithmeticExpr_in_selectExpr635 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_PARAM_in_selectExpr642 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_selectStatement_in_selectExpr652 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_COUNT_in_count666 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_distinctOrAll_in_count673 = new BitSet(new ulong[]{0x0082008000109000UL,0x0051E003F1409120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_countExpr_in_count679 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_DISTINCT_in_distinctOrAll694 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ALL_in_distinctOrAll701 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ROW_STAR_in_countExpr716 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_simpleExpr_in_countExpr723 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_filters_in_whereExpr422 = new BitSet(new ulong[]{0x0000014404080442UL,0x00000F4800076000UL,0x0000000000000900UL});
+    public static readonly BitSet FOLLOW_thetaJoins_in_whereExpr430 = new BitSet(new ulong[]{0x0000014404080442UL,0x00000F4800076000UL,0x0000000000000100UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_whereExpr441 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_thetaJoins_in_whereExpr451 = new BitSet(new ulong[]{0x0000014404080442UL,0x00000F4800076000UL,0x0000000000000100UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_whereExpr459 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_whereExpr470 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FILTERS_in_filters483 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_conditionList_in_filters485 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_THETA_JOINS_in_thetaJoins499 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_conditionList_in_thetaJoins501 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_sqlToken_in_conditionList514 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000000UL,0x0000000000000100UL});
+    public static readonly BitSet FOLLOW_conditionList_in_conditionList520 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SELECT_CLAUSE_in_selectClause535 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_distinctOrAll_in_selectClause538 = new BitSet(new ulong[]{0x0082208000109000UL,0x0051E003F10091A0UL,0x0000000000014540UL});
+    public static readonly BitSet FOLLOW_selectColumn_in_selectClause544 = new BitSet(new ulong[]{0x0082208000109008UL,0x0051E003F10091A0UL,0x0000000000014540UL});
+    public static readonly BitSet FOLLOW_selectExpr_in_selectColumn562 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000000000000UL,0x0000000000000200UL});
+    public static readonly BitSet FOLLOW_SELECT_COLUMNS_in_selectColumn567 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_selectAtom_in_selectExpr587 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_count_in_selectExpr594 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CONSTRUCTOR_in_selectExpr600 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_set_in_selectExpr602 = new BitSet(new ulong[]{0x0082208000109000UL,0x0051E003F10091A0UL,0x0000000000014540UL});
+    public static readonly BitSet FOLLOW_selectColumn_in_selectExpr612 = new BitSet(new ulong[]{0x0082208000109008UL,0x0051E003F10091A0UL,0x0000000000014540UL});
+    public static readonly BitSet FOLLOW_methodCall_in_selectExpr622 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_aggregate_in_selectExpr627 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_constant_in_selectExpr634 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arithmeticExpr_in_selectExpr641 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_PARAM_in_selectExpr648 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_selectStatement_in_selectExpr658 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_COUNT_in_count672 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_distinctOrAll_in_count679 = new BitSet(new ulong[]{0x0082008000109000UL,0x0051E003F1409120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_countExpr_in_count685 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_DISTINCT_in_distinctOrAll700 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ALL_in_distinctOrAll707 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ROW_STAR_in_countExpr722 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_simpleExpr_in_countExpr729 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_set_in_selectAtom0 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FROM_in_from768 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_fromTable_in_from775 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
-    public static readonly BitSet FOLLOW_FROM_FRAGMENT_in_fromTable796 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_tableJoin_in_fromTable802 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
-    public static readonly BitSet FOLLOW_JOIN_FRAGMENT_in_fromTable819 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_tableJoin_in_fromTable825 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
-    public static readonly BitSet FOLLOW_JOIN_FRAGMENT_in_tableJoin850 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_tableJoin_in_tableJoin855 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
-    public static readonly BitSet FOLLOW_FROM_FRAGMENT_in_tableJoin871 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_tableJoin_in_tableJoin876 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
-    public static readonly BitSet FOLLOW_AND_in_booleanOp896 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp898 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL,0x0000000000000100UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp903 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_OR_in_booleanOp911 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp915 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL,0x0000000000000100UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp920 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_in_booleanOp930 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp934 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_booleanOp_in_booleanExpr951 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_comparisonExpr_in_booleanExpr958 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SQL_TOKEN_in_booleanExpr967 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_binaryComparisonExpression_in_comparisonExpr983 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_exoticComparisonExpression_in_comparisonExpr990 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_EQ_in_binaryComparisonExpression1005 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1007 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1011 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NE_in_binaryComparisonExpression1018 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1020 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1024 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_GT_in_binaryComparisonExpression1031 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1033 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1037 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_GE_in_binaryComparisonExpression1044 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1046 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1050 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LT_in_binaryComparisonExpression1057 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1059 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1063 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LE_in_binaryComparisonExpression1070 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1072 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1076 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LIKE_in_exoticComparisonExpression1090 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1092 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1096 = new BitSet(new ulong[]{0x0000000000040008UL});
-    public static readonly BitSet FOLLOW_likeEscape_in_exoticComparisonExpression1098 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_LIKE_in_exoticComparisonExpression1106 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1108 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1112 = new BitSet(new ulong[]{0x0000000000040008UL});
-    public static readonly BitSet FOLLOW_likeEscape_in_exoticComparisonExpression1114 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_BETWEEN_in_exoticComparisonExpression1121 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1123 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1127 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1131 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_BETWEEN_in_exoticComparisonExpression1138 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1140 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1144 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1148 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IN_in_exoticComparisonExpression1155 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1157 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
-    public static readonly BitSet FOLLOW_inList_in_exoticComparisonExpression1161 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_IN_in_exoticComparisonExpression1169 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1171 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
-    public static readonly BitSet FOLLOW_inList_in_exoticComparisonExpression1175 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_EXISTS_in_exoticComparisonExpression1183 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_quantified_in_exoticComparisonExpression1187 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IS_NULL_in_exoticComparisonExpression1195 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1197 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IS_NOT_NULL_in_exoticComparisonExpression1206 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1208 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ESCAPE_in_likeEscape1225 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_likeEscape1229 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IN_LIST_in_inList1245 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_parenSelect_in_inList1251 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_simpleExprList_in_inList1255 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_simpleExpr_in_simpleExprList1276 = new BitSet(new ulong[]{0x0082008000109002UL,0x0051E003F1009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_simpleExpr_in_expr1295 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_VECTOR_EXPR_in_expr1302 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_expr1309 = new BitSet(new ulong[]{0x0082A08000109038UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_parenSelect_in_expr1324 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ANY_in_expr1330 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_quantified_in_expr1334 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ALL_in_expr1342 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_quantified_in_expr1346 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_SOME_in_expr1354 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_quantified_in_expr1358 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_sqlToken_in_quantified1376 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_selectStatement_in_quantified1380 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_selectStatement_in_parenSelect1399 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_constant_in_simpleExpr1415 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_NULL_in_simpleExpr1422 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_addrExpr_in_simpleExpr1429 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_sqlToken_in_simpleExpr1434 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_aggregate_in_simpleExpr1439 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_methodCall_in_simpleExpr1444 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_count_in_simpleExpr1449 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_parameter_in_simpleExpr1454 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arithmeticExpr_in_simpleExpr1459 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FROM_in_from774 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_fromTable_in_from781 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
+    public static readonly BitSet FOLLOW_FROM_FRAGMENT_in_fromTable802 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_tableJoin_in_fromTable808 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
+    public static readonly BitSet FOLLOW_JOIN_FRAGMENT_in_fromTable825 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_tableJoin_in_fromTable831 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
+    public static readonly BitSet FOLLOW_JOIN_FRAGMENT_in_tableJoin856 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_tableJoin_in_tableJoin861 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
+    public static readonly BitSet FOLLOW_FROM_FRAGMENT_in_tableJoin877 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_tableJoin_in_tableJoin882 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000000UL,0x0000000000000005UL});
+    public static readonly BitSet FOLLOW_AND_in_booleanOp902 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp904 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL,0x0000000000000100UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp909 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_OR_in_booleanOp917 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp921 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL,0x0000000000000100UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp926 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_in_booleanOp936 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_booleanOp940 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_booleanOp_in_booleanExpr957 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_comparisonExpr_in_booleanExpr964 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SQL_TOKEN_in_booleanExpr973 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_binaryComparisonExpression_in_comparisonExpr989 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_exoticComparisonExpression_in_comparisonExpr996 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_EQ_in_binaryComparisonExpression1011 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1013 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1017 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NE_in_binaryComparisonExpression1024 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1026 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1030 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_GT_in_binaryComparisonExpression1037 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1039 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1043 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_GE_in_binaryComparisonExpression1050 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1052 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1056 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LT_in_binaryComparisonExpression1063 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1065 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1069 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LE_in_binaryComparisonExpression1076 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1078 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_binaryComparisonExpression1082 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LIKE_in_exoticComparisonExpression1096 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1098 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1102 = new BitSet(new ulong[]{0x0000000000040008UL});
+    public static readonly BitSet FOLLOW_likeEscape_in_exoticComparisonExpression1104 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_LIKE_in_exoticComparisonExpression1112 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1114 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1118 = new BitSet(new ulong[]{0x0000000000040008UL});
+    public static readonly BitSet FOLLOW_likeEscape_in_exoticComparisonExpression1120 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_BETWEEN_in_exoticComparisonExpression1127 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1129 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1133 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1137 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_BETWEEN_in_exoticComparisonExpression1144 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1146 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1150 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1154 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IN_in_exoticComparisonExpression1161 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1163 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
+    public static readonly BitSet FOLLOW_inList_in_exoticComparisonExpression1167 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_IN_in_exoticComparisonExpression1175 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1177 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
+    public static readonly BitSet FOLLOW_inList_in_exoticComparisonExpression1181 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_EXISTS_in_exoticComparisonExpression1189 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_quantified_in_exoticComparisonExpression1193 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IS_NULL_in_exoticComparisonExpression1201 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1203 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IS_NOT_NULL_in_exoticComparisonExpression1212 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_exoticComparisonExpression1214 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ESCAPE_in_likeEscape1231 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_likeEscape1235 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IN_LIST_in_inList1251 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_parenSelect_in_inList1257 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_simpleExprList_in_inList1261 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_simpleExpr_in_simpleExprList1282 = new BitSet(new ulong[]{0x0082008000109002UL,0x0051E003F1009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_simpleExpr_in_expr1301 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_VECTOR_EXPR_in_expr1308 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_expr1315 = new BitSet(new ulong[]{0x0082A08000109038UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_parenSelect_in_expr1330 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ANY_in_expr1336 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_quantified_in_expr1340 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ALL_in_expr1348 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_quantified_in_expr1352 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_SOME_in_expr1360 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_quantified_in_expr1364 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_sqlToken_in_quantified1382 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_selectStatement_in_quantified1386 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_selectStatement_in_parenSelect1405 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_constant_in_simpleExpr1421 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_NULL_in_simpleExpr1428 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_addrExpr_in_simpleExpr1435 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_sqlToken_in_simpleExpr1440 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_aggregate_in_simpleExpr1445 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_methodCall_in_simpleExpr1450 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_count_in_simpleExpr1455 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_parameter_in_simpleExpr1460 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arithmeticExpr_in_simpleExpr1465 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_set_in_constant0 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_additiveExpr_in_arithmeticExpr1528 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_multiplicativeExpr_in_arithmeticExpr1533 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_UNARY_MINUS_in_arithmeticExpr1540 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1544 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_caseExpr_in_arithmeticExpr1550 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_PLUS_in_additiveExpr1562 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_additiveExpr1564 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_additiveExpr1568 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_MINUS_in_additiveExpr1575 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_additiveExpr1577 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_nestedExprAfterMinusDiv_in_additiveExpr1581 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_STAR_in_multiplicativeExpr1594 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_nestedExpr_in_multiplicativeExpr1596 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_nestedExpr_in_multiplicativeExpr1600 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_DIV_in_multiplicativeExpr1607 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_nestedExpr_in_multiplicativeExpr1609 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_nestedExprAfterMinusDiv_in_multiplicativeExpr1613 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_additiveExpr_in_nestedExpr1635 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expr_in_nestedExpr1642 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arithmeticExpr_in_nestedExprAfterMinusDiv1664 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_expr_in_nestedExprAfterMinusDiv1671 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CASE_in_caseExpr1683 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1693 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_booleanExpr_in_caseExpr1697 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1702 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1714 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1718 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_CASE2_in_caseExpr1734 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1738 = new BitSet(new ulong[]{0x0800000000000000UL});
-    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1745 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1749 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1753 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1765 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1769 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_AGGREGATE_in_aggregate1793 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_aggregate1798 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_METHOD_CALL_in_methodCall1817 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_METHOD_NAME_in_methodCall1821 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000200UL});
-    public static readonly BitSet FOLLOW_EXPR_LIST_in_methodCall1830 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_arguments_in_methodCall1833 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_expr_in_arguments1857 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_additiveExpr_in_arithmeticExpr1534 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_multiplicativeExpr_in_arithmeticExpr1539 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_UNARY_MINUS_in_arithmeticExpr1546 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1550 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_caseExpr_in_arithmeticExpr1556 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_PLUS_in_additiveExpr1568 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_additiveExpr1570 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_additiveExpr1574 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_MINUS_in_additiveExpr1581 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_additiveExpr1583 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_nestedExprAfterMinusDiv_in_additiveExpr1587 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_STAR_in_multiplicativeExpr1600 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_nestedExpr_in_multiplicativeExpr1602 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_nestedExpr_in_multiplicativeExpr1606 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_DIV_in_multiplicativeExpr1613 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_nestedExpr_in_multiplicativeExpr1615 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_nestedExprAfterMinusDiv_in_multiplicativeExpr1619 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_additiveExpr_in_nestedExpr1641 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expr_in_nestedExpr1648 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arithmeticExpr_in_nestedExprAfterMinusDiv1670 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expr_in_nestedExprAfterMinusDiv1677 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CASE_in_caseExpr1689 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1699 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_booleanExpr_in_caseExpr1703 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1708 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1720 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1724 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_CASE2_in_caseExpr1740 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1744 = new BitSet(new ulong[]{0x0800000000000000UL});
+    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1751 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1755 = new BitSet(new ulong[]{0x0082A08000109030UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1759 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1771 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1775 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_AGGREGATE_in_aggregate1799 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_aggregate1804 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_METHOD_CALL_in_methodCall1823 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_METHOD_NAME_in_methodCall1827 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000200UL});
+    public static readonly BitSet FOLLOW_EXPR_LIST_in_methodCall1836 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_arguments_in_methodCall1839 = new BitSet(new ulong[]{0x0000000000000008UL});
     public static readonly BitSet FOLLOW_expr_in_arguments1863 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
-    public static readonly BitSet FOLLOW_NAMED_PARAM_in_parameter1879 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_PARAM_in_parameter1888 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_addrExpr1904 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_ALIAS_REF_in_addrExpr1918 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_INDEX_OP_in_addrExpr1927 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SQL_TOKEN_in_sqlToken1942 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_SQL_TOKEN_in_synpred1_SqlGenerator317 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_additiveExpr_in_synpred2_SqlGenerator1628 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arithmeticExpr_in_synpred3_SqlGenerator1657 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_expr_in_arguments1869 = new BitSet(new ulong[]{0x0082A08000109032UL,0x0051E003F5009120UL,0x0000000000014140UL});
+    public static readonly BitSet FOLLOW_NAMED_PARAM_in_parameter1885 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_PARAM_in_parameter1894 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_addrExpr1910 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_ALIAS_REF_in_addrExpr1924 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_INDEX_OP_in_addrExpr1933 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SQL_TOKEN_in_sqlToken1948 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_SQL_TOKEN_in_synpred1_SqlGenerator323 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_additiveExpr_in_synpred2_SqlGenerator1634 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arithmeticExpr_in_synpred3_SqlGenerator1663 = new BitSet(new ulong[]{0x0000000000000002UL});
 
 }
 }

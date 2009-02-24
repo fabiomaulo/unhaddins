@@ -1,4 +1,5 @@
 ﻿using Antlr.Runtime.Tree;
+using log4net;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.SqlCommand;
@@ -14,10 +15,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 	/// </summary>
 	public class SyntheticAndFactory
 	{
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(SyntheticAndFactory));
 		private readonly HqlSqlWalker _hqlSqlWalker;
-		private CommonTree _filters;
-		private CommonTree _thetaJoins;
+		private IASTNode _filters;
+		private IASTNode _thetaJoins;
 
 		public SyntheticAndFactory(HqlSqlWalker hqlSqlWalker)
 		{
@@ -54,7 +55,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				whereFragment = whereFragment.Substring(4);
 			}
 
-			log.debug("Using unprocessed WHERE-fragment [" + whereFragment +"]");
+			log.Debug("Using unprocessed WHERE-fragment [" + whereFragment +"]");
 
 			SqlFragment fragment = (SqlFragment) Create(HqlSqlWalker.SQL_TOKEN, whereFragment.ToString());
 
@@ -89,7 +90,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					hqlSqlWalker
 			);
 
-			log.debug("Using processed WHERE-fragment [" + fragment.Text + "]");
+			log.Debug("Using processed WHERE-fragment [" + fragment.Text + "]");
 
 			// Filter conditions need to be inserted before the HQL where condition and the
 			// theta join node.  This is because org.hibernate.loader.Loader binds the filter parameters first,
@@ -99,11 +100,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				if (_filters == null)
 				{
 					// Find or create the WHERE clause
-					CommonTree where = (CommonTree) query.WhereClause;
+					IASTNode where = (IASTNode) query.WhereClause;
 					// Create a new FILTERS node as a parent of all filters
 					_filters = Create(HqlSqlWalker.FILTERS, "{filter conditions}");
 					// Put the FILTERS node before the HQL condition and theta joins
-					ASTUtil.InsertAsFirstChild(where, _filters);
+					where.InsertChild(0, _filters);
 				}
 
 				// add the current fragment to the FILTERS node
@@ -114,7 +115,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				if (_thetaJoins == null)
 				{
 					// Find or create the WHERE clause
-					CommonTree where = (CommonTree) query.WhereClause;
+					IASTNode where = (IASTNode) query.WhereClause;
 
 					// Create a new THETA_JOINS node as a parent of all filters
 					_thetaJoins = Create(HqlSqlWalker.THETA_JOINS, "{theta joins}");
@@ -122,11 +123,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					// Put the THETA_JOINS node before the HQL condition, after the filters.
 					if (_filters == null)
 					{
-						ASTUtil.InsertAsFirstChild(where, _thetaJoins);
+						where.InsertChild(0, _thetaJoins);
 					}
 					else
 					{
-						ASTUtil.AppendSibling(_thetaJoins, _filters);
+						_thetaJoins.AddSiblingToRight(_filters);
 					}
 				}
 
@@ -135,9 +136,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			}
 		}
 
-		private CommonTree Create(int tokenType, string text)
+		private IASTNode Create(int tokenType, string text)
 		{
-			return ASTUtil.Create(_hqlSqlWalker.ASTFactory, tokenType, text);
+			return _hqlSqlWalker.ASTFactory.CreateNode(tokenType, text);
 		}
 	}
 }

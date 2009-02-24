@@ -1,11 +1,12 @@
-﻿using Antlr.Runtime.Tree;
+﻿using log4net;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR.Util
 {
 	public static class PathHelper
 	{
-		private static readonly Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(PathHelper));
 
 		/// <summary>
 		/// Turns a path into an AST.
@@ -13,26 +14,26 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 		/// <param name="path">The path.</param>
 		/// <param name="factory">The AST factory to use.</param>
 		/// <returns>An HQL AST representing the path.</returns>
-		public static ITree ParsePath(string path, ITreeAdaptor factory)
+		public static IASTNode ParsePath(string path, IASTFactory factory)
 		{
 			string[] identifiers = StringHelper.Split(".", path);
-			ITree lhs = null;
+			IASTNode lhs = null;
 			for (int i = 0; i < identifiers.Length; i++)
 			{
 				string identifier = identifiers[i];
-				ITree child = ASTUtil.Create(factory, HqlSqlWalker.IDENT, identifier);
+				IASTNode child = factory.CreateNode(HqlSqlWalker.IDENT, identifier);
 				if (i == 0)
 				{
 					lhs = child;
 				}
 				else
 				{
-					lhs = ASTUtil.CreateBinarySubtree(factory, HqlSqlWalker.DOT, ".", lhs, child);
+					lhs = factory.CreateNode(HqlSqlWalker.DOT, ".", lhs, child);
 				}
 			}
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("parsePath() : " + path + " -> " + ASTUtil.GetDebugstring(lhs));
+				log.Debug("parsePath() : " + path + " -> " + ASTUtil.GetDebugstring(lhs));
 			}
 			return lhs;
 		}

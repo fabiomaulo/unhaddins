@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
+using log4net;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
@@ -12,7 +13,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	public class FromElement : HqlSqlWalkerNode, IDisplayableNode, IParameterContainer
 	{
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(FromElement));
 
 		private bool _isAllPropertyFetch;
 		private FromElementType _elementType;
@@ -312,9 +313,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			{
 				if (IsDereferencedBySuperclassOrSubclassProperty)
 				{
-					if (!_includeSubclasses && log.isTraceEnabled())
+					if (!_includeSubclasses && log.IsInfoEnabled)
 					{
-						log.trace("attempt to disable subclass-inclusions", new Exception("stack-trace source"));
+						log.Info("attempt to disable subclass-inclusions", new Exception("stack-trace source"));
 					}
 				}
 				_includeSubclasses = value;
@@ -446,9 +447,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				{
 					Declarer propertyDeclarer = persister.GetSubclassPropertyDeclarer(propertyName);
 
-					if (log.isTraceEnabled())
+					if (log.IsInfoEnabled)
 					{
-						log.trace("handling property dereference [" + persister.EntityName + " (" + ClassAlias + ") -> " + propertyName + " (" + propertyDeclarer + ")]");
+						log.Info("handling property dereference [" + persister.EntityName + " (" + ClassAlias + ") -> " + propertyName + " (" + propertyDeclarer + ")]");
 					}
 					if (propertyDeclarer == Declarer.SubClass)
 					{
@@ -481,7 +482,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				// If this is not the destination of a many-to-many, add it as a child of the origin.
 				if (manyToMany)
 				{
-					ASTUtil.AppendSibling(origin, this);
+					origin.AddSiblingToRight(this);
 				}
 				else
 				{
@@ -512,9 +513,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			if (IsDereferencedBySuperclassOrSubclassProperty)
 			{
-				if (!includeSubclasses && log.isTraceEnabled())
+				if (!includeSubclasses && log.IsInfoEnabled)
 				{
-					log.trace("attempt to disable subclass-inclusions", new Exception("stack-trace source"));
+					log.Info("attempt to disable subclass-inclusions", new Exception("stack-trace source"));
 				}
 			}
 			_includeSubclasses = includeSubclasses;
@@ -572,9 +573,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			// Register the FromElement with the FROM clause, now that we have the names and aliases.
 			fromClause.RegisterFromElement(this);
 
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug(fromClause + " :  " + className + " ("
+				log.Debug(fromClause + " :  " + className + " ("
 						+ (classAlias ?? "no alias") + ") -> " + tableAlias);
 			}
 		}

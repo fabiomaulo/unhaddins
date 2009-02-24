@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 using Iesi.Collections.Generic;
+using log4net;
 using NHibernate.Hql.Ast.ANTLR.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
@@ -14,7 +14,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	/// </summary>
 	public class FromClause : HqlSqlWalkerNode, IDisplayableNode
 	{
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(FromClause));
 		public static int ROOT_LEVEL = 1;
 
 		private int _level = ROOT_LEVEL;
@@ -64,7 +64,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return _parentFromClause; }
 		}
 
-		public IList<ITree> GetExplicitFromElements()
+		public IList<IASTNode> GetExplicitFromElements()
 		{
 			return ASTUtil.CollectChildren(this, ExplicitFromPredicate);
 		}
@@ -117,9 +117,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public void AddJoinByPathMap(string path, FromElement destination)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("addJoinByPathMap() : " + path + " -> " + destination);
+				log.Debug("addJoinByPathMap() : " + path + " -> " + destination);
 			}
 
 			_fromElementsByPath.Add(path, destination);
@@ -127,9 +127,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public void AddCollectionJoinFromElementByPath(string path, FromElement destination)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("addCollectionJoinFromElementByPath() : " + path + " -> " + destination);
+				log.Debug("addCollectionJoinFromElementByPath() : " + path + " -> " + destination);
 			}
 			_collectionJoinFromElementsByPath.Add(path, destination);	// Add the new node to the map so that we don't create it twice.
 		}
@@ -150,7 +150,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <param name="path">The reference to the class.</param>
 		/// <param name="alias">The alias AST.</param>
 		/// <returns>The new FROM element.</returns>
-		public FromElement AddFromElement(string path, ITree alias)
+		public FromElement AddFromElement(string path, IASTNode alias)
 		{
 			// The path may be a reference to an alias defined in the parent query.
 			string classAlias = ( alias == null ) ? null : alias.Text;
@@ -185,7 +185,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// Returns the list of from elements in order.
 		/// </summary>
 		/// <returns>The list of from elements (instances of FromElement).</returns>
-		public IList<ITree> GetFromElements()
+		public IList<IASTNode> GetFromElements()
 		{
 			return ASTUtil.CollectChildren(this, FromElementPredicate);
 		}
@@ -194,7 +194,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// Returns the list of from elements that will be part of the result set.
 		/// </summary>
 		/// <returns>the list of from elements that will be part of the result set.</returns>
-		public IList<ITree> GetProjectionList()
+		public IList<IASTNode> GetProjectionList()
 		{
 			return ASTUtil.CollectChildren(this, ProjectionListPredicate);
 		}
@@ -254,7 +254,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
-		public bool ProjectionListPredicate(ITree node)
+		public bool ProjectionListPredicate(IASTNode node)
 		{
 			FromElement fromElement = node as FromElement;
 
@@ -266,7 +266,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return false;
 		}
 
-		public bool FromElementPredicate(ITree node) 
+		public bool FromElementPredicate(IASTNode node) 
 		{
 			FromElement fromElement = node as FromElement;
 
@@ -278,7 +278,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return false;
 		}
 
-		public bool ExplicitFromPredicate(ITree node)
+		public bool ExplicitFromPredicate(IASTNode node)
 		{
 			FromElement fromElement = node as FromElement;
 

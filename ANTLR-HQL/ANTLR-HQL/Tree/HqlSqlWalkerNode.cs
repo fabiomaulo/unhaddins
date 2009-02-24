@@ -36,7 +36,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		}
 
 		
-		public ITreeAdaptor ASTFactory
+		public IASTFactory ASTFactory
 		{
 			get { return walker.ASTFactory; }
 		}
