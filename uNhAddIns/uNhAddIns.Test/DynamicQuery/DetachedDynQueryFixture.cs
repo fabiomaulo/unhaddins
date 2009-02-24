@@ -22,7 +22,8 @@ namespace uNhAddIns.Test.DynamicQuery
 		[Test]
 		public void ToRowCount()
 		{
-			Select s = new Select("f.Name, f.Description, b.Descriptoin").From("Foo f join f.Bar b");
+			Select s = new Select("f.Name, f.Description, b.Descriptoin").From("Foo f");
+			s.From().Join("f.Bar b");
 			Where where = new Where();
 			where.And("f.Name like :pName");
 			where.And("b.Asociated > :pAso");
