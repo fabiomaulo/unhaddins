@@ -1,3 +1,4 @@
+using System;
 using NHibernate.Impl;
 using NUnit.Framework;
 using uNhAddIns.DynQuery;
@@ -9,6 +10,14 @@ namespace uNhAddIns.Test.DynamicQuery
 	{
 		// DetachedDynQuery don't need a test for everything because it is based on the same class of
 		// DetachedQuery and use a DynQuery (see the tests of these classes)
+		[Test]
+		public void CtorProtection()
+		{
+			Select s = null;
+			From f = null;
+			Assert.Throws<ArgumentNullException>(() => new DetachedDynQuery(s));
+			Assert.Throws<ArgumentNullException>(() => new DetachedDynQuery(f));
+		}
 
 		[Test]
 		public void ToRowCount()
