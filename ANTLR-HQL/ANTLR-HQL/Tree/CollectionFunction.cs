@@ -1,6 +1,5 @@
 ﻿using System;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
@@ -23,7 +22,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			{
 				throw new SemanticException( Text + " is not a collection property name!" );
 			}
-			ITree expr = GetChild(0);
+			IASTNode expr = GetChild(0);
 
 			if ( expr == null ) 
 			{

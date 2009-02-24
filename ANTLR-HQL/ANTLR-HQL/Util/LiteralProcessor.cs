@@ -1,4 +1,5 @@
 ﻿using System;
+using log4net;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Persister.Entity;
 using NHibernate.SqlCommand;
@@ -14,7 +15,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 		public const string ErrorCannotDetermineType = "Could not determine type of: ";
 		public const string ErrorCannotFormatLiteral = "Could not format constant value to SQL literal: ";
 
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(LiteralProcessor));
 
 		private readonly HqlSqlWalker _walker;
 		private static readonly IDecimalFormatter[] _formatters = new IDecimalFormatter[] {
@@ -85,15 +86,15 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 		{
 			if (literal.Type == HqlSqlWalker.NUM_INT || literal.Type == HqlSqlWalker.NUM_LONG)
 			{
-				literal.SetText(DetermineIntegerRepresentation(literal.Text, literal.Type));
+				literal.Text = DetermineIntegerRepresentation(literal.Text, literal.Type);
 			}
 			else if (literal.Type == HqlSqlWalker.NUM_FLOAT || literal.Type == HqlSqlWalker.NUM_DOUBLE)
 			{
-				literal.SetText(DetermineDecimalRepresentation(literal.Text, literal.Type));
+				literal.Text = DetermineDecimalRepresentation(literal.Text, literal.Type);
 			}
 			else
 			{
-				log.warn("Unexpected literal token type [" + literal.Type + "] passed for numeric processing");
+				log.Warn("Unexpected literal token type [" + literal.Type + "] passed for numeric processing");
 			}
 		}
 
@@ -129,7 +130,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				IQueryable queryable = _walker.SessionFactoryHelper.FindQueryableUsingImports(constant.Text);
 				if (isIdent && queryable != null)
 				{
-					constant.SetText(queryable.DiscriminatorSQLValue);
+					constant.Text = queryable.DiscriminatorSQLValue;
 				}
 				// Otherwise, it's a literal.
 				else
@@ -182,7 +183,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					}
 					catch (FormatException e)
 					{
-						log.trace("could not format incoming text [" + text + "] as a NUM_INT; assuming numeric overflow and attempting as NUM_LONG");
+						log.Info("could not format incoming text [" + text + "] as a NUM_INT; assuming numeric overflow and attempting as NUM_LONG");
 					}
 				}
 
@@ -205,70 +206,70 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 
 			if (replacement != null)
 			{
-				if (log.isDebugEnabled())
+				if (log.IsDebugEnabled)
 				{
-					log.debug("processConstant() : Replacing '" + constant.Text + "' with '" + replacement + "'");
+					log.Debug("processConstant() : Replacing '" + constant.Text + "' with '" + replacement + "'");
 				}
-				constant.SetText(replacement);
+				constant.Text = replacement;
 			}
 		}
 
 		private void SetSQLValue(DotNode node, string text, string value)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("setSQLValue() " + text + " -> " + value);
+				log.Debug("setSQLValue() " + text + " -> " + value);
 			}
-			node.Children.Clear(); // Chop off the rest of the tree.
-			node.SetType(HqlSqlWalker.SQL_TOKEN);
-			node.SetText(value);
+			node.ClearChildren(); // Chop off the rest of the tree.
+			node.Type = HqlSqlWalker.SQL_TOKEN;
+			node.Text = value;
 			node.SetResolvedConstant(text);
 		}
 
 		private void SetConstantValue(DotNode node, string text, object value)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("setConstantValue() " + text + " -> " + value + " " + value.GetType().Name);
+				log.Debug("setConstantValue() " + text + " -> " + value + " " + value.GetType().Name);
 			}
 
-			node.Children.Clear();	// Chop off the rest of the tree.
+			node.ClearChildren();	// Chop off the rest of the tree.
 
 			if (value is string)
 			{
-				node.SetType(HqlSqlWalker.QUOTED_String);
+				node.Type = HqlSqlWalker.QUOTED_String;
 			}
 			else if (value is char)
 			{
-				node.SetType(HqlSqlWalker.QUOTED_String);
+				node.Type = HqlSqlWalker.QUOTED_String;
 			}
 			else if (value is byte)
 			{
-				node.SetType(HqlSqlWalker.NUM_INT);
+				node.Type = HqlSqlWalker.NUM_INT;
 			}
 			else if (value is short)
 			{
-				node.SetType(HqlSqlWalker.NUM_INT);
+				node.Type = HqlSqlWalker.NUM_INT;
 			}
 			else if (value is int)
 			{
-				node.SetType(HqlSqlWalker.NUM_INT);
+				node.Type = HqlSqlWalker.NUM_INT;
 			}
 			else if (value is long)
 			{
-				node.SetType(HqlSqlWalker.NUM_LONG);
+				node.Type = HqlSqlWalker.NUM_LONG;
 			}
 			else if (value is double)
 			{
-				node.SetType(HqlSqlWalker.NUM_DOUBLE);
+				node.Type = HqlSqlWalker.NUM_DOUBLE;
 			}
 			else if (value is float)
 			{
-				node.SetType(HqlSqlWalker.NUM_FLOAT);
+				node.Type = HqlSqlWalker.NUM_FLOAT;
 			}
 			else
 			{
-				node.SetType(HqlSqlWalker.CONSTANT);
+				node.Type = HqlSqlWalker.CONSTANT;
 			}
 
 			IType type;
@@ -289,7 +290,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			{
 				ILiteralType literalType = (ILiteralType)type;
 				NHibernate.Dialect.Dialect dialect = _walker.SessionFactoryHelper.Factory.Dialect;
-				node.SetText(literalType.ObjectToSQLString(value, dialect));
+				node.Text = literalType.ObjectToSQLString(value, dialect);
 			}
 			catch (Exception e)
 			{

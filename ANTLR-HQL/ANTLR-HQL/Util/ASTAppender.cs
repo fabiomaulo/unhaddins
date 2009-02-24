@@ -1,5 +1,5 @@
 ﻿using System;
-using Antlr.Runtime.Tree;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Util
 {
@@ -10,27 +10,23 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 	 */
 	public class ASTAppender
 	{
-		private ITree parent;
-		private ITreeAdaptor factory;
+		private IASTNode parent;
+		private IASTFactory factory;
 
-		public ASTAppender(ITreeAdaptor factory, ITree parent)
+		public ASTAppender(IASTFactory factory, IASTNode parent)
 		{
 			this.factory = factory;
 			this.parent = parent;
 		}
 
-		public ITree Append(int type, String text, bool appendIfEmpty)
+		public IASTNode Append(int type, String text, bool appendIfEmpty)
 		{
 			if (text != null && (appendIfEmpty || text.Length > 0))
 			{
-				ITree node = (ITree) factory.Create(type, text);
-				parent.AddChild(node);
-				return node;
+				return parent.AddChild(factory.CreateNode(type, text));
 			}
-			else
-			{
-				return null;
-			}
+
+			return null;
 		}
 	}
 }

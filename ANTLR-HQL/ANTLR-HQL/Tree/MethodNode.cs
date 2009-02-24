@@ -1,6 +1,6 @@
 ﻿using System;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
+using log4net;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
 
@@ -13,7 +13,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	/// </summary>
 	public class MethodNode : AbstractSelectExpression, ISelectExpression 
 	{
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(MethodNode));
 
 		private string[] _selectColumns;
 		private string _methodName;
@@ -28,17 +28,17 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			if ( _selectColumns == null ) 
 			{ 	// Dialect function
-				ColumnHelper.GenerateSingleScalarColumn( this, i );
+				ColumnHelper.GenerateSingleScalarColumn(Walker.ASTFactory, this, i );
 			}
 			else 
 			{	// Collection 'property function'
-				ColumnHelper.GenerateScalarColumns( this, _selectColumns, i );
+				ColumnHelper.GenerateScalarColumns(Walker.ASTFactory, this, _selectColumns, i);
 			}
 		}
 
-		public void InitializeMethodNode(CommonTree name, bool inSelect)
+		public void InitializeMethodNode(IASTNode name, bool inSelect)
 		{
-			name.SetType(HqlSqlWalker.METHOD_NAME);
+			name.Type = HqlSqlWalker.METHOD_NAME;
 			_methodName = name.Text.ToLowerInvariant();	// Use the lower case function name.
 			_inSelect = inSelect;			// Remember whether we're in a SELECT clause or not.
 		}
@@ -48,7 +48,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return CollectionProperties.IsAnyCollectionProperty(_methodName); }
 		}
 
-		public void ResolveCollectionProperty(ITree expr)
+		public void ResolveCollectionProperty(IASTNode expr)
 		{
 			String propertyName = CollectionProperties.GetNormalizedPropertyName( _methodName );
 
@@ -72,13 +72,13 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				}
 				if ( !_inSelect ) 
 				{
-					_fromElement.SetText( "" );
+					_fromElement.Text = "";
 					_fromElement.UseWhereFragment = false;
 				}
 
 				PrepareSelectColumns( _selectColumns );
-				SetText( _selectColumns[0] );
-				this.SetType( HqlSqlWalker.SQL_TOKEN );
+				Text = _selectColumns[0];
+				Type = HqlSqlWalker.SQL_TOKEN;
 			}
 			else 
 			{
@@ -114,7 +114,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				{
 					String lhsOriginText = lhsOrigin.Queryable.TableName +
 							" " + lhsOrigin.TableAlias;
-					lhsOrigin.SetText( lhsOriginText );
+					lhsOrigin.Text = lhsOriginText;
 				}
 				PrepareAnyImplicitJoins( lhs );
 			}
@@ -126,7 +126,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			IQueryableCollection queryableCollection = collectionFromElement.QueryableCollection;
 
 			String path = collectionNode.Path + "[]." + propertyName;
-			log.debug("Creating elements for " + path);
+			log.Debug("Creating elements for " + path);
 
 			_fromElement = collectionFromElement;
 			if (!collectionFromElement.IsCollectionOfValuesOrComponents)

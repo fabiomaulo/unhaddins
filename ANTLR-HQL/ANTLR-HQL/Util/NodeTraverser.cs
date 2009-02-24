@@ -1,5 +1,6 @@
 ﻿using System;
 using Antlr.Runtime.Tree;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Util
 {
@@ -17,7 +18,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 		/// with its children.
 		/// </summary>
 		/// <param name="ast">ast</param>
-		public void TraverseDepthFirst(ITree ast)
+		public void TraverseDepthFirst(IASTNode ast)
 		{
 			if (ast == null)
 			{
@@ -30,7 +31,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			}
 		}
 
-		private void VisitDepthFirst(ITree ast)
+		private void VisitDepthFirst(IASTNode ast)
 		{
 			if (ast == null)
 			{

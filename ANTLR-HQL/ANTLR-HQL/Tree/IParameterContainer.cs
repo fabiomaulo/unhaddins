@@ -20,8 +20,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// <summary>
 		/// Set the renderable text of this node.
 		/// </summary>
-		/// <param name="text">The renderable text</param>
-		void SetText(string text);
+		string Text { set; }
 
 		/// <summary>
 		/// Adds a parameter specification for a parameter encountered within this node.  We use the term 'embedded' here

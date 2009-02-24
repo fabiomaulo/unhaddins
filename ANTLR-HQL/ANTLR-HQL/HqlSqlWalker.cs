@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Antlr.Runtime.Tree;
 using Iesi.Collections.Generic;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
@@ -14,7 +15,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 {
 	public partial class HqlSqlWalker
 	{
-		private readonly Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(HqlSqlWalker));
 
 
 		// Fields
@@ -48,7 +49,10 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private JoinType _impliedJoinType;
 
 		private IParseErrorHandler _parseErrorHandler = new ErrorCounter();
+
 		private string[][] columnNames;
+
+		private IASTFactory _nodeFactory;
 
 		public HqlSqlWalker(QueryTranslatorImpl qti,
 					  ISessionFactoryImplementor sfi,
@@ -131,17 +135,17 @@ namespace NHibernate.Hql.Ast.ANTLR
 				_statementType = statementType;
 			}
 			_currentStatementType = statementType;
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug(statementName + " << begin [level=" + _level + ", statement=" + _statementTypeName + "]");
+				log.Debug(statementName + " << begin [level=" + _level + ", statement=" + _statementTypeName + "]");
 			}
 		}
 
 		void beforeStatementCompletion(string statementName)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug(statementName + " : finishing up [level=" + _level + ", statement=" + _statementTypeName + "]");
+				log.Debug(statementName + " : finishing up [level=" + _level + ", statement=" + _statementTypeName + "]");
 			}
 		}
 
@@ -167,9 +171,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		void afterStatementCompletion(string statementName)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug(statementName + " >> end [level=" + _level + ", statement=" + _statementTypeName + "]");
+				log.Debug(statementName + " >> end [level=" + _level + ", statement=" + _statementTypeName + "]");
 			}
 			_level--;
 		}
@@ -188,7 +192,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		ITree resolve(ITree node)
+		IASTNode resolve(IASTNode node)
 		{
 			if (node != null)
 			{
@@ -208,10 +212,10 @@ namespace NHibernate.Hql.Ast.ANTLR
 			return node;
 		}
 
-		void processQuery(ITree select, ITree query)
+		void processQuery(IASTNode select, IASTNode query)
 		{
-			if ( log.isDebugEnabled() ) {
-				log.debug( "processQuery() : " + query.ToStringTree() );
+			if ( log.IsDebugEnabled ) {
+				log.Debug( "processQuery() : " + query.ToStringTree() );
 			}
 
 			try {
@@ -269,23 +273,23 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 		}
 
-		private void UseSelectClause(ITree select)
+		private void UseSelectClause(IASTNode select)
 		{
 			_selectClause = (SelectClause) select;
 			_selectClause.InitializeExplicitSelectClause(_currentFromClause);
 		}
 
-		private void CreateSelectClauseFromFromClause(CommonTree qn)
+		private void CreateSelectClauseFromFromClause(IASTNode qn)
 		{
 			// TODO - check this.  Not *exactly* the same logic as the Java original
-			ASTUtil.InsertAsFirstChild(qn, (CommonTree)adaptor.Create(SELECT_CLAUSE, "{derived select clause}"));
+			qn.InsertChild(0, (IASTNode)adaptor.Create(SELECT_CLAUSE, "{derived select clause}"));
 
 			_selectClause = ( SelectClause ) qn.GetChild(0);
 			_selectClause.InitializeDerivedSelectClause( _currentFromClause );
 
-			if ( log.isDebugEnabled() ) 
+			if ( log.IsDebugEnabled ) 
 			{
-				log.debug( "Derived SELECT clause created." );
+				log.Debug( "Derived SELECT clause created." );
 			}
 		}
 
@@ -322,7 +326,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		void PrepareFromClauseInputTree(ITree fromClauseInput )
+		void PrepareFromClauseInputTree(IASTNode fromClauseInput )
 		{
 			if (isFilter())
 			{
@@ -337,18 +341,16 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 				string collectionElementEntityName = persister.ElementPersister.EntityName;
 
-				ITree fromElement = (ITree)adaptor.Create(FILTER_ENTITY, collectionElementEntityName);
-				ITree alias = (ITree)adaptor.Create(ALIAS, "this");
+				IASTNode fromElement = (IASTNode)adaptor.Create(FILTER_ENTITY, collectionElementEntityName);
+				IASTNode alias = (IASTNode)adaptor.Create(ALIAS, "this");
 
 				fromClauseInput.AddChild(fromElement);
 				fromClauseInput.AddChild(alias);
 
 				// Show the modified AST.
-				if (log.isDebugEnabled())
+				if (log.IsDebugEnabled)
 				{
-					log.debug("prepareFromClauseInputTree() : Filter - Added 'this' as a from element...");
-
-					((ITree) _hqlParser.TreeSource).DumpTree();
+					log.Debug("prepareFromClauseInputTree() : Filter - Added 'this' as a from element...");
 				}
 				
 				// Create a parameter specification for the collection filter...
@@ -373,7 +375,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 		}
 
 
-		ITree createFromElement(string path, ITree alias, ITree propertyFetch)
+		IASTNode createFromElement(string path, IASTNode alias, IASTNode propertyFetch)
 		{
 			FromElement fromElement = _currentFromClause.AddFromElement( path, alias );
 			fromElement.SetAllPropertyFetch(propertyFetch != null);
@@ -391,7 +393,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		void PushFromClause(ITree fromNode, ITree inputFromNode)
+		void PushFromClause(IASTNode fromNode, IASTNode inputFromNode)
 		{
 			FromClause newFromClause = (FromClause)fromNode;
 			newFromClause.SetParentFromClause(_currentFromClause);
@@ -418,36 +420,36 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		void prepareLogicOperator(ITree operatorNode)
+		void prepareLogicOperator(IASTNode operatorNode)
 		{
 			( ( IOperatorNode ) operatorNode ).Initialize(this);
 		}
 
-		void processNumericLiteral(CommonTree literal)
+		void processNumericLiteral(IASTNode literal)
 		{
 			_literalProcessor.ProcessNumericLiteral((SqlNode) literal);
 		}
 
-		protected ITree lookupProperty(ITree dot, bool root, bool inSelect)
+		protected IASTNode lookupProperty(IASTNode dot, bool root, bool inSelect)
 		{
 			DotNode dotNode = ( DotNode ) dot;
 			FromReferenceNode lhs = dotNode.GetLhs();
-			ITree rhs = lhs.GetNextSibling();
+			IASTNode rhs = lhs.RightHandSibling;
 			switch ( rhs.Type ) {
 				case ELEMENTS:
 				case INDICES:
-					if ( log.isDebugEnabled() ) 
+					if ( log.IsDebugEnabled ) 
 					{
-						log.debug( "lookupProperty() " + dotNode.Path + " => " + rhs.Text + "(" + lhs.Path + ")" );
+						log.Debug( "lookupProperty() " + dotNode.Path + " => " + rhs.Text + "(" + lhs.Path + ")" );
 					}
 
 					CollectionFunction f = ( CollectionFunction ) rhs;
 					// Re-arrange the tree so that the collection function is the root and the lhs is the path.
 
-					f.Children.Clear();
+					f.ClearChildren();
 					f.AddChild(lhs);
-					lhs.Children.Clear();
-					dotNode.Children.Clear();
+					lhs.ClearChildren();
+					dotNode.ClearChildren();
 					dotNode.AddChild(f);
 					/*
 					f.setFirstChild( lhs );
@@ -469,7 +471,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		bool isNonQualifiedPropertyRef(ITree ident)
+		bool isNonQualifiedPropertyRef(IASTNode ident)
 		{
 			string identText = ident.Text;
 
@@ -478,13 +480,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 				return false;
 			}
 
-			IList<ITree> fromElements = _currentFromClause.GetExplicitFromElements();
+			IList<IASTNode> fromElements = _currentFromClause.GetExplicitFromElements();
 			if ( fromElements.Count == 1 ) 
 			{
 				FromElement fromElement = (FromElement) fromElements[0];
 				try 
 				{
-					log.trace( "attempting to resolve property [" + identText + "] as a non-qualified ref" );
+					log.Info( "attempting to resolve property [" + identText + "] as a non-qualified ref" );
 					return fromElement.GetPropertyMapping(identText).ToType(identText) != null;
 				}
 				catch( QueryException ) 
@@ -610,9 +612,17 @@ namespace NHibernate.Hql.Ast.ANTLR
 			return _collectionFilterRole != null;
 		}
 
-		public ITreeAdaptor ASTFactory
+		public IASTFactory ASTFactory
 		{
-			get { return adaptor; }
+			get
+			{
+				if (_nodeFactory == null)
+				{
+					_nodeFactory = new ASTFactory(adaptor);
+				}
+
+				return _nodeFactory;
+			}
 		}
 
 		public void AddQuerySpaces(string[] spaces)

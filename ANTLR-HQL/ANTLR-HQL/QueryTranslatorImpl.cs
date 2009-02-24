@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using Iesi.Collections.Generic;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Loader;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
@@ -15,7 +16,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 {
 	public class QueryTranslatorImpl : IQueryTranslator
 	{
-		private Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(QueryTranslatorImpl));
+
 		private bool _shallowQuery;
 		private bool _compiled;
 		private string _queryIdentifier;
@@ -181,9 +183,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 			// If the query is already compiled, skip the compilation.
 			if ( _compiled ) 
 			{
-				if ( log.isDebugEnabled() ) 
+				if ( log.IsDebugEnabled ) 
 				{
-					log.debug( "compile() : The query is already compiled, skipping..." );
+					log.Debug( "compile() : The query is already compiled, skipping..." );
 				}
 				return;
 			}
@@ -199,7 +201,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			try 
 			{
 				// PHASE 1 : Parse the HQL into an AST.
-				ITree hqlAst = Parse( true );
+				IASTNode hqlAst = Parse( true );
 
 				// PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
 				_sqlAst = Analyze(hqlAst, collectionRole);
@@ -237,7 +239,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				// we do not actually propogate ANTLRExceptions as a cause, so
 				// log it here for diagnostic purposes
 				if ( log.isTraceEnabled() ) {
-					log.trace( "converted antlr.RecognitionException", e );
+					log.Info( "converted antlr.RecognitionException", e );
 				}
 				throw QuerySyntaxException.convert( e, hql );
 			}
@@ -245,7 +247,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				// we do not actually propogate ANTLRExceptions as a cause, so
 				// log it here for diagnostic purposes
 				if ( log.isTraceEnabled() ) {
-					log.trace( "converted antlr.ANTLRException", e );
+					log.Info( "converted antlr.ANTLRException", e );
 				}
 				throw new QueryException( e.getMessage(), hql );
 			}
@@ -263,14 +265,15 @@ namespace NHibernate.Hql.Ast.ANTLR
 				nodes.TokenStream = _tokens;
 
 				SqlGenerator gen = new SqlGenerator(_factory, nodes);
+				gen.TreeAdaptor = new ASTTreeAdaptor();
 
 				gen.statement();
 
 				_sql = gen.GetSQL();
 
-				if ( log.isDebugEnabled() ) {
-					log.debug( "HQL: " + _hql );
-					log.debug( "SQL: " + _sql );
+				if ( log.IsDebugEnabled ) {
+					log.Debug( "HQL: " + _hql );
+					log.Debug( "SQL: " + _sql );
 				}
 				gen.ParseErrorHandler.ThrowQueryException();
 
@@ -278,13 +281,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 		}
 
-		private IStatement Analyze(ITree hqlAst, string collectionRole)
+		private IStatement Analyze(IASTNode hqlAst, string collectionRole)
 		{
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(hqlAst);
 			nodes.TokenStream = _tokens;
 
 			HqlSqlWalker hqlSqlWalker = new HqlSqlWalker(this, _factory, nodes, _tokenReplacements, collectionRole);
-			hqlSqlWalker.TreeAdaptor = new HqlTreeAdaptor(hqlSqlWalker);
+			hqlSqlWalker.TreeAdaptor = new HqlSqlWalkerTreeAdaptor(hqlSqlWalker);
 
 			// TODO - debug, remove
 			Console.WriteLine(hqlAst.ToStringTree());
@@ -293,7 +296,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			IStatement sqlAst = (IStatement)hqlSqlWalker.statement().Tree;
 
 			// TODO - debug, remove
-			Console.WriteLine(((ITree)sqlAst).ToStringTree());
+			Console.WriteLine(((IASTNode)sqlAst).ToStringTree());
 
 			/*
 			if ( AST_LOG.isDebugEnabled() ) {
@@ -307,22 +310,24 @@ namespace NHibernate.Hql.Ast.ANTLR
 			return sqlAst;
 		}
 
-		private ITree Parse(bool filter) 
+		private IASTNode Parse(bool filter) 
 		{
 			// Parse the query string into an HQL AST.
 			HqlLexer lex = new HqlLexer(new ANTLRStringStream(_hql));
 			_tokens = new CommonTokenStream(lex);
 
 			HqlParser parser = new HqlParser(_tokens);
+			parser.TreeAdaptor = new ASTTreeAdaptor();
+
 
 			parser.Filter = filter;
 
-			if ( log.isDebugEnabled() ) 
+			if ( log.IsDebugEnabled ) 
 			{
-				log.debug( "parse() - HQL: " + _hql );
+				log.Debug( "parse() - HQL: " + _hql );
 			}
 
-			ITree hqlAst = (ITree) parser.statement().Tree;
+			IASTNode hqlAst = (IASTNode) parser.statement().Tree;
 
 			JavaConstantConverter converter = new JavaConstantConverter();
 			NodeTraverser walker = new NodeTraverser( converter );
@@ -345,9 +350,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public class JavaConstantConverter : IVisitationStrategy
 		{
-			private ITree dotRoot;
+			private IASTNode dotRoot;
 
-			public void Visit(ITree node) 
+			public void Visit(IASTNode node) 
 			{
 				if ( dotRoot != null ) 
 				{
@@ -367,11 +372,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 				if ( dotRoot == null && node.Type == HqlSqlWalker.DOT ) 
 				{
 					dotRoot = node;
-					HandleDotStructure( (CommonTree) dotRoot );
+					HandleDotStructure( (IASTNode) dotRoot );
 				}
 			}
 
-			private static void HandleDotStructure(CommonTree dotStructureRoot) 
+			private static void HandleDotStructure(IASTNode dotStructureRoot) 
 			{
 				String expression = ASTUtil.GetPathText( dotStructureRoot );
 

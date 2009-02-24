@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
 using NHibernate.Persister.Entity;
@@ -54,20 +53,20 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			{
 				// do *not* over-write the column text, as that has already been
 				// "rendered" during resolve
-				ColumnHelper.GenerateSingleScalarColumn(this, i);
+				ColumnHelper.GenerateSingleScalarColumn(Walker.ASTFactory, this, i);
 			}
 			else {
 				FromElement fe = FromElement;
 				if (fe != null) {
-					SetText(fe.RenderScalarIdentifierSelect(i));
+					Text = fe.RenderScalarIdentifierSelect(i);
 				}
 				else {
-					ColumnHelper.GenerateSingleScalarColumn(this, i);
+					ColumnHelper.GenerateSingleScalarColumn(Walker.ASTFactory, this, i);
 				}
 			}
 		}
 
-		public override void ResolveIndex(ITree parent)
+		public override void ResolveIndex(IASTNode parent)
 		{
 			// An ident node can represent an index expression if the ident
 			// represents a naked property ref
@@ -111,7 +110,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			Walker.AddQuerySpaces(queryableCollection.CollectionSpaces);	// Always add the collection's query spaces.
 		}
 
-		public override void Resolve(bool generateJoin, bool implicitJoin, string classAlias, ITree parent)
+		public override void Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent)
 		{
 			if (!IsResolved)
 			{
@@ -213,8 +212,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					: persister.ToColumns(property);
 
 			string text = StringHelper.Join(", ", columns);
-			SetText(columns.Length == 1 ? text : "(" + text + ")");
-			this.SetType(HqlSqlWalker.SQL_TOKEN);
+			Text = columns.Length == 1 ? text : "(" + text + ")";
+			Type = HqlSqlWalker.SQL_TOKEN;
 
 			// these pieces are needed for usage in select clause
 			DataType = propertyType;
@@ -243,7 +242,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 
 			IType propertyType ;  // used to set the type of the parent dot node
-			string propertyPath = Text + "." + this.GetNextSibling().Text;
+			string propertyPath = Text + "." + this.RightHandSibling.Text;
 			try
 			{
 				// check to see if our "propPath" actually
@@ -317,7 +316,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		private FromElement LocateSingleFromElement()
 		{
-			IList<ITree> fromElements = Walker.CurrentFromClause.GetFromElements();
+			IList<IASTNode> fromElements = Walker.CurrentFromClause.GetFromElements();
 			if (fromElements == null || fromElements.Count != 1)
 			{
 				// TODO : should this be an error?
@@ -340,8 +339,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			if (element != null)
 			{
 				FromElement = element;
-				SetText(element.GetIdentityColumn());
-				this.SetType(HqlSqlWalker.ALIAS_REF);
+				Text = element.GetIdentityColumn();
+				Type = HqlSqlWalker.ALIAS_REF;
 				return true;
 			}
 			return false;

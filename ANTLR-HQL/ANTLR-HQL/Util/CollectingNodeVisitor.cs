@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using Antlr.Runtime.Tree;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Util
 {
-	public delegate bool FilterPredicate(ITree node);
+	public delegate bool FilterPredicate(IASTNode node);
 
 	public class CollectingNodeVisitor : IVisitationStrategy
 	{
 		private readonly FilterPredicate predicate;
-		private readonly List<ITree> collectedNodes = new List<ITree>();
+		private readonly List<IASTNode> collectedNodes = new List<IASTNode>();
 
 		public CollectingNodeVisitor(FilterPredicate predicate)
 		{
 			this.predicate = predicate;
 		}
 
-		public void Visit(ITree node)
+		public void Visit(IASTNode node)
 		{
 			if ( predicate == null || predicate( node ) ) 
 			{
@@ -23,11 +24,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			}
 		}
 
-		public IList<ITree> GetCollectedNodes() {
+		public IList<IASTNode> GetCollectedNodes() {
 			return collectedNodes;
 		}
 
-		public IList<ITree> Collect(ITree root)
+		public IList<IASTNode> Collect(IASTNode root)
 		{
 			NodeTraverser traverser = new NodeTraverser( this );
 			traverser.TraverseDepthFirst( root );

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Antlr.Runtime;
+using log4net;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
@@ -9,8 +10,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 	/// </summary>
 	public class ErrorCounter : IParseErrorHandler 
 	{
-		private readonly Logger _log = new Logger();
-		private readonly Logger _hqlLog = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(ErrorCounter));
+		private static readonly ILog hqlLog = LogManager.GetLogger("NHibernate.Hql.Parser");
 
 		private readonly List<string> _errorList = new List<string>();
 		private readonly List<string> _warningList = new List<string>();
@@ -20,14 +21,14 @@ namespace NHibernate.Hql.Ast.ANTLR
 		{
 			ReportError( e.ToString() );
 			_recognitionExceptions.Add( e );
-			if ( _log.isDebugEnabled() ) {
-				_log.debug( e.ToString(), e );
+			if ( log.IsDebugEnabled ) {
+				log.Debug( e.ToString(), e );
 			}
 		}
 
 		public void ReportError(string message) 
 		{
-			_hqlLog.error( message );
+			hqlLog.Error( message );
 			_errorList.Add( message );
 		}
 
@@ -38,7 +39,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public void ReportWarning(string message) 
 		{
-			_hqlLog.debug( message );
+			hqlLog.Debug( message );
 			_warningList.Add( message );
 		}
 
@@ -74,9 +75,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 			else 
 			{
 				// all clear
-				if ( _log.isDebugEnabled() ) 
+				if ( log.IsDebugEnabled ) 
 				{
-					_log.debug( "throwQueryException() : no errors" );
+					log.Debug( "throwQueryException() : no errors" );
 				}
 			}
 		}

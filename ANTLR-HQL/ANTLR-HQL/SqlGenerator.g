@@ -13,11 +13,16 @@ options
 {
 	language=CSharp2;
 	tokenVocab=HqlSqlWalker;
-	ASTLabelType=CommonTree;
+	ASTLabelType=IASTNode;
 	output=AST;
 }
 
 @namespace { NHibernate.Hql.Ast.ANTLR }
+
+@header
+{
+using NHibernate.Hql.Ast.ANTLR.Tree;
+}
 
 statement
 	: selectStatement
@@ -175,7 +180,7 @@ fromTable
 	| ^( b=JOIN_FRAGMENT  { Out(b); } (tableJoin [ b ])* { fromFragmentSeparator($b); } )
 	;
 
-tableJoin [ ITree parent ]
+tableJoin [ IASTNode parent ]
 	: ^( c=JOIN_FRAGMENT { Out(" "); Out($c); } (tableJoin [ c ] )* )
 	| ^( d=FROM_FRAGMENT { nestedFromFragment($d,parent); } (tableJoin [ d ] )* )
 	;

@@ -1,6 +1,4 @@
-﻿using Antlr.Runtime.Tree;
-
-namespace NHibernate.Hql.Ast.ANTLR.Tree
+﻿namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	/// <summary>
 	/// Type definition for Statements which are restrictable via a where-clause (and
@@ -37,7 +35,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// in the resulting statement tree (otherwise "unexpected end of subtree" errors
 		/// might occur during rendering).
 		/// </summary>
-		ITree WhereClause
+		IASTNode WhereClause
 		{
 			get;
 		}

@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\NHibernate\Trunk\nhibernate\lib\net\2.0\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.1001, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\NHibernate\Trunk\nhibernate\src\NHibernate\bin\Debug-2.0\NHibernate.dll</HintPath>
@@ -81,6 +85,9 @@
     <Compile Include="Tree\AbstractRestrictableStatement.cs" />
     <Compile Include="Tree\AbstractSelectExpression.cs" />
     <Compile Include="Tree\AbstractStatement.cs" />
+    <Compile Include="Tree\ASTFactory.cs" />
+    <Compile Include="Tree\ASTNode.cs" />
+    <Compile Include="Tree\ASTTreeAdaptor.cs" />
     <Compile Include="Tree\BinaryLogicOperatorNode.cs" />
     <Compile Include="Tree\CollectionFunction.cs" />
     <Compile Include="Tree\ConstructorNode.cs" />
@@ -91,6 +98,7 @@
     <Compile Include="Tree\FromElementType.cs" />
     <Compile Include="Tree\FromReferenceNode.cs" />
     <Compile Include="Tree\HqlSqlWalkerNode.cs" />
+    <Compile Include="Tree\IASTFactory.cs" />
     <Compile Include="Tree\IBinaryOperatorNode.cs" />
     <Compile Include="Tree\IdentNode.cs" />
     <Compile Include="Tree\ImpliedFromElement.cs" />
@@ -102,6 +110,7 @@
     <Compile Include="Tree\IRestrictableStatement.cs" />
     <Compile Include="Tree\ISelectExpression.cs" />
     <Compile Include="Tree\IStatement.cs" />
+    <Compile Include="Tree\IASTNode.cs" />
     <Compile Include="Tree\MethodNode.cs" />
     <Compile Include="Tree\OrderByClause.cs" />
     <Compile Include="Tree\QueryNode.cs" />
@@ -117,14 +126,13 @@
     <Compile Include="HqlParser.cs" />
     <Compile Include="HqlSqlWalker.cs" />
     <Compile Include="HqlToken.cs" />
-    <Compile Include="Logger.cs" />
     <Compile Include="Output\HqlLexer.cs" />
     <Compile Include="Output\HqlParser.cs" />
     <Compile Include="Output\HqlSqlWalker.cs" />
     <Compile Include="Parameters\CollectionFilterKeyParameterSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionFactoryHelperExtensions.cs" />
-    <Compile Include="Tree\HqlTreeAdapter.cs" />
+    <Compile Include="Tree\HqlSqlWalkerTreeAdapter.cs" />
     <Compile Include="Tree\IDisplayableNode.cs" />
     <Compile Include="Tree\IExpectedTypeAwareNode.cs" />
     <Compile Include="Tree\IInitializableNode.cs" />

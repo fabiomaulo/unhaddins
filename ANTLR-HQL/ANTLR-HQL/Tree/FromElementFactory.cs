@@ -1,5 +1,5 @@
 ﻿using System;
-using Antlr.Runtime.Tree;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
@@ -12,7 +12,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	public class FromElementFactory
 	{
-		private readonly Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(FromElementFactory));
 
 		private readonly FromClause _fromClause;
 		private readonly FromElement _origin;
@@ -106,9 +106,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			FromElement parentFromElement,
 			string classAlias)
 		{
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("createFromElementInSubselect() : path = " + path);
+				log.Debug("createFromElementInSubselect() : path = " + path);
 			}
 
 			// Create an DotNode AST for the path and resolve it.
@@ -132,9 +132,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			// If the from element isn't in the same clause, create a new from element.
 			if (fromElement.FromClause != _fromClause)
 			{
-				if (log.isDebugEnabled())
+				if (log.IsDebugEnabled)
 				{
-					log.debug("createFromElementInSubselect() : creating a new FROM element...");
+					log.Debug("createFromElementInSubselect() : creating a new FROM element...");
 				}
 
 				fromElement = CreateFromElement(entityPersister);
@@ -147,9 +147,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 						tableAlias
 				);
 			}
-			if (log.isDebugEnabled())
+			if (log.IsDebugEnabled)
 			{
-				log.debug("createFromElementInSubselect() : " + path + " -> " + fromElement);
+				log.Debug("createFromElementInSubselect() : " + path + " -> " + fromElement);
 			}
 
 			return fromElement;
@@ -246,9 +246,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 			if ( numberOfTables > 1 && _implied && !elem.UseFromFragment ) 
 			{
-				if ( log.isDebugEnabled() ) 
+				if ( log.IsDebugEnabled ) 
 				{
-					log.debug( "createEntityJoin() : Implied multi-table entity join" );
+					log.Debug( "createEntityJoin() : Implied multi-table entity join" );
 				}
 				elem.UseFromFragment = true;
 			}
@@ -271,7 +271,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	//			        ( implied && DotNode.useThetaStyleImplicitJoins ) ) {
 						DotNode.UseThetaStyleImplicitJoins) {
 					// the "root from-element" in correlated subqueries do need this piece
-					elem.SetType( HqlSqlWalker.FROM_FRAGMENT );
+					elem.Type = HqlSqlWalker.FROM_FRAGMENT ;
 					joinSequence.SetUseThetaStyle( true );
 					elem.UseFromFragment = false;
 				}
@@ -292,9 +292,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			// Get the class name of the associated entity.
 			if ( _queryableCollection.IsOneToMany ) 
 			{
-				if ( log.isDebugEnabled() ) 
+				if ( log.IsDebugEnabled ) 
 				{
-					log.debug( "createEntityAssociation() : One to many - path = " + _path + " role = " + role + " associatedEntityName = " + associatedEntityName );
+					log.Debug( "createEntityAssociation() : One to many - path = " + _path + " role = " + role + " associatedEntityName = " + associatedEntityName );
 				}
 
 				JoinSequence joinSequence = CreateJoinSequence( roleAlias, joinType );
@@ -303,8 +303,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 			else
 			{
-				if ( log.isDebugEnabled() ) {
-					log.debug( "createManyToMany() : path = " + _path + " role = " + role + " associatedEntityName = " + associatedEntityName );
+				if ( log.IsDebugEnabled ) {
+					log.Debug( "createManyToMany() : path = " + _path + " role = " + role + " associatedEntityName = " + associatedEntityName );
 				}
 
 				elem = CreateManyToMany( role, associatedEntityName,
@@ -318,7 +318,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private FromElement CreateCollectionJoin(JoinSequence collectionJoinSequence, string tableAlias) 
 		{
 			string text = _queryableCollection.TableName;
-			ITree ast = CreateFromElement( text );
+			IASTNode ast = CreateFromElement( text );
 			FromElement destination = ( FromElement ) ast;
 			IType elementType = _queryableCollection.ElementType;
 
@@ -328,7 +328,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 
 			destination.InitializeCollection( _fromClause, _classAlias, tableAlias );
-			destination.SetType( HqlSqlWalker.JOIN_FRAGMENT );		// Tag this node as a JOIN.
+			destination.Type = HqlSqlWalker.JOIN_FRAGMENT;		// Tag this node as a JOIN.
 			destination.SetIncludeSubclasses( false );	// Don't include subclasses in the join.
 			destination.CollectionJoin = true;		// This is a clollection join.
 			destination.JoinSequence = collectionJoinSequence;
@@ -337,7 +337,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	//		origin.addDestination( destination );
 	// This was the cause of HHH-242
 	//		origin.setType( FROM_FRAGMENT );			// Set the parent node type so that the AST is properly formed.
-			_origin.SetText( "" );						// The destination node will have all the FROM text.
+			_origin.Text = "";						// The destination node will have all the FROM text.
 			_origin.CollectionJoin = true;			// The parent node is a collection join too (voodoo - see JoinProcessor)
 			_fromClause.AddCollectionJoinFromElementByPath( _path, destination );
 			_fromClause.Walker.AddQuerySpaces( _queryableCollection.CollectionSpaces );
@@ -415,7 +415,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				FromElement origin,
 				bool manyToMany)
 		{
-			destination.SetType(HqlSqlWalker.JOIN_FRAGMENT);
+			destination.Type = HqlSqlWalker.JOIN_FRAGMENT;
 			destination.JoinSequence = joinSequence;
 			destination.Columns = columns;
 			destination.SetOrigin(origin, manyToMany);
@@ -425,8 +425,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		private FromElement EvaluateFromElementPath(string path, string classAlias)
 		{
-			ITreeAdaptor factory = _fromClause.ASTFactory;
-			FromReferenceNode pathNode = (FromReferenceNode)PathHelper.ParsePath(path, factory);
+			FromReferenceNode pathNode = (FromReferenceNode)PathHelper.ParsePath(path, _fromClause.ASTFactory);
 
 			pathNode.RecursiveResolve(FromReferenceNode.ROOT_LEVEL, // This is the root level node.
 					false, // Generate an explicit from clause at the root.
@@ -448,21 +447,21 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			IJoinable joinable = (IJoinable)entityPersister;
 			string text = joinable.TableName;
-			ITree ast = CreateFromElement(text);
+			IASTNode ast = CreateFromElement(text);
 			FromElement element = (FromElement)ast;
 			return element;
 		}
 
-		private ITree CreateFromElement(string text)
+		private IASTNode CreateFromElement(string text)
 		{
-			CommonTree ast = ASTUtil.Create(_fromClause.ASTFactory,
+			IASTNode ast = _fromClause.ASTFactory.CreateNode(
 					_implied ? HqlSqlWalker.IMPLIED_FROM : HqlSqlWalker.FROM_FRAGMENT, // This causes the factory to instantiate the desired class.
 					text);
 
 			// Reset the node type, because the rest of the system is expecting FROM_FRAGMENT, all we wanted was
 			// for the factory to create the right sub-class.  This might get reset again later on anyway to make the
 			// SQL generation simpler.
-			ast.SetType(HqlSqlWalker.FROM_FRAGMENT);
+			ast.Type = HqlSqlWalker.FROM_FRAGMENT;
 
 			return ast;
 		}

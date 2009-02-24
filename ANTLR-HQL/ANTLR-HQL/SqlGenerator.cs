@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
+using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR
@@ -17,7 +19,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 	/// </summary>
 	public partial class SqlGenerator : IErrorReporter
 	{
-		Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(SqlGenerator));
 
 		/// <summary>
 		/// Handles parser errors.
@@ -60,7 +62,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			_parseErrorHandler.ReportWarning(s);
 		}
 
-		public void SimpleExpr(ITree ast)
+		public void SimpleExpr(IASTNode ast)
 		{
 			throw new NotImplementedException();
 		}
@@ -105,28 +107,28 @@ namespace NHibernate.Hql.Ast.ANTLR
 			// Implemented in the sub-class.
 		}
 
-		private void Out(ITree n) 
+		private void Out(IASTNode n) 
 		{
 			Out(n.Text);
 		}
 
-		private void separator(ITree n, String sep) 
+		private void separator(IASTNode n, String sep) 
 		{
-			if (n.GetNextSibling() != null)
+			if (n.RightHandSibling != null)
 				Out(sep);
 		}
 
-		private bool  hasText(ITree a) 
+		private bool  hasText(IASTNode a) 
 		{
 			return !string.IsNullOrEmpty(a.Text);
 		}
 
-		protected virtual void fromFragmentSeparator(ITree a) 
+		protected virtual void fromFragmentSeparator(IASTNode a) 
 		{
 			// moved this impl into the subclass...
 		}
 
-		protected virtual void nestedFromFragment(ITree d, ITree parent) 
+		protected virtual void nestedFromFragment(IASTNode d, IASTNode parent) 
 		{
 			// moved this impl into the subclass...
 		}
@@ -136,19 +138,19 @@ namespace NHibernate.Hql.Ast.ANTLR
 			return buf;
 		}
 
-		private void nyi(ITree n) 
+		private void nyi(IASTNode n) 
 		{
 			throw new InvalidOperationException("Unsupported node: " + n);
 		}
 
-		private void beginFunctionTemplate(ITree m, ITree i) 
+		private void beginFunctionTemplate(IASTNode m, IASTNode i) 
 		{
 			// if template is null we just write the function out as it appears in the hql statement
 			Out(i);
 			Out("(");
 		}
 
-		private void endFunctionTemplate(ITree m) 
+		private void endFunctionTemplate(IASTNode m) 
 		{
 			  Out(")");
 		}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
-using Antlr.Runtime.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
@@ -23,13 +22,13 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			// Get the first child to be considered.  Sub-classes may do this differently in order to skip nodes that
 			// are not select expressions (e.g. DISTINCT).
-			ITree firstChild = GetFirstSelectExpression();
-			ITree parent = this;
+			IASTNode firstChild = GetFirstSelectExpression();
+			IASTNode parent = this;
 			List<ISelectExpression> list = new List<ISelectExpression>(parent.ChildCount);
 
 			for (int i = firstChild.ChildIndex; i < this.ChildCount; i++)
 			{
-				ITree n = GetChild(i);
+				IASTNode n = GetChild(i);
 
 				if ( n is ISelectExpression ) 
 				{
@@ -48,6 +47,6 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// Returns the first select expression node that should be considered when building the array of select
 		/// expressions.
 		/// <summary>
-		protected abstract ITree GetFirstSelectExpression();
+		protected abstract IASTNode GetFirstSelectExpression();
 	}
 }

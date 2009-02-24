@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Antlr.Runtime;
-using Antlr.Runtime.Tree;
+using log4net.Config;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
-using NHibernate.Hql;
-using NHibernate.Hql.Ast.ANTLR;
-using NHibernate.Hql.Ast.ANTLR.Tree;
 using NUnit.Framework;
 
 namespace ANTLR_HQL.Tests.HQL_Parsing
@@ -19,6 +13,8 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 		[Test]
 		public void BasicQuery()
 		{
+			XmlConfigurator.Configure();
+
 			string input = "from ANTLR_HQL.Tests.Animal a where a.Legs > 7";
 
 			ISessionFactoryImplementor sfi = SetupSFI();
@@ -48,7 +44,7 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 
 			HqlParser.statement_return ret = parser.statement();
 
-			Console.WriteLine(((ITree)ret.Tree).ToStringTree());
+			Console.WriteLine(((IASTNode)ret.Tree).ToStringTree());
 
 			// Phase 2
 			CommonTreeNodeStream nodes = new CommonTreeNodeStream(ret.Tree);
@@ -60,7 +56,7 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 
 			HqlSqlWalker.statement_return ret2 = p2.statement();
 
-			DumpTree((ITree)ret2.Tree);*/
+			DumpTree((IASTNode)ret2.Tree);*/
 		}
 
 		ISessionFactoryImplementor SetupSFI()
@@ -68,26 +64,6 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			Configuration cfg = new Configuration();
 			cfg.AddAssembly(this.GetType().Assembly);
 			return (ISessionFactoryImplementor)cfg.BuildSessionFactory();
-		}
-
-		void DumpTree(ITree node)
-		{
-			DumpTree(node, 0);
-		}
-
-		void DumpTree(ITree node, int indent)
-		{
-			Console.WriteLine("{2}({0}:{1})", node.Text, HqlParser.tokenNames[node.Type], new string(' ', indent));
-
-			if (node.ChildCount > 0)
-			{
-				Console.WriteLine("{0}(", new string(' ', indent));
-				for (int i = 0; i < node.ChildCount; i++)
-				{
-					DumpTree(node.GetChild(i), indent + 3);
-				}
-				Console.WriteLine("{0})", new string(' ', indent));
-			}
 		}
 	}
 }

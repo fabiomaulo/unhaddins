@@ -1,12 +1,12 @@
 ﻿using System;
-using Antlr.Runtime.Tree;
-using Antlr.Runtime;
+using log4net;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
     public partial class HqlParser
     {
-		private Logger log = new Logger();
+		private static readonly ILog log = LogManager.GetLogger(typeof(HqlParser));
 
         /** True if this is a filter query (allow no FROM clause). **/
         private bool filter;
@@ -37,9 +37,9 @@ namespace NHibernate.Hql.Ast.ANTLR
                     if (input.LA(2) != LITERAL_by)
                     {
                         input.LT(1).Type = IDENT;
-                        if (log.isDebugEnabled())
+                        if (log.IsDebugEnabled)
                         {
-                            log.debug("weakKeywords() : new LT(1) token - " + input.LT(1));
+                            log.Debug("weakKeywords() : new LT(1) token - " + input.LT(1));
                         }
                     }
                     break;
@@ -51,9 +51,9 @@ namespace NHibernate.Hql.Ast.ANTLR
                         if (hqlToken.PossibleId)
                         {
                             hqlToken.Type = IDENT;
-                            if (log.isDebugEnabled())
+                            if (log.IsDebugEnabled)
                             {
-                                log.debug("weakKeywords() : new LT(1) token - " + input.LT(1));
+                                log.Debug("weakKeywords() : new LT(1) token - " + input.LT(1));
                             }
                         }
                     }
@@ -61,28 +61,29 @@ namespace NHibernate.Hql.Ast.ANTLR
             }
         }
 
-        public ITree NegateNode(ITree node)
+        public IASTNode NegateNode(IASTNode node)
         {
             // TODO - copy code from HqlParser.java
             switch (node.Type)
             {
                 case OR:
-                    ITree andNode = (ITree)TreeAdaptor.Create(AND, "AND");
+                    IASTNode andNode = (IASTNode)TreeAdaptor.Create(AND, "AND");
                     andNode.AddChild(NegateNode(node.GetChild(0)));
                     andNode.AddChild(NegateNode(node.GetChild(1)));
                     return andNode;
-                // TODO - remaining cases here...
+                default:
+					throw new NotImplementedException();
             }
             return node;
         }
 
-        public ITree ProcessEqualityExpression(object o)
+        public IASTNode ProcessEqualityExpression(object o)
         {
-            ITree x = o as ITree;
+            IASTNode x = o as IASTNode;
 
             if (x == null)
             {
-                log.warn("processEqualityExpression() : No expression to process!");
+                log.Warn("processEqualityExpression() : No expression to process!");
                 return null;
             }
 
@@ -93,8 +94,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 
                 if (x.ChildCount == 2)
                 {
-                    ITree a = x.GetChild(0);
-                    ITree b = x.GetChild(1);
+                    IASTNode a = x.GetChild(0);
+                    IASTNode b = x.GetChild(1);
                     // (EQ NULL b) => (IS_NULL b)
                     if (a.Type == NULL && b.Type != NULL)
                     {
@@ -127,42 +128,42 @@ namespace NHibernate.Hql.Ast.ANTLR
                 {
                     // Set it!
                     input.LT(2).Type =IDENT;
-                    if (log.isDebugEnabled())
+                    if (log.IsDebugEnabled)
                     {
-                        log.debug("handleDotIdent() : new LT(2) token - " + input.LT(1));
+                        log.Debug("handleDotIdent() : new LT(2) token - " + input.LT(1));
                     }
                 }
             }
         }
 
-        private ITree CreateIsNullParent(ITree node, bool negated)
+        private IASTNode CreateIsNullParent(IASTNode node, bool negated)
         {
             int type = negated ? IS_NOT_NULL : IS_NULL;
             string text = negated ? "is not null" : "is null";
 
-            return (ITree) adaptor.BecomeRoot(adaptor.Create(type, text), node);
+            return (IASTNode) adaptor.BecomeRoot(adaptor.Create(type, text), node);
         }
 
-        private ITree ProcessIsEmpty(ITree node, bool negated)
+        private IASTNode ProcessIsEmpty(IASTNode node, bool negated)
         {
             // NOTE: Because we're using ASTUtil.createParent(), the tree must be created from the bottom up.
             // IS EMPTY x => (EXISTS (QUERY (SELECT_FROM (FROM x) ) ) )
 
-            ITree ast = CreateSubquery(node);
+            IASTNode ast = CreateSubquery(node);
 
-            ast = (ITree) adaptor.BecomeRoot(adaptor.Create(EXISTS, "exists"), ast);
+            ast = (IASTNode) adaptor.BecomeRoot(adaptor.Create(EXISTS, "exists"), ast);
 
             // Add NOT if it's negated.
             if (!negated)
             {
-                ast = (ITree)adaptor.BecomeRoot(adaptor.Create(NOT, "not"), ast);
+                ast = (IASTNode)adaptor.BecomeRoot(adaptor.Create(NOT, "not"), ast);
             }
             return ast;
         }
 
-        private ITree CreateSubquery(ITree node)
+        private IASTNode CreateSubquery(IASTNode node)
         {
-            return (ITree) adaptor.BecomeRoot(
+            return (IASTNode) adaptor.BecomeRoot(
                                adaptor.Create(QUERY, "QUERY"),
                                adaptor.BecomeRoot(
                                    adaptor.Create(SELECT_FROM, "SELECT_FROM"),
