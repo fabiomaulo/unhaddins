@@ -127,7 +127,8 @@
     <Compile Include="SessionEasier\Contexts\Other.cs" />
     <Compile Include="SessionEasier\Contexts\Silly.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContextFixture.cs" />
-    <Compile Include="SessionEasier\DefaultMultiFactoryConfiguratorFixture.cs" />
+    <Compile Include="SessionEasier\DefaultMultiFactoryConfigurationProviderFixture.cs" />
+    <Compile Include="SessionEasier\DefaultSessionFactoryConfigurationProviderFixture.cs" />
     <Compile Include="SessionEasier\MultiSessionFactoryProviderFixture.cs" />
     <Compile Include="SessionEasier\SessionFactoryProviderFixture.cs" />
     <Compile Include="SessionEasier\TestConfigurationHelper.cs" />

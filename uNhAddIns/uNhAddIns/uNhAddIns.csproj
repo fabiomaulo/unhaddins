@@ -71,6 +71,7 @@
     <Compile Include="DynQuery\GroupBy.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="GenericImpl\PaginableDynQuery.cs" />
+    <Compile Include="SessionEasier\AbstractConfigurationProvider.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\ConfigurationEvents.cs" />
     <Compile Include="SessionEasier\Conversations\AbstractConversation.cs" />
