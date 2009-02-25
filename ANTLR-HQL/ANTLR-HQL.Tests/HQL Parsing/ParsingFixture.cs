@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using log4net.Config;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
+using NHibernate.Hql.Ast.ANTLR;
 using NUnit.Framework;
 
 namespace ANTLR_HQL.Tests.HQL_Parsing
@@ -10,7 +14,16 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 	[TestFixture]
 	public class ParsingFixture
 	{
-		[Test]
+		[Test, TestCaseSource(typeof(QueryFactoryClass), "TestCases")]
+		public string HqlParse(string query)
+		{
+			var p = new HqlParseEngine(query, false);
+			p.Parse();
+
+			return " " + p.Ast.ToStringTree();
+		}
+
+		[Test, Ignore]
 		public void BasicQuery()
 		{
 			XmlConfigurator.Configure();
@@ -25,38 +38,6 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			{
 				Console.WriteLine(o.Description);
 			}
-
-			/*
-			IQueryTranslatorFactory factory = new ASTQueryTranslatorFactory();
-			IQueryTranslator qti = factory.CreateQueryTranslator(null, input, new Dictionary<string, IFilter>(), sfi);
-
-			qti.Compile(null, false);
-			*/
-			/*
-			// string input = "from o in class org.hibernate.test.Top";
-
-
-			// Phase 1
-			HqlLexer lex = new HqlLexer(new ANTLRStringStream(input));
-			CommonTokenStream tokens = new CommonTokenStream(lex);
-
-			HqlParser parser = new HqlParser(tokens);
-
-			HqlParser.statement_return ret = parser.statement();
-
-			Console.WriteLine(((IASTNode)ret.Tree).ToStringTree());
-
-			// Phase 2
-			CommonTreeNodeStream nodes = new CommonTreeNodeStream(ret.Tree);
-			nodes.TokenStream = tokens;
-
-			QueryTranslatorImpl qti = new QueryTranslatorImpl();
-			HqlSqlWalker p2 = new HqlSqlWalker(qti, sfi, nodes, new Dictionary<string, string>(), null);
-			p2.TreeAdaptor = new HqlTreeAdaptor(p2);
-
-			HqlSqlWalker.statement_return ret2 = p2.statement();
-
-			DumpTree((IASTNode)ret2.Tree);*/
 		}
 
 		ISessionFactoryImplementor SetupSFI()
@@ -64,6 +45,67 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			Configuration cfg = new Configuration();
 			cfg.AddAssembly(this.GetType().Assembly);
 			return (ISessionFactoryImplementor)cfg.BuildSessionFactory();
+		}
+
+		public class QueryFactoryClass
+		{
+			public static IEnumerable<TestCaseData> TestCases
+			{
+				get
+				{
+					XDocument doc = XDocument.Load(@"HQL Parsing\TestQueriesWithResults.xml");
+
+					foreach (XElement testGroup in doc.Element("Tests").Elements("TestGroup"))
+					{
+						string category = testGroup.Attribute("Name").Value;
+
+						foreach (XElement test in testGroup.Elements("Test"))
+						{
+							string query = test.Element("Query").Value;
+							string result = test.Element("Result") != null ? test.Element("Result").Value : "barf";
+							string name = test.Element("Name") != null ? test.Element("Description").Value : null;
+							string description = test.Element("Description") != null ? test.Element("Description").Value : null;
+							bool ignore = test.Attribute("Ignore") != null ? bool.Parse(test.Attribute("Ignore").Value) : false;
+
+							// TODO - need to handle Ignore better (it won't show in results...)
+							if (!ignore)
+							{
+								yield return new TestCaseData(query)
+									.Returns(result)
+									.SetCategory(category)
+									.SetName(name)
+									.SetDescription(description);
+							}
+						}
+					}
+
+
+				}
+			}
+
+			/*
+			static IEnumerable<TestCaseData> ArrayExpressions
+			{
+				get
+				{
+					yield return new
+						TestCaseData("from Order ord where ord.items[0].id = 1234")
+						.Returns("( query ( SELECT_FROM ( from ( RANGE Order ord ) ) ) ( where ( = ( . ( [ ( . ord items ) 0 ) id ) 1234 ) ) )");
+				}
+			}
+
+			static IEnumerable<TestCaseData> ComplexConstructor
+			{
+				get
+				{
+					yield return new
+						TestCaseData("select new Foo(count(bar)) from bar")
+						.Returns("( query ( SELECT_FROM ( from ( RANGE bar ) ) ( select ( ( Foo ( count bar ) ) ) ) )");
+					yield return new
+						TestCaseData("select new Foo(count(bar),(select count(*) from doofus d where d.gob = 'fat' )) from bar")
+						.Returns("( query ( SELECT_FROM ( from ( RANGE bar ) ) ( select ( ( Foo ( count bar ) ( query ( SELECT_FROM ( from ( RANGE doofus d ) ) ( select ( count * ) ) ) ( where ( = ( . d gob ) 'fat' ) ) ) ) ) ) )");
+				}
+			}*/
 		}
 	}
 }

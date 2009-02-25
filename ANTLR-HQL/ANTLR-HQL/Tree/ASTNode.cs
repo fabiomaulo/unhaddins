@@ -275,25 +275,19 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			StringBuilder builder = new StringBuilder();
 			if (!IsNil)
 			{
-				builder.Append("(");
+				builder.Append("( ");
 				builder.Append(ToString());
-				builder.Append(' ');
 			}
 
-			bool first = true;
 			foreach (ASTNode child in _children)
 			{
-				if (!first)
-				{
-					builder.Append(' ');
-				}
+				builder.Append(' ');
 				builder.Append(child.ToStringTree());
-				first = false;
 			}
 
 			if (!IsNil)
 			{
-				builder.Append(")");
+				builder.Append(" )");
 			}
 
 			return builder.ToString();

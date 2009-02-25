@@ -839,12 +839,16 @@ aggregate
 	: op=( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE
 		-> ^(AGGREGATE[$op] additiveExpression)
 	// Special case for count - It's 'parameters' can be keywords.
-	|  COUNT OPEN ( s=STAR | p=( ( DISTINCT | ALL )? ( path | collectionExpr ) ) ) CLOSE
+	|  COUNT OPEN ( s=STAR | p=aggregateDistinctAll ) CLOSE
 		-> {s == null}? ^(COUNT $p)
-		-> ^(COUNT ^(ROW_STAR))
+		-> ^(COUNT ^(ROW_STAR["*"]))
 	|  collectionExpr
 	;
 
+aggregateDistinctAll
+	: ( ( DISTINCT | ALL )? ( path | collectionExpr ) )
+	;
+	
 //## collection: ( OPEN query CLOSE ) | ( 'elements'|'indices' OPEN path CLOSE );
 
 collectionExpr
@@ -867,7 +871,7 @@ subQuery
 */
 subQuery
 	: union
-	-> ^(QUERY $subQuery)
+	-> ^(QUERY["query"] union)
 	;
 
 /*

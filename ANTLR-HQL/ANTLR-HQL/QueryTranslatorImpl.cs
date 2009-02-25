@@ -22,15 +22,14 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private bool _compiled;
 		private string _queryIdentifier;
 		private readonly string _hql;
-		private string _sql;
 		private IDictionary<string, IFilter> _enabledFilters;
 		private readonly ISessionFactoryImplementor _factory;
-		private IDictionary<string, string> _tokenReplacements;
-		private CommonTokenStream _tokens;
-		private IList<IParameterSpecification> _collectedParameterSpecifications;
 		private QueryLoader _queryLoader;
-		private IStatement _sqlAst;
 		private IParameterTranslations _paramTranslations;
+
+		private HqlParseEngine _parser;
+		private HqlSqlTranslator _translator;
+		private HqlSqlGenerator _generator;
 
 		/// <summary>
 		/// Creates a new AST-based query translator.
@@ -83,26 +82,26 @@ namespace NHibernate.Hql.Ast.ANTLR
 		public string[][] GetColumnNames()
 		{
 			ErrorIfDML();
-			return _sqlAst.Walker.SelectClause.ColumnNames;
+			return _translator.SqlStatement.Walker.SelectClause.ColumnNames;
 		}
 
 		public IParameterTranslations GetParameterTranslations()
 		{
 			if (_paramTranslations == null)
 			{
-				_paramTranslations = new ParameterTranslationsImpl(_sqlAst.Walker.Parameters);
+				_paramTranslations = new ParameterTranslationsImpl(_translator.SqlStatement.Walker.Parameters);
 			}
 			return _paramTranslations;
 		}
 
 		public ISet<string> QuerySpaces
 		{
-			get { return _sqlAst.Walker.QuerySpaces; }
+			get { return _translator.SqlStatement.Walker.QuerySpaces; }
 		}
 
 		public string SQLString
 		{
-			get { return _sql; }
+			get { return _generator.Sql; }
 		}
 
 		public IList<string> CollectSqlStrings
@@ -123,7 +122,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				}
 				else
 				{
-					list.Add(_sql);
+					list.Add(_generator.Sql);
 				}
 				return list;
 			}
@@ -144,7 +143,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get
 			{
 				ErrorIfDML();
-				return _sqlAst.Walker.ReturnTypes;
+				return _translator.SqlStatement.Walker.ReturnTypes;
 			}
 		}
 
@@ -153,7 +152,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get
 			{
 				ErrorIfDML();
-				return _sqlAst.Walker.ReturnAliases;
+				return _translator.SqlStatement.Walker.ReturnAliases;
 			}
 		}
 
@@ -164,7 +163,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public bool IsManipulationStatement
 		{
-			get { return _sqlAst.NeedsExecutor; }
+			get { return _translator.SqlStatement.NeedsExecutor; }
 		}
 
 		public bool IsShallowQuery
@@ -190,10 +189,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 				return;
 			}
 
-			// Remember the parameters for the compilation.
-			_tokenReplacements = replacements;
-			if (_tokenReplacements == null ) {
-				_tokenReplacements = new Dictionary<string, string>();
+			if (replacements == null) 
+			{
+				replacements = new Dictionary<string, string>();
 			}
 
 			_shallowQuery = shallow;
@@ -201,10 +199,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 			try 
 			{
 				// PHASE 1 : Parse the HQL into an AST.
-				IASTNode hqlAst = Parse( true );
+				_parser = new HqlParseEngine(_hql, true);
+				_parser.Parse();
 
 				// PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
-				_sqlAst = Analyze(hqlAst, collectionRole);
+				_translator = new HqlSqlTranslator(_parser.Ast, _parser.Tokens, this, _factory, replacements,
+                                                   collectionRole);
+				_translator.Translate();
 				
 				// at some point the generate phase needs to be moved out of here,
 				// because a single object-level DML might spawn multiple SQL DML
@@ -217,7 +218,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				// QueryLoader currently even has a dependency on this at all; does
 				// it need it?  Ideally like to see the walker itself given to the delegates directly...
 
-				if ( _sqlAst.NeedsExecutor) 
+				if (_translator.SqlStatement.NeedsExecutor) 
 				{
 					throw new NotImplementedException();
 //					statementExecutor = buildAppropriateStatementExecutor( w );
@@ -225,160 +226,130 @@ namespace NHibernate.Hql.Ast.ANTLR
 				else 
 				{
 					// PHASE 3 : Generate the SQL.
-					Generate( _sqlAst );
-					_queryLoader = new QueryLoader( this, _factory, _sqlAst.Walker.SelectClause );
+					_generator = new HqlSqlGenerator(_translator.SqlStatement, _parser.Tokens, _factory);
+					_generator.Generate();
+					
+					_queryLoader = new QueryLoader( this, _factory, _translator.SqlStatement.Walker.SelectClause );
 				}
 
 				_compiled = true;
-			}/*
-			catch ( QueryException qe ) {
-				qe.setQueryString( hql );
-				throw qe;
 			}
-			catch ( RecognitionException e ) {
+			catch ( QueryException qe ) 
+			{
+				qe.QueryString = _hql;
+				throw;
+			}
+			catch ( RecognitionException e ) 
+			{
 				// we do not actually propogate ANTLRExceptions as a cause, so
 				// log it here for diagnostic purposes
-				if ( log.isTraceEnabled() ) {
+				if ( log.IsInfoEnabled ) 
+				{
 					log.Info( "converted antlr.RecognitionException", e );
 				}
-				throw QuerySyntaxException.convert( e, hql );
+				throw QuerySyntaxException.Convert( e, _hql );
 			}
-			catch ( ANTLRException e ) {
-				// we do not actually propogate ANTLRExceptions as a cause, so
-				// log it here for diagnostic purposes
-				if ( log.isTraceEnabled() ) {
-					log.Info( "converted antlr.ANTLRException", e );
-				}
-				throw new QueryException( e.getMessage(), hql );
-			}
-			*/
-			finally {}
 
 			_enabledFilters = null; //only needed during compilation phase...
 		}
 
-		private void Generate(IStatement sqlAst)
-		{
-			if ( _sql == null ) 
-			{
-				CommonTreeNodeStream nodes = new CommonTreeNodeStream(sqlAst);
-				nodes.TokenStream = _tokens;
-
-				SqlGenerator gen = new SqlGenerator(_factory, nodes);
-				gen.TreeAdaptor = new ASTTreeAdaptor();
-
-				gen.statement();
-
-				_sql = gen.GetSQL();
-
-				if ( log.IsDebugEnabled ) {
-					log.Debug( "HQL: " + _hql );
-					log.Debug( "SQL: " + _sql );
-				}
-				gen.ParseErrorHandler.ThrowQueryException();
-
-				_collectedParameterSpecifications = gen.GetCollectedParameters();
-			}
-		}
-
-		private IStatement Analyze(IASTNode hqlAst, string collectionRole)
-		{
-			CommonTreeNodeStream nodes = new CommonTreeNodeStream(hqlAst);
-			nodes.TokenStream = _tokens;
-
-			HqlSqlWalker hqlSqlWalker = new HqlSqlWalker(this, _factory, nodes, _tokenReplacements, collectionRole);
-			hqlSqlWalker.TreeAdaptor = new HqlSqlWalkerTreeAdaptor(hqlSqlWalker);
-
-			// TODO - debug, remove
-			Console.WriteLine(hqlAst.ToStringTree());
-
-			// Transform the tree.
-			IStatement sqlAst = (IStatement)hqlSqlWalker.statement().Tree;
-
-			// TODO - debug, remove
-			Console.WriteLine(((IASTNode)sqlAst).ToStringTree());
-
-			/*
-			if ( AST_LOG.isDebugEnabled() ) {
-				ASTPrinter printer = new ASTPrinter( SqlTokenTypes.class );
-				AST_LOG.debug( printer.showAsString( w.getAST(), "--- SQL AST ---" ) );
-			}
-			*/
-
-			hqlSqlWalker.ParseErrorHandler.ThrowQueryException();
-		
-			return sqlAst;
-		}
-
-		private IASTNode Parse(bool filter) 
-		{
-			// Parse the query string into an HQL AST.
-			HqlLexer lex = new HqlLexer(new ANTLRStringStream(_hql));
-			_tokens = new CommonTokenStream(lex);
-
-			HqlParser parser = new HqlParser(_tokens);
-			parser.TreeAdaptor = new ASTTreeAdaptor();
-
-
-			parser.Filter = filter;
-
-			if ( log.IsDebugEnabled ) 
-			{
-				log.Debug( "parse() - HQL: " + _hql );
-			}
-
-			IASTNode hqlAst = (IASTNode) parser.statement().Tree;
-
-			JavaConstantConverter converter = new JavaConstantConverter();
-			NodeTraverser walker = new NodeTraverser( converter );
-			walker.TraverseDepthFirst( hqlAst );
-
-			//showHqlAst( hqlAst );
-
-			parser.ParseErrorHandler.ThrowQueryException();
-
-			return hqlAst;
-		}
-
 		private void ErrorIfDML()
 		{
-			if (_sqlAst.NeedsExecutor)
+			if (_translator.SqlStatement.NeedsExecutor)
 			{
 				throw new QueryExecutionRequestException("Not supported for DML operations", _hql);
 			}
 		}
+	}
 
-		public class JavaConstantConverter : IVisitationStrategy
+	public class HqlParseEngine
+	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(HqlParseEngine));
+
+		private readonly string _hql;
+		private CommonTokenStream _tokens;
+		private readonly bool _filter;
+		private IASTNode _ast;
+
+		public HqlParseEngine(string hql, bool filter)
+		{
+			_hql = hql;
+			_filter = filter;
+		}
+
+		public string Hql
+		{
+			get { return _hql; }
+		}
+
+		public IASTNode Ast
+		{
+			get { return _ast; }
+		}
+
+		public CommonTokenStream Tokens
+		{
+			get { return _tokens; }
+		}
+
+		public void Parse()
+		{
+			if (_ast == null)
+			{
+				// Parse the query string into an HQL AST.
+				HqlLexer lex = new HqlLexer(new ANTLRStringStream(_hql));
+				_tokens = new CommonTokenStream(lex);
+
+				HqlParser parser = new HqlParser(_tokens);
+				parser.TreeAdaptor = new ASTTreeAdaptor();
+
+				parser.Filter = _filter;
+
+				if (log.IsDebugEnabled)
+				{
+					log.Debug("parse() - HQL: " + _hql);
+				}
+
+				_ast = (IASTNode) parser.statement().Tree;
+
+				NodeTraverser walker = new NodeTraverser(new ConstantConverter());
+				walker.TraverseDepthFirst(_ast);
+
+				//showHqlAst( hqlAst );
+
+				parser.ParseErrorHandler.ThrowQueryException();
+			}
+		}
+
+		class ConstantConverter : IVisitationStrategy
 		{
 			private IASTNode dotRoot;
 
-			public void Visit(IASTNode node) 
+			public void Visit(IASTNode node)
 			{
-				if ( dotRoot != null ) 
+				if (dotRoot != null)
 				{
 					// we are already processing a dot-structure
-					if ( ASTUtil.IsSubtreeChild( dotRoot, node ) ) 
+					if (ASTUtil.IsSubtreeChild(dotRoot, node))
 					{
 						// ignore it...
 						return;
 					}
-					else
-					{
-						// we are now at a new tree level
-						dotRoot = null;
-					}
+
+					// we are now at a new tree level
+					dotRoot = null;
 				}
 
-				if ( dotRoot == null && node.Type == HqlSqlWalker.DOT ) 
+				if (dotRoot == null && node.Type == HqlSqlWalker.DOT)
 				{
 					dotRoot = node;
-					HandleDotStructure( (IASTNode) dotRoot );
+					HandleDotStructure(dotRoot);
 				}
 			}
 
-			private static void HandleDotStructure(IASTNode dotStructureRoot) 
+			private static void HandleDotStructure(IASTNode dotStructureRoot)
 			{
-				String expression = ASTUtil.GetPathText( dotStructureRoot );
+				String expression = ASTUtil.GetPathText(dotStructureRoot);
 
 				throw new NotImplementedException();
 				/*
@@ -390,8 +361,127 @@ namespace NHibernate.Hql.Ast.ANTLR
 					dotStructureRoot.SetType( HqlSqlWalker.JAVA_CONSTANT );
 					dotStructureRoot.Token.Text = expression;
 				}
-				*/ 
+				*/
 			}
+		}
+
+	}
+
+	public class HqlSqlTranslator
+	{
+		private readonly IASTNode _inputAst;
+		private readonly CommonTokenStream _tokens;
+		private readonly QueryTranslatorImpl _qti;
+		private readonly ISessionFactoryImplementor _sfi;
+		private readonly IDictionary<string, string> _tokenReplacements;
+		private readonly string _collectionRole;
+		private IStatement _resultAst;
+
+		public HqlSqlTranslator(IASTNode ast, CommonTokenStream tokens, QueryTranslatorImpl qti, ISessionFactoryImplementor sfi, IDictionary<string, string> tokenReplacements, string collectionRole)
+		{
+			_inputAst = ast;
+			_tokens = tokens;
+			_qti = qti;
+			_sfi = sfi;
+			_tokenReplacements = tokenReplacements;
+			_collectionRole = collectionRole;
+		}
+
+		public IASTNode HqlAst
+		{
+			get { return _inputAst; }
+		}
+
+		public IStatement SqlStatement
+		{
+			get { return _resultAst; }
+		}
+
+		public IStatement Translate()
+		{
+			if (_resultAst == null)
+			{
+				CommonTreeNodeStream nodes = new CommonTreeNodeStream(_inputAst);
+				nodes.TokenStream = _tokens;
+
+				HqlSqlWalker hqlSqlWalker = new HqlSqlWalker(_qti, _sfi, nodes, _tokenReplacements, _collectionRole);
+				hqlSqlWalker.TreeAdaptor = new HqlSqlWalkerTreeAdaptor(hqlSqlWalker);
+
+				// TODO - debug, remove
+				Console.WriteLine(_inputAst.ToStringTree());
+
+				// Transform the tree.
+				_resultAst = (IStatement) hqlSqlWalker.statement().Tree;
+
+				// TODO - debug, remove
+				Console.WriteLine(((IASTNode) _resultAst).ToStringTree());
+
+				/*
+				if ( AST_LOG.isDebugEnabled() ) {
+					ASTPrinter printer = new ASTPrinter( SqlTokenTypes.class );
+					AST_LOG.debug( printer.showAsString( w.getAST(), "--- SQL AST ---" ) );
+				}
+				*/
+
+				hqlSqlWalker.ParseErrorHandler.ThrowQueryException();
+			}
+
+			return _resultAst;
+		}
+	}
+
+	public class HqlSqlGenerator
+	{
+		private static readonly ILog log = LogManager.GetLogger(typeof(HqlSqlGenerator));
+
+		private readonly IASTNode _ast;
+		private readonly CommonTokenStream _tokens;
+		private readonly ISessionFactoryImplementor _sfi;
+		private string _sql;
+		private IList<IParameterSpecification> _parameters;
+
+		public HqlSqlGenerator(IStatement ast, CommonTokenStream tokens, ISessionFactoryImplementor sfi)
+		{
+			_ast = (IASTNode) ast;
+			_tokens = tokens;
+			_sfi = sfi;
+		}
+
+		public string Sql
+		{
+			get { return _sql; }
+		}
+
+		public IList<IParameterSpecification> CollectionParameters
+		{
+			get { return _parameters; }
+		}
+
+		public string Generate()
+		{
+			if (_sql == null)
+			{
+				CommonTreeNodeStream nodes = new CommonTreeNodeStream(_ast);
+				nodes.TokenStream = _tokens;
+
+				SqlGenerator gen = new SqlGenerator(_sfi, nodes);
+				gen.TreeAdaptor = new ASTTreeAdaptor();
+
+				gen.statement();
+
+				_sql = gen.GetSQL();
+
+				if (log.IsDebugEnabled)
+				{
+					log.Debug("SQL: " + _sql);
+				}
+
+				gen.ParseErrorHandler.ThrowQueryException();
+
+				_parameters = gen.GetCollectedParameters();
+			}
+
+			return _sql;
 		}
 	}
 }
