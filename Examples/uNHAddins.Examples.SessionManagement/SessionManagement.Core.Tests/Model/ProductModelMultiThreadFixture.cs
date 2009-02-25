@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using NHibernate;
 using NUnit.Framework;
-using NUnit.Framework.Syntax.CSharp;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
 using SessionManagement.TestUtils;
