@@ -1,4 +1,4 @@
-// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g 2009-02-23 10:44:54
+// $ANTLR 3.1.1 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g 2009-02-24 17:50:07
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
 // Unreachable code detected.
@@ -1027,7 +1027,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          path, asAlias, FROM
+            	// elements:          asAlias, FROM, path
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -2052,7 +2052,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          path, selectedPropertiesList
+            	// elements:          selectedPropertiesList, path
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -2790,7 +2790,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          propertyFetch, asAlias, path
+            	// elements:          propertyFetch, path, asAlias
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -2906,7 +2906,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          path, alias
+            	// elements:          alias, path
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -3015,7 +3015,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          path, alias
+            	// elements:          alias, path
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -3131,7 +3131,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          alias, path
+            	// elements:          path, alias
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -6008,7 +6008,7 @@ public partial class HqlParser : Parser
 
 
                     	// AST REWRITE
-                    	// elements:          mu, pu, c, q, a
+                    	// elements:          q, pu, c, a, mu
                     	// token labels:      
                     	// rule labels:       mu, a, c, pu, retval, q
                     	// token list labels: 
@@ -6237,7 +6237,7 @@ public partial class HqlParser : Parser
 
 
                     	// AST REWRITE
-                    	// elements:          whenClause, CASE, elseClause
+                    	// elements:          CASE, elseClause, whenClause
                     	// token labels:      
                     	// rule labels:       retval
                     	// token list labels: 
@@ -6350,7 +6350,7 @@ public partial class HqlParser : Parser
 
 
                     	// AST REWRITE
-                    	// elements:          unaryExpression, altWhenClause, elseClause
+                    	// elements:          altWhenClause, elseClause, unaryExpression
                     	// token labels:      
                     	// rule labels:       retval
                     	// token list labels: 
@@ -7293,7 +7293,7 @@ public partial class HqlParser : Parser
 
 
             	// AST REWRITE
-            	// elements:          e, v, e
+            	// elements:          e, e, v
             	// token labels:      
             	// rule labels:       retval, v, e
             	// token list labels: 
@@ -7652,7 +7652,7 @@ public partial class HqlParser : Parser
 
 
                     	// AST REWRITE
-                    	// elements:          exprList, d, e, id1, d, d, id1, id1, e, id1, id2, id1, exprList, d, d, d, id1, exprList, id2
+                    	// elements:          id1, id2, id1, e, exprList, d, exprList, d, id2, id1, d, d, id1, id1, exprList, d, id1, d, e
                     	// token labels:      d, e
                     	// rule labels:       id1, id2, retval
                     	// token list labels: 
@@ -7843,7 +7843,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "aggregate"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:838:1: aggregate : (op= ( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE -> ^( AGGREGATE[$op] additiveExpression ) | COUNT OPEN (s= STAR | p= ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) ) CLOSE -> {s == null}? ^( COUNT $p) -> ^( COUNT ^( ROW_STAR ) ) | collectionExpr );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:838:1: aggregate : (op= ( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE -> ^( AGGREGATE[$op] additiveExpression ) | COUNT OPEN (s= STAR | p= aggregateDistinctAll ) CLOSE -> {s == null}? ^( COUNT $p) -> ^( COUNT ^( ROW_STAR[\"*\"] ) ) | collectionExpr );
     public HqlParser.aggregate_return aggregate() // throws RecognitionException [1]
     {   
         HqlParser.aggregate_return retval = new HqlParser.aggregate_return();
@@ -7853,7 +7853,6 @@ public partial class HqlParser : Parser
 
         IToken op = null;
         IToken s = null;
-        IToken p = null;
         IToken SUM224 = null;
         IToken AVG225 = null;
         IToken MAX226 = null;
@@ -7862,21 +7861,16 @@ public partial class HqlParser : Parser
         IToken CLOSE230 = null;
         IToken COUNT231 = null;
         IToken OPEN232 = null;
-        IToken DISTINCT233 = null;
-        IToken ALL234 = null;
-        IToken CLOSE237 = null;
+        IToken CLOSE233 = null;
+        HqlParser.aggregateDistinctAll_return p = default(HqlParser.aggregateDistinctAll_return);
+
         HqlParser.additiveExpression_return additiveExpression229 = default(HqlParser.additiveExpression_return);
 
-        HqlParser.path_return path235 = default(HqlParser.path_return);
-
-        HqlParser.collectionExpr_return collectionExpr236 = default(HqlParser.collectionExpr_return);
-
-        HqlParser.collectionExpr_return collectionExpr238 = default(HqlParser.collectionExpr_return);
+        HqlParser.collectionExpr_return collectionExpr234 = default(HqlParser.collectionExpr_return);
 
 
         IASTNode op_tree=null;
         IASTNode s_tree=null;
-        IASTNode p_tree=null;
         IASTNode SUM224_tree=null;
         IASTNode AVG225_tree=null;
         IASTNode MAX226_tree=null;
@@ -7885,26 +7879,21 @@ public partial class HqlParser : Parser
         IASTNode CLOSE230_tree=null;
         IASTNode COUNT231_tree=null;
         IASTNode OPEN232_tree=null;
-        IASTNode DISTINCT233_tree=null;
-        IASTNode ALL234_tree=null;
-        IASTNode CLOSE237_tree=null;
+        IASTNode CLOSE233_tree=null;
         RewriteRuleTokenStream stream_CLOSE = new RewriteRuleTokenStream(adaptor,"token CLOSE");
-        RewriteRuleTokenStream stream_DISTINCT = new RewriteRuleTokenStream(adaptor,"token DISTINCT");
         RewriteRuleTokenStream stream_AVG = new RewriteRuleTokenStream(adaptor,"token AVG");
         RewriteRuleTokenStream stream_MAX = new RewriteRuleTokenStream(adaptor,"token MAX");
         RewriteRuleTokenStream stream_MIN = new RewriteRuleTokenStream(adaptor,"token MIN");
         RewriteRuleTokenStream stream_STAR = new RewriteRuleTokenStream(adaptor,"token STAR");
-        RewriteRuleTokenStream stream_ALL = new RewriteRuleTokenStream(adaptor,"token ALL");
         RewriteRuleTokenStream stream_SUM = new RewriteRuleTokenStream(adaptor,"token SUM");
         RewriteRuleTokenStream stream_OPEN = new RewriteRuleTokenStream(adaptor,"token OPEN");
         RewriteRuleTokenStream stream_COUNT = new RewriteRuleTokenStream(adaptor,"token COUNT");
-        RewriteRuleSubtreeStream stream_collectionExpr = new RewriteRuleSubtreeStream(adaptor,"rule collectionExpr");
+        RewriteRuleSubtreeStream stream_aggregateDistinctAll = new RewriteRuleSubtreeStream(adaptor,"rule aggregateDistinctAll");
         RewriteRuleSubtreeStream stream_additiveExpression = new RewriteRuleSubtreeStream(adaptor,"rule additiveExpression");
-        RewriteRuleSubtreeStream stream_path = new RewriteRuleSubtreeStream(adaptor,"rule path");
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:839:2: (op= ( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE -> ^( AGGREGATE[$op] additiveExpression ) | COUNT OPEN (s= STAR | p= ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) ) CLOSE -> {s == null}? ^( COUNT $p) -> ^( COUNT ^( ROW_STAR ) ) | collectionExpr )
-            int alt80 = 3;
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:839:2: (op= ( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE -> ^( AGGREGATE[$op] additiveExpression ) | COUNT OPEN (s= STAR | p= aggregateDistinctAll ) CLOSE -> {s == null}? ^( COUNT $p) -> ^( COUNT ^( ROW_STAR[\"*\"] ) ) | collectionExpr )
+            int alt78 = 3;
             switch ( input.LA(1) ) 
             {
             case AVG:
@@ -7912,28 +7901,28 @@ public partial class HqlParser : Parser
             case MIN:
             case SUM:
             	{
-                alt80 = 1;
+                alt78 = 1;
                 }
                 break;
             case COUNT:
             	{
-                alt80 = 2;
+                alt78 = 2;
                 }
                 break;
             case ELEMENTS:
             case INDICES:
             	{
-                alt80 = 3;
+                alt78 = 3;
                 }
                 break;
             	default:
-            	    NoViableAltException nvae_d80s0 =
-            	        new NoViableAltException("", 80, 0, input);
+            	    NoViableAltException nvae_d78s0 =
+            	        new NoViableAltException("", 78, 0, input);
 
-            	    throw nvae_d80s0;
+            	    throw nvae_d78s0;
             }
 
-            switch (alt80) 
+            switch (alt78) 
             {
                 case 1 :
                     // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:839:4: op= ( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE
@@ -8051,7 +8040,7 @@ public partial class HqlParser : Parser
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:5: COUNT OPEN (s= STAR | p= ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) ) CLOSE
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:5: COUNT OPEN (s= STAR | p= aggregateDistinctAll ) CLOSE
                     {
                     	COUNT231=(IToken)Match(input,COUNT,FOLLOW_COUNT_in_aggregate3129);  
                     	stream_COUNT.Add(COUNT231);
@@ -8059,26 +8048,26 @@ public partial class HqlParser : Parser
                     	OPEN232=(IToken)Match(input,OPEN,FOLLOW_OPEN_in_aggregate3131);  
                     	stream_OPEN.Add(OPEN232);
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:16: (s= STAR | p= ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) )
-                    	int alt79 = 2;
-                    	int LA79_0 = input.LA(1);
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:16: (s= STAR | p= aggregateDistinctAll )
+                    	int alt77 = 2;
+                    	int LA77_0 = input.LA(1);
 
-                    	if ( (LA79_0 == STAR) )
+                    	if ( (LA77_0 == STAR) )
                     	{
-                    	    alt79 = 1;
+                    	    alt77 = 1;
                     	}
-                    	else if ( (LA79_0 == ALL || (LA79_0 >= DISTINCT && LA79_0 <= ELEMENTS) || LA79_0 == INDICES || LA79_0 == IDENT) )
+                    	else if ( (LA77_0 == ALL || (LA77_0 >= DISTINCT && LA77_0 <= ELEMENTS) || LA77_0 == INDICES || LA77_0 == IDENT) )
                     	{
-                    	    alt79 = 2;
+                    	    alt77 = 2;
                     	}
                     	else 
                     	{
-                    	    NoViableAltException nvae_d79s0 =
-                    	        new NoViableAltException("", 79, 0, input);
+                    	    NoViableAltException nvae_d77s0 =
+                    	        new NoViableAltException("", 77, 0, input);
 
-                    	    throw nvae_d79s0;
+                    	    throw nvae_d77s0;
                     	}
-                    	switch (alt79) 
+                    	switch (alt77) 
                     	{
                     	    case 1 :
                     	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:18: s= STAR
@@ -8090,114 +8079,32 @@ public partial class HqlParser : Parser
                     	        }
                     	        break;
                     	    case 2 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:27: p= ( ( DISTINCT | ALL )? ( path | collectionExpr ) )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:27: p= aggregateDistinctAll
                     	        {
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:29: ( ( DISTINCT | ALL )? ( path | collectionExpr ) )
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:31: ( DISTINCT | ALL )? ( path | collectionExpr )
-                    	        	{
-                    	        		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:31: ( DISTINCT | ALL )?
-                    	        		int alt77 = 3;
-                    	        		int LA77_0 = input.LA(1);
+                    	        	PushFollow(FOLLOW_aggregateDistinctAll_in_aggregate3143);
+                    	        	p = aggregateDistinctAll();
+                    	        	state.followingStackPointer--;
 
-                    	        		if ( (LA77_0 == DISTINCT) )
-                    	        		{
-                    	        		    alt77 = 1;
-                    	        		}
-                    	        		else if ( (LA77_0 == ALL) )
-                    	        		{
-                    	        		    alt77 = 2;
-                    	        		}
-                    	        		switch (alt77) 
-                    	        		{
-                    	        		    case 1 :
-                    	        		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:33: DISTINCT
-                    	        		        {
-                    	        		        	DISTINCT233=(IToken)Match(input,DISTINCT,FOLLOW_DISTINCT_in_aggregate3147);  
-                    	        		        	stream_DISTINCT.Add(DISTINCT233);
-
-
-                    	        		        }
-                    	        		        break;
-                    	        		    case 2 :
-                    	        		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:44: ALL
-                    	        		        {
-                    	        		        	ALL234=(IToken)Match(input,ALL,FOLLOW_ALL_in_aggregate3151);  
-                    	        		        	stream_ALL.Add(ALL234);
-
-
-                    	        		        }
-                    	        		        break;
-
-                    	        		}
-
-                    	        		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:51: ( path | collectionExpr )
-                    	        		int alt78 = 2;
-                    	        		int LA78_0 = input.LA(1);
-
-                    	        		if ( (LA78_0 == IDENT) )
-                    	        		{
-                    	        		    alt78 = 1;
-                    	        		}
-                    	        		else if ( (LA78_0 == ELEMENTS || LA78_0 == INDICES) )
-                    	        		{
-                    	        		    alt78 = 2;
-                    	        		}
-                    	        		else 
-                    	        		{
-                    	        		    NoViableAltException nvae_d78s0 =
-                    	        		        new NoViableAltException("", 78, 0, input);
-
-                    	        		    throw nvae_d78s0;
-                    	        		}
-                    	        		switch (alt78) 
-                    	        		{
-                    	        		    case 1 :
-                    	        		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:53: path
-                    	        		        {
-                    	        		        	PushFollow(FOLLOW_path_in_aggregate3158);
-                    	        		        	path235 = path();
-                    	        		        	state.followingStackPointer--;
-
-                    	        		        	stream_path.Add(path235.Tree);
-
-                    	        		        }
-                    	        		        break;
-                    	        		    case 2 :
-                    	        		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:842:60: collectionExpr
-                    	        		        {
-                    	        		        	PushFollow(FOLLOW_collectionExpr_in_aggregate3162);
-                    	        		        	collectionExpr236 = collectionExpr();
-                    	        		        	state.followingStackPointer--;
-
-                    	        		        	stream_collectionExpr.Add(collectionExpr236.Tree);
-
-                    	        		        }
-                    	        		        break;
-
-                    	        		}
-
-
-                    	        	}
-
+                    	        	stream_aggregateDistinctAll.Add(p.Tree);
 
                     	        }
                     	        break;
 
                     	}
 
-                    	CLOSE237=(IToken)Match(input,CLOSE,FOLLOW_CLOSE_in_aggregate3170);  
-                    	stream_CLOSE.Add(CLOSE237);
+                    	CLOSE233=(IToken)Match(input,CLOSE,FOLLOW_CLOSE_in_aggregate3147);  
+                    	stream_CLOSE.Add(CLOSE233);
 
 
 
                     	// AST REWRITE
-                    	// elements:          p, COUNT, COUNT
-                    	// token labels:      p
-                    	// rule labels:       retval
+                    	// elements:          COUNT, p, COUNT
+                    	// token labels:      
+                    	// rule labels:       p, retval
                     	// token list labels: 
                     	// rule list labels:  
                     	retval.Tree = root_0;
-                    	RewriteRuleTokenStream stream_p = new RewriteRuleTokenStream(adaptor, "token p", p);
+                    	RewriteRuleSubtreeStream stream_p = new RewriteRuleSubtreeStream(adaptor, "token p", (p!=null ? p.Tree : null));
                     	RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "token retval", (retval!=null ? retval.Tree : null));
 
                     	root_0 = (IASTNode)adaptor.GetNilNode();
@@ -8209,23 +8116,23 @@ public partial class HqlParser : Parser
                     	    IASTNode root_1 = (IASTNode)adaptor.GetNilNode();
                     	    root_1 = (IASTNode)adaptor.BecomeRoot(stream_COUNT.NextNode(), root_1);
 
-                    	    adaptor.AddChild(root_1, stream_p.NextNode());
+                    	    adaptor.AddChild(root_1, stream_p.NextTree());
 
                     	    adaptor.AddChild(root_0, root_1);
                     	    }
 
                     	}
-                    	else // 844:3: -> ^( COUNT ^( ROW_STAR ) )
+                    	else // 844:3: -> ^( COUNT ^( ROW_STAR[\"*\"] ) )
                     	{
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:844:6: ^( COUNT ^( ROW_STAR ) )
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:844:6: ^( COUNT ^( ROW_STAR[\"*\"] ) )
                     	    {
                     	    IASTNode root_1 = (IASTNode)adaptor.GetNilNode();
                     	    root_1 = (IASTNode)adaptor.BecomeRoot(stream_COUNT.NextNode(), root_1);
 
-                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:844:14: ^( ROW_STAR )
+                    	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:844:14: ^( ROW_STAR[\"*\"] )
                     	    {
                     	    IASTNode root_2 = (IASTNode)adaptor.GetNilNode();
-                    	    root_2 = (IASTNode)adaptor.BecomeRoot((IASTNode)adaptor.Create(ROW_STAR, "ROW_STAR"), root_2);
+                    	    root_2 = (IASTNode)adaptor.BecomeRoot((IASTNode)adaptor.Create(ROW_STAR, "*"), root_2);
 
                     	    adaptor.AddChild(root_1, root_2);
                     	    }
@@ -8243,11 +8150,11 @@ public partial class HqlParser : Parser
                     {
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_collectionExpr_in_aggregate3201);
-                    	collectionExpr238 = collectionExpr();
+                    	PushFollow(FOLLOW_collectionExpr_in_aggregate3179);
+                    	collectionExpr234 = collectionExpr();
                     	state.followingStackPointer--;
 
-                    	adaptor.AddChild(root_0, collectionExpr238.Tree);
+                    	adaptor.AddChild(root_0, collectionExpr234.Tree);
 
                     }
                     break;
@@ -8273,6 +8180,147 @@ public partial class HqlParser : Parser
     }
     // $ANTLR end "aggregate"
 
+    public class aggregateDistinctAll_return : ParserRuleReturnScope
+    {
+        private IASTNode tree;
+        override public object Tree
+        {
+        	get { return tree; }
+        	set { tree = (IASTNode) value; }
+        }
+    };
+
+    // $ANTLR start "aggregateDistinctAll"
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:848:1: aggregateDistinctAll : ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) ;
+    public HqlParser.aggregateDistinctAll_return aggregateDistinctAll() // throws RecognitionException [1]
+    {   
+        HqlParser.aggregateDistinctAll_return retval = new HqlParser.aggregateDistinctAll_return();
+        retval.Start = input.LT(1);
+
+        IASTNode root_0 = null;
+
+        IToken set235 = null;
+        HqlParser.path_return path236 = default(HqlParser.path_return);
+
+        HqlParser.collectionExpr_return collectionExpr237 = default(HqlParser.collectionExpr_return);
+
+
+        IASTNode set235_tree=null;
+
+        try 
+    	{
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:2: ( ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:4: ( ( DISTINCT | ALL )? ( path | collectionExpr ) )
+            {
+            	root_0 = (IASTNode)adaptor.GetNilNode();
+
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:4: ( ( DISTINCT | ALL )? ( path | collectionExpr ) )
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:6: ( DISTINCT | ALL )? ( path | collectionExpr )
+            	{
+            		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:6: ( DISTINCT | ALL )?
+            		int alt79 = 2;
+            		int LA79_0 = input.LA(1);
+
+            		if ( (LA79_0 == ALL || LA79_0 == DISTINCT) )
+            		{
+            		    alt79 = 1;
+            		}
+            		switch (alt79) 
+            		{
+            		    case 1 :
+            		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:
+            		        {
+            		        	set235 = (IToken)input.LT(1);
+            		        	if ( input.LA(1) == ALL || input.LA(1) == DISTINCT ) 
+            		        	{
+            		        	    input.Consume();
+            		        	    adaptor.AddChild(root_0, (IASTNode)adaptor.Create(set235));
+            		        	    state.errorRecovery = false;
+            		        	}
+            		        	else 
+            		        	{
+            		        	    MismatchedSetException mse = new MismatchedSetException(null,input);
+            		        	    throw mse;
+            		        	}
+
+
+            		        }
+            		        break;
+
+            		}
+
+            		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:26: ( path | collectionExpr )
+            		int alt80 = 2;
+            		int LA80_0 = input.LA(1);
+
+            		if ( (LA80_0 == IDENT) )
+            		{
+            		    alt80 = 1;
+            		}
+            		else if ( (LA80_0 == ELEMENTS || LA80_0 == INDICES) )
+            		{
+            		    alt80 = 2;
+            		}
+            		else 
+            		{
+            		    NoViableAltException nvae_d80s0 =
+            		        new NoViableAltException("", 80, 0, input);
+
+            		    throw nvae_d80s0;
+            		}
+            		switch (alt80) 
+            		{
+            		    case 1 :
+            		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:28: path
+            		        {
+            		        	PushFollow(FOLLOW_path_in_aggregateDistinctAll3205);
+            		        	path236 = path();
+            		        	state.followingStackPointer--;
+
+            		        	adaptor.AddChild(root_0, path236.Tree);
+
+            		        }
+            		        break;
+            		    case 2 :
+            		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:849:35: collectionExpr
+            		        {
+            		        	PushFollow(FOLLOW_collectionExpr_in_aggregateDistinctAll3209);
+            		        	collectionExpr237 = collectionExpr();
+            		        	state.followingStackPointer--;
+
+            		        	adaptor.AddChild(root_0, collectionExpr237.Tree);
+
+            		        }
+            		        break;
+
+            		}
+
+
+            	}
+
+
+            }
+
+            retval.Stop = input.LT(-1);
+
+            	retval.Tree = (IASTNode)adaptor.RulePostProcessing(root_0);
+            	adaptor.SetTokenBoundaries(retval.Tree, (IToken) retval.Start, (IToken) retval.Stop);
+        }
+        catch (RecognitionException re) 
+    	{
+            ReportError(re);
+            Recover(input,re);
+    	// Conversion of the second argument necessary, but harmless
+    	retval.Tree = (IASTNode)adaptor.ErrorNode(input, (IToken) retval.Start, input.LT(-1), re);
+
+        }
+        finally 
+    	{
+        }
+        return retval;
+    }
+    // $ANTLR end "aggregateDistinctAll"
+
     public class collectionExpr_return : ParserRuleReturnScope
     {
         private IASTNode tree;
@@ -8284,7 +8332,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "collectionExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:850:1: collectionExpr : ( ELEMENTS | INDICES ) OPEN path CLOSE ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:854:1: collectionExpr : ( ELEMENTS | INDICES ) OPEN path CLOSE ;
     public HqlParser.collectionExpr_return collectionExpr() // throws RecognitionException [1]
     {   
         HqlParser.collectionExpr_return retval = new HqlParser.collectionExpr_return();
@@ -8292,26 +8340,26 @@ public partial class HqlParser : Parser
 
         IASTNode root_0 = null;
 
-        IToken ELEMENTS239 = null;
-        IToken INDICES240 = null;
-        IToken OPEN241 = null;
-        IToken CLOSE243 = null;
-        HqlParser.path_return path242 = default(HqlParser.path_return);
+        IToken ELEMENTS238 = null;
+        IToken INDICES239 = null;
+        IToken OPEN240 = null;
+        IToken CLOSE242 = null;
+        HqlParser.path_return path241 = default(HqlParser.path_return);
 
 
-        IASTNode ELEMENTS239_tree=null;
-        IASTNode INDICES240_tree=null;
-        IASTNode OPEN241_tree=null;
-        IASTNode CLOSE243_tree=null;
+        IASTNode ELEMENTS238_tree=null;
+        IASTNode INDICES239_tree=null;
+        IASTNode OPEN240_tree=null;
+        IASTNode CLOSE242_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:851:2: ( ( ELEMENTS | INDICES ) OPEN path CLOSE )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:851:4: ( ELEMENTS | INDICES ) OPEN path CLOSE
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:855:2: ( ( ELEMENTS | INDICES ) OPEN path CLOSE )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:855:4: ( ELEMENTS | INDICES ) OPEN path CLOSE
             {
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:851:4: ( ELEMENTS | INDICES )
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:855:4: ( ELEMENTS | INDICES )
             	int alt81 = 2;
             	int LA81_0 = input.LA(1);
 
@@ -8333,21 +8381,21 @@ public partial class HqlParser : Parser
             	switch (alt81) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:851:5: ELEMENTS
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:855:5: ELEMENTS
             	        {
-            	        	ELEMENTS239=(IToken)Match(input,ELEMENTS,FOLLOW_ELEMENTS_in_collectionExpr3215); 
-            	        		ELEMENTS239_tree = (IASTNode)adaptor.Create(ELEMENTS239);
-            	        		root_0 = (IASTNode)adaptor.BecomeRoot(ELEMENTS239_tree, root_0);
+            	        	ELEMENTS238=(IToken)Match(input,ELEMENTS,FOLLOW_ELEMENTS_in_collectionExpr3228); 
+            	        		ELEMENTS238_tree = (IASTNode)adaptor.Create(ELEMENTS238);
+            	        		root_0 = (IASTNode)adaptor.BecomeRoot(ELEMENTS238_tree, root_0);
 
 
             	        }
             	        break;
             	    case 2 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:851:17: INDICES
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:855:17: INDICES
             	        {
-            	        	INDICES240=(IToken)Match(input,INDICES,FOLLOW_INDICES_in_collectionExpr3220); 
-            	        		INDICES240_tree = (IASTNode)adaptor.Create(INDICES240);
-            	        		root_0 = (IASTNode)adaptor.BecomeRoot(INDICES240_tree, root_0);
+            	        	INDICES239=(IToken)Match(input,INDICES,FOLLOW_INDICES_in_collectionExpr3233); 
+            	        		INDICES239_tree = (IASTNode)adaptor.Create(INDICES239);
+            	        		root_0 = (IASTNode)adaptor.BecomeRoot(INDICES239_tree, root_0);
 
 
             	        }
@@ -8355,13 +8403,13 @@ public partial class HqlParser : Parser
 
             	}
 
-            	OPEN241=(IToken)Match(input,OPEN,FOLLOW_OPEN_in_collectionExpr3224); 
-            	PushFollow(FOLLOW_path_in_collectionExpr3227);
-            	path242 = path();
+            	OPEN240=(IToken)Match(input,OPEN,FOLLOW_OPEN_in_collectionExpr3237); 
+            	PushFollow(FOLLOW_path_in_collectionExpr3240);
+            	path241 = path();
             	state.followingStackPointer--;
 
-            	adaptor.AddChild(root_0, path242.Tree);
-            	CLOSE243=(IToken)Match(input,CLOSE,FOLLOW_CLOSE_in_collectionExpr3229); 
+            	adaptor.AddChild(root_0, path241.Tree);
+            	CLOSE242=(IToken)Match(input,CLOSE,FOLLOW_CLOSE_in_collectionExpr3242); 
 
             }
 
@@ -8396,7 +8444,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "compoundExpr"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:855:1: compoundExpr : ( collectionExpr | path | ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE ) );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:859:1: compoundExpr : ( collectionExpr | path | ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE ) );
     public HqlParser.compoundExpr_return compoundExpr() // throws RecognitionException [1]
     {   
         HqlParser.compoundExpr_return retval = new HqlParser.compoundExpr_return();
@@ -8404,27 +8452,27 @@ public partial class HqlParser : Parser
 
         IASTNode root_0 = null;
 
-        IToken OPEN246 = null;
-        IToken COMMA248 = null;
-        IToken CLOSE251 = null;
-        HqlParser.collectionExpr_return collectionExpr244 = default(HqlParser.collectionExpr_return);
+        IToken OPEN245 = null;
+        IToken COMMA247 = null;
+        IToken CLOSE250 = null;
+        HqlParser.collectionExpr_return collectionExpr243 = default(HqlParser.collectionExpr_return);
 
-        HqlParser.path_return path245 = default(HqlParser.path_return);
+        HqlParser.path_return path244 = default(HqlParser.path_return);
 
-        HqlParser.expression_return expression247 = default(HqlParser.expression_return);
+        HqlParser.expression_return expression246 = default(HqlParser.expression_return);
 
-        HqlParser.expression_return expression249 = default(HqlParser.expression_return);
+        HqlParser.expression_return expression248 = default(HqlParser.expression_return);
 
-        HqlParser.subQuery_return subQuery250 = default(HqlParser.subQuery_return);
+        HqlParser.subQuery_return subQuery249 = default(HqlParser.subQuery_return);
 
 
-        IASTNode OPEN246_tree=null;
-        IASTNode COMMA248_tree=null;
-        IASTNode CLOSE251_tree=null;
+        IASTNode OPEN245_tree=null;
+        IASTNode COMMA247_tree=null;
+        IASTNode CLOSE250_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:856:2: ( collectionExpr | path | ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:860:2: ( collectionExpr | path | ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE ) )
             int alt84 = 3;
             switch ( input.LA(1) ) 
             {
@@ -8454,57 +8502,57 @@ public partial class HqlParser : Parser
             switch (alt84) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:856:4: collectionExpr
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:860:4: collectionExpr
                     {
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_collectionExpr_in_compoundExpr3285);
-                    	collectionExpr244 = collectionExpr();
+                    	PushFollow(FOLLOW_collectionExpr_in_compoundExpr3298);
+                    	collectionExpr243 = collectionExpr();
                     	state.followingStackPointer--;
 
-                    	adaptor.AddChild(root_0, collectionExpr244.Tree);
+                    	adaptor.AddChild(root_0, collectionExpr243.Tree);
 
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:857:4: path
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:861:4: path
                     {
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	PushFollow(FOLLOW_path_in_compoundExpr3290);
-                    	path245 = path();
+                    	PushFollow(FOLLOW_path_in_compoundExpr3303);
+                    	path244 = path();
                     	state.followingStackPointer--;
 
-                    	adaptor.AddChild(root_0, path245.Tree);
+                    	adaptor.AddChild(root_0, path244.Tree);
 
                     }
                     break;
                 case 3 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:4: ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE )
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:4: ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE )
                     {
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:4: ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE )
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:5: OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:4: ( OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE )
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:5: OPEN ( ( expression ( COMMA expression )* ) | subQuery ) CLOSE
                     	{
-                    		OPEN246=(IToken)Match(input,OPEN,FOLLOW_OPEN_in_compoundExpr3296); 
-                    		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:11: ( ( expression ( COMMA expression )* ) | subQuery )
+                    		OPEN245=(IToken)Match(input,OPEN,FOLLOW_OPEN_in_compoundExpr3309); 
+                    		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:11: ( ( expression ( COMMA expression )* ) | subQuery )
                     		int alt83 = 2;
                     		alt83 = dfa83.Predict(input);
                     		switch (alt83) 
                     		{
                     		    case 1 :
-                    		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:13: ( expression ( COMMA expression )* )
+                    		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:13: ( expression ( COMMA expression )* )
                     		        {
-                    		        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:13: ( expression ( COMMA expression )* )
-                    		        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:14: expression ( COMMA expression )*
+                    		        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:13: ( expression ( COMMA expression )* )
+                    		        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:14: expression ( COMMA expression )*
                     		        	{
-                    		        		PushFollow(FOLLOW_expression_in_compoundExpr3302);
-                    		        		expression247 = expression();
+                    		        		PushFollow(FOLLOW_expression_in_compoundExpr3315);
+                    		        		expression246 = expression();
                     		        		state.followingStackPointer--;
 
-                    		        		adaptor.AddChild(root_0, expression247.Tree);
-                    		        		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:25: ( COMMA expression )*
+                    		        		adaptor.AddChild(root_0, expression246.Tree);
+                    		        		// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:25: ( COMMA expression )*
                     		        		do 
                     		        		{
                     		        		    int alt82 = 2;
@@ -8519,14 +8567,14 @@ public partial class HqlParser : Parser
                     		        		    switch (alt82) 
                     		        			{
                     		        				case 1 :
-                    		        				    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:26: COMMA expression
+                    		        				    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:26: COMMA expression
                     		        				    {
-                    		        				    	COMMA248=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_compoundExpr3305); 
-                    		        				    	PushFollow(FOLLOW_expression_in_compoundExpr3308);
-                    		        				    	expression249 = expression();
+                    		        				    	COMMA247=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_compoundExpr3318); 
+                    		        				    	PushFollow(FOLLOW_expression_in_compoundExpr3321);
+                    		        				    	expression248 = expression();
                     		        				    	state.followingStackPointer--;
 
-                    		        				    	adaptor.AddChild(root_0, expression249.Tree);
+                    		        				    	adaptor.AddChild(root_0, expression248.Tree);
 
                     		        				    }
                     		        				    break;
@@ -8546,20 +8594,20 @@ public partial class HqlParser : Parser
                     		        }
                     		        break;
                     		    case 2 :
-                    		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:858:49: subQuery
+                    		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:862:49: subQuery
                     		        {
-                    		        	PushFollow(FOLLOW_subQuery_in_compoundExpr3315);
-                    		        	subQuery250 = subQuery();
+                    		        	PushFollow(FOLLOW_subQuery_in_compoundExpr3328);
+                    		        	subQuery249 = subQuery();
                     		        	state.followingStackPointer--;
 
-                    		        	adaptor.AddChild(root_0, subQuery250.Tree);
+                    		        	adaptor.AddChild(root_0, subQuery249.Tree);
 
                     		        }
                     		        break;
 
                     		}
 
-                    		CLOSE251=(IToken)Match(input,CLOSE,FOLLOW_CLOSE_in_compoundExpr3319); 
+                    		CLOSE250=(IToken)Match(input,CLOSE,FOLLOW_CLOSE_in_compoundExpr3332); 
 
                     	}
 
@@ -8599,7 +8647,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "subQuery"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:868:1: subQuery : union -> ^( QUERY $subQuery) ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:872:1: subQuery : union -> ^( QUERY[\"query\"] union ) ;
     public HqlParser.subQuery_return subQuery() // throws RecognitionException [1]
     {   
         HqlParser.subQuery_return retval = new HqlParser.subQuery_return();
@@ -8607,24 +8655,24 @@ public partial class HqlParser : Parser
 
         IASTNode root_0 = null;
 
-        HqlParser.union_return union252 = default(HqlParser.union_return);
+        HqlParser.union_return union251 = default(HqlParser.union_return);
 
 
         RewriteRuleSubtreeStream stream_union = new RewriteRuleSubtreeStream(adaptor,"rule union");
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:869:2: ( union -> ^( QUERY $subQuery) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:869:4: union
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:873:2: ( union -> ^( QUERY[\"query\"] union ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:873:4: union
             {
-            	PushFollow(FOLLOW_union_in_subQuery3334);
-            	union252 = union();
+            	PushFollow(FOLLOW_union_in_subQuery3347);
+            	union251 = union();
             	state.followingStackPointer--;
 
-            	stream_union.Add(union252.Tree);
+            	stream_union.Add(union251.Tree);
 
 
             	// AST REWRITE
-            	// elements:          subQuery
+            	// elements:          union
             	// token labels:      
             	// rule labels:       retval
             	// token list labels: 
@@ -8633,14 +8681,14 @@ public partial class HqlParser : Parser
             	RewriteRuleSubtreeStream stream_retval = new RewriteRuleSubtreeStream(adaptor, "token retval", (retval!=null ? retval.Tree : null));
 
             	root_0 = (IASTNode)adaptor.GetNilNode();
-            	// 870:2: -> ^( QUERY $subQuery)
+            	// 874:2: -> ^( QUERY[\"query\"] union )
             	{
-            	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:870:5: ^( QUERY $subQuery)
+            	    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:874:5: ^( QUERY[\"query\"] union )
             	    {
             	    IASTNode root_1 = (IASTNode)adaptor.GetNilNode();
-            	    root_1 = (IASTNode)adaptor.BecomeRoot((IASTNode)adaptor.Create(QUERY, "QUERY"), root_1);
+            	    root_1 = (IASTNode)adaptor.BecomeRoot((IASTNode)adaptor.Create(QUERY, "query"), root_1);
 
-            	    adaptor.AddChild(root_1, stream_retval.NextTree());
+            	    adaptor.AddChild(root_1, stream_union.NextTree());
 
             	    adaptor.AddChild(root_0, root_1);
             	    }
@@ -8681,7 +8729,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "exprList"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:888:1: exprList : (ts= ( TRAILING | LEADING | BOTH ) )? (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )? ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:892:1: exprList : (ts= ( TRAILING | LEADING | BOTH ) )? (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )? ;
     public HqlParser.exprList_return exprList() // throws RecognitionException [1]
     {   
         HqlParser.exprList_return retval = new HqlParser.exprList_return();
@@ -8691,42 +8739,42 @@ public partial class HqlParser : Parser
 
         IToken ts = null;
         IToken r = null;
-        IToken COMMA254 = null;
-        IToken FROM256 = null;
-        IToken AS258 = null;
-        IToken FROM260 = null;
-        HqlParser.expression_return expression253 = default(HqlParser.expression_return);
+        IToken COMMA253 = null;
+        IToken FROM255 = null;
+        IToken AS257 = null;
+        IToken FROM259 = null;
+        HqlParser.expression_return expression252 = default(HqlParser.expression_return);
 
-        HqlParser.expression_return expression255 = default(HqlParser.expression_return);
+        HqlParser.expression_return expression254 = default(HqlParser.expression_return);
 
-        HqlParser.expression_return expression257 = default(HqlParser.expression_return);
+        HqlParser.expression_return expression256 = default(HqlParser.expression_return);
 
-        HqlParser.identifier_return identifier259 = default(HqlParser.identifier_return);
+        HqlParser.identifier_return identifier258 = default(HqlParser.identifier_return);
 
-        HqlParser.expression_return expression261 = default(HqlParser.expression_return);
+        HqlParser.expression_return expression260 = default(HqlParser.expression_return);
 
 
         IASTNode ts_tree=null;
         IASTNode r_tree=null;
-        IASTNode COMMA254_tree=null;
-        IASTNode FROM256_tree=null;
-        IASTNode AS258_tree=null;
-        IASTNode FROM260_tree=null;
+        IASTNode COMMA253_tree=null;
+        IASTNode FROM255_tree=null;
+        IASTNode AS257_tree=null;
+        IASTNode FROM259_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:889:2: ( (ts= ( TRAILING | LEADING | BOTH ) )? (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )? )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:889:4: (ts= ( TRAILING | LEADING | BOTH ) )? (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )?
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:2: ( (ts= ( TRAILING | LEADING | BOTH ) )? (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:4: (ts= ( TRAILING | LEADING | BOTH ) )? (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )?
             {
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:889:6: (ts= ( TRAILING | LEADING | BOTH ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:6: (ts= ( TRAILING | LEADING | BOTH ) )?
             	int alt85 = 2;
             	alt85 = dfa85.Predict(input);
             	switch (alt85) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:889:6: ts= ( TRAILING | LEADING | BOTH )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:6: ts= ( TRAILING | LEADING | BOTH )
             	        {
             	        	ts = (IToken)input.LT(1);
             	        	if ( input.LA(1) == BOTH || input.LA(1) == LEADING || input.LA(1) == TRAILING ) 
@@ -8747,28 +8795,28 @@ public partial class HqlParser : Parser
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:5: (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:897:5: (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )?
             	int alt89 = 2;
             	alt89 = dfa89.Predict(input);
             	switch (alt89) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:5: r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression )
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:897:5: r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression )
             	        {
-            	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:893:6: ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression )
+            	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:897:6: ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression )
             	        	int alt88 = 2;
             	        	alt88 = dfa88.Predict(input);
             	        	switch (alt88) 
             	        	{
             	        	    case 1 :
-            	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:894:5: expression ( ( COMMA expression )+ | FROM expression | AS identifier )?
+            	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:898:5: expression ( ( COMMA expression )+ | FROM expression | AS identifier )?
             	        	        {
-            	        	        	PushFollow(FOLLOW_expression_in_exprList3406);
-            	        	        	expression253 = expression();
+            	        	        	PushFollow(FOLLOW_expression_in_exprList3419);
+            	        	        	expression252 = expression();
             	        	        	state.followingStackPointer--;
 
-            	        	        	adaptor.AddChild(root_0, expression253.Tree);
-            	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:894:16: ( ( COMMA expression )+ | FROM expression | AS identifier )?
+            	        	        	adaptor.AddChild(root_0, expression252.Tree);
+            	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:898:16: ( ( COMMA expression )+ | FROM expression | AS identifier )?
             	        	        	int alt87 = 4;
             	        	        	switch ( input.LA(1) ) 
             	        	        	{
@@ -8792,9 +8840,9 @@ public partial class HqlParser : Parser
             	        	        	switch (alt87) 
             	        	        	{
             	        	        	    case 1 :
-            	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:894:18: ( COMMA expression )+
+            	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:898:18: ( COMMA expression )+
             	        	        	        {
-            	        	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:894:18: ( COMMA expression )+
+            	        	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:898:18: ( COMMA expression )+
             	        	        	        	int cnt86 = 0;
             	        	        	        	do 
             	        	        	        	{
@@ -8810,17 +8858,17 @@ public partial class HqlParser : Parser
             	        	        	        	    switch (alt86) 
             	        	        	        		{
             	        	        	        			case 1 :
-            	        	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:894:19: COMMA expression
+            	        	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:898:19: COMMA expression
             	        	        	        			    {
-            	        	        	        			    	COMMA254=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_exprList3411); 
-            	        	        	        			    		COMMA254_tree = (IASTNode)adaptor.Create(COMMA254);
-            	        	        	        			    		adaptor.AddChild(root_0, COMMA254_tree);
+            	        	        	        			    	COMMA253=(IToken)Match(input,COMMA,FOLLOW_COMMA_in_exprList3424); 
+            	        	        	        			    		COMMA253_tree = (IASTNode)adaptor.Create(COMMA253);
+            	        	        	        			    		adaptor.AddChild(root_0, COMMA253_tree);
 
-            	        	        	        			    	PushFollow(FOLLOW_expression_in_exprList3413);
-            	        	        	        			    	expression255 = expression();
+            	        	        	        			    	PushFollow(FOLLOW_expression_in_exprList3426);
+            	        	        	        			    	expression254 = expression();
             	        	        	        			    	state.followingStackPointer--;
 
-            	        	        	        			    	adaptor.AddChild(root_0, expression255.Tree);
+            	        	        	        			    	adaptor.AddChild(root_0, expression254.Tree);
 
             	        	        	        			    }
             	        	        	        			    break;
@@ -8841,32 +8889,32 @@ public partial class HqlParser : Parser
             	        	        	        }
             	        	        	        break;
             	        	        	    case 2 :
-            	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:895:9: FROM expression
+            	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:899:9: FROM expression
             	        	        	        {
-            	        	        	        	FROM256=(IToken)Match(input,FROM,FOLLOW_FROM_in_exprList3426); 
-            	        	        	        		FROM256_tree = (IASTNode)adaptor.Create(FROM256);
-            	        	        	        		adaptor.AddChild(root_0, FROM256_tree);
+            	        	        	        	FROM255=(IToken)Match(input,FROM,FOLLOW_FROM_in_exprList3439); 
+            	        	        	        		FROM255_tree = (IASTNode)adaptor.Create(FROM255);
+            	        	        	        		adaptor.AddChild(root_0, FROM255_tree);
 
-            	        	        	        	PushFollow(FOLLOW_expression_in_exprList3428);
-            	        	        	        	expression257 = expression();
+            	        	        	        	PushFollow(FOLLOW_expression_in_exprList3441);
+            	        	        	        	expression256 = expression();
             	        	        	        	state.followingStackPointer--;
 
-            	        	        	        	adaptor.AddChild(root_0, expression257.Tree);
+            	        	        	        	adaptor.AddChild(root_0, expression256.Tree);
 
             	        	        	        }
             	        	        	        break;
             	        	        	    case 3 :
-            	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:896:9: AS identifier
+            	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:900:9: AS identifier
             	        	        	        {
-            	        	        	        	AS258=(IToken)Match(input,AS,FOLLOW_AS_in_exprList3439); 
-            	        	        	        		AS258_tree = (IASTNode)adaptor.Create(AS258);
-            	        	        	        		adaptor.AddChild(root_0, AS258_tree);
+            	        	        	        	AS257=(IToken)Match(input,AS,FOLLOW_AS_in_exprList3452); 
+            	        	        	        		AS257_tree = (IASTNode)adaptor.Create(AS257);
+            	        	        	        		adaptor.AddChild(root_0, AS257_tree);
 
-            	        	        	        	PushFollow(FOLLOW_identifier_in_exprList3441);
-            	        	        	        	identifier259 = identifier();
+            	        	        	        	PushFollow(FOLLOW_identifier_in_exprList3454);
+            	        	        	        	identifier258 = identifier();
             	        	        	        	state.followingStackPointer--;
 
-            	        	        	        	adaptor.AddChild(root_0, identifier259.Tree);
+            	        	        	        	adaptor.AddChild(root_0, identifier258.Tree);
 
             	        	        	        }
             	        	        	        break;
@@ -8877,17 +8925,17 @@ public partial class HqlParser : Parser
             	        	        }
             	        	        break;
             	        	    case 2 :
-            	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:897:7: FROM expression
+            	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:901:7: FROM expression
             	        	        {
-            	        	        	FROM260=(IToken)Match(input,FROM,FOLLOW_FROM_in_exprList3453); 
-            	        	        		FROM260_tree = (IASTNode)adaptor.Create(FROM260);
-            	        	        		adaptor.AddChild(root_0, FROM260_tree);
+            	        	        	FROM259=(IToken)Match(input,FROM,FOLLOW_FROM_in_exprList3466); 
+            	        	        		FROM259_tree = (IASTNode)adaptor.Create(FROM259);
+            	        	        		adaptor.AddChild(root_0, FROM259_tree);
 
-            	        	        	PushFollow(FOLLOW_expression_in_exprList3455);
-            	        	        	expression261 = expression();
+            	        	        	PushFollow(FOLLOW_expression_in_exprList3468);
+            	        	        	expression260 = expression();
             	        	        	state.followingStackPointer--;
 
-            	        	        	adaptor.AddChild(root_0, expression261.Tree);
+            	        	        	adaptor.AddChild(root_0, expression260.Tree);
 
             	        	        }
             	        	        break;
@@ -8934,7 +8982,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "constant"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:901:1: constant : ( NUM_INT | NUM_FLOAT | NUM_LONG | NUM_DOUBLE | QUOTED_String | NULL | TRUE | FALSE | EMPTY );
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:905:1: constant : ( NUM_INT | NUM_FLOAT | NUM_LONG | NUM_DOUBLE | QUOTED_String | NULL | TRUE | FALSE | EMPTY );
     public HqlParser.constant_return constant() // throws RecognitionException [1]
     {   
         HqlParser.constant_return retval = new HqlParser.constant_return();
@@ -8942,22 +8990,22 @@ public partial class HqlParser : Parser
 
         IASTNode root_0 = null;
 
-        IToken set262 = null;
+        IToken set261 = null;
 
-        IASTNode set262_tree=null;
+        IASTNode set261_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:902:2: ( NUM_INT | NUM_FLOAT | NUM_LONG | NUM_DOUBLE | QUOTED_String | NULL | TRUE | FALSE | EMPTY )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:906:2: ( NUM_INT | NUM_FLOAT | NUM_LONG | NUM_DOUBLE | QUOTED_String | NULL | TRUE | FALSE | EMPTY )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:
             {
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	set262 = (IToken)input.LT(1);
+            	set261 = (IToken)input.LT(1);
             	if ( input.LA(1) == FALSE || input.LA(1) == NULL || input.LA(1) == TRUE || input.LA(1) == EMPTY || (input.LA(1) >= NUM_INT && input.LA(1) <= NUM_LONG) || input.LA(1) == QUOTED_String ) 
             	{
             	    input.Consume();
-            	    adaptor.AddChild(root_0, (IASTNode)adaptor.Create(set262));
+            	    adaptor.AddChild(root_0, (IASTNode)adaptor.Create(set261));
             	    state.errorRecovery = false;
             	}
             	else 
@@ -9000,7 +9048,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "path"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:919:1: path : identifier ( DOT identifier )* ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:923:1: path : identifier ( DOT identifier )* ;
     public HqlParser.path_return path() // throws RecognitionException [1]
     {   
         HqlParser.path_return retval = new HqlParser.path_return();
@@ -9008,27 +9056,27 @@ public partial class HqlParser : Parser
 
         IASTNode root_0 = null;
 
-        IToken DOT264 = null;
-        HqlParser.identifier_return identifier263 = default(HqlParser.identifier_return);
+        IToken DOT263 = null;
+        HqlParser.identifier_return identifier262 = default(HqlParser.identifier_return);
 
-        HqlParser.identifier_return identifier265 = default(HqlParser.identifier_return);
+        HqlParser.identifier_return identifier264 = default(HqlParser.identifier_return);
 
 
-        IASTNode DOT264_tree=null;
+        IASTNode DOT263_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:920:2: ( identifier ( DOT identifier )* )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:920:4: identifier ( DOT identifier )*
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:924:2: ( identifier ( DOT identifier )* )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:924:4: identifier ( DOT identifier )*
             {
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	PushFollow(FOLLOW_identifier_in_path3529);
-            	identifier263 = identifier();
+            	PushFollow(FOLLOW_identifier_in_path3542);
+            	identifier262 = identifier();
             	state.followingStackPointer--;
 
-            	adaptor.AddChild(root_0, identifier263.Tree);
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:920:15: ( DOT identifier )*
+            	adaptor.AddChild(root_0, identifier262.Tree);
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:924:15: ( DOT identifier )*
             	do 
             	{
             	    int alt90 = 2;
@@ -9036,18 +9084,18 @@ public partial class HqlParser : Parser
             	    switch (alt90) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:920:17: DOT identifier
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:924:17: DOT identifier
             			    {
-            			    	DOT264=(IToken)Match(input,DOT,FOLLOW_DOT_in_path3533); 
-            			    		DOT264_tree = (IASTNode)adaptor.Create(DOT264);
-            			    		root_0 = (IASTNode)adaptor.BecomeRoot(DOT264_tree, root_0);
+            			    	DOT263=(IToken)Match(input,DOT,FOLLOW_DOT_in_path3546); 
+            			    		DOT263_tree = (IASTNode)adaptor.Create(DOT263);
+            			    		root_0 = (IASTNode)adaptor.BecomeRoot(DOT263_tree, root_0);
 
             			    	 WeakKeywords(); 
-            			    	PushFollow(FOLLOW_identifier_in_path3538);
-            			    	identifier265 = identifier();
+            			    	PushFollow(FOLLOW_identifier_in_path3551);
+            			    	identifier264 = identifier();
             			    	state.followingStackPointer--;
 
-            			    	adaptor.AddChild(root_0, identifier265.Tree);
+            			    	adaptor.AddChild(root_0, identifier264.Tree);
 
             			    }
             			    break;
@@ -9094,7 +9142,7 @@ public partial class HqlParser : Parser
     };
 
     // $ANTLR start "identifier"
-    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:925:1: identifier : IDENT ;
+    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:929:1: identifier : IDENT ;
     public HqlParser.identifier_return identifier() // throws RecognitionException [1]
     {   
         HqlParser.identifier_return retval = new HqlParser.identifier_return();
@@ -9102,20 +9150,20 @@ public partial class HqlParser : Parser
 
         IASTNode root_0 = null;
 
-        IToken IDENT266 = null;
+        IToken IDENT265 = null;
 
-        IASTNode IDENT266_tree=null;
+        IASTNode IDENT265_tree=null;
 
         try 
     	{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:926:2: ( IDENT )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:926:4: IDENT
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:930:2: ( IDENT )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:930:4: IDENT
             {
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
-            	IDENT266=(IToken)Match(input,IDENT,FOLLOW_IDENT_in_identifier3554); 
-            		IDENT266_tree = (IASTNode)adaptor.Create(IDENT266);
-            		adaptor.AddChild(root_0, IDENT266_tree);
+            	IDENT265=(IToken)Match(input,IDENT,FOLLOW_IDENT_in_identifier3567); 
+            		IDENT265_tree = (IASTNode)adaptor.Create(IDENT265);
+            		adaptor.AddChild(root_0, IDENT265_tree);
 
 
             }
@@ -9715,38 +9763,38 @@ public partial class HqlParser : Parser
     const string DFA24_eotS =
         "\x15\uffff";
     const string DFA24_eofS =
-        "\x01\uffff\x01\x04\x13\uffff";
+        "\x01\uffff\x01\x03\x13\uffff";
     const string DFA24_minS =
-        "\x01\x1a\x01\x07\x01\uffff\x01\x0b\x11\uffff";
+        "\x01\x1a\x01\x07\x10\uffff\x01\x0b\x02\uffff";
     const string DFA24_maxS =
-        "\x02\x76\x01\uffff\x01\x11\x11\uffff";
+        "\x02\x76\x10\uffff\x01\x11\x02\uffff";
     const string DFA24_acceptS =
-        "\x02\uffff\x01\x03\x01\uffff\x01\x01\x0e\uffff\x01\x02\x01\x04";
+        "\x02\uffff\x01\x03\x01\x01\x0f\uffff\x01\x02\x01\x04";
     const string DFA24_specialS =
         "\x15\uffff}>";
     static readonly string[] DFA24_transitionS = {
             "\x01\x02\x5b\uffff\x01\x01",
-            "\x01\x04\x07\uffff\x01\x04\x05\uffff\x01\x04\x01\uffff\x02"+
-            "\x04\x01\uffff\x01\x03\x01\uffff\x01\x04\x03\uffff\x02\x04\x07"+
-            "\uffff\x01\x04\x02\uffff\x01\x04\x05\uffff\x01\x04\x02\uffff"+
-            "\x01\x04\x2c\uffff\x01\x04\x02\uffff\x01\x04\x10\uffff\x01\x04",
+            "\x01\x03\x07\uffff\x01\x03\x05\uffff\x01\x03\x01\uffff\x02"+
+            "\x03\x01\uffff\x01\x12\x01\uffff\x01\x03\x03\uffff\x02\x03\x07"+
+            "\uffff\x01\x03\x02\uffff\x01\x03\x05\uffff\x01\x03\x02\uffff"+
+            "\x01\x03\x2c\uffff\x01\x03\x02\uffff\x01\x03\x10\uffff\x01\x03",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "\x01\x13\x05\uffff\x01\x14",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
             "",
             ""
     };
@@ -11013,16 +11061,16 @@ public partial class HqlParser : Parser
     const string DFA61_maxS =
         "\x01\x37\x01\x76\x14\uffff";
     const string DFA61_acceptS =
-        "\x02\uffff\x01\x01\x01\x02\x12\uffff";
+        "\x02\uffff\x01\x02\x12\uffff\x01\x01";
     const string DFA61_specialS =
         "\x16\uffff}>";
     static readonly string[] DFA61_transitionS = {
             "\x01\x01",
-            "\x02\x03\x03\uffff\x01\x03\x02\uffff\x01\x03\x04\uffff\x01"+
-            "\x03\x01\uffff\x02\x03\x06\uffff\x01\x03\x07\uffff\x02\x03\x02"+
-            "\uffff\x01\x03\x07\uffff\x03\x03\x05\uffff\x01\x03\x03\uffff"+
-            "\x01\x02\x03\uffff\x01\x03\x1d\uffff\x04\x03\x03\uffff\x01\x03"+
-            "\x08\uffff\x02\x03\x04\uffff\x04\x03",
+            "\x02\x02\x03\uffff\x01\x02\x02\uffff\x01\x02\x04\uffff\x01"+
+            "\x02\x01\uffff\x02\x02\x06\uffff\x01\x02\x07\uffff\x02\x02\x02"+
+            "\uffff\x01\x02\x07\uffff\x03\x02\x05\uffff\x01\x02\x03\uffff"+
+            "\x01\x15\x03\uffff\x01\x02\x1d\uffff\x04\x02\x03\uffff\x01\x02"+
+            "\x08\uffff\x02\x02\x04\uffff\x04\x02",
             "",
             "",
             "",
@@ -11885,7 +11933,7 @@ public partial class HqlParser : Parser
 
         override public string Description
         {
-            get { return "858:11: ( ( expression ( COMMA expression )* ) | subQuery )"; }
+            get { return "862:11: ( ( expression ( COMMA expression )* ) | subQuery )"; }
         }
 
     }
@@ -11959,7 +12007,7 @@ public partial class HqlParser : Parser
 
         override public string Description
         {
-            get { return "889:6: (ts= ( TRAILING | LEADING | BOTH ) )?"; }
+            get { return "893:6: (ts= ( TRAILING | LEADING | BOTH ) )?"; }
         }
 
     }
@@ -12032,7 +12080,7 @@ public partial class HqlParser : Parser
 
         override public string Description
         {
-            get { return "893:5: (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )?"; }
+            get { return "897:5: (r= ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression ) )?"; }
         }
 
     }
@@ -12104,7 +12152,7 @@ public partial class HqlParser : Parser
 
         override public string Description
         {
-            get { return "893:6: ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression )"; }
+            get { return "897:6: ( expression ( ( COMMA expression )+ | FROM expression | AS identifier )? | FROM expression )"; }
         }
 
     }
@@ -12187,7 +12235,7 @@ public partial class HqlParser : Parser
 
         override public string Description
         {
-            get { return "()* loopback of 920:15: ( DOT identifier )*"; }
+            get { return "()* loopback of 924:15: ( DOT identifier )*"; }
         }
 
     }
@@ -12460,41 +12508,41 @@ public partial class HqlParser : Parser
     public static readonly BitSet FOLLOW_COUNT_in_aggregate3129 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000001000000000UL});
     public static readonly BitSet FOLLOW_OPEN_in_aggregate3131 = new BitSet(new ulong[]{0x0011001808431210UL,0x0040800000000000UL});
     public static readonly BitSet FOLLOW_STAR_in_aggregate3137 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
-    public static readonly BitSet FOLLOW_DISTINCT_in_aggregate3147 = new BitSet(new ulong[]{0x0011001808421200UL,0x0040000000000000UL});
-    public static readonly BitSet FOLLOW_ALL_in_aggregate3151 = new BitSet(new ulong[]{0x0011001808421200UL,0x0040000000000000UL});
-    public static readonly BitSet FOLLOW_path_in_aggregate3158 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
-    public static readonly BitSet FOLLOW_collectionExpr_in_aggregate3162 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
-    public static readonly BitSet FOLLOW_CLOSE_in_aggregate3170 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_collectionExpr_in_aggregate3201 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ELEMENTS_in_collectionExpr3215 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000001000000000UL});
-    public static readonly BitSet FOLLOW_INDICES_in_collectionExpr3220 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000001000000000UL});
-    public static readonly BitSet FOLLOW_OPEN_in_collectionExpr3224 = new BitSet(new ulong[]{0x0010000000400000UL,0x0040000000000000UL});
-    public static readonly BitSet FOLLOW_path_in_collectionExpr3227 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
-    public static readonly BitSet FOLLOW_CLOSE_in_collectionExpr3229 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_collectionExpr_in_compoundExpr3285 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_path_in_compoundExpr3290 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_OPEN_in_compoundExpr3296 = new BitSet(new ulong[]{0x80B3A2D8095A1230UL,0x00786011E0000000UL});
-    public static readonly BitSet FOLLOW_expression_in_compoundExpr3302 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002400000000UL});
-    public static readonly BitSet FOLLOW_COMMA_in_compoundExpr3305 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
-    public static readonly BitSet FOLLOW_expression_in_compoundExpr3308 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002400000000UL});
-    public static readonly BitSet FOLLOW_subQuery_in_compoundExpr3315 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
-    public static readonly BitSet FOLLOW_CLOSE_in_compoundExpr3319 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_union_in_subQuery3334 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_exprList3359 = new BitSet(new ulong[]{0x809380D8085A1232UL,0x00786011E0000000UL});
-    public static readonly BitSet FOLLOW_expression_in_exprList3406 = new BitSet(new ulong[]{0x0000000000400082UL,0x0000000400000000UL});
-    public static readonly BitSet FOLLOW_COMMA_in_exprList3411 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
-    public static readonly BitSet FOLLOW_expression_in_exprList3413 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000400000000UL});
-    public static readonly BitSet FOLLOW_FROM_in_exprList3426 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
-    public static readonly BitSet FOLLOW_expression_in_exprList3428 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_AS_in_exprList3439 = new BitSet(new ulong[]{0x0010000000400000UL,0x0040000000000000UL});
-    public static readonly BitSet FOLLOW_identifier_in_exprList3441 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FROM_in_exprList3453 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
-    public static readonly BitSet FOLLOW_expression_in_exprList3455 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_aggregateDistinctAll_in_aggregate3143 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
+    public static readonly BitSet FOLLOW_CLOSE_in_aggregate3147 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_collectionExpr_in_aggregate3179 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_aggregateDistinctAll3192 = new BitSet(new ulong[]{0x0011001808421200UL,0x0040000000000000UL});
+    public static readonly BitSet FOLLOW_path_in_aggregateDistinctAll3205 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_collectionExpr_in_aggregateDistinctAll3209 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ELEMENTS_in_collectionExpr3228 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000001000000000UL});
+    public static readonly BitSet FOLLOW_INDICES_in_collectionExpr3233 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000001000000000UL});
+    public static readonly BitSet FOLLOW_OPEN_in_collectionExpr3237 = new BitSet(new ulong[]{0x0010000000400000UL,0x0040000000000000UL});
+    public static readonly BitSet FOLLOW_path_in_collectionExpr3240 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
+    public static readonly BitSet FOLLOW_CLOSE_in_collectionExpr3242 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_collectionExpr_in_compoundExpr3298 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_path_in_compoundExpr3303 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_OPEN_in_compoundExpr3309 = new BitSet(new ulong[]{0x80B3A2D8095A1230UL,0x00786011E0000000UL});
+    public static readonly BitSet FOLLOW_expression_in_compoundExpr3315 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002400000000UL});
+    public static readonly BitSet FOLLOW_COMMA_in_compoundExpr3318 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
+    public static readonly BitSet FOLLOW_expression_in_compoundExpr3321 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002400000000UL});
+    public static readonly BitSet FOLLOW_subQuery_in_compoundExpr3328 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000002000000000UL});
+    public static readonly BitSet FOLLOW_CLOSE_in_compoundExpr3332 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_union_in_subQuery3347 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_exprList3372 = new BitSet(new ulong[]{0x809380D8085A1232UL,0x00786011E0000000UL});
+    public static readonly BitSet FOLLOW_expression_in_exprList3419 = new BitSet(new ulong[]{0x0000000000400082UL,0x0000000400000000UL});
+    public static readonly BitSet FOLLOW_COMMA_in_exprList3424 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
+    public static readonly BitSet FOLLOW_expression_in_exprList3426 = new BitSet(new ulong[]{0x0000000000000002UL,0x0000000400000000UL});
+    public static readonly BitSet FOLLOW_FROM_in_exprList3439 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
+    public static readonly BitSet FOLLOW_expression_in_exprList3441 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_AS_in_exprList3452 = new BitSet(new ulong[]{0x0010000000400000UL,0x0040000000000000UL});
+    public static readonly BitSet FOLLOW_identifier_in_exprList3454 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FROM_in_exprList3466 = new BitSet(new ulong[]{0x809380D8085A1230UL,0x00786011E0000000UL});
+    public static readonly BitSet FOLLOW_expression_in_exprList3468 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_set_in_constant0 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifier_in_path3529 = new BitSet(new ulong[]{0x0000000000008002UL});
-    public static readonly BitSet FOLLOW_DOT_in_path3533 = new BitSet(new ulong[]{0x0010000000400000UL,0x0040000000000000UL});
-    public static readonly BitSet FOLLOW_identifier_in_path3538 = new BitSet(new ulong[]{0x0000000000008002UL});
-    public static readonly BitSet FOLLOW_IDENT_in_identifier3554 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifier_in_path3542 = new BitSet(new ulong[]{0x0000000000008002UL});
+    public static readonly BitSet FOLLOW_DOT_in_path3546 = new BitSet(new ulong[]{0x0010000000400000UL,0x0040000000000000UL});
+    public static readonly BitSet FOLLOW_identifier_in_path3551 = new BitSet(new ulong[]{0x0000000000008002UL});
+    public static readonly BitSet FOLLOW_IDENT_in_identifier3567 = new BitSet(new ulong[]{0x0000000000000002UL});
 
 }
 }

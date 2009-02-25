@@ -1,0 +1,3 @@
+javac -classpath dom4j-1.6.1.jar:antlr-2.7.6rc1.jar:hibernate-core-3.4.0-SNAPSHOT.jar GenerateHibernateResults.java 
+
+java -classpath .:dom4j-1.6.1.jar:antlr-2.7.6rc1.jar:hibernate-core-3.4.0-SNAPSHOT.jar:jaxen-1.1-beta-7.jar:log4j-1.2.11.jar:slf4j-api-1.5.2.jar:slf4j-log4j12-1.5.2.jar GenerateHibernateResults 
