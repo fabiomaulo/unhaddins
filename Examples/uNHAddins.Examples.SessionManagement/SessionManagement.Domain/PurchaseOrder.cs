@@ -39,7 +39,7 @@ namespace SessionManagement.Domain
 
 		public virtual void RemoveOrderLine(OrderLine orderLine)
 		{
-			if (!orderLines.Contains(orderLine))
+			if (orderLines.Contains(orderLine))
 			{
 				orderLines.Remove(orderLine);
 				orderLine.Order = null;
