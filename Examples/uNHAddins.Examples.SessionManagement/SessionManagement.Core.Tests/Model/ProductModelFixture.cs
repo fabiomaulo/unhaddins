@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
-using NUnit.Framework.Syntax.CSharp;
 using System.Collections.Generic;
 using SessionManagement.TestUtils;
 

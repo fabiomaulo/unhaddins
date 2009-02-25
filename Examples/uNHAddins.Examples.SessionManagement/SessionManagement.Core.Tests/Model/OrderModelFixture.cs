@@ -4,7 +4,6 @@ using NUnit.Framework;
 using SessionManagement.Domain.Impl;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
-using NUnit.Framework.Syntax.CSharp;
 using SessionManagement.TestUtils;
 
 namespace SessionManagement.Domain.Tests.Model
