@@ -19,19 +19,12 @@ namespace uNhAddIns.Test.SessionEasier
 			XmlConfigurator.Configure();
 		}
 
-		public class MultiConfStub : IConfigurationProvider
+		public class MultiConfStub : AbstractConfigurationProvider
 		{
-			#region Implementation of IConfigurationProvider
-
-			public IEnumerable<Configuration> Configure()
+			public override IEnumerable<Configuration> Configure()
 			{
 				return new[] {(new Configuration()).Configure(), new Configuration()};
 			}
-
-			public event EventHandler<ConfigurationEventArgs> BeforeConfigure;
-			public event EventHandler<ConfigurationEventArgs> AfterConfigure;
-
-			#endregion
 		}
 
 		[Test]

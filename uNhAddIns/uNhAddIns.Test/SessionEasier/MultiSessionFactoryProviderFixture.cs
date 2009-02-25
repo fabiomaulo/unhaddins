@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
+using System.Linq;
 using log4net.Config;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.SessionEasier;
+using uNhAddIns.TestUtils.Logging;
 
 namespace uNhAddIns.Test.SessionEasier
 {
@@ -14,25 +17,30 @@ namespace uNhAddIns.Test.SessionEasier
 			XmlConfigurator.Configure();
 		}
 
-		[Test, ExpectedException(typeof (ArgumentNullException))]
-		public void CtorParameter()
+		[Test]
+		public void CtorProtectecion()
 		{
-			new MultiSessionFactoryProvider(null);
+			Assert.Throws<ArgumentNullException>(() => new MultiSessionFactoryProvider(null));
 		}
 
 		[Test]
-		public void DisposeWithoutInitialize()
+		public void DisposeDoNotInitialize()
 		{
 			var sfp = new MultiSessionFactoryProvider();
-			using (var ls = new LogSpy(typeof (MultiSessionFactoryProvider)))
-			{
-				sfp.Dispose();
-				Assert.That(ls.GetWholeMessages(), Text.DoesNotContain("Initialize a new session factory"));
-			}
+			Assert.That(Spying.Logger<MultiSessionFactoryProvider>().Execute(sfp.Dispose).WholeMessage,
+			            Text.DoesNotContain("Initialize new session factories reading the configuration."));
 		}
 
 		[Test]
-		public void Disposing()
+		public void InitializeShouldLog()
+		{
+			var sfp = new MultiSessionFactoryProvider();
+			Assert.That(Spying.Logger<MultiSessionFactoryProvider>().Execute(sfp.Initialize).WholeMessage,
+			            Text.Contains("Initialize new session factories reading the configuration."));
+		}
+
+		[Test]
+		public void ShouldExecuteDisposeOlnyOneForEachFactory()
 		{
 			MultiSessionFactoryProvider sfp;
 			ISessionFactory sf1;
@@ -50,15 +58,24 @@ namespace uNhAddIns.Test.SessionEasier
 		}
 
 		[Test]
-		public void GetSessionFactory()
+		public void ShouldHasOnlyTwoInstancesOfFactory()
+		{
+			var sfp = new MultiSessionFactoryProvider();
+			Assert.That(sfp.Count(), Is.EqualTo(2));
+			IEnumerator en = ((IEnumerable) sfp).GetEnumerator();
+			int i = 0;
+			while (en.MoveNext())
+			{
+				i++;
+			}
+			Assert.That(i, Is.EqualTo(2));
+		}
+
+		[Test]
+		public void WorkWitheDefaultAndSpecificSessionFactory()
 		{
 			var sfp = new MultiSessionFactoryProvider();
 			Assert.That(sfp.GetFactory(null), Is.Not.Null);
-			using (var ls = new LogSpy(typeof (SessionFactoryProvider)))
-			{
-				sfp.Initialize();
-				Assert.That(ls.GetWholeMessages(), Text.DoesNotContain("Initialize new session factories"));
-			}
 			ISessionFactory sf1 = sfp.GetFactory(null);
 			ISessionFactory sf2 = sfp.GetFactory(null);
 			Assert.That(ReferenceEquals(sf1, sf2));
@@ -70,15 +87,28 @@ namespace uNhAddIns.Test.SessionEasier
 		}
 
 		[Test]
-		public void Initialize()
+		public void ShouldInitializeOnlyOneTime()
 		{
 			var sfp = new MultiSessionFactoryProvider();
-			using (var ls = new LogSpy(typeof (MultiSessionFactoryProvider)))
-			{
-				sfp.Initialize();
-				Assert.That(ls.GetWholeMessages(), Text.Contains("Initialize new session factories"));
-			}
 			Assert.That(sfp.GetFactory(null), Is.Not.Null);
+
+			Assert.That(Spying.Logger<MultiSessionFactoryProvider>().Execute(sfp.Initialize).WholeMessage,
+			            Text.DoesNotContain("Initialize new session factories reading the configuration."));
+		}
+
+		[Test]
+		public void ThrowSpecificExceptionForInvalidFactoryName()
+		{
+			var sfp = new MultiSessionFactoryProvider();
+			sfp.Initialize();
+			try
+			{
+				sfp.GetFactory("NotExistFactory");
+			}
+			catch (ArgumentException e)
+			{
+				Assert.That(e.Message, Is.EqualTo("The session-factory-id was not register"));
+			}
 		}
 	}
 }
