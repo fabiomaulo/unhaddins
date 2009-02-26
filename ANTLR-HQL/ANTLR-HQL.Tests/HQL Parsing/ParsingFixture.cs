@@ -23,6 +23,13 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			return " " + p.Ast.ToStringTree();
 		}
 
+		[Test]
+		public void ParseTest()
+		{
+			var p = new HqlParseEngine("from bar in class Bar where bar.count=667", false);
+			p.Parse();
+		}		
+
 		[Test, Ignore]
 		public void BasicQuery()
 		{
