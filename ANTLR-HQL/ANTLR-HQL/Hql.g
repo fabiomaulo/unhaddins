@@ -804,19 +804,11 @@ identPrimary
 	;
 */
 identPrimary
-	: id1=identifier { HandleDotIdent(); }
-			( options { greedy=true; } : d=DOT ( 
-				  id2=identifier 
-				| e=ELEMENTS 
-				| o=OBJECT  
-			) )*
-			( options { greedy=true; } : opx = ( op=OPEN exprList CLOSE ) )?
-		-> {$opx != null && $id2.tree != null}? ^(METHOD_CALL[$op] ^($d $id1 $id2) exprList)
-		-> {$opx != null && $e.tree != null}? ^(METHOD_CALL[$op] ^($d $id1 $e) exprList)
-		-> {$opx != null}? ^(METHOD_CALL[$op] ^($d $id1 ^(IDENT[$o])) exprList)
-		-> {$id2.tree != null}? ^($d $id1 $id2)
-		-> {$e != null}? ^($d $id1 $e)
-		-> ^($d $id1 ^(IDENT[$o]))
+	: identifier { HandleDotIdent(); }
+			( options { greedy=true; } : DOT^ ( identifier | ELEMENTS | o=OBJECT { $o.Type = IDENT; } ) )*
+			( options { greedy=true; } :
+				( op=OPEN^ { $op.Type = METHOD_CALL;} exprList CLOSE! )
+			)?
 	// Also allow special 'aggregate functions' such as count(), avg(), etc.
 	| aggregate
 	;
@@ -928,11 +920,70 @@ path
 // 'keyword as identifier' trickery.
 identifier
 	: IDENT
+	| keywords1
+//	| keywords2
 	;
 	catch [RecognitionException ex]
 	{
 		retval = HandleIdentifierError(input.LT(1),ex);
 	}
+	
+keywords1
+	: COUNT
+	;
+	
+keywords2
+	: ALL
+	| ANY
+	| AND
+	| AS
+	| ASCENDING
+	| AVG
+	| BETWEEN
+	| CLASS
+	| DELETE
+	| DESCENDING
+	| DISTINCT
+	| ELEMENTS
+	| ESCAPE
+	| EXISTS
+	| FALSE
+	| FETCH
+	| FROM
+	| FULL
+	| GROUP
+	| HAVING
+	| IN
+	| INDICES
+	| INNER
+	| INSERT
+	| INTO
+	| IS
+	| JOIN
+	| LEFT
+	| LIKE
+	| MAX
+	| MIN
+	| NEW
+	| NOT
+	| NULL
+	| OR
+	| ORDER
+	| OUTER
+	| PROPERTIES
+	| RIGHT
+	| SELECT
+	| SET
+	| SOME
+	| SUM
+	| TRUE
+	| UNION
+	| UPDATE
+	| VERSIONED
+	| WHERE
+	| LITERAL_by
+	;
+
 	
 
 // **** LEXER ******************************************************************
@@ -987,7 +1038,7 @@ DIV: '/';
 COLON: ':';
 PARAM: '?';
 
-IDENT // TODO options { testLiterals=true; }
+IDENT 
 	: ID_START_LETTER ( ID_LETTER )*
 		{
     		// Setting this flag allows the grammar to use keywords as identifiers, if necessary.
