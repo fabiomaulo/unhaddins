@@ -107,7 +107,7 @@ namespace uNhAddIns.Test.SessionEasier
 			}
 			catch (ArgumentException e)
 			{
-				Assert.That(e.Message, Is.EqualTo("The session-factory-id was not register"));
+				Assert.That(e.Message, Text.StartsWith("The session-factory-id was not register"));
 			}
 		}
 	}
