@@ -104,10 +104,6 @@
       <Project>{0140ED11-A9A2-4795-9BE9-22E86A9F0057}</Project>
       <Name>uNhAddIns.CastleAdapters</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uNhAddIns.LinFuAdapters\uNhAddIns.LinFuAdapters.csproj">
-      <Project>{9547F8DD-20D1-4451-88BF-07579CE475D0}</Project>
-      <Name>uNhAddIns.LinFuAdapters</Name>
-    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
