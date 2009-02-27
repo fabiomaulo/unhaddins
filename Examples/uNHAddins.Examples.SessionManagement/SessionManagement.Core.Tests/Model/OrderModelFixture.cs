@@ -5,6 +5,7 @@ using SessionManagement.Domain.Impl;
 using SessionManagement.Domain.Model;
 using SessionManagement.Infrastructure.InversionOfControl;
 using SessionManagement.TestUtils;
+using uNhAddIns.TestUtils.Logging;
 
 namespace SessionManagement.Domain.Tests.Model
 {
@@ -49,14 +50,10 @@ namespace SessionManagement.Domain.Tests.Model
 				Number = "N1"
 			};
 
-			using (var ls = new LogSpy(typeof(MyConversationCreationInterceptor<>)))
-			{
-				modifyOrderModel.Persist(purchaseOrder);
-
-				var loggingEvents = ls.Appender.GetEvents();
-				Assert.That(loggingEvents.Length, Is.EqualTo(1));
-				Assert.That(loggingEvents[0].RenderedMessage, Text.Contains("My conversation ended"));
-			}
+			Assert.That(Spying.Logger(typeof(MyConversationCreationInterceptor<>))
+					.Execute(() => modifyOrderModel.Persist(purchaseOrder))
+					.MessageSequence,
+					Is.EqualTo(new[] { "My conversation ended" }));
 		}
 
 		[Test]
