@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using log4net.Config;
 using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Util;
 using NUnit.Framework;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.TestUtils.Logging;
@@ -109,6 +112,36 @@ namespace uNhAddIns.Test.SessionEasier
 			{
 				Assert.That(e.Message, Text.StartsWith("The session-factory-id was not register"));
 			}
+		}
+
+		public class SpecificFileConfigurationLoader : AbstractConfigurationProvider
+		{
+			private readonly string filePath;
+
+			public SpecificFileConfigurationLoader(string filePath)
+			{
+				this.filePath = filePath;
+			}
+
+			public override IEnumerable<Configuration> Configure()
+			{
+				var cfg = new Configuration();
+				bool configured;
+				DoBeforeConfigure(cfg, out configured);
+				if (!configured)
+				{
+					cfg.Configure(filePath);
+				}
+				DoAfterConfigure(cfg);
+				return new SingletonEnumerable<Configuration>(cfg);
+			}
+		}
+
+		[Test]
+		public void ConfiguringOneSessionFactoryWithoutName()
+		{
+			var sfp = new MultiSessionFactoryProvider(new SpecificFileConfigurationLoader("TestConfigWithFactoryName.xml"));
+			Assert.Throws<ArgumentException>(() => sfp.GetFactory(null));
 		}
 	}
 }
