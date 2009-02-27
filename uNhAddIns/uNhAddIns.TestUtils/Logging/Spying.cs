@@ -14,6 +14,11 @@ namespace uNhAddIns.TestUtils.Logging
 		{
 			return new LoggerSpy(new WorkerLogSpy(loggerName));
 		}
+
+		public static IWorkToSpy Logger(Type t)
+		{
+			return new LoggerSpy(new WorkerLogSpy(t));
+		}
 	}
 
 	public interface IWorkToSpy
