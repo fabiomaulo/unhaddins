@@ -10,7 +10,21 @@ namespace uNhAddIns.TestUtils
 	{
 		public static MemberInfo MemberInfo<TEntity>(Expression<Func<TEntity, object>> expression)
 		{
-			return expression.Body.NodeType != ExpressionType.MemberAccess ? null : ((MemberExpression)expression.Body).Member;
+			MemberExpression me=null;
+			switch (expression.Body.NodeType)
+			{
+				case ExpressionType.MemberAccess:
+					me= (MemberExpression) expression.Body;
+					break;
+				case ExpressionType.Convert:
+					var unary = expression.Body as UnaryExpression;
+					if (unary != null)
+					{
+						me = (MemberExpression) unary.Operand;
+					}
+					break;
+			}
+			return me != null ? me.Member : null;
 		}
 
 		public static MethodInfo MethodInfo<TEntity>(Expression<Action<TEntity>> expression)

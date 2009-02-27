@@ -19,6 +19,7 @@ namespace uNhAddIns.TestUtils.Tests
 			public void AVoidMehotdWithoutParameters(int aParam) {}
 			public void ANoVoidMehotdWithoutParameters() {}
 			public void ANoVoidMehotdWithoutParameters(int aParam) {}
+			public bool ABoleanProperty { get; set; }
 		}
 
 		[Test]
@@ -33,6 +34,9 @@ namespace uNhAddIns.TestUtils.Tests
 		{
 			MemberInfo mi = (typeof (MyClass).GetMember("AProperty")).First();
 			Assert.That(Reflector.MemberInfo<MyClass>(x => x.AProperty), Is.EqualTo(mi));
+
+			mi = (typeof(MyClass).GetMember("ABoleanProperty")).First();
+			Assert.That(Reflector.MemberInfo<MyClass>(x => x.ABoleanProperty), Is.EqualTo(mi));
 		}
 
 		[Test]
@@ -42,6 +46,10 @@ namespace uNhAddIns.TestUtils.Tests
 				((typeof (MyClass).GetMember("AProperty")).OfType<PropertyInfo>().First()).GetAccessors()
 					.Where(x => x.Name.StartsWith("get_")).First();
 			Assert.That(Reflector.PropertyGetter<MyClass>(x => x.AProperty), Is.EqualTo(mi));
+
+			mi = ((typeof(MyClass).GetMember("ABoleanProperty")).OfType<PropertyInfo>().First()).GetAccessors()
+					.Where(x => x.Name.StartsWith("get_")).First();
+			Assert.That(Reflector.PropertyGetter<MyClass>(x => x.ABoleanProperty), Is.EqualTo(mi));
 		}
 
 		[Test]
@@ -51,6 +59,10 @@ namespace uNhAddIns.TestUtils.Tests
 				((typeof (MyClass).GetMember("AProperty")).OfType<PropertyInfo>().First()).GetAccessors()
 					.Where(x => x.Name.StartsWith("set_")).First();
 			Assert.That(Reflector.PropertySetter<MyClass>(x => x.AProperty), Is.EqualTo(mi));
+
+			mi = ((typeof(MyClass).GetMember("ABoleanProperty")).OfType<PropertyInfo>().First()).GetAccessors()
+		.Where(x => x.Name.StartsWith("set_")).First();
+			Assert.That(Reflector.PropertySetter<MyClass>(x => x.ABoleanProperty), Is.EqualTo(mi));
 		}
 
 		[Test]
