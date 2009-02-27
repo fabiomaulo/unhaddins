@@ -53,11 +53,20 @@ namespace uNhAddIns.SessionEasier
 			foreach (Configuration cfg in mfc.Configure())
 			{
 				var sf = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
+				string sessionFactoryName = sf.Settings.SessionFactoryName;
+				if (!string.IsNullOrEmpty(sessionFactoryName))
+				{
+					sessionFactoryName = sessionFactoryName.Trim();
+				}
+				else
+				{
+					throw new ArgumentException("The session-factory-id was not register; you must assign the name of the factory, example: <session-factory name='HereTheFactoryName'>");
+				}
 				if (string.IsNullOrEmpty(defaultSessionFactoryName))
 				{
-					defaultSessionFactoryName = sf.Settings.SessionFactoryName.Trim();
+					defaultSessionFactoryName = sessionFactoryName;
 				}
-				sfs.Add(sf.Settings.SessionFactoryName.Trim(), sf);
+				sfs.Add(sessionFactoryName, sf);
 			}
 			mfc = null; // after built the SessionFactories the configuration is not needed
 		}
@@ -71,10 +80,6 @@ namespace uNhAddIns.SessionEasier
 			catch (KeyNotFoundException)
 			{
 				throw new ArgumentException("The session-factory-id was not register", "factoryId");
-			}
-			catch (ArgumentNullException)
-			{
-				throw new ArgumentException("The session-factory-id was not register; do you forgot the appSettings section ?");
 			}
 		}
 
