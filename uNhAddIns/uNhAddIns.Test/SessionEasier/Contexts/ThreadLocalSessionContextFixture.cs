@@ -12,7 +12,7 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 	{
 		protected override IList<string> Mappings
 		{
-			get { return new[] { "SessionEasier.Contexts.Silly.hbm.xml" }; }
+			get { return new[] { "SessionEasier.Silly.hbm.xml" }; }
 		}
 
 		protected override void Configure(Configuration configuration)

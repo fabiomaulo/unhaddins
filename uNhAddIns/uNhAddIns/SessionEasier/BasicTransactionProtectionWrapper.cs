@@ -85,8 +85,8 @@ namespace uNhAddIns.SessionEasier
 		protected virtual bool IsPassThroughMethodWithoutTransaction(string methodName)
 		{
 			return "BeginTransaction".Equals(methodName) || "get_Transaction".Equals(methodName)
-			       || "set_FlushMode".Equals(methodName) || "get_SessionFactory".Equals(methodName)
-			       || "get_IsConnected".Equals(methodName);
+						 || "get_FlushMode".Equals(methodName) || "set_FlushMode".Equals(methodName) 
+						 || "get_SessionFactory".Equals(methodName) || "get_IsConnected".Equals(methodName);
 		}
 
 		protected virtual bool IsPassThroughMethod(string methodName)
