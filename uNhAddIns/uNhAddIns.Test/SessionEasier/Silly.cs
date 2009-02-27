@@ -1,6 +1,6 @@
 using System;
 
-namespace uNhAddIns.Test.SessionEasier.Contexts
+namespace uNhAddIns.Test.SessionEasier
 {
 	[Serializable]
 	public class Silly

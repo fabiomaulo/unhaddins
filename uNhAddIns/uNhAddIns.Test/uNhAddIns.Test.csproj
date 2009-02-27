@@ -124,14 +124,15 @@
     <Compile Include="Serialization\ClonerFixture.cs" />
     <Compile Include="Serialization\Foo.cs" />
     <Compile Include="Serialization\FooChild.cs" />
-    <Compile Include="SessionEasier\Contexts\Other.cs" />
-    <Compile Include="SessionEasier\Contexts\Silly.cs" />
+    <Compile Include="SessionEasier\Other.cs" />
+    <Compile Include="SessionEasier\Silly.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContextFixture.cs" />
     <Compile Include="SessionEasier\DefaultMultiFactoryConfigurationProviderFixture.cs" />
     <Compile Include="SessionEasier\DefaultSessionFactoryConfigurationProviderFixture.cs" />
     <Compile Include="SessionEasier\MultiSessionFactoryProviderFixture.cs" />
     <Compile Include="SessionEasier\SessionFactoryProviderFixture.cs" />
     <Compile Include="SessionEasier\TestConfigurationHelper.cs" />
+    <Compile Include="SessionEasier\TransactionProtectionWrapperFixture.cs" />
     <Compile Include="TestCase.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
@@ -193,7 +194,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SessionEasier\Contexts\Silly.hbm.xml" />
+    <EmbeddedResource Include="SessionEasier\Silly.hbm.xml" />
     <EmbeddedResource Include="Conversations\Silly.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
