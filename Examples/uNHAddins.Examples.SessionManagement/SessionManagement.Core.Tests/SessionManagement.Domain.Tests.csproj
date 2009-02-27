@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SessionManagement.Domain.Tests</RootNamespace>
     <AssemblyName>SessionManagement.Domain.Tests</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -48,6 +48,9 @@
       <HintPath>..\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="uNhAddIns, Version=0.2.0.23301, Culture=neutral, processorArchitecture=MSIL">
@@ -57,6 +60,10 @@
     <Reference Include="uNhAddIns.CastleAdapters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\uNhAddIns.CastleAdapters.dll</HintPath>
+    </Reference>
+    <Reference Include="uNhAddIns.TestUtils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\uNhAddIns.TestUtils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
