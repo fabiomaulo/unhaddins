@@ -58,6 +58,7 @@
     <Compile Include="Logging\SpyingFixture.cs" />
     <Compile Include="Logging\WorkerLogSpyFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReflectorFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uNhAddIns.TestUtils\uNhAddIns.TestUtils.csproj">
