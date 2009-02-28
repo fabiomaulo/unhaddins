@@ -20,7 +20,7 @@ namespace uNhAddIns.Example.ConversationUsage
 			var sfp = new SessionFactoryProvider(nhConfigurator);
 			sl.LoadSingletonService<ISessionFactoryProvider>(sfp);
 
-			sl.LoadSingletonService<IConversationFactory>(new DefaultConversationFactory(sfp, new NoWrappedSessionWrapper()));
+			sl.LoadSingletonService<IConversationFactory>(new DefaultConversationFactory(sfp, new FakeSessionWrapper()));
 
 			sl.LoadSingletonService<IConversationsContainerAccessor>(new NhConversationsContainerAccessor(sfp));
 

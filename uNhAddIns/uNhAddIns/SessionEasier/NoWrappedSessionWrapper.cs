@@ -2,7 +2,15 @@ using NHibernate;
 
 namespace uNhAddIns.SessionEasier
 {
-	public class NoWrappedSessionWrapper : ISessionWrapper
+	/// <summary>
+	/// A fake session wrapper
+	/// </summary>
+	/// <remarks>
+	/// It can be used only in session-per-request or in others simples 
+	/// session management pattern where you don't want a transaction-protection.
+	/// <b>Not allowed in Coversation-per-BusinessTransaction.</b>
+	/// </remarks>
+	public class FakeSessionWrapper : ISessionWrapper
 	{
 		#region Implementation of ISessionWrapper
 

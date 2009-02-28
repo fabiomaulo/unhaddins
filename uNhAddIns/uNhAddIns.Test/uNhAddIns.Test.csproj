@@ -124,6 +124,7 @@
     <Compile Include="Serialization\ClonerFixture.cs" />
     <Compile Include="Serialization\Foo.cs" />
     <Compile Include="Serialization\FooChild.cs" />
+    <Compile Include="SessionEasier\NoWrappedSessionWrapperFixture.cs" />
     <Compile Include="SessionEasier\Other.cs" />
     <Compile Include="SessionEasier\Silly.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContextFixture.cs" />

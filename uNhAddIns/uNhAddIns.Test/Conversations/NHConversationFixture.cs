@@ -45,7 +45,7 @@ namespace uNhAddIns.Test.Conversations
 
 		private NhConversation NewConversation()
 		{
-			return new NhConversation(new SessionFactoryProviderStub(sessions), new NoWrappedSessionWrapper());
+			return new NhConversation(new SessionFactoryProviderStub(sessions), new FakeSessionWrapper());
 		}
 
 		private NhConversation NewStartedConversation()
