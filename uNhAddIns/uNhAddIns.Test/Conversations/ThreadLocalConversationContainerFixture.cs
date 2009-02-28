@@ -133,6 +133,7 @@ namespace uNhAddIns.Test.Conversations
 			tc.Bind(c);
 			c.End();
 			Assert.That(tc.BindedConversationCount, Is.EqualTo(0));
+			tc.Reset();
 		}
 
 		[Test]
@@ -143,6 +144,7 @@ namespace uNhAddIns.Test.Conversations
 			tc.Bind(c);
 			c.End();
 			Assert.That(tc.BindedConversationCount, Is.EqualTo(1));
+			tc.Reset();
 		}
 	}
 }
