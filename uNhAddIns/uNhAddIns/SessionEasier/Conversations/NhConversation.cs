@@ -14,7 +14,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 		private const string sessionsContextKey = "uNhAddIns.Conversations.NHSessions";
 		[NonSerialized] protected static readonly ILog log = LogManager.GetLogger(typeof (NhConversation));
 		[NonSerialized] private readonly ISessionFactoryProvider factoriesProvider;
-		[NonSerialized] private ISessionWrapper wrapper;
+		[NonSerialized] private readonly ISessionWrapper wrapper;
 
 		public NhConversation(ISessionFactoryProvider factoriesProvider, ISessionWrapper wrapper)
 		{
@@ -48,7 +48,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 		public ISessionWrapper Wrapper
 		{
 			get { return wrapper; }
-			set { wrapper = value; }
 		}
 
 		#region Overrides of AbstractConversation
