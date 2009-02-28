@@ -89,7 +89,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 				if (session != null && session.IsOpen)
 				{
 					FlushAndCommit(session);
-					session.Close();
 				}
 			}
 		}

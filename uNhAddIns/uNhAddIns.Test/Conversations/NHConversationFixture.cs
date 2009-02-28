@@ -319,5 +319,26 @@ namespace uNhAddIns.Test.Conversations
 			ISession s = c.GetSession(sessions);
 			AssertIsOpen(s);
 		}
+
+		[Test]
+		public void FlushAndPauseShouldFlushStartedUnitOfWork()
+		{
+			NhConversation c = NewStartedConversation();
+			ISession s = c.GetSession(sessions);
+			var persistedObj = new Silly();
+			s.Save(persistedObj);
+
+			c.FlushAndPause();
+			AssertExistsInDb(persistedObj);
+			AssertIsPaused(c.GetSession(sessions));
+		}
+
+		[Test]
+		public void FlushAndPauseShouldNotCloseTheSession()
+		{
+			NhConversation c = NewStartedConversation();
+			c.FlushAndPause();
+			AssertIsPaused(c.GetSession(sessions));
+		}
 	}
 }
