@@ -14,7 +14,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 		private const string sessionsContextKey = "uNhAddIns.Conversations.NHSessions";
 		[NonSerialized] protected static readonly ILog log = LogManager.GetLogger(typeof (NhConversation));
 		[NonSerialized] private readonly ISessionFactoryProvider factoriesProvider;
-		[NonSerialized] private readonly ISessionWrapper wrapper;
 
 		public NhConversation(ISessionFactoryProvider factoriesProvider, ISessionWrapper wrapper)
 		{
@@ -27,7 +26,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 				throw new ArgumentNullException("wrapper");
 			}
 			this.factoriesProvider = factoriesProvider;
-			this.wrapper = wrapper;
+			Wrapper = wrapper;
 		}
 
 		public NhConversation(ISessionFactoryProvider factoriesProvider, ISessionWrapper wrapper, string id)
@@ -42,13 +41,10 @@ namespace uNhAddIns.SessionEasier.Conversations
 				throw new ArgumentNullException("wrapper");
 			}
 			this.factoriesProvider = factoriesProvider;
-			this.wrapper = wrapper;
+			Wrapper = wrapper;
 		}
 
-		public ISessionWrapper Wrapper
-		{
-			get { return wrapper; }
-		}
+		public ISessionWrapper Wrapper { get; private set; }
 
 		#region Overrides of AbstractConversation
 
@@ -133,7 +129,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 				}
 				foreach (var factory in factoriesToRebind)
 				{
-					Bind(OpenNewSessionFor(factory));					
+					Bind(BuildSession((ISessionFactoryImplementor)factory));					
 				}
 			}
 			else
@@ -141,7 +137,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 				// Bind a session for each SessionFactory
 				foreach (var factory in factoriesProvider)
 				{
-					Bind(OpenNewSessionFor(factory));
+					Bind(BuildSession((ISessionFactoryImplementor)factory));
 				}
 			}
 			foreach (var pair in sessions)
@@ -150,18 +146,13 @@ namespace uNhAddIns.SessionEasier.Conversations
 			}
 		}
 
-		protected virtual ISession OpenNewSessionFor(ISessionFactory factory)
+		private static void EnsureFlushMode(ISession session)
 		{
-			ISession session = BuildSession((ISessionFactoryImplementor) factory);
 			if (session.FlushMode != FlushMode.Never)
 			{
 				log.Debug("Disabling automatic flushing of the Session");
 				session.FlushMode = FlushMode.Never;
 			}
-
-			// wrap the session in the transaction-protection proxy
-			session = Wrap(session);
-			return session;
 		}
 
 		protected virtual ISession Wrap(ISession session)
@@ -229,7 +220,11 @@ namespace uNhAddIns.SessionEasier.Conversations
 		{
 			ISessionFactory factory = session.SessionFactory;
 			CleanupAnyOrphanedSession(factory);
-			DoBind(session, factory);
+			EnsureFlushMode(session);
+			// wrap the session in the transaction-protection proxy
+			var sessionToBind = Wrap(session);
+
+			DoBind(sessionToBind, factory);
 		}
 
 		private void CleanupAnyOrphanedSession(ISessionFactory factory)

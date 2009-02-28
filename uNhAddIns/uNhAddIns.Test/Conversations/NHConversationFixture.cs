@@ -4,6 +4,7 @@ using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
+using uNhAddIns.TestUtils.Logging;
 
 namespace uNhAddIns.Test.Conversations
 {
@@ -339,6 +340,67 @@ namespace uNhAddIns.Test.Conversations
 			NhConversation c = NewStartedConversation();
 			c.FlushAndPause();
 			AssertIsPaused(c.GetSession(sessions));
+		}
+
+		[Test]
+		public void SessionCloseOutsideTheConversation()
+		{
+			NhConversation c = NewStartedConversation();
+			ISession session = c.GetSession(sessions);
+			session.Close();
+			Assert.That(c.GetSession(sessions), Is.SameAs(session));
+			Assert.DoesNotThrow(c.Pause);
+			Assert.That(Spying.Logger<NhConversation>().Execute(c.Resume).WholeMessage,
+									Text.DoesNotContain("Already session bound on call to Bind()"),
+									"No warning is needed for a closed session.");
+			Assert.That(c.GetSession(sessions), Is.Not.SameAs(session));
+			c.Dispose();
+		}
+
+		[Test]
+		public void SessionDisposeOutsideTheConversation()
+		{
+			NhConversation c = NewStartedConversation();
+			using(c.GetSession(sessions))
+			{
+				// Do nothing only simulate a possible usage
+				// of sessions.GetCurrentSession() outside conversation management
+			}
+			// Need some new events in NH about session.Close (Event/Listener)
+			// Assert.That(c.GetSession(sessions), Is.Null, "should auto unbind the session.");
+			Assert.DoesNotThrow(c.Pause);
+			Assert.That(Spying.Logger<NhConversation>().Execute(c.Resume).WholeMessage,
+									Text.DoesNotContain("Already session bound on call to Bind()"),
+									"No warning is needed for a closed session.");
+			Assert.That(c.GetSession(sessions), Is.Not.Null);
+			c.Dispose();
+		}
+
+		[Test]
+		public void ManualBindSessionToConversationShouldUnbindOrphanedSession()
+		{
+			// TODO: recreate this test in ConversationFixtureBase to check the wrapper
+			NhConversation c = NewStartedConversation();
+
+			ISession s = sessions.OpenSession();
+			Assert.That(Spying.Logger<NhConversation>().Execute(() => c.Bind(s)).WholeMessage,
+			            Text.Contains("Already session bound on call to Bind()"));
+			ISession sessionFromConversation = c.GetSession(sessions);
+			Assert.That(c.Wrapper.IsWrapped(sessionFromConversation), "The new bind session should be wrapped and managed by the Wrapper.");
+			Assert.That(sessionFromConversation.FlushMode, Is.EqualTo(FlushMode.Never), "The FlushMode of new bind session should be changed to Never.");
+		}
+
+		[Test]
+		public void ManualUnbindSessionDoNotCreateProblemsInARunningConversation()
+		{
+			NhConversation c = NewStartedConversation();
+
+			ISession s = c.GetSession(sessions);
+			c.Unbind(s);
+			Assert.That(c.GetSession(sessions), Is.Null, "A session still bind after manual Unbind.");
+			c.Resume();
+			Assert.That(c.GetSession(sessions).IsOpen);
+			c.End();
 		}
 	}
 }
