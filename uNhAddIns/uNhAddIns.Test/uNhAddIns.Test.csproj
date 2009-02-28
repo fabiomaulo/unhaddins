@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="Conversations\ConversationExceptionFixture.cs" />
     <Compile Include="Conversations\ConversationFixture.cs" />
     <Compile Include="Conversations\DefaultConversationFactoryFixture.cs" />
     <Compile Include="Conversations\ThreadLocalConversationalSessionContextThreadedFixture.cs" />
