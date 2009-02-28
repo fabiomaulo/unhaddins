@@ -12,6 +12,10 @@ namespace uNhAddIns.CastleAdapters
 
 		public ISession Wrap(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate)
 		{
+			if(IsWrapped(realSession))
+			{
+				return realSession;
+			}
 			var wrapper = new TransactionProtectionWrapper(realSession, closeDelegate, disposeDelegate);
 			var wrapped =
 				(ISession)

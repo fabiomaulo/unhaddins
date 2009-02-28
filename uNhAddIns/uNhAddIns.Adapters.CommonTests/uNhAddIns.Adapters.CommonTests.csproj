@@ -66,6 +66,7 @@
     <Compile Include="ConversationManagement\DomainImpl.cs" />
     <Compile Include="Integration\DomainImpl.cs" />
     <Compile Include="Integration\FullCreamFixtureBase.cs" />
+    <Compile Include="Integration\SessionWrapperFixtureBase.cs" />
     <Compile Include="With.cs" />
     <Compile Include="LogSpy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +78,10 @@
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
       <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
       <Name>uNhAddIns.Adapters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uNhAddIns.TestUtils\uNhAddIns.TestUtils.csproj">
+      <Project>{7512944F-2C52-44E2-8287-2BD39DE552F1}</Project>
+      <Name>uNhAddIns.TestUtils</Name>
     </ProjectReference>
     <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
