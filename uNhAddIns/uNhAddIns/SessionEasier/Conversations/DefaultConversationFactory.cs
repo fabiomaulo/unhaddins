@@ -1,3 +1,5 @@
+using System;
+
 namespace uNhAddIns.SessionEasier.Conversations
 {
 	public class DefaultConversationFactory : IConversationFactory
@@ -7,6 +9,14 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		public DefaultConversationFactory(ISessionFactoryProvider factoriesProvider, ISessionWrapper wrapper)
 		{
+			if (factoriesProvider == null)
+			{
+				throw new ArgumentNullException("factoriesProvider");
+			}
+			if (wrapper == null)
+			{
+				throw new ArgumentNullException("wrapper");
+			}
 			this.factoriesProvider = factoriesProvider;
 			this.wrapper = wrapper;
 		}
