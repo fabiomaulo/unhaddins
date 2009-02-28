@@ -57,7 +57,7 @@ namespace uNhAddIns.Test.Conversations
 			public void DoWork(ISessionFactory sessions)
 			{
 				var provider = new SessionFactoryProviderStub(sessions);
-				var cf = new DefaultConversationFactory(provider, new NoWrappedSessionWrapper());
+				var cf = new DefaultConversationFactory(provider, new FakeSessionWrapper());
 				var cca = new NhConversationsContainerAccessor(provider);
 
 				var tc1 = cca.Container;
