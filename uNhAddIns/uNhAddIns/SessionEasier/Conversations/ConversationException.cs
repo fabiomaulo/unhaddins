@@ -6,7 +6,6 @@ namespace uNhAddIns.SessionEasier.Conversations
 	[Serializable]
 	public class ConversationException : ApplicationException
 	{
-		public ConversationException() {}
 		public ConversationException(string message) : base(message) {}
 		public ConversationException(string message, Exception inner) : base(message, inner) {}
 
