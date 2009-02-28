@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
     <Compile Include="Conversations\ConversationFixture.cs" />
-    <Compile Include="Conversations\DoNotWrapTheSessionFixture.cs" />
+    <Compile Include="Conversations\DefaultConversationFactoryFixture.cs" />
     <Compile Include="Conversations\ThreadLocalConversationalSessionContextThreadedFixture.cs" />
     <Compile Include="Conversations\Domain.cs" />
     <Compile Include="Conversations\NHConversationFixture.cs" />
