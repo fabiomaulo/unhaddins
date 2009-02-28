@@ -2,6 +2,10 @@ using NUnit.Framework;
 
 namespace uNhAddIns.TestUtils.NhIntegration
 {
+	/// <summary>
+	/// The <see cref="FunctionalTestCase"/> should be the base class of your tests, 
+	/// where you need manage the nh's session out-side any kind of pattern.
+	/// </summary>
 	public class FunctionalTestCase : FunctionalTestCaseTemplate
 	{
 		protected IFunctionalTestSettings settings;
