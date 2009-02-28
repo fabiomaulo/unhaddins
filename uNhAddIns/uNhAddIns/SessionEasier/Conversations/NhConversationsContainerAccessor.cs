@@ -36,7 +36,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 			container = factoryImpl.CurrentSessionContext as IConversationContainer;
 			if (container == null)
 			{
-				throw new ConversationException("Current session context does not implement IConversationContainer.");
+				throw new ConversationException("Current session context does not implement IConversationContainer.\n Check your session-factory-configuration.");
 			}
 		}
 
