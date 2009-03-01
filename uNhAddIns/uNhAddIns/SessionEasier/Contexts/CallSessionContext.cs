@@ -20,7 +20,7 @@ namespace uNhAddIns.SessionEasier.Contexts
 
 		protected override void SetContextDictionary(IDictionary<ISessionFactory, ISession> value)
 		{
-			CallContext.SetData(Commons.SessionFactoryKey, value);
+			CallContext.LogicalSetData(Commons.SessionFactoryKey, value);
 		}
 
 		#endregion
