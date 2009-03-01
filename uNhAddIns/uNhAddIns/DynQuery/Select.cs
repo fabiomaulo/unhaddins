@@ -26,9 +26,10 @@ namespace uNhAddIns.DynQuery
 
 		private Select(string partialClause, bool useDistinct)
 		{
-			if (string.IsNullOrEmpty(partialClause) || partialClause.Trim().Length == 0)
+			partialClause = partialClause.Trim();
+			if (string.IsNullOrEmpty(partialClause) || partialClause.Length == 0)
 				throw new ArgumentNullException("partialClause");
-			this.partialClause = partialClause.Trim();
+			this.partialClause = partialClause;
 			this.useDistinct = useDistinct;
 		}
 
@@ -103,9 +104,8 @@ namespace uNhAddIns.DynQuery
 		{
 			get
 			{
-				if (HasMembers)
-					return partialClause;
-				return string.Empty;
+				// There's no need to verify the HasMembers, because it can never be empty.
+				return partialClause;
 			}
 		}
 
@@ -116,7 +116,7 @@ namespace uNhAddIns.DynQuery
 		/// </summary>
 		public bool HasMembers
 		{
-			get { return partialClause.Trim().Length > 0; }
+			get { return partialClause.Length > 0; }
 		}
 
 		#endregion

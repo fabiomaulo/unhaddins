@@ -33,6 +33,20 @@ namespace uNhAddIns.DynQuery
 			return this;
 		}
 
+		public From FromWhereClause()
+		{
+			var result = new From(partialClause);
+			foreach (var s in joins)
+			{
+				result.Join(s);
+			}
+			if (where != null)
+				result.SetWhere(where.Clone());
+			return result;
+		}
+
+		#region Where Methods
+
 		private Where where;
 		public Where Where()
 		{
@@ -63,6 +77,10 @@ namespace uNhAddIns.DynQuery
 			where = whereClause;
 		}
 
+		#endregion
+
+		#region Order By Methods
+
 		private OrderBy orderBy;
 		public OrderBy OrderBy()
 		{
@@ -88,6 +106,10 @@ namespace uNhAddIns.DynQuery
 			orderBy = orderClause;
 		}
 
+		#endregion
+
+		#region Group By Methods
+
 		private GroupBy groupBy;
 		public GroupBy GroupBy()
 		{
@@ -101,17 +123,16 @@ namespace uNhAddIns.DynQuery
 			return GroupBy().Add(propertyPath);
 		}
 
-		public From FromWhereClause()
+		public void SetGroupBy(GroupBy groupClause)
 		{
-			var result = new From(partialClause);
-			foreach (var s in joins)
-			{
-				result.Join(s);
-			}
-			if (where != null)
-				result.SetWhere(where.Clone());
-			return result;
+			if (groupClause == null)
+				throw new ArgumentNullException("groupClause");
+
+			groupBy = groupClause;
+			groupBy.SetOwner(this);
 		}
+
+		#endregion
 
 		#region IDynClause Members
 
@@ -140,8 +161,6 @@ namespace uNhAddIns.DynQuery
 			}
 		}
 
-		#region IQueryPart Members
-
 		/// <summary>
 		/// The query part.
 		/// </summary>
@@ -149,8 +168,6 @@ namespace uNhAddIns.DynQuery
 		{
 			get { return string.Format("from {0}", partialClause); }
 		}
-
-		#endregion
 
 		/// <summary>
 		/// The clause has some meber or not?
@@ -161,6 +178,5 @@ namespace uNhAddIns.DynQuery
 		}
 
 		#endregion
-		
 	}
 }
