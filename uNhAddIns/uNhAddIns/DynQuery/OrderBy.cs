@@ -68,7 +68,7 @@ namespace uNhAddIns.DynQuery
 		#endregion
 
 		/// <summary>
-		/// The clause has some meber or not?
+		/// The clause has some members or not?
 		/// </summary>
 		public bool HasMembers
 		{

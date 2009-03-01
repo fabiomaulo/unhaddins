@@ -3,7 +3,7 @@ using System.Text;
 
 namespace uNhAddIns.DynQuery
 {
-	public enum LogicalOperator
+	public enum		LogicalOperator
 	{
 		Null,
 		And,
@@ -45,7 +45,7 @@ namespace uNhAddIns.DynQuery
 						result.Append(" or ").Append(Expression);
 						break;
 					case LogicalOperator.Not:
-						result.Append(" not ").Append(Expression);
+						result.Append(" and ").Append(Expression);
 						break;
 					case LogicalOperator.Null:
 					default:
@@ -61,7 +61,12 @@ namespace uNhAddIns.DynQuery
 		/// </summary>
 		public string Expression
 		{
-			get { return string.Format("({0})", expression); }
+			get
+			{
+				if (loperator == LogicalOperator.Not)
+					return string.Format("not ({0})", expression);
+				return string.Format("({0})", expression);
+			}
 		}
 
 		#endregion

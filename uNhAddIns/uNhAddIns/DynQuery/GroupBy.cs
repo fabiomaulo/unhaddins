@@ -15,10 +15,8 @@ namespace uNhAddIns.DynQuery
 			this.owner = owner;
 		}
 
-		public void SetOwner(From fromClause)
+		internal void SetOwner(From fromClause)
 		{
-			if (owner == null)
-				throw new ArgumentNullException("fromClause");
 			owner = fromClause;
 		}
 

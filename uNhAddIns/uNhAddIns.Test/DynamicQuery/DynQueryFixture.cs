@@ -1,3 +1,4 @@
+using System;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.DynQuery;
@@ -7,6 +8,12 @@ namespace uNhAddIns.Test.DynamicQuery
 	[TestFixture]
 	public class DynQueryFixture
 	{
+		[Test]
+		public void FromWithEmptySelect()
+		{
+			Assert.AreEqual("from Foo", new From("Foo").Clause);
+		}
+
 		[Test]
 		public void LogicalExpressionTest()
 		{
@@ -72,6 +79,7 @@ namespace uNhAddIns.Test.DynamicQuery
 		public void SelectTest()
 		{
 			Select s = new Select("f.Name, f.Description, b.Descriptoin").From("Foo f join f.Bar b");
+			Assert.IsTrue(s.HasMembers);
 			Assert.AreEqual("f.Name, f.Description, b.Descriptoin", s.Expression);
 			Assert.AreEqual("select f.Name, f.Description, b.Descriptoin from Foo f join f.Bar b", s.Clause);
 		}
@@ -110,9 +118,10 @@ namespace uNhAddIns.Test.DynamicQuery
 
 			// Inject the OrderBy to the select
 			s.From().SetOrderBy(order);
+			s.From().OrderBy("b.Other");
 
 			// And: The winner is....
-			string expected = "select f.Name, f.Description, b.Descriptoin from Foo f join f.Bar b where ((f.Name like :pName) and (b.Asociated > :pAso)) order by b.Asociated desc, f.Name";
+			string expected = "select f.Name, f.Description, b.Descriptoin from Foo f join f.Bar b where ((f.Name like :pName) and (b.Asociated > :pAso)) order by b.Asociated desc, f.Name, b.Other";
 			Assert.AreEqual(expected, s.Clause);
 		}
 
@@ -231,6 +240,163 @@ namespace uNhAddIns.Test.DynamicQuery
 
 			expected = "select bp.BlogUsuser.Name, count(*) from BlogPost bp join bp.Category c where ((bp.State.ID = 1) and (c.ID = :CategoryID)) group by bp.BlogUsuser.Name order by bp.BlogUsuser.Name";
 			Assert.That(ddq.Hql, Is.EqualTo(expected));
+		}
+
+		[Test]
+		public void DifferentLogicalExpressions()
+		{
+			Where simple = new Where().Not("a = 1");
+			Assert.AreEqual("where (not (a = 1))", simple.Clause);
+
+			Where full = new Where().And("a = 1").Or("b = 2").Not("c = 3");
+			Assert.AreEqual("where ((a = 1) or (b = 2) and not (c = 3))", full.Clause);
+		}
+
+		[Test]
+		[ExpectedException(typeof(InvalidOperationException))]
+		public void GroupByFailsSettingOrderWithoutFrom()
+		{
+			new GroupBy().OrderBy("Name", true);
+		}
+
+		[Test]
+		public void GroupByOrdersAfterHavingFrom()
+		{
+			GroupBy groupBy = new GroupBy();
+
+			From from = new From("Foo");
+			from.SetGroupBy(groupBy);
+
+			groupBy.OrderBy("Name", true);
+
+			Assert.AreEqual("from Foo order by Name desc", from.Clause);
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void FailsIfGroupingByNothing()
+		{
+			new GroupBy().Add(" ");
+		}
+
+		[Test]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void FailsIfSelectsHasNoFrom()
+		{
+			string clause = new Select("p").Clause;
+		}
+
+		[Test]
+		public void UsesDistinct()
+		{
+			Assert.AreEqual("select distinct p from Foo p", Select.Distinct("p").From("Foo p").Clause);
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void FailsIfSelectIsEmpty()
+		{
+			Select.Distinct("");
+		}
+
+		[Test]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void FailsIfOverwritingFromClause()
+		{
+			Select.Distinct("p").From("Foo p").From("Bar p");
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void FailsIfSettingNullFrom()
+		{
+			Select select = Select.Distinct("p");
+			select.SetFrom(null);
+		}
+
+		[Test]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void FailsWhenGettingFromIfNotSet()
+		{
+			// no from is set yet!
+			Select.Distinct("p").From();
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void FailsIfWhereIsNull()
+		{
+			new From("Foo").SetWhere(null);
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void FailsIfOrderByIsNull()
+		{
+			new From("Foo").SetOrderBy(null);
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void FailsIfGroupByIsNull()
+		{
+			new From("Foo").SetGroupBy(null);
+		}
+
+		[Test]
+		[ExpectedException(typeof(NotSupportedException))]
+		public void WhereNotFailsWhereIsAlreadySet()
+		{
+			From from = new From("Foo");
+			from.Where().And("Name = 'Sean'");
+			from.WhereNot().And("Name = 'Sean'");
+		}
+
+		[Test]
+		public void UsingWhereNot()
+		{
+			From from = new From("Foo");
+			from.WhereNot().And("Name = 'Sean'");
+			Assert.AreEqual("from Foo where not ((Name = 'Sean'))", from.Clause);
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void GroupByFailsIfPropertyIsEmpty()
+		{
+			new GroupBy().Add("");
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void OrderByFailsIfPropertyIsEmpty()
+		{
+			new OrderBy().Add("");
+		}
+
+		[Test]
+		[ExpectedException(typeof(ArgumentNullException))]
+		public void OrderByFailsIfPropertyIsASpace()
+		{
+			new OrderBy().Add("  ");
+		}
+
+		[Test]
+		public void OrderByExpressionDefaultsToEmpty()
+		{
+			Assert.IsEmpty(new OrderBy().Expression);
+		}
+
+		[Test]
+		public void GroupByMultipleProperties()
+		{
+			GroupBy groupBy = new GroupBy();
+			Assert.IsEmpty(groupBy.Expression);
+
+			groupBy.Add("Activity");
+			groupBy.Add("Country");
+
+			Assert.AreEqual("Activity, Country", groupBy.Expression);
 		}
 	}
 }

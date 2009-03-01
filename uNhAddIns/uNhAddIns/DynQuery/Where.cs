@@ -94,7 +94,9 @@ namespace uNhAddIns.DynQuery
 			iter.MoveNext();
 			clause.Append(iter.Current.Expression);
 			while (iter.MoveNext())
+			{
 				clause.Append(iter.Current.Clause);
+			}
 			return clause.ToString();
 		}
 	}
