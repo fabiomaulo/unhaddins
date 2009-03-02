@@ -17,7 +17,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 			XmlConfigurator.Configure();
 		}
 
-		protected abstract IFunctionalTestSettings Settings { get; }
+		protected abstract IFunctionalTestSettings Settings { get; set; }
 
 		public Configuration Cfg { get; private set; }
 

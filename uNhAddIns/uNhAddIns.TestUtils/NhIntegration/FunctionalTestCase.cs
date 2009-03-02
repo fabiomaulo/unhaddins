@@ -8,29 +8,24 @@ namespace uNhAddIns.TestUtils.NhIntegration
 	/// </summary>
 	public class FunctionalTestCase : FunctionalTestCaseTemplate
 	{
-		protected IFunctionalTestSettings settings;
-
 		public FunctionalTestCase()
 		{
 			// Convention: mappings are in the same namespace of the test
 			var ml = new NamespaceMappingsLoader(GetType().Assembly, GetType().Namespace);
 			var s = new DefaultFunctionalTestSettings(ml);
-			settings = s;
+			Settings = s;
 		}
 
 		public FunctionalTestCase(string baseName, string[] mappings)
 		{
 			var ml = new ResourceWithRelativeNameMappingsLoader(GetType().Assembly, baseName, mappings);
 			var s = new DefaultFunctionalTestSettings(ml);
-			settings = s;
+			Settings = s;
 		}
 
 		#region Overrides of AbstractFunctionalTestCase
 
-		protected override IFunctionalTestSettings Settings
-		{
-			get { return settings; }
-		}
+		protected override IFunctionalTestSettings Settings { get; set; }
 
 		#endregion
 
@@ -51,6 +46,5 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		{
 			AssertAllDataRemovedIfNeeded();
 		}
-
 	}
 }
