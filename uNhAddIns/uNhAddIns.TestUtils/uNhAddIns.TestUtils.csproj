@@ -55,6 +55,7 @@
     <Compile Include="Logging\IWorker.cs" />
     <Compile Include="Logging\LogSpy.cs" />
     <Compile Include="Logging\WorkerLogSpy.cs" />
+    <Compile Include="NhIntegration\Extensions.cs" />
     <Compile Include="NhIntegration\FunctionalTestCase.cs" />
     <Compile Include="NhIntegration\DefaultFunctionalTestSettings.cs" />
     <Compile Include="NhIntegration\IFunctionalTestSettings.cs" />
