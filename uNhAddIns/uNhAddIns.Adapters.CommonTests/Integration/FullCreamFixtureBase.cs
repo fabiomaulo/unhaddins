@@ -7,44 +7,26 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
+using uNhAddIns.TestUtils.Logging;
+using uNhAddIns.TestUtils.NhIntegration;
 
 namespace uNhAddIns.Adapters.CommonTests.Integration
 {
-
-    public static class AssertExtensions
-    {
-        public static void AssertContains<T>(this ICollection<T> source, string itemFragmentToFind)
-        {
-            Assert.That(source, Has.Some.Contains(itemFragmentToFind));
-        }
-
-        public static void AssertDoesNotContain(this ICollection<string> msgs, string messageFragment)
-        {
-            Assert.That(msgs, Has.None.Contains(messageFragment));
-        }
-
-        public static void AssertContainsOneInstanceOf(this ICollection<string> msgs, string messageFragment)
-        {
-            var countOfMatchingMsgs = msgs.Where(msg => msg.Contains(messageFragment)).Count();
-            Assert.That(countOfMatchingMsgs, Is.EqualTo(1));
-        }
-    }
-
 	public abstract class FullCreamFixtureBase
 	{
+		private const string NHibernateFlushEventsLoggerName = "NHibernate.Event.Default.AbstractFlushingEventListener";
+		private const string NHibernateSessionLoggerName = "NHibernate.Impl.SessionImpl";
 
-	    private const string ExecutingFlushMessage = "executing flush";
-	    private const string NHibernateFlushEvents = "NHibernate.Event.Default.AbstractFlushingEventListener";
-	    private const string NHibernateSession = "NHibernate.Impl.SessionImpl";
-	    private const string SessionDisposedMessage = "running ISession.Dispose";
-	    private const string SessionOpenedMessage = "opened session";
+		private const string ExecutingFlushMessage = "executing flush";
+		private const string SessionDisposedMessage = "running ISession.Dispose";
+		private const string SessionOpenedMessage = "opened session";
 
-	    protected FullCreamFixtureBase()
-	    {
-            XmlConfigurator.Configure();
-	    }
+		protected FullCreamFixtureBase()
+		{
+			XmlConfigurator.Configure();
+		}
 
-	    /// <summary>
+		/// <summary>
 		/// Initialize the ServiceLocator registering all services needed by this test.
 		/// </summary>
 		/// <remarks>
@@ -92,143 +74,107 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 			InitializeServiceLocator();
 		}
 
-        [TearDown]
-        public void TearDown()
-        {
-            using (var session = OpenSession())
-            {
-                session.Delete("from Silly");
-                session.Flush();
-            }
-        }
+		[TearDown]
+		public void TearDown()
+		{
+			var factory = ServiceLocator.Current.GetInstance<ISessionFactory>();
+			factory.EncloseInTransaction(session => session.Delete("from Silly"));
+		}
 
-	    private ISession OpenSession()
-	    {
-            //not sure how to get a ISessionFactory - this is obviously a hack!
-	        var dao = ServiceLocator.Current.GetInstance<ISillyDao>() as SillyDao;
-	        return dao.Factory.OpenSession();
-	    }
+		[Test]
+		public void ShouldNotStartUnitOfWorkWhenConversationModelFirstCreated()
+		{
+			Assert.That(
+				Spying.Logger(NHibernateSessionLoggerName).Execute(() => ServiceLocator.Current.GetInstance<ISillyCrudModel>()).
+					WholeMessage, Text.DoesNotContain(SessionOpenedMessage));
+		}
 
+		[Test]
+		public void ShouldStartUnitOfWorkWhenFirstMethodCalledOnConversationModel()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
 
-	    [Test]
-        public void ShouldNotStartUnitOfWorkWhenConversationModelFirstCreated()
-        {
-	        var msgs = With.Logging(NHibernateSession, () => ServiceLocator.Current.GetInstance<ISillyCrudModel>());
+			Assert.That(Spying.Logger(NHibernateSessionLoggerName).Execute(() => scm.GetEntirelyList()).WholeMessage,
+			            Text.Contains(SessionOpenedMessage));
+		}
 
-            msgs.AssertDoesNotContain(SessionOpenedMessage);
-        }
+		[Test]
+		public void ShouldRetainUnitOfWorkBetweenMethodCallsToConversationModel()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			Assert.That(Spying.Logger(NHibernateSessionLoggerName).Execute(() =>
+			                                                               	{
+			                                                               		scm.GetEntirelyList();
+			                                                               		scm.GetEntirelyList();
+			                                                               	}).WholeMessage,
+			            Text.DoesNotContain(SessionDisposedMessage));
+		}
 
+		[Test]
+		public void SusequentCallsShouldExecuteWithinSameUnitOfWork()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			Assert.That(Spying.Logger(NHibernateSessionLoggerName).Execute(() =>
+			                                                               	{
+			                                                               		scm.GetEntirelyList();
+			                                                               		scm.GetEntirelyList();
+			                                                               	}).MessageSequence.Where(
+			            	msg => msg.Contains(SessionOpenedMessage)).Count(), Is.EqualTo(1));
+		}
 
-	    [Test]
-        public void ShouldStartUnitOfWorkWhenFirstMethodCalledOnConversationModel()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+		[Test]
+		public void CallingMethodThatEndsConversationShouldFlushUnitOfWork()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			scm.Save(new Silly());
+			Assert.That(Spying.Logger(NHibernateFlushEventsLoggerName).Execute(scm.AcceptAll).WholeMessage,
+			            Text.Contains(ExecutingFlushMessage));
+		}
 
-            //when
-            var msgs = With.Logging(NHibernateSession, () => scm.GetEntirelyList());
+		[Test]
+		public void SubsequentCallsAfterEndingConversationShouldStartAnotherUnitOfWork()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			scm.Save(new Silly());
+			scm.AcceptAll();
 
-            //then
-            msgs.AssertContains(SessionOpenedMessage);
-	    }
+			Assert.That(Spying.Logger(NHibernateSessionLoggerName).Execute(() => scm.GetEntirelyList()).WholeMessage,
+			            Text.Contains(SessionOpenedMessage));
+		}
 
+		[Test]
+		public void CallingMethodThatAbortsConversationShouldThrowAwayUnitOfWork()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			scm.Save(new Silly());
 
-	    [Test]
-        public void ShouldRetainUnitOfWorkBetweenMethodCallsToConversationModel()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			//when
+			string msgs = Spying.Logger(NHibernateSessionLoggerName).Execute(scm.Abort).WholeMessage;
 
-            //when
-	        var msgs = With.Logging(NHibernateSession, () =>
-	                                                       {
-	                                                           scm.GetEntirelyList();
-	                                                           scm.GetEntirelyList();
-	                                                       });
+			//then
+			Assert.That(msgs, Text.DoesNotContain(ExecutingFlushMessage));
+			Assert.That(msgs, Text.Contains(SessionDisposedMessage));
+		}
 
-            //then
-            msgs.AssertDoesNotContain(SessionDisposedMessage);
-	    }
+		[Test]
+		public void SubsequentCallsAfterAbortingConversationShouldStartAnotherUnitOfWork()
+		{
+			//given
+			var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
+			scm.Save(new Silly());
+			scm.Abort();
 
+			Assert.That(Spying.Logger(NHibernateSessionLoggerName).Execute(() => scm.GetEntirelyList()).WholeMessage,
+			            Text.Contains(SessionOpenedMessage));
+		}
 
-	    [Test]
-	    public void SusequentCallsShouldExecuteWithinSameUnitOfWork()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
-
-            //when
-	        var msgs = With.Logging(NHibernateSession, () =>
-	                                                       {
-	                                                           scm.GetEntirelyList();
-	                                                           scm.GetEntirelyList();
-	                                                       });
-
-            //then
-	        msgs.AssertContainsOneInstanceOf(SessionOpenedMessage);
-	    }
-
-	    [Test]
-	    public void CallingMethodThatEndsConversationShouldFlushUnitOfWork()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
-	        scm.Save(new Silly());
-
-            //when
-            var msgs = With.Logging(NHibernateFlushEvents, scm.AcceptAll);
-
-            //then
-            msgs.AssertContains(ExecutingFlushMessage);
-	    }
-
-	    [Test]
-	    public void SubsequentCallsAfterEndingConversationShouldStartAnotherUnitOfWork()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
-            scm.Save(new Silly());
-	        scm.AcceptAll();
-
-            //when
-            var msgs = With.Logging(NHibernateSession, () => scm.GetEntirelyList());
-
-            //then
-            msgs.AssertContains(SessionOpenedMessage);
-
-	    }
-
-	    [Test]
-	    public void CallingMethodThatAbortsConversationShouldThrowAwayUnitOfWork()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
-            scm.Save(new Silly());
-
-            //when
-            var msgs = With.Logging(NHibernateSession, scm.Abort);
-
-            //then
-	        msgs.AssertDoesNotContain(ExecutingFlushMessage);
-	        msgs.AssertContains(SessionDisposedMessage);
-	    }
-
-	    [Test]
-	    public void SubsequentCallsAfterAbortingConversationShouldStartAnotherUnitOfWork()
-	    {
-            //given
-            var scm = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
-            scm.Save(new Silly());
-            scm.Abort();
-
-            //when
-            var msgs = With.Logging(NHibernateSession, () => scm.GetEntirelyList());
-
-            //then
-            msgs.AssertContains(SessionOpenedMessage);
-	    }
-
-	    [Test]
+		[Test]
 		public void SimultaneousConversationExample()
 		{
 			// This test shows what happens using something else than identity

@@ -168,6 +168,9 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 
 	public class ConversationCreationInterceptor : IMyServiceConversationCreationInterceptor
 	{
+		public const string StartingMessage = "Starting";
+		public const string StartedMessage = "Started";
+
 		public ILog Log
 		{
 			get { return LogManager.GetLogger(typeof (ConversationCreationInterceptor)); }
@@ -177,8 +180,8 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 
 		public void Configure(IConversation conversation)
 		{
-			conversation.Starting += ((x, y) => Log.Debug("Starting"));
-			conversation.Started += ((x, y) => Log.Debug("Started"));
+			conversation.Starting += ((x, y) => Log.Debug(StartingMessage));
+			conversation.Started += ((x, y) => Log.Debug(StartedMessage));
 		}
 
 		#endregion
@@ -201,6 +204,9 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 	public class ConvetionConversationCreationInterceptor :
 		IConversationCreationInterceptorConvention<InheritedSillyCrudModelWithConvetionConversationCreationInterceptor>
 	{
+		public const string StartingMessage = "Starting with convention";
+		public const string StartedMessage = "Started with convention";
+
 		public ILog Log
 		{
 			get { return LogManager.GetLogger(typeof (ConvetionConversationCreationInterceptor)); }
@@ -210,8 +216,8 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 
 		public void Configure(IConversation conversation)
 		{
-			conversation.Starting += ((x, y) => Log.Debug("Starting with convention"));
-			conversation.Started += ((x, y) => Log.Debug("Started with convention"));
+			conversation.Starting += ((x, y) => Log.Debug(StartingMessage));
+			conversation.Started += ((x, y) => Log.Debug(StartedMessage));
 		}
 
 		#endregion
