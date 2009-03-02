@@ -33,5 +33,10 @@ namespace uNhAddIns.SessionEasier
 			BeforeConfigure(this, args);
 			configured = args.Configured;
 		}
+
+		protected virtual Configuration CreateConviguration()
+		{
+			return new Configuration();
+		}
 	}
 }

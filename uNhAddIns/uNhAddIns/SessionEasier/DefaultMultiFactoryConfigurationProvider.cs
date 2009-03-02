@@ -16,7 +16,7 @@ namespace uNhAddIns.SessionEasier
 				if (setting.StartsWith(factoriesStart))
 				{
 					string nhConfigFilePath = ConfigurationManager.AppSettings[setting];
-					var configuration = new Configuration();
+					var configuration = CreateConviguration();
 
 					bool configured;
 					DoBeforeConfigure(configuration, out configured);
