@@ -4,7 +4,7 @@ using uNhAddIns.TestUtils.NhIntegration;
 
 namespace uNhAddIns.Test.Pagination
 {
-	public class PaginationTestBase : IntegrationTest
+	public class PaginationTestBase : FunctionalTestCase
 	{
 		public const int TotalFoo = 15;
 		private class PaginationTestSettings : DefaultFunctionalTestSettings

@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Impl;
 using NUnit.Framework;
 using uNhAddIns.Pagination;
+using uNhAddIns.TestUtils.NhIntegration;
 
 namespace uNhAddIns.Test.Pagination
 {
@@ -22,18 +23,18 @@ namespace uNhAddIns.Test.Pagination
 		public void RowsCount()
 		{
 			IRowsCounter rc = new QueryRowsCounter("select count(*) from Foo");
-			
-			EnclosingInTransaction(s => Assert.AreEqual(TotalFoo, rc.GetRowsCount(s)));
+
+			SessionFactory.EncloseInTransaction(s => Assert.AreEqual(TotalFoo, rc.GetRowsCount(s)));
 		}
 
 		[Test]
 		public void InvalidRowsCount()
 		{
 			IRowsCounter rc = new QueryRowsCounter("select f.Name from Foo f");
-			EnclosingInTransaction(s => Assert.Throws<HibernateException>(()=> rc.GetRowsCount(s)));
+			SessionFactory.EncloseInTransaction(s => Assert.Throws<HibernateException>(() => rc.GetRowsCount(s)));
 
 			rc = new QueryRowsCounter("select f.Name from Foo f where f.Name='N1'");
-			EnclosingInTransaction(s => Assert.Throws<HibernateException>(() => rc.GetRowsCount(s)));
+			SessionFactory.EncloseInTransaction(s => Assert.Throws<HibernateException>(() => rc.GetRowsCount(s)));
 		}
 
 		[Test]
@@ -43,7 +44,7 @@ namespace uNhAddIns.Test.Pagination
 				new DetachedQuery("select count(*) from Foo f where f.Name like :p1")
 				.SetString("p1", "%1_");
 			IRowsCounter rc = new QueryRowsCounter(dq);
-			EnclosingInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
+			SessionFactory.EncloseInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
 		}
 
 		[Test]
@@ -55,8 +56,8 @@ namespace uNhAddIns.Test.Pagination
 			originalQuery.SetString("p1", "%1_");
 			
 			IRowsCounter rc = QueryRowsCounter.Transforming(originalQuery);
-			
-			EnclosingInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
+
+			SessionFactory.EncloseInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
 		}
 
 		[Test]
@@ -73,7 +74,7 @@ namespace uNhAddIns.Test.Pagination
 			
 			originalQuery.SetString("p1", "%1_");
 
-			EnclosingInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
+			SessionFactory.EncloseInTransaction(s => Assert.AreEqual(5, rc.GetRowsCount(s)));
 		}
 
 	}
