@@ -2,6 +2,7 @@ using System;
 using NHibernate.Impl;
 using NUnit.Framework;
 using uNhAddIns.Pagination;
+using uNhAddIns.TestUtils.NhIntegration;
 
 namespace uNhAddIns.Test.Pagination
 {
@@ -21,7 +22,7 @@ namespace uNhAddIns.Test.Pagination
 		public void RowsCount()
 		{
 			IRowsCounter rc = new NamedQueryRowsCounter("Foo.Count.All");
-			EnclosingInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(TotalFoo)));
+			SessionFactory.EncloseInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(TotalFoo)));
 		}
 
 		[Test]
@@ -30,7 +31,7 @@ namespace uNhAddIns.Test.Pagination
 			var q = new DetachedNamedQuery("Foo.Count.Parameters");
 			q.SetString("p1", "%1_");
 			IRowsCounter rc = new NamedQueryRowsCounter(q);
-			EnclosingInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(5)));
+			SessionFactory.EncloseInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(5)));
 		}
 
 		[Test]
@@ -39,7 +40,7 @@ namespace uNhAddIns.Test.Pagination
 			var q = new DetachedNamedQuery("Foo.Parameters");
 			IRowsCounter rc = new NamedQueryRowsCounter("Foo.Count.Parameters", q);
 			q.SetString("p1", "%1_");
-			EnclosingInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(5)));
+			SessionFactory.EncloseInTransaction(s => Assert.That(rc.GetRowsCount(s), Is.EqualTo(5)));
 		}
 	}
 }

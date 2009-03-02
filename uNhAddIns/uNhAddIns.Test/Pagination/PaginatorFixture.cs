@@ -5,6 +5,7 @@ using NHibernate.Impl;
 using NUnit.Framework;
 using uNhAddIns.GenericImpl;
 using uNhAddIns.Pagination;
+using uNhAddIns.TestUtils.NhIntegration;
 
 namespace uNhAddIns.Test.Pagination
 {
@@ -15,7 +16,7 @@ namespace uNhAddIns.Test.Pagination
 		public void CtorProtection()
 		{
 			Assert.Throws<ArgumentNullException>(() => new Paginator<Foo>(3, null));
-			EnclosingInTransaction(
+			SessionFactory.EncloseInTransaction(
 				session =>
 				Assert.Throws<ArgumentOutOfRangeException>(
 					() => new Paginator<Foo>(0, new PaginableQuery<Foo>(session, new DetachedQuery("from Foo")))));

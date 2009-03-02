@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.Pagination;
+using uNhAddIns.TestUtils.NhIntegration;
 
 namespace uNhAddIns.Test.Pagination
 {
@@ -46,7 +47,7 @@ namespace uNhAddIns.Test.Pagination
 
 			// Add an element from other session
 			object savedId = null;
-			EnclosingInTransaction(s => savedId = s.Save(new Foo("NZ", "DZ")));
+			SessionFactory.EncloseInTransaction(s => savedId = s.Save(new Foo("NZ", "DZ")));
 
 			// Reload the same page and have the new element
 			using (ISession session = SessionFactory.OpenSession())
@@ -57,7 +58,7 @@ namespace uNhAddIns.Test.Pagination
 				Assert.AreEqual(6, l.Count);
 			}
 
-			EnclosingInTransaction(s => s.Delete(s.Get<Foo>(savedId)));
+			SessionFactory.EncloseInTransaction(s => s.Delete(s.Get<Foo>(savedId)));
 		}
 
 		[Test]
