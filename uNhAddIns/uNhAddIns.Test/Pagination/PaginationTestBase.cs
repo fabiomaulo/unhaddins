@@ -49,7 +49,7 @@ namespace uNhAddIns.Test.Pagination
 			var ml = new NamespaceMappingsLoader(GetType().Assembly, GetType().Namespace);
 			var s = new PaginationTestSettings(ml);
 
-			settings = s;
+			Settings = s;
 		}
 	}
 }

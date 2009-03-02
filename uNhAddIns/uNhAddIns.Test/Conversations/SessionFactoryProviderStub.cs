@@ -44,7 +44,9 @@ namespace uNhAddIns.Test.Conversations
 			return factory;
 		}
 
+#pragma warning disable 67
 		public event EventHandler<EventArgs> BeforeCloseSessionFactory;
+#pragma warning restore 67
 
 		#endregion
 
