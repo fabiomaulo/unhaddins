@@ -60,9 +60,18 @@
     <Compile Include="NhIntegration\DefaultFunctionalTestSettings.cs" />
     <Compile Include="NhIntegration\IFunctionalTestSettings.cs" />
     <Compile Include="NhIntegration\FunctionalTestCaseTemplate.cs" />
+    <Compile Include="NhIntegration\IMappingsLoader.cs" />
+    <Compile Include="NhIntegration\ITestContext.cs" />
+    <Compile Include="NhIntegration\ITestContextAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Logging\Spying.cs" />
     <Compile Include="Reflector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
+      <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
+      <Name>uNhAddIns</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

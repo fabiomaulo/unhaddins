@@ -10,7 +10,8 @@ namespace uNhAddIns.Test.Pagination
 		private class PaginationTestSettings : DefaultFunctionalTestSettings
 		{
 
-			public PaginationTestSettings(IMappingLoader mappingLoader) : base(mappingLoader)
+			public PaginationTestSettings(IMappingsLoader mappingLoader)
+				: base(mappingLoader)
 			{
 				AssertAllDataRemoved = false;
 			}

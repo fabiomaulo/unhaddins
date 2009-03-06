@@ -5,12 +5,7 @@ using NHibernate.Tool.hbm2ddl;
 
 namespace uNhAddIns.TestUtils.NhIntegration
 {
-	public interface IMappingLoader
-	{
-		void LoadMappings(Configuration configuration);
-	}
-
-	public class NoOpMappingsLoader : IMappingLoader
+	public class NoOpMappingsLoader : IMappingsLoader
 	{
 		#region Implementation of IMappingLoader
 
@@ -19,7 +14,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		#endregion
 	}
 
-	public class AssemblyMappingsLoader : IMappingLoader
+	public class AssemblyMappingsLoader : IMappingsLoader
 	{
 		private readonly Assembly assembly;
 
@@ -38,7 +33,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		#endregion
 	}
 
-	public class NamespaceMappingsLoader : IMappingLoader
+	public class NamespaceMappingsLoader : IMappingsLoader
 	{
 		private readonly Assembly assembly;
 		private readonly string mappingNamespace;
@@ -65,7 +60,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		#endregion
 	}
 
-	public class ResourceWithRelativeNameMappingsLoader : IMappingLoader
+	public class ResourceWithRelativeNameMappingsLoader : IMappingsLoader
 	{
 		private readonly Assembly assembly;
 		private readonly string baseName;
@@ -93,9 +88,9 @@ namespace uNhAddIns.TestUtils.NhIntegration
 
 	public class DefaultFunctionalTestSettings : IFunctionalTestSettings
 	{
-		private readonly IMappingLoader mappingLoader;
+		private readonly IMappingsLoader mappingLoader;
 
-		public DefaultFunctionalTestSettings(IMappingLoader mappingLoader)
+		public DefaultFunctionalTestSettings(IMappingsLoader mappingLoader)
 		{
 			this.mappingLoader = mappingLoader;
 		}
