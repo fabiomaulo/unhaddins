@@ -1,17 +1,21 @@
 import java.util.List;
-
+import java.io.*;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.hibernate.hql.ast.HqlParser;
 import antlr.collections.AST;
+import org.hibernate.hql.ast.util.NodeTraverser;
+import org.hibernate.hql.ast.QueryTranslatorImpl;
 
 public class GenerateHibernateResults 
 {
    public static void main(String[] args) throws Exception 
    {
+      PrintStream out = new PrintStream("../TestQueriesWithResults.xml", "UTF-8");
+      
       Document document = getDocument("../TestQueries.xml");
 
-      System.out.println("<Tests>");
+      out.println("<Tests>");
 
       List<Node> testGroups = document.selectNodes("/Tests/TestGroup");
       for (Node testGroup : testGroups)
@@ -19,11 +23,11 @@ public class GenerateHibernateResults
          String name = testGroup.valueOf("@Name");
          String desc = testGroup.valueOf("Description");
        
-         System.out.println("   <TestGroup Name=\"" + name + "\">");
+         out.println("   <TestGroup Name=\"" + name + "\">");
 
          if (desc != null)
          {
-            System.out.println("      <Description>" + desc + "</Description>");
+            out.println("      <Description>" + desc + "</Description>");
          }  
 
          List<Node> tests = testGroup.selectNodes("Test");
@@ -36,31 +40,41 @@ public class GenerateHibernateResults
 
             if (ignore == null || ignore == "")
             {
-               System.out.println("      <Test>");
+               out.println("      <Test>");
             } 
             else
             {
-               System.out.println("      <Test Ignore=\"" + ignore + "\">");
+               out.println("      <Test Ignore=\"" + ignore + "\">");
             } 
 
 
             if (desc != null && desc != "")
             {
-               System.out.println("         <Description>" + desc + "</Description>");
+               out.println("         <Description>" + desc + "</Description>");
             }  
 
-            System.out.println("         <Query><![CDATA[" + query + "]]></Query>");
+            out.println("         <Query><![CDATA[" + query + "]]></Query>");
 
-            System.out.println("         <Result><![CDATA[" + Parse(query).toStringTree() + "]]></Result>");
+            String result;
+            try
+            {
+               result = Parse(query).toStringTree();
+            }
+            catch (Exception e)
+            {
+               result = "Exception";
+            }
 
-            System.out.println("      </Test>");
+            out.println("         <Result><![CDATA[" + result + "]]></Result>");
+
+            out.println("      </Test>");
          }
 
-         System.out.println("   </TestGroup>");
+         out.println("   </TestGroup>");
 
       }
 
-      System.out.println("</Tests>");
+      out.println("</Tests>");
    }
 
 
@@ -70,6 +84,13 @@ public class GenerateHibernateResults
 
       parser.setFilter( false );
       parser.statement();
+      
+      QueryTranslatorImpl.JavaConstantConverter converter = new QueryTranslatorImpl.JavaConstantConverter();
+      NodeTraverser walker = new NodeTraverser( converter );
+      walker.traverseDepthFirst( parser.getAST() );
+		
+	  parser.getParseErrorHandler().throwQueryException();
+		
       return parser.getAST();
    }
 

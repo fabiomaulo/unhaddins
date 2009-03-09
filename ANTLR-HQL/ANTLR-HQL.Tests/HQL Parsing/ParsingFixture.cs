@@ -14,6 +14,12 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 	[TestFixture]
 	public class ParsingFixture
 	{
+		/// <summary>
+		/// Key test for HQL strings -> HQL AST's - takes the query and returns a string
+		/// representation of the resultant tree
+		/// </summary>
+		/// <param name="query"></param>
+		/// <returns></returns>
 		[Test, TestCaseSource(typeof(QueryFactoryClass), "TestCases")]
 		public string HqlParse(string query)
 		{
@@ -23,13 +29,46 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			return " " + p.Ast.ToStringTree();
 		}
 
+		/// <summary>
+		/// Used to test individual queries "by hand", since td.net doesn't let me run a 
+		/// single test out of a data set
+		/// </summary>
 		[Test]
-		public void ParseTest()
+		public void ManualTest()
 		{
-			var p = new HqlParseEngine("from bar in class Bar where bar.count=667", false);
+			var p = new HqlParseEngine(@"from ОдинТип ОснованиеTипа where ОснованиеTипа.Количество like '%\u4e2d%'", false);
 			p.Parse();
+
+			Console.WriteLine(p.Ast.ToStringTree());
 		}		
 
+		/// <summary>
+		/// Helper "test" to display queries that are ignored
+		/// </summary>
+		[Test]
+		public void ShowIgnoredQueries()
+		{
+			foreach (string query in QueryFactoryClass.GetIgnores)
+			{
+				Console.WriteLine(query);
+			}
+		}
+
+		/// <summary>
+		/// Helper "test" to display queries that don't parse in H3
+		/// </summary>
+		[Test]
+		public void ShowExceptionQueries()
+		{
+			foreach (string query in QueryFactoryClass.GetExceptions)
+			{
+				Console.WriteLine(query);
+			}
+		}
+
+		/// <summary>
+		/// Goes all the way to the DB and back.  Just here until there's a better place to put it...
+		/// </summary>
 		[Test, Ignore]
 		public void BasicQuery()
 		{
@@ -54,65 +93,82 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			return (ISessionFactoryImplementor)cfg.BuildSessionFactory();
 		}
 
+		/// <summary>
+		/// Class used by Nunit 2.5 to drive the data into the HqlParse test
+		/// </summary>
 		public class QueryFactoryClass
 		{
 			public static IEnumerable<TestCaseData> TestCases
 			{
 				get
 				{
-					XDocument doc = XDocument.Load(@"HQL Parsing\TestQueriesWithResults.xml");
+					// TODO - need to handle Ignore better (it won't show in results...)
+					return EnumerateTests(td => !td.Ignore && td.Result != "Exception",
+					                      td => new TestCaseData(td.Query)
+											  .Returns(td.Result)
+											  .SetCategory(td.Category)
+											  .SetName(td.Name)
+											  .SetDescription(td.Description));
+				}
+			}
 
-					foreach (XElement testGroup in doc.Element("Tests").Elements("TestGroup"))
+			public static IEnumerable<string> GetIgnores
+			{
+				get
+				{
+					return EnumerateTests(td => td.Ignore,
+					                      td => td.Query);
+				}
+			}
+
+			public static IEnumerable<string> GetExceptions
+			{
+				get
+				{
+					return EnumerateTests(td => td.Result == "Exception",
+										  td => td.Query);
+				}
+			}
+
+			static IEnumerable<T> EnumerateTests<T>(Func<QueryTestData, bool> predicate, Func<QueryTestData , T> projection)
+			{
+				XDocument doc = XDocument.Load(@"HQL Parsing\TestQueriesWithResults.xml");
+
+				foreach (XElement testGroup in doc.Element("Tests").Elements("TestGroup"))
+				{
+					string category = testGroup.Attribute("Name").Value;
+
+					foreach (XElement test in testGroup.Elements("Test"))
 					{
-						string category = testGroup.Attribute("Name").Value;
+						QueryTestData testData = new QueryTestData(category, test);
 
-						foreach (XElement test in testGroup.Elements("Test"))
+						if (predicate(testData))
 						{
-							string query = test.Element("Query").Value;
-							string result = test.Element("Result") != null ? test.Element("Result").Value : "barf";
-							string name = test.Element("Name") != null ? test.Element("Description").Value : null;
-							string description = test.Element("Description") != null ? test.Element("Description").Value : null;
-							bool ignore = test.Attribute("Ignore") != null ? bool.Parse(test.Attribute("Ignore").Value) : false;
-
-							// TODO - need to handle Ignore better (it won't show in results...)
-							if (!ignore)
-							{
-								yield return new TestCaseData(query)
-									.Returns(result)
-									.SetCategory(category)
-									.SetName(name)
-									.SetDescription(description);
-							}
+							yield return projection(testData);
 						}
 					}
-
-
 				}
 			}
 
-			/*
-			static IEnumerable<TestCaseData> ArrayExpressions
+			class QueryTestData
 			{
-				get
+				internal QueryTestData(string category, XElement xml)
 				{
-					yield return new
-						TestCaseData("from Order ord where ord.items[0].id = 1234")
-						.Returns("( query ( SELECT_FROM ( from ( RANGE Order ord ) ) ) ( where ( = ( . ( [ ( . ord items ) 0 ) id ) 1234 ) ) )");
+					Category = category;
+					Query = xml.Element("Query").Value;
+					Result = xml.Element("Result") != null ? xml.Element("Result").Value : "barf";
+					Name = xml.Element("Name") != null ? xml.Element("Name").Value : null;
+					Description = xml.Element("Description") != null ? xml.Element("Description").Value : null;
+					Ignore = xml.Attribute("Ignore") != null ? bool.Parse(xml.Attribute("Ignore").Value) : false;
 				}
-			}
 
-			static IEnumerable<TestCaseData> ComplexConstructor
-			{
-				get
-				{
-					yield return new
-						TestCaseData("select new Foo(count(bar)) from bar")
-						.Returns("( query ( SELECT_FROM ( from ( RANGE bar ) ) ( select ( ( Foo ( count bar ) ) ) ) )");
-					yield return new
-						TestCaseData("select new Foo(count(bar),(select count(*) from doofus d where d.gob = 'fat' )) from bar")
-						.Returns("( query ( SELECT_FROM ( from ( RANGE bar ) ) ( select ( ( Foo ( count bar ) ( query ( SELECT_FROM ( from ( RANGE doofus d ) ) ( select ( count * ) ) ) ( where ( = ( . d gob ) 'fat' ) ) ) ) ) ) )");
-				}
-			}*/
+				internal string Category;
+				internal string Query;
+				internal string Result;
+				internal string Name;
+				internal string Description;
+				internal bool Ignore;
+			}
 		}
 	}
 }

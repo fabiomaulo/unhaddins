@@ -116,11 +116,11 @@
       </Test>
       <Test>
          <Query><![CDATA[from Order order where maxindex(order.items) > 100]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Order order ) ) ) ( where ( > ( ( maxindex ) 100 ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from Order order where minelement(order.items) > 10000]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Order order ) ) ) ( where ( > ( ( minelement ) 10000 ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from Order ord where maxindex(ord.items) > 100]]></Query>
@@ -174,7 +174,7 @@
         select item from Item item, Order order
         where order.items[ maxindex(order.items) ] = item and order.id = 11
       ]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Item item ) ( RANGE Order order ) ) ( select item ) ) ( where ( and ( = ( [ ( . order items ) ( ( maxindex ) ) item ) ( = ( . order id ) 11 ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from Order ord where ord.items[0].id = 1234]]></Query>
@@ -302,10 +302,10 @@
         where payment.status.name <> PaymentStatus.AWAITING_APPROVAL     or (
         statusChange.timeStamp = (              select max(change.timeStamp)
         from PaymentStatusChange change              where change.payment = payment
-        )         and statusChange.user  :currentUser     )
+        )         and statusChange.user <> :currentUser     )
         group by status.name, status.sortOrder order by status.sortOrder
       ]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Payment payment ) ( join ( . payment currentStatus ) status ) ( join ( . payment statusChanges ) statusChange ) ) ( select ( count payment ) ( . status name ) ) ) ( where ( or ( <> ( . ( . payment status ) name ) ( . PaymentStatus AWAITING_APPROVAL ) ) ( and ( = ( . statusChange timeStamp ) ( query ( SELECT_FROM ( from ( RANGE PaymentStatusChange change ) ) ( select ( max ( . change timeStamp ) ) ) ) ( where ( = ( . change payment ) payment ) ) ) ) ) ) ) ( group ( . status name ) ( . status sortOrder ) ) ( order ( . status sortOrder ) ) )]]></Result>
+         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Payment payment ) ( join ( . payment currentStatus ) status ) ( join ( . payment statusChanges ) statusChange ) ) ( select ( count payment ) ( . status name ) ) ) ( where ( or ( <> ( . ( . payment status ) name ) ( . PaymentStatus AWAITING_APPROVAL ) ) ( and ( = ( . statusChange timeStamp ) ( query ( SELECT_FROM ( from ( RANGE PaymentStatusChange change ) ) ( select ( max ( . change timeStamp ) ) ) ) ( where ( = ( . change payment ) payment ) ) ) ) ( <> ( . statusChange user ) ( : currentUser ) ) ) ) ) ( group ( . status name ) ( . status sortOrder ) ) ( order ( . status sortOrder ) ) )]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[
@@ -2851,22 +2851,22 @@
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[select bar.string, foo.string from bar in class org.hibernate.test.Bar inner join bar.baz as baz inner join elements(baz.fooSet) as foo where baz.name = 'name']]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ( . ( . ( . org hibernate ) test ) Bar ) bar ) ( join inner ( . bar baz ) baz ) ) ( select ( . bar string ) ( . foo string ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[select bar.string, foo.string from bar in class org.hibernate.test.Bar, bar.baz as baz, elements(baz.fooSet) as foo where baz.name = 'name']]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ( . ( . ( . org hibernate ) test ) Bar ) bar ) ( RANGE ( . bar baz ) baz ) ) ( select ( . bar string ) ( . foo string ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[select count(*) where this.amount>-1 and this.name is null]]></Query>
-         <Result><![CDATA[ query]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[from sm in class org.hibernate.test.SubMulti where exists sm.children.elements]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ( . ( . ( . org hibernate ) test ) SubMulti ) sm ) ) ) where )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
    </TestGroup>
    <TestGroup Name="EjbqlExtensions">
@@ -2926,7 +2926,7 @@
       </Test>
       <Test>
          <Query><![CDATA[from Order order join order.group]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Order order ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from X x order by x.group.by.from]]></Query>
@@ -2994,15 +2994,15 @@
       ]]></Query>
          <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE User user ) ) ) ( where ( like ( . user name ) '%nn\u4e2dnn%' ) ) )]]></Result>
       </Test>
-      <Test Ignore="true">
+      <Test>
          <Description>TODO support .NET identifier NH-685; won't fix ?</Description>
-         <Query><![CDATA[from ??????? ?????????T??? where ?????????T???.?????????? like '%\u4e2d%']]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ??????? ?????????T??? ) ) ) ( where ( like ( . ?????????T??? ?????????? ) '%\u4e2d%' ) ) )]]></Result>
+         <Query><![CDATA[from ОдинТип ОснованиеTипа where ОснованиеTипа.Количество like '%\u4e2d%']]></Query>
+         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ОдинТип ОснованиеTипа ) ) ) ( where ( like ( . ОснованиеTипа Количество ) '%\u4e2d%' ) ) )]]></Result>
       </Test>
    </TestGroup>
    <TestGroup Name="HHH719">
       <Description>TODO Some SQLs have function names with package qualifiers.</Description>
-      <Test Ignore="true">
+      <Test>
          <Query><![CDATA[from Foo f order by com.fooco.SpecialFunction(f.id)]]></Query>
          <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE Foo f ) ) ) ( order ( ( ( . ( . com fooco ) SpecialFunction ) ( exprList ( . f id ) ) ) ) )]]></Result>
       </Test>
@@ -3016,7 +3016,7 @@
    </TestGroup>
    <TestGroup Name="HHH1247">
       <Description>won't fix</Description>
-      <Test Ignore="true">
+      <Test>
          <Query><![CDATA[select distinct user.party from com.itf.iceclaims.domain.party.user.UserImpl user inner join user.party.$RelatedWorkgroups relatedWorkgroups where relatedWorkgroups.workgroup.id = :workgroup and relatedWorkgroups.effectiveTime.start <= :datesnow and relatedWorkgroups.effectiveTime.end > :dateenow ]]></Query>
          <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ( . ( . ( . ( . ( . ( . com itf ) iceclaims ) domain ) party ) user ) UserImpl ) user ) ( join inner ( . ( . user party ) $RelatedWorkgroups ) relatedWorkgroups ) ) ( select distinct ( . user party ) ) ) ( where ( and ( and ( = ( . ( . relatedWorkgroups workgroup ) id ) ( : workgroup ) ) ( <= ( . ( . relatedWorkgroups effectiveTime ) start ) ( : datesnow ) ) ) ( > ( . ( . relatedWorkgroups effectiveTime ) end ) ( : dateenow ) ) ) ) )]]></Result>
       </Test>
@@ -3150,8 +3150,9 @@
         select f.id
         from h.friends f
         where f.name.last = 'Public'
+        )
       ]]></Query>
-         <Result><![CDATA[ ( update ( FROM ( RANGE Human h ) ) ( set ( = ( . h description ) 'updated' ) ) where )]]></Result>
+         <Result><![CDATA[ ( update ( FROM ( RANGE Human h ) ) ( set ( = ( . h description ) 'updated' ) ) ( where ( exists ( query ( SELECT_FROM ( from ( RANGE ( . h friends ) f ) ) ( select ( . f id ) ) ) ( where ( = ( . ( . f name ) last ) 'Public' ) ) ) ) ) )]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[
@@ -3161,8 +3162,9 @@
         select a.id
         from e.associatedEntities a
         where a.name = 'one-to-many-association'
+        )
       ]]></Query>
-         <Result><![CDATA[ ( update ( FROM ( RANGE SimpleEntityWithAssociation e ) ) ( set ( = ( . e name ) 'updated' ) ) where )]]></Result>
+         <Result><![CDATA[ ( update ( FROM ( RANGE SimpleEntityWithAssociation e ) ) ( set ( = ( . e name ) 'updated' ) ) ( where ( exists ( query ( SELECT_FROM ( from ( RANGE ( . e associatedEntities ) a ) ) ( select ( . a id ) ) ) ( where ( = ( . a name ) 'one-to-many-association' ) ) ) ) ) )]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[
@@ -3172,8 +3174,9 @@
         select a.id
         from e.manyToManyAssociatedEntities a
         where a.name = 'many-to-many-association'
+        )
       ]]></Query>
-         <Result><![CDATA[ ( update ( FROM ( RANGE SimpleEntityWithAssociation e ) ) ( set ( = ( . e name ) 'updated' ) ) where )]]></Result>
+         <Result><![CDATA[ ( update ( FROM ( RANGE SimpleEntityWithAssociation e ) ) ( set ( = ( . e name ) 'updated' ) ) ( where ( exists ( query ( SELECT_FROM ( from ( RANGE ( . e manyToManyAssociatedEntities ) a ) ) ( select ( . a id ) ) ) ( where ( = ( . a name ) 'many-to-many-association' ) ) ) ) ) )]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[update versioned IntegerVersioned set name = name]]></Query>
@@ -3310,9 +3313,9 @@
    </TestGroup>
    <TestGroup Name="SupportUnicodeInStringLiteral">
       <Description>TODO Support Unicode in StringLiteral</Description>
-      <Test Ignore="true">
-         <Query><![CDATA[from User where User.Strange like '%??????? ?????????T???%']]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE User ) ) ) ( where ( like ( . User Strange ) '%??????? ?????????T???%' ) ) )]]></Result>
+      <Test>
+         <Query><![CDATA[from User where User.Strange like '%ОдинТип ОснованиеTипа%']]></Query>
+         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE User ) ) ) ( where ( like ( . User Strange ) '%ОдинТип ОснованиеTипа%' ) ) )]]></Result>
       </Test>
    </TestGroup>
    <TestGroup Name="HQLFuctions - Aggregates">
@@ -3327,7 +3330,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select count(a.id) from Animal a having count(a.id)>1]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM from ( select ( count ( . a id ) ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select avg(a.BodyWeight) from Animal a]]></Query>
@@ -3335,7 +3338,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select avg(a.BodyWeight) from Animal a having avg(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM from ( select ( avg ( . a BodyWeight ) ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select max(a.BodyWeight) from Animal a]]></Query>
@@ -3343,7 +3346,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select max(a.BodyWeight) from Animal a having max(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM from ( select ( max ( . a BodyWeight ) ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select min(a.BodyWeight) from Animal a]]></Query>
@@ -3351,7 +3354,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select min(a.BodyWeight) from Animal a having min(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM from ( select ( min ( . a BodyWeight ) ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select sum(a.BodyWeight) from Animal a]]></Query>
@@ -3359,7 +3362,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select sum(a.BodyWeight) from Animal a having sum(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[ ( query ( SELECT_FROM from ( select ( sum ( . a BodyWeight ) ) ) ) )]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
    </TestGroup>
    <TestGroup Name="HQLFuctions - Substring">
@@ -3612,7 +3615,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select cast(cast(cast(a.BodyWeight as string) as double) as int from Animal a group by cast(cast(cast(a.BodyWeight as string) as double) as int having cast(cast(cast(a.BodyWeight as string) as double) as int = 1]]></Query>
-         <Result><![CDATA[ query]]></Result>
+         <Result><![CDATA[Exception]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select cast(a.BodyWeight As Double) from Animal a]]></Query>
