@@ -11,6 +11,7 @@ using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Type;
+using NHibernate.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
@@ -297,7 +298,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			if (_ast == null)
 			{
 				// Parse the query string into an HQL AST.
-				HqlLexer lex = new HqlLexer(new ANTLRStringStream(_hql));
+				HqlLexer lex = new HqlLexer(new CaseInsensitiveStringStream(_hql));
 				_tokens = new CommonTokenStream(lex);
 
 				HqlParser parser = new HqlParser(_tokens);
@@ -351,17 +352,31 @@ namespace NHibernate.Hql.Ast.ANTLR
 			{
 				String expression = ASTUtil.GetPathText(dotStructureRoot);
 
-				throw new NotImplementedException();
-				/*
-				Object constant = ReflectHelper.GetConstantValue( expression );
+				object constant = GetConstantValue(expression );
 				
 				if ( constant != null ) 
 				{
-					dotStructureRoot.Children.Clear();
-					dotStructureRoot.SetType( HqlSqlWalker.JAVA_CONSTANT );
-					dotStructureRoot.Token.Text = expression;
+					dotStructureRoot.ClearChildren();
+					dotStructureRoot.Type = HqlSqlWalker.JAVA_CONSTANT;
+					dotStructureRoot.Text = expression;
 				}
-				*/
+			}
+
+			private static object GetConstantValue(string qualifiedName)
+			{
+				string className = StringHelper.Qualifier(qualifiedName);
+
+				if (!string.IsNullOrEmpty(className))
+				{
+					System.Type t = System.Type.GetType(className);
+
+					if (t != null)
+					{
+						return ReflectHelper.GetConstantValue(t, StringHelper.Unqualify(qualifiedName));
+					}
+				}
+
+				return null;
 			}
 		}
 

@@ -175,21 +175,17 @@ deleteStatement
 		(optionalFromTokenFromClause)
 		(whereClause)?
 	;
-/*
-TODO - check
-optionalFromTokenFromClause!
-	: (FROM!)? f=path (a=asAlias)? {
-		AST #range = #([RANGE, "RANGE"], #f, #a);
-		#optionalFromTokenFromClause = #([FROM, "FROM"], #range);
-	}
-	;
-*/
 
+// Note the use of optionalFromTokenFromClause2 - without using this subrule,
+// the tree-rewrite rule does not work if the (optional) FROM token is missing
 optionalFromTokenFromClause
-	: (FROM)? path (asAlias)? 
+	: optionalFromTokenFromClause2 path (asAlias)? 
 		-> ^(FROM ^(RANGE path asAlias?))
 	;
 
+optionalFromTokenFromClause2
+	: FROM?
+	;
 /*
 TODO - check
 selectStatement
@@ -224,7 +220,7 @@ insertablePropertySpec
 */
 insertablePropertySpec
 	: OPEN primaryExpression ( COMMA primaryExpression )* CLOSE
-		-> ^(RANGE ^(OPEN(primaryExpression)*))
+		-> ^(RANGE["column-spec"] primaryExpression*)
 	;
 
 union
@@ -368,7 +364,7 @@ inCollectionDeclaration!
 
 inCollectionDeclaration!
     : IN OPEN path CLOSE alias 
-    	-> ^(JOIN INNER path alias)
+    	-> ^(JOIN["join"] INNER["inner"] path alias)
     ;
 
 /*
@@ -382,7 +378,7 @@ inCollectionElementsDeclaration!
 	
 inCollectionElementsDeclaration
 	: alias IN ELEMENTS OPEN path CLOSE 
-		-> ^(JOIN INNER path alias)
+		-> ^(JOIN["join"] INNER["inner"] path alias)
     ;
 
 // Alias rule - Parses the optional 'as' token and forces an AST identifier node.
@@ -426,19 +422,11 @@ orderElement
 	: expression ( ascendingOrDescending )?
 	;
 
-/*
-TODO - check
 ascendingOrDescending
-	: ( 'asc' | 'ascending' )	{ #ascendingOrDescending.setType(ASCENDING); }
-	| ( 'desc' | 'descending') 	{ #ascendingOrDescending.setType(DESCENDING); }
-	;
-*/
-
-ascendingOrDescending
-	: ( 'asc' | 'ascending' )
-		-> ^(ASCENDING)
-	| ( 'desc' | 'descending')
-		-> ^(DESCENDING)
+	: ( a='asc' | a='ascending' )
+		-> ^(ASCENDING[$a.Text])
+	| ( d='desc' | d='descending')
+		-> ^(DESCENDING[$d.Text])
 	;
 
 //## havingClause:
@@ -616,7 +604,7 @@ relationalExpression
 				}
 				concatenation likeEscape)
 			| (MEMBER! (OF!)? p=path! {
-				ProcessMemberOf($n,$p.tree);
+				root_0 = ProcessMemberOf($n,$p.tree, root_0);
 			  } ) 
 			)
 		)
@@ -635,7 +623,7 @@ inList
 */
 inList
 	: compoundExpr
-	-> ^(IN_LIST compoundExpr)
+	-> ^(IN_LIST["inList"] compoundExpr)
 	;
 
 betweenList
@@ -643,21 +631,19 @@ betweenList
 	;
 
 //level 4 - string concatenation
-/*
-TODO - Check.  Not sure I understand what the old is doing, so pretty sure the new is bogus :)
-	Need some tests to make the old one clear.
 concatenation
-	: additiveExpression 
-	( c=CONCAT^ { #c.setType(EXPR_LIST); #c.setText('concatList'); } 
-	  additiveExpression
-	  ( CONCAT! additiveExpression )* 
-	  { #concatenation = #([METHOD_CALL, "||"], #([IDENT, 'concat']), #c ); } )?
-	;
-*/
-
-concatenation
-	: additiveExpression 
-	( c=CONCAT^ 
+@after {
+   if (c != null)
+   {
+      IASTNode mc = (IASTNode) adaptor.Create(METHOD_CALL, "||");
+      IASTNode concat = (IASTNode) adaptor.Create(IDENT, "concat");
+      mc.AddChild(concat);
+      mc.AddChild((IASTNode) retval.Tree);
+      retval.Tree = mc;
+   }
+}
+	: a=additiveExpression 
+	( c=CONCAT^ { $c.Type = EXPR_LIST; $c.Text = "concatList"; } 
 	  additiveExpression
 	  ( CONCAT! additiveExpression )* 
 	  )?
@@ -685,16 +671,11 @@ unaryExpression
 	;
 */
 unaryExpression
-	: m=MINUS mu=unaryExpression
-	| p=PLUS pu=unaryExpression
-	| c=caseExpression
-	| q=quantifiedExpression
-	| a=atom
-	-> {m != null}? ^(UNARY_MINUS[$m] $mu)
-	-> {p != null}? ^(UNARY_PLUS[$p] $pu)
-	-> {c != null}? ^($c)
-	-> {q != null}? ^($q)
-	-> ^($a)
+	: m=MINUS mu=unaryExpression -> ^(UNARY_MINUS[$m] $mu)
+	| p=PLUS pu=unaryExpression -> ^(UNARY_PLUS[$p] $pu)
+	| c=caseExpression -> ^($c)
+	| q=quantifiedExpression -> ^($q) 
+	| a=atom -> ^($a)
 	;
 	
 /*
@@ -780,7 +761,7 @@ expressionOrVector!
 */
 expressionOrVector!
 	: e=expression ( v=vectorExpr )? 
-	-> {v != null}? ^(VECTOR_EXPR["vector"] $e $v)
+	-> {v != null}? ^(VECTOR_EXPR["{vector}"] $e $v)
 	-> ^($e)
 	;
 
@@ -805,14 +786,13 @@ identPrimary
 */
 identPrimary
 	: identifier { HandleDotIdent(); }
-			( options { greedy=true; } : DOT^ ( identifier | ELEMENTS | o=OBJECT { $o.Type = IDENT; } ) )*
-			( options { greedy=true; } :
-				( op=OPEN^ { $op.Type = METHOD_CALL;} exprList CLOSE! )
+			( options {greedy=false;} : DOT^ ( identifier | ELEMENTS | o=OBJECT { $o.Type = IDENT; } ) )*
+			( ( op=OPEN^ { $op.Type = METHOD_CALL;} exprList CLOSE! )
 			)?
 	// Also allow special 'aggregate functions' such as count(), avg(), etc.
 	| aggregate
 	;
-
+	
 //## aggregate:
 //##     ( aggregateFunction OPEN path CLOSE ) | ( COUNT OPEN STAR CLOSE ) | ( COUNT OPEN (DISTINCT | ALL) path CLOSE );
 
@@ -828,7 +808,7 @@ aggregate
 	;
 */
 aggregate
-	: op=( SUM | AVG | MAX | MIN ) OPEN additiveExpression CLOSE
+	: ( op=SUM | op=AVG | op=MAX | op=MIN ) OPEN additiveExpression CLOSE
 		-> ^(AGGREGATE[$op] additiveExpression)
 	// Special case for count - It's 'parameters' can be keywords.
 	|  COUNT OPEN ( s=STAR | p=aggregateDistinctAll ) CLOSE
@@ -866,31 +846,21 @@ subQuery
 	-> ^(QUERY["query"] union)
 	;
 
-/*
-TODO - check.  we know this is wrong, since we aren't attempting to build the tree at all.  Awaiting test
 exprList
-@init{
-   AST trimSpec = null;
+@after {
+   IASTNode root = (IASTNode) adaptor.Create(EXPR_LIST, "exprList");
+   root.AddChild((IASTNode)retval.Tree);
+   retval.Tree = root;
 }
-	: (t=TRAILING {#trimSpec = #t;} | l=LEADING {#trimSpec = #l;} | b=BOTH {#trimSpec = #b;})?
-	  		{ if(#trimSpec != null) #trimSpec.setType(IDENT); }
-	  ( 
-	  		expression ( (COMMA! expression)+ | FROM { #FROM.setType(IDENT); } expression | AS! identifier )? 
-	  		| FROM { #FROM.setType(IDENT); } expression
-	  )?
-			{ #exprList = #([EXPR_LIST,'exprList'], #exprList); }
-	;
-*/
-exprList
-	: ts=(TRAILING
-	      | LEADING
-	      | BOTH
+	: (TRAILING {$TRAILING.Type = IDENT;}
+	      | LEADING {$LEADING.Type = IDENT;}
+	      | BOTH {$BOTH.Type = IDENT;}
 	      )?
-	  r=( 
-	  	expression ( (COMMA expression)+ 
-	  			| FROM expression 
-	  			| AS identifier )? 
-	  	| FROM expression
+	  ( 
+	  	expression ( (COMMA! expression)+ 
+	  			| f=FROM expression {$f.Type = IDENT;}
+	  			| AS! identifier )? 
+	  	| f2=FROM expression {$f2.Type = IDENT;}
 	  )?
 	;
 
@@ -920,70 +890,12 @@ path
 // 'keyword as identifier' trickery.
 identifier
 	: IDENT
-	| keywords1
-//	| keywords2
 	;
 	catch [RecognitionException ex]
 	{
-		retval = HandleIdentifierError(input.LT(1),ex);
+		retval.Tree = HandleIdentifierError(input.LT(1),ex);
 	}
 	
-keywords1
-	: COUNT
-	;
-	
-keywords2
-	: ALL
-	| ANY
-	| AND
-	| AS
-	| ASCENDING
-	| AVG
-	| BETWEEN
-	| CLASS
-	| DELETE
-	| DESCENDING
-	| DISTINCT
-	| ELEMENTS
-	| ESCAPE
-	| EXISTS
-	| FALSE
-	| FETCH
-	| FROM
-	| FULL
-	| GROUP
-	| HAVING
-	| IN
-	| INDICES
-	| INNER
-	| INSERT
-	| INTO
-	| IS
-	| JOIN
-	| LEFT
-	| LIKE
-	| MAX
-	| MIN
-	| NEW
-	| NOT
-	| NULL
-	| OR
-	| ORDER
-	| OUTER
-	| PROPERTIES
-	| RIGHT
-	| SELECT
-	| SET
-	| SOME
-	| SUM
-	| TRUE
-	| UNION
-	| UPDATE
-	| VERSIONED
-	| WHERE
-	| LITERAL_by
-	;
-
 	
 
 // **** LEXER ******************************************************************
@@ -1040,10 +952,6 @@ PARAM: '?';
 
 IDENT 
 	: ID_START_LETTER ( ID_LETTER )*
-		{
-    		// Setting this flag allows the grammar to use keywords as identifiers, if necessary.
-			PossibleId = true;
-		}
 	;
 
 fragment

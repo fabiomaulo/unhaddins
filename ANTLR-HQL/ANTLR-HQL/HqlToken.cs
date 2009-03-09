@@ -8,11 +8,6 @@ namespace NHibernate.Hql.Ast.ANTLR
     public class HqlToken : CommonToken
     {
         /// <summary>
-        /// True if this token could be an identifier.
-        /// </summary>
-        private bool _possibleId;
-
-        /// <summary>
         /// The previous token type.
         /// </summary>
         private int _previousTokenType;
@@ -29,8 +24,7 @@ namespace NHibernate.Hql.Ast.ANTLR
         /// </summary>
         public bool PossibleId
         {
-            get { return _possibleId; }
-            set { _possibleId = value; }
+            get { return HqlParser.possibleIds[Type]; }
         }
 
         /// <summary>

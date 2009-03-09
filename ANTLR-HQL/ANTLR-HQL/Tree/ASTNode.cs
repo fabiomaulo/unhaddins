@@ -240,6 +240,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public IASTNode GetChild(int index)
 		{
+			if (_children == null || (_children.Count - 1) < index)
+			{
+				return null;
+			}
 			return _children[index];
 		}
 

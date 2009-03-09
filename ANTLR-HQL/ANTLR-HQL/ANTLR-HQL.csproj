@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ASTQueryTranslatorFactory.cs" />
+    <Compile Include="CaseInsensitiveStringStream.cs" />
     <Compile Include="CollectionProperties.cs" />
     <Compile Include="DetailedSemanticException.cs" />
     <Compile Include="ErrorCounter.cs" />
