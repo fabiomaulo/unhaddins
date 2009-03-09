@@ -42,7 +42,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 
 			for (int i = 0; i < ast.ChildCount; i++)
 			{
-				_visitor.Visit(ast.GetChild(i));
+				VisitDepthFirst(ast.GetChild(i));
 			}
 		}
 	}
