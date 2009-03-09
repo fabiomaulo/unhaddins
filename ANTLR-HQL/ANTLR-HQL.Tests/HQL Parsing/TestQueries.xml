@@ -257,7 +257,7 @@
         where payment.status.name <> PaymentStatus.AWAITING_APPROVAL     or (
         statusChange.timeStamp = (              select max(change.timeStamp)
         from PaymentStatusChange change              where change.payment = payment
-        )         and statusChange.user  :currentUser     )
+        )         and statusChange.user <> :currentUser     )
         group by status.name, status.sortOrder order by status.sortOrder
       ]]></Query>
     </Test>
@@ -2389,7 +2389,7 @@
         from User user where user.name like '%nn\u4e2dnn%'
       ]]></Query>
     </Test>
-    <Test Ignore="true">
+    <Test>
       <Description>TODO support .NET identifier NH-685; won't fix ?</Description>
       <Query><![CDATA[from ОдинТип ОснованиеTипа where ОснованиеTипа.Количество like '%\u4e2d%']]></Query>
     </Test>
@@ -2398,7 +2398,7 @@
 
   <TestGroup Name="HHH719">
     <Description>TODO Some SQLs have function names with package qualifiers.</Description>
-    <Test Ignore="true">
+    <Test>
       <Query><![CDATA[from Foo f order by com.fooco.SpecialFunction(f.id)]]></Query>
     </Test>
   </TestGroup>
@@ -2415,7 +2415,7 @@
 
   <TestGroup Name="HHH1247">
     <Description>won't fix</Description>
-    <Test Ignore="true">
+    <Test>
       <Query><![CDATA[select distinct user.party from com.itf.iceclaims.domain.party.user.UserImpl user inner join user.party.$RelatedWorkgroups relatedWorkgroups where relatedWorkgroups.workgroup.id = :workgroup and relatedWorkgroups.effectiveTime.start <= :datesnow and relatedWorkgroups.effectiveTime.end > :dateenow ]]></Query>
     </Test>
   </TestGroup>
@@ -2523,6 +2523,7 @@
         select f.id
         from h.friends f
         where f.name.last = 'Public'
+        )
       ]]></Query>
     </Test>
     <Test>
@@ -2533,6 +2534,7 @@
         select a.id
         from e.associatedEntities a
         where a.name = 'one-to-many-association'
+        )
       ]]></Query>
     </Test>
     <Test>
@@ -2543,6 +2545,7 @@
         select a.id
         from e.manyToManyAssociatedEntities a
         where a.name = 'many-to-many-association'
+        )
       ]]></Query>
     </Test>
     <Test>
@@ -2655,7 +2658,7 @@
 
   <TestGroup Name="SupportUnicodeInStringLiteral">
     <Description>TODO Support Unicode in StringLiteral</Description>
-    <Test Ignore="true">
+    <Test>
       <Query><![CDATA[from User where User.Strange like '%ОдинТип ОснованиеTипа%']]></Query>
     </Test>
   </TestGroup>
