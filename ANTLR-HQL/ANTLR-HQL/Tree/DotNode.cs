@@ -73,6 +73,49 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 		}
 
+		/// <summary>
+		/// Sets the join type for this '.' node structure.
+		/// </summary>
+		public JoinType JoinType
+		{
+			set { _joinType = value; }
+		}
+
+		public bool Fetch
+		{
+			set { _fetch = value;  }
+		}
+
+		public override FromElement GetImpliedJoin()
+		{
+			return _impliedJoin;
+		}
+
+		/// <summary>
+		/// Returns the full path of the node.
+		/// </summary>
+		public override string Path
+		{
+			get
+			{
+				if (_path == null)
+				{
+					FromReferenceNode lhs = GetLhs();
+					if (lhs == null)
+					{
+						_path = Text;
+					}
+					else
+					{
+						SqlNode rhs = (SqlNode) lhs.NextSibling;
+						_path = lhs.Path + "." + rhs.getOriginalText();
+					}
+				}
+				return _path;
+			}
+		}
+
+
 		public string PropertyPath
 		{
 			get { return _propertyPath; }
@@ -229,7 +272,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			string role = collectionType.Role;
 
 			//foo.bars.size (also handles deprecated stuff like foo.bars.maxelement for backwardness)
-			IASTNode sibling = this.RightHandSibling;
+			IASTNode sibling = this.NextSibling;
 			bool isSizeProperty = sibling != null && CollectionProperties.IsAnyCollectionProperty( sibling.Text );
 
 			if (isSizeProperty)
@@ -617,6 +660,45 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private static bool IsDotNode(IASTNode n)
 		{
 			return n != null && n.Type == HqlSqlWalker.DOT;
+		}
+
+		public void ResolveSelectExpression()
+		{
+			if (Walker.IsShallowQuery || Walker.CurrentFromClause.IsSubQuery)
+			{
+				Resolve(false, true);
+			}
+			else
+			{
+				Resolve(true, false);
+				IType type = getDataType();
+
+				if (type.IsEntityType)
+				{
+					FromElement fromElement = FromElement;
+					fromElement.IncludeSubclasses = true; // Tell the destination fromElement to 'includeSubclasses'.
+
+					if (UseThetaStyleImplicitJoins)
+					{
+						fromElement.JoinSequence.SetUseThetaStyle(true);	// Use theta style (for regression)
+
+						// Move the node up, after the origin node.
+						FromElement origin = fromElement.Origin;
+
+						if (origin != null)
+						{
+							ASTUtil.MakeSiblingOfParent(origin, fromElement);
+						}
+					}
+				}
+			}
+
+			FromReferenceNode lhs = GetLhs();
+			while (lhs != null)
+			{
+				CheckSubclassOrSuperclassPropertyReference(lhs, lhs.NextSibling.Text);
+				lhs = (FromReferenceNode)lhs.GetChild(0);
+			}
 		}
 	}
 }

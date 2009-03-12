@@ -35,7 +35,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
-		public string Path
+		public virtual string Path
 		{
 			get { return getOriginalText(); }
 		}

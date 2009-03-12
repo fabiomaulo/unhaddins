@@ -7,7 +7,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 	{
 		public static void GenerateSingleScalarColumn(IASTFactory factory, IASTNode node, int i)
 		{
-			node.AddSiblingToRight(
+			node.AddSibling(
 				factory.CreateNode(HqlSqlWalker.SELECT_COLUMNS, " as " + NameGenerator.ScalarName(i, 0)));
 		}
 
@@ -29,10 +29,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				{
 					if ( j > 0 ) 
 					{
-						node = node.AddSiblingToRight(factory.CreateNode(HqlSqlWalker.SQL_TOKEN, sqlColumns[j]));
+						node = node.AddSibling(factory.CreateNode(HqlSqlWalker.SQL_TOKEN, sqlColumns[j]));
 					}
 
-					node = node.AddSiblingToRight(factory.CreateNode(HqlSqlWalker.SELECT_COLUMNS, " as " + NameGenerator.ScalarName(i, j)));
+					node = node.AddSibling(factory.CreateNode(HqlSqlWalker.SELECT_COLUMNS, " as " + NameGenerator.ScalarName(i, j)));
 				}
 			}
 		}

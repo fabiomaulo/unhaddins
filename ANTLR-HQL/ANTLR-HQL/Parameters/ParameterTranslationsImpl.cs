@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Type;
 using NHibernate.Util;
 
@@ -19,7 +20,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 		public ParameterTranslationsImpl(IEnumerable<IParameterSpecification> parameterSpecifications)
 		{
 			List<ParameterInfo> ordinalParameterList = new List<ParameterInfo>();
-			Dictionary<string, NamedParamTempHolder> namedParameterMap = new Dictionary<string, NamedParamTempHolder>();
+			NullableDictionary<string, NamedParamTempHolder> namedParameterMap = new NullableDictionary<string, NamedParamTempHolder>();
 
 			int i = 0;
 			foreach (IParameterSpecification spec in parameterSpecifications)

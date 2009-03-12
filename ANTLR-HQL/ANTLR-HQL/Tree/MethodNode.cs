@@ -1,6 +1,7 @@
 ﻿using System;
 using Antlr.Runtime;
 using log4net;
+using NHibernate.Dialect.Function;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
 
@@ -19,6 +20,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private string _methodName;
 		private bool _inSelect;
 		private FromElement _fromElement;
+		private ISQLFunction _function;
 
 		public MethodNode(IToken token) : base(token)
 		{
@@ -46,6 +48,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		public bool IsCollectionPropertyMethod
 		{
 			get { return CollectionProperties.IsAnyCollectionProperty(_methodName); }
+		}
+
+		public ISQLFunction SQLFunction
+		{
+			get { return _function; }
 		}
 
 		public void ResolveCollectionProperty(IASTNode expr)
@@ -137,8 +144,5 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			DataType = queryableCollection.ElementType;
 			_selectColumns = collectionFromElement.ToColumns(_fromElement.TableAlias, propertyName, _inSelect);
 		}
-
-
 	}
-
 }

@@ -26,7 +26,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		private readonly Dictionary<string, FromElement> _fromElementByClassAlias = new Dictionary<string, FromElement>();
 		private readonly Dictionary<string, FromElement> _fromElementByTableAlias = new Dictionary<string, FromElement>();
-		private readonly Dictionary<string, FromElement> _fromElementsByPath = new Dictionary<string, FromElement>();
+		private readonly NullableDictionary<string, FromElement> _fromElementsByPath = new NullableDictionary<string, FromElement>();
 		private readonly List<FromElement> _fromElements = new List<FromElement>();
 
 		/// <summary>
@@ -320,6 +320,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private FromElement FindJoinByPathLocal(string path)
 		{
 			return _fromElementsByPath[path];
+		}
+
+		public override string ToString()
+		{
+			return "FromClause{" + "level=" + _level + "}";
 		}
 	}
 }

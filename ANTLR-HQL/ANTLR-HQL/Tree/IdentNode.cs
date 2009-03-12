@@ -242,7 +242,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 
 			IType propertyType ;  // used to set the type of the parent dot node
-			string propertyPath = Text + "." + this.RightHandSibling.Text;
+			string propertyPath = Text + "." + this.NextSibling.Text;
 			try
 			{
 				// check to see if our "propPath" actually

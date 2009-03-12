@@ -14,7 +14,7 @@ options
 	language=CSharp2;
 	tokenVocab=HqlSqlWalker;
 	ASTLabelType=IASTNode;
-	output=AST;
+	output=None;
 }
 
 @namespace { NHibernate.Hql.Ast.ANTLR }
@@ -126,16 +126,16 @@ selectClause
 	;
 
 selectColumn
-	: p=selectExpr (sc=SELECT_COLUMNS { Out($sc); } )? { separator( ($sc != null) ? $sc : $p.tree ,", "); }
+	: p=selectExpr (sc=SELECT_COLUMNS { Out($sc); } )? { Separator( ($sc != null) ? $sc : $p.start ,", "); }
 	;
 
 selectExpr
-	: e=selectAtom { Out($e.tree); }
+	: e=selectAtom { Out($e.start); }
 	| count
 	| ^(CONSTRUCTOR (DOT | IDENT) ( selectColumn )+ )
 	| methodCall
 	| aggregate
-	| c=constant { Out($c.tree); }
+	| c=constant { Out($c.start); }
 	| arithmeticExpr
 	| param=PARAM { Out($param); }
 //	| sn=SQL_NODE { Out(sn); }
@@ -158,10 +158,10 @@ countExpr
 	;
 
 selectAtom
-	: DOT
-	| SQL_TOKEN
-	| ALIAS_REF
-	| SELECT_EXPR
+	: ^(DOT .*)
+	| ^(SQL_TOKEN .*)
+	| ^(ALIAS_REF .*)
+	| ^(SELECT_EXPR .*)
 	;
 
 // The from-clause piece is all goofed up.  Currently, nodes of type FROM_FRAGMENT
@@ -176,13 +176,13 @@ from
 
 fromTable
 	// Write the table node (from fragment) and all the join fragments associated with it.
-	: ^( a=FROM_FRAGMENT  { Out(a); } (tableJoin [ a ])* { fromFragmentSeparator($a); } )
-	| ^( b=JOIN_FRAGMENT  { Out(b); } (tableJoin [ b ])* { fromFragmentSeparator($b); } )
+	: ^( a=FROM_FRAGMENT  { Out(a); } (tableJoin [ a ])* { FromFragmentSeparator($a); } )
+	| ^( b=JOIN_FRAGMENT  { Out(b); } (tableJoin [ b ])* { FromFragmentSeparator($b); } )
 	;
 
 tableJoin [ IASTNode parent ]
 	: ^( c=JOIN_FRAGMENT { Out(" "); Out($c); } (tableJoin [ c ] )* )
-	| ^( d=FROM_FRAGMENT { nestedFromFragment($d,parent); } (tableJoin [ d ] )* )
+	| ^( d=FROM_FRAGMENT { NestedFromFragment($d,parent); } (tableJoin [ d ] )* )
 	;
 
 booleanOp[ bool parens ]
@@ -218,7 +218,7 @@ exoticComparisonExpression
 	| ^(NOT_BETWEEN expr { Out(" not between "); } expr { Out(" and "); } expr)
 	| ^(IN expr { Out(" in"); } inList )
 	| ^(NOT_IN expr { Out(" not in "); } inList )
-	| ^(EXISTS { optionalSpace(); Out("exists "); } quantified )
+	| ^(EXISTS { OptionalSpace(); Out("exists "); } quantified )
 	| ^(IS_NULL expr) { Out(" is null"); }
 	| ^(IS_NOT_NULL expr) { Out(" is not null"); }
 	;
@@ -232,13 +232,13 @@ inList
 	;
 	
 simpleExprList
-	: { Out("("); } (e=simpleExpr { separator($e.tree," , "); } )* { Out(")"); }
+	: { Out("("); } (e=simpleExpr { Separator($e.tree," , "); } )* { Out(")"); }
 	;
 
 // A simple expression, or a sub-select with parens around it.
 expr
 	: simpleExpr
-	| ^( VECTOR_EXPR { Out("("); } (e=expr { separator($e.tree," , "); } )*  { Out(")"); } )
+	| ^( VECTOR_EXPR { Out("("); } (e=expr { Separator($e.tree," , "); } )*  { Out(")"); } )
 	| parenSelect
 	| ^(ANY { Out("any "); } quantified )
 	| ^(ALL { Out("all "); } quantified )
@@ -254,7 +254,7 @@ parenSelect
 	;
 	
 simpleExpr
-	: c=constant { Out($c.tree); }
+	: c=constant { Out($c.start); }
 	| NULL { Out("null"); }
 	| addrExpr
 	| sqlToken
@@ -270,7 +270,7 @@ constant
 	| NUM_FLOAT
 	| NUM_INT
 	| NUM_LONG
-	| QUOTED_STRING
+	| QUOTED_String
 	| CONSTANT
 	| JAVA_CONSTANT
 	| TRUE
@@ -325,13 +325,13 @@ aggregate
 
 
 methodCall
-	: ^(m=METHOD_CALL i=METHOD_NAME { beginFunctionTemplate(m,i); }
+	: ^(m=METHOD_CALL i=METHOD_NAME { BeginFunctionTemplate(m,i); }
 	 ( ^(EXPR_LIST (arguments)? ) )?
-	 { endFunctionTemplate(m); } )
+	 { EndFunctionTemplate(m); } )
 	;
 
 arguments
-	: expr ( { commaBetweenParameters(", "); } expr )*
+	: expr ( { CommaBetweenParameters(", "); } expr )*
 	;
 
 parameter

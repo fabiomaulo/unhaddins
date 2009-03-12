@@ -254,6 +254,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return _scalarSelect; }
 		}
 
+		public bool IsDistinct
+		{
+			get { return ChildCount > 0 && GetChild(0).Type == HqlSqlWalker.DISTINCT; }
+		}
+
 		/// <summary>
 		/// The column alias names being used in the generated SQL.
 		/// </summary>

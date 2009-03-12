@@ -27,7 +27,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			{
 				yield return _current;
 
-				_current = _current.RightHandSibling;
+				_current = _current.NextSibling;
 
 				if (_current == null)
 				{

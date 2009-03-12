@@ -68,6 +68,7 @@
     <Compile Include="ErrorCounter.cs" />
     <Compile Include="IErrorReporter.cs" />
     <Compile Include="InvalidPathException.cs" />
+    <Compile Include="InvalidWithClauseException.cs" />
     <Compile Include="IParseErrorHandler.cs" />
     <Compile Include="Loader\QueryLoader.cs" />
     <Compile Include="Output\SqlGenerator.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Util\AliasGenerator.cs" />
     <Compile Include="Util\ASTAppender.cs" />
     <Compile Include="Util\ASTIterator.cs" />
+    <Compile Include="Util\ASTPrinter.cs" />
     <Compile Include="Util\ASTUtil.cs" />
     <Compile Include="HqlLexer.cs" />
     <Compile Include="HqlParser.cs" />
@@ -145,6 +147,7 @@
     <Compile Include="Util\JoinProcessor.cs" />
     <Compile Include="Util\LiteralProcessor.cs" />
     <Compile Include="Util\NodeTraverser.cs" />
+    <Compile Include="Util\NullableDictionary.cs" />
     <Compile Include="Util\PathHelper.cs" />
     <Compile Include="Util\IVisitationStrategy.cs" />
     <Compile Include="Util\SyntheticAndFactory.cs" />

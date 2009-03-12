@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Tree;
+using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Impl;
 using NHibernate.Loader;
 using NHibernate.Persister.Collection;
@@ -19,7 +20,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 {
 	public class QueryLoader : BasicLoader
 	{
-		private IQueryTranslator _queryTranslator;
+		private readonly QueryTranslatorImpl _queryTranslator;
 		private SelectClause _selectClause;
 
 		private bool _hasScalars;
@@ -38,11 +39,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 		private bool[] _includeInSelect;
 		private int[] _owners;
 		private EntityType[] _ownerAssociationTypes;
-		private readonly Dictionary<string, string> _sqlAliasByEntityAlias= new Dictionary<string, string>(8);
+		private readonly NullableDictionary<string, string> _sqlAliasByEntityAlias= new NullableDictionary<string, string>();
 		private int _selectLength;
 		private LockMode[] _defaultLockModes;
 
-		public QueryLoader(IQueryTranslator queryTranslator, ISessionFactoryImplementor factory, SelectClause selectClause) : base(factory)
+		public QueryLoader(QueryTranslatorImpl queryTranslator, ISessionFactoryImplementor factory, SelectClause selectClause) : base(factory)
 		{
 			_queryTranslator = queryTranslator;
 			_selectClause = selectClause;
@@ -51,14 +52,51 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 			PostInstantiate();
 		}
 
+		/// <summary>
+		/// Returns the locations of all occurrences of the named parameter.
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public override int[] GetNamedParameterLocs(string name)
+		{
+			return _queryTranslator.GetParameterTranslations().GetNamedParameterSqlLocations(name);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="lockModes">a collection of lock modes specified dynamically via the Query interface</param>
+		/// <returns></returns>
 		protected override LockMode[] GetLockModes(IDictionary<string, LockMode> lockModes)
 		{
-			throw new System.NotImplementedException();
+			if (lockModes == null || lockModes.Count == 0)
+			{
+				return _defaultLockModes;
+			}
+			else
+			{
+				// unfortunately this stuff can't be cached because
+				// it is per-invocation, not constant for the
+				// QueryTranslator instance
+
+				LockMode[] lockModeArray = new LockMode[_entityAliases.Length];
+				for (int i = 0; i < _entityAliases.Length; i++)
+				{
+					LockMode lockMode = lockModes[_entityAliases[i]];
+					if (lockMode == null)
+					{
+						//NONE, because its the requested lock mode, not the actual! 
+						lockMode = LockMode.None;
+					}
+					lockModeArray[i] = lockMode;
+				}
+				return lockModeArray;
+			}
 		}
 
 		protected override SqlString SqlString
 		{
-			get { return new SqlString(_queryTranslator.SQLString); }
+			get { return _queryTranslator.SqlString; }
 		}
 
 		protected override ILoadable[] EntityPersisters
@@ -104,7 +142,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 
 				for ( int i=0; i<length; i++ ) 
 				{
-					FromElement collectionFromElement = (FromElement) collectionFromElements[i];
+					FromElement collectionFromElement = collectionFromElements[i];
 					_collectionPersisters[i] = collectionFromElement.QueryableCollection;
 					_collectionOwners[i] = fromElementList.IndexOf(collectionFromElement.Origin);
 	//				collectionSuffixes[i] = collectionFromElement.getColumnAliasSuffix();
@@ -168,6 +206,79 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 			//NONE, because its the requested lock mode, not the actual! 
 			_defaultLockModes = ArrayHelper.FillArray(LockMode.None, size);
 		}
+
+		public IList List(ISessionImplementor session, QueryParameters queryParameters) 
+		{
+			CheckQuery( queryParameters );
+			return List( session, queryParameters, _queryTranslator.QuerySpaces, _queryReturnTypes );
+		}
+
+		protected override object GetResultColumnOrRow(object[] row, IResultTransformer resultTransformer, IDataReader rs, ISessionImplementor session)
+		{
+			row = ToResultRow(row);
+			bool hasTransform = HasSelectNew || resultTransformer != null;
+
+			if (_hasScalars)
+			{
+				string[][] scalarColumns = _scalarColumnNames;
+				int queryCols = _queryReturnTypes.Length;
+
+				if (!hasTransform && queryCols == 1)
+				{
+					return _queryReturnTypes[0].NullSafeGet(rs, scalarColumns[0], session, null);
+				}
+				else
+				{
+					row = new object[queryCols];
+					for (int i = 0; i < queryCols; i++)
+					{
+						row[i] = _queryReturnTypes[i].NullSafeGet(rs, scalarColumns[i], session, null);
+					}
+					return row;
+				}
+			}
+			else if (!hasTransform)
+			{
+				return row.Length == 1 ? row[0] : row;
+			}
+			else
+			{
+				return row;
+			}
+		}
+
+		private object[] ToResultRow(object[] row)
+		{
+			if (_selectLength == row.Length)
+			{
+				return row;
+			}
+
+			object[] result = new object[_selectLength];
+			int j = 0;
+			for (int i = 0; i < row.Length; i++)
+			{
+				if (_includeInSelect[i])
+				{
+					result[j++] = row[i];
+				}
+			}
+			return result;
+		}
+
+		private void CheckQuery(QueryParameters queryParameters)
+		{
+			if (HasSelectNew && queryParameters.ResultTransformer != null)
+			{
+				throw new QueryException("ResultTransformer is not allowed for 'select new' queries.");
+			}
+		}
+
+		private bool HasSelectNew
+		{
+			get { return _selectNewTransformer != null; }
+		}
+
 
 		internal IEnumerable GetEnumerable(QueryParameters queryParameters, ISessionImplementor session)
 		{
