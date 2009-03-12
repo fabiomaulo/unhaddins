@@ -44,7 +44,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
-		public string GetRenderText(ISessionFactoryImplementor sessionFactory)
+		public override string RenderText(ISessionFactoryImplementor sessionFactory)
 		{
 			int count = 0;
 			if (ExpectedType != null && (count = ExpectedType.GetColumnSpan(sessionFactory)) > 1)

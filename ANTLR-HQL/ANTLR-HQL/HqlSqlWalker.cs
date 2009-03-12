@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using Iesi.Collections.Generic;
 using log4net;
@@ -33,10 +34,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private int _currentStatementType;
 		private string _statementTypeName;
 		private int _positionalParameterCount;
+		private int _parameterCount;
+		private readonly NullableDictionary<string, object> _namedParameters = new NullableDictionary<string, object>();
 		private readonly List<IParameterSpecification> _parameters = new List<IParameterSpecification>();
 		private FromClause _currentFromClause;
 		private SelectClause _selectClause;
 		private readonly AliasGenerator _aliasGenerator = new AliasGenerator();
+		private readonly ASTPrinter _printer = new ASTPrinter();
 
 		private readonly Set<string> _querySpaces = new HashedSet<string>();
 
@@ -313,7 +317,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		void beforeSelectClause()
 		{
-			throw new NotImplementedException();
+			// Turn off includeSubclasses on all FromElements.
+			FromClause from = CurrentFromClause;
+
+			foreach (FromElement fromElement in from.GetFromElements())
+			{
+				fromElement.IncludeSubclasses = false;
+			}
 		}
 
 		void setAlias(object o1, object o2)
@@ -321,9 +331,30 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		void resolveSelectExpression(object o1)
+		void resolveSelectExpression(IASTNode node)
 		{
-			throw new NotImplementedException();
+			// This is called when it's time to fully resolve a path expression.
+			int type = node.Type;
+			switch (type)
+			{
+				case DOT:
+					DotNode dot = (DotNode)node;
+					dot.ResolveSelectExpression();
+					break;
+				case ALIAS_REF:
+					// Notify the FROM element that it is being referenced by the select.
+					FromReferenceNode aliasRefNode = (FromReferenceNode)node;
+
+					aliasRefNode.Resolve(false, false); //TODO: is it kosher to do it here?
+					FromElement fromElement = aliasRefNode.FromElement;
+					if (fromElement != null)
+					{
+						fromElement.IncludeSubclasses = true;
+					}
+					break;
+				default:
+					break;
+			}
 		}
 
 		void PrepareFromClauseInputTree(IASTNode fromClauseInput )
@@ -369,6 +400,55 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
+		void CreateFromJoinElement(
+				IASTNode path,
+				IASTNode alias,
+				int joinType,
+				IASTNode fetchNode,
+				IASTNode propertyFetch,
+				IASTNode with)
+		{
+			bool fetch = fetchNode != null;
+			if ( fetch && IsSubQuery ) 
+			{
+				throw new QueryException( "fetch not allowed in subquery from-elements" );
+			}
+			// The path AST should be a DotNode, and it should have been evaluated already.
+			if ( path.Type != HqlSqlWalker.DOT ) 
+			{
+				throw new SemanticException( "Path expected for join!" );
+			}
+
+			DotNode dot = ( DotNode ) path;
+			//JoinType hibernateJoinType = JoinProcessor.ToHibernateJoinType( joinType );
+			JoinType hibernateJoinType = _impliedJoinType;
+
+			dot.JoinType = hibernateJoinType;	// Tell the dot node about the join type.
+			dot.Fetch = fetch;
+
+			// Generate an explicit join for the root dot node.   The implied joins will be collected and passed up
+			// to the root dot node.
+			dot.Resolve( true, false, alias == null ? null : alias.Text );
+
+			FromElement fromElement = dot.GetImpliedJoin();
+			fromElement.SetAllPropertyFetch(propertyFetch!=null);
+
+			if ( with != null )
+			{
+				if ( fetch )
+				{
+					throw new SemanticException( "with-clause not allowed on fetched associations; use filters" );
+				}
+
+				HandleWithFragment( fromElement, with );
+			}
+
+			if ( log.IsDebugEnabled )
+			{
+				log.Debug( "createFromJoinElement() : " + _printer.ShowAsString( fromElement, "-- join tree --" ) );
+			}
+		}
+
 		object createFromJoinElement(object o1, object o2, object o3, object o4, object o5, object o6)
 		{
 			throw new NotImplementedException();
@@ -388,9 +468,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		void setImpliedJoinType(object o1)
+		void SetImpliedJoinType(int joinType)
 		{
-			throw new NotImplementedException();
+			_impliedJoinType = JoinProcessor.ToHibernateJoinType(joinType);
 		}
 
 		void PushFromClause(IASTNode fromNode, IASTNode inputFromNode)
@@ -434,7 +514,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 		{
 			DotNode dotNode = ( DotNode ) dot;
 			FromReferenceNode lhs = dotNode.GetLhs();
-			IASTNode rhs = lhs.RightHandSibling;
+			IASTNode rhs = lhs.NextSibling;
 			switch ( rhs.Type ) {
 				case ELEMENTS:
 				case INDICES:
@@ -508,12 +588,28 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		object generateNamedParameter(object o1, object o2)
+		IASTNode GenerateNamedParameter(IASTNode delimiterNode, IASTNode nameNode)
 		{
-			throw new NotImplementedException();
+			string name = nameNode.Text;
+			TrackNamedParameterPositions(name);
+
+			// create the node initially with the param name so that it shows
+			// appropriately in the "original text" attribute
+			ParameterNode parameter = (ParameterNode) adaptor.Create(NAMED_PARAM, name);
+			parameter.Text = "?";
+
+			NamedParameterSpecification paramSpec = new NamedParameterSpecification(
+					delimiterNode.Line,
+					delimiterNode.CharPositionInLine,
+					name
+			);
+
+			parameter.HqlParameterSpecification = paramSpec;
+			_parameters.Add(paramSpec);
+			return parameter;
 		}
 
-		object generatePositionalParameter(object o1)
+		IASTNode GeneratePositionalParameter(IASTNode inputNode)
 		{
 			throw new NotImplementedException();
 		}
@@ -633,5 +729,162 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 		}
 
+		private void TrackNamedParameterPositions(string name) 
+		{
+			int loc = _parameterCount++;
+			object o = _namedParameters[name];
+			if ( o == null ) 
+			{
+				_namedParameters.Add(name, loc);
+			}
+			else if (o is int)
+			{
+				List<int> list = new List<int>(4);
+				list.Add((int)o);
+				list.Add(loc);
+				_namedParameters.Add(name, list);
+			}
+			else
+			{
+				((List<int>) o).Add(loc);
+			}
+		}
+
+		private void HandleWithFragment(FromElement fromElement, IASTNode hqlWithNode)
+		{
+			try
+			{
+				ITreeNodeStream old = input;
+				input = new CommonTreeNodeStream(adaptor, hqlWithNode);
+
+				IASTNode hqlSqlWithNode = (IASTNode) withClause().Tree;
+				input = old;
+
+				if (log.IsDebugEnabled)
+				{
+					log.Debug("handleWithFragment() : " + _printer.ShowAsString(hqlSqlWithNode, "-- with clause --"));
+				}
+				WithClauseVisitor visitor = new WithClauseVisitor(fromElement);
+				NodeTraverser traverser = new NodeTraverser(visitor);
+				traverser.TraverseDepthFirst(hqlSqlWithNode);
+				FromElement referencedFromElement = visitor.GetReferencedFromElement();
+				if (referencedFromElement != fromElement)
+				{
+					throw new InvalidWithClauseException(
+						"with-clause expressions did not reference from-clause element to which the with-clause was associated");
+				}
+				SqlGenerator sql = new SqlGenerator(_sessionFactoryHelper.Factory, new CommonTreeNodeStream(adaptor, hqlSqlWithNode.GetChild(0)));
+
+				sql.whereExpr();
+
+				fromElement.SetWithClauseFragment(visitor.GetJoinAlias(), "(" + sql.GetSQL() + ")");
+
+			}
+			catch (SemanticException e)
+			{
+				throw e;
+			}
+			catch (InvalidWithClauseException e)
+			{
+				throw e;
+			}
+			catch (Exception e)
+			{
+				throw new SemanticException(e.Message);
+			}
+		}
 	}
+
+	class WithClauseVisitor : IVisitationStrategy 
+	{
+		private FromElement joinFragment;
+		private FromElement referencedFromElement;
+		private String joinAlias;
+
+		public WithClauseVisitor(FromElement fromElement) 
+		{
+			this.joinFragment = fromElement;
+		}
+
+		public void Visit(IASTNode node) 
+		{
+			// todo : currently expects that the individual with expressions apply to the same sql table join.
+			//      This may not be the case for joined-subclass where the property values
+			//      might be coming from different tables in the joined hierarchy.  At some
+			//      point we should expand this to support that capability.  However, that has
+			//      some difficulties:
+			//          1) the biggest is how to handle ORs when the individual comparisons are
+			//              linked to different sql joins.
+			//          2) here we would need to track each comparison individually, along with
+			//              the join alias to which it applies and then pass that information
+			//              back to the FromElement so it can pass it along to the JoinSequence
+			if ( node is DotNode ) 
+			{
+				DotNode dotNode = ( DotNode ) node;
+				FromElement fromElement = dotNode.FromElement;
+				if ( referencedFromElement != null )
+				{
+					if ( fromElement != referencedFromElement ) 
+					{
+						throw new HibernateException( "with-clause referenced two different from-clause elements" );
+					}
+				}
+				else
+				{
+					referencedFromElement = fromElement;
+					joinAlias = ExtractAppliedAlias( dotNode );
+
+					// todo : temporary
+					//      needed because currently persister is the one that
+					//      creates and renders the join fragments for inheritence
+					//      hierarchies...
+					if ( joinAlias != referencedFromElement.TableAlias) 
+					{
+						throw new InvalidWithClauseException( "with clause can only reference columns in the driving table" );
+					}
+				}
+			}
+			else if ( node is ParameterNode ) 
+			{
+				ApplyParameterSpecification(((ParameterNode) node).HqlParameterSpecification);
+			}
+			else if ( node is IParameterContainer ) 
+			{
+				ApplyParameterSpecifications( ( IParameterContainer ) node );
+			}
+		}
+
+		private void ApplyParameterSpecifications(IParameterContainer parameterContainer) 
+		{
+			if ( parameterContainer.HasEmbeddedParameters) 
+			{
+				IParameterSpecification[] specs = parameterContainer.GetEmbeddedParameters();
+				for ( int i = 0; i < specs.Length; i++ ) 
+				{
+					ApplyParameterSpecification( specs[i] );
+				}
+			}
+		}
+
+		private void ApplyParameterSpecification(IParameterSpecification paramSpec) 
+		{
+			joinFragment.AddEmbeddedParameter(paramSpec);
+		}
+
+		private String ExtractAppliedAlias(DotNode dotNode) 
+		{
+			return dotNode.Text.Substring( 0, dotNode.Text.IndexOf( '.' ) );
+		}
+
+		public FromElement GetReferencedFromElement() 
+		{
+			return referencedFromElement;
+		}
+
+		public String GetJoinAlias() 
+		{
+			return joinAlias;
+		}
+	}
+
 }

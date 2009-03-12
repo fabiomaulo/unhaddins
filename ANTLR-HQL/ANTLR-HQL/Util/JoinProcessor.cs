@@ -39,6 +39,26 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			_syntheticAndFactory = new SyntheticAndFactory( walker );
 		}
 
+		/// <summary>
+		/// Translates an AST join type (i.e., the token type) into a JoinFragment.XXX join type.
+		/// </summary>
+		/// <param name="astJoinType">The AST join type (from HqlSqlWalker)</param>
+		/// <returns>a JoinType.XXX join type.</returns>
+		public static JoinType ToHibernateJoinType(int astJoinType)
+		{
+			switch (astJoinType)
+			{
+				case HqlSqlWalker.LEFT_OUTER:
+					return JoinType.LeftOuterJoin;
+				case HqlSqlWalker.INNER:
+					return JoinType.InnerJoin;
+				case HqlSqlWalker.RIGHT_OUTER:
+					return JoinType.RightOuterJoin;
+				default:
+					throw new AssertionFailure("undefined join type " + astJoinType);
+			}
+		}
+
 		public void ProcessJoins(QueryNode query) 
 		{
 			FromClause fromClause = query.FromClause;

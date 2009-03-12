@@ -127,7 +127,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					}
 					else
 					{
-						_thetaJoins.AddSiblingToRight(_filters);
+						_thetaJoins.AddSibling(_filters);
 					}
 				}
 

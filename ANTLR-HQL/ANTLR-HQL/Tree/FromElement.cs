@@ -26,7 +26,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private FromElement _origin;
 		private bool _manyToMany;
 		private bool _useFromFragment;
-		private bool _useWhereFragment;
+		private bool _useWhereFragment = true;
 		private bool _includeSubclasses;
 		private List<FromElement> _destinations = new List<FromElement>();
 		private bool _dereferencedBySubclassProperty;
@@ -47,6 +47,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		public void SetAllPropertyFetch(bool fetch)
 		{
 			_isAllPropertyFetch = fetch;
+		}
+
+		public void SetWithClauseFragment(String withClauseJoinAlias, String withClauseFragment)
+		{
+			_withClauseJoinAlias = withClauseJoinAlias;
+			_withClauseFragment = withClauseFragment;
 		}
 
 		public Engine.JoinSequence JoinSequence
@@ -482,7 +488,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				// If this is not the destination of a many-to-many, add it as a child of the origin.
 				if (manyToMany)
 				{
-					origin.AddSiblingToRight(this);
+					origin.AddSibling(this);
 				}
 				else
 				{

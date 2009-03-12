@@ -10,6 +10,7 @@ using NHibernate.Hql.Ast.ANTLR.Loader;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
+using NHibernate.SqlCommand;
 using NHibernate.Type;
 using NHibernate.Util;
 
@@ -66,7 +67,68 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public IList List(ISessionImplementor session, QueryParameters queryParameters)
 		{
-			throw new System.NotImplementedException();
+			// Delegate to the QueryLoader...
+			ErrorIfDML();
+			QueryNode query = ( QueryNode ) _translator.SqlStatement;
+			bool hasLimit = queryParameters.RowSelection != null && queryParameters.RowSelection.DefinesLimits;
+			bool needsDistincting = ( query.GetSelectClause().IsDistinct || hasLimit ) && ContainsCollectionFetches;
+
+			QueryParameters queryParametersToUse;
+
+			if ( hasLimit && ContainsCollectionFetches ) 
+			{
+				log.Warn( "firstResult/maxResults specified with collection fetch; applying in memory!" );
+				RowSelection selection = new RowSelection();
+				selection.FetchSize = queryParameters.RowSelection.FetchSize;
+				selection.Timeout = queryParameters.RowSelection.Timeout;
+				queryParametersToUse = queryParameters.CreateCopyUsing( selection );
+			}
+			else 
+			{
+				queryParametersToUse = queryParameters;
+			}
+
+			IList results = _queryLoader.List(session, queryParametersToUse);
+
+			if ( needsDistincting ) 
+			{
+				int includedCount = -1;
+				// NOTE : firstRow is zero-based
+				int first = !hasLimit || queryParameters.RowSelection.FirstRow == RowSelection.NoValue
+							? 0
+							: queryParameters.RowSelection.FirstRow;
+				int max = !hasLimit || queryParameters.RowSelection.MaxRows == RowSelection.NoValue
+							? -1
+							: queryParameters.RowSelection.MaxRows;
+
+				int size = results.Count;
+				List<object> tmp = new List<object>();
+				IdentitySet distinction = new IdentitySet();
+
+				for ( int i = 0; i < size; i++ ) 
+				{
+					object result = results[i];
+					if ( !distinction.Add(result ) ) 
+					{
+						continue;
+					}
+					includedCount++;
+					if ( includedCount < first ) 
+					{
+						continue;
+					}
+					tmp.Add( result );
+					// NOTE : ( max - 1 ) because first is zero-based while max is not...
+					if ( max >= 0 && ( includedCount - first ) >= ( max - 1 ) ) 
+					{
+						break;
+					}
+				}
+
+				results = tmp;
+			}
+
+			return results;
 		}
 
 		public IEnumerable GetEnumerable(QueryParameters queryParameters, ISessionImplementor session)
@@ -102,6 +164,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public string SQLString
 		{
+			get { return _generator.Sql.ToString(); }
+		}
+
+		public SqlString SqlString
+		{
 			get { return _generator.Sql; }
 		}
 
@@ -123,7 +190,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				}
 				else
 				{
-					list.Add(_generator.Sql);
+					list.Add(_generator.Sql.ToString());
 				}
 				return list;
 			}
@@ -422,14 +489,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 				HqlSqlWalker hqlSqlWalker = new HqlSqlWalker(_qti, _sfi, nodes, _tokenReplacements, _collectionRole);
 				hqlSqlWalker.TreeAdaptor = new HqlSqlWalkerTreeAdaptor(hqlSqlWalker);
 
-				// TODO - debug, remove
-				Console.WriteLine(_inputAst.ToStringTree());
-
 				// Transform the tree.
 				_resultAst = (IStatement) hqlSqlWalker.statement().Tree;
-
-				// TODO - debug, remove
-				Console.WriteLine(((IASTNode) _resultAst).ToStringTree());
 
 				/*
 				if ( AST_LOG.isDebugEnabled() ) {
@@ -452,7 +513,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private readonly IASTNode _ast;
 		private readonly CommonTokenStream _tokens;
 		private readonly ISessionFactoryImplementor _sfi;
-		private string _sql;
+		private SqlString _sql;
 		private IList<IParameterSpecification> _parameters;
 
 		public HqlSqlGenerator(IStatement ast, CommonTokenStream tokens, ISessionFactoryImplementor sfi)
@@ -462,7 +523,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			_sfi = sfi;
 		}
 
-		public string Sql
+		public SqlString Sql
 		{
 			get { return _sql; }
 		}
@@ -472,7 +533,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get { return _parameters; }
 		}
 
-		public string Generate()
+		public SqlString Generate()
 		{
 			if (_sql == null)
 			{
@@ -480,7 +541,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				nodes.TokenStream = _tokens;
 
 				SqlGenerator gen = new SqlGenerator(_sfi, nodes);
-				gen.TreeAdaptor = new ASTTreeAdaptor();
+				//gen.TreeAdaptor = new ASTTreeAdaptor();
 
 				gen.statement();
 

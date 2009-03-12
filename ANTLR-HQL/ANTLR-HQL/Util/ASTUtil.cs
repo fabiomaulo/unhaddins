@@ -6,6 +6,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 {
 	static public class ASTUtil
 	{
+		public static void MakeSiblingOfParent(IASTNode parent, IASTNode child)
+		{
+			parent.RemoveChild(child);
+			parent.AddSibling(child);
+		}
+
 		public static string GetPathText(IASTNode n)
 		{
 			StringBuilder buf = new StringBuilder();

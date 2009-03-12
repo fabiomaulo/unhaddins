@@ -1,5 +1,6 @@
 ﻿using System;
 using Antlr.Runtime;
+using NHibernate.Engine;
 using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
@@ -38,6 +39,17 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					_originalText = value;
 				}
 			}
+		}
+
+		/// <summary>
+		/// Retrieve the text to be used for rendering this particular node.
+		/// </summary>
+		/// <param name="sessionFactory">The session factory</param>
+		/// <returns>The text to use for rendering</returns>
+		public virtual String RenderText(ISessionFactoryImplementor sessionFactory)
+		{
+			// The basic implementation is to simply use the node's text
+			return Text;
 		}
 
 		public String getOriginalText()

@@ -13,12 +13,13 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		int ChildCount { get; }
 		int ChildIndex { get; }
 		IASTNode Parent { get; set; }
-		IASTNode RightHandSibling { get; }
+		IASTNode NextSibling { get; }
 		IASTNode GetChild(int index);
 		IASTNode AddChild(IASTNode childNode);
 		IASTNode InsertChild(int index, IASTNode child);
-		IASTNode AddSiblingToRight(IASTNode newSibling);
+		IASTNode AddSibling(IASTNode newSibling);
 		void ClearChildren();
+		void RemoveChild(IASTNode child);
 		void AddChildren(IEnumerable<IASTNode> children);
 		void AddChildren(params IASTNode[] children);
 

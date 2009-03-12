@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
-using log4net;
+using NHibernate.Dialect.Function;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
-using NHibernate.Hql.Ast.ANTLR.Util;
+using NHibernate.SqlCommand;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
@@ -19,8 +19,6 @@ namespace NHibernate.Hql.Ast.ANTLR
 	/// </summary>
 	public partial class SqlGenerator : IErrorReporter
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(SqlGenerator));
-
 		/// <summary>
 		/// Handles parser errors.
 		/// </summary>
@@ -30,21 +28,28 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		private readonly List<IParameterSpecification> _collectedParameters = new List<IParameterSpecification>();
 
-		/// <summary>
-		/// the buffer resulting SQL statement is written to
-		/// </summary>
-		private readonly StringBuilder buf = new StringBuilder();
+		/**
+		 * all append invocations on the buf should go through this Output instance variable.
+		 * The value of this variable may be temporarily substitued by sql function processing code
+		 * to catch generated arguments.
+		 * This is because sql function templates need arguments as seperate string chunks
+		 * that will be assembled into the target dialect-specific function call.
+		 */
+		private ISqlWriter _writer;
 
-		public SqlGenerator(ISessionFactoryImplementor sfi) : base(null)
+		private readonly List<ISqlWriter> _outputStack = new List<ISqlWriter>();
+
+		private readonly SqlStringBuilder _sqlStringBuilder = new SqlStringBuilder();
+
+		public SqlGenerator(ISessionFactoryImplementor sfi) : this(sfi, null)
 		{
-			_parseErrorHandler = new ErrorCounter();
-			_sessionFactory = sfi;
 		}
 
-		public SqlGenerator(ISessionFactoryImplementor sfi, ITreeNodeStream input) : this(input)
+		public SqlGenerator(ISessionFactoryImplementor sfi, ITreeNodeStream input) : base(input)
 		{
 			_parseErrorHandler = new ErrorCounter();
 			_sessionFactory = sfi;
+			_writer = new DefaultWriter(this);
 		}
 
 		public void ReportError(RecognitionException e)
@@ -67,9 +72,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new NotImplementedException();
 		}
 
-		public string GetSQL()
+		public SqlString GetSQL()
 		{
-			return buf.ToString();
+			return _sqlStringBuilder.ToSqlString();
 		}
 
 		public IList<IParameterSpecification> GetCollectedParameters()
@@ -84,81 +89,313 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		private void Out(string s) 
 		{
-			buf.Append(s);
+			_writer.Clause(s);
+		}
+
+		private void ParameterOut()
+		{
+			_writer.Parameter();
 		}
 
 		/**
 		 * Returns the last character written to the output, or -1 if there isn't one.
-		 */
-		private int getLastChar() 
+		 *//*
+		private int GetLastChar() 
 		{
-			int len = buf.Length;
+			int len = _buf.Length;
 			if ( len == 0 )
 				return -1;
 			else
-				return buf[len - 1];
-		}
+				return _buf[len - 1];
+		}*/
 
 		/**
 		 * Add a aspace if the previous token was not a space or a parenthesis.
 		 */
-		protected virtual void optionalSpace() 
-		{
-			// Implemented in the sub-class.
+		void OptionalSpace() 
+		{/*
+			int c = GetLastChar();
+			switch ( c ) {
+				case -1:
+					return;
+				case ' ':
+					return;
+				case ')':
+					return;
+				case '(':
+					return;
+				default:
+					Out( " " );
+					break;
+			}*/
+			Out(" ");
 		}
 
 		private void Out(IASTNode n) 
 		{
-			Out(n.Text);
+			if (n is ParameterNode)
+			{
+				ParameterOut();
+			}
+			else if ( n is SqlNode ) 
+			{
+				Out(((SqlNode) n).RenderText(_sessionFactory));
+			}
+			else 
+			{
+				Out(n.Text);
+			}
+
+			if ( n is ParameterNode ) 
+			{
+				_collectedParameters.Add( ( ( ParameterNode ) n ).HqlParameterSpecification );
+			}
+			else if ( n is IParameterContainer ) 
+			{
+				if ( ( ( IParameterContainer ) n ).HasEmbeddedParameters ) 
+				{
+					IParameterSpecification[] specifications = ( ( IParameterContainer ) n ).GetEmbeddedParameters();
+					if ( specifications != null ) 
+					{
+						_collectedParameters.AddRange(specifications);
+					}
+				}
+			}
 		}
 
-		private void separator(IASTNode n, String sep) 
+		private void Separator(IASTNode n, String sep) 
 		{
-			if (n.RightHandSibling != null)
+			if (n.NextSibling != null)
+			{
 				Out(sep);
+			}
 		}
 
-		private bool  hasText(IASTNode a) 
+		private static bool HasText(IASTNode a) 
 		{
 			return !string.IsNullOrEmpty(a.Text);
 		}
 
-		protected virtual void fromFragmentSeparator(IASTNode a) 
+		protected virtual void FromFragmentSeparator(IASTNode a) 
 		{
-			// moved this impl into the subclass...
+			// check two "adjecent" nodes at the top of the from-clause tree
+			IASTNode next = a.NextSibling;
+			if ( next == null || !HasText( a ) ) 
+			{
+				return;
+			}
+
+			FromElement left = ( FromElement ) a;
+			FromElement right = ( FromElement ) next;
+
+			///////////////////////////////////////////////////////////////////////
+			// HACK ALERT !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			// Attempt to work around "ghost" ImpliedFromElements that occasionally
+			// show up between the actual things being joined.  This consistently
+			// occurs from index nodes (at least against many-to-many).  Not sure
+			// if there are other conditions
+			//
+			// Essentially, look-ahead to the next FromElement that actually
+			// writes something to the SQL
+			while ( right != null && !HasText( right ) ) 
+			{
+				right = ( FromElement ) right.NextSibling;
+			}
+
+			if ( right == null ) 
+			{
+				return;
+			}
+			///////////////////////////////////////////////////////////////////////
+
+			if ( !HasText( right ) ) 
+			{
+				return;
+			}
+
+			if ( right.RealOrigin == left ||
+				 ( right.RealOrigin != null && right.RealOrigin == left.RealOrigin ) ) 
+			{
+				// right represents a joins originating from left; or
+				// both right and left reprersent joins originating from the same FromElement
+				if ( right.JoinSequence != null && right.JoinSequence.IsThetaStyle) 
+				{
+					Out( ", " );
+				}
+				else 
+				{
+					Out( " " );
+				}
+			}
+			else 
+			{
+				// these are just two unrelated table references
+				Out( ", " );
+			}
 		}
 
-		protected virtual void nestedFromFragment(IASTNode d, IASTNode parent) 
+		protected virtual void NestedFromFragment(IASTNode d, IASTNode parent)
 		{
-			// moved this impl into the subclass...
+			// check a set of parent/child nodes in the from-clause tree
+			// to determine if a comma is required between them
+			if (d != null && HasText(d))
+			{
+				if (parent != null && HasText(parent))
+				{
+					// again, both should be FromElements
+					FromElement left = (FromElement) parent;
+					FromElement right = (FromElement) d;
+					if (right.RealOrigin == left)
+					{
+						// right represents a joins originating from left...
+						if (right.JoinSequence != null && right.JoinSequence.IsThetaStyle)
+						{
+							Out(", ");
+						}
+						else
+						{
+							Out(" ");
+						}
+					}
+					else
+					{
+						// not so sure this is even valid subtree.  but if it was, it'd
+						// represent two unrelated table references...
+						Out(", ");
+					}
+				}
+
+				Out(d);
+			}
 		}
 
-		private StringBuilder getStringBuilder()
+		private SqlStringBuilder GetStringBuilder()
 		{
-			return buf;
+			return _sqlStringBuilder;
 		}
 
-		private void nyi(IASTNode n) 
+		private void BeginFunctionTemplate(IASTNode m, IASTNode i) 
 		{
-			throw new InvalidOperationException("Unsupported node: " + n);
+			MethodNode methodNode = (MethodNode)m;
+			ISQLFunction template = methodNode.SQLFunction;
+			if (template == null)
+			{
+				// if template is null we just write the function out as it appears in the hql statement
+				Out(i);
+				Out("(");
+			}
+			else
+			{
+				// this function has a template -> redirect output and catch the arguments
+				_outputStack.Insert(0, _writer);
+				_writer = new FunctionArguments();
+			}
 		}
 
-		private void beginFunctionTemplate(IASTNode m, IASTNode i) 
+		private void EndFunctionTemplate(IASTNode m) 
 		{
-			// if template is null we just write the function out as it appears in the hql statement
-			Out(i);
-			Out("(");
+			MethodNode methodNode = ( MethodNode ) m;
+			ISQLFunction template = methodNode.SQLFunction;
+			if ( template == null ) 
+			{
+				  Out(")");
+			}
+			else 
+			{
+				// this function has a template -> restore output, apply the template and write the result out
+				FunctionArguments functionArguments = ( FunctionArguments ) _writer;   // TODO: Downcast to avoid using an interface?  Yuck.
+				_writer = _outputStack[0];
+				_outputStack.RemoveAt(0);
+				Out( template.Render( functionArguments.Args, _sessionFactory).ToString() );
+			}
 		}
 
-		private void endFunctionTemplate(IASTNode m) 
+		private void CommaBetweenParameters(String comma) 
 		{
-			  Out(")");
+			_writer.CommaBetweenParameters(comma);
 		}
 
-		private void commaBetweenParameters(String comma) 
+		/**
+		 * Writes SQL fragments.
+		 */
+		interface ISqlWriter 
 		{
-			Out(comma);
+			void Clause(String clause);
+			void Parameter();
+			/**
+			 * todo remove this hack
+			 * The parameter is either ", " or " , ". This is needed to pass sql generating tests as the old
+			 * sql generator uses " , " in the WHERE and ", " in SELECT.
+			 *
+			 * @param comma either " , " or ", "
+			 */
+			void CommaBetweenParameters(String comma);
 		}
 
+		/**
+		 * SQL function processing code redirects generated SQL output to an instance of this class
+		 * which catches function arguments.
+		 */
+		class FunctionArguments : ISqlWriter 
+		{
+			private int argInd;
+			private readonly List<string> args = new List<string>( 3 );
+
+			public void Clause(String clause) 
+			{
+				if ( argInd == args.Count ) 
+				{
+					args.Add( clause );
+				}
+				else 
+				{
+					args[argInd] = args[argInd] + clause;
+				}
+			}
+
+			public void Parameter()
+			{
+				throw new NotImplementedException();
+			}
+
+			public void CommaBetweenParameters(String comma) 
+			{
+				++argInd;
+			}
+
+			public IList Args
+			{
+				get { return args; }
+			}
+		}
+
+		/**
+		 * The default SQL writer.
+		 */
+		class DefaultWriter : ISqlWriter 
+		{
+			private readonly SqlGenerator _generator;
+
+			internal DefaultWriter(SqlGenerator generator)
+			{
+				_generator = generator;
+				
+			}
+			public void Clause(String clause) 
+			{
+				_generator.GetStringBuilder().Add( clause );
+			}
+
+			public void Parameter()
+			{
+				_generator.GetStringBuilder().AddParameter();
+			}
+
+
+			public void CommaBetweenParameters(String comma) 
+			{
+				_generator.GetStringBuilder().Add(comma);
+			}
+		}
 	}
 }

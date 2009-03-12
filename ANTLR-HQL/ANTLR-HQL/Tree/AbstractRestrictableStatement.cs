@@ -1,4 +1,5 @@
 ﻿using Antlr.Runtime;
+using log4net;
 using NHibernate.Hql.Ast.ANTLR.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
@@ -6,10 +7,14 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	public abstract class AbstractRestrictableStatement : AbstractStatement, IRestrictableStatement
 	{
 		private FromClause _fromClause;
+		private IASTNode _whereClause;
 
 		protected AbstractRestrictableStatement(IToken token) : base(token)
 		{
 		}
+
+		protected abstract ILog GetLog();
+		protected abstract int GetWhereClauseParentTokenType();
 
 		public FromClause FromClause
 		{
@@ -25,12 +30,36 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public bool HasWhereClause
 		{
-			get { throw new System.NotImplementedException(); }
+			get
+			{
+				IASTNode whereClause = ASTUtil.FindTypeInChildren(this, HqlSqlWalker.WHERE);
+				return whereClause != null && whereClause.ChildCount > 0;
+			}
 		}
 
 		public IASTNode WhereClause
 		{
-			get { throw new System.NotImplementedException(); }
+			get
+			{
+				if (_whereClause == null)
+				{
+					_whereClause = ASTUtil.FindTypeInChildren(this, HqlSqlWalker.WHERE);
+
+					// If there is no WHERE node, make one.
+					if (_whereClause == null)
+					{
+						GetLog().Debug("getWhereClause() : Creating a new WHERE clause...");
+
+						_whereClause = Walker.ASTFactory.CreateNode(HqlSqlWalker.WHERE, "WHERE");
+
+						// inject the WHERE after the parent
+						IASTNode parent = ASTUtil.FindTypeInChildren(this, GetWhereClauseParentTokenType());
+						parent.AddSibling(_whereClause);
+					}
+				}
+
+				return _whereClause;
+			}
 		}
 	}
 }

@@ -187,12 +187,18 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			_children.Insert(index, child);
 
+			FreshenParentAndChildIndexes(index);
 			return child;
 		}
 
-		public IASTNode AddSiblingToRight(IASTNode newSibling)
+		public IASTNode AddSibling(IASTNode newSibling)
 		{
-			throw new System.NotImplementedException();
+			return _parent.InsertChild(this.ChildIndex + 1, newSibling);
+		}
+
+		public void RemoveChild(IASTNode child)
+		{
+			_children.RemoveAt(child.ChildIndex);
 		}
 
 		public void ClearChildren()
@@ -225,7 +231,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return new ASTNode(this);
 		}
 
-		public IASTNode RightHandSibling
+		public IASTNode NextSibling
 		{
 			get
 			{

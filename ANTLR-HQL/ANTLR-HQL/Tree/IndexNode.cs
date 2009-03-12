@@ -117,7 +117,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				throw new QueryException( e.Message, e );
 			}
 
-			string selectorExpression = gen.GetSQL();
+			string selectorExpression = gen.GetSQL().ToString();
 			//joinSequence.AddCondition( collectionTableAlias + '.' + indexCols[0] + " = " + selectorExpression );
 			joinSequence.AddCondition(collectionTableAlias, new string[] { indexCols[0] }, selectorExpression, false);
 			IList<IParameterSpecification> paramSpecs = gen.GetCollectedParameters();
