@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using NHibernate.Engine;
+using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Impl;
@@ -50,6 +51,102 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 
 			Initialize(selectClause);
 			PostInstantiate();
+		}
+
+		protected override bool IsSubselectLoadingEnabled
+		{
+			get { return HasSubselectLoadableCollections(); }
+		}
+
+		protected override SqlString ApplyLocks(SqlString sql, IDictionary<string, LockMode> lockModes, Dialect.Dialect dialect)
+		{
+			if ( lockModes == null || lockModes.Count == 0 ) 
+			{
+				return sql;
+			}
+
+			// can't cache this stuff either (per-invocation)
+			// we are given a map of user-alias -> lock mode
+			// create a new map of sql-alias -> lock mode
+			Dictionary<string, LockMode> aliasedLockModes = new Dictionary<string, LockMode>();
+			Dictionary<string, string[]> keyColumnNames = dialect.ForUpdateOfColumns ? new Dictionary<string, string[]>() : null;
+
+			foreach (var entry in lockModes)
+			{
+				string userAlias = entry.Key;
+				string drivingSqlAlias = _sqlAliasByEntityAlias[userAlias];
+				if ( drivingSqlAlias == null ) 
+				{
+					throw new InvalidOperationException( "could not locate alias to apply lock mode : " + userAlias );
+				}
+
+				// at this point we have (drivingSqlAlias) the SQL alias of the driving table
+				// corresponding to the given user alias.  However, the driving table is not
+				// (necessarily) the table against which we want to apply locks.  Mainly,
+				// the exception case here is joined-subclass hierarchies where we instead
+				// want to apply the lock against the root table (for all other strategies,
+				// it just happens that driving and root are the same).
+				QueryNode select = ( QueryNode ) _queryTranslator.SqlAST;
+				ILockable drivingPersister = ( ILockable ) select.FromClause.GetFromElement( userAlias ).Queryable;
+				string sqlAlias = drivingPersister.GetRootTableAlias( drivingSqlAlias );
+				aliasedLockModes.Add(sqlAlias, entry.Value);
+
+				if ( keyColumnNames != null ) 
+				{
+					keyColumnNames.Add( sqlAlias, drivingPersister.RootTableIdentifierColumnNames );
+				}
+			}
+
+			return dialect.ApplyLocksToSql( sql, aliasedLockModes, keyColumnNames );
+		}
+
+		protected override int BindParameterValues(IDbCommand statement, QueryParameters queryParameters, int startIndex, ISessionImplementor session)
+		{
+			int position = startIndex;
+	
+			IList<IParameterSpecification> parameterSpecs = _queryTranslator.CollectedParameterSpecifications;
+
+			foreach (IParameterSpecification spec in parameterSpecs)
+			{
+				position += spec.Bind(statement, queryParameters, session, position);
+			}
+
+			return position - startIndex;
+		}
+
+		protected override string[] Aliases
+		{
+			get { return _sqlAliases; }
+		}
+
+		protected override int[] CollectionOwners
+		{
+			get { return _collectionOwners; }
+		}
+
+		protected override bool[] EntityEagerPropertyFetches
+		{
+			get { return _entityEagerPropertyFetches; }
+		}
+
+		protected override EntityType[] OwnerAssociationTypes
+		{
+			get { return _ownerAssociationTypes; }
+		}
+
+		protected override int[] Owners
+		{
+			get { return _owners; }
+		}
+
+		public override string QueryIdentifier
+		{
+			get { return _queryTranslator.QueryIdentifier; }
+		}
+
+		protected override bool UpgradeLocks()
+		{
+			return true;
 		}
 
 		/// <summary>
@@ -112,6 +209,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 		protected override string[] CollectionSuffixes
 		{
 			get { return _collectionSuffixes; }
+		}
+
+		protected override ICollectionPersister[] CollectionPersisters
+		{
+			get { return _collectionPersisters; }
 		}
 
 		private void Initialize(SelectClause selectClause)
@@ -278,7 +380,6 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 		{
 			get { return _selectNewTransformer != null; }
 		}
-
 
 		internal IEnumerable GetEnumerable(QueryParameters queryParameters, ISessionImplementor session)
 		{

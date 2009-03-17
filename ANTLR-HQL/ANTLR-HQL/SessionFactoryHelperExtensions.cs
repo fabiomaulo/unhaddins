@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using NHibernate.Dialect.Function;
 using NHibernate.Engine;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 using NHibernate.Persister.Collection;
 using NHibernate.Persister.Entity;
 using NHibernate.SqlCommand;
 using NHibernate.Type;
+using NHibernate.Util;
+using IASTNode=NHibernate.Hql.Ast.ANTLR.Tree.IASTNode;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
@@ -26,6 +30,92 @@ namespace NHibernate.Hql.Ast.ANTLR
 		public ISessionFactoryImplementor Factory
 		{
 			get { return _sfi;}
+		}
+
+		/// <summary>
+		/// Locate a registered sql function by name.
+		/// </summary>
+		/// <param name="functionName">The name of the function to locate</param>
+		/// <returns>The sql function, or null if not found.</returns>
+		public ISQLFunction FindSQLFunction(string functionName)
+		{
+			return _sfi.SQLFunctionRegistry.FindSQLFunction(functionName.ToLowerInvariant());
+		}
+
+		/// <summary>
+		/// Locate a registered sql function by name.
+		/// </summary>
+		/// <param name="functionName">The name of the function to locate</param>
+		/// <returns>The sql function, or throws QueryException if no matching sql functions could be found.</returns>
+		private ISQLFunction RequireSQLFunction(string functionName)
+		{
+			ISQLFunction f = FindSQLFunction(functionName);
+
+			if (f == null)
+			{
+				throw new QueryException("Unable to find SQL function: " + functionName);
+			}
+			return f;
+		}
+
+		/// <summary>
+		/// Find the function return type given the function name and the first argument expression node.
+		/// </summary>
+		/// <param name="functionName">The function name.</param>
+		/// <param name="first">The first argument expression.</param>
+		/// <returns>the function return type given the function name and the first argument expression node.</returns>
+		public IType FindFunctionReturnType(String functionName, IASTNode first)
+		{
+			// locate the registered function by the given name
+			ISQLFunction sqlFunction = RequireSQLFunction(functionName);
+
+			// determine the type of the first argument...
+			IType argumentType = null;
+
+			if (first != null)
+			{
+				if (functionName == "cast")
+				{
+					argumentType = TypeFactory.HeuristicType(first.NextSibling.Text);
+				}
+				else if (first is SqlNode)
+				{
+					argumentType = ((SqlNode) first).DataType;
+				}
+			}
+
+			return sqlFunction.ReturnType(argumentType, _sfi);
+		}
+
+		/// <summary>
+		/// Given a (potentially unqualified) class name, locate its imported qualified name.
+		/// </summary>
+		/// <param name="className">The potentially unqualified class name</param>
+		/// <returns>The qualified class name.</returns>
+		public string GetImportedClassName(string className)
+		{
+			return _sfi.GetImportedClassName(className);
+		}
+
+		/// <summary>
+		/// Does the given persister define a physical discriminator column
+		/// for the purpose of inheritence discrimination?
+		/// </summary>
+		/// <param name="persister">The persister to be checked.</param>
+		/// <returns>True if the persister does define an actual discriminator column.</returns>
+		public bool HasPhysicalDiscriminatorColumn(IQueryable persister)
+		{
+			if (persister.DiscriminatorType != null)
+			{
+				string discrimColumnName = persister.DiscriminatorColumnName;
+				// Needed the "clazz_" check to work around union-subclasses
+				// TODO : is there a way to tell whether a persister is truly discrim-column based inheritence?
+				if (discrimColumnName != null && "clazz_" != discrimColumnName)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -160,19 +250,38 @@ namespace NHibernate.Hql.Ast.ANTLR
 		/// <returns>The defined persister for this class, or null if none found.</returns>
 		public static IQueryable FindQueryableUsingImports(ISessionFactoryImplementor sfi, string className) 
 		{
-			string importedClassName = sfi.GetImportedClassName( className );
-			if ( importedClassName == null ) 
+			// NH : this method prevent unrecognized class when entityName != class.FullName
+			// this is a patch for the TODO below
+			var possibleResult = sfi.TryGetEntityPersister(GetEntityName(className)) as IQueryable;
+			if (possibleResult != null)
+			{
+				return possibleResult;
+			}
+
+			string importedClassName = sfi.GetImportedClassName(className);
+
+			if (importedClassName == null)
 			{
 				return null;
 			}
-			try 
-			{
-				return ( IQueryable ) sfi.GetEntityPersister( importedClassName );
-			}
-			catch ( MappingException me ) 
-			{
-				return null;
-			}
+			// NH: This method don't work if entityName != class.FullName
+			return (IQueryable)sfi.TryGetEntityPersister(GetEntityName(importedClassName));
+		}
+
+		private static string GetEntityName(string assemblyQualifiedName)
+		{
+			/* *********************************************************************************************************
+			 * TODO NH Different impl.: we need to resolve the matter between FullName-AssemblyQualifiedName-EntityName-Name
+			 * GetImportedClassName in h3.2.5 return the entityName that, in many cases but not all, should be the
+			 * MappesClass.FullName. The value returned by GetImportedClassName, in this case, is used to find the persister.
+			 * A possible solution would be to use the same behavior of H3.2.5 but we start to have some problems (performance)
+			 * when we try to use the result of GetImportedClassName to create an instance and we completely lost a way
+			 * to link an entityName with its AssemblyQualifiedName (strongly typed).
+			 * I would like to maitain <imports> like the holder of the association of an entityName (or a class Name) and
+			 * its Type (in the future: Dictionary<string, System.Type> imports;)
+			 * *********************************************************************************************************
+			 */
+			return TypeNameParser.Parse(assemblyQualifiedName).Type;
 		}
 
 		/// <summary>

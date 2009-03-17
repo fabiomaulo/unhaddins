@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Antlr.Runtime;
 using log4net;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
@@ -37,7 +38,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private bool initialized = false;
 		private string _withClauseFragment;
 		private string _withClauseJoinAlias;
-		private string _collectionFilterRole;
+		private bool _filter;
 
 
 		public FromElement(IToken token) : base(token)
@@ -67,6 +68,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set { _columns = value; }
 		}
 
+		public bool IsEntity
+		{
+			get { return _elementType.IsEntity; }
+		}
+
 		public bool IsFromOrJoinFragment
 		{
 			get { return Type == HqlSqlWalker.FROM_FRAGMENT || Type == HqlSqlWalker.JOIN_FRAGMENT; }
@@ -78,14 +84,24 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set { _isAllPropertyFetch = value; }
 		}
 
+		public bool IsImpliedInFromClause
+		{
+			get { return false; }  // Since this is an explicit FROM element, it can't be implied in the FROM clause.
+		}
+
 		public bool IsFetch
 		{
 			get { return _fetch; }
 		}
 
+		public bool Filter
+		{
+			set { _filter = true; }
+		}
+
 		public bool IsFilter
 		{
-			get { return _collectionFilterRole != null; }
+			get { return _filter; }
 		}
 
 		public IParameterSpecification[] GetEmbeddedParameters()
@@ -161,6 +177,15 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		public string TableAlias
 		{
 			get { return _tableAlias; }
+		}
+
+		private string TableName
+		{
+			get
+			{
+				IQueryable queryable = Queryable;
+				return (queryable != null) ? queryable.TableName : "{none}";
+			}
 		}
 
 		public string ClassAlias
@@ -529,7 +554,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public string GetDisplayText()
 		{
-			throw new NotImplementedException();
+			StringBuilder buf = new StringBuilder();
+			buf.Append("FromElement{");
+			AppendDisplayText(buf);
+			buf.Append("}");
+			return buf.ToString();
 		}
 
 		public void InitializeCollection(FromClause fromClause, string classAlias, string tableAlias)
@@ -556,6 +585,36 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			{
 				throw new InvalidOperationException("FromElement has not been initialized!");
 			}
+		}
+
+		protected void AppendDisplayText(StringBuilder buf)
+		{
+			buf.Append(IsImplied ? (
+					IsImpliedInFromClause ? "implied in FROM clause" : "implied")
+					: "explicit");
+			buf.Append(",").Append(IsCollectionJoin ? "collection join" : "not a collection join");
+			buf.Append(",").Append(_fetch ? "fetch join" : "not a fetch join");
+			buf.Append(",").Append(IsAllPropertyFetch ? "fetch all properties" : "fetch non-lazy properties");
+			buf.Append(",classAlias=").Append(ClassAlias);
+			buf.Append(",role=").Append(_role);
+			buf.Append(",tableName=").Append(TableName);
+			buf.Append(",tableAlias=").Append(TableAlias);
+			FromElement origin = RealOrigin;
+			buf.Append(",origin=").Append(origin == null ? "null" : origin.Text);
+			buf.Append(",colums={");
+			if (_columns != null)
+			{
+				for (int i = 0; i < _columns.Length; i++)
+				{
+					buf.Append(_columns[i]);
+					if (i < _columns.Length)
+					{
+						buf.Append(" ");
+					}
+				}
+			}
+			buf.Append(",className=").Append(_className);
+			buf.Append("}");
 		}
 
 		private void AddDestination(FromElement fromElement)

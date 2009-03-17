@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
+using Antlr.Runtime.Tree;
 using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
@@ -107,10 +108,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			{
 				throw new QueryException( "composite-index appears in []: " + collectionNode.Path );
 			}
-			SqlGenerator gen = new SqlGenerator( SessionFactoryHelper.Factory );
+
+			SqlGenerator gen = new SqlGenerator(SessionFactoryHelper.Factory, new CommonTreeNodeStream(selector));
+
 			try 
 			{
-				gen.SimpleExpr( selector ); //TODO: used to be exprNoParens! was this needed?
+				gen.simpleExpr(); //TODO: used to be exprNoParens! was this needed?
 			}
 			catch ( RecognitionException e ) 
 			{

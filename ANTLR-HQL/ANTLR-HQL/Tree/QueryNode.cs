@@ -1,6 +1,7 @@
 ﻿using Antlr.Runtime;
 using log4net;
 using NHibernate.Hql.Ast.ANTLR.Util;
+using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
@@ -34,35 +35,47 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return HqlSqlWalker.QUERY; }
 		}
 
+		public override IType DataType
+		{
+			get
+			{
+				return ((ISelectExpression)GetSelectClause().GetFirstSelectExpression()).DataType;
+			}
+			set
+			{
+				base.DataType = value;
+			}
+		}
+
 		public void SetScalarColumnText(int i)
 		{
-			throw new System.NotImplementedException();
+			ColumnHelper.GenerateSingleScalarColumn(ASTFactory, this, i);
 		}
 
 		public FromElement FromElement
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return null; }
 		}
 
 		public bool IsConstructor
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return false; }
 		}
 
 		public bool IsReturnableEntity
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return false; }
 		}
 
 		public bool IsScalar
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return true; }
 		}
 
 		public string Alias
 		{
-			get { throw new System.NotImplementedException(); }
-			set { throw new System.NotImplementedException(); }
+			get;
+			set;
 		}
 
 		public OrderByClause GetOrderByClause() 

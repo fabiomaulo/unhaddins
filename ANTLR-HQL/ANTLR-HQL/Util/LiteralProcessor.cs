@@ -112,6 +112,24 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			return from.ContainsClassAlias(alias);
 		}
 
+		public void ProcessBoolean(IASTNode constant) 
+		{
+			// TODO: something much better - look at the type of the other expression!
+			// TODO: Have comparisonExpression and/or arithmeticExpression rules complete the resolution of boolean nodes.
+			String replacement = _walker.TokenReplacements[constant.Text];
+			if ( replacement != null ) 
+			{
+				constant.Text = replacement;
+			}
+			else 
+			{
+				bool value = "true" == constant.Text.ToLowerInvariant();
+				Dialect.Dialect dialect = _walker.SessionFactoryHelper.Factory.Dialect;
+				constant.Text = dialect.ToBooleanValueString(value);
+			}
+		}
+
+
 		public void ProcessConstant(SqlNode constant, bool resolveIdent)
 		{
 			// If the constant is an IDENT, figure out what it means...
@@ -202,15 +220,18 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 
 		private void ProcessLiteral(SqlNode constant)
 		{
-			string replacement = _walker.TokenReplacements[constant.Text];
+			string replacement;
 
-			if (replacement != null)
+			if (_walker.TokenReplacements.TryGetValue(constant.Text, out replacement))
 			{
-				if (log.IsDebugEnabled)
+				if (replacement != null)
 				{
-					log.Debug("processConstant() : Replacing '" + constant.Text + "' with '" + replacement + "'");
+					if (log.IsDebugEnabled)
+					{
+						log.Debug("processConstant() : Replacing '" + constant.Text + "' with '" + replacement + "'");
+					}
+					constant.Text = replacement;
 				}
-				constant.Text = replacement;
 			}
 		}
 

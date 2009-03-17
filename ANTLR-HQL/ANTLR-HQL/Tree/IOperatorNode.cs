@@ -13,7 +13,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// Called by the tree walker during hql-sql semantic analysis
 		/// after the operator sub-tree is completely built.
 		/// </summary>
-		void Initialize(object param);
+		void Initialize();
 
 		/// <summary>
 		/// Retrieves the data type for the overall operator expression.

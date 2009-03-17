@@ -84,7 +84,7 @@ whereClauseExpr
 
 orderExprs
 	// TODO: remove goofy space before the comma when we don't have to regression test anymore.
-	: ( expr ) (dir=orderDirection { Out(" "); Out($dir.tree); })? ( {Out(", "); } orderExprs)?
+	: ( expr ) (dir=orderDirection { Out(" "); Out($dir.start); })? ( {Out(", "); } orderExprs)?
 	;
 
 groupExprs
@@ -232,13 +232,13 @@ inList
 	;
 	
 simpleExprList
-	: { Out("("); } (e=simpleExpr { Separator($e.tree," , "); } )* { Out(")"); }
+	: { Out("("); } (e=simpleExpr { Separator($e.start," , "); } )* { Out(")"); }
 	;
 
 // A simple expression, or a sub-select with parens around it.
 expr
 	: simpleExpr
-	| ^( VECTOR_EXPR { Out("("); } (e=expr { Separator($e.tree," , "); } )*  { Out(")"); } )
+	| ^( VECTOR_EXPR { Out("("); } (e=expr { Separator($e.start," , "); } )*  { Out(")"); } )
 	| parenSelect
 	| ^(ANY { Out("any "); } quantified )
 	| ^(ALL { Out("all "); } quantified )

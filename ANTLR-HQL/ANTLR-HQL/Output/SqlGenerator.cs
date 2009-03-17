@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g 2009-03-12 15:53:12
+// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g 2009-03-17 16:22:02
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1039,7 +1039,7 @@ public partial class SqlGenerator : TreeParser
             	        	if (state.failed) return ;
             	        	if ( (state.backtracking==0) )
             	        	{
-            	        	   Out(" "); Out(((dir != null) ? ((IASTNode)dir.Tree) : null)); 
+            	        	   Out(" "); Out(((dir != null) ? ((IASTNode)dir.Start) : null)); 
             	        	}
 
             	        }
@@ -1047,7 +1047,7 @@ public partial class SqlGenerator : TreeParser
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:65: ( orderExprs )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:66: ( orderExprs )?
             	int alt11 = 2;
             	int LA11_0 = input.LA(1);
 
@@ -1058,7 +1058,7 @@ public partial class SqlGenerator : TreeParser
             	switch (alt11) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:67: orderExprs
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/SqlGenerator.g:87:68: orderExprs
             	        {
             	        	if ( (state.backtracking==0) )
             	        	{
@@ -3749,7 +3749,7 @@ public partial class SqlGenerator : TreeParser
             			    	if (state.failed) return ;
             			    	if ( (state.backtracking==0) )
             			    	{
-            			    	   Separator(((e != null) ? ((IASTNode)e.Tree) : null)," , "); 
+            			    	   Separator(((e != null) ? ((IASTNode)e.Start) : null)," , "); 
             			    	}
 
             			    }
@@ -3915,7 +3915,7 @@ public partial class SqlGenerator : TreeParser
                     	    		    	if (state.failed) return retval;
                     	    		    	if ( (state.backtracking==0) )
                     	    		    	{
-                    	    		    	   Separator(((e != null) ? ((IASTNode)e.Tree) : null)," , "); 
+                    	    		    	   Separator(((e != null) ? ((IASTNode)e.Start) : null)," , "); 
                     	    		    	}
 
                     	    		    }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using NHibernate.Engine;
 using NHibernate.Type;
@@ -13,7 +14,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 			_paramSpecs = paramSpecs;
 		}
 
-		public int Bind(object statement, QueryParameters qp, ISessionImplementor session, int position)
+		public int Bind(IDbCommand statement, QueryParameters qp, ISessionImplementor session, int position)
 		{
 			int bindCount = 0;
 

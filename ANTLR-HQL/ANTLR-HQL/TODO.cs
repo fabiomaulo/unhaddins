@@ -1,11 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NHibernate.SqlCommand;
+using NHibernate.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
+	public static class ReflectHelper2
+	{
+		internal static object GetConstantValue(string qualifiedName)
+		{
+			string className = StringHelper.Qualifier(qualifiedName);
+
+			if (!string.IsNullOrEmpty(className))
+			{
+				System.Type t = System.Type.GetType(className);
+
+				if (t != null)
+				{
+					return ReflectHelper.GetConstantValue(t, StringHelper.Unqualify(qualifiedName));
+				}
+			}
+
+			return null;
+		}
+	}
+
 	public static class TODO
 	{
 		public static bool HasThetaJoins(this JoinFragment frag)

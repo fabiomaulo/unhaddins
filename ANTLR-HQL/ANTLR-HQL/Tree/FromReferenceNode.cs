@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Antlr.Runtime;
 using log4net;
 
@@ -12,10 +13,15 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private FromElement _fromElement;
 		private bool _resolved;
 
-		public FromReferenceNode(IToken token) : base(token)
+		protected FromReferenceNode(IToken token) : base(token)
 		{
 		}
 
+		public override bool IsReturnableEntity
+		{
+			get { return !IsScalar && _fromElement.IsEntity; }
+		}
+		
 		public override FromElement FromElement
 		{
 			get { return _fromElement; }
@@ -35,15 +41,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
-		public virtual string Path
-		{
-			get { return getOriginalText(); }
-		}
-
-
 		public string GetDisplayText()
 		{
-			throw new NotImplementedException();
+			StringBuilder buf = new StringBuilder();
+			buf.Append("{").Append((_fromElement == null) ? "no fromElement" : _fromElement.GetDisplayText());
+			buf.Append("}");
+			return buf.ToString();
 		}
 
 		public abstract void Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent);
@@ -65,9 +68,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public abstract void ResolveIndex(IASTNode parent);
 
-		public string GetPath()
+		public virtual string Path
 		{
-			return getOriginalText();
+			get { return getOriginalText(); }
 		}
 
 		public void RecursiveResolve(int level, bool impliedAtRoot, string classAlias, IASTNode parent)

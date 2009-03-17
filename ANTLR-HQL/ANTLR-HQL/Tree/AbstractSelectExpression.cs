@@ -21,7 +21,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return false; }
 		}
 
-		public bool IsReturnableEntity
+		public virtual bool IsReturnableEntity
 		{
 			get { return false; }
 		}
@@ -32,7 +32,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set {}
 		}
 
-		public bool IsScalar
+		public virtual bool IsScalar
 		{
 			get
 			{

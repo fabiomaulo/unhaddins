@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
+using NHibernate.Dialect.Function;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
 using NHibernate.Persister.Entity;
@@ -36,9 +37,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				{
 					return fe.DataType;
 				}
-				throw new NotImplementedException();
-//				SQLFunction sf = Walker.SessionFactoryHelper.FindSQLFunction(Text);
-//				return sf == null ? null : sf.getReturnType( null, null );
+				ISQLFunction sf = Walker.SessionFactoryHelper.FindSQLFunction(Text);
+				return sf == null ? null : sf.ReturnType(null, null);
 			}
 
 			set

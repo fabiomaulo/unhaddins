@@ -4,6 +4,7 @@ using log4net;
 using NHibernate.Dialect.Function;
 using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
+using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
@@ -26,6 +27,25 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 		}
 		
+		public void Resolve(bool inSelect)
+		{
+			// Get the function name node.
+			IASTNode name = GetChild(0);
+			InitializeMethodNode( name, inSelect );
+			IASTNode exprList = name.NextSibling;
+
+			// If the expression list has exactly one expression, and the type of the expression is a collection
+			// then this might be a collection function, such as index(c) or size(c).
+			if ( (exprList.ChildCount == 1) && IsCollectionPropertyMethod ) 
+			{
+				CollectionProperty( exprList.GetChild(0), name );
+			}
+			else 
+			{
+				DialectFunction( exprList );
+			}
+		}
+
 		public override void SetScalarColumnText(int i)
 		{
 			if ( _selectColumns == null ) 
@@ -55,6 +75,16 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return _function; }
 		}
 
+		public override FromElement FromElement
+		{
+			get { return _fromElement; }
+			set { base.FromElement = value; }
+		}
+
+		public override bool IsScalar
+		{
+			get { return true; }
+		}
 		public void ResolveCollectionProperty(IASTNode expr)
 		{
 			String propertyName = CollectionProperties.GetNormalizedPropertyName( _methodName );
@@ -100,8 +130,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			return "{" +
 					"method=" + _methodName +
-					",selectColumns=" + (_selectColumns == null ?
-							null : _selectColumns) +
+					",selectColumns=" + _selectColumns +
 					",fromElement=" + _fromElement.TableAlias +
 					"}";
 		}
@@ -109,6 +138,24 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		protected virtual void PrepareSelectColumns(string[] columns)
 		{
 			return;
+		}
+
+		private void CollectionProperty(IASTNode path, IASTNode name) 
+		{
+			if ( path == null ) 
+			{
+				throw new SemanticException( "Collection function " + name.Text + " has no path!" );
+			}
+
+			SqlNode expr = ( SqlNode ) path;
+			IType type = expr.DataType;
+
+			if ( log.IsDebugEnabled ) 
+			{
+				log.Debug( "collectionProperty() :  name=" + name + " type=" + type );
+			}
+
+			ResolveCollectionProperty( expr );
 		}
 
 		private void PrepareAnyImplicitJoins(DotNode dotNode) 
@@ -144,5 +191,23 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			DataType = queryableCollection.ElementType;
 			_selectColumns = collectionFromElement.ToColumns(_fromElement.TableAlias, propertyName, _inSelect);
 		}
+
+		private void DialectFunction(IASTNode exprList)
+		{
+			_function = SessionFactoryHelper.FindSQLFunction(_methodName);
+
+			if (_function != null)
+			{
+				IASTNode firstChild = exprList != null ? exprList.GetChild(0) : null;
+				IType functionReturnType = SessionFactoryHelper
+						.FindFunctionReturnType(_methodName, firstChild);
+				DataType = functionReturnType;
+			}
+			//TODO:
+			/*else {
+				methodName = (String) getWalker().getTokenReplacements().get( methodName );
+			}*/
+		}
+
 	}
 }

@@ -22,6 +22,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public SqlNode(IToken token) : base(token)
 		{
+			_originalText = token.Text;
 		}
 
 		public override string Text
