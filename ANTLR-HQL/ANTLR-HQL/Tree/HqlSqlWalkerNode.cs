@@ -14,7 +14,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/**
 		 * A pointer back to the phase 2 processor.
 		 */
-		private HqlSqlWalker walker;
+		private HqlSqlWalker _walker;
 
 		public HqlSqlWalkerNode(IToken token) : base(token)
 		{
@@ -22,28 +22,28 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public virtual void Initialize(object param)
 		{
-			walker = (HqlSqlWalker)param;
+			_walker = (HqlSqlWalker)param;
 		}
 
 		public HqlSqlWalker Walker
 		{
-			get { return walker; }
+			get { return _walker; }
 		}
 
 		public SessionFactoryHelperExtensions SessionFactoryHelper
 		{
-			get { return walker.SessionFactoryHelper; }
+			get { return _walker.SessionFactoryHelper; }
 		}
 
 		
 		public IASTFactory ASTFactory
 		{
-			get { return walker.ASTFactory; }
+			get { return _walker.ASTFactory; }
 		}
 		
 		public AliasGenerator AliasGenerator
 		{
-			get { return walker.AliasGenerator; }
+			get { return _walker.AliasGenerator; }
 		}
 	}
 }

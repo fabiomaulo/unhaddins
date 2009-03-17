@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Data;
 using NHibernate.Engine;
 using NHibernate.Type;
 
@@ -26,15 +28,35 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 			_definedParameterType = definedParameterType;
 		}
 
-		public int Bind(object statement, QueryParameters qp, ISessionImplementor session, int position)
+		public int Bind(IDbCommand statement, QueryParameters qp, ISessionImplementor session, int start)
 		{
-			throw new NotImplementedException();
+			int columnSpan = _definedParameterType.GetColumnSpan(session.Factory);
+
+			object value = session.GetFilterParameterValue(_filterName + '.' + _parameterName);
+
+			if (value is ICollection)
+			{
+				int positions = 0;
+
+				foreach (var entry in (ICollection)value)
+				{
+					_definedParameterType.NullSafeSet(statement, entry, start + positions, session);
+					positions += columnSpan;
+				}
+
+				return positions;
+			}
+			else
+			{
+				_definedParameterType.NullSafeSet(statement, value, start, session);
+				return columnSpan;
+			}
 		}
 
 		public IType ExpectedType
 		{
 			get { return _definedParameterType; }
-			set { throw new System.NotImplementedException(); }
+			set { throw new InvalidOperationException(); }
 		}
 
 		public string RenderDisplayInfo()

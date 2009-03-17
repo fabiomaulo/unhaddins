@@ -68,7 +68,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				fromElement.IndexCollectionSelectorParamSpec = null;
 			}
 
-			if (hqlSqlWalker.isFilter())
+			if (hqlSqlWalker.IsFilter())
 			{
 				if (whereFragment.IndexOfCaseInsensitive("?") >= 0)
 				{

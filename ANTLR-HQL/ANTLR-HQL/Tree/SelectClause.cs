@@ -140,8 +140,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					IType type = expr.DataType;
 					if ( type == null ) 
 					{
-						throw new NotImplementedException();
-						//throw new IllegalStateException( "No data type for node: " + expr.getClass().getName() + " " + new ASTPrinter( SqlTokenTypes.class ).showAsString( ( AST ) expr, "" ) );
+						throw new InvalidOperationException("No data type for node: " + expr.GetType().Name + " " + new ASTPrinter().ShowAsString((IASTNode)expr, "" ) );
 					}
 					//sqlResultTypeList.add( type );
 
@@ -306,7 +305,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			get { return _queryReturnTypes; }
 		}
 
-		protected override IASTNode GetFirstSelectExpression()
+		protected internal override IASTNode GetFirstSelectExpression()
 		{
 			foreach (IASTNode child in this)
 			{

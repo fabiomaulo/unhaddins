@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using NHibernate.Engine;
 
 namespace NHibernate.Hql.Ast.ANTLR
@@ -9,6 +6,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 	/// <summary>
 	/// Generates translators which uses the Antlr-based parser to perform
 	/// the translation.
+	/// 
 	/// Author: Gavin King
 	/// Ported by: Steve Strong
 	/// </summary>
@@ -21,7 +19,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public IFilterTranslator CreateFilterTranslator(string queryIdentifier, string queryString, IDictionary<string, IFilter> filters, ISessionFactoryImplementor factory)
 		{
-			throw new NotImplementedException();
+			return new QueryTranslatorImpl(queryIdentifier, queryString, filters, factory);
 		}
 	}
 }

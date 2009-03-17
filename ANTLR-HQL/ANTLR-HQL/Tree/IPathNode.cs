@@ -11,6 +11,6 @@
 		/// Returns the full path name represented by the node.
 		/// </summary>
 		/// <returns>the full path name represented by the node.</returns>
-		string GetPath();
+		string Path { get; }
 	}
 }

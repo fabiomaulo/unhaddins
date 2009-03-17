@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Antlr.Runtime;
+using NHibernate.Hql.Ast.ANTLR.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
@@ -36,8 +37,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				}
 				else 
 				{
-					throw new NotImplementedException();
-					//throw new InvalidOperationException( "Unexpected AST: " + n.GetType().Name + " " + new ASTPrinter( SqlTokenTypes.)class ).showAsString( n, "" ) );
+					throw new InvalidOperationException( "Unexpected AST: " + n.GetType().Name + " " + new ASTPrinter().ShowAsString( n, "" ) );
 				}
 			}
 			return list.ToArray();
@@ -47,6 +47,6 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// Returns the first select expression node that should be considered when building the array of select
 		/// expressions.
 		/// <summary>
-		protected abstract IASTNode GetFirstSelectExpression();
+		protected internal abstract IASTNode GetFirstSelectExpression();
 	}
 }

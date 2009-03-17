@@ -1,4 +1,5 @@
-﻿using NHibernate.Engine;
+﻿using System.Data;
+using NHibernate.Engine;
 using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Parameters
@@ -41,6 +42,6 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 		}
 
 		public abstract string RenderDisplayInfo();
-		public abstract int Bind(object statement, QueryParameters qp, ISessionImplementor session, int position);
+		public abstract int Bind(IDbCommand statement, QueryParameters qp, ISessionImplementor session, int position);
 	}
 }

@@ -198,12 +198,18 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public void RemoveChild(IASTNode child)
 		{
-			_children.RemoveAt(child.ChildIndex);
+			RemoveChild(child.ChildIndex);
+		}
+
+		public void RemoveChild(int index)
+		{
+			_children.RemoveAt(index);
+			FreshenParentAndChildIndexes(index);
 		}
 
 		public void ClearChildren()
 		{
-			throw new System.NotImplementedException();
+			_children.Clear();
 		}
 
 		public void AddChildren(IEnumerable<IASTNode> children)
@@ -213,7 +219,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				_children = new List<IASTNode>();
 			}
 
+			int index = _children.Count;
 			_children.AddRange(children);
+
+			FreshenParentAndChildIndexes(index);
 		}
 
 		public void AddChildren(params IASTNode[] children)
@@ -223,7 +232,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				_children = new List<IASTNode>();
 			}
 
+			int index = _children.Count;
 			_children.AddRange(children);
+
+			FreshenParentAndChildIndexes(index);
 		}
 
 		public IASTNode DupNode()
@@ -315,7 +327,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		void ITree.FreshenParentAndChildIndexes()
 		{
-			throw new System.NotImplementedException();
+			FreshenParentAndChildIndexes();
 		}
 
 		ITree ITree.GetChild(int i)
@@ -330,17 +342,25 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		void ITree.SetChild(int i, ITree t)
 		{
-			throw new System.NotImplementedException();
+			ASTNode node = (ASTNode) t;
+			_children[i] = node;
+			node.Parent = this;
+			node._childIndex = i;
 		}
 
 		object ITree.DeleteChild(int i)
 		{
-			throw new System.NotImplementedException();
+			object node = _children[i];
+			RemoveChild(i);
+
+			return node;
 		}
 
 		void ITree.ReplaceChildren(int startChildIndex, int stopChildIndex, object t)
 		{
-			throw new System.NotImplementedException();
+			_children.RemoveRange(startChildIndex, stopChildIndex - startChildIndex + 1);
+			_children.Insert(startChildIndex, (IASTNode) t);
+			FreshenParentAndChildIndexes(startChildIndex);
 		}
 
 		ITree ITree.DupNode()

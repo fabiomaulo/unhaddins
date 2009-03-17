@@ -16,7 +16,7 @@ using NHibernate.Util;
 
 namespace NHibernate.Hql.Ast.ANTLR
 {
-	public class QueryTranslatorImpl : IQueryTranslator
+	public class QueryTranslatorImpl : IFilterTranslator
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(QueryTranslatorImpl));
 
@@ -139,7 +139,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public int ExecuteUpdate(QueryParameters queryParameters, ISessionImplementor session)
 		{
-			throw new System.NotImplementedException();
+			throw new System.NotImplementedException(); // DML
 		}
 
 		public string[][] GetColumnNames()
@@ -167,9 +167,24 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get { return _generator.Sql.ToString(); }
 		}
 
+		public IStatement SqlAST
+		{
+			get { return _translator.SqlStatement; }
+		}
+
+		public IList<IParameterSpecification> CollectedParameterSpecifications
+		{
+			get { return _generator.CollectionParameters; }
+		}
+
 		public SqlString SqlString
 		{
 			get { return _generator.Sql; }
+		}
+
+		public string QueryIdentifier
+		{
+			get { return _queryIdentifier; }
 		}
 
 		public IList<string> CollectSqlStrings
@@ -179,7 +194,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				List<string> list = new List<string>();
 				if (IsManipulationStatement)
 				{
-					throw new NotImplementedException();
+					throw new NotImplementedException(); // DML
 					/*
 					String[] sqlStatements = statementExecutor.getSqlStatements();
 					for (int i = 0; i < sqlStatements.length; i++)
@@ -226,12 +241,29 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public bool ContainsCollectionFetches
 		{
-			get { throw new System.NotImplementedException(); }
+			get
+			{
+				ErrorIfDML();
+				IList<IASTNode> collectionFetches = ((QueryNode)_translator.SqlStatement).FromClause.GetCollectionFetches();
+				return collectionFetches != null && collectionFetches.Count > 0;
+			}
 		}
 
 		public bool IsManipulationStatement
 		{
 			get { return _translator.SqlStatement.NeedsExecutor; }
+		}
+
+		/// <summary>
+		/// Compile a filter. This method may be called multiple
+		/// times. Subsequent invocations are no-ops.
+		/// </summary>
+		/// <param name="collectionRole">the role name of the collection used as the basis for the filter.</param>
+		/// <param name="replacements">Defined query substitutions.</param>
+		/// <param name="shallow">Does this represent a shallow (scalar or entity-id) select?</param>
+		public void Compile(string collectionRole, IDictionary<string, string> replacements, bool shallow)
+		{
+			DoCompile(replacements, shallow, collectionRole);
 		}
 
 		public bool IsShallowQuery
@@ -288,7 +320,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 				if (_translator.SqlStatement.NeedsExecutor) 
 				{
-					throw new NotImplementedException();
+					throw new NotImplementedException(); // DML
 //					statementExecutor = buildAppropriateStatementExecutor( w );
 				}
 				else 
@@ -419,7 +451,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			{
 				String expression = ASTUtil.GetPathText(dotStructureRoot);
 
-				object constant = GetConstantValue(expression );
+				object constant = ReflectHelper2.GetConstantValue(expression );
 				
 				if ( constant != null ) 
 				{
@@ -428,25 +460,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 					dotStructureRoot.Text = expression;
 				}
 			}
-
-			private static object GetConstantValue(string qualifiedName)
-			{
-				string className = StringHelper.Qualifier(qualifiedName);
-
-				if (!string.IsNullOrEmpty(className))
-				{
-					System.Type t = System.Type.GetType(className);
-
-					if (t != null)
-					{
-						return ReflectHelper.GetConstantValue(t, StringHelper.Unqualify(qualifiedName));
-					}
-				}
-
-				return null;
-			}
 		}
-
 	}
 
 	public class HqlSqlTranslator

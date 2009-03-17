@@ -32,12 +32,12 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 		/// <param name="session">The session against which the current execution is occuring.</param>
 		/// <param name="position">The position from which to start binding value(s).</param>
 		/// <returns>The number of sql bind positions "eaten" by this bind operation.</returns>
-		public override int  Bind(object statement, Engine.QueryParameters qp, Engine.ISessionImplementor session, int position)
+		public override int  Bind(IDbCommand statement, Engine.QueryParameters qp, Engine.ISessionImplementor session, int position)
 		{
 			IType type = qp.PositionalParameterTypes[_hqlPosition];
 			Object value = qp.PositionalParameterValues[_hqlPosition];
 
-			type.NullSafeSet( (IDbCommand) statement, value, position, session );
+			type.NullSafeSet(statement, value, position, session );
 			return type.GetColumnSpan( session.Factory );
 		}
 

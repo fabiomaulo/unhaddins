@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using NHibernate.Engine;
 using NHibernate.Type;
 
@@ -24,18 +25,20 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 		}
 
 		public int Bind(
-				object statement,
+				IDbCommand statement,
 				QueryParameters qp,
 				ISessionImplementor session,
 				int position)
 		{
-			throw new NotImplementedException();
+			object value = qp.PositionalParameterValues[_queryParameterPosition];
+			_keyType.NullSafeSet(statement, value, position, session);
+			return _keyType.GetColumnSpan(session.Factory);
 		}
 
 		public IType ExpectedType
 		{
 			get { return _keyType; }
-			set { throw new NotImplementedException(); }
+			set { throw new InvalidOperationException(); }
 		}
 
 		public string RenderDisplayInfo()

@@ -1,4 +1,5 @@
-﻿using NHibernate.Engine;
+﻿using System.Data;
+using NHibernate.Engine;
 using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Parameters
@@ -19,7 +20,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 		/// <param name="session">The session against which the current execution is occuring.</param>
 		/// <param name="position">The position from which to start binding value(s).</param>
 		/// <returns>The number of sql bind positions "eaten" by this bind operation.</returns>
-		int Bind(object statement, QueryParameters qp, ISessionImplementor session, int position);
+		int Bind(IDbCommand statement, QueryParameters qp, ISessionImplementor session, int position);
 
 		/// <summary>
 		/// Get or set the type which we are expeting for a bind into this parameter based

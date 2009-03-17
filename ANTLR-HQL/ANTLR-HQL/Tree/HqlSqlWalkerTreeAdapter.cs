@@ -5,11 +5,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 {
 	public class HqlSqlWalkerTreeAdaptor : ASTTreeAdaptor
 	{
-		private readonly object _walker;
+		private readonly HqlSqlWalker _walker;
 
 		public HqlSqlWalkerTreeAdaptor(object walker)
 		{
-			_walker = walker;
+			_walker = (HqlSqlWalker) walker;
 		}
 
 		public override object Create(IToken payload)
@@ -40,8 +40,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					ret = new SqlNode(payload);
 					break;
 				case HqlSqlWalker.INTO:
-					//return IntoClause.class;
-					ret = new SqlNode(payload);
+					ret = new IntoClause(payload);
 					break;
 				case HqlSqlWalker.FROM:
 					ret = new FromClause(payload);
@@ -80,12 +79,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					ret = new SelectExpressionImpl(payload);
 					break;
 				case HqlSqlWalker.AGGREGATE:
-					//return AggregateNode.class;
-					ret = new SqlNode(payload);
+					ret = new AggregateNode(payload);
 					break;
 				case HqlSqlWalker.COUNT:
-					//return CountNode.class;
-					ret = new SqlNode(payload);
+					ret = new CountNode(payload);
 					break;
 				case HqlSqlWalker.CONSTRUCTOR:
 					ret = new ConstructorNode(payload);
@@ -95,17 +92,14 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				case HqlSqlWalker.NUM_LONG:
 				case HqlSqlWalker.NUM_DOUBLE:
 				case HqlSqlWalker.QUOTED_String:
-					//return LiteralNode.class;
-					ret = new SqlNode(payload);
+					ret = new LiteralNode(payload);
 					break;
 				case HqlSqlWalker.TRUE:
 				case HqlSqlWalker.FALSE:
-					//return BooleanLiteralNode.class;
-					ret = new SqlNode(payload);
+					ret = new BooleanLiteralNode(payload);
 					break;
 				case HqlSqlWalker.JAVA_CONSTANT:
-					//return JavaConstantNode.class;
-					ret = new SqlNode(payload);
+					ret = new JavaConstantNode(payload);
 					break;
 				case HqlSqlWalker.ORDER:
 					ret = new OrderByClause(payload);
@@ -114,13 +108,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				case HqlSqlWalker.MINUS:
 				case HqlSqlWalker.STAR:
 				case HqlSqlWalker.DIV:
-					//return BinaryArithmeticOperatorNode.class;
-					ret = new SqlNode(payload);
+					ret = new BinaryArithmeticOperatorNode(payload);
 					break;
 				case HqlSqlWalker.UNARY_MINUS:
 				case HqlSqlWalker.UNARY_PLUS:
-					//return UnaryArithmeticNode.class;
-					ret = new SqlNode(payload);
+					ret = new UnaryArithmeticNode(payload);
 					break;
 				case HqlSqlWalker.CASE2:
 					//return Case2Node.class;
@@ -142,28 +134,24 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				case HqlSqlWalker.GE:
 				case HqlSqlWalker.LIKE:
 				case HqlSqlWalker.NOT_LIKE:
-					return new BinaryLogicOperatorNode(payload);
+					ret = new BinaryLogicOperatorNode(payload);
+					break;
 				case HqlSqlWalker.IN:
 				case HqlSqlWalker.NOT_IN:
-					//return InLogicOperatorNode.class;
-					ret = new SqlNode(payload);
+					ret = new InLogicOperatorNode(payload);
 					break;
 				case HqlSqlWalker.BETWEEN:
 				case HqlSqlWalker.NOT_BETWEEN:
-					//return BetweenOperatorNode.class;
-					ret = new SqlNode(payload);
+					ret = new BetweenOperatorNode(payload);
 					break;
 				case HqlSqlWalker.IS_NULL:
-					//return IsNullLogicOperatorNode.class;
-					ret = new SqlNode(payload);
+					ret = new IsNullLogicOperatorNode(payload);
 					break;
 				case HqlSqlWalker.IS_NOT_NULL:
-					//return IsNotNullLogicOperatorNode.class;
-					ret = new SqlNode(payload);
+					ret = new IsNotNullLogicOperatorNode(payload);
 					break;
 				case HqlSqlWalker.EXISTS:
-					//return UnaryLogicOperatorNode.class;
-					ret = new SqlNode(payload);
+					ret = new UnaryLogicOperatorNode(payload);
 					break;
 				default:
 					ret = new SqlNode(payload);
@@ -200,6 +188,13 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			if (initableNode != null)
 			{
 				initableNode.Initialize(_walker);
+			}
+
+			ISessionFactoryAwareNode sessionNode = node as ISessionFactoryAwareNode;
+
+			if (sessionNode != null)
+			{
+				sessionNode.SessionFactory = _walker.SessionFactoryHelper.Factory;
 			}
 		}
 	}

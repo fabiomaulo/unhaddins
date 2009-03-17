@@ -30,7 +30,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			}
 			else
 			{
-				_dict.Add(key, value);
+				_dict[key] = value;
 			}
 		}
 
@@ -181,7 +181,20 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 
 		public bool Contains(KeyValuePair<TKey, TValue> item)
 		{
-			throw new System.NotImplementedException();
+			TValue val = default(TValue);
+
+			if (TryGetValue(item.Key, out val))
+			{
+				if (Equals(item.Value, val))
+				{
+					return true;
+				}
+				return false;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 		public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
@@ -211,7 +224,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 
 		public bool IsReadOnly
 		{
-			get { throw new System.NotImplementedException(); }
+			get { return false; }
 		}
 	}
 }

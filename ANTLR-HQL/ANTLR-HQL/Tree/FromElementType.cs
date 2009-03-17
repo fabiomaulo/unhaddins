@@ -244,6 +244,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
+		public bool IsEntity
+		{
+			get { return _persister != null; }
+		}
+
 		public bool IsCollectionOfValuesOrComponents
 		{
 			get 

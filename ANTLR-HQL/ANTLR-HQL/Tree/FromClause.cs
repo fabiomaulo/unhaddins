@@ -69,6 +69,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return ASTUtil.CollectChildren(this, ExplicitFromPredicate);
 		}
 
+		public IList<IASTNode> GetCollectionFetches()
+		{
+			return ASTUtil.CollectChildren(this, CollectionFetchPredicate);
+		}
+
 		public FromElement FindCollectionJoin(String path)
 		{
 			return _collectionJoinFromElementsByPath[path];
@@ -240,10 +245,17 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 		}
 
-		// TODO
 		public string GetDisplayText()
 		{
-			throw new System.NotImplementedException();
+			return "FromClause{" +
+			       "level=" + _level +
+			       ", fromElementCounter=" + _fromElementCounter +
+			       ", fromElements=" + _fromElements.Count +
+			       ", fromElementByClassAlias=" + _fromElementByClassAlias.Keys +
+			       ", fromElementByTableAlias=" + _fromElementByTableAlias.Keys +
+			       ", fromElementsByPath=" + _fromElementsByPath.Keys +
+			       ", collectionJoinFromElementsByPath=" + _collectionJoinFromElementsByPath.Keys +
+			       "}";
 		}
 
 		private void CheckForDuplicateClassAlias(string classAlias)
@@ -290,9 +302,29 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return false;
 		}
 
-		private FromElement FindIntendedAliasedFromElementBasedOnCrazyJPARequirements(string aliasOrClassName)
+		public bool CollectionFetchPredicate(IASTNode node)
 		{
-			throw new NotImplementedException();
+			FromElement fromElement = node as FromElement;
+
+			if (fromElement != null)
+			{
+				return fromElement.IsFetch && (fromElement.QueryableCollection != null);
+			}
+
+			return false;
+		}
+
+		private FromElement FindIntendedAliasedFromElementBasedOnCrazyJPARequirements(string specifiedAlias)
+		{
+			foreach (var entry in _fromElementByClassAlias)
+			{
+				string alias = entry.Key;
+				if (alias.ToLowerInvariant() == specifiedAlias.ToLowerInvariant())
+				{
+					return entry.Value;
+				}
+			}
+			return null;
 		}
 
 		public int NextFromElementCounter()

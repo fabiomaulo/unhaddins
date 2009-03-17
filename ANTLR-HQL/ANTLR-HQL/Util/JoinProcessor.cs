@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Antlr.Runtime.Tree;
 using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
@@ -165,7 +164,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				return;
 			}
 
-			NHibernate.Dialect.Dialect dialect = walker.SessionFactoryHelper.Factory.Dialect;
+			Dialect.Dialect dialect = walker.SessionFactoryHelper.Factory.Dialect;
 
 			string symbols = new StringBuilder().Append( ParserHelper.HqlSeparators )
 					.Append( dialect.OpenQuote)
@@ -191,7 +190,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					string bindFragment = ( value != null && value is ICollection)
 							? StringHelper.Join( ",", ArrayHelper.FillArray( typeBindFragment, ( ( ICollection ) value ).Count ) )
 							: typeBindFragment;
-					result.Append( bindFragment );
+					//result.Append( bindFragment );
+					result.Append(token);
 					container.AddEmbeddedParameter( new DynamicFilterParameterSpecification( parts[0], parts[1], type ) );
 				}
 				else 

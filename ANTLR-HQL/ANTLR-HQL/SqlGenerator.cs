@@ -41,10 +41,6 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		private readonly SqlStringBuilder _sqlStringBuilder = new SqlStringBuilder();
 
-		public SqlGenerator(ISessionFactoryImplementor sfi) : this(sfi, null)
-		{
-		}
-
 		public SqlGenerator(ISessionFactoryImplementor sfi, ITreeNodeStream input) : base(input)
 		{
 			_parseErrorHandler = new ErrorCounter();
@@ -65,11 +61,6 @@ namespace NHibernate.Hql.Ast.ANTLR
 		public void ReportWarning(String s)
 		{
 			_parseErrorHandler.ReportWarning(s);
-		}
-
-		public void SimpleExpr(IASTNode ast)
-		{
-			throw new NotImplementedException();
 		}
 
 		public SqlString GetSQL()
@@ -355,7 +346,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 			public void Parameter()
 			{
-				throw new NotImplementedException();
+				throw new InvalidOperationException();
 			}
 
 			public void CommaBetweenParameters(String comma) 
@@ -379,8 +370,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 			internal DefaultWriter(SqlGenerator generator)
 			{
 				_generator = generator;
-				
 			}
+
 			public void Clause(String clause) 
 			{
 				_generator.GetStringBuilder().Add( clause );

@@ -33,10 +33,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// Performs the operator node initialization by seeking out any parameter
 		/// nodes and setting their expected type, if possible.
 		/// </summary>
-		public override void Initialize(object param)
+		public void Initialize()
 		{
-			base.Initialize(param);
-
 			IASTNode lhs = LeftHandOperand;
 			if ( lhs == null ) 
 			{
