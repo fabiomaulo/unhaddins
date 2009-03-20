@@ -142,6 +142,16 @@ namespace NHibernate.Hql.Ast.ANTLR
 			throw new System.NotImplementedException(); // DML
 		}
 
+		public NHibernate.Loader.Loader Loader
+		{
+			get { return _queryLoader; }
+		}
+
+		public virtual IType[] ActualReturnTypes
+		{
+			get { return _queryLoader.ReturnTypes; }
+		}
+
 		public string[][] GetColumnNames()
 		{
 			ErrorIfDML();

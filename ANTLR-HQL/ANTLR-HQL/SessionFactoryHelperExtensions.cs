@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NHibernate.Dialect.Function;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Tree;
+using NHibernate.Hql.Ast.ANTLR.Util;
 using NHibernate.Persister.Collection;
 using NHibernate.Persister.Entity;
 using NHibernate.SqlCommand;
@@ -15,7 +16,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 	public class SessionFactoryHelperExtensions
 	{
 		private readonly ISessionFactoryImplementor _sfi;
-		private readonly Dictionary<string, IPropertyMapping> _collectionPropertyMappingByRole;
+		private readonly NullableDictionary<string, IPropertyMapping> _collectionPropertyMappingByRole;
 
 		/// <summary>
 		/// Construct a new SessionFactoryHelperExtensions instance.
@@ -24,7 +25,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 		public SessionFactoryHelperExtensions(ISessionFactoryImplementor sfi)
 		{
 			_sfi = sfi;
-			_collectionPropertyMappingByRole = new Dictionary<string, IPropertyMapping>();
+			_collectionPropertyMappingByRole = new NullableDictionary<string, IPropertyMapping>();
 		}
 
 		public ISessionFactoryImplementor Factory

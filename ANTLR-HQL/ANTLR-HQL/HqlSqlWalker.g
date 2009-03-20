@@ -237,11 +237,12 @@ joinType returns [int j]
 @init {
    $j = INNER;
 }
-	: ( (left=LEFT | right=RIGHT) (outer=OUTER {
+	: ( (left=LEFT | right=RIGHT) (outer=OUTER)? 
+	{
 		if (left != null)       $j = LEFT_OUTER;
 		else if (right != null) $j = RIGHT_OUTER;
 		else if (outer != null) $j = RIGHT_OUTER;
-	})? ) 
+	} ) 
 	| FULL {
 		$j = FULL;
 	}
