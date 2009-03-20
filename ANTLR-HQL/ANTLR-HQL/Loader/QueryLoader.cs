@@ -381,6 +381,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 			get { return _selectNewTransformer != null; }
 		}
 
+		public IType[] ReturnTypes
+		{
+			get { return _queryReturnTypes; }
+		}
+
 		internal IEnumerable GetEnumerable(QueryParameters queryParameters, ISessionImplementor session)
 		{
 			bool statsEnabled = session.Factory.Statistics.IsStatisticsEnabled;

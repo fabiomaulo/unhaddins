@@ -96,6 +96,8 @@
     <Compile Include="Tree\BinaryArithmeticOperatorNode.cs" />
     <Compile Include="Tree\BinaryLogicOperatorNode.cs" />
     <Compile Include="Tree\BooleanLiteralNode.cs" />
+    <Compile Include="Tree\Case2Node.cs" />
+    <Compile Include="Tree\CaseNode.cs" />
     <Compile Include="Tree\CollectionFunction.cs" />
     <Compile Include="Tree\ConstructorNode.cs" />
     <Compile Include="Tree\CountNode.cs" />

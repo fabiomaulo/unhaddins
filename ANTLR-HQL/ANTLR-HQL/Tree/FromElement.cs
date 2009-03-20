@@ -28,7 +28,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private bool _manyToMany;
 		private bool _useFromFragment;
 		private bool _useWhereFragment = true;
-		private bool _includeSubclasses;
+		private bool _includeSubclasses = true;
 		private List<FromElement> _destinations = new List<FromElement>();
 		private bool _dereferencedBySubclassProperty;
 		private bool _dereferencedBySuperclassProperty;

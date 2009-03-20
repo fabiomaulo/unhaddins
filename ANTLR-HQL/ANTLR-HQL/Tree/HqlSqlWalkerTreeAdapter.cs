@@ -115,12 +115,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					ret = new UnaryArithmeticNode(payload);
 					break;
 				case HqlSqlWalker.CASE2:
-					//return Case2Node.class;
-					ret = new SqlNode(payload);
+					ret = new Case2Node(payload);
 					break;
 				case HqlSqlWalker.CASE:
-					//return CaseNode.class;
-					ret = new SqlNode(payload);
+					ret = new CaseNode(payload);
 					break;
 				case HqlSqlWalker.PARAM:
 				case HqlSqlWalker.NAMED_PARAM:
