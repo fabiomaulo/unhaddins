@@ -70,8 +70,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 
 			if (hqlSqlWalker.IsFilter())
 			{
-				if (whereFragment.IndexOfCaseInsensitive("?") >= 0)
-				{
+				//if (whereFragment.IndexOfCaseInsensitive("?") >= 0)
+                if (whereFragment.ToString().IndexOf("?") >= 0)
+                {
 					IType collectionFilterKeyType = hqlSqlWalker.SessionFactoryHelper
 							.RequireQueryableCollection(hqlSqlWalker.CollectionFilterRole)
 							.KeyType;
@@ -127,7 +128,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					}
 					else
 					{
-						_thetaJoins.AddSibling(_filters);
+                        _filters.AddSibling(_thetaJoins);
 					}
 				}
 

@@ -164,6 +164,26 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			CheckSubclassOrSuperclassPropertyReference(lhs, propName);
 		}
 
+        public override void ResolveInFunctionCall(bool generateJoin, bool implicitJoin)
+        {
+            if (IsResolved)
+            {
+                return;
+            }
+
+            IType propertyType = PrepareLhs();			// Prepare the left hand side and get the data type.
+
+            if (propertyType != null && propertyType.IsCollectionType)
+            {
+                ResolveIndex(null);
+            }
+            else
+            {
+                ResolveFirstChild();
+                base.Resolve(generateJoin, implicitJoin);
+            }
+        }
+
 		public override void Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent)
 		{
 			// If this dot has already been resolved, stop now.

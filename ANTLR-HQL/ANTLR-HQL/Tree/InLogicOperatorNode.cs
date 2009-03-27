@@ -19,7 +19,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return RightHandOperand;
 		}
 
-		public void Initialize()
+		public override void Initialize()
 		{
 			IASTNode lhs = LeftHandOperand;
 			if (lhs == null)

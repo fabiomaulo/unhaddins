@@ -84,7 +84,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set { _isAllPropertyFetch = value; }
 		}
 
-		public bool IsImpliedInFromClause
+		public virtual bool IsImpliedInFromClause
 		{
 			get { return false; }  // Since this is an explicit FROM element, it can't be implied in the FROM clause.
 		}
@@ -337,7 +337,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			throw new InvalidOperationException("Explicit FROM elements can't be implied in the FROM clause!");
 		}
 
-		public bool IncludeSubclasses
+		public virtual bool IncludeSubclasses
 		{
 			get { return _includeSubclasses; }
 			set
@@ -552,7 +552,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			_includeSubclasses = includeSubclasses;
 		}
 
-		public string GetDisplayText()
+		public virtual string GetDisplayText()
 		{
 			StringBuilder buf = new StringBuilder();
 			buf.Append("FromElement{");

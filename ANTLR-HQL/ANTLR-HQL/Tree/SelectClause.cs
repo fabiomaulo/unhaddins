@@ -140,7 +140,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					IType type = expr.DataType;
 					if ( type == null ) 
 					{
-						throw new InvalidOperationException("No data type for node: " + expr.GetType().Name + " " + new ASTPrinter().ShowAsString((IASTNode)expr, "" ) );
+						throw new QueryException("No data type for node: " + expr.GetType().Name + " " + new ASTPrinter().ShowAsString((IASTNode)expr, "" ) );
 					}
 					//sqlResultTypeList.add( type );
 

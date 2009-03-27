@@ -108,6 +108,7 @@
     <Compile Include="Tree\FromElementType.cs" />
     <Compile Include="Tree\FromReferenceNode.cs" />
     <Compile Include="Tree\HqlSqlWalkerNode.cs" />
+    <Compile Include="Tree\HqlSqlWalkerTreeNodeStream.cs" />
     <Compile Include="Tree\IASTFactory.cs" />
     <Compile Include="Tree\IBinaryOperatorNode.cs" />
     <Compile Include="Tree\IdentNode.cs" />

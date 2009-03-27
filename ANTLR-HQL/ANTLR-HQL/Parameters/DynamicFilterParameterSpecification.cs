@@ -34,7 +34,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 
 			object value = session.GetFilterParameterValue(_filterName + '.' + _parameterName);
 
-			if (value is ICollection)
+			if (value is ICollection && !value.GetType().IsArray)
 			{
 				int positions = 0;
 

@@ -144,7 +144,7 @@ groupClause
 
 selectClause!
 	: ^(SELECT { HandleClauseStart( SELECT ); BeforeSelectClause(); } (d=DISTINCT)? x=selectExprList ) 
-	-> ^(SELECT_CLAUSE $d? $x)
+	-> ^(SELECT_CLAUSE["{select clause}"] $d? $x)
 	;
 
 selectExprList @init{
@@ -195,7 +195,7 @@ fromClause
 @init{
 		// NOTE: This references the INPUT AST! (see http://www.antlr.org/doc/trees.html#Action Translation)
 		// the ouput AST (#fromClause) has not been built yet.
-		PrepareFromClauseInputTree((IASTNode) input.LT(1));
+		PrepareFromClauseInputTree((IASTNode) input.LT(1), input);
 	}
 	: ^(f=FROM { PushFromClause($f.tree); HandleClauseStart( FROM ); } fromElementList )
 	;
@@ -265,7 +265,7 @@ path returns [String p]
 // Returns a path as a single identifier node.
 pathAsIdent 
     : path 
-    -> ^(IDENT path)
+    -> ^(IDENT[$path.p])
     ;
 
 withClause
@@ -376,16 +376,16 @@ collectionFunction
 	;
 
 functionCall
-	: ^(METHOD_CALL  {_inFunctionCall=true;} pathAsIdent ( ^(EXPR_LIST (expr)* ) )? )
-		{ ProcessFunction($functionCall.tree,_inSelect); } {_inFunctionCall=false;}
+	: ^(m=METHOD_CALL  {_inFunctionCall=true;} pathAsIdent ( ^(EXPR_LIST (expr | comparisonExpr)* ) )? )
+		{ ProcessFunction($m.tree,_inSelect); _inFunctionCall=false; }
 	| ^(AGGREGATE aggregateExpr )
 	;
 
 constant
 	: literal
 	| NULL
-	| TRUE { ProcessBool($constant.tree); } 
-	| FALSE { ProcessBool($constant.tree); }
+	| t=TRUE { ProcessBool($t); } 
+	| f=FALSE { ProcessBool($f); }
 	| JAVA_CONSTANT
 	;
 
@@ -463,7 +463,7 @@ propertyRef!
 propertyRefPath
 @after {
 	// This gives lookupProperty() a chance to transform the tree to process collection properties (.elements, etc).
-	LookupProperty((IASTNode) retval.Tree,false,true);
+	retval.Tree = LookupProperty((IASTNode) retval.Tree,false,true);
 }
 	: ^(d=DOT lhs=propertyRefLhs rhs=propertyName )	
 		-> ^($d $lhs $rhs)

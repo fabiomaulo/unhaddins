@@ -228,7 +228,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 			catch ( MappingException e ) 
 			{
-				throw new DetailedSemanticException( e.Message, e );
+				throw new QueryException( e.Message, e );
 			}
 			return cp;
 		}

@@ -315,6 +315,34 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 			return List( session, queryParameters, _queryTranslator.QuerySpaces, _queryReturnTypes );
 		}
 
+        protected override IList GetResultList(IList results, IResultTransformer resultTransformer)
+        {
+            // meant to handle dynamic instantiation queries...
+            HolderInstantiator holderInstantiator = HolderInstantiator.GetHolderInstantiator(_selectNewTransformer, resultTransformer, _queryReturnAliases);
+            if (holderInstantiator.IsRequired)
+            {
+                for (int i = 0; i < results.Count; i++)
+                {
+                    Object[] row = (Object[])results[i];
+                    Object result = holderInstantiator.Instantiate(row);
+                    results[i] = result;
+                }
+
+                if (!HasSelectNew && resultTransformer != null)
+                {
+                    return resultTransformer.TransformList(results);
+                }
+                else
+                {
+                    return results;
+                }
+            }
+            else
+            {
+                return results;
+            }
+        }
+
 		protected override object GetResultColumnOrRow(object[] row, IResultTransformer resultTransformer, IDataReader rs, ISessionImplementor session)
 		{
 			row = ToResultRow(row);
