@@ -33,7 +33,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		/// All of the implicit FROM xxx JOIN yyy elements that are the destination of a collection.  These are created from
 		/// index operators on collection property references.
 		/// </summary>
-		private readonly Dictionary<string, FromElement> _collectionJoinFromElementsByPath = new Dictionary<string, FromElement>();
+        private readonly NullableDictionary<string, FromElement> _collectionJoinFromElementsByPath = new NullableDictionary<string, FromElement>();
 
 		/// <summary>
 		/// Pointer to the parent FROM clause, if there is one.

@@ -189,7 +189,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		public SqlString SqlString
 		{
-			get { return _generator.Sql; }
+			get { return SqlString.Parse(_generator.Sql.ToString()); }
 		}
 
 		public string QueryIdentifier
@@ -507,9 +507,9 @@ namespace NHibernate.Hql.Ast.ANTLR
 		{
 			if (_resultAst == null)
 			{
-				CommonTreeNodeStream nodes = new CommonTreeNodeStream(_inputAst);
+                HqlSqlWalkerTreeNodeStream nodes = new HqlSqlWalkerTreeNodeStream(_inputAst);
 				nodes.TokenStream = _tokens;
-
+                
 				HqlSqlWalker hqlSqlWalker = new HqlSqlWalker(_qti, _sfi, nodes, _tokenReplacements, _collectionRole);
 				hqlSqlWalker.TreeAdaptor = new HqlSqlWalkerTreeAdaptor(hqlSqlWalker);
 

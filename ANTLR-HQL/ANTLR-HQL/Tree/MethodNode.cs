@@ -27,7 +27,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 		}
 		
-		public void Resolve(bool inSelect)
+		public virtual void Resolve(bool inSelect)
 		{
 			// Get the function name node.
 			IASTNode name = GetChild(0);
@@ -36,7 +36,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 			// If the expression list has exactly one expression, and the type of the expression is a collection
 			// then this might be a collection function, such as index(c) or size(c).
-			if ( (exprList.ChildCount == 1) && IsCollectionPropertyMethod ) 
+			if ( (exprList != null && exprList.ChildCount == 1) && IsCollectionPropertyMethod ) 
 			{
 				CollectionProperty( exprList.GetChild(0), name );
 			}
@@ -198,10 +198,21 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 			if (_function != null)
 			{
-				IASTNode firstChild = exprList != null ? exprList.GetChild(0) : null;
-				IType functionReturnType = SessionFactoryHelper
-						.FindFunctionReturnType(_methodName, firstChild);
-				DataType = functionReturnType;
+			    IASTNode child = null;
+
+                if (exprList != null)
+                {
+                    if (_methodName == "iif")
+                    {
+                        child = exprList.GetChild(1);
+                    }
+                    else
+                    {
+                        child = exprList.GetChild(0);
+                    }
+                }
+
+                DataType = SessionFactoryHelper.FindFunctionReturnType(_methodName, child);
 			}
 			//TODO:
 			/*else {

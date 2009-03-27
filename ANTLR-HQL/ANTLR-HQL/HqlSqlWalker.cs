@@ -355,7 +355,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 		}
 
-		void PrepareFromClauseInputTree(IASTNode fromClauseInput )
+		void PrepareFromClauseInputTree(IASTNode fromClauseInput, ITreeNodeStream input)
 		{
 			if (IsFilter())
 			{
@@ -373,8 +373,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 				IASTNode fromElement = (IASTNode)adaptor.Create(FILTER_ENTITY, collectionElementEntityName);
 				IASTNode alias = (IASTNode)adaptor.Create(ALIAS, "this");
 
-				fromClauseInput.AddChild(fromElement);
-				fromClauseInput.AddChild(alias);
+                ((HqlSqlWalkerTreeNodeStream)input).InsertChild(fromClauseInput, fromElement);
+                ((HqlSqlWalkerTreeNodeStream)input).InsertChild(fromClauseInput, alias);
+
+//				fromClauseInput.AddChild(fromElement);
+//				fromClauseInput.AddChild(alias);
 
 				// Show the modified AST.
 				if (log.IsDebugEnabled)
@@ -474,7 +477,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 						persister.GetElementColumnNames(fkTableAlias));
 			}
 
-			join.AddCondition(fkTableAlias, keyColumnNames, " = ?", true);
+			join.AddCondition(fkTableAlias, keyColumnNames, " = ", true);
 			fromElement.JoinSequence = join;
 			fromElement.Filter = true;
 
@@ -542,15 +545,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 					f.ClearChildren();
 					f.AddChild(lhs);
-					lhs.ClearChildren();
-					dotNode.ClearChildren();
+
+                    dotNode.ClearChildren();
 					dotNode.AddChild(f);
-					/*
-					f.setFirstChild( lhs );
-					lhs.setNextSibling( null );
-					dotNode.setFirstChild( f );
-					*/
-					Resolve( lhs );			// Don't forget to resolve the argument!
+
+                    Resolve( lhs );			// Don't forget to resolve the argument!
 					f.Resolve( inSelect );	// Resolve the collection function now.
 					return f;
 				default:

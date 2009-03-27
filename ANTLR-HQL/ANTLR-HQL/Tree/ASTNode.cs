@@ -209,7 +209,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public void ClearChildren()
 		{
-			_children.Clear();
+            if (_children != null)
+            {
+                _children.Clear();
+            }
 		}
 
 		public void AddChildren(IEnumerable<IASTNode> children)
@@ -358,8 +361,36 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		void ITree.ReplaceChildren(int startChildIndex, int stopChildIndex, object t)
 		{
-			_children.RemoveRange(startChildIndex, stopChildIndex - startChildIndex + 1);
-			_children.Insert(startChildIndex, (IASTNode) t);
+            if (_children != null)
+            {
+                _children.RemoveRange(startChildIndex, stopChildIndex - startChildIndex + 1);
+            }
+            if (_children == null)
+            {
+                _children = new List<IASTNode>(); 
+            }
+
+            IASTNode node = t as IASTNode;
+
+            if (node != null)
+            {
+                _children.Insert(startChildIndex, (IASTNode)t);
+            }
+            else
+            {
+                IEnumerable list = t as IEnumerable;
+
+                if (list != null)
+                {
+                    int i = 0;
+                    foreach (IASTNode entry in list)
+                    {
+                        _children.Insert(startChildIndex + i, entry);
+                        i++;
+                    }
+                }
+            }
+
 			FreshenParentAndChildIndexes(startChildIndex);
 		}
 

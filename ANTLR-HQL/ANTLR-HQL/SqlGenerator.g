@@ -175,9 +175,12 @@ from
 	;
 
 fromTable
+@after {
+   FromFragmentSeparator($a);
+}
 	// Write the table node (from fragment) and all the join fragments associated with it.
-	: ^( a=FROM_FRAGMENT  { Out(a); } (tableJoin [ a ])* { FromFragmentSeparator($a); } )
-	| ^( b=JOIN_FRAGMENT  { Out(b); } (tableJoin [ b ])* { FromFragmentSeparator($b); } )
+	: ^( a=FROM_FRAGMENT  { Out(a); } (tableJoin [ a ])* )
+	| ^( a=JOIN_FRAGMENT  { Out(a); } (tableJoin [ a ])* )
 	;
 
 tableJoin [ IASTNode parent ]
@@ -331,7 +334,7 @@ methodCall
 	;
 
 arguments
-	: expr ( { CommaBetweenParameters(", "); } expr )*
+	: (expr | comparisonExpr[true]) ( { CommaBetweenParameters(", "); } (expr | comparisonExpr[true]) )*
 	;
 
 parameter
@@ -346,6 +349,6 @@ addrExpr
 	;
 
 sqlToken
-	: t=SQL_TOKEN { Out(t); }
+	: ^(t=SQL_TOKEN { Out(t); } .*)
 	;
 

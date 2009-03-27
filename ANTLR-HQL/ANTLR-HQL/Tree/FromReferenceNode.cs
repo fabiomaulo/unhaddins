@@ -61,7 +61,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			Resolve(generateJoin, implicitJoin, null);
 		}
 
-		public void ResolveInFunctionCall(bool generateJoin, bool implicitJoin)
+		public virtual void ResolveInFunctionCall(bool generateJoin, bool implicitJoin)
 		{
 			Resolve(generateJoin, implicitJoin, null);
 		}

@@ -41,14 +41,14 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 		private readonly SqlStringBuilder _sqlStringBuilder = new SqlStringBuilder();
 
-		public SqlGenerator(ISessionFactoryImplementor sfi, ITreeNodeStream input) : base(input)
+		public SqlGenerator(ISessionFactoryImplementor sfi, ITreeNodeStream input) : this(input)
 		{
 			_parseErrorHandler = new ErrorCounter();
 			_sessionFactory = sfi;
 			_writer = new DefaultWriter(this);
 		}
 
-		public void ReportError(RecognitionException e)
+        public override void ReportError(RecognitionException e)
 		{
 			_parseErrorHandler.ReportError(e); // Use the delegate.
 		}

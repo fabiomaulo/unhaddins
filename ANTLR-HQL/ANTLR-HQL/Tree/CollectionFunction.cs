@@ -14,7 +14,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 		}
 
-		public void Resolve(bool inSelect) 
+		public override void Resolve(bool inSelect) 
 		{
 			InitializeMethodNode(this, inSelect);
 
@@ -38,7 +38,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			String subselect = selectColumns[0].Trim();
 			if ( subselect.StartsWith( "(") && subselect.EndsWith( ")" ) ) 
 			{
-				subselect = subselect.Substring( 1, subselect.Length -1 );
+				subselect = subselect.Substring( 1, subselect.Length -2 );
 			}
 			selectColumns[0] = subselect;
 		}

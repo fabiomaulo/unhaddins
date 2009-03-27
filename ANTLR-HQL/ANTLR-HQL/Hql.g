@@ -5,7 +5,6 @@ options
 	language=CSharp2;
 	output=AST;
 	ASTLabelType=IASTNode;
-	k=3;
 }
 
 tokens
@@ -378,6 +377,8 @@ inCollectionElementsDeclaration!
 	
 inCollectionElementsDeclaration
 	: alias IN ELEMENTS OPEN path CLOSE 
+		-> ^(JOIN["join"] INNER["inner"] path alias)
+	| alias IN path DOT ELEMENTS
 		-> ^(JOIN["join"] INNER["inner"] path alias)
     ;
 
@@ -785,8 +786,11 @@ identPrimary
 	;
 */
 identPrimary
+@init {
+HandleDotIdent2();
+}
 	: identifier { HandleDotIdent(); }
-			( options {greedy=false;} : DOT^ ( identifier | ELEMENTS | o=OBJECT { $o.Type = IDENT; } ) )*
+			( options {greedy=true;} : DOT^ ( identifier | o=OBJECT { $o.Type = IDENT; } ) )*
 			( ( op=OPEN^ { $op.Type = METHOD_CALL;} exprList CLOSE! )
 			)?
 	// Also allow special 'aggregate functions' such as count(), avg(), etc.
@@ -825,6 +829,7 @@ aggregateDistinctAll
 
 collectionExpr
 	: (ELEMENTS^ | INDICES^) OPEN! path CLOSE!
+	| path DOT! ELEMENTS^
 	;
                                            
 // NOTE: compoundExpr can be a 'path' where the last token in the path is '.elements' or '.indicies'
@@ -883,6 +888,9 @@ constant
 //## path: identifier ( '.' identifier )*;
 
 path
+@init {
+HandleDotIdent2();
+}
 	: identifier ( DOT^ { WeakKeywords(); } identifier )*
 	;
 
