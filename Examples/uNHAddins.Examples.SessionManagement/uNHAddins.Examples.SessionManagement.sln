@@ -29,6 +29,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionManagement.Presentat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionManagement.TestUtils", "SessionManagement.TestUtils\SessionManagement.TestUtils.csproj", "{FE20170F-4A13-4621-8E00-2688202894A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WCF", "WCF", "{1B2EFBF2-2794-4C87-A975-656BB95DEF23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionManagement.WCF.Host", "SessionManagement.Console\SessionManagement.WCF.Host.csproj", "{AC6ADFAF-D464-48D2-B8E3-F72759B33F07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SessionManagement.WCF.Client", "SessionManagement.WCF.Client\SessionManagement.WCF.Client.csproj", "{4AE33BF8-6BBE-4DE4-B607-8416C4177A04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +81,14 @@ Global
 		{FE20170F-4A13-4621-8E00-2688202894A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE20170F-4A13-4621-8E00-2688202894A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE20170F-4A13-4621-8E00-2688202894A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6ADFAF-D464-48D2-B8E3-F72759B33F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6ADFAF-D464-48D2-B8E3-F72759B33F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6ADFAF-D464-48D2-B8E3-F72759B33F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6ADFAF-D464-48D2-B8E3-F72759B33F07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE33BF8-6BBE-4DE4-B607-8416C4177A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE33BF8-6BBE-4DE4-B607-8416C4177A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE33BF8-6BBE-4DE4-B607-8416C4177A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE33BF8-6BBE-4DE4-B607-8416C4177A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +104,7 @@ Global
 		{67B33F4A-3072-4410-B52E-6C5655AA3249} = {B86EF573-0F34-4B71-A68E-F69D3E2D010C}
 		{FE20170F-4A13-4621-8E00-2688202894A0} = {B86EF573-0F34-4B71-A68E-F69D3E2D010C}
 		{092F2475-7592-45D9-9BCC-93445A1EC3C2} = {8D2ACA05-952E-49EA-B288-B180D6084DB8}
+		{AC6ADFAF-D464-48D2-B8E3-F72759B33F07} = {1B2EFBF2-2794-4C87-A975-656BB95DEF23}
+		{4AE33BF8-6BBE-4DE4-B607-8416C4177A04} = {1B2EFBF2-2794-4C87-A975-656BB95DEF23}
 	EndGlobalSection
 EndGlobal
