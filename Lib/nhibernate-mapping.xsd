@@ -184,6 +184,7 @@
 			<xs:attribute name="proxy" type="xs:string" />
 			<xs:attribute name="lazy" type="xs:boolean">
 			</xs:attribute>
+      <xs:attribute name="schema-action" type="xs:string" />
 			<xs:attribute name="table" type="xs:string" />
 			<xs:attribute name="schema" type="xs:string" />
 			<xs:attribute name="catalog" type="xs:string" />
@@ -615,6 +616,13 @@
 					<xs:element ref="component" />
 					<xs:element ref="dynamic-component" />
 					<xs:element ref="any" />
+					<xs:element ref="map" />
+					<xs:element ref="set" />
+					<xs:element ref="list" />
+					<xs:element ref="bag" />
+					<xs:element ref="idbag" />
+					<xs:element ref="array" />
+					<xs:element ref="primitive-array" />
 				</xs:choice>
 				<xs:element ref="sql-insert" minOccurs="0" />
 				<xs:element ref="sql-update" minOccurs="0" />
@@ -1669,7 +1677,7 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="customSQL" mixed="true">
-		<xs:attribute name="collable" type="xs:boolean" />
+		<xs:attribute name="callable" type="xs:boolean" />
 		<xs:attribute name="check" type="customSQLCheck" use="optional" />
 	</xs:complexType>
 	<xs:simpleType name="versionGeneration">
