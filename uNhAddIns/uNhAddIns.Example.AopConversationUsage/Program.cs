@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Practices.ServiceLocation;
 using uNhAddIns.Example.AopConversationUsage.Entities;
-using uNhAddIns.Example.AopConversationUsage.MultiTiers;
 using uNhAddIns.Example.AopConversationUsage.BusinessLogic;
 using Iesi.Collections.Generic;
 
@@ -21,13 +21,13 @@ namespace uNhAddIns.Example.AopConversationUsage
 
 		private static void AppConfigure()
 		{
-			ServiceLocator.Load((new ServiceLocatorProvider()).GetServiceLocator());
+			ServiceLocatorProvider.Initialize();
 		}
 
 		private static void CreateNewCrocodileFamilyInOneForm()
 		{
 			// Instatiation of the model: you can use it from the Form or better from presenter (MVP)
-			var familyCrudModel = ServiceLocator.GetService<IFamilyCrudModel<Reptile>>();
+			var familyCrudModel = ServiceLocator.Current.GetInstance<IFamilyCrudModel<Reptile>>();
 
 			// work outside the model
 			Family<Reptile> rfamily = CreateReptileFamily();
@@ -84,8 +84,8 @@ namespace uNhAddIns.Example.AopConversationUsage
 
 		private static void WorkWithHumanFamilyInTwoForms()
 		{
-			var familyCrudModel1 = ServiceLocator.GetService<IFamilyCrudModel<Human>>();
-			var familyCrudModel2 = ServiceLocator.GetService<IFamilyCrudModel<Human>>();
+			var familyCrudModel1 = ServiceLocator.Current.GetInstance<IFamilyCrudModel<Human>>();
+			var familyCrudModel2 = ServiceLocator.Current.GetInstance<IFamilyCrudModel<Human>>();
 
 			// work for form 1
 			Family<Human> hfamily1 = CreateHumanFamily("Flinstone");

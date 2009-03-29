@@ -1,5 +1,5 @@
+using Microsoft.Practices.ServiceLocation;
 using uNhAddIns.Example.AopConversationUsage.Entities;
-using uNhAddIns.Example.AopConversationUsage.MultiTiers;
 
 namespace uNhAddIns.Example.AopConversationUsage.DataAccessObjects
 {
@@ -16,12 +16,12 @@ namespace uNhAddIns.Example.AopConversationUsage.DataAccessObjects
 
 		public ICrudDao<TEntity> GetCrudDaoOf<TEntity>() where TEntity : IEntity
 		{
-			return serviceLocator.Resolve<ICrudDao<TEntity>>();
+			return serviceLocator.GetInstance<ICrudDao<TEntity>>();
 		}
 
 		public TDao GetDao<TDao>()
 		{
-			return serviceLocator.Resolve<TDao>();
+			return serviceLocator.GetInstance<TDao>();
 		}
 
 		#endregion

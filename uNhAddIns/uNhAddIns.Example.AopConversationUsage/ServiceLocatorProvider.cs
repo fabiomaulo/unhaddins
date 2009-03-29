@@ -1,5 +1,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using CommonServiceLocator.WindsorAdapter;
+using Microsoft.Practices.ServiceLocation;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using uNhAddIns.CastleAdapters;
@@ -7,7 +9,6 @@ using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.Example.AopConversationUsage.BusinessLogic;
 using uNhAddIns.Example.AopConversationUsage.DataAccessObjects;
 using uNhAddIns.Example.AopConversationUsage.Entities;
-using uNhAddIns.Example.AopConversationUsage.MultiTiers;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 
@@ -15,7 +16,7 @@ namespace uNhAddIns.Example.AopConversationUsage
 {
 	public class ServiceLocatorProvider
 	{
-		public IServiceLocator GetServiceLocator()
+		public static void Initialize()
 		{
 			var container = new WindsorContainer();
 			container.AddFacility<PersistenceConversationFacility>();
@@ -36,7 +37,10 @@ namespace uNhAddIns.Example.AopConversationUsage
 
 			container.Register(
 				Component.For(typeof (IFamilyCrudModel<>)).ImplementedBy(typeof (FamilyCrudModel<>)).LifeStyle.Transient);
-			return new WindsorServiceLocator(container);
+
+			var sl = new WindsorServiceLocator(container);
+			container.Register(Component.For<IServiceLocator>().Instance(sl));
+			ServiceLocator.SetLocatorProvider(() => sl);
 		}
 
 		private static void RegisterNaturalnessDaos<T>(IWindsorContainer cont) where T : Animal
