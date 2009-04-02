@@ -76,6 +76,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NUnitEx, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\NUnitEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -85,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="Cache\TolerantQueryCacheConfExpressionBuilderFixture.cs" />
     <Compile Include="Conversations\ConversationExceptionFixture.cs" />
     <Compile Include="Conversations\ConversationFixture.cs" />
     <Compile Include="Conversations\DefaultConversationFactoryFixture.cs" />
