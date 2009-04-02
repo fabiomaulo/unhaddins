@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\ConfigurationExtensions.cs" />
+    <Compile Include="Cache\ConfigurationImpl\QueryCacheFactoryConfiguration.cs" />
     <Compile Include="Cache\ConfigurationImpl\TolerantQueryCacheConfExpressionBuilder.cs" />
     <Compile Include="Cache\IQueryCacheFactoryConfiguration.cs" />
     <Compile Include="Cache\IQueryCacheRegionResolver.cs" />

@@ -47,5 +47,15 @@ namespace uNhAddIns.Test.Cache
 			tqc.SpacesTolerance.Should().Have.SameValuesAs(new[] {"mySpace", "mySpace2", "mySpace1"});
 		}
 
+		[Test]
+		public void ShouldExcludeEmpty()
+		{
+			var tqc = new TolerantQueryCacheConfExpressionBuilder("myRegion");
+			tqc.AddSpace("");
+			tqc.AddSpace(null);
+			tqc.SpacesTolerance.Should().Be.Empty();
+			tqc.AddSpaces(new[] { "", null, "MySpace" });
+			tqc.SpacesTolerance.Should().Have.SameSequenceAs(new[] {"MySpace"});
+		}
 	}
 }
