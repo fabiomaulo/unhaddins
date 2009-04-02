@@ -8,7 +8,7 @@ namespace uNhAddIns.SessionEasier
 	{
 		public override IEnumerable<Configuration> Configure()
 		{
-			var cfg = CreateConviguration();
+			var cfg = CreateConfiguration();
 			bool configured;
 			DoBeforeConfigure(cfg, out configured);
 			if (!configured)
