@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NHibernate.Cache;
 
 namespace uNhAddIns.Cache.ConfigurationImpl
@@ -33,12 +34,15 @@ namespace uNhAddIns.Cache.ConfigurationImpl
 
 		public void AddSpace(string spaceName)
 		{
-			spaces.Add(spaceName);
+			if (!string.IsNullOrEmpty(spaceName))
+			{
+				spaces.Add(spaceName);
+			}
 		}
 
 		public void AddSpaces(IEnumerable<string> spacesNames)
 		{
-			spaces.UnionWith(spacesNames);
+			spaces.UnionWith(spacesNames.Where(x => !string.IsNullOrEmpty(x)));
 		}
 	}
 }

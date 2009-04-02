@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="Cache\ConfigurationExtensionsFixture.cs" />
     <Compile Include="Cache\TolerantQueryCacheConfExpressionBuilderFixture.cs" />
     <Compile Include="Conversations\ConversationExceptionFixture.cs" />
     <Compile Include="Conversations\ConversationFixture.cs" />
