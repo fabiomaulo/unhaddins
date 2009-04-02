@@ -9,19 +9,19 @@ namespace uNhAddIns.Test.Cache
 	[TestFixture]
 	public class ConfigurationExtensionsFixture
 	{
-				public class CustomQcStub: StandardQueryCache
+		public class CustomQcStub : StandardQueryCache
 		{
-			public CustomQcStub(Settings settings, IDictionary<string, string> props, UpdateTimestampsCache updateTimestampsCache, string regionName) : base(settings, props, updateTimestampsCache, regionName) {}
+			public CustomQcStub(Settings settings, IDictionary<string, string> props, UpdateTimestampsCache updateTimestampsCache, string regionName) : base(settings, props, updateTimestampsCache, regionName) { }
 		}
 
-	
+
 		[Test]
 		public void FluentConfigurationUsage()
 		{
 			const string regionName = "RefineSearchStatistics";
 			const string regionName1 = "Statistics";
 			var nhcfg = new Configuration();
-		
+
 			nhcfg.QueryCache()
 				.ResolveRegion(regionName).Using<CustomQcStub>().TolerantWith("ATable");
 
@@ -29,7 +29,7 @@ namespace uNhAddIns.Test.Cache
 				.Should().Be.Equal(typeof(CustomQcStub));
 
 			nhcfg.GetQueryCacheRegionTolerance(regionName)
-				.Should().Have.SameSequenceAs(new[] {"ATable"});
+				.Should().Have.SameSequenceAs(new[] { "ATable" });
 
 			nhcfg.QueryCache()
 				.ResolveRegion(regionName1).Using<StandardQueryCache>().TolerantWith("ATable", "ATable2", "ATable1");
