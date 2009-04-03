@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using NHibernate.Cache;
-using NHibernate.Cfg;
 using NUnit.Framework;
 using uNhAddIns.Cache.ConfigurationImpl;
 
@@ -10,11 +8,6 @@ namespace uNhAddIns.Test.Cache
 	[TestFixture]
 	public class TolerantQueryCacheConfExpressionBuilderFixture
 	{
-		public class CustomQcStub: StandardQueryCache
-		{
-			public CustomQcStub(Settings settings, IDictionary<string, string> props, UpdateTimestampsCache updateTimestampsCache, string regionName) : base(settings, props, updateTimestampsCache, regionName) {}
-		}
-
 		[Test]
 		public void CTor()
 		{

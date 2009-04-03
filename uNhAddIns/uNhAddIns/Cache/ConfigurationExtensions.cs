@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Cfg;
 using uNhAddIns.Cache.ConfigurationImpl;
-using System;
+using Environment=NHibernate.Cfg.Environment;
 
 namespace uNhAddIns.Cache
 {
@@ -13,6 +14,8 @@ namespace uNhAddIns.Cache
 
 		public static IQueryCacheFactoryConfiguration QueryCache(this Configuration cfg)
 		{
+			cfg.SetProperty(Environment.QueryCacheFactory, typeof (RegionQueryCacheFactory).AssemblyQualifiedName);
+			cfg.SetProperty(Environment.UseQueryCache, "true");
 			return new QueryCacheFactoryConfiguration(cfg);
 		}
 
@@ -31,7 +34,8 @@ namespace uNhAddIns.Cache
 			cfg.SetProperty(GetResolverConfigurationKey(regionName), type.AssemblyQualifiedName);
 		}
 
-		internal static void SetQueryCacheRegionTolerance(this Configuration cfg, string regionName, IEnumerable<string> spaces)
+		internal static void SetQueryCacheRegionTolerance(this Configuration cfg, string regionName,
+		                                                  IEnumerable<string> spaces)
 		{
 			cfg.SetProperty(GetToleranceConfigurationKey(regionName), GetAssembledSpacesString(spaces));
 		}
@@ -54,6 +58,21 @@ namespace uNhAddIns.Cache
 		private static IEnumerable<string> GetDisassembledSpacesString(string assembledSpacesString)
 		{
 			return assembledSpacesString.Split(';');
+		}
+
+		public static Type GetQueryCacheRegionResolver(this IDictionary<string, string> properties, string regionName)
+		{
+			string key = GetResolverConfigurationKey(regionName);
+			string value;
+			return properties.TryGetValue(key, out value) ? Type.GetType(value) : null;
+		}
+
+		public static IEnumerable<string> GetQueryCacheRegionTolerance(this IDictionary<string, string> properties,
+		                                                               string regionName)
+		{
+			string key = GetToleranceConfigurationKey(regionName);
+			string value;
+			return properties.TryGetValue(key, out value) ? GetDisassembledSpacesString(value) : new string[0];
 		}
 	}
 }

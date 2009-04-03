@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using NHibernate.Cache;
 using NHibernate.Cfg;
 using NUnit.Framework;
@@ -9,12 +8,6 @@ namespace uNhAddIns.Test.Cache
 	[TestFixture]
 	public class ConfigurationExtensionsFixture
 	{
-		public class CustomQcStub : StandardQueryCache
-		{
-			public CustomQcStub(Settings settings, IDictionary<string, string> props, UpdateTimestampsCache updateTimestampsCache, string regionName) : base(settings, props, updateTimestampsCache, regionName) { }
-		}
-
-
 		[Test]
 		public void FluentConfigurationUsage()
 		{
@@ -39,6 +32,12 @@ namespace uNhAddIns.Test.Cache
 
 			nhcfg.GetQueryCacheRegionTolerance(regionName1)
 				.Should().Have.SameSequenceAs(new[] { "ATable", "ATable2", "ATable1" });
+
+			nhcfg.GetProperty(Environment.QueryCacheFactory)
+				.Should().Be.Equal(typeof (RegionQueryCacheFactory).AssemblyQualifiedName);
+
+			nhcfg.GetProperty(Environment.UseQueryCache).ToLowerInvariant()
+				.Should().Be.Equal("true");
 		}
 	}
 }
