@@ -4,5 +4,6 @@ namespace uNhAddIns.Cache
 	{
 		void TolerantWith(string querySpace);
 		void TolerantWith(params string[] querySpace);
+		void AlwaysTolerant();
 	}
 }

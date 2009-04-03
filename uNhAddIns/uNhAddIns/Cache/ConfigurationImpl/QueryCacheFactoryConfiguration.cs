@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using NHibernate.Cache;
 using NHibernate.Cfg;
 
@@ -53,6 +52,11 @@ namespace uNhAddIns.Cache.ConfigurationImpl
 		{
 			tqcEb.AddSpaces(querySpaces);
 			cfg.SetQueryCacheRegionTolerance(tqcEb.RegionName, tqcEb.SpacesTolerance);
+		}
+
+		public void AlwaysTolerant()
+		{
+			cfg.SetQueryCacheRegionAlwaysTolerant(tqcEb.RegionName);
 		}
 
 		#endregion

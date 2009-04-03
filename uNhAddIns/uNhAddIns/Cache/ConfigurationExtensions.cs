@@ -11,6 +11,7 @@ namespace uNhAddIns.Cache
 	{
 		private const string QueryCacheResolverKeyPrefix = "uNhAddIns.Cache_";
 		private const string QueryCacheToleranceKeyPrefix = "uNhAddIns.CacheTolerance_";
+		private const string AlwaysTolerant = "AlwaysTolerant";
 
 		public static IQueryCacheFactoryConfiguration QueryCache(this Configuration cfg)
 		{
@@ -38,6 +39,11 @@ namespace uNhAddIns.Cache
 		                                                  IEnumerable<string> spaces)
 		{
 			cfg.SetProperty(GetToleranceConfigurationKey(regionName), GetAssembledSpacesString(spaces));
+		}
+
+		internal static void SetQueryCacheRegionAlwaysTolerant(this Configuration cfg, string regionName)
+		{
+			cfg.SetProperty(GetToleranceConfigurationKey(regionName), AlwaysTolerant);
 		}
 
 		private static string GetResolverConfigurationKey(string regionName)
@@ -73,6 +79,14 @@ namespace uNhAddIns.Cache
 			string key = GetToleranceConfigurationKey(regionName);
 			string value;
 			return properties.TryGetValue(key, out value) ? GetDisassembledSpacesString(value) : new string[0];
+		}
+
+		public static bool IsQueryCacheRegionAlwaysTolerant(this IDictionary<string, string> properties,
+																															 string regionName)
+		{
+			string key = GetToleranceConfigurationKey(regionName);
+			string value;
+			return properties.TryGetValue(key, out value) ? AlwaysTolerant.Equals(value) : false;
 		}
 	}
 }
