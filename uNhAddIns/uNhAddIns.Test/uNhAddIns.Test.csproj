@@ -91,8 +91,11 @@
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
     <Compile Include="Cache\ConfigurationExtensionsFixture.cs" />
     <Compile Include="Cache\CustomQcStub.cs" />
+    <Compile Include="Cache\Entities.cs" />
+    <Compile Include="Cache\FullIntegrationFixture.cs" />
     <Compile Include="Cache\RegionQueryCacheFactoryFixture.cs" />
     <Compile Include="Cache\TolerantQueryCacheConfExpressionBuilderFixture.cs" />
+    <Compile Include="Cache\TolerantQueryCacheFixture.cs" />
     <Compile Include="Conversations\ConversationExceptionFixture.cs" />
     <Compile Include="Conversations\ConversationFixture.cs" />
     <Compile Include="Conversations\DefaultConversationFactoryFixture.cs" />
@@ -205,6 +208,7 @@
   <ItemGroup>
     <EmbeddedResource Include="SessionEasier\Silly.hbm.xml" />
     <EmbeddedResource Include="Conversations\Silly.hbm.xml" />
+    <EmbeddedResource Include="Cache\Items.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
