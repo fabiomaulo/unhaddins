@@ -33,5 +33,11 @@ namespace uNhAddIns.Test.Extensions
 			Assert.Throws<InstantiationException>(() => ReflectionExtensions.Instantiate<IMyInterface>(typeof(object)));
 			Assert.Throws<InstantiationException>(() => ReflectionExtensions.Instantiate<IMyInterface>(typeof(MyClassCtorException)));
 		}
+
+		[Test]
+		public void InstantiateWithArguments()
+		{
+			typeof (MyClassNoDef).Instantiate<MyClassNoDef>(5).Should().Not.Be.Null();
+		}
 	}
 }

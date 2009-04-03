@@ -78,6 +78,8 @@
     <Compile Include="Cache\IQueryCacheFactoryConfiguration.cs" />
     <Compile Include="Cache\IQueryCacheRegionResolver.cs" />
     <Compile Include="Cache\ITolerantQueryCacheConfiguration.cs" />
+    <Compile Include="Cache\RegionQueryCacheFactory.cs" />
+    <Compile Include="Cache\TolerantQueryCache.cs" />
     <Compile Include="DynQuery\GroupBy.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="GenericImpl\PaginableDynQuery.cs" />
