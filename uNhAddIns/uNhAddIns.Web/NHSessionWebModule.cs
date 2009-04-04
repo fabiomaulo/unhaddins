@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using System.Web.UI;
 using log4net;
 using NHibernate;
 using uNhAddIns.SessionEasier;
@@ -31,29 +32,40 @@ namespace uNhAddIns.Web
 
 		private void Application_BeginRequest(object sender, EventArgs e)
 		{
-			foreach (ISessionFactory factory in sfp)
+			if (RequestMayNeedIterationWithPersistence())
 			{
-				factory.GetCurrentSession().BeginTransaction();
+				foreach (ISessionFactory factory in sfp)
+				{
+					factory.GetCurrentSession().BeginTransaction();
+				}
 			}
+		}
+
+		private static bool RequestMayNeedIterationWithPersistence()
+		{
+			return HttpContext.Current.Handler is Page;
 		}
 
 		private void Application_EndRequest(object sender, EventArgs e)
 		{
-			foreach (ISessionFactory factory in sfp)
+			if (RequestMayNeedIterationWithPersistence())
 			{
-				ISession session = factory.GetCurrentSession();
-				try
+				foreach (ISessionFactory factory in sfp)
 				{
-					session.Transaction.Commit();
-				}
-				catch (Exception)
-				{
-					session.Transaction.Rollback();
-					throw;
-				}
-				finally
-				{
-					session.Dispose();
+					ISession session = factory.GetCurrentSession();
+					try
+					{
+						session.Transaction.Commit();
+					}
+					catch (Exception)
+					{
+						session.Transaction.Rollback();
+						throw;
+					}
+					finally
+					{
+						session.Dispose();
+					}
 				}
 			}
 		}
