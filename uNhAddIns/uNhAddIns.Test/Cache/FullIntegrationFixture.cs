@@ -1,9 +1,11 @@
-using NHibernate.Cfg;
+using System;
+using System.Threading;
+using NHibernate.Caches.SysCache;
 using NHibernate.Impl;
 using NUnit.Framework;
 using uNhAddIns.Cache;
 using uNhAddIns.TestUtils.NhIntegration;
-using NHibernate.Cache;
+using Environment=NHibernate.Cfg.Environment;
 
 namespace uNhAddIns.Test.Cache
 {
@@ -18,7 +20,7 @@ namespace uNhAddIns.Test.Cache
 				base.Configure(configuration);
 				configuration.SetProperty(Environment.GenerateStatistics, "true");
 				configuration.SetProperty(Environment.CacheProvider,
-					typeof(HashtableCacheProvider).AssemblyQualifiedName);
+					typeof(SysCacheProvider).AssemblyQualifiedName);
 
 				configuration.QueryCache()
 					.ResolveRegion("SearchStatistics")
@@ -35,7 +37,7 @@ namespace uNhAddIns.Test.Cache
 			Settings = s;
 		}
 
-		[Test]
+		[Test, Explicit]
 		public void FullCreamIntegration()
 		{
 			// Fill DB
@@ -99,6 +101,20 @@ namespace uNhAddIns.Test.Cache
 
 			SessionFactory.Statistics.QueryExecutionCount
 				.Should("execute only the query for Antiques").Be.Equal(1);
+
+			// Clear SessionFactory Statistics again
+			SessionFactory.Statistics.Clear();
+
+			// Wait for cache expiration
+			Thread.Sleep(new TimeSpan(0, 0, 10));
+			// Execute
+			SessionFactory.EncloseInTransaction(session => musicQuery.GetExecutableQuery(session).List());
+			
+			SessionFactory.Statistics.QueryCacheHitCount
+				.Should("Not hit the query cache because stale").Be.Equal(0);
+
+			SessionFactory.Statistics.QueryExecutionCount
+				.Should("execute the query for MusicCD").Be.Equal(1);
 
 			// Cleanup
 			SessionFactory.EncloseInTransaction(session =>
