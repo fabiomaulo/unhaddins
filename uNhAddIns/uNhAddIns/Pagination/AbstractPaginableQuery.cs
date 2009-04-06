@@ -44,7 +44,7 @@ namespace uNhAddIns.Pagination
 			return InternalExecute(DetachedQuery);
 		}
 
-		public IList<T> GetPage(int pageSize, int pageNumber)
+		public virtual IList<T> GetPage(int pageSize, int pageNumber)
 		{
 			SetPagination(DetachedQuery, pageSize, pageNumber);
 			return InternalExecute(DetachedQuery);

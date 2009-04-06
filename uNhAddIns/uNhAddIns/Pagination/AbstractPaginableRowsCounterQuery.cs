@@ -15,7 +15,7 @@ namespace uNhAddIns.Pagination
 		/// </summary>
 		/// <param name="session">The <see cref="ISession"/>.</param>
 		/// <returns>The row count.</returns>
-		public long GetRowsCount(ISession session)
+		public virtual long GetRowsCount(ISession session)
 		{
 			if (dqrc == null)
 				dqrc = new QueryRowsCounter(GetRowCountQuery());

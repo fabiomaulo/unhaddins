@@ -64,7 +64,7 @@ namespace uNhAddIns.Pagination
 		/// <param name="pageNumber">The page number.</param>
 		/// <returns>The page's elements list.</returns>
 		/// <remarks>The max size of the list is <paramref name="pageSize"/>.</remarks>
-		public IList<T> GetPage(int pageSize, int pageNumber)
+		public virtual IList<T> GetPage(int pageSize, int pageNumber)
 		{
 			SetPagination(Criteria, pageSize, pageNumber);
 			return InternalExecute(Criteria);
