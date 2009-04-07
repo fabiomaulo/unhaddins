@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6F9968F5-6A16-4CD4-89FF-98A052FAB905}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -68,6 +68,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionEasier\Contexts\ExtendedWebSessionContext.cs" />
     <Compile Include="SessionEasier\Contexts\WebSessionContext.cs" />
+    <Compile Include="SessionEasier\Conversations\ConversationWebSessionContext.cs" />
+    <Compile Include="SessionEasier\Conversations\WebConversationContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
