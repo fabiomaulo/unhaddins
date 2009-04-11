@@ -32,8 +32,9 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 					case HqlSqlWalker.NUM_LONG:
 						return NHibernateUtil.Int64;
 					case HqlSqlWalker.NUM_FLOAT:
-					case HqlSqlWalker.NUM_DOUBLE:
-						return NHibernateUtil.Double;
+                        return NHibernateUtil.Single;
+                    case HqlSqlWalker.NUM_DOUBLE:
+                        return NHibernateUtil.Double;
 					case HqlSqlWalker.QUOTED_String:
 						return NHibernateUtil.String;
 					case HqlSqlWalker.TRUE:

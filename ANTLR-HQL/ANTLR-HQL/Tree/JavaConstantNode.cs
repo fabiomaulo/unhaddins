@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Antlr.Runtime;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Util;
@@ -15,33 +16,13 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	public class JavaConstantNode : SqlNode, IExpectedTypeAwareNode, ISessionFactoryAwareNode 
 	{
 		private ISessionFactoryImplementor _factory;
-		private String _constantExpression;
 		private Object _constantValue;
 		private IType _heuristicType;
 		private IType _expectedType;
+	    private bool _processedText;
 
 		public JavaConstantNode(IToken token) : base(token)
 		{
-		}
-
-		public override string Text
-		{
-			get
-			{
-				return base.Text;
-			}
-			set
-			{
-				// for some reason the antlr.CommonAST initialization routines force
-				// this method to get called twice.  The first time with an empty string
-				if (!string.IsNullOrEmpty(value))
-				{
-					_constantExpression = value;
-					_constantValue = ReflectHelper2.GetConstantValue(value);
-					_heuristicType = TypeFactory.HeuristicType(_constantValue.GetType().Name);
-					base.Text = value;
-				}
-			}
 		}
 
 		public IType ExpectedType
@@ -55,24 +36,42 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set { _factory = value; }
 		}
 
-		private string ResolveToLiteralString(IType type) 
-		{
-			try 
-			{
-				ILiteralType literalType = ( ILiteralType ) type;
-				Dialect.Dialect dialect = _factory.Dialect;
-				return literalType.ObjectToSQLString( _constantValue, dialect );
-			}
-			catch ( Exception t ) 
-			{
-				throw new QueryException( LiteralProcessor.ErrorCannotFormatLiteral + _constantExpression, t );
-			}
-		}
+        public override string RenderText(ISessionFactoryImplementor sessionFactory)
+        {
+            ProcessText();
 
-		public String GetRenderText(ISessionFactoryImplementor sessionFactory) 
-		{
 			IType type = _expectedType ?? _heuristicType;
 			return ResolveToLiteralString( type );
 		}
+
+        private string ResolveToLiteralString(IType type)
+        {
+            try
+            {
+                ILiteralType literalType = (ILiteralType)type;
+                Dialect.Dialect dialect = _factory.Dialect;
+                return literalType.ObjectToSQLString(_constantValue, dialect);
+            }
+            catch (Exception t)
+            {
+                throw new QueryException(LiteralProcessor.ErrorCannotFormatLiteral + Text, t);
+            }
+        }
+
+        private void ProcessText()
+        {
+            if (!_processedText)
+            {
+                if (_factory == null)
+                {
+                    throw new InvalidOperationException();
+                }
+                
+                _constantValue = ReflectHelper2.GetConstantValue(base.Text, _factory);
+                _heuristicType = TypeFactory.HeuristicType(_constantValue.GetType().AssemblyQualifiedName);
+                _processedText = true;
+            }
+        }
+
 	}
 }

@@ -148,7 +148,7 @@ count
 
 distinctOrAll
 	: DISTINCT { Out("distinct "); }
-	| ALL { Out("all "); }
+	| ^(ALL .*) { Out("all "); }
 	;
 
 countExpr
@@ -345,7 +345,7 @@ parameter
 addrExpr
 	: ^(r=DOT . .) { Out(r); }
 	| i=ALIAS_REF { Out(i); }
-	| j=INDEX_OP { Out(j); }
+	| ^(j=INDEX_OP .*) { Out(j); }
 	;
 
 sqlToken

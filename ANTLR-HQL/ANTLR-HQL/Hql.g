@@ -264,7 +264,7 @@ selectFrom
 			if ($f.tree == null && !filter) 
 				throw new RecognitionException("FROM expected (non-filter queries must contain a FROM clause)");
 		}
-		-> {$f.tree == null && filter}? ^(SELECT_FROM FROM["{filter-implied FROM}"])
+		-> {$f.tree == null && filter}? ^(SELECT_FROM FROM["{filter-implied FROM}"] selectClause?)
 		-> ^(SELECT_FROM fromClause? selectClause?)
 	;
 
@@ -380,6 +380,7 @@ inCollectionElementsDeclaration
 		-> ^(JOIN["join"] INNER["inner"] path alias)
 	| alias IN path DOT ELEMENTS
 		-> ^(JOIN["join"] INNER["inner"] path alias)
+//		-> ^(RANGE path alias)
     ;
 
 // Alias rule - Parses the optional 'as' token and forces an AST identifier node.
@@ -829,7 +830,7 @@ aggregateDistinctAll
 
 collectionExpr
 	: (ELEMENTS^ | INDICES^) OPEN! path CLOSE!
-	| path DOT! ELEMENTS^
+	| path DOT! (ELEMENTS^ | INDICES^)
 	;
                                            
 // NOTE: compoundExpr can be a 'path' where the last token in the path is '.elements' or '.indicies'

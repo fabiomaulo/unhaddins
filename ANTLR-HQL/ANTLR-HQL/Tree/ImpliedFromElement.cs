@@ -36,6 +36,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
             }
             set
             {
+                base.IncludeSubclasses = value;
             }
         }
 

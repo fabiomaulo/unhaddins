@@ -179,12 +179,14 @@ namespace NHibernate.Hql.Ast.ANTLR.Loader
 				LockMode[] lockModeArray = new LockMode[_entityAliases.Length];
 				for (int i = 0; i < _entityAliases.Length; i++)
 				{
-					LockMode lockMode = lockModes[_entityAliases[i]];
-					if (lockMode == null)
-					{
+					LockMode lockMode;
+
+                    if (!lockModes.TryGetValue(_entityAliases[i], out lockMode))
+                    {
 						//NONE, because its the requested lock mode, not the actual! 
 						lockMode = LockMode.None;
-					}
+                    }
+
 					lockModeArray[i] = lockMode;
 				}
 				return lockModeArray;

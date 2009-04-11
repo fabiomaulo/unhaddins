@@ -44,6 +44,14 @@ namespace NHibernate.Hql.Ast.ANTLR.Parameters
 				}
 				else {
 					// don't care about other param types here, just those explicitly user-defined...
+
+                    // Steve Strong Note:  The original Java does not do this decrement; it increments i for
+                    // every parameter type.  However, within the Loader.GetParameterTypes() method, this introduces
+                    // nulls into the paramTypeList array, which in turn causes Loader.ConvertITypesToSqlTypes() to crash
+                    // with a null dereference.  An alternative fix is to change the Loader to handle the null.  I'm
+                    // not sure which fix is the most appropriate.
+                    // Legacy.FumTest.CompositeIDQuery() shows the bug if you remove the decrement below...
+				    i--;
 				}
 
 				i++;

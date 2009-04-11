@@ -250,7 +250,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		{
 			get
 			{
-				if (_parent.ChildCount > (_childIndex + 1))
+				if (_parent != null && _parent.ChildCount > (_childIndex + 1))
 				{
 					return _parent.GetChild(_childIndex + 1);
 				}
@@ -320,6 +320,11 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public IEnumerator<IASTNode> GetEnumerator()
 		{
+            if (_children == null)
+            {
+                _children = new List<IASTNode>();
+            }
+
 			return _children.GetEnumerator();
 		}
 

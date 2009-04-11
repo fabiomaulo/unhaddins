@@ -309,7 +309,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			try 
 			{
 				// PHASE 1 : Parse the HQL into an AST.
-				_parser = new HqlParseEngine(_hql, true);
+				_parser = new HqlParseEngine(_hql, true, _factory);
 				_parser.Parse();
 
 				// PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
@@ -380,11 +380,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private CommonTokenStream _tokens;
 		private readonly bool _filter;
 		private IASTNode _ast;
+	    private ISessionFactoryImplementor _sfi;
 
-		public HqlParseEngine(string hql, bool filter)
+        public HqlParseEngine(string hql, bool filter, ISessionFactoryImplementor sfi)
 		{
 			_hql = hql;
 			_filter = filter;
+            _sfi = sfi;
 		}
 
 		public string Hql
@@ -422,7 +424,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 				_ast = (IASTNode) parser.statement().Tree;
 
-				NodeTraverser walker = new NodeTraverser(new ConstantConverter());
+				NodeTraverser walker = new NodeTraverser(new ConstantConverter(_sfi));
 				walker.TraverseDepthFirst(_ast);
 
 				//showHqlAst( hqlAst );
@@ -434,8 +436,14 @@ namespace NHibernate.Hql.Ast.ANTLR
 		class ConstantConverter : IVisitationStrategy
 		{
 			private IASTNode dotRoot;
+            private ISessionFactoryImplementor _sfi;
 
-			public void Visit(IASTNode node)
+            public ConstantConverter(ISessionFactoryImplementor sfi)
+            {
+                _sfi = sfi;
+            }
+
+		    public void Visit(IASTNode node)
 			{
 				if (dotRoot != null)
 				{
@@ -457,12 +465,12 @@ namespace NHibernate.Hql.Ast.ANTLR
 				}
 			}
 
-			private static void HandleDotStructure(IASTNode dotStructureRoot)
+			private void HandleDotStructure(IASTNode dotStructureRoot)
 			{
 				String expression = ASTUtil.GetPathText(dotStructureRoot);
 
-				object constant = ReflectHelper2.GetConstantValue(expression );
-				
+				object constant = ReflectHelper2.GetConstantValue(expression, _sfi);
+
 				if ( constant != null ) 
 				{
 					dotStructureRoot.ClearChildren();

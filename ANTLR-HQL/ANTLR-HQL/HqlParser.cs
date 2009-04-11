@@ -292,9 +292,9 @@ namespace NHibernate.Hql.Ast.ANTLR
                     if ((t.Type == IDENT || t.PossibleId) &&
                         (input.LA(i + 1) == DOT || (i > 1 && input.LA(i - 1) == DOT)))
                     {
-                        if (t.Type == ELEMENTS && input.LA(i + 1) != DOT)
+                        if ((t.Type == ELEMENTS || t.Type == INDICES) && input.LA(i + 1) != DOT)
                         {
-                            // Don't change the type of ELEMENTS if it's at the end of the path
+                            // Don't change the type of ELEMENTS or INDICES if it's at the end of the path
                             break;
                         }
 

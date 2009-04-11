@@ -214,7 +214,7 @@ fromElement!
 	: ^(RANGE p=path (a=ALIAS)? (pf=FETCH)? ) 
 		-> ^({CreateFromElement($p.p,$a, $pf)})
 	| je=joinElement 
-		->
+		-> //$je
 	// A from element created due to filter compilation
 	| fe=FILTER_ENTITY a3=ALIAS 
 		-> ^({CreateFromFilterElement($fe,$a3)})

@@ -50,7 +50,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			set { expectedType = value; }
 		}
 
-		public string GetRenderText(ISessionFactoryImplementor sessionFactory) 
+		public override string RenderText(ISessionFactoryImplementor sessionFactory) 
 		{
 			try
 			{

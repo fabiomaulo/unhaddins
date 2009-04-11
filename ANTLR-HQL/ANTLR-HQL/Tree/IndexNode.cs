@@ -6,6 +6,7 @@ using log4net;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR.Parameters;
 using NHibernate.Persister.Collection;
+using NHibernate.SqlCommand;
 using NHibernate.Type;
 
 namespace NHibernate.Hql.Ast.ANTLR.Tree
@@ -18,7 +19,6 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 	public class IndexNode : FromReferenceNode
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof(IndexNode));
-		private bool _isResolved;
 
 		public IndexNode(IToken token) : base(token)
 		{
@@ -36,7 +36,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public override void  Resolve(bool generateJoin, bool implicitJoin, string classAlias, IASTNode parent)
 		{
-			if ( _isResolved ) 
+			if (IsResolved) 
 			{
 				return;
 			}
@@ -121,8 +121,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			}
 
 			string selectorExpression = gen.GetSQL().ToString();
-			//joinSequence.AddCondition( collectionTableAlias + '.' + indexCols[0] + " = " + selectorExpression );
-			joinSequence.AddCondition(collectionTableAlias, new string[] { indexCols[0] }, selectorExpression, false);
+
+			joinSequence.AddCondition(new SqlString(collectionTableAlias + '.' + indexCols[0] + " = " + selectorExpression ));
+			//joinSequence.AddCondition(collectionTableAlias, new string[] { indexCols[0] }, selectorExpression, false);
+
 			IList<IParameterSpecification> paramSpecs = gen.GetCollectedParameters();
 			if ( paramSpecs != null ) 
 			{
@@ -147,16 +149,37 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			// Now, set the text for this node.  It should be the element columns.
 			String[] elementColumns = queryableCollection.GetElementColumnNames( elementTable );
 			Text = elementColumns[0];
-			SetResolved();
+
+		    IsResolved = true;
 		}
 
-		public void SetResolved()
-		{
-			_isResolved = true;
-			if (log.IsDebugEnabled)
-			{
-				log.Debug("Resolved :  " + Path + " -> " + Text);
-			}
-		}
-	}
+    	public override void PrepareForDot(string propertyName) 
+        {
+    	    FromElement fromElement = FromElement;
+
+		    if ( fromElement == null ) 
+            {
+			    throw new InvalidOperationException( "No FROM element for index operator!" );
+		    }
+
+		    IQueryableCollection queryableCollection = fromElement.QueryableCollection;
+
+		    if ( queryableCollection != null && !queryableCollection.IsOneToMany) 
+            {
+			    FromReferenceNode collectionNode = ( FromReferenceNode ) GetChild(0);
+			    String path = collectionNode.Path + "[]." + propertyName;
+
+			    if (log.IsDebugEnabled) 
+                {
+				    log.Debug( "Creating join for many-to-many elements for " + path );
+			    }
+
+			    FromElementFactory factory = new FromElementFactory( fromElement.FromClause, fromElement, path );
+
+			    // This will add the new from element to the origin.
+			    FromElement elementJoin = factory.CreateElementJoin( queryableCollection );
+			    FromElement = elementJoin;
+		    }
+	    }
+    }
 }
