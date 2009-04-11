@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g 2009-03-26 11:29:14
+// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g 2009-04-08 10:29:02
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1755,8 +1755,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = EQ;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:938:3: ( '=' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:938:5: '='
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:939:3: ( '=' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:939:5: '='
             {
             	Match('='); if (state.failed) return ;
 
@@ -1778,8 +1778,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = LT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:939:3: ( '<' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:939:5: '<'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:940:3: ( '<' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:940:5: '<'
             {
             	Match('<'); if (state.failed) return ;
 
@@ -1801,8 +1801,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = GT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:940:3: ( '>' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:940:5: '>'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:941:3: ( '>' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:941:5: '>'
             {
             	Match('>'); if (state.failed) return ;
 
@@ -1824,8 +1824,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = SQL_NE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:941:7: ( '<>' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:941:9: '<>'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:942:7: ( '<>' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:942:9: '<>'
             {
             	Match("<>"); if (state.failed) return ;
 
@@ -1848,7 +1848,7 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = NE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:942:3: ( '!=' | '^=' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:943:3: ( '!=' | '^=' )
             int alt1 = 2;
             int LA1_0 = input.LA(1);
 
@@ -1871,7 +1871,7 @@ public partial class HqlLexer : Lexer {
             switch (alt1) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:942:5: '!='
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:943:5: '!='
                     {
                     	Match("!="); if (state.failed) return ;
 
@@ -1879,7 +1879,7 @@ public partial class HqlLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:942:12: '^='
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:943:12: '^='
                     {
                     	Match("^="); if (state.failed) return ;
 
@@ -1904,8 +1904,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = LE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:943:3: ( '<=' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:943:5: '<='
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:944:3: ( '<=' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:944:5: '<='
             {
             	Match("<="); if (state.failed) return ;
 
@@ -1928,8 +1928,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = GE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:944:3: ( '>=' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:944:5: '>='
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:945:3: ( '>=' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:945:5: '>='
             {
             	Match(">="); if (state.failed) return ;
 
@@ -1952,8 +1952,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = COMMA;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:946:6: ( ',' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:946:8: ','
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:947:6: ( ',' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:947:8: ','
             {
             	Match(','); if (state.failed) return ;
 
@@ -1975,8 +1975,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = OPEN;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:948:5: ( '(' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:948:7: '('
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:949:5: ( '(' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:949:7: '('
             {
             	Match('('); if (state.failed) return ;
 
@@ -1998,8 +1998,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = CLOSE;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:949:6: ( ')' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:949:8: ')'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:950:6: ( ')' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:950:8: ')'
             {
             	Match(')'); if (state.failed) return ;
 
@@ -2021,8 +2021,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = OPEN_BRACKET;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:950:13: ( '[' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:950:15: '['
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:951:13: ( '[' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:951:15: '['
             {
             	Match('['); if (state.failed) return ;
 
@@ -2044,8 +2044,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = CLOSE_BRACKET;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:951:14: ( ']' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:951:16: ']'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:952:14: ( ']' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:952:16: ']'
             {
             	Match(']'); if (state.failed) return ;
 
@@ -2067,8 +2067,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = CONCAT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:953:7: ( '||' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:953:9: '||'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:954:7: ( '||' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:954:9: '||'
             {
             	Match("||"); if (state.failed) return ;
 
@@ -2091,8 +2091,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = PLUS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:954:5: ( '+' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:954:7: '+'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:955:5: ( '+' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:955:7: '+'
             {
             	Match('+'); if (state.failed) return ;
 
@@ -2114,8 +2114,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = MINUS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:955:6: ( '-' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:955:8: '-'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:956:6: ( '-' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:956:8: '-'
             {
             	Match('-'); if (state.failed) return ;
 
@@ -2137,8 +2137,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = STAR;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:956:5: ( '*' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:956:7: '*'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:957:5: ( '*' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:957:7: '*'
             {
             	Match('*'); if (state.failed) return ;
 
@@ -2160,8 +2160,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = DIV;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:957:4: ( '/' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:957:6: '/'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:958:4: ( '/' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:958:6: '/'
             {
             	Match('/'); if (state.failed) return ;
 
@@ -2183,8 +2183,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = COLON;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:958:6: ( ':' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:958:8: ':'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:959:6: ( ':' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:959:8: ':'
             {
             	Match(':'); if (state.failed) return ;
 
@@ -2206,8 +2206,8 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = PARAM;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:959:6: ( '?' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:959:8: '?'
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:960:6: ( '?' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:960:8: '?'
             {
             	Match('?'); if (state.failed) return ;
 
@@ -2229,11 +2229,11 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = IDENT;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:962:2: ( ID_START_LETTER ( ID_LETTER )* )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:962:4: ID_START_LETTER ( ID_LETTER )*
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:963:2: ( ID_START_LETTER ( ID_LETTER )* )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:963:4: ID_START_LETTER ( ID_LETTER )*
             {
             	mID_START_LETTER(); if (state.failed) return ;
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:962:20: ( ID_LETTER )*
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:963:20: ( ID_LETTER )*
             	do 
             	{
             	    int alt2 = 2;
@@ -2248,7 +2248,7 @@ public partial class HqlLexer : Lexer {
             	    switch (alt2) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:962:22: ID_LETTER
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:963:22: ID_LETTER
             			    {
             			    	mID_LETTER(); if (state.failed) return ;
 
@@ -2280,7 +2280,7 @@ public partial class HqlLexer : Lexer {
     {
     		try
     		{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:967:5: ( '_' | '$' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0080' .. '\\ufffe' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:968:5: ( '_' | '$' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0080' .. '\\ufffe' )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:
             {
             	if ( input.LA(1) == '$' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0080' && input.LA(1) <= '\uFFFE') ) 
@@ -2310,7 +2310,7 @@ public partial class HqlLexer : Lexer {
     {
     		try
     		{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:976:5: ( ID_START_LETTER | '0' .. '9' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:977:5: ( ID_START_LETTER | '0' .. '9' )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:
             {
             	if ( input.LA(1) == '$' || (input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0080' && input.LA(1) <= '\uFFFE') ) 
@@ -2342,11 +2342,11 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = QUOTED_String;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:4: ( '\\'' ( ( ESCqs )=> ESCqs | ~ '\\'' )* '\\'' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:6: '\\'' ( ( ESCqs )=> ESCqs | ~ '\\'' )* '\\''
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:4: ( '\\'' ( ( ESCqs )=> ESCqs | ~ '\\'' )* '\\'' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:6: '\\'' ( ( ESCqs )=> ESCqs | ~ '\\'' )* '\\''
             {
             	Match('\''); if (state.failed) return ;
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:11: ( ( ESCqs )=> ESCqs | ~ '\\'' )*
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:11: ( ( ESCqs )=> ESCqs | ~ '\\'' )*
             	do 
             	{
             	    int alt3 = 3;
@@ -2372,14 +2372,14 @@ public partial class HqlLexer : Lexer {
             	    switch (alt3) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:13: ( ESCqs )=> ESCqs
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:13: ( ESCqs )=> ESCqs
             			    {
             			    	mESCqs(); if (state.failed) return ;
 
             			    }
             			    break;
             			case 2 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:31: ~ '\\''
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:31: ~ '\\''
             			    {
             			    	if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '&') || (input.LA(1) >= '(' && input.LA(1) <= '\uFFFF') ) 
             			    	{
@@ -2423,8 +2423,8 @@ public partial class HqlLexer : Lexer {
     {
     		try
     		{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:986:2: ( '\\'' '\\'' )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:987:3: '\\'' '\\''
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:987:2: ( '\\'' '\\'' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:988:3: '\\'' '\\''
             {
             	Match('\''); if (state.failed) return ;
             	Match('\''); if (state.failed) return ;
@@ -2445,10 +2445,10 @@ public partial class HqlLexer : Lexer {
     		{
             int _type = WS;
     	int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:990:5: ( ( ' ' | '\\t' | '\\r' '\\n' | '\\n' | '\\r' ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:990:9: ( ' ' | '\\t' | '\\r' '\\n' | '\\n' | '\\r' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:991:5: ( ( ' ' | '\\t' | '\\r' '\\n' | '\\n' | '\\r' ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:991:9: ( ' ' | '\\t' | '\\r' '\\n' | '\\n' | '\\r' )
             {
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:990:9: ( ' ' | '\\t' | '\\r' '\\n' | '\\n' | '\\r' )
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:991:9: ( ' ' | '\\t' | '\\r' '\\n' | '\\n' | '\\r' )
             	int alt4 = 5;
             	switch ( input.LA(1) ) 
             	{
@@ -2491,21 +2491,21 @@ public partial class HqlLexer : Lexer {
             	switch (alt4) 
             	{
             	    case 1 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:990:13: ' '
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:991:13: ' '
             	        {
             	        	Match(' '); if (state.failed) return ;
 
             	        }
             	        break;
             	    case 2 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:991:7: '\\t'
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:992:7: '\\t'
             	        {
             	        	Match('\t'); if (state.failed) return ;
 
             	        }
             	        break;
             	    case 3 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:992:7: '\\r' '\\n'
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:993:7: '\\r' '\\n'
             	        {
             	        	Match('\r'); if (state.failed) return ;
             	        	Match('\n'); if (state.failed) return ;
@@ -2513,14 +2513,14 @@ public partial class HqlLexer : Lexer {
             	        }
             	        break;
             	    case 4 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:993:7: '\\n'
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:994:7: '\\n'
             	        {
             	        	Match('\n'); if (state.failed) return ;
 
             	        }
             	        break;
             	    case 5 :
-            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:994:7: '\\r'
+            	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:995:7: '\\r'
             	        {
             	        	Match('\r'); if (state.failed) return ;
 
@@ -2558,7 +2558,7 @@ public partial class HqlLexer : Lexer {
             IToken f4 = null;
 
             bool isDecimal=false; IToken t=null;
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1003:2: ( '.' ( ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )? )? | ( '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )? | ( '1' .. '9' ) ( '0' .. '9' )* ) ( ( 'l' ) | {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX ) )? )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:2: ( '.' ( ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )? )? | ( '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )? | ( '1' .. '9' ) ( '0' .. '9' )* ) ( ( 'l' ) | {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX ) )? )
             int alt20 = 2;
             int LA20_0 = input.LA(1);
 
@@ -2581,14 +2581,14 @@ public partial class HqlLexer : Lexer {
             switch (alt20) 
             {
                 case 1 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1003:6: '.' ( ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )? )?
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:6: '.' ( ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )? )?
                     {
                     	Match('.'); if (state.failed) return ;
                     	if ( (state.backtracking==0) )
                     	{
                     	  _type = DOT;
                     	}
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:4: ( ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )? )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:4: ( ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )? )?
                     	int alt8 = 2;
                     	int LA8_0 = input.LA(1);
 
@@ -2599,9 +2599,9 @@ public partial class HqlLexer : Lexer {
                     	switch (alt8) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:6: ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )?
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:6: ( '0' .. '9' )+ ( EXPONENT )? (f1= FLOAT_SUFFIX )?
                     	        {
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:6: ( '0' .. '9' )+
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:6: ( '0' .. '9' )+
                     	        	int cnt5 = 0;
                     	        	do 
                     	        	{
@@ -2617,7 +2617,7 @@ public partial class HqlLexer : Lexer {
                     	        	    switch (alt5) 
                     	        		{
                     	        			case 1 :
-                    	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:7: '0' .. '9'
+                    	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:7: '0' .. '9'
                     	        			    {
                     	        			    	MatchRange('0','9'); if (state.failed) return ;
 
@@ -2637,7 +2637,7 @@ public partial class HqlLexer : Lexer {
                     	        	loop5:
                     	        		;	// Stops C# compiler whinging that label 'loop5' has no statements
 
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:18: ( EXPONENT )?
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:18: ( EXPONENT )?
                     	        	int alt6 = 2;
                     	        	int LA6_0 = input.LA(1);
 
@@ -2648,7 +2648,7 @@ public partial class HqlLexer : Lexer {
                     	        	switch (alt6) 
                     	        	{
                     	        	    case 1 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:19: EXPONENT
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:19: EXPONENT
                     	        	        {
                     	        	        	mEXPONENT(); if (state.failed) return ;
 
@@ -2657,7 +2657,7 @@ public partial class HqlLexer : Lexer {
 
                     	        	}
 
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:30: (f1= FLOAT_SUFFIX )?
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:30: (f1= FLOAT_SUFFIX )?
                     	        	int alt7 = 2;
                     	        	int LA7_0 = input.LA(1);
 
@@ -2668,7 +2668,7 @@ public partial class HqlLexer : Lexer {
                     	        	switch (alt7) 
                     	        	{
                     	        	    case 1 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1004:31: f1= FLOAT_SUFFIX
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1005:31: f1= FLOAT_SUFFIX
                     	        	        {
                     	        	        	int f1Start992 = CharIndex;
                     	        	        	mFLOAT_SUFFIX(); if (state.failed) return ;
@@ -2706,9 +2706,9 @@ public partial class HqlLexer : Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1016:4: ( '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )? | ( '1' .. '9' ) ( '0' .. '9' )* ) ( ( 'l' ) | {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX ) )?
+                    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:4: ( '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )? | ( '1' .. '9' ) ( '0' .. '9' )* ) ( ( 'l' ) | {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX ) )?
                     {
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1016:4: ( '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )? | ( '1' .. '9' ) ( '0' .. '9' )* )
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:4: ( '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )? | ( '1' .. '9' ) ( '0' .. '9' )* )
                     	int alt13 = 2;
                     	int LA13_0 = input.LA(1);
 
@@ -2731,14 +2731,14 @@ public partial class HqlLexer : Lexer {
                     	switch (alt13) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1016:6: '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )?
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:6: '0' ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )?
                     	        {
                     	        	Match('0'); if (state.failed) return ;
                     	        	if ( (state.backtracking==0) )
                     	        	{
                     	        	  isDecimal = true;
                     	        	}
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:4: ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )?
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1018:4: ( ( 'x' ) ( HEX_DIGIT )+ | ( '0' .. '7' )+ )?
                     	        	int alt11 = 3;
                     	        	int LA11_0 = input.LA(1);
 
@@ -2753,16 +2753,16 @@ public partial class HqlLexer : Lexer {
                     	        	switch (alt11) 
                     	        	{
                     	        	    case 1 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:6: ( 'x' ) ( HEX_DIGIT )+
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1018:6: ( 'x' ) ( HEX_DIGIT )+
                     	        	        {
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:6: ( 'x' )
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1017:7: 'x'
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1018:6: ( 'x' )
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1018:7: 'x'
                     	        	        	{
                     	        	        		Match('x'); if (state.failed) return ;
 
                     	        	        	}
 
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1018:5: ( HEX_DIGIT )+
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1019:5: ( HEX_DIGIT )+
                     	        	        	int cnt9 = 0;
                     	        	        	do 
                     	        	        	{
@@ -2828,7 +2828,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	    switch (alt9) 
                     	        	        		{
                     	        	        			case 1 :
-                    	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1025:7: HEX_DIGIT
+                    	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1026:7: HEX_DIGIT
                     	        	        			    {
                     	        	        			    	mHEX_DIGIT(); if (state.failed) return ;
 
@@ -2852,9 +2852,9 @@ public partial class HqlLexer : Lexer {
                     	        	        }
                     	        	        break;
                     	        	    case 2 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1027:6: ( '0' .. '7' )+
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1028:6: ( '0' .. '7' )+
                     	        	        {
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1027:6: ( '0' .. '7' )+
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1028:6: ( '0' .. '7' )+
                     	        	        	int cnt10 = 0;
                     	        	        	do 
                     	        	        	{
@@ -2870,7 +2870,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	    switch (alt10) 
                     	        	        		{
                     	        	        			case 1 :
-                    	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1027:7: '0' .. '7'
+                    	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1028:7: '0' .. '7'
                     	        	        			    {
                     	        	        			    	MatchRange('0','7'); if (state.failed) return ;
 
@@ -2900,16 +2900,16 @@ public partial class HqlLexer : Lexer {
                     	        }
                     	        break;
                     	    case 2 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1029:5: ( '1' .. '9' ) ( '0' .. '9' )*
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1030:5: ( '1' .. '9' ) ( '0' .. '9' )*
                     	        {
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1029:5: ( '1' .. '9' )
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1029:6: '1' .. '9'
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1030:5: ( '1' .. '9' )
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1030:6: '1' .. '9'
                     	        	{
                     	        		MatchRange('1','9'); if (state.failed) return ;
 
                     	        	}
 
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1029:16: ( '0' .. '9' )*
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1030:16: ( '0' .. '9' )*
                     	        	do 
                     	        	{
                     	        	    int alt12 = 2;
@@ -2924,7 +2924,7 @@ public partial class HqlLexer : Lexer {
                     	        	    switch (alt12) 
                     	        		{
                     	        			case 1 :
-                    	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1029:17: '0' .. '9'
+                    	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1030:17: '0' .. '9'
                     	        			    {
                     	        			    	MatchRange('0','9'); if (state.failed) return ;
 
@@ -2949,7 +2949,7 @@ public partial class HqlLexer : Lexer {
 
                     	}
 
-                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1031:3: ( ( 'l' ) | {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX ) )?
+                    	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1032:3: ( ( 'l' ) | {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX ) )?
                     	int alt19 = 3;
                     	int LA19_0 = input.LA(1);
 
@@ -2964,10 +2964,10 @@ public partial class HqlLexer : Lexer {
                     	switch (alt19) 
                     	{
                     	    case 1 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1031:5: ( 'l' )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1032:5: ( 'l' )
                     	        {
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1031:5: ( 'l' )
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1031:6: 'l'
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1032:5: ( 'l' )
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1032:6: 'l'
                     	        	{
                     	        		Match('l'); if (state.failed) return ;
 
@@ -2981,14 +2981,14 @@ public partial class HqlLexer : Lexer {
                     	        }
                     	        break;
                     	    case 2 :
-                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1034:5: {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX )
+                    	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:5: {...}? ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX )
                     	        {
                     	        	if ( !((isDecimal)) ) 
                     	        	{
                     	        	    if ( state.backtracking > 0 ) {state.failed = true; return ;}
                     	        	    throw new FailedPredicateException(input, "NUM_INT", "isDecimal");
                     	        	}
-                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:4: ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX )
+                    	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:4: ( '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )? | EXPONENT (f3= FLOAT_SUFFIX )? | f4= FLOAT_SUFFIX )
                     	        	int alt18 = 3;
                     	        	switch ( input.LA(1) ) 
                     	        	{
@@ -3019,10 +3019,10 @@ public partial class HqlLexer : Lexer {
                     	        	switch (alt18) 
                     	        	{
                     	        	    case 1 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:8: '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )?
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:8: '.' ( '0' .. '9' )* ( EXPONENT )? (f2= FLOAT_SUFFIX )?
                     	        	        {
                     	        	        	Match('.'); if (state.failed) return ;
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:12: ( '0' .. '9' )*
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:12: ( '0' .. '9' )*
                     	        	        	do 
                     	        	        	{
                     	        	        	    int alt14 = 2;
@@ -3037,7 +3037,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	    switch (alt14) 
                     	        	        		{
                     	        	        			case 1 :
-                    	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:13: '0' .. '9'
+                    	        	        			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:13: '0' .. '9'
                     	        	        			    {
                     	        	        			    	MatchRange('0','9'); if (state.failed) return ;
 
@@ -3052,7 +3052,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	loop14:
                     	        	        		;	// Stops C# compiler whining that label 'loop14' has no statements
 
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:24: ( EXPONENT )?
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:24: ( EXPONENT )?
                     	        	        	int alt15 = 2;
                     	        	        	int LA15_0 = input.LA(1);
 
@@ -3063,7 +3063,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	switch (alt15) 
                     	        	        	{
                     	        	        	    case 1 :
-                    	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:25: EXPONENT
+                    	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:25: EXPONENT
                     	        	        	        {
                     	        	        	        	mEXPONENT(); if (state.failed) return ;
 
@@ -3072,7 +3072,7 @@ public partial class HqlLexer : Lexer {
 
                     	        	        	}
 
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:36: (f2= FLOAT_SUFFIX )?
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:36: (f2= FLOAT_SUFFIX )?
                     	        	        	int alt16 = 2;
                     	        	        	int LA16_0 = input.LA(1);
 
@@ -3083,7 +3083,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	switch (alt16) 
                     	        	        	{
                     	        	        	    case 1 :
-                    	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1035:37: f2= FLOAT_SUFFIX
+                    	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:37: f2= FLOAT_SUFFIX
                     	        	        	        {
                     	        	        	        	int f2Start1194 = CharIndex;
                     	        	        	        	mFLOAT_SUFFIX(); if (state.failed) return ;
@@ -3102,10 +3102,10 @@ public partial class HqlLexer : Lexer {
                     	        	        }
                     	        	        break;
                     	        	    case 2 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:8: EXPONENT (f3= FLOAT_SUFFIX )?
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1037:8: EXPONENT (f3= FLOAT_SUFFIX )?
                     	        	        {
                     	        	        	mEXPONENT(); if (state.failed) return ;
-                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:17: (f3= FLOAT_SUFFIX )?
+                    	        	        	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1037:17: (f3= FLOAT_SUFFIX )?
                     	        	        	int alt17 = 2;
                     	        	        	int LA17_0 = input.LA(1);
 
@@ -3116,7 +3116,7 @@ public partial class HqlLexer : Lexer {
                     	        	        	switch (alt17) 
                     	        	        	{
                     	        	        	    case 1 :
-                    	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1036:18: f3= FLOAT_SUFFIX
+                    	        	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1037:18: f3= FLOAT_SUFFIX
                     	        	        	        {
                     	        	        	        	int f3Start1212 = CharIndex;
                     	        	        	        	mFLOAT_SUFFIX(); if (state.failed) return ;
@@ -3135,7 +3135,7 @@ public partial class HqlLexer : Lexer {
                     	        	        }
                     	        	        break;
                     	        	    case 3 :
-                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1037:8: f4= FLOAT_SUFFIX
+                    	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1038:8: f4= FLOAT_SUFFIX
                     	        	        {
                     	        	        	int f4Start1227 = CharIndex;
                     	        	        	mFLOAT_SUFFIX(); if (state.failed) return ;
@@ -3188,8 +3188,8 @@ public partial class HqlLexer : Lexer {
     {
     		try
     		{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1055:2: ( ( '0' .. '9' | 'a' .. 'f' ) )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1055:4: ( '0' .. '9' | 'a' .. 'f' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1056:2: ( ( '0' .. '9' | 'a' .. 'f' ) )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1056:4: ( '0' .. '9' | 'a' .. 'f' )
             {
             	if ( (input.LA(1) >= '0' && input.LA(1) <= '9') || (input.LA(1) >= 'a' && input.LA(1) <= 'f') ) 
             	{
@@ -3218,17 +3218,17 @@ public partial class HqlLexer : Lexer {
     {
     		try
     		{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:2: ( ( 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:4: ( 'e' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:2: ( ( 'e' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:4: ( 'e' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:4: ( 'e' )
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:5: 'e'
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:4: ( 'e' )
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:5: 'e'
             	{
             		Match('e'); if (state.failed) return ;
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:10: ( '+' | '-' )?
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:10: ( '+' | '-' )?
             	int alt21 = 2;
             	int LA21_0 = input.LA(1);
 
@@ -3259,7 +3259,7 @@ public partial class HqlLexer : Lexer {
 
             	}
 
-            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:21: ( '0' .. '9' )+
+            	// /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:21: ( '0' .. '9' )+
             	int cnt22 = 0;
             	do 
             	{
@@ -3275,7 +3275,7 @@ public partial class HqlLexer : Lexer {
             	    switch (alt22) 
             		{
             			case 1 :
-            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1061:22: '0' .. '9'
+            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1062:22: '0' .. '9'
             			    {
             			    	MatchRange('0','9'); if (state.failed) return ;
 
@@ -3310,7 +3310,7 @@ public partial class HqlLexer : Lexer {
     {
     		try
     		{
-            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1066:2: ( 'f' | 'd' )
+            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:1067:2: ( 'f' | 'd' )
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:
             {
             	if ( input.LA(1) == 'd' || input.LA(1) == 'f' ) 
@@ -3972,8 +3972,8 @@ public partial class HqlLexer : Lexer {
 
     // $ANTLR start "synpred1_Hql"
     public void synpred1_Hql_fragment() {
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:13: ( ESCqs )
-        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:981:14: ESCqs
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:13: ( ESCqs )
+        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/Hql.g:982:14: ESCqs
         {
         	mESCqs(); if (state.failed) return ;
 

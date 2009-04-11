@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using NHibernate.Engine;
 using NHibernate.SqlCommand;
 using NHibernate.Util;
 
@@ -6,13 +8,23 @@ namespace NHibernate.Hql.Ast.ANTLR
 {
 	public static class ReflectHelper2
 	{
-		internal static object GetConstantValue(string qualifiedName)
+        internal static object GetConstantValue(string qualifiedName)
+        {
+            return GetConstantValue(qualifiedName, null);
+        }
+
+		internal static object GetConstantValue(string qualifiedName, ISessionFactoryImplementor sfi)
 		{
 			string className = StringHelper.Qualifier(qualifiedName);
 
 			if (!string.IsNullOrEmpty(className))
 			{
 				System.Type t = System.Type.GetType(className);
+
+                if (t == null && sfi != null)
+                {
+                    t = System.Type.GetType(sfi.GetImportedClassName(className));
+                }
 
 				if (t != null)
 				{

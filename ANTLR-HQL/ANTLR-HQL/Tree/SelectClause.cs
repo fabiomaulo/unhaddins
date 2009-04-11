@@ -315,7 +315,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 				}
 			}
 
-			throw new InvalidOperationException();
+		    return null;
 		}
 
 		private static bool IsReturnableEntity(ISelectExpression selectExpression)

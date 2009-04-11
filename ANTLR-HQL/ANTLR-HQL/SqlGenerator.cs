@@ -83,6 +83,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 			_writer.Clause(s);
 		}
 
+        private void Out(SqlString s)
+        {
+            _writer.Clause(s);
+        }
+
 		private void ParameterOut()
 		{
 			_writer.Parameter();
@@ -297,7 +302,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				FunctionArguments functionArguments = ( FunctionArguments ) _writer;   // TODO: Downcast to avoid using an interface?  Yuck.
 				_writer = _outputStack[0];
 				_outputStack.RemoveAt(0);
-				Out( template.Render( functionArguments.Args, _sessionFactory).ToString() );
+				Out( template.Render( functionArguments.Args, _sessionFactory) );
 			}
 		}
 
@@ -312,7 +317,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 		interface ISqlWriter 
 		{
 			void Clause(String clause);
-			void Parameter();
+            void Clause(SqlString clause);
+            void Parameter();
 			/**
 			 * todo remove this hack
 			 * The parameter is either ", " or " , ". This is needed to pass sql generating tests as the old
@@ -330,23 +336,28 @@ namespace NHibernate.Hql.Ast.ANTLR
 		class FunctionArguments : ISqlWriter 
 		{
 			private int argInd;
-			private readonly List<string> args = new List<string>( 3 );
+			private readonly List<object> args = new List<object>();
 
 			public void Clause(String clause) 
 			{
-				if ( argInd == args.Count ) 
-				{
-					args.Add( clause );
-				}
-				else 
-				{
-					args[argInd] = args[argInd] + clause;
-				}
+                if (argInd == args.Count)
+                {
+                    args.Add(clause);
+                }
+                else
+                {
+                    args[argInd] = args[argInd] + clause;
+                }
 			}
+
+            public void Clause(SqlString clause)
+            {
+                this.Clause(clause.ToString());
+            }
 
 			public void Parameter()
 			{
-				throw new InvalidOperationException();
+                args.Add(SqlCommand.Parameter.Placeholder);
 			}
 
 			public void CommaBetweenParameters(String comma) 
@@ -376,6 +387,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 			{
 				_generator.GetStringBuilder().Add( clause );
 			}
+
+            public void Clause(SqlString clause)
+            {
+                _generator.GetStringBuilder().Add(clause);
+            }
 
 			public void Parameter()
 			{

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g 2009-03-27 10:12:28
+// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g 2009-03-27 17:17:59
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -665,7 +665,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          f, s, w, u
+            	// elements:          w, u, s, f
             	// token labels:      u
             	// rule labels:       w, f, retval, s
             	// token list labels: 
@@ -1622,7 +1622,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          g, s, o, w, f
+            	// elements:          w, g, f, o, s
             	// token labels:      
             	// rule labels:       o, w, f, retval, g, s
             	// token list labels: 
@@ -2145,7 +2145,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          x, d
+            	// elements:          d, x
             	// token labels:      d
             	// rule labels:       retval, x
             	// token list labels: 
@@ -3493,11 +3493,11 @@ public partial class HqlSqlWalker : TreeParser
                     // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:219:4: fe= FILTER_ENTITY a3= ALIAS
                     {
                     	_last = (IASTNode)input.LT(1);
-                    	fe=(IASTNode)Match(input,FILTER_ENTITY,FOLLOW_FILTER_ENTITY_in_fromElement1033);  
+                    	fe=(IASTNode)Match(input,FILTER_ENTITY,FOLLOW_FILTER_ENTITY_in_fromElement1034);  
                     	stream_FILTER_ENTITY.Add(fe);
 
                     	_last = (IASTNode)input.LT(1);
-                    	a3=(IASTNode)Match(input,ALIAS,FOLLOW_ALIAS_in_fromElement1037);  
+                    	a3=(IASTNode)Match(input,ALIAS,FOLLOW_ALIAS_in_fromElement1038);  
                     	stream_ALIAS.Add(a3);
 
 
@@ -3595,7 +3595,7 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	JOIN57=(IASTNode)Match(input,JOIN,FOLLOW_JOIN_in_joinElement1066); 
+            	JOIN57=(IASTNode)Match(input,JOIN,FOLLOW_JOIN_in_joinElement1067); 
             		JOIN57_tree = (IASTNode)adaptor.DupNode(JOIN57);
 
             		root_1 = (IASTNode)adaptor.BecomeRoot(JOIN57_tree, root_1);
@@ -3617,7 +3617,7 @@ public partial class HqlSqlWalker : TreeParser
             	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:227:12: j= joinType
             	        {
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_joinType_in_joinElement1071);
+            	        	PushFollow(FOLLOW_joinType_in_joinElement1072);
             	        	j = joinType();
             	        	state.followingStackPointer--;
 
@@ -3643,7 +3643,7 @@ public partial class HqlSqlWalker : TreeParser
             	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:227:57: f= FETCH
             	        {
             	        	_last = (IASTNode)input.LT(1);
-            	        	f=(IASTNode)Match(input,FETCH,FOLLOW_FETCH_in_joinElement1081); 
+            	        	f=(IASTNode)Match(input,FETCH,FOLLOW_FETCH_in_joinElement1082); 
             	        		f_tree = (IASTNode)adaptor.DupNode(f);
 
             	        		adaptor.AddChild(root_1, f_tree);
@@ -3655,7 +3655,7 @@ public partial class HqlSqlWalker : TreeParser
             	}
 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_propertyRef_in_joinElement1087);
+            	PushFollow(FOLLOW_propertyRef_in_joinElement1088);
             	pRef = propertyRef();
             	state.followingStackPointer--;
 
@@ -3674,7 +3674,7 @@ public partial class HqlSqlWalker : TreeParser
             	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:227:85: a= ALIAS
             	        {
             	        	_last = (IASTNode)input.LT(1);
-            	        	a=(IASTNode)Match(input,ALIAS,FOLLOW_ALIAS_in_joinElement1092); 
+            	        	a=(IASTNode)Match(input,ALIAS,FOLLOW_ALIAS_in_joinElement1093); 
             	        		a_tree = (IASTNode)adaptor.DupNode(a);
 
             	        		adaptor.AddChild(root_1, a_tree);
@@ -3699,7 +3699,7 @@ public partial class HqlSqlWalker : TreeParser
             	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:227:96: pf= FETCH
             	        {
             	        	_last = (IASTNode)input.LT(1);
-            	        	pf=(IASTNode)Match(input,FETCH,FOLLOW_FETCH_in_joinElement1099); 
+            	        	pf=(IASTNode)Match(input,FETCH,FOLLOW_FETCH_in_joinElement1100); 
             	        		pf_tree = (IASTNode)adaptor.DupNode(pf);
 
             	        		adaptor.AddChild(root_1, pf_tree);
@@ -3724,7 +3724,7 @@ public partial class HqlSqlWalker : TreeParser
             	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:227:108: with= WITH
             	        {
             	        	_last = (IASTNode)input.LT(1);
-            	        	with=(IASTNode)Match(input,WITH,FOLLOW_WITH_in_joinElement1106); 
+            	        	with=(IASTNode)Match(input,WITH,FOLLOW_WITH_in_joinElement1107); 
             	        		with_tree = (IASTNode)adaptor.DupNode(with);
 
             	        		adaptor.AddChild(root_1, with_tree);
@@ -3863,7 +3863,7 @@ public partial class HqlSqlWalker : TreeParser
                     		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:240:7: left= LEFT
                     		        {
                     		        	_last = (IASTNode)input.LT(1);
-                    		        	left=(IASTNode)Match(input,LEFT,FOLLOW_LEFT_in_joinType1142); 
+                    		        	left=(IASTNode)Match(input,LEFT,FOLLOW_LEFT_in_joinType1143); 
                     		        		left_tree = (IASTNode)adaptor.DupNode(left);
 
                     		        		adaptor.AddChild(root_0, left_tree);
@@ -3875,7 +3875,7 @@ public partial class HqlSqlWalker : TreeParser
                     		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:240:19: right= RIGHT
                     		        {
                     		        	_last = (IASTNode)input.LT(1);
-                    		        	right=(IASTNode)Match(input,RIGHT,FOLLOW_RIGHT_in_joinType1148); 
+                    		        	right=(IASTNode)Match(input,RIGHT,FOLLOW_RIGHT_in_joinType1149); 
                     		        		right_tree = (IASTNode)adaptor.DupNode(right);
 
                     		        		adaptor.AddChild(root_0, right_tree);
@@ -3900,7 +3900,7 @@ public partial class HqlSqlWalker : TreeParser
                     		        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:240:33: outer= OUTER
                     		        {
                     		        	_last = (IASTNode)input.LT(1);
-                    		        	outer=(IASTNode)Match(input,OUTER,FOLLOW_OUTER_in_joinType1154); 
+                    		        	outer=(IASTNode)Match(input,OUTER,FOLLOW_OUTER_in_joinType1155); 
                     		        		outer_tree = (IASTNode)adaptor.DupNode(outer);
 
                     		        		adaptor.AddChild(root_0, outer_tree);
@@ -3928,7 +3928,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	FULL58=(IASTNode)Match(input,FULL,FOLLOW_FULL_in_joinType1168); 
+                    	FULL58=(IASTNode)Match(input,FULL,FOLLOW_FULL_in_joinType1169); 
                     		FULL58_tree = (IASTNode)adaptor.DupNode(FULL58);
 
                     		adaptor.AddChild(root_0, FULL58_tree);
@@ -3945,7 +3945,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	INNER59=(IASTNode)Match(input,INNER,FOLLOW_INNER_in_joinType1175); 
+                    	INNER59=(IASTNode)Match(input,INNER,FOLLOW_INNER_in_joinType1176); 
                     		INNER59_tree = (IASTNode)adaptor.DupNode(INNER59);
 
                     		adaptor.AddChild(root_0, INNER59_tree);
@@ -4035,7 +4035,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_identifier_in_path1197);
+                    	PushFollow(FOLLOW_identifier_in_path1198);
                     	a = identifier();
                     	state.followingStackPointer--;
 
@@ -4056,7 +4056,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	DOT60=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_path1205); 
+                    	DOT60=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_path1206); 
                     		DOT60_tree = (IASTNode)adaptor.DupNode(DOT60);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(DOT60_tree, root_1);
@@ -4065,13 +4065,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_path_in_path1209);
+                    	PushFollow(FOLLOW_path_in_path1210);
                     	x = path();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, x.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_identifier_in_path1213);
+                    	PushFollow(FOLLOW_identifier_in_path1214);
                     	y = identifier();
                     	state.followingStackPointer--;
 
@@ -4139,7 +4139,7 @@ public partial class HqlSqlWalker : TreeParser
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:267:7: path
             {
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_path_in_pathAsIdent1232);
+            	PushFollow(FOLLOW_path_in_pathAsIdent1233);
             	path61 = path();
             	state.followingStackPointer--;
 
@@ -4226,7 +4226,7 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	w=(IASTNode)Match(input,WITH,FOLLOW_WITH_in_withClause1273);  
+            	w=(IASTNode)Match(input,WITH,FOLLOW_WITH_in_withClause1274);  
             	stream_WITH.Add(w);
 
 
@@ -4234,7 +4234,7 @@ public partial class HqlSqlWalker : TreeParser
 
             	Match(input, Token.DOWN, null); 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_logicalExpr_in_withClause1279);
+            	PushFollow(FOLLOW_logicalExpr_in_withClause1280);
             	b = logicalExpr();
             	state.followingStackPointer--;
 
@@ -4329,7 +4329,7 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	w=(IASTNode)Match(input,WHERE,FOLLOW_WHERE_in_whereClause1307);  
+            	w=(IASTNode)Match(input,WHERE,FOLLOW_WHERE_in_whereClause1308);  
             	stream_WHERE.Add(w);
 
 
@@ -4337,7 +4337,7 @@ public partial class HqlSqlWalker : TreeParser
 
             	Match(input, Token.DOWN, null); 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_logicalExpr_in_whereClause1313);
+            	PushFollow(FOLLOW_logicalExpr_in_whereClause1314);
             	b = logicalExpr();
             	state.followingStackPointer--;
 
@@ -4349,7 +4349,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          w, b
+            	// elements:          b, w
             	// token labels:      w
             	// rule labels:       retval, b
             	// token list labels: 
@@ -4494,7 +4494,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	AND62=(IASTNode)Match(input,AND,FOLLOW_AND_in_logicalExpr1339); 
+                    	AND62=(IASTNode)Match(input,AND,FOLLOW_AND_in_logicalExpr1340); 
                     		AND62_tree = (IASTNode)adaptor.DupNode(AND62);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(AND62_tree, root_1);
@@ -4503,13 +4503,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1341);
+                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1342);
                     	logicalExpr63 = logicalExpr();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, logicalExpr63.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1343);
+                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1344);
                     	logicalExpr64 = logicalExpr();
                     	state.followingStackPointer--;
 
@@ -4531,7 +4531,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	OR65=(IASTNode)Match(input,OR,FOLLOW_OR_in_logicalExpr1350); 
+                    	OR65=(IASTNode)Match(input,OR,FOLLOW_OR_in_logicalExpr1351); 
                     		OR65_tree = (IASTNode)adaptor.DupNode(OR65);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(OR65_tree, root_1);
@@ -4540,13 +4540,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1352);
+                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1353);
                     	logicalExpr66 = logicalExpr();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, logicalExpr66.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1354);
+                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1355);
                     	logicalExpr67 = logicalExpr();
                     	state.followingStackPointer--;
 
@@ -4568,7 +4568,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	NOT68=(IASTNode)Match(input,NOT,FOLLOW_NOT_in_logicalExpr1361); 
+                    	NOT68=(IASTNode)Match(input,NOT,FOLLOW_NOT_in_logicalExpr1362); 
                     		NOT68_tree = (IASTNode)adaptor.DupNode(NOT68);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(NOT68_tree, root_1);
@@ -4577,7 +4577,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1363);
+                    	PushFollow(FOLLOW_logicalExpr_in_logicalExpr1364);
                     	logicalExpr69 = logicalExpr();
                     	state.followingStackPointer--;
 
@@ -4595,7 +4595,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_comparisonExpr_in_logicalExpr1369);
+                    	PushFollow(FOLLOW_comparisonExpr_in_logicalExpr1370);
                     	comparisonExpr70 = comparisonExpr();
                     	state.followingStackPointer--;
 
@@ -4845,7 +4845,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	EQ71=(IASTNode)Match(input,EQ,FOLLOW_EQ_in_comparisonExpr1391); 
+            	        	EQ71=(IASTNode)Match(input,EQ,FOLLOW_EQ_in_comparisonExpr1392); 
             	        		EQ71_tree = (IASTNode)adaptor.DupNode(EQ71);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(EQ71_tree, root_1);
@@ -4854,13 +4854,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1393);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1394);
             	        	exprOrSubquery72 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery72.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1395);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1396);
             	        	exprOrSubquery73 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -4880,7 +4880,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	NE74=(IASTNode)Match(input,NE,FOLLOW_NE_in_comparisonExpr1402); 
+            	        	NE74=(IASTNode)Match(input,NE,FOLLOW_NE_in_comparisonExpr1403); 
             	        		NE74_tree = (IASTNode)adaptor.DupNode(NE74);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(NE74_tree, root_1);
@@ -4889,13 +4889,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1404);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1405);
             	        	exprOrSubquery75 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery75.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1406);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1407);
             	        	exprOrSubquery76 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -4915,7 +4915,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	LT77=(IASTNode)Match(input,LT,FOLLOW_LT_in_comparisonExpr1413); 
+            	        	LT77=(IASTNode)Match(input,LT,FOLLOW_LT_in_comparisonExpr1414); 
             	        		LT77_tree = (IASTNode)adaptor.DupNode(LT77);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(LT77_tree, root_1);
@@ -4924,13 +4924,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1415);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1416);
             	        	exprOrSubquery78 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery78.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1417);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1418);
             	        	exprOrSubquery79 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -4950,7 +4950,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	GT80=(IASTNode)Match(input,GT,FOLLOW_GT_in_comparisonExpr1424); 
+            	        	GT80=(IASTNode)Match(input,GT,FOLLOW_GT_in_comparisonExpr1425); 
             	        		GT80_tree = (IASTNode)adaptor.DupNode(GT80);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(GT80_tree, root_1);
@@ -4959,13 +4959,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1426);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1427);
             	        	exprOrSubquery81 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery81.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1428);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1429);
             	        	exprOrSubquery82 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -4985,7 +4985,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	LE83=(IASTNode)Match(input,LE,FOLLOW_LE_in_comparisonExpr1435); 
+            	        	LE83=(IASTNode)Match(input,LE,FOLLOW_LE_in_comparisonExpr1436); 
             	        		LE83_tree = (IASTNode)adaptor.DupNode(LE83);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(LE83_tree, root_1);
@@ -4994,13 +4994,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1437);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1438);
             	        	exprOrSubquery84 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery84.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1439);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1440);
             	        	exprOrSubquery85 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -5020,7 +5020,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	GE86=(IASTNode)Match(input,GE,FOLLOW_GE_in_comparisonExpr1446); 
+            	        	GE86=(IASTNode)Match(input,GE,FOLLOW_GE_in_comparisonExpr1447); 
             	        		GE86_tree = (IASTNode)adaptor.DupNode(GE86);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(GE86_tree, root_1);
@@ -5029,13 +5029,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1448);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1449);
             	        	exprOrSubquery87 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery87.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1450);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1451);
             	        	exprOrSubquery88 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -5055,7 +5055,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	LIKE89=(IASTNode)Match(input,LIKE,FOLLOW_LIKE_in_comparisonExpr1457); 
+            	        	LIKE89=(IASTNode)Match(input,LIKE,FOLLOW_LIKE_in_comparisonExpr1458); 
             	        		LIKE89_tree = (IASTNode)adaptor.DupNode(LIKE89);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(LIKE89_tree, root_1);
@@ -5064,13 +5064,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1459);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1460);
             	        	exprOrSubquery90 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery90.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_expr_in_comparisonExpr1461);
+            	        	PushFollow(FOLLOW_expr_in_comparisonExpr1462);
             	        	expr91 = expr();
             	        	state.followingStackPointer--;
 
@@ -5093,7 +5093,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	        	IASTNode _save_last_2 = _last;
             	        	        	IASTNode _first_2 = null;
             	        	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	        	ESCAPE92=(IASTNode)Match(input,ESCAPE,FOLLOW_ESCAPE_in_comparisonExpr1466); 
+            	        	        	ESCAPE92=(IASTNode)Match(input,ESCAPE,FOLLOW_ESCAPE_in_comparisonExpr1467); 
             	        	        		ESCAPE92_tree = (IASTNode)adaptor.DupNode(ESCAPE92);
 
             	        	        		root_2 = (IASTNode)adaptor.BecomeRoot(ESCAPE92_tree, root_2);
@@ -5102,7 +5102,7 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	        	Match(input, Token.DOWN, null); 
             	        	        	_last = (IASTNode)input.LT(1);
-            	        	        	PushFollow(FOLLOW_expr_in_comparisonExpr1468);
+            	        	        	PushFollow(FOLLOW_expr_in_comparisonExpr1469);
             	        	        	expr93 = expr();
             	        	        	state.followingStackPointer--;
 
@@ -5132,7 +5132,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	NOT_LIKE94=(IASTNode)Match(input,NOT_LIKE,FOLLOW_NOT_LIKE_in_comparisonExpr1480); 
+            	        	NOT_LIKE94=(IASTNode)Match(input,NOT_LIKE,FOLLOW_NOT_LIKE_in_comparisonExpr1481); 
             	        		NOT_LIKE94_tree = (IASTNode)adaptor.DupNode(NOT_LIKE94);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(NOT_LIKE94_tree, root_1);
@@ -5141,13 +5141,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1482);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1483);
             	        	exprOrSubquery95 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery95.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_expr_in_comparisonExpr1484);
+            	        	PushFollow(FOLLOW_expr_in_comparisonExpr1485);
             	        	expr96 = expr();
             	        	state.followingStackPointer--;
 
@@ -5170,7 +5170,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	        	IASTNode _save_last_2 = _last;
             	        	        	IASTNode _first_2 = null;
             	        	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	        	ESCAPE97=(IASTNode)Match(input,ESCAPE,FOLLOW_ESCAPE_in_comparisonExpr1489); 
+            	        	        	ESCAPE97=(IASTNode)Match(input,ESCAPE,FOLLOW_ESCAPE_in_comparisonExpr1490); 
             	        	        		ESCAPE97_tree = (IASTNode)adaptor.DupNode(ESCAPE97);
 
             	        	        		root_2 = (IASTNode)adaptor.BecomeRoot(ESCAPE97_tree, root_2);
@@ -5179,7 +5179,7 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	        	Match(input, Token.DOWN, null); 
             	        	        	_last = (IASTNode)input.LT(1);
-            	        	        	PushFollow(FOLLOW_expr_in_comparisonExpr1491);
+            	        	        	PushFollow(FOLLOW_expr_in_comparisonExpr1492);
             	        	        	expr98 = expr();
             	        	        	state.followingStackPointer--;
 
@@ -5209,7 +5209,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	BETWEEN99=(IASTNode)Match(input,BETWEEN,FOLLOW_BETWEEN_in_comparisonExpr1503); 
+            	        	BETWEEN99=(IASTNode)Match(input,BETWEEN,FOLLOW_BETWEEN_in_comparisonExpr1504); 
             	        		BETWEEN99_tree = (IASTNode)adaptor.DupNode(BETWEEN99);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(BETWEEN99_tree, root_1);
@@ -5218,19 +5218,19 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1505);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1506);
             	        	exprOrSubquery100 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery100.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1507);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1508);
             	        	exprOrSubquery101 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery101.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1509);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1510);
             	        	exprOrSubquery102 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -5250,7 +5250,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	NOT_BETWEEN103=(IASTNode)Match(input,NOT_BETWEEN,FOLLOW_NOT_BETWEEN_in_comparisonExpr1516); 
+            	        	NOT_BETWEEN103=(IASTNode)Match(input,NOT_BETWEEN,FOLLOW_NOT_BETWEEN_in_comparisonExpr1517); 
             	        		NOT_BETWEEN103_tree = (IASTNode)adaptor.DupNode(NOT_BETWEEN103);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(NOT_BETWEEN103_tree, root_1);
@@ -5259,19 +5259,19 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1518);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1519);
             	        	exprOrSubquery104 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery104.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1520);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1521);
             	        	exprOrSubquery105 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery105.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1522);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1523);
             	        	exprOrSubquery106 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -5291,7 +5291,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	IN107=(IASTNode)Match(input,IN,FOLLOW_IN_in_comparisonExpr1529); 
+            	        	IN107=(IASTNode)Match(input,IN,FOLLOW_IN_in_comparisonExpr1530); 
             	        		IN107_tree = (IASTNode)adaptor.DupNode(IN107);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(IN107_tree, root_1);
@@ -5300,13 +5300,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1531);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1532);
             	        	exprOrSubquery108 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery108.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_inRhs_in_comparisonExpr1533);
+            	        	PushFollow(FOLLOW_inRhs_in_comparisonExpr1534);
             	        	inRhs109 = inRhs();
             	        	state.followingStackPointer--;
 
@@ -5326,7 +5326,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	NOT_IN110=(IASTNode)Match(input,NOT_IN,FOLLOW_NOT_IN_in_comparisonExpr1541); 
+            	        	NOT_IN110=(IASTNode)Match(input,NOT_IN,FOLLOW_NOT_IN_in_comparisonExpr1542); 
             	        		NOT_IN110_tree = (IASTNode)adaptor.DupNode(NOT_IN110);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(NOT_IN110_tree, root_1);
@@ -5335,13 +5335,13 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1543);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1544);
             	        	exprOrSubquery111 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
             	        	adaptor.AddChild(root_1, exprOrSubquery111.Tree);
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_inRhs_in_comparisonExpr1545);
+            	        	PushFollow(FOLLOW_inRhs_in_comparisonExpr1546);
             	        	inRhs112 = inRhs();
             	        	state.followingStackPointer--;
 
@@ -5361,7 +5361,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	IS_NULL113=(IASTNode)Match(input,IS_NULL,FOLLOW_IS_NULL_in_comparisonExpr1553); 
+            	        	IS_NULL113=(IASTNode)Match(input,IS_NULL,FOLLOW_IS_NULL_in_comparisonExpr1554); 
             	        		IS_NULL113_tree = (IASTNode)adaptor.DupNode(IS_NULL113);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(IS_NULL113_tree, root_1);
@@ -5370,7 +5370,7 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1555);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1556);
             	        	exprOrSubquery114 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -5390,7 +5390,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	IS_NOT_NULL115=(IASTNode)Match(input,IS_NOT_NULL,FOLLOW_IS_NOT_NULL_in_comparisonExpr1562); 
+            	        	IS_NOT_NULL115=(IASTNode)Match(input,IS_NOT_NULL,FOLLOW_IS_NOT_NULL_in_comparisonExpr1563); 
             	        		IS_NOT_NULL115_tree = (IASTNode)adaptor.DupNode(IS_NOT_NULL115);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(IS_NOT_NULL115_tree, root_1);
@@ -5399,7 +5399,7 @@ public partial class HqlSqlWalker : TreeParser
 
             	        	Match(input, Token.DOWN, null); 
             	        	_last = (IASTNode)input.LT(1);
-            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1564);
+            	        	PushFollow(FOLLOW_exprOrSubquery_in_comparisonExpr1565);
             	        	exprOrSubquery116 = exprOrSubquery();
             	        	state.followingStackPointer--;
 
@@ -5419,7 +5419,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	IASTNode _save_last_1 = _last;
             	        	IASTNode _first_1 = null;
             	        	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	        	EXISTS117=(IASTNode)Match(input,EXISTS,FOLLOW_EXISTS_in_comparisonExpr1573); 
+            	        	EXISTS117=(IASTNode)Match(input,EXISTS,FOLLOW_EXISTS_in_comparisonExpr1574); 
             	        		EXISTS117_tree = (IASTNode)adaptor.DupNode(EXISTS117);
 
             	        		root_1 = (IASTNode)adaptor.BecomeRoot(EXISTS117_tree, root_1);
@@ -5452,7 +5452,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:316:15: expr
             	        	        {
             	        	        	_last = (IASTNode)input.LT(1);
-            	        	        	PushFollow(FOLLOW_expr_in_comparisonExpr1577);
+            	        	        	PushFollow(FOLLOW_expr_in_comparisonExpr1578);
             	        	        	expr118 = expr();
             	        	        	state.followingStackPointer--;
 
@@ -5464,7 +5464,7 @@ public partial class HqlSqlWalker : TreeParser
             	        	        // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:316:22: collectionFunctionOrSubselect
             	        	        {
             	        	        	_last = (IASTNode)input.LT(1);
-            	        	        	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_comparisonExpr1581);
+            	        	        	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_comparisonExpr1582);
             	        	        	collectionFunctionOrSubselect119 = collectionFunctionOrSubselect();
             	        	        	state.followingStackPointer--;
 
@@ -5550,7 +5550,7 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	IN_LIST120=(IASTNode)Match(input,IN_LIST,FOLLOW_IN_LIST_in_inRhs1606); 
+            	IN_LIST120=(IASTNode)Match(input,IN_LIST,FOLLOW_IN_LIST_in_inRhs1607); 
             		IN_LIST120_tree = (IASTNode)adaptor.DupNode(IN_LIST120);
 
             		root_1 = (IASTNode)adaptor.BecomeRoot(IN_LIST120_tree, root_1);
@@ -5585,7 +5585,7 @@ public partial class HqlSqlWalker : TreeParser
             	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:322:16: collectionFunctionOrSubselect
             	            {
             	            	_last = (IASTNode)input.LT(1);
-            	            	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_inRhs1610);
+            	            	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_inRhs1611);
             	            	collectionFunctionOrSubselect121 = collectionFunctionOrSubselect();
             	            	state.followingStackPointer--;
 
@@ -5614,7 +5614,7 @@ public partial class HqlSqlWalker : TreeParser
             	            			    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:322:48: expr
             	            			    {
             	            			    	_last = (IASTNode)input.LT(1);
-            	            			    	PushFollow(FOLLOW_expr_in_inRhs1614);
+            	            			    	PushFollow(FOLLOW_expr_in_inRhs1615);
             	            			    	expr122 = expr();
             	            			    	state.followingStackPointer--;
 
@@ -5771,7 +5771,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_exprOrSubquery1630);
+                    	PushFollow(FOLLOW_expr_in_exprOrSubquery1631);
                     	expr123 = expr();
                     	state.followingStackPointer--;
 
@@ -5785,7 +5785,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_query_in_exprOrSubquery1635);
+                    	PushFollow(FOLLOW_query_in_exprOrSubquery1636);
                     	query124 = query();
                     	state.followingStackPointer--;
 
@@ -5803,7 +5803,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	ANY125=(IASTNode)Match(input,ANY,FOLLOW_ANY_in_exprOrSubquery1641); 
+                    	ANY125=(IASTNode)Match(input,ANY,FOLLOW_ANY_in_exprOrSubquery1642); 
                     		ANY125_tree = (IASTNode)adaptor.DupNode(ANY125);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(ANY125_tree, root_1);
@@ -5812,7 +5812,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1643);
+                    	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1644);
                     	collectionFunctionOrSubselect126 = collectionFunctionOrSubselect();
                     	state.followingStackPointer--;
 
@@ -5834,7 +5834,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	ALL127=(IASTNode)Match(input,ALL,FOLLOW_ALL_in_exprOrSubquery1650); 
+                    	ALL127=(IASTNode)Match(input,ALL,FOLLOW_ALL_in_exprOrSubquery1651); 
                     		ALL127_tree = (IASTNode)adaptor.DupNode(ALL127);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(ALL127_tree, root_1);
@@ -5843,7 +5843,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1652);
+                    	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1653);
                     	collectionFunctionOrSubselect128 = collectionFunctionOrSubselect();
                     	state.followingStackPointer--;
 
@@ -5865,7 +5865,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	SOME129=(IASTNode)Match(input,SOME,FOLLOW_SOME_in_exprOrSubquery1659); 
+                    	SOME129=(IASTNode)Match(input,SOME,FOLLOW_SOME_in_exprOrSubquery1660); 
                     		SOME129_tree = (IASTNode)adaptor.DupNode(SOME129);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(SOME129_tree, root_1);
@@ -5874,7 +5874,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1661);
+                    	PushFollow(FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1662);
                     	collectionFunctionOrSubselect130 = collectionFunctionOrSubselect();
                     	state.followingStackPointer--;
 
@@ -5960,7 +5960,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_collectionFunction_in_collectionFunctionOrSubselect1674);
+                    	PushFollow(FOLLOW_collectionFunction_in_collectionFunctionOrSubselect1675);
                     	collectionFunction131 = collectionFunction();
                     	state.followingStackPointer--;
 
@@ -5974,7 +5974,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_query_in_collectionFunctionOrSubselect1679);
+                    	PushFollow(FOLLOW_query_in_collectionFunctionOrSubselect1680);
                     	query132 = query();
                     	state.followingStackPointer--;
 
@@ -6114,7 +6114,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_addrExpr_in_expr1693);
+                    	PushFollow(FOLLOW_addrExpr_in_expr1694);
                     	ae = addrExpr(true);
                     	state.followingStackPointer--;
 
@@ -6133,7 +6133,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	VECTOR_EXPR133=(IASTNode)Match(input,VECTOR_EXPR,FOLLOW_VECTOR_EXPR_in_expr1705); 
+                    	VECTOR_EXPR133=(IASTNode)Match(input,VECTOR_EXPR,FOLLOW_VECTOR_EXPR_in_expr1706); 
                     		VECTOR_EXPR133_tree = (IASTNode)adaptor.DupNode(VECTOR_EXPR133);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(VECTOR_EXPR133_tree, root_1);
@@ -6161,7 +6161,7 @@ public partial class HqlSqlWalker : TreeParser
                     	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:340:20: expr
                     	    		    {
                     	    		    	_last = (IASTNode)input.LT(1);
-                    	    		    	PushFollow(FOLLOW_expr_in_expr1708);
+                    	    		    	PushFollow(FOLLOW_expr_in_expr1709);
                     	    		    	expr134 = expr();
                     	    		    	state.followingStackPointer--;
 
@@ -6192,7 +6192,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_constant_in_expr1717);
+                    	PushFollow(FOLLOW_constant_in_expr1718);
                     	constant135 = constant();
                     	state.followingStackPointer--;
 
@@ -6206,7 +6206,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_arithmeticExpr_in_expr1722);
+                    	PushFollow(FOLLOW_arithmeticExpr_in_expr1723);
                     	arithmeticExpr136 = arithmeticExpr();
                     	state.followingStackPointer--;
 
@@ -6220,7 +6220,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_functionCall_in_expr1727);
+                    	PushFollow(FOLLOW_functionCall_in_expr1728);
                     	functionCall137 = functionCall();
                     	state.followingStackPointer--;
 
@@ -6234,7 +6234,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_parameter_in_expr1739);
+                    	PushFollow(FOLLOW_parameter_in_expr1740);
                     	parameter138 = parameter();
                     	state.followingStackPointer--;
 
@@ -6248,7 +6248,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_count_in_expr1744);
+                    	PushFollow(FOLLOW_count_in_expr1745);
                     	count139 = count();
                     	state.followingStackPointer--;
 
@@ -6383,7 +6383,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	PLUS140=(IASTNode)Match(input,PLUS,FOLLOW_PLUS_in_arithmeticExpr1772); 
+                    	PLUS140=(IASTNode)Match(input,PLUS,FOLLOW_PLUS_in_arithmeticExpr1773); 
                     		PLUS140_tree = (IASTNode)adaptor.DupNode(PLUS140);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(PLUS140_tree, root_1);
@@ -6392,13 +6392,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1774);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1775);
                     	expr141 = expr();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, expr141.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1776);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1777);
                     	expr142 = expr();
                     	state.followingStackPointer--;
 
@@ -6420,7 +6420,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	MINUS143=(IASTNode)Match(input,MINUS,FOLLOW_MINUS_in_arithmeticExpr1783); 
+                    	MINUS143=(IASTNode)Match(input,MINUS,FOLLOW_MINUS_in_arithmeticExpr1784); 
                     		MINUS143_tree = (IASTNode)adaptor.DupNode(MINUS143);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(MINUS143_tree, root_1);
@@ -6429,13 +6429,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1785);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1786);
                     	expr144 = expr();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, expr144.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1787);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1788);
                     	expr145 = expr();
                     	state.followingStackPointer--;
 
@@ -6457,7 +6457,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	DIV146=(IASTNode)Match(input,DIV,FOLLOW_DIV_in_arithmeticExpr1794); 
+                    	DIV146=(IASTNode)Match(input,DIV,FOLLOW_DIV_in_arithmeticExpr1795); 
                     		DIV146_tree = (IASTNode)adaptor.DupNode(DIV146);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(DIV146_tree, root_1);
@@ -6466,13 +6466,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1796);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1797);
                     	expr147 = expr();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, expr147.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1798);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1799);
                     	expr148 = expr();
                     	state.followingStackPointer--;
 
@@ -6494,7 +6494,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	STAR149=(IASTNode)Match(input,STAR,FOLLOW_STAR_in_arithmeticExpr1805); 
+                    	STAR149=(IASTNode)Match(input,STAR,FOLLOW_STAR_in_arithmeticExpr1806); 
                     		STAR149_tree = (IASTNode)adaptor.DupNode(STAR149);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(STAR149_tree, root_1);
@@ -6503,13 +6503,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1807);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1808);
                     	expr150 = expr();
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_1, expr150.Tree);
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1809);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1810);
                     	expr151 = expr();
                     	state.followingStackPointer--;
 
@@ -6531,7 +6531,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	UNARY_MINUS152=(IASTNode)Match(input,UNARY_MINUS,FOLLOW_UNARY_MINUS_in_arithmeticExpr1817); 
+                    	UNARY_MINUS152=(IASTNode)Match(input,UNARY_MINUS,FOLLOW_UNARY_MINUS_in_arithmeticExpr1818); 
                     		UNARY_MINUS152_tree = (IASTNode)adaptor.DupNode(UNARY_MINUS152);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(UNARY_MINUS152_tree, root_1);
@@ -6540,7 +6540,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1819);
+                    	PushFollow(FOLLOW_expr_in_arithmeticExpr1820);
                     	expr153 = expr();
                     	state.followingStackPointer--;
 
@@ -6558,7 +6558,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_caseExpr_in_arithmeticExpr1827);
+                    	PushFollow(FOLLOW_caseExpr_in_arithmeticExpr1828);
                     	c = caseExpr();
                     	state.followingStackPointer--;
 
@@ -6672,7 +6672,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	CASE154=(IASTNode)Match(input,CASE,FOLLOW_CASE_in_caseExpr1839); 
+                    	CASE154=(IASTNode)Match(input,CASE,FOLLOW_CASE_in_caseExpr1840); 
                     		CASE154_tree = (IASTNode)adaptor.DupNode(CASE154);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(CASE154_tree, root_1);
@@ -6704,7 +6704,7 @@ public partial class HqlSqlWalker : TreeParser
                     			    	IASTNode _save_last_2 = _last;
                     			    	IASTNode _first_2 = null;
                     			    	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    			    	WHEN155=(IASTNode)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1845); 
+                    			    	WHEN155=(IASTNode)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1846); 
                     			    		WHEN155_tree = (IASTNode)adaptor.DupNode(WHEN155);
 
                     			    		root_2 = (IASTNode)adaptor.BecomeRoot(WHEN155_tree, root_2);
@@ -6713,13 +6713,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     			    	Match(input, Token.DOWN, null); 
                     			    	_last = (IASTNode)input.LT(1);
-                    			    	PushFollow(FOLLOW_logicalExpr_in_caseExpr1847);
+                    			    	PushFollow(FOLLOW_logicalExpr_in_caseExpr1848);
                     			    	logicalExpr156 = logicalExpr();
                     			    	state.followingStackPointer--;
 
                     			    	adaptor.AddChild(root_2, logicalExpr156.Tree);
                     			    	_last = (IASTNode)input.LT(1);
-                    			    	PushFollow(FOLLOW_expr_in_caseExpr1849);
+                    			    	PushFollow(FOLLOW_expr_in_caseExpr1850);
                     			    	expr157 = expr();
                     			    	state.followingStackPointer--;
 
@@ -6762,7 +6762,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	IASTNode _save_last_2 = _last;
                     	        	IASTNode _first_2 = null;
                     	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	        	ELSE158=(IASTNode)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1856); 
+                    	        	ELSE158=(IASTNode)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1857); 
                     	        		ELSE158_tree = (IASTNode)adaptor.DupNode(ELSE158);
 
                     	        		root_2 = (IASTNode)adaptor.BecomeRoot(ELSE158_tree, root_2);
@@ -6771,7 +6771,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	        	Match(input, Token.DOWN, null); 
                     	        	_last = (IASTNode)input.LT(1);
-                    	        	PushFollow(FOLLOW_expr_in_caseExpr1858);
+                    	        	PushFollow(FOLLOW_expr_in_caseExpr1859);
                     	        	expr159 = expr();
                     	        	state.followingStackPointer--;
 
@@ -6804,7 +6804,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	CASE2160=(IASTNode)Match(input,CASE2,FOLLOW_CASE2_in_caseExpr1870); 
+                    	CASE2160=(IASTNode)Match(input,CASE2,FOLLOW_CASE2_in_caseExpr1871); 
                     		CASE2160_tree = (IASTNode)adaptor.DupNode(CASE2160);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(CASE2160_tree, root_1);
@@ -6814,7 +6814,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_expr_in_caseExpr1874);
+                    	PushFollow(FOLLOW_expr_in_caseExpr1875);
                     	expr161 = expr();
                     	state.followingStackPointer--;
 
@@ -6842,7 +6842,7 @@ public partial class HqlSqlWalker : TreeParser
                     			    	IASTNode _save_last_2 = _last;
                     			    	IASTNode _first_2 = null;
                     			    	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    			    	WHEN162=(IASTNode)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1878); 
+                    			    	WHEN162=(IASTNode)Match(input,WHEN,FOLLOW_WHEN_in_caseExpr1879); 
                     			    		WHEN162_tree = (IASTNode)adaptor.DupNode(WHEN162);
 
                     			    		root_2 = (IASTNode)adaptor.BecomeRoot(WHEN162_tree, root_2);
@@ -6851,13 +6851,13 @@ public partial class HqlSqlWalker : TreeParser
 
                     			    	Match(input, Token.DOWN, null); 
                     			    	_last = (IASTNode)input.LT(1);
-                    			    	PushFollow(FOLLOW_expr_in_caseExpr1880);
+                    			    	PushFollow(FOLLOW_expr_in_caseExpr1881);
                     			    	expr163 = expr();
                     			    	state.followingStackPointer--;
 
                     			    	adaptor.AddChild(root_2, expr163.Tree);
                     			    	_last = (IASTNode)input.LT(1);
-                    			    	PushFollow(FOLLOW_expr_in_caseExpr1882);
+                    			    	PushFollow(FOLLOW_expr_in_caseExpr1883);
                     			    	expr164 = expr();
                     			    	state.followingStackPointer--;
 
@@ -6900,7 +6900,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	IASTNode _save_last_2 = _last;
                     	        	IASTNode _first_2 = null;
                     	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	        	ELSE165=(IASTNode)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1889); 
+                    	        	ELSE165=(IASTNode)Match(input,ELSE,FOLLOW_ELSE_in_caseExpr1890); 
                     	        		ELSE165_tree = (IASTNode)adaptor.DupNode(ELSE165);
 
                     	        		root_2 = (IASTNode)adaptor.BecomeRoot(ELSE165_tree, root_2);
@@ -6909,7 +6909,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	        	Match(input, Token.DOWN, null); 
                     	        	_last = (IASTNode)input.LT(1);
-                    	        	PushFollow(FOLLOW_expr_in_caseExpr1891);
+                    	        	PushFollow(FOLLOW_expr_in_caseExpr1892);
                     	        	expr166 = expr();
                     	        	state.followingStackPointer--;
 
@@ -7014,7 +7014,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	e=(IASTNode)Match(input,ELEMENTS,FOLLOW_ELEMENTS_in_collectionFunction1913); 
+                    	e=(IASTNode)Match(input,ELEMENTS,FOLLOW_ELEMENTS_in_collectionFunction1914); 
                     		e_tree = (IASTNode)adaptor.DupNode(e);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(e_tree, root_1);
@@ -7024,7 +7024,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_propertyRef_in_collectionFunction1919);
+                    	PushFollow(FOLLOW_propertyRef_in_collectionFunction1920);
                     	p1 = propertyRef();
                     	state.followingStackPointer--;
 
@@ -7049,7 +7049,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	i=(IASTNode)Match(input,INDICES,FOLLOW_INDICES_in_collectionFunction1938); 
+                    	i=(IASTNode)Match(input,INDICES,FOLLOW_INDICES_in_collectionFunction1939); 
                     		i_tree = (IASTNode)adaptor.DupNode(i);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(i_tree, root_1);
@@ -7059,7 +7059,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_propertyRef_in_collectionFunction1944);
+                    	PushFollow(FOLLOW_propertyRef_in_collectionFunction1945);
                     	p2 = propertyRef();
                     	state.followingStackPointer--;
 
@@ -7162,7 +7162,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	m=(IASTNode)Match(input,METHOD_CALL,FOLLOW_METHOD_CALL_in_functionCall1969); 
+                    	m=(IASTNode)Match(input,METHOD_CALL,FOLLOW_METHOD_CALL_in_functionCall1970); 
                     		m_tree = (IASTNode)adaptor.DupNode(m);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(m_tree, root_1);
@@ -7172,7 +7172,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_pathAsIdent_in_functionCall1974);
+                    	PushFollow(FOLLOW_pathAsIdent_in_functionCall1975);
                     	pathAsIdent167 = pathAsIdent();
                     	state.followingStackPointer--;
 
@@ -7195,7 +7195,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	IASTNode _save_last_2 = _last;
                     	        	IASTNode _first_2 = null;
                     	        	IASTNode root_2 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	        	EXPR_LIST168=(IASTNode)Match(input,EXPR_LIST,FOLLOW_EXPR_LIST_in_functionCall1979); 
+                    	        	EXPR_LIST168=(IASTNode)Match(input,EXPR_LIST,FOLLOW_EXPR_LIST_in_functionCall1980); 
                     	        		EXPR_LIST168_tree = (IASTNode)adaptor.DupNode(EXPR_LIST168);
 
                     	        		root_2 = (IASTNode)adaptor.BecomeRoot(EXPR_LIST168_tree, root_2);
@@ -7227,7 +7227,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:379:72: expr
                     	        	    		    {
                     	        	    		    	_last = (IASTNode)input.LT(1);
-                    	        	    		    	PushFollow(FOLLOW_expr_in_functionCall1982);
+                    	        	    		    	PushFollow(FOLLOW_expr_in_functionCall1983);
                     	        	    		    	expr169 = expr();
                     	        	    		    	state.followingStackPointer--;
 
@@ -7239,7 +7239,7 @@ public partial class HqlSqlWalker : TreeParser
                     	        	    		    // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:379:79: comparisonExpr
                     	        	    		    {
                     	        	    		    	_last = (IASTNode)input.LT(1);
-                    	        	    		    	PushFollow(FOLLOW_comparisonExpr_in_functionCall1986);
+                    	        	    		    	PushFollow(FOLLOW_comparisonExpr_in_functionCall1987);
                     	        	    		    	comparisonExpr170 = comparisonExpr();
                     	        	    		    	state.followingStackPointer--;
 
@@ -7285,7 +7285,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	AGGREGATE171=(IASTNode)Match(input,AGGREGATE,FOLLOW_AGGREGATE_in_functionCall2005); 
+                    	AGGREGATE171=(IASTNode)Match(input,AGGREGATE,FOLLOW_AGGREGATE_in_functionCall2006); 
                     		AGGREGATE171_tree = (IASTNode)adaptor.DupNode(AGGREGATE171);
 
                     		root_1 = (IASTNode)adaptor.BecomeRoot(AGGREGATE171_tree, root_1);
@@ -7294,7 +7294,7 @@ public partial class HqlSqlWalker : TreeParser
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_aggregateExpr_in_functionCall2007);
+                    	PushFollow(FOLLOW_aggregateExpr_in_functionCall2008);
                     	aggregateExpr172 = aggregateExpr();
                     	state.followingStackPointer--;
 
@@ -7407,7 +7407,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_literal_in_constant2020);
+                    	PushFollow(FOLLOW_literal_in_constant2021);
                     	literal173 = literal();
                     	state.followingStackPointer--;
 
@@ -7421,7 +7421,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	NULL174=(IASTNode)Match(input,NULL,FOLLOW_NULL_in_constant2025); 
+                    	NULL174=(IASTNode)Match(input,NULL,FOLLOW_NULL_in_constant2026); 
                     		NULL174_tree = (IASTNode)adaptor.DupNode(NULL174);
 
                     		adaptor.AddChild(root_0, NULL174_tree);
@@ -7435,7 +7435,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	t=(IASTNode)Match(input,TRUE,FOLLOW_TRUE_in_constant2032); 
+                    	t=(IASTNode)Match(input,TRUE,FOLLOW_TRUE_in_constant2033); 
                     		t_tree = (IASTNode)adaptor.DupNode(t);
 
                     		adaptor.AddChild(root_0, t_tree);
@@ -7450,7 +7450,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	f=(IASTNode)Match(input,FALSE,FOLLOW_FALSE_in_constant2042); 
+                    	f=(IASTNode)Match(input,FALSE,FOLLOW_FALSE_in_constant2043); 
                     		f_tree = (IASTNode)adaptor.DupNode(f);
 
                     		adaptor.AddChild(root_0, f_tree);
@@ -7465,7 +7465,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	JAVA_CONSTANT175=(IASTNode)Match(input,JAVA_CONSTANT,FOLLOW_JAVA_CONSTANT_in_constant2049); 
+                    	JAVA_CONSTANT175=(IASTNode)Match(input,JAVA_CONSTANT,FOLLOW_JAVA_CONSTANT_in_constant2050); 
                     		JAVA_CONSTANT175_tree = (IASTNode)adaptor.DupNode(JAVA_CONSTANT175);
 
                     		adaptor.AddChild(root_0, JAVA_CONSTANT175_tree);
@@ -7547,7 +7547,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_numericLiteral_in_literal2060);
+                    	PushFollow(FOLLOW_numericLiteral_in_literal2061);
                     	numericLiteral176 = numericLiteral();
                     	state.followingStackPointer--;
 
@@ -7561,7 +7561,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_stringLiteral_in_literal2065);
+                    	PushFollow(FOLLOW_stringLiteral_in_literal2066);
                     	stringLiteral177 = stringLiteral();
                     	state.followingStackPointer--;
 
@@ -7693,7 +7693,7 @@ public partial class HqlSqlWalker : TreeParser
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	_last = (IASTNode)input.LT(1);
-            	QUOTED_String179=(IASTNode)Match(input,QUOTED_String,FOLLOW_QUOTED_String_in_stringLiteral2107); 
+            	QUOTED_String179=(IASTNode)Match(input,QUOTED_String,FOLLOW_QUOTED_String_in_stringLiteral2108); 
             		QUOTED_String179_tree = (IASTNode)adaptor.DupNode(QUOTED_String179);
 
             		adaptor.AddChild(root_0, QUOTED_String179_tree);
@@ -7852,7 +7852,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_addrExprDot_in_addrExpr2137);
+                    	PushFollow(FOLLOW_addrExprDot_in_addrExpr2138);
                     	addrExprDot181 = addrExprDot(root);
                     	state.followingStackPointer--;
 
@@ -7866,7 +7866,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_addrExprIndex_in_addrExpr2144);
+                    	PushFollow(FOLLOW_addrExprIndex_in_addrExpr2145);
                     	addrExprIndex182 = addrExprIndex(root);
                     	state.followingStackPointer--;
 
@@ -7880,7 +7880,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_addrExprIdent_in_addrExpr2151);
+                    	PushFollow(FOLLOW_addrExprIdent_in_addrExpr2152);
                     	addrExprIdent183 = addrExprIdent(root);
                     	state.followingStackPointer--;
 
@@ -7947,20 +7947,20 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	d=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_addrExprDot2175);  
+            	d=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_addrExprDot2176);  
             	stream_DOT.Add(d);
 
 
 
             	Match(input, Token.DOWN, null); 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_addrExprLhs_in_addrExprDot2179);
+            	PushFollow(FOLLOW_addrExprLhs_in_addrExprDot2180);
             	lhs = addrExprLhs();
             	state.followingStackPointer--;
 
             	stream_addrExprLhs.Add(lhs.Tree);
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_propertyName_in_addrExprDot2183);
+            	PushFollow(FOLLOW_propertyName_in_addrExprDot2184);
             	rhs = propertyName();
             	state.followingStackPointer--;
 
@@ -7972,7 +7972,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          rhs, lhs, d
+            	// elements:          lhs, rhs, d
             	// token labels:      d
             	// rule labels:       lhs, retval, rhs
             	// token list labels: 
@@ -8063,20 +8063,20 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	i=(IASTNode)Match(input,INDEX_OP,FOLLOW_INDEX_OP_in_addrExprIndex2222);  
+            	i=(IASTNode)Match(input,INDEX_OP,FOLLOW_INDEX_OP_in_addrExprIndex2223);  
             	stream_INDEX_OP.Add(i);
 
 
 
             	Match(input, Token.DOWN, null); 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_addrExprLhs_in_addrExprIndex2226);
+            	PushFollow(FOLLOW_addrExprLhs_in_addrExprIndex2227);
             	lhs2 = addrExprLhs();
             	state.followingStackPointer--;
 
             	stream_addrExprLhs.Add(lhs2.Tree);
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_expr_in_addrExprIndex2230);
+            	PushFollow(FOLLOW_expr_in_addrExprIndex2231);
             	rhs2 = expr();
             	state.followingStackPointer--;
 
@@ -8169,7 +8169,7 @@ public partial class HqlSqlWalker : TreeParser
             // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:442:4: p= identifier
             {
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_identifier_in_addrExprIdent2262);
+            	PushFollow(FOLLOW_identifier_in_addrExprIdent2263);
             	p = identifier();
             	state.followingStackPointer--;
 
@@ -8263,7 +8263,7 @@ public partial class HqlSqlWalker : TreeParser
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_addrExpr_in_addrExprLhs2290);
+            	PushFollow(FOLLOW_addrExpr_in_addrExprLhs2291);
             	addrExpr184 = addrExpr(false);
             	state.followingStackPointer--;
 
@@ -8360,7 +8360,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_identifier_in_propertyName2303);
+                    	PushFollow(FOLLOW_identifier_in_propertyName2304);
                     	identifier185 = identifier();
                     	state.followingStackPointer--;
 
@@ -8374,7 +8374,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	CLASS186=(IASTNode)Match(input,CLASS,FOLLOW_CLASS_in_propertyName2308); 
+                    	CLASS186=(IASTNode)Match(input,CLASS,FOLLOW_CLASS_in_propertyName2309); 
                     		CLASS186_tree = (IASTNode)adaptor.DupNode(CLASS186);
 
                     		adaptor.AddChild(root_0, CLASS186_tree);
@@ -8388,7 +8388,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	ELEMENTS187=(IASTNode)Match(input,ELEMENTS,FOLLOW_ELEMENTS_in_propertyName2313); 
+                    	ELEMENTS187=(IASTNode)Match(input,ELEMENTS,FOLLOW_ELEMENTS_in_propertyName2314); 
                     		ELEMENTS187_tree = (IASTNode)adaptor.DupNode(ELEMENTS187);
 
                     		adaptor.AddChild(root_0, ELEMENTS187_tree);
@@ -8402,7 +8402,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	INDICES188=(IASTNode)Match(input,INDICES,FOLLOW_INDICES_in_propertyName2318); 
+                    	INDICES188=(IASTNode)Match(input,INDICES,FOLLOW_INDICES_in_propertyName2319); 
                     		INDICES188_tree = (IASTNode)adaptor.DupNode(INDICES188);
 
                     		adaptor.AddChild(root_0, INDICES188_tree);
@@ -8484,7 +8484,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_propertyRefPath_in_propertyRef2330);
+                    	PushFollow(FOLLOW_propertyRefPath_in_propertyRef2331);
                     	propertyRefPath189 = propertyRefPath();
                     	state.followingStackPointer--;
 
@@ -8498,7 +8498,7 @@ public partial class HqlSqlWalker : TreeParser
                     	root_0 = (IASTNode)adaptor.GetNilNode();
 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_propertyRefIdent_in_propertyRef2335);
+                    	PushFollow(FOLLOW_propertyRefIdent_in_propertyRef2336);
                     	propertyRefIdent190 = propertyRefIdent();
                     	state.followingStackPointer--;
 
@@ -8565,20 +8565,20 @@ public partial class HqlSqlWalker : TreeParser
             	IASTNode _save_last_1 = _last;
             	IASTNode _first_1 = null;
             	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-            	d=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_propertyRefPath2355);  
+            	d=(IASTNode)Match(input,DOT,FOLLOW_DOT_in_propertyRefPath2356);  
             	stream_DOT.Add(d);
 
 
 
             	Match(input, Token.DOWN, null); 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_propertyRefLhs_in_propertyRefPath2359);
+            	PushFollow(FOLLOW_propertyRefLhs_in_propertyRefPath2360);
             	lhs = propertyRefLhs();
             	state.followingStackPointer--;
 
             	stream_propertyRefLhs.Add(lhs.Tree);
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_propertyName_in_propertyRefPath2363);
+            	PushFollow(FOLLOW_propertyName_in_propertyRefPath2364);
             	rhs = propertyName();
             	state.followingStackPointer--;
 
@@ -8590,7 +8590,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          rhs, lhs, d
+            	// elements:          lhs, d, rhs
             	// token labels:      d
             	// rule labels:       lhs, retval, rhs
             	// token list labels: 
@@ -8674,7 +8674,7 @@ public partial class HqlSqlWalker : TreeParser
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_identifier_in_propertyRefIdent2400);
+            	PushFollow(FOLLOW_identifier_in_propertyRefIdent2401);
             	p = identifier();
             	state.followingStackPointer--;
 
@@ -8744,7 +8744,7 @@ public partial class HqlSqlWalker : TreeParser
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_propertyRef_in_propertyRefLhs2412);
+            	PushFollow(FOLLOW_propertyRef_in_propertyRefLhs2413);
             	propertyRef191 = propertyRef();
             	state.followingStackPointer--;
 
@@ -8801,7 +8801,7 @@ public partial class HqlSqlWalker : TreeParser
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	_last = (IASTNode)input.LT(1);
-            	PushFollow(FOLLOW_identifier_in_aliasRef2433);
+            	PushFollow(FOLLOW_identifier_in_aliasRef2434);
             	i = identifier();
             	state.followingStackPointer--;
 
@@ -8893,14 +8893,14 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	c=(IASTNode)Match(input,COLON,FOLLOW_COLON_in_parameter2451);  
+                    	c=(IASTNode)Match(input,COLON,FOLLOW_COLON_in_parameter2452);  
                     	stream_COLON.Add(c);
 
 
 
                     	Match(input, Token.DOWN, null); 
                     	_last = (IASTNode)input.LT(1);
-                    	PushFollow(FOLLOW_identifier_in_parameter2455);
+                    	PushFollow(FOLLOW_identifier_in_parameter2456);
                     	a = identifier();
                     	state.followingStackPointer--;
 
@@ -8945,7 +8945,7 @@ public partial class HqlSqlWalker : TreeParser
                     	IASTNode _save_last_1 = _last;
                     	IASTNode _first_1 = null;
                     	IASTNode root_1 = (IASTNode)adaptor.GetNilNode();_last = (IASTNode)input.LT(1);
-                    	p=(IASTNode)Match(input,PARAM,FOLLOW_PARAM_in_parameter2476);  
+                    	p=(IASTNode)Match(input,PARAM,FOLLOW_PARAM_in_parameter2477);  
                     	stream_PARAM.Add(p);
 
 
@@ -8967,7 +8967,7 @@ public partial class HqlSqlWalker : TreeParser
                     	            // /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g:506:15: n= NUM_INT
                     	            {
                     	            	_last = (IASTNode)input.LT(1);
-                    	            	n=(IASTNode)Match(input,NUM_INT,FOLLOW_NUM_INT_in_parameter2481);  
+                    	            	n=(IASTNode)Match(input,NUM_INT,FOLLOW_NUM_INT_in_parameter2482);  
                     	            	stream_NUM_INT.Add(n);
 
 
@@ -9072,7 +9072,7 @@ public partial class HqlSqlWalker : TreeParser
             	root_0 = (IASTNode)adaptor.GetNilNode();
 
             	_last = (IASTNode)input.LT(1);
-            	NUM_INT192=(IASTNode)Match(input,NUM_INT,FOLLOW_NUM_INT_in_numericInteger2514); 
+            	NUM_INT192=(IASTNode)Match(input,NUM_INT,FOLLOW_NUM_INT_in_numericInteger2515); 
             		NUM_INT192_tree = (IASTNode)adaptor.DupNode(NUM_INT192);
 
             		adaptor.AddChild(root_0, NUM_INT192_tree);
@@ -9186,185 +9186,185 @@ public partial class HqlSqlWalker : TreeParser
     public static readonly BitSet FOLLOW_ALIAS_in_fromElement992 = new BitSet(new ulong[]{0x0000000000200008UL});
     public static readonly BitSet FOLLOW_FETCH_in_fromElement999 = new BitSet(new ulong[]{0x0000000000000008UL});
     public static readonly BitSet FOLLOW_joinElement_in_fromElement1019 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FILTER_ENTITY_in_fromElement1033 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
-    public static readonly BitSet FOLLOW_ALIAS_in_fromElement1037 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_JOIN_in_joinElement1066 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_joinType_in_joinElement1071 = new BitSet(new ulong[]{0x0000000000208000UL,0x0040000008001000UL});
-    public static readonly BitSet FOLLOW_FETCH_in_joinElement1081 = new BitSet(new ulong[]{0x0000000000008000UL,0x0040000008001000UL});
-    public static readonly BitSet FOLLOW_propertyRef_in_joinElement1087 = new BitSet(new ulong[]{0x2000000000200008UL,0x0000000000000040UL});
-    public static readonly BitSet FOLLOW_ALIAS_in_joinElement1092 = new BitSet(new ulong[]{0x2000000000200008UL});
-    public static readonly BitSet FOLLOW_FETCH_in_joinElement1099 = new BitSet(new ulong[]{0x2000000000000008UL});
-    public static readonly BitSet FOLLOW_WITH_in_joinElement1106 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LEFT_in_joinType1142 = new BitSet(new ulong[]{0x0000040000000002UL});
-    public static readonly BitSet FOLLOW_RIGHT_in_joinType1148 = new BitSet(new ulong[]{0x0000040000000002UL});
-    public static readonly BitSet FOLLOW_OUTER_in_joinType1154 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FULL_in_joinType1168 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_INNER_in_joinType1175 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifier_in_path1197 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_path1205 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_path_in_path1209 = new BitSet(new ulong[]{0x0000000000008000UL,0x0040000008001000UL});
-    public static readonly BitSet FOLLOW_identifier_in_path1213 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_path_in_pathAsIdent1232 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_WITH_in_withClause1273 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_withClause1279 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_WHERE_in_whereClause1307 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_whereClause1313 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_AND_in_logicalExpr1339 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1341 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1343 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_OR_in_logicalExpr1350 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1352 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1354 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_in_logicalExpr1361 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1363 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_comparisonExpr_in_logicalExpr1369 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_EQ_in_comparisonExpr1391 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1393 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1395 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NE_in_comparisonExpr1402 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1404 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1406 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LT_in_comparisonExpr1413 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1415 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1417 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_GT_in_comparisonExpr1424 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1426 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1428 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LE_in_comparisonExpr1435 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1437 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1439 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_GE_in_comparisonExpr1446 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1448 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1450 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_LIKE_in_comparisonExpr1457 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1459 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1461 = new BitSet(new ulong[]{0x0000000000040008UL});
-    public static readonly BitSet FOLLOW_ESCAPE_in_comparisonExpr1466 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1468 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_LIKE_in_comparisonExpr1480 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1482 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1484 = new BitSet(new ulong[]{0x0000000000040008UL});
-    public static readonly BitSet FOLLOW_ESCAPE_in_comparisonExpr1489 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1491 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_BETWEEN_in_comparisonExpr1503 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1505 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1507 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1509 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_BETWEEN_in_comparisonExpr1516 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1518 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1520 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1522 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IN_in_comparisonExpr1529 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1531 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
-    public static readonly BitSet FOLLOW_inRhs_in_comparisonExpr1533 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NOT_IN_in_comparisonExpr1541 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1543 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
-    public static readonly BitSet FOLLOW_inRhs_in_comparisonExpr1545 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IS_NULL_in_comparisonExpr1553 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1555 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IS_NOT_NULL_in_comparisonExpr1562 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1564 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_EXISTS_in_comparisonExpr1573 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1577 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_comparisonExpr1581 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_IN_LIST_in_inRhs1606 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_inRhs1610 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_expr_in_inRhs1614 = new BitSet(new ulong[]{0x0082008000109008UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_exprOrSubquery1630 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_query_in_exprOrSubquery1635 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ANY_in_exprOrSubquery1641 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1643 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ALL_in_exprOrSubquery1650 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1652 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_SOME_in_exprOrSubquery1659 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1661 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_collectionFunction_in_collectionFunctionOrSubselect1674 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_query_in_collectionFunctionOrSubselect1679 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_addrExpr_in_expr1693 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_VECTOR_EXPR_in_expr1705 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_expr1708 = new BitSet(new ulong[]{0x0082008000109008UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_constant_in_expr1717 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_arithmeticExpr_in_expr1722 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_functionCall_in_expr1727 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_parameter_in_expr1739 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_count_in_expr1744 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_PLUS_in_arithmeticExpr1772 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1774 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1776 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_MINUS_in_arithmeticExpr1783 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1785 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1787 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_DIV_in_arithmeticExpr1794 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1796 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1798 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_STAR_in_arithmeticExpr1805 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1807 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1809 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_UNARY_MINUS_in_arithmeticExpr1817 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1819 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_caseExpr_in_arithmeticExpr1827 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CASE_in_caseExpr1839 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1845 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_logicalExpr_in_caseExpr1847 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1849 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1856 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1858 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_CASE2_in_caseExpr1870 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1874 = new BitSet(new ulong[]{0x0800000000000000UL});
-    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1878 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1880 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1882 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1889 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_caseExpr1891 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_ELEMENTS_in_collectionFunction1913 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_propertyRef_in_collectionFunction1919 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_INDICES_in_collectionFunction1938 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_propertyRef_in_collectionFunction1944 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_METHOD_CALL_in_functionCall1969 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_pathAsIdent_in_functionCall1974 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000200UL});
-    public static readonly BitSet FOLLOW_EXPR_LIST_in_functionCall1979 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_expr_in_functionCall1982 = new BitSet(new ulong[]{0x008201C404189448UL,0x0079EF4BED07F120UL});
-    public static readonly BitSet FOLLOW_comparisonExpr_in_functionCall1986 = new BitSet(new ulong[]{0x008201C404189448UL,0x0079EF4BED07F120UL});
-    public static readonly BitSet FOLLOW_AGGREGATE_in_functionCall2005 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_aggregateExpr_in_functionCall2007 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_literal_in_constant2020 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_NULL_in_constant2025 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_TRUE_in_constant2032 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_FALSE_in_constant2042 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_JAVA_CONSTANT_in_constant2049 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_numericLiteral_in_literal2060 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_stringLiteral_in_literal2065 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FILTER_ENTITY_in_fromElement1034 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000040UL});
+    public static readonly BitSet FOLLOW_ALIAS_in_fromElement1038 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_JOIN_in_joinElement1067 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_joinType_in_joinElement1072 = new BitSet(new ulong[]{0x0000000000208000UL,0x0040000008001000UL});
+    public static readonly BitSet FOLLOW_FETCH_in_joinElement1082 = new BitSet(new ulong[]{0x0000000000008000UL,0x0040000008001000UL});
+    public static readonly BitSet FOLLOW_propertyRef_in_joinElement1088 = new BitSet(new ulong[]{0x2000000000200008UL,0x0000000000000040UL});
+    public static readonly BitSet FOLLOW_ALIAS_in_joinElement1093 = new BitSet(new ulong[]{0x2000000000200008UL});
+    public static readonly BitSet FOLLOW_FETCH_in_joinElement1100 = new BitSet(new ulong[]{0x2000000000000008UL});
+    public static readonly BitSet FOLLOW_WITH_in_joinElement1107 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LEFT_in_joinType1143 = new BitSet(new ulong[]{0x0000040000000002UL});
+    public static readonly BitSet FOLLOW_RIGHT_in_joinType1149 = new BitSet(new ulong[]{0x0000040000000002UL});
+    public static readonly BitSet FOLLOW_OUTER_in_joinType1155 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FULL_in_joinType1169 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_INNER_in_joinType1176 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifier_in_path1198 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_path1206 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_path_in_path1210 = new BitSet(new ulong[]{0x0000000000008000UL,0x0040000008001000UL});
+    public static readonly BitSet FOLLOW_identifier_in_path1214 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_path_in_pathAsIdent1233 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_WITH_in_withClause1274 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_withClause1280 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_WHERE_in_whereClause1308 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_whereClause1314 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_AND_in_logicalExpr1340 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1342 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1344 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_OR_in_logicalExpr1351 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1353 = new BitSet(new ulong[]{0x0000014404080440UL,0x00000F4800076000UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1355 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_in_logicalExpr1362 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_logicalExpr1364 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_comparisonExpr_in_logicalExpr1370 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_EQ_in_comparisonExpr1392 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1394 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1396 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NE_in_comparisonExpr1403 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1405 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1407 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LT_in_comparisonExpr1414 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1416 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1418 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_GT_in_comparisonExpr1425 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1427 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1429 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LE_in_comparisonExpr1436 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1438 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1440 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_GE_in_comparisonExpr1447 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1449 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1451 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_LIKE_in_comparisonExpr1458 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1460 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1462 = new BitSet(new ulong[]{0x0000000000040008UL});
+    public static readonly BitSet FOLLOW_ESCAPE_in_comparisonExpr1467 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1469 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_LIKE_in_comparisonExpr1481 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1483 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1485 = new BitSet(new ulong[]{0x0000000000040008UL});
+    public static readonly BitSet FOLLOW_ESCAPE_in_comparisonExpr1490 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1492 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_BETWEEN_in_comparisonExpr1504 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1506 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1508 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1510 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_BETWEEN_in_comparisonExpr1517 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1519 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1521 = new BitSet(new ulong[]{0x0082808000109030UL,0x0079E003ED109120UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1523 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IN_in_comparisonExpr1530 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1532 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
+    public static readonly BitSet FOLLOW_inRhs_in_comparisonExpr1534 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NOT_IN_in_comparisonExpr1542 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1544 = new BitSet(new ulong[]{0x0000000000000000UL,0x0000000000000800UL});
+    public static readonly BitSet FOLLOW_inRhs_in_comparisonExpr1546 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IS_NULL_in_comparisonExpr1554 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1556 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IS_NOT_NULL_in_comparisonExpr1563 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_exprOrSubquery_in_comparisonExpr1565 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_EXISTS_in_comparisonExpr1574 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_comparisonExpr1578 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_comparisonExpr1582 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_IN_LIST_in_inRhs1607 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_inRhs1611 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_expr_in_inRhs1615 = new BitSet(new ulong[]{0x0082008000109008UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_exprOrSubquery1631 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_query_in_exprOrSubquery1636 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ANY_in_exprOrSubquery1642 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1644 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ALL_in_exprOrSubquery1651 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1653 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_SOME_in_exprOrSubquery1660 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_collectionFunctionOrSubselect_in_exprOrSubquery1662 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_collectionFunction_in_collectionFunctionOrSubselect1675 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_query_in_collectionFunctionOrSubselect1680 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_addrExpr_in_expr1694 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_VECTOR_EXPR_in_expr1706 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_expr1709 = new BitSet(new ulong[]{0x0082008000109008UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_constant_in_expr1718 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_arithmeticExpr_in_expr1723 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_functionCall_in_expr1728 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_parameter_in_expr1740 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_count_in_expr1745 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_PLUS_in_arithmeticExpr1773 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1775 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1777 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_MINUS_in_arithmeticExpr1784 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1786 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1788 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_DIV_in_arithmeticExpr1795 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1797 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1799 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_STAR_in_arithmeticExpr1806 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1808 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1810 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_UNARY_MINUS_in_arithmeticExpr1818 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_arithmeticExpr1820 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_caseExpr_in_arithmeticExpr1828 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CASE_in_caseExpr1840 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1846 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_logicalExpr_in_caseExpr1848 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1850 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1857 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1859 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_CASE2_in_caseExpr1871 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1875 = new BitSet(new ulong[]{0x0800000000000000UL});
+    public static readonly BitSet FOLLOW_WHEN_in_caseExpr1879 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1881 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1883 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ELSE_in_caseExpr1890 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_caseExpr1892 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_ELEMENTS_in_collectionFunction1914 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_propertyRef_in_collectionFunction1920 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_INDICES_in_collectionFunction1939 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_propertyRef_in_collectionFunction1945 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_METHOD_CALL_in_functionCall1970 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_pathAsIdent_in_functionCall1975 = new BitSet(new ulong[]{0x0000000000000008UL,0x0000000000000200UL});
+    public static readonly BitSet FOLLOW_EXPR_LIST_in_functionCall1980 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_expr_in_functionCall1983 = new BitSet(new ulong[]{0x008201C404189448UL,0x0079EF4BED07F120UL});
+    public static readonly BitSet FOLLOW_comparisonExpr_in_functionCall1987 = new BitSet(new ulong[]{0x008201C404189448UL,0x0079EF4BED07F120UL});
+    public static readonly BitSet FOLLOW_AGGREGATE_in_functionCall2006 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_aggregateExpr_in_functionCall2008 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_literal_in_constant2021 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_NULL_in_constant2026 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_TRUE_in_constant2033 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_FALSE_in_constant2043 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_JAVA_CONSTANT_in_constant2050 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_numericLiteral_in_literal2061 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_stringLiteral_in_literal2066 = new BitSet(new ulong[]{0x0000000000000002UL});
     public static readonly BitSet FOLLOW_set_in_numericLiteral0 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_QUOTED_String_in_stringLiteral2107 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_set_in_identifier2118 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_addrExprDot_in_addrExpr2137 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_addrExprIndex_in_addrExpr2144 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_addrExprIdent_in_addrExpr2151 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_addrExprDot2175 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_addrExprLhs_in_addrExprDot2179 = new BitSet(new ulong[]{0x0000000008028800UL,0x0040000008001000UL});
-    public static readonly BitSet FOLLOW_propertyName_in_addrExprDot2183 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_INDEX_OP_in_addrExprIndex2222 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_addrExprLhs_in_addrExprIndex2226 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
-    public static readonly BitSet FOLLOW_expr_in_addrExprIndex2230 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_identifier_in_addrExprIdent2262 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_addrExpr_in_addrExprLhs2290 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifier_in_propertyName2303 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_CLASS_in_propertyName2308 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_ELEMENTS_in_propertyName2313 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_INDICES_in_propertyName2318 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyRefPath_in_propertyRef2330 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyRefIdent_in_propertyRef2335 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_DOT_in_propertyRefPath2355 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_propertyRefLhs_in_propertyRefPath2359 = new BitSet(new ulong[]{0x0000000008028800UL,0x0040000008001000UL});
-    public static readonly BitSet FOLLOW_propertyName_in_propertyRefPath2363 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_identifier_in_propertyRefIdent2400 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_propertyRef_in_propertyRefLhs2412 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_identifier_in_aliasRef2433 = new BitSet(new ulong[]{0x0000000000000002UL});
-    public static readonly BitSet FOLLOW_COLON_in_parameter2451 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_identifier_in_parameter2455 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_PARAM_in_parameter2476 = new BitSet(new ulong[]{0x0000000000000004UL});
-    public static readonly BitSet FOLLOW_NUM_INT_in_parameter2481 = new BitSet(new ulong[]{0x0000000000000008UL});
-    public static readonly BitSet FOLLOW_NUM_INT_in_numericInteger2514 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_QUOTED_String_in_stringLiteral2108 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_set_in_identifier2119 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_addrExprDot_in_addrExpr2138 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_addrExprIndex_in_addrExpr2145 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_addrExprIdent_in_addrExpr2152 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_addrExprDot2176 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_addrExprLhs_in_addrExprDot2180 = new BitSet(new ulong[]{0x0000000008028800UL,0x0040000008001000UL});
+    public static readonly BitSet FOLLOW_propertyName_in_addrExprDot2184 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_INDEX_OP_in_addrExprIndex2223 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_addrExprLhs_in_addrExprIndex2227 = new BitSet(new ulong[]{0x0082008000109000UL,0x0079E003ED009120UL});
+    public static readonly BitSet FOLLOW_expr_in_addrExprIndex2231 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_identifier_in_addrExprIdent2263 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_addrExpr_in_addrExprLhs2291 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifier_in_propertyName2304 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_CLASS_in_propertyName2309 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_ELEMENTS_in_propertyName2314 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_INDICES_in_propertyName2319 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyRefPath_in_propertyRef2331 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyRefIdent_in_propertyRef2336 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_DOT_in_propertyRefPath2356 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_propertyRefLhs_in_propertyRefPath2360 = new BitSet(new ulong[]{0x0000000008028800UL,0x0040000008001000UL});
+    public static readonly BitSet FOLLOW_propertyName_in_propertyRefPath2364 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_identifier_in_propertyRefIdent2401 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_propertyRef_in_propertyRefLhs2413 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_identifier_in_aliasRef2434 = new BitSet(new ulong[]{0x0000000000000002UL});
+    public static readonly BitSet FOLLOW_COLON_in_parameter2452 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_identifier_in_parameter2456 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_PARAM_in_parameter2477 = new BitSet(new ulong[]{0x0000000000000004UL});
+    public static readonly BitSet FOLLOW_NUM_INT_in_parameter2482 = new BitSet(new ulong[]{0x0000000000000008UL});
+    public static readonly BitSet FOLLOW_NUM_INT_in_numericInteger2515 = new BitSet(new ulong[]{0x0000000000000002UL});
 
 }
 }

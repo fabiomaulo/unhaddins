@@ -69,8 +69,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 			}
 			else
 			{
-				// TODO - this will crash.  Need to get the System.Type from somewhere
-				Object value = ReflectHelper.GetConstantValue(null, text);
+				Object value = ReflectHelper2.GetConstantValue(text);
 				if (value == null)
 				{
 					throw new InvalidPathException("Invalid path: '" + text + "'");
