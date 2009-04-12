@@ -3,20 +3,13 @@ using System;
 namespace uNhAddIns.Adapters
 {
 	/// <summary>
-	/// Indicates that a class is involved in a persistentes conversation.
+	/// Conversational class meta-data.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-	public class PersistenceConversationalAttribute : Attribute, IPersistenceConversationalInfo
+	/// <remarks>
+	/// Implemented by meta-info holder (in general an attribute).
+	/// </remarks>
+	public interface IPersistenceConversationalInfo
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="PersistenceConversationalAttribute"/> class.
-		/// </summary>
-		public PersistenceConversationalAttribute()
-		{
-			DefaultEndMode = EndMode.Continue;
-			UseConversationCreationInterceptorConvention = true;
-		}
-
 		/// <summary>
 		/// Fixed Conversation's Id for the target class.
 		/// </summary>
@@ -26,7 +19,7 @@ namespace uNhAddIns.Adapters
 		/// Only use it when multiple instances of the target class must work in the same conversation.
 		/// </para>
 		/// </remarks>
-		public string ConversationId { get; set; }
+		string ConversationId { get; }
 
 		/// <summary>
 		/// Conversation's Id prefix.
@@ -37,7 +30,7 @@ namespace uNhAddIns.Adapters
 		/// The result conversation's Id will be composed by IdPrefix + UniqueId
 		/// </para>
 		/// </remarks>
-		public string IdPrefix { get; set; }
+		string IdPrefix { get; }
 
 		/// <summary>
 		/// Define the way each method, of the target class, will be included in a persistent conversation.
@@ -45,7 +38,7 @@ namespace uNhAddIns.Adapters
 		/// <remarks>
 		/// Optional, default <see cref="uNhAddIns.Adapters.MethodsIncludeMode.Implicit"/>
 		/// </remarks>
-		public MethodsIncludeMode MethodsIncludeMode { get; set; }
+		MethodsIncludeMode MethodsIncludeMode { get; }
 
 		/// <summary>
 		/// Define the <see cref="EndMode"/> of each method where not explicity declared.
@@ -53,7 +46,7 @@ namespace uNhAddIns.Adapters
 		/// <remarks>
 		/// Optional, default <see cref="EndMode.Continue"/>
 		/// </remarks>
-		public EndMode DefaultEndMode { get; set; }
+		EndMode DefaultEndMode { get; }
 
 		///<summary>
 		/// Define the class where conversation's events handlers are implemented.
@@ -61,12 +54,12 @@ namespace uNhAddIns.Adapters
 		/// <remarks>
 		/// The class must implements IConversationCreationInterceptor.
 		/// </remarks>
-		public Type ConversationCreationInterceptor { get; set; }
+		Type ConversationCreationInterceptor { get; }
 
 		/// <summary>
 		/// Use the IoC container to discover the implementor of IConversationCreationInterceptorConvention{T}
-		/// where T is the class indicated by <seealso cref="PersistenceConversationalAttribute"/>.
+		/// where T is the class indicated by <seealso cref="IPersistenceConversationalInfo"/>.
 		/// </summary>
-		public bool UseConversationCreationInterceptorConvention { get; set; }
+		bool UseConversationCreationInterceptorConvention { get; }
 	}
 }
