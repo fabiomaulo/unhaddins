@@ -1,12 +1,9 @@
-﻿using System;
-
 namespace uNhAddIns.Adapters
 {
 	/// <summary>
-	/// Attribute to mark a method as involved in a persistence conversation
+	/// Conversation method meta-data.
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-	public class PersistenceConversationAttribute : Attribute, IPersistenceConversationInfo
+	public interface IPersistenceConversationInfo
 	{
 		/// <summary>
 		/// The action to take after finishing this part of the conversation.
@@ -14,7 +11,7 @@ namespace uNhAddIns.Adapters
 		/// <remarks>
 		/// Default <see cref="PersistenceConversationalAttribute.DefaultEndMode"/>
 		/// </remarks>
-		public EndMode ConversationEndMode { get; set; }
+		EndMode ConversationEndMode { get; set; }
 
 		///<summary>
 		/// <see langword="true"/> if you want to explicitly exclude a method from a persistence-conversation.
@@ -22,6 +19,6 @@ namespace uNhAddIns.Adapters
 		/// <remarks>
 		/// Default <see langword="false"/>.
 		/// </remarks>
-		public bool Exclude { get; set; }
+		bool Exclude { get; }
 	}
 }
