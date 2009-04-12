@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NUnitEx, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\NUnitEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -64,6 +68,7 @@
     <Compile Include="BaseDomain.cs" />
     <Compile Include="ConversationManagement\ConversationFixtureBase.cs" />
     <Compile Include="ConversationManagement\DomainImpl.cs" />
+    <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoInspectorFixture.cs" />
     <Compile Include="Integration\DomainImpl.cs" />
     <Compile Include="Integration\FullCreamFixtureBase.cs" />
     <Compile Include="Integration\SessionWrapperFixtureBase.cs" />
@@ -73,6 +78,10 @@
     <EmbeddedResource Include="Silly.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.Adapters.Common\uNhAddIns.Adapters.Common.csproj">
+      <Project>{6E52BD7D-F0AA-4CBE-B4D7-44904F750070}</Project>
+      <Name>uNhAddIns.Adapters.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
       <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
       <Name>uNhAddIns.Adapters</Name>
