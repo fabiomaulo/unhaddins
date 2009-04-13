@@ -37,6 +37,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractConversationInterceptor.cs" />
     <Compile Include="ConversationalMetaInfoHolder.cs" />
     <Compile Include="ConversationalMetaInfoStore.cs" />
     <Compile Include="IConversationalMetaInfoHolder.cs" />
