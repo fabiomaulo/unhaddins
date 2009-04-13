@@ -1,0 +1,153 @@
+using System;
+using System.Reflection;
+using uNhAddIns.Extensions;
+using uNhAddIns.SessionEasier.Conversations;
+
+namespace uNhAddIns.Adapters.Common
+{
+	public abstract class AbstractConversationInterceptor
+	{
+		protected static readonly Type BaseConventionType = typeof(IConversationCreationInterceptorConvention<>);
+
+		protected string conversationId;
+		protected IConversationalMetaInfoHolder metadata;
+
+		protected AbstractConversationInterceptor(IConversationalMetaInfoStore metadataStore)
+		{
+			MetadataStore = metadataStore;
+		}
+
+		protected IConversationalMetaInfoStore MetadataStore { get; set; }
+
+		protected virtual IConversationalMetaInfoHolder Metadata
+		{
+			get
+			{
+				if(metadata == null)
+				{
+					metadata= MetadataStore.GetMetadataFor(GetConversationalImplementor());
+				}
+				return metadata;
+			}
+		}
+
+		protected abstract Type GetConversationalImplementor();
+		protected abstract IConversationsContainerAccessor GetConversationsContainerAccessor();
+		protected abstract IConversationFactory GetConversationFactory();
+		protected abstract IConversationCreationInterceptor GetConversationCreationInterceptor(Type configuredConcreteType);
+
+		protected virtual void BeforeMethodExecution(MethodInfo methodInfo)
+		{
+			IPersistenceConversationInfo att = Metadata.GetConversationInfoFor(methodInfo);
+			var cca = GetConversationsContainerAccessor();
+			if (att == null || cca == null)
+			{
+				return;
+			}
+			string convId = GetConvesationId(Metadata.Setting);
+			IConversation c = cca.Container.Get(convId);
+			if (c == null)
+			{
+				var cf = GetConversationFactory();
+				if (cf == null)
+				{
+					return;
+				}
+				c = cf.CreateConversation(convId);
+				// we are using the event because a custom eventHandler can prevent the rethrow
+				// but we must Unbind the conversation from the container
+				// and we must dispose the conversation itself (high probability UoW inconsistence).
+				c.OnException += ((conversation, args) => cca.Container.Unbind(c.Id).Dispose());
+				ConfigureConversation(c);
+				cca.Container.SetAsCurrent(c);
+				c.Start();
+			}
+			else
+			{
+				cca.Container.SetAsCurrent(c);
+				c.Resume();
+			}
+		}
+
+		protected virtual void AfterMethodExecution(MethodInfo methodInfo)
+		{
+			IPersistenceConversationInfo att = Metadata.GetConversationInfoFor(methodInfo);
+			var cca = GetConversationsContainerAccessor();
+			if (att == null || cca == null)
+			{
+				return;
+			}
+			IConversation c = cca.Container.Get(conversationId);
+			switch (att.ConversationEndMode)
+			{
+				case EndMode.End:
+					c.End();
+					c.Dispose();
+					break;
+				case EndMode.Abort:
+					c.Abort();
+					c.Dispose();
+					break;
+				case EndMode.CommitAndContinue:
+					c.FlushAndPause();
+					break;
+				default:
+					c.Pause();
+					break;
+			}
+		}
+
+		protected bool ShouldBeIntercepted(MethodInfo methodInfo)
+		{
+			return methodInfo != null && Metadata.Contains(methodInfo);
+		}
+
+		protected virtual string GetConvesationId(IPersistenceConversationalInfo config)
+		{
+			if (conversationId == null)
+			{
+				if (!string.IsNullOrEmpty(config.ConversationId))
+				{
+					conversationId = config.ConversationId;
+				}
+				else if (!string.IsNullOrEmpty(config.IdPrefix))
+				{
+					conversationId = config.IdPrefix + Guid.NewGuid();
+				}
+				else
+				{
+					conversationId = Guid.NewGuid().ToString();
+				}
+			}
+			return conversationId;
+		}
+
+		protected void ConfigureConversation(IConversation conversation)
+		{
+			IConversationCreationInterceptor cci = null;
+			Type creationInterceptorType = Metadata.Setting.ConversationCreationInterceptor;
+			if (creationInterceptorType != null)
+			{
+				cci = creationInterceptorType.IsInterface ? GetConversationCreationInterceptor(creationInterceptorType) : creationInterceptorType.Instantiate<IConversationCreationInterceptor>();
+			}
+			else
+			{
+				if (Metadata.Setting.UseConversationCreationInterceptorConvention)
+				{
+					Type concreteImplementationType = BaseConventionType.MakeGenericType(Metadata.ConversationalClass);
+					cci = GetConversationCreationInterceptor(concreteImplementationType);
+				}
+			}
+			if (cci != null)
+			{
+				cci.Configure(conversation);
+			}
+		}
+
+		protected void DisposeConversationOnException()
+		{
+			var cca = GetConversationsContainerAccessor();
+			cca.Container.Unbind(conversationId).Dispose();
+		}
+	}
+}
