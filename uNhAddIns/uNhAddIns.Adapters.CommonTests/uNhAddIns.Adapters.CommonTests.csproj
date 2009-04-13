@@ -66,9 +66,12 @@
     <Compile Include="AttributesDefaults\PersistenceConversationalAttributeFixture.cs" />
     <Compile Include="AttributesDefaults\PersistenceConversationAttributeFixture.cs" />
     <Compile Include="BaseDomain.cs" />
+    <Compile Include="ConversationManagement\ConversationalMetaInfoHolderFixture.cs" />
+    <Compile Include="ConversationManagement\ConversationalMetaInfoStoreFixture.cs" />
     <Compile Include="ConversationManagement\ConversationFixtureBase.cs" />
     <Compile Include="ConversationManagement\DomainImpl.cs" />
     <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoInspectorFixture.cs" />
+    <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoStoreFixture.cs" />
     <Compile Include="Integration\DomainImpl.cs" />
     <Compile Include="Integration\FullCreamFixtureBase.cs" />
     <Compile Include="Integration\SessionWrapperFixtureBase.cs" />

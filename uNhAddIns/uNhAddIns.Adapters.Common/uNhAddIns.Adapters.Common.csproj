@@ -37,9 +37,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConversationalMetaInfoHolder.cs" />
+    <Compile Include="ConversationalMetaInfoStore.cs" />
+    <Compile Include="IConversationalMetaInfoHolder.cs" />
     <Compile Include="IConversationalMetaInfoInspector.cs" />
+    <Compile Include="IConversationalMetaInfoStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionConversationalMetaInfoInspector.cs" />
+    <Compile Include="ReflectionConversationalMetaInfoStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
