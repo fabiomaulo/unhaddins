@@ -97,6 +97,10 @@
       <Project>{2F125B66-33E5-4C9A-849E-6CB763FF1001}</Project>
       <Name>uNhAddIns.Adapters.CommonTests</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uNhAddIns.Adapters.Common\uNhAddIns.Adapters.Common.csproj">
+      <Project>{6E52BD7D-F0AA-4CBE-B4D7-44904F750070}</Project>
+      <Name>uNhAddIns.Adapters.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
       <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
       <Name>uNhAddIns.Adapters</Name>
@@ -129,5 +133,6 @@
   <PropertyGroup>
     <PostBuildEvent>if exist hibernate.cfg.xml (del hibernate.cfg.xml)
 if exist "$(ProjectDir)hibernate.cfg.xml" (copy "$(ProjectDir)hibernate.cfg.xml" "hibernate.cfg.xml")</PostBuildEvent>
+    <PreBuildEvent>copy "$(ProjectDir)..\bin\$(ConfigurationName)\uNhAddIns.Adapters.Castle.dll"</PreBuildEvent>
   </PropertyGroup>
 </Project>
