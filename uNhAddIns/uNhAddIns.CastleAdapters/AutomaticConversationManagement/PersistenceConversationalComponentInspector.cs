@@ -4,29 +4,33 @@ using Castle.Core;
 using Castle.MicroKernel;
 using Castle.MicroKernel.Facilities;
 using Castle.MicroKernel.ModelBuilder.Inspectors;
+using uNhAddIns.Adapters.Common;
 
 namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 {
 	public class PersistenceConversationalComponentInspector : MethodMetaInspector
 	{
-		private ConversationMetaInfoStore metaStore;
+		private ReflectionConversationalMetaInfoStore metaStore;
 
 		public override void ProcessModel(IKernel kernel, ComponentModel model)
 		{
 			if (metaStore == null)
 			{
-				metaStore = (ConversationMetaInfoStore) kernel[typeof (ConversationMetaInfoStore)];
+				metaStore = (ReflectionConversationalMetaInfoStore)kernel[typeof(IConversationalMetaInfoStore)];
 			}
 
-			ConfigureBasedOnAttributes(model);
+			if (!ConfigureBasedOnAttributes(model))
+			{
+				return;
+			}
 			Validate(model, metaStore);
 
 			AddConversationInterceptorIfIsConversational(model, metaStore);
 		}
 
-		private static void AddConversationInterceptorIfIsConversational(ComponentModel model, ConversationMetaInfoStore store)
+		private static void AddConversationInterceptorIfIsConversational(ComponentModel model, IConversationalMetaInfoStore store)
 		{
-			ConversationMetaInfo meta = store.GetMetaFor(model.Implementation);
+			var meta = store.GetMetadataFor(model.Implementation);
 
 			if (meta == null)
 			{
@@ -37,14 +41,14 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			model.Interceptors.AddFirst(new InterceptorReference(typeof (ConversationInterceptor)));
 		}
 
-		private static void Validate(ComponentModel model, ConversationMetaInfoStore store)
+		private static void Validate(ComponentModel model, IConversationalMetaInfoStore store)
 		{
 			if (model.Service == null || model.Service.IsInterface)
 			{
 				return;
 			}
 
-			ConversationMetaInfo meta = store.GetMetaFor(model.Implementation);
+			var meta = store.GetMetadataFor(model.Implementation);
 
 			if (meta == null)
 			{
@@ -75,9 +79,9 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			}
 		}
 
-		private void ConfigureBasedOnAttributes(ComponentModel model)
+		private bool ConfigureBasedOnAttributes(ComponentModel model)
 		{
-			metaStore.CreateMetaFromType(model.Implementation);
+			return metaStore.Add(model.Implementation);
 		}
 
 		#region Overrides of MethodMetaInspector

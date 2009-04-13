@@ -4,6 +4,7 @@ using Castle.Core;
 using Castle.Core.Interceptor;
 using Castle.MicroKernel;
 using uNhAddIns.Adapters;
+using uNhAddIns.Adapters.Common;
 using uNhAddIns.Extensions;
 using uNhAddIns.SessionEasier.Conversations;
 
@@ -12,18 +13,20 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 	[Transient]
 	public class ConversationInterceptor : IInterceptor, IOnBehalfAware
 	{
+		private readonly IConversationalMetaInfoStore infoStore;
 		private readonly IKernel kernel;
-		private readonly ConversationMetaInfoStore infoStore;
-		private ConversationMetaInfo metaInfo;
 		private string conversationId;
+		private IConversationalMetaInfoHolder metaInfo;
 
-		public ConversationInterceptor(IKernel kernel, ConversationMetaInfoStore infoStore)
+		public ConversationInterceptor(IKernel kernel, IConversationalMetaInfoStore infoStore)
 		{
 			this.kernel = kernel;
 			this.infoStore = infoStore;
 		}
 
 		#region Implementation of IInterceptor
+
+		private static readonly Type BaseConventionType = typeof (IConversationCreationInterceptorConvention<>);
 
 		public void Intercept(IInvocation invocation)
 		{
@@ -36,10 +39,10 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			}
 			else
 			{
-				PersistenceConversationAttribute att = metaInfo.GetConversationAttributeFor(methodInfo);
+				IPersistenceConversationInfo att = metaInfo.GetConversationInfoFor(methodInfo);
 				var cca = kernel[typeof (IConversationsContainerAccessor)] as IConversationsContainerAccessor;
 				var cf = kernel[typeof (IConversationFactory)] as IConversationFactory;
-				if (cca == null || cf == null)
+				if (att == null || cca == null || cf == null)
 				{
 					invocation.Proceed();
 					return;
@@ -93,8 +96,6 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			}
 		}
 
-		private static readonly Type baseConventionType = typeof (IConversationCreationInterceptorConvention<>);
-
 		private void ConfigureConversation(IConversation conversation)
 		{
 			IConversationCreationInterceptor cci = null;
@@ -107,14 +108,14 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 				}
 				else
 				{
-					cci = ReflectionExtensions.Instantiate<IConversationCreationInterceptor>(creationInterceptorType);
+					cci = creationInterceptorType.Instantiate<IConversationCreationInterceptor>();
 				}
 			}
 			else
 			{
 				if (metaInfo.Setting.UseConversationCreationInterceptorConvention)
 				{
-					Type concreteImplementationType = baseConventionType.MakeGenericType(metaInfo.ConversationalClass);
+					Type concreteImplementationType = BaseConventionType.MakeGenericType(metaInfo.ConversationalClass);
 					if (kernel.HasComponent(concreteImplementationType))
 					{
 						cci = (IConversationCreationInterceptor) kernel[concreteImplementationType];
@@ -133,12 +134,12 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 
 		public void SetInterceptedComponentModel(ComponentModel target)
 		{
-			metaInfo = infoStore.GetMetaFor(target.Implementation);
+			metaInfo = infoStore.GetMetadataFor(target.Implementation);
 		}
 
 		#endregion
 
-		private string GetConvesationId(PersistenceConversationalAttribute config)
+		private string GetConvesationId(IPersistenceConversationalInfo config)
 		{
 			if (conversationId == null)
 			{
