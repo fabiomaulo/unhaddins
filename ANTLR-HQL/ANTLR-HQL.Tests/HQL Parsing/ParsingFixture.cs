@@ -23,7 +23,7 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 		[Test, TestCaseSource(typeof(QueryFactoryClass), "TestCases")]
 		public string HqlParse(string query)
 		{
-			var p = new HqlParseEngine(query, false);
+			var p = new HqlParseEngine(query, false, null);
 			p.Parse();
 
 			return " " + p.Ast.ToStringTree();
@@ -36,11 +36,12 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 		[Test]
 		public void ManualTest()
 		{
-			var p = new HqlParseEngine(@"from ОдинТип ОснованиеTипа where ОснованиеTипа.Количество like '%\u4e2d%'", false);
-			p.Parse();
+            var p = new HqlParseEngine(@"select all s, s.Other from s in class Simple where s = :s", false, null);
 
-			Console.WriteLine(p.Ast.ToStringTree());
-		}		
+            p.Parse();
+
+            Console.WriteLine(p.Ast.ToStringTree());
+        }		
 
 		/// <summary>
 		/// Helper "test" to display queries that are ignored
@@ -69,21 +70,22 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 		/// <summary>
 		/// Goes all the way to the DB and back.  Just here until there's a better place to put it...
 		/// </summary>
-		[Test, Ignore]
+		[Test]
 		public void BasicQuery()
 		{
 			XmlConfigurator.Configure();
 
-			string input = "from ANTLR_HQL.Tests.Animal a where a.Legs > 7";
+			string input = "select o.id, li.id from NHibernate.Test.CompositeId.Order o join o.LineItems li";// join o.LineItems li";
 
 			ISessionFactoryImplementor sfi = SetupSFI();
 
 			ISession session = sfi.OpenSession();
-
+			session.CreateQuery(input).List();
+			/*
 			foreach (Animal o in session.CreateQuery(input).Enumerable())
 			{
 				Console.WriteLine(o.Description);
-			}
+			}*/
 		}
 
 		ISessionFactoryImplementor SetupSFI()
@@ -103,7 +105,7 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 				get
 				{
 					// TODO - need to handle Ignore better (it won't show in results...)
-					return EnumerateTests(td => !td.Ignore && td.Result != "Exception",
+					return EnumerateTests(td => !td.Ignore && !td.Result.StartsWith("Exception"),
 					                      td => new TestCaseData(td.Query)
 											  .Returns(td.Result)
 											  .SetCategory(td.Category)
@@ -125,7 +127,7 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 			{
 				get
 				{
-					return EnumerateTests(td => td.Result == "Exception",
+					return EnumerateTests(td => td.Result.StartsWith("Exception"),
 										  td => td.Query);
 				}
 			}

@@ -62,7 +62,7 @@ public class GenerateHibernateResults
             }
             catch (Exception e)
             {
-               result = "Exception";
+               result = "Exception " + e.getMessage();
             }
 
             out.println("         <Result><![CDATA[" + result + "]]></Result>");
