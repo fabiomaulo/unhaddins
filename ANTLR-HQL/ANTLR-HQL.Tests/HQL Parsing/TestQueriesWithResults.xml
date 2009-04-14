@@ -1,4 +1,11 @@
 <Tests>
+   <TestGroup Name="Misc">
+      <Description></Description>
+      <Test>
+         <Query><![CDATA[select foo from foo in class NHibernate.DomainModel.Foo, baz in class NHibernate.DomainModel.Baz where foo in baz.FooArray.elements and 3 = some baz.IntArray.elements and 4 > all baz.IntArray.indices]]></Query>
+         <Result><![CDATA[Exception unexpected token: . near line 1, column 149]]></Result>
+      </Test>
+   </TestGroup>
    <TestGroup Name="ArrayExpr">
       <Description></Description>
       <Test>
@@ -116,11 +123,11 @@
       </Test>
       <Test>
          <Query><![CDATA[from Order order where maxindex(order.items) > 100]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: order near line 1, column 33]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from Order order where minelement(order.items) > 10000]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: order near line 1, column 35]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from Order ord where maxindex(ord.items) > 100]]></Query>
@@ -174,7 +181,7 @@
         select item from Item item, Order order
         where order.items[ maxindex(order.items) ] = item and order.id = 11
       ]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: order near line 3, column 37]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from Order ord where ord.items[0].id = 1234]]></Query>
@@ -2851,22 +2858,27 @@
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[select bar.string, foo.string from bar in class org.hibernate.test.Bar inner join bar.baz as baz inner join elements(baz.fooSet) as foo where baz.name = 'name']]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: elements near line 1, column 109]]></Result>
       </Test>
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[select bar.string, foo.string from bar in class org.hibernate.test.Bar, bar.baz as baz, elements(baz.fooSet) as foo where baz.name = 'name']]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: elements near line 1, column 89]]></Result>
       </Test>
       <Test Ignore="true">
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[select count(*) where this.amount>-1 and this.name is null]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception FROM expected (non-filter queries must contain a FROM clause)]]></Result>
       </Test>
-      <Test Ignore="true">
+      <Test>
          <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
          <Query><![CDATA[from sm in class org.hibernate.test.SubMulti where exists sm.children.elements]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: . near line 1, column 61]]></Result>
+      </Test>
+      <Test>
+         <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
+         <Query><![CDATA[from foo in class NHibernate.DomainModel.Foo where 111 in foo.Bytes.elements]]></Query>
+         <Result><![CDATA[ ( query ( SELECT_FROM ( from ( RANGE ( . ( . NHibernate DomainModel ) Foo ) foo ) ) ) ( where ( in 111 ( inList ( . ( . foo Bytes ) elements ) ) ) ) )]]></Result>
       </Test>
    </TestGroup>
    <TestGroup Name="EjbqlExtensions">
@@ -2926,7 +2938,7 @@
       </Test>
       <Test>
          <Query><![CDATA[from Order order join order.group]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: order near line 1, column 23]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[from X x order by x.group.by.from]]></Query>
@@ -3330,7 +3342,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select count(a.id) from Animal a having count(a.id)>1]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: having near line 1, column 34]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select avg(a.BodyWeight) from Animal a]]></Query>
@@ -3338,7 +3350,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select avg(a.BodyWeight) from Animal a having avg(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: having near line 1, column 40]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select max(a.BodyWeight) from Animal a]]></Query>
@@ -3346,7 +3358,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select max(a.BodyWeight) from Animal a having max(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: having near line 1, column 40]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select min(a.BodyWeight) from Animal a]]></Query>
@@ -3354,7 +3366,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select min(a.BodyWeight) from Animal a having min(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: having near line 1, column 40]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select sum(a.BodyWeight) from Animal a]]></Query>
@@ -3362,7 +3374,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select sum(a.BodyWeight) from Animal a having sum(a.BodyWeight)>0]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception unexpected token: having near line 1, column 40]]></Result>
       </Test>
    </TestGroup>
    <TestGroup Name="HQLFuctions - Substring">
@@ -3615,7 +3627,7 @@
       </Test>
       <Test>
          <Query><![CDATA[select cast(cast(cast(a.BodyWeight as string) as double) as int from Animal a group by cast(cast(cast(a.BodyWeight as string) as double) as int having cast(cast(cast(a.BodyWeight as string) as double) as int = 1]]></Query>
-         <Result><![CDATA[Exception]]></Result>
+         <Result><![CDATA[Exception expecting CLOSE, found 'from' near line 1, column 65]]></Result>
       </Test>
       <Test>
          <Query><![CDATA[select cast(a.BodyWeight As Double) from Animal a]]></Query>

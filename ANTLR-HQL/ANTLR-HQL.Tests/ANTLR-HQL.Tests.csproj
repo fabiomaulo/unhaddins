@@ -74,6 +74,12 @@
     <Compile Include="Animal.cs" />
     <Compile Include="HQL Parsing\ParsingFixture.cs" />
     <Compile Include="Human.cs" />
+    <Compile Include="Models\ClassWithCompositeId.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Id.cs" />
+    <Compile Include="Models\LineItem.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Name.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -97,6 +103,11 @@
     <Content Include="HQL Parsing\TestQueriesWithResults.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Models\ClassWithCompositeId.hbm.xml" />
+    <EmbeddedResource Include="Models\Customer.hbm.xml" />
+    <EmbeddedResource Include="Models\LineItem.hbm.xml" />
+    <EmbeddedResource Include="Models\Order.hbm.xml" />
+    <EmbeddedResource Include="Models\Product.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

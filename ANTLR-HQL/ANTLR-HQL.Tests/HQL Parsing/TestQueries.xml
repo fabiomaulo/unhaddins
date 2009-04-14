@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tests>
+  <TestGroup Name="Misc">
+    <Test>
+      <Query><![CDATA[select foo from foo in class NHibernate.DomainModel.Foo, baz in class NHibernate.DomainModel.Baz where foo in baz.FooArray.elements and 3 = some baz.IntArray.elements and 4 > all baz.IntArray.indices]]></Query>
+    </Test>
+  </TestGroup>
+
   <TestGroup Name="ArrayExpr">
     <Test>
       <Query><![CDATA[from Order ord where ord.items[0].id = 1234]]></Query>
@@ -2262,9 +2268,13 @@
       <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
       <Query><![CDATA[select count(*) where this.amount>-1 and this.name is null]]></Query>
     </Test>
-    <Test Ignore="true">
+    <Test>
       <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
       <Query><![CDATA[from sm in class org.hibernate.test.SubMulti where exists sm.children.elements]]></Query>
+    </Test>
+    <Test>
+      <Description>from h3.2.6 I'm not sure about these... [jsd]</Description>
+      <Query><![CDATA[from foo in class NHibernate.DomainModel.Foo where 111 in foo.Bytes.elements]]></Query>
     </Test>
   </TestGroup>
 
