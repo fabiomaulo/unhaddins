@@ -82,6 +82,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get { return _querySpaces; }
 		}
 
+	    public IDictionary<string, object> NamedParameters
+	    {
+            get { return _namedParameters; }
+	    }
+
 		public SessionFactoryHelperExtensions SessionFactoryHelper
 		{
 			get { return _sessionFactoryHelper; }
@@ -445,15 +450,71 @@ namespace NHibernate.Hql.Ast.ANTLR
 			}
 		}
 
-		IASTNode CreateFromElement(string path, IASTNode alias, IASTNode propertyFetch)
+		IASTNode CreateFromElement(string path, IASTNode pathNode, IASTNode alias, IASTNode propertyFetch)
 		{
-			FromElement fromElement = _currentFromClause.AddFromElement( path, alias );
-			fromElement.SetAllPropertyFetch(propertyFetch != null);
-			return fromElement;
+            try
+            {
+                FromElement fromElement = _currentFromClause.AddFromElement(path, alias);
+                fromElement.SetAllPropertyFetch(propertyFetch != null);
+                return fromElement;
+            }
+            catch (Exception e)
+            {
+                // Try resolving as if it were a join
+                // TODO - clean this up!
+                try
+                {
+                    pathNode = PreProcessPathForJoin(pathNode);
+
+                    CreateFromJoinElement(pathNode, alias, INNER, null, null, null);
+                    return null;
+                }
+                catch (Exception)
+                {
+                    throw e;
+                }
+            }
 		}
 
+        private IASTNode PreProcessPathForJoin(IASTNode node)
+        {
+            // Process LHS
+            node.SetChild(0, PreProcessPathForJoin3(node.GetChild(0)));
 
-		IASTNode CreateFromFilterElement(IASTNode filterEntity, IASTNode alias)
+            return LookupProperty(node, false, true);
+
+        }
+
+        private IASTNode PreProcessPathForJoin3(IASTNode node)
+        {
+	        if (IsNonQualifiedPropertyRef(node))
+            {
+                return LookupNonQualifiedProperty(node);
+            }
+            else
+            {
+                return Resolve(node);
+            }
+        }
+
+	    private IASTNode PreProcessPathForJoin2(IASTNode node)
+	    {
+	       if (node is DotNode)
+	       {
+               // Process our child
+               node.SetChild(1, PreProcessPathForJoin2(node.GetChild(1)));
+
+               // And process us
+	           return LookupProperty(node, false, true);
+	       }
+	       else
+	       {
+	           return node;
+	       }
+	    }
+
+
+	    IASTNode CreateFromFilterElement(IASTNode filterEntity, IASTNode alias)
 		{
 			FromElement fromElement = _currentFromClause.AddFromElement(filterEntity.Text, alias);
 			FromClause fromClause = fromElement.FromClause;

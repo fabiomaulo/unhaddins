@@ -268,6 +268,16 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 			return _children[index];
 		}
 
+        public void SetChild(int index, IASTNode newChild)
+        {
+            if ((_children == null) || _children.Count <= index)
+            {
+                throw new InvalidOperationException();
+            }
+
+            _children[index] = newChild;
+        }
+
 		public IToken Token
 		{
 			get { return _token; }

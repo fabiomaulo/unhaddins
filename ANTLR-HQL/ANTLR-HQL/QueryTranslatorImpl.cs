@@ -158,6 +158,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 			return _translator.SqlStatement.Walker.SelectClause.ColumnNames;
 		}
 
+	    public IDictionary<string, object> NamedParameters
+	    {
+            get { return _translator.NamedParameters; }
+	    }
+
 		public IParameterTranslations GetParameterTranslations()
 		{
 			if (_paramTranslations == null)
@@ -488,6 +493,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private readonly QueryTranslatorImpl _qti;
 		private readonly ISessionFactoryImplementor _sfi;
 		private readonly IDictionary<string, string> _tokenReplacements;
+	    private IDictionary<string, object> _namedParameters;
 		private readonly string _collectionRole;
 		private IStatement _resultAst;
 
@@ -511,6 +517,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 			get { return _resultAst; }
 		}
 
+	    public IDictionary<string, object> NamedParameters
+	    {
+            get { return _namedParameters; }
+	    }
+
 		public IStatement Translate()
 		{
 			if (_resultAst == null)
@@ -523,6 +534,8 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 				// Transform the tree.
 				_resultAst = (IStatement) hqlSqlWalker.statement().Tree;
+
+			    _namedParameters = hqlSqlWalker.NamedParameters;
 
 				/*
 				if ( AST_LOG.isDebugEnabled() ) {
