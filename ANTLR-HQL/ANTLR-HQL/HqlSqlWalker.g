@@ -210,9 +210,13 @@ fromElementList @init{
 	;
 
 fromElement! 
+@init {
+   IASTNode fromElement = null;
+}
 	// A simple class name, alias element.
-	: ^(RANGE p=path (a=ALIAS)? (pf=FETCH)? ) 
-		-> ^({CreateFromElement($p.p,$a, $pf)})
+	: ^(RANGE p=path (a=ALIAS)? (pf=FETCH)? ) { fromElement = CreateFromElement($p.p, $p.tree, $a, $pf); }
+		-> {fromElement != null}? ^({fromElement})
+		->
 	| je=joinElement 
 		-> //$je
 	// A from element created due to filter compilation
