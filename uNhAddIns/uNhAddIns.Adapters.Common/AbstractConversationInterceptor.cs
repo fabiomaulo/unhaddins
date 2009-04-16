@@ -128,7 +128,7 @@ namespace uNhAddIns.Adapters.Common
 			return conversationId;
 		}
 
-		protected void ConfigureConversation(IConversation conversation)
+		protected virtual void ConfigureConversation(IConversation conversation)
 		{
 			IConversationCreationInterceptor cci = null;
 			Type creationInterceptorType = Metadata.Setting.ConversationCreationInterceptor;
