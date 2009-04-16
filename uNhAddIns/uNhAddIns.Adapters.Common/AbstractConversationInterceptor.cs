@@ -12,34 +12,40 @@ namespace uNhAddIns.Adapters.Common
 		protected string conversationId;
 		protected IConversationalMetaInfoHolder metadata;
 
-		protected AbstractConversationInterceptor(IConversationalMetaInfoStore metadataStore)
+		protected AbstractConversationInterceptor(IConversationalMetaInfoStore metadataStore,
+			IConversationsContainerAccessor conversationsContainerAccessor,
+			IConversationFactory conversationFactory)
 		{
+			ConversationsContainerAccessor = conversationsContainerAccessor;
+			ConversationFactory = conversationFactory;
 			MetadataStore = metadataStore;
 		}
 
 		protected IConversationalMetaInfoStore MetadataStore { get; set; }
 
+		protected IConversationsContainerAccessor ConversationsContainerAccessor { get; private set; }
+
+		protected IConversationFactory ConversationFactory { get; private set; }
+
 		protected virtual IConversationalMetaInfoHolder Metadata
 		{
 			get
 			{
-				if(metadata == null)
+				if (metadata == null)
 				{
-					metadata= MetadataStore.GetMetadataFor(GetConversationalImplementor());
+					metadata = MetadataStore.GetMetadataFor(GetConversationalImplementor());
 				}
 				return metadata;
 			}
 		}
 
 		protected abstract Type GetConversationalImplementor();
-		protected abstract IConversationsContainerAccessor GetConversationsContainerAccessor();
-		protected abstract IConversationFactory GetConversationFactory();
 		protected abstract IConversationCreationInterceptor GetConversationCreationInterceptor(Type configuredConcreteType);
 
 		protected virtual void BeforeMethodExecution(MethodInfo methodInfo)
 		{
 			IPersistenceConversationInfo att = Metadata.GetConversationInfoFor(methodInfo);
-			var cca = GetConversationsContainerAccessor();
+			var cca = ConversationsContainerAccessor;
 			if (att == null || cca == null)
 			{
 				return;
@@ -48,7 +54,7 @@ namespace uNhAddIns.Adapters.Common
 			IConversation c = cca.Container.Get(convId);
 			if (c == null)
 			{
-				var cf = GetConversationFactory();
+				var cf = ConversationFactory;
 				if (cf == null)
 				{
 					return;
@@ -72,7 +78,7 @@ namespace uNhAddIns.Adapters.Common
 		protected virtual void AfterMethodExecution(MethodInfo methodInfo)
 		{
 			IPersistenceConversationInfo att = Metadata.GetConversationInfoFor(methodInfo);
-			var cca = GetConversationsContainerAccessor();
+			var cca = ConversationsContainerAccessor;
 			if (att == null || cca == null)
 			{
 				return;
@@ -146,7 +152,7 @@ namespace uNhAddIns.Adapters.Common
 
 		protected void DisposeConversationOnException()
 		{
-			var cca = GetConversationsContainerAccessor();
+			var cca = ConversationsContainerAccessor;
 			cca.Container.Unbind(conversationId).Dispose();
 		}
 	}
