@@ -14,8 +14,11 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 		private readonly IKernel kernel;
 		private Type targetImplementation;
 
-		public ConversationInterceptor(IKernel kernel, IConversationalMetaInfoStore metadataStore) 
-			: base(metadataStore)
+		public ConversationInterceptor(IKernel kernel,
+			IConversationalMetaInfoStore metadataStore,
+			IConversationsContainerAccessor conversationsContainerAccessor,
+			IConversationFactory conversationFactory)
+			: base(metadataStore, conversationsContainerAccessor, conversationFactory)
 		{
 			this.kernel = kernel;
 		}
@@ -60,16 +63,6 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 		protected override Type GetConversationalImplementor()
 		{
 			return targetImplementation;
-		}
-
-		protected override IConversationsContainerAccessor GetConversationsContainerAccessor()
-		{
-			return kernel[typeof (IConversationsContainerAccessor)] as IConversationsContainerAccessor;
-		}
-
-		protected override IConversationFactory GetConversationFactory()
-		{
-			return kernel[typeof (IConversationFactory)] as IConversationFactory;
 		}
 
 		protected override IConversationCreationInterceptor GetConversationCreationInterceptor(Type configuredConcreteType)
