@@ -38,7 +38,7 @@ namespace uNhAddIns.CastleAdapters.AutomaticConversationManagement
 			}
 
 			model.Dependencies.Add(new DependencyModel(DependencyType.Service, null, typeof (ConversationInterceptor), false));
-			model.Interceptors.AddFirst(new InterceptorReference(typeof (ConversationInterceptor)));
+			model.Interceptors.Add(new InterceptorReference(typeof (ConversationInterceptor)));
 		}
 
 		private static void Validate(ComponentModel model, IConversationalMetaInfoStore store)
