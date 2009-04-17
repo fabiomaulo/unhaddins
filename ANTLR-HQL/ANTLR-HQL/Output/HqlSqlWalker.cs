@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g 2009-04-13 22:13:41
+// $ANTLR 3.1.2 /Users/Steve/Projects/uNhAddins/Trunk/ANTLR-HQL/ANTLR-HQL/HqlSqlWalker.g 2009-04-16 21:34:40
 
 // The variable 'variable' is assigned but its value is never used.
 #pragma warning disable 168, 219
@@ -1622,7 +1622,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          f, o, s, w, g
+            	// elements:          g, s, w, f, o
             	// token labels:      
             	// rule labels:       o, w, f, retval, g, s
             	// token list labels: 
@@ -4049,9 +4049,7 @@ public partial class HqlSqlWalker : TreeParser
                     	state.followingStackPointer--;
 
                     	adaptor.AddChild(root_0, a.Tree);
-                    	 retval.p =  ((a != null) ? input.TokenStream.ToString(
-                    	  input.TreeAdaptor.GetTokenStartIndex(a.Start),
-                    	  input.TreeAdaptor.GetTokenStopIndex(a.Start)) : null); 
+                    	 retval.p =  ((a != null) ? ((IASTNode)a.Start) : null).ToString();
 
                     }
                     break;
@@ -4091,9 +4089,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
                     				StringBuilder buf = new StringBuilder();
-                    				buf.Append(((x != null) ? x.p : default(String))).Append('.').Append(((y != null) ? input.TokenStream.ToString(
-                    	  input.TreeAdaptor.GetTokenStartIndex(y.Start),
-                    	  input.TreeAdaptor.GetTokenStopIndex(y.Start)) : null));
+                    				buf.Append(((x != null) ? x.p : default(String))).Append('.').Append(((y != null) ? ((IASTNode)y.Start) : null).ToString());
                     				retval.p =  buf.ToString();
                     			
 
@@ -4255,7 +4251,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          w, b
+            	// elements:          b, w
             	// token labels:      w
             	// rule labels:       retval, b
             	// token list labels: 
@@ -7981,7 +7977,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          lhs, d, rhs
+            	// elements:          d, lhs, rhs
             	// token labels:      d
             	// rule labels:       lhs, retval, rhs
             	// token list labels: 
@@ -8097,7 +8093,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          i, rhs2, lhs2
+            	// elements:          i, lhs2, rhs2
             	// token labels:      i
             	// rule labels:       rhs2, retval, lhs2
             	// token list labels: 
@@ -8599,7 +8595,7 @@ public partial class HqlSqlWalker : TreeParser
 
 
             	// AST REWRITE
-            	// elements:          lhs, d, rhs
+            	// elements:          lhs, rhs, d
             	// token labels:      d
             	// rule labels:       lhs, retval, rhs
             	// token list labels: 
