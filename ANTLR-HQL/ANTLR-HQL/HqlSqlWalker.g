@@ -258,10 +258,10 @@ joinType returns [int j]
 // Matches a path and returns the normalized string for the path (usually
 // fully qualified a class name).
 path returns [String p] 
-	: a=identifier { $p = $a.text; }
+	: a=identifier { $p = $a.start.ToString();}
 	| ^(DOT x=path y=identifier) {
 			StringBuilder buf = new StringBuilder();
-			buf.Append($x.p).Append('.').Append($y.text);
+			buf.Append($x.p).Append('.').Append($y.start.ToString());
 			$p = buf.ToString();
 		}
 	;

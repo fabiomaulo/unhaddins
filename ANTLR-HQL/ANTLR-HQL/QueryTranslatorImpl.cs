@@ -33,6 +33,28 @@ namespace NHibernate.Hql.Ast.ANTLR
 		private HqlSqlTranslator _translator;
 		private HqlSqlGenerator _generator;
 
+        /// <summary>
+        /// Creates a new AST-based query translator.
+        /// </summary>
+        /// <param name="queryIdentifier">The query-identifier (used in stats collection)</param>
+        /// <param name="query">The hql query to translate</param>
+        /// <param name="enabledFilters">Currently enabled filters</param>
+        /// <param name="factory">The session factory constructing this translator instance.</param>
+        public QueryTranslatorImpl(
+                string queryIdentifier,
+                IASTNode query,
+                IDictionary<string, IFilter> enabledFilters,
+                ISessionFactoryImplementor factory)
+        {
+            _queryIdentifier = queryIdentifier;
+            _hql = query.ToStringTree();
+            _compiled = false;
+            _shallowQuery = false;
+            _enabledFilters = enabledFilters;
+            _factory = factory;
+            _parser = new HqlParseEngine(query, factory);
+        }
+
 		/// <summary>
 		/// Creates a new AST-based query translator.
 		/// </summary>
@@ -314,10 +336,13 @@ namespace NHibernate.Hql.Ast.ANTLR
 			try 
 			{
 				// PHASE 1 : Parse the HQL into an AST.
-				_parser = new HqlParseEngine(_hql, true, _factory);
-				_parser.Parse();
+                if (_parser == null)
+                {
+                    _parser = new HqlParseEngine(_hql, true, _factory);
+                    _parser.Parse();
+                }
 
-				// PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
+			    // PHASE 2 : Analyze the HQL AST, and produce an SQL AST.
 				_translator = new HqlSqlTranslator(_parser.Ast, _parser.Tokens, this, _factory, replacements,
                                                    collectionRole);
 				_translator.Translate();
@@ -393,6 +418,12 @@ namespace NHibernate.Hql.Ast.ANTLR
 			_filter = filter;
             _sfi = sfi;
 		}
+
+        public HqlParseEngine(IASTNode ast, ISessionFactoryImplementor sfi)
+        {
+            _sfi = sfi;
+            _ast = ast;
+        }
 
 		public string Hql
 		{
@@ -585,7 +616,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 				CommonTreeNodeStream nodes = new CommonTreeNodeStream(_ast);
 				nodes.TokenStream = _tokens;
 
-				SqlGenerator gen = new SqlGenerator(_sfi, nodes);
+                SqlGenerator gen = new SqlGenerator(_sfi, nodes);
 				//gen.TreeAdaptor = new ASTTreeAdaptor();
 
 				gen.statement();

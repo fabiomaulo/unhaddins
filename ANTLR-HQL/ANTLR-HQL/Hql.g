@@ -185,14 +185,7 @@ optionalFromTokenFromClause
 optionalFromTokenFromClause2
 	: FROM?
 	;
-/*
-TODO - check
-selectStatement
-	: queryRule {
-		#selectStatement = #([QUERY,"query"], #selectStatement);
-	}
-	;
-*/
+
 selectStatement
 	: q=queryRule 
 	-> ^(QUERY["query"] $q)
@@ -208,15 +201,7 @@ insertStatement
 intoClause
 	: INTO^ path { WeakKeywords(); } insertablePropertySpec
 	;
-/*
-TODO - check
-insertablePropertySpec
-	: OPEN! primaryExpression ( COMMA! primaryExpression )* CLOSE! {
-		// Just need *something* to distinguish this on the hql-sql.g side
-		#insertablePropertySpec = #([RANGE, "column-spec"], #insertablePropertySpec);
-	}
-	;
-*/
+
 insertablePropertySpec
 	: OPEN primaryExpression ( COMMA primaryExpression )* CLOSE
 		-> ^(RANGE["column-spec"] primaryExpression*)
@@ -279,12 +264,6 @@ selectClause
 		(DISTINCT)? ( selectedPropertiesList | newExpression | selectObject )
 	;
 
-/*
-TODO - check
-newExpression
-	: (NEW! path) op=OPEN^ {#op.setType(CONSTRUCTOR);} selectedPropertiesList CLOSE!
-	;
-*/
 newExpression
 	: (NEW path) op=OPEN selectedPropertiesList CLOSE
 		-> ^(CONSTRUCTOR[$op] path selectedPropertiesList)
@@ -324,57 +303,21 @@ fromRange
 	| inCollectionElementsDeclaration
 	;
 
-/*
-TODO - check
-fromClassOrOuterQueryPath!
-	: c=path { weakKeywords(); } (a=asAlias)? (p=propertyFetch)? {
-		#fromClassOrOuterQueryPath = #([RANGE, "RANGE"], #c, #a, #p);
-	}
-	;
-*/
-	
 fromClassOrOuterQueryPath
 	: path { WeakKeywords(); } (asAlias)? (propertyFetch)? 
 		-> ^(RANGE path asAlias? propertyFetch?)
 	;
-
-/* 
-TODO - check
-inClassDeclaration!
-	: a=alias IN! CLASS! c=path {
-		#inClassDeclaration = #([RANGE, "RANGE"], #c, #a);
-	}
-	;
-*/
 
 inClassDeclaration
 	: alias IN CLASS path 
 		-> ^(RANGE path alias)
 	;
 
-/*
-TODO - check
-inCollectionDeclaration!
-    : IN! OPEN! p=path CLOSE! a=alias {
-        #inCollectionDeclaration = #([JOIN, "join"], [INNER, "inner"], #p, #a);
-	}
-    ;
-*/
-
 inCollectionDeclaration!
     : IN OPEN path CLOSE alias 
     	-> ^(JOIN["join"] INNER["inner"] path alias)
     ;
 
-/*
-TODO - check
-inCollectionElementsDeclaration!
-	: a=alias IN! ELEMENTS! OPEN! p=path CLOSE! {
-        #inCollectionElementsDeclaration = #([JOIN, "join"], [INNER, "inner"], #p, #a);
-	}
-    ;
-*/
-	
 inCollectionElementsDeclaration
 	: alias IN ELEMENTS OPEN path CLOSE 
 		-> ^(JOIN["join"] INNER["inner"] path alias)
@@ -387,14 +330,6 @@ inCollectionElementsDeclaration
 asAlias
 	: (AS!)? alias
 	;
-
-/*
-TODO - check
-alias
-	: a=identifier { #a.setType(ALIAS); }
-    ;
-*/
-
 alias
 	: i=identifier
 	-> ^(ALIAS[$i.start])
@@ -501,15 +436,6 @@ logicalAndExpression
 
 // NOT nodes aren't generated.  Instead, the operator in the sub-tree will be
 // negated, if possible.   Expressions without a NOT parent are passed through.
-/*
-TODO - check
-negatedExpression!
-@init{ weakKeywords(); } // Weak keywords can appear in an expression, so look ahead.
-	: NOT^ x=negatedExpression { #negatedExpression = negateNode(#x); }
-	| y=equalityExpression { #negatedExpression = #y; }
-	;
-*/
-
 negatedExpression
 @init{ WeakKeywords(); } // Weak keywords can appear in an expression, so look ahead.
 	: NOT x=negatedExpression
@@ -521,21 +447,6 @@ negatedExpression
 //## OP: EQ | LT | GT | LE | GE | NE | SQL_NE | LIKE;
 
 // level 5 - EQ, NE
-/*
-TODO - check
-equalityExpression
-	: x=relationalExpression (
-		( EQ^
-		| is=IS^	{ #is.setType(EQ); } (NOT! { #is.setType(NE); } )?
-		| NE^
-		| ne=SQL_NE^	{ #ne.setType(NE); }
-		) y=relationalExpression)*
-		{
-			// Post process the equality expression to clean up 'is null', etc.
-			#equalityExpression = processEqualityExpression(#equalityExpression);
-		}
-	;
-*/
 equalityExpression
 		@after{
 			// Post process the equality expression to clean up 'is null', etc.
@@ -553,36 +464,6 @@ equalityExpression
 // NOTE: The NOT prefix for LIKE and BETWEEN will be represented in the
 // token type.  When traversing the AST, use the token type, and not the
 // token text to interpret the semantics of these nodes.
-/*
-TODO - check
-relationalExpression
-	: concatenation (
-		( ( ( LT^ | GT^ | LE^ | GE^ ) additiveExpression )* )
-		// Disable node production for the optional 'not'.
-		| (n=NOT!)? (
-			// Represent the optional NOT prefix using the token type by
-			// testing 'n' and setting the token type accordingly.
-			(i=IN^ {
-					#i.setType( (n == null) ? IN : NOT_IN);
-					#i.setText( (n == null) ? "in" : "not in");
-				}
-				inList)
-			| (b=BETWEEN^ {
-					#b.setType( (n == null) ? BETWEEN : NOT_BETWEEN);
-					#b.setText( (n == null) ? "between" : "not between");
-				}
-				betweenList )
-			| (l=LIKE^ {
-					#l.setType( (n == null) ? LIKE : NOT_LIKE);
-					#l.setText( (n == null) ? "like" : "not like");
-				}
-				concatenation likeEscape)
-			| (MEMBER! (OF!)? p=path! {
-				processMemberOf(n,#p,currentAST);
-			  } ) )
-		)
-	;
-*/
 relationalExpression
 	: concatenation (
 		( ( ( LT^ | GT^ | LE^ | GE^ ) additiveExpression )* )
@@ -616,13 +497,6 @@ likeEscape
 	: (ESCAPE^ concatenation)?
 	;
 
-/*
-TODO - check
-inList
-	: x=compoundExpr
-	{ #inList = #([IN_LIST,'inList'], #inList); }
-	;
-*/
 inList
 	: compoundExpr
 	-> ^(IN_LIST["inList"] compoundExpr)
@@ -662,16 +536,6 @@ multiplyExpression
 	;
 	
 // level 1 - unary minus, unary plus, not
-/*
-TODO - check
-unaryExpression
-	: MINUS^ {#MINUS.setType(UNARY_MINUS);} unaryExpression
-	| PLUS^ {#PLUS.setType(UNARY_PLUS);} unaryExpression
-	| caseExpression
-	| quantifiedExpression
-	| atom
-	;
-*/
 unaryExpression
 	: m=MINUS mu=unaryExpression -> ^(UNARY_MINUS[$m] $mu)
 	| p=PLUS pu=unaryExpression -> ^(UNARY_PLUS[$p] $pu)
@@ -680,14 +544,6 @@ unaryExpression
 	| a=atom -> ^($a)
 	;
 	
-/*
-TODO - check
-caseExpression
-	: CASE^ (whenClause)+ (elseClause)? END!
-	| CASE^ { #CASE.setType(CASE2); } unaryExpression (altWhenClause)+ (elseClause)? END!
-	;
-*/
-
 caseExpression
 	: CASE (whenClause)+ (elseClause)? END
 		-> ^(CASE whenClause elseClause?) 
@@ -715,18 +571,6 @@ quantifiedExpression
 // level 0 - expression atom
 // ident qualifier ('.' ident ), array index ( [ expr ] ),
 // method call ( '.' ident '(' exprList ') )
-/*
-TODO - check
-atom
-	 : primaryExpression
-		(
-			DOT^ identifier
-				( options { greedy=true; } :
-					( op=OPEN^ {#op.setType(METHOD_CALL);} exprList CLOSE! ) )?
-		|	lb=OPEN_BRACKET^ {#lb.setType(INDEX_OP);} expression CLOSE_BRACKET!
-		)*
-	;
-*/
 atom
 	 : primaryExpression
 		(
@@ -749,18 +593,6 @@ primaryExpression
 
 // This parses normal expression and a list of expressions separated by commas.  If a comma is encountered
 // a parent VECTOR_EXPR node will be created for the list.
-/*
-TODO - check
-expressionOrVector!
-	: e=expression ( v=vectorExpr )? {
-		// If this is a vector expression, create a parent node for it.
-		if (#v != null)
-			#expressionOrVector = #([VECTOR_EXPR,'{vector}'], #e, #v);
-		else
-			#expressionOrVector = #e;
-	}
-	;
-*/
 expressionOrVector!
 	: e=expression ( v=vectorExpr )? 
 	-> {v != null}? ^(VECTOR_EXPR["{vector}"] $e $v)
@@ -774,18 +606,6 @@ vectorExpr
 // identifier, followed by member refs (dot ident), or method calls.
 // NOTE: handleDotIdent() is called immediately after the first IDENT is recognized because
 // the method looks a head to find keywords after DOT and turns them into identifiers.
-/*
-TODO - check
-identPrimary
-	: identifier { handleDotIdent(); }
-			( options { greedy=true; } : DOT^ ( identifier | ELEMENTS | o=OBJECT { #o.setType(IDENT); } ) )*
-			( options { greedy=true; } :
-				( op=OPEN^ { #op.setType(METHOD_CALL);} exprList CLOSE! )
-			)?
-	// Also allow special 'aggregate functions' such as count(), avg(), etc.
-	| aggregate
-	;
-*/
 identPrimary
 @init {
 HandleDotIdent2();
@@ -803,15 +623,6 @@ HandleDotIdent2();
 
 //## aggregateFunction:
 //##     COUNT | 'sum' | 'avg' | 'max' | 'min';
-/*
-TODO - check
-aggregate
-	: ( SUM^ | AVG^ | MAX^ | MIN^ ) OPEN! additiveExpression CLOSE! { #aggregate.setType(AGGREGATE); }
-	// Special case for count - It's 'parameters' can be keywords.
-	|  COUNT^ OPEN! ( STAR { #STAR.setType(ROW_STAR); } | ( ( DISTINCT | ALL )? ( path | collectionExpr ) ) ) CLOSE!
-	|  collectionExpr
-	;
-*/
 aggregate
 	: ( op=SUM | op=AVG | op=MAX | op=MIN ) OPEN additiveExpression CLOSE
 		-> ^(AGGREGATE[$op] additiveExpression)
@@ -840,18 +651,6 @@ compoundExpr
 	| (OPEN! ( (expression (COMMA! expression)*) | subQuery ) CLOSE!)
 	;
 
-/*
-TODO - check
-subQuery
-	: union
-	{ #subQuery = #([QUERY,'query'], #subQuery); }
-	;
-*/
-subQuery
-	: union
-	-> ^(QUERY["query"] union)
-	;
-
 exprList
 @after {
    IASTNode root = (IASTNode) adaptor.Create(EXPR_LIST, "exprList");
@@ -869,6 +668,11 @@ exprList
 	  	| f2=FROM expression {$f2.Type = IDENT;}
 	  )?
 	;
+subQuery
+	: union
+	-> ^(QUERY["query"] union)
+	;
+
 
 constant
 	: NUM_INT
@@ -890,6 +694,7 @@ constant
 
 path
 @init {
+// TODO - need to clean up DotIdent - suspect that DotIdent2 supersedes the other one, but need to do the analysis
 HandleDotIdent2();
 }
 	: identifier ( DOT^ { WeakKeywords(); } identifier )*

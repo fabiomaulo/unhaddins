@@ -16,6 +16,10 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 		private readonly IToken _token;
 		private List<IASTNode> _children;
 
+        public ASTNode() : this((IToken) null)
+        {
+        }
+
 		public ASTNode(IToken token)
 		{
 			_startIndex = -1;
