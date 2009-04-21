@@ -1,6 +1,6 @@
 using System;
 using System.Web;
-using System.Web.UI;
+using System.Web.Handlers;
 using log4net;
 using NHibernate;
 using uNhAddIns.SessionEasier;
@@ -24,50 +24,62 @@ namespace uNhAddIns.Web
 				throw new HibernateException("Couldn't obtain SessionFactoryProvider from WebApplicationContext.");
 			}
 
-			context.BeginRequest += Application_BeginRequest;
-			context.EndRequest += Application_EndRequest;
+			context.BeginRequest += ApplicationBeginRequest;
+			context.EndRequest += ApplicationEndRequest;
 		}
 
 		public void Dispose() {}
 
-		private void Application_BeginRequest(object sender, EventArgs e)
+		private void ApplicationBeginRequest(object sender, EventArgs e)
 		{
-			if (RequestMayNeedIterationWithPersistence())
+			if (!RequestMayNeedIterationWithPersistence(sender as HttpApplication))
 			{
-				foreach (ISessionFactory factory in sfp)
-				{
-					factory.GetCurrentSession().BeginTransaction();
-				}
+				return;
+			}
+			foreach (ISessionFactory factory in sfp)
+			{
+				factory.GetCurrentSession().BeginTransaction();
 			}
 		}
 
-		private static bool RequestMayNeedIterationWithPersistence()
+		private void ApplicationEndRequest(object sender, EventArgs e)
 		{
-			return HttpContext.Current.Handler is Page;
-		}
-
-		private void Application_EndRequest(object sender, EventArgs e)
-		{
-			if (RequestMayNeedIterationWithPersistence())
+			if (!RequestMayNeedIterationWithPersistence(sender as HttpApplication))
 			{
-				foreach (ISessionFactory factory in sfp)
+				return;
+			}
+			foreach (ISessionFactory factory in sfp)
+			{
+				ISession session = factory.GetCurrentSession();
+				try
 				{
-					ISession session = factory.GetCurrentSession();
-					try
+					if (session.IsOpen && session.Transaction.IsActive)
 					{
 						session.Transaction.Commit();
 					}
-					catch (Exception)
-					{
-						session.Transaction.Rollback();
-						throw;
-					}
-					finally
-					{
-						session.Dispose();
-					}
+				}
+				catch (Exception)
+				{
+					session.Transaction.Rollback();
+					throw;
+				}
+				finally
+				{
+					session.Dispose();
 				}
 			}
+		}
+
+		private static bool RequestMayNeedIterationWithPersistence(HttpApplication application)
+		{
+			if (application == null)
+			{
+				return false;
+			}
+
+			HttpContext context = application.Context;
+			return context != null && context.Handler != null &&
+				!(context.Handler is AssemblyResourceLoader) && !(context.Handler is DefaultHttpHandler);
 		}
 
 		#endregion
