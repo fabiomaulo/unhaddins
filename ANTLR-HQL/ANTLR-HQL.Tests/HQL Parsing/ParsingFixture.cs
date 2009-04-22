@@ -7,6 +7,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NHibernate.Hql.Ast.ANTLR;
+using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 
 namespace ANTLR_HQL.Tests.HQL_Parsing
@@ -92,6 +93,7 @@ namespace ANTLR_HQL.Tests.HQL_Parsing
 		{
 			Configuration cfg = new Configuration();
 			cfg.AddAssembly(this.GetType().Assembly);
+			new SchemaExport(cfg).Create(false, true);
 			return (ISessionFactoryImplementor)cfg.BuildSessionFactory();
 		}
 

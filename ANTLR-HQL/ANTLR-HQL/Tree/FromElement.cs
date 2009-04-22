@@ -492,7 +492,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 						_dereferencedBySuperclassProperty = true;
 					}
 				}
-				catch (QueryException ignore)
+				catch (QueryException)
 				{
 					// ignore it; the incoming property could not be found so we
 					// cannot be sure what to do here.  At the very least, the
