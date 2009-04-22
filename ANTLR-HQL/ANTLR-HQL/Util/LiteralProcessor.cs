@@ -198,7 +198,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 					{
 						return int.Parse(text).ToString();
 					}
-					catch (FormatException e)
+					catch (FormatException)
 					{
 						log.Info("could not format incoming text [" + text + "] as a NUM_INT; assuming numeric overflow and attempting as NUM_LONG");
 					}

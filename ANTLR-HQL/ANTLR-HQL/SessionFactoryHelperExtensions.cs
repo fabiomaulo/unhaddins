@@ -297,7 +297,7 @@ namespace NHibernate.Hql.Ast.ANTLR
 			{
 				return _sfi.GetEntityPersister( name );
 			}
-			catch ( MappingException ignore ) 
+			catch (MappingException) 
 			{
 				// unable to locate it using this name
 			}

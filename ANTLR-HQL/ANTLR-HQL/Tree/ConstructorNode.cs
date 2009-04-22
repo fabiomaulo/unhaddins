@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using Antlr.Runtime;
 using NHibernate.Type;
@@ -21,7 +20,7 @@ namespace NHibernate.Hql.Ast.ANTLR.Tree
 
 		public IList<IType> ConstructorArgumentTypeList
 		{
-			get { return _constructorArgumentTypes.ToList(); }
+			get { return new List<IType>(_constructorArgumentTypes); }
 		}
 
 		public string[] GetAliases()

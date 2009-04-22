@@ -38,11 +38,11 @@ namespace NHibernate.Hql.Ast.ANTLR
 
 	public static class TODO
 	{
-		public static bool HasThetaJoins(this JoinFragment frag)
-		{
-			// TODO - look at this
-			return false;
-		}
+		//public static bool HasThetaJoins(this JoinFragment frag)
+		//{
+		//  // TODO - look at this
+		//  return false;
+		//}
 	}
 
 	public class LoadQueryInfluencers

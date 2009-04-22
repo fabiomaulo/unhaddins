@@ -37,7 +37,8 @@ namespace NHibernate.Hql.Ast.ANTLR.Util
 				return;
 			}
 
-			if (!fromElement.UseWhereFragment && !joinFragment.HasThetaJoins())
+			// TODO if (!fromElement.UseWhereFragment && !joinFragment.HasThetaJoins)
+			if (!fromElement.UseWhereFragment)
 			{
 				return;
 			}
