@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{022F6317-80B0-480B-9192-3FEF9D4335E8}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -57,9 +57,10 @@
     <Compile Include="DataAccessObjects\TypeIdentifier\ICrudDaoWithTypeId.cs" />
     <Compile Include="DataAccessObjects\TypeIdentifier\IDaoWithTypeId.cs" />
     <Compile Include="DataAccessObjects\IDao.cs" />
-    <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\AbstractEntity.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\IEntity.cs" />
-    <Compile Include="Entities\IEntityWithTypeId.cs" />
+    <Compile Include="Entities\IGenericEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
