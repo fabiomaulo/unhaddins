@@ -204,4 +204,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Lib</PostBuildEvent>
+  </PropertyGroup>
 </Project>
