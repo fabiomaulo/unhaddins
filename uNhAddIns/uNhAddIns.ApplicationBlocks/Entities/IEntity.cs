@@ -1,4 +1,4 @@
-namespace uNhAddIns.ApplicationBlocks.Entities {
-    public interface IEntity : IEntityWithTypeId<int> {
-    }
+namespace uNhAddIns.ApplicationBlocks.Entities
+{
+	public interface IEntity : IGenericEntity<int> { }
 }
