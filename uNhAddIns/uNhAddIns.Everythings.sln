@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.ApplicationBlocks
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uNhAddIns.ApplicationBlocks.Tests", "uNhAddIns.ApplicationBlocks.Tests\uNhAddIns.ApplicationBlocks.Tests.csproj", "{E0A78FAE-20F3-48BF-BC2E-F99349C7524C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Blocks", "Application Blocks", "{4F333A99-0FC0-4847-88FC-FCC91CF18293}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
