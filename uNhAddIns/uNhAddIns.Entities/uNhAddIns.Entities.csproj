@@ -37,6 +37,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractEntity.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="IEntity.cs" />
+    <Compile Include="IGenericEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
