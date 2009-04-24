@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9AD5CD36-594C-4049-8D3B-19B3DFCA6B77}</ProjectGuid>
+    <ProjectGuid>{01C073CA-FD47-417A-AD53-F249E62ACC86}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uNhAddIns.DataAccessObjects</RootNamespace>
-    <AssemblyName>uNhAddIns.DataAccessObjects</AssemblyName>
+    <RootNamespace>uNhAddIns.DataAccessObjects.Impl</RootNamespace>
+    <AssemblyName>uNhAddIns.DataAccessObjects.Impl</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -45,16 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccessException.cs" />
-    <Compile Include="IGenericCrudDao.cs" />
-    <Compile Include="IGenericDao.cs" />
-    <Compile Include="IDaoFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uNhAddIns.Entities\uNhAddIns.Entities.csproj">
-      <Project>{676FDC6C-A4BB-42A5-9C56-C2D1669E45A8}</Project>
-      <Name>uNhAddIns.Entities</Name>
+    <ProjectReference Include="..\uNhAddIns.DataAccessObjects\uNhAddIns.DataAccessObjects.csproj">
+      <Project>{9AD5CD36-594C-4049-8D3B-19B3DFCA6B77}</Project>
+      <Name>uNhAddIns.DataAccessObjects</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
