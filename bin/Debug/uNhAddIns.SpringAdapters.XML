@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>uNhAddIns.SpringAdapters</name>
+    </assembly>
+    <members>
+        <member name="M:uNhAddIns.SpringAdapters.AutomaticConversationManagement.ConversationSessionFactoryProvider.NewSessionFactory(NHibernate.Cfg.Configuration)">
+            <summary>
+            Subclasses can override this method to perform custom initialization
+            of the SessionFactory instance, creating it via the given Configuration
+            object that got prepared by this LocalSessionFactoryObject.
+            </summary>
+            <remarks>
+            <p>The default implementation invokes Configuration's BuildSessionFactory.
+            A custom implementation could prepare the instance in a specific way,
+            or use a custom ISessionFactory subclass.
+            </p>
+            </remarks>
+            <note>
+            Nieve Goor 21/04/09: taken from the latest Nightly build.
+            </note>
+            <returns>The ISessionFactory instance.</returns>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.IConversationInterceptorConfigurationProvider.MetaStore">
+            <summary>
+            Gets the meta info store.
+            </summary>
+            <value>The meta info store.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.IConversationInterceptorConfigurationProvider.ContainerAccessor">
+            <summary>
+            Gets the container accessor.
+            </summary>
+            <value>The container accessor.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.IConversationInterceptorConfigurationProvider.ConversationFactory">
+            <summary>
+            Gets the conversation factory.
+            </summary>
+            <value>The conversation factory.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.IConversationInterceptorConfigurationProvider.CreationInterceptor">
+            <summary>
+            Gets the creation interceptor.
+            </summary>
+            <value>The creation interceptor.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.ConversationInterceptorConfigurationProvider.MetaStore">
+            <summary>
+            Gets a meta info store.
+            </summary>
+            <value>The meta info store.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.ConversationInterceptorConfigurationProvider.ContainerAccessor">
+            <summary>
+            Gets the container accessor.
+            </summary>
+            <value>The container accessor.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.ConversationInterceptorConfigurationProvider.ConversationFactory">
+            <summary>
+            Gets the conversation factory.
+            </summary>
+            <value>The conversation factory.</value>
+        </member>
+        <member name="P:uNhAddIns.SpringAdapters.AutomaticConversationManagement.ConversationInterceptorConfigurationProvider.CreationInterceptor">
+            <summary>
+            Gets the creation interceptor.
+            </summary>
+            <value>The creation interceptor.</value>
+        </member>
+    </members>
+</doc>
