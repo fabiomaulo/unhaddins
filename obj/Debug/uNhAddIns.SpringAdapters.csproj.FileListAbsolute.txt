@@ -1,0 +1,55 @@
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.SpringAdapters.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.SpringAdapters.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\NHibernate.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Aop.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.Adapters.Common.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.Adapters.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Common.Logging.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\log4net.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Core.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Iesi.Collections.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\antlr.runtime.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\log4net.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.Adapters.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.Adapters.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Core.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Core.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Aop.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Aop.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Iesi.Collections.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.Adapters.Common.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\NHibernate.xml
+C:\Users\niv\Desktop\Spring CpBT\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\niv\Desktop\Spring CpBT\obj\Debug\uNhAddIns.SpringAdapters.dll
+C:\Users\niv\Desktop\Spring CpBT\obj\Debug\uNhAddIns.SpringAdapters.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Data.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Data.NHibernate20.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Data.NHibernate20.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Data.NHibernate20.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Data.pdb
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\Spring.Data.xml
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.LinFuAdapters.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\LinFu.DynamicProxy.dll
+C:\Users\niv\Desktop\Spring CpBT\bin\Debug\uNhAddIns.LinFuAdapters.pdb
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\uNhAddIns.SpringAdapters.XML
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\uNhAddIns.SpringAdapters.dll
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\uNhAddIns.SpringAdapters.pdb
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Common.Logging.dll
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Iesi.Collections.dll
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\antlr.runtime.dll
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\LinFu.DynamicProxy.dll
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\uNhAddIns.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Spring.Data.NHibernate20.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\log4net.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\uNhAddIns.Adapters.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Spring.Core.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Spring.Aop.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Iesi.Collections.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\NHibernate.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\bin\Debug\Spring.Data.xml
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\obj\Debug\uNhAddIns.SpringAdapters.dll
+C:\Documents and Settings\ngoor\Mes documents\Niv Temp\unhaddins\uNhAddIns\uNhAddIns.SpringAdapters\obj\Debug\uNhAddIns.SpringAdapters.pdb
