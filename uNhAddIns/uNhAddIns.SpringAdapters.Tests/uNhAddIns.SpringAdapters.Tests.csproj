@@ -71,6 +71,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConversationManagement\ConversationInterceptorFixture.cs" />
+    <Compile Include="ConversationManagement\FullCreamFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionWrapperFixture.cs" />
   </ItemGroup>
