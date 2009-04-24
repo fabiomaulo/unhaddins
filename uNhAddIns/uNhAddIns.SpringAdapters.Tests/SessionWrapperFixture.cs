@@ -1,6 +1,7 @@
 using CommonServiceLocator.SpringAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NUnit.Framework;
+using Spring.Context;
 using Spring.Context.Support;
 using uNhAddIns.Adapters.CommonTests.Integration;
 using uNhAddIns.SessionEasier;
@@ -15,8 +16,8 @@ namespace uNhAddIns.SpringAdapters.Tests
 
 		protected override IServiceLocator NewServiceLocator()
 		{
-			var context = new StaticApplicationContext();
-			var objectFactory = context.DefaultListableObjectFactory;
+			IConfigurableApplicationContext context = new StaticApplicationContext();
+			var objectFactory = context.ObjectFactory;
 			objectFactory.RegisterSingleton(typeof(ISessionWrapper).FullName, new SessionWrapper());
 
 			return new SpringServiceLocatorAdapter(objectFactory);

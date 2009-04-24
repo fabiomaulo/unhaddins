@@ -6,7 +6,7 @@ using uNhAddIns.Adapters.CommonTests.ConversationManagement;
 
 namespace uNhAddIns.SpringAdapters.Tests.ConversationManagement
 {
-	[TestFixture]
+	[TestFixture, Ignore("Not implemented yet")]
 	public class ConversationInterceptorFixture : ConversationFixtureBase
 	{
 		protected override IServiceLocator NewServiceLocator()
