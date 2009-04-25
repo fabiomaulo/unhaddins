@@ -1,5 +1,4 @@
 using System;
-using Spring.Aop.Framework;
 using Spring.Aop.Framework.AutoProxy;
 using uNhAddIns.Adapters.Common;
 
@@ -22,13 +21,5 @@ namespace uNhAddIns.SpringAdapters.ConversationManagement
 			}
 			return true;
 		}
-		public override object PostProcessAfterInitialization(object obj, string objectName)
-		{
-			return base.PostProcessAfterInitialization(obj, objectName);
-		}
-		//protected override void CustomizeProxyFactory(ProxyFactory pf)
-		//{
-		//  pf.AddAdvisor(new ConversationalAttributeAdvisor(store));
-		//}
 	}
 }
