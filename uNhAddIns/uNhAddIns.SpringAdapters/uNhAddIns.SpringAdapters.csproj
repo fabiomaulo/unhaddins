@@ -58,12 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConversationManagement\ConversationInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionWrapper.cs" />
     <Compile Include="SpringRegistrationExtensions.cs" />
     <Compile Include="TransactionProtectionWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.Adapters.Common\uNhAddIns.Adapters.Common.csproj">
+      <Project>{6E52BD7D-F0AA-4CBE-B4D7-44904F750070}</Project>
+      <Name>uNhAddIns.Adapters.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
       <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
       <Name>uNhAddIns.Adapters</Name>
@@ -72,9 +77,6 @@
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ConversationManagement\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
