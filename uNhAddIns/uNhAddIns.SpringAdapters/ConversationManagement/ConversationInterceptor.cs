@@ -20,6 +20,8 @@ namespace uNhAddIns.SpringAdapters.ConversationManagement
 			this.factory = factory;
 		}
 
+		public Type TargetType { get; set; }
+
 		#region IMethodInterceptor Members
 
 		public object Invoke(IMethodInvocation invocation)
@@ -50,7 +52,7 @@ namespace uNhAddIns.SpringAdapters.ConversationManagement
 
 		protected override Type GetConversationalImplementor()
 		{
-			throw new NotImplementedException();
+			return TargetType;
 		}
 
 		protected override IConversationCreationInterceptor GetConversationCreationInterceptor(Type configuredConcreteType)
