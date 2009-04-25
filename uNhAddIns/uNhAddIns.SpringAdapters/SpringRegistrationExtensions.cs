@@ -5,18 +5,19 @@ namespace uNhAddIns.SpringAdapters
 {
 	public static class SpringRegistrationExtensions
 	{
+		private static readonly IObjectDefinitionFactory ObjectDefinitionFactory = new DefaultObjectDefinitionFactory();
+
 		public static void Register<TSerivice, TImplementation>(this IConfigurableListableObjectFactory confObjFactory)
 		{
-			IObjectDefinitionFactory odf = new DefaultObjectDefinitionFactory();
-			var odb = ObjectDefinitionBuilder.RootObjectDefinition(odf, typeof(TImplementation));
+			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation))
+				.SetAutowireMode(AutoWiringMode.ByType);
 			confObjFactory.RegisterObjectDefinition(typeof(TSerivice).FullName, odb.ObjectDefinition);
 		}
 
 		public static void RegisterPrototype<TSerivice, TImplementation>(this IConfigurableListableObjectFactory confObjFactory)
 		{
-			IObjectDefinitionFactory odf = new DefaultObjectDefinitionFactory();
-			var odb = ObjectDefinitionBuilder.RootObjectDefinition(odf, typeof(TImplementation))
-				.SetSingleton(false);
+			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation))
+				.SetSingleton(false).SetAutowireMode(AutoWiringMode.ByType);
 			confObjFactory.RegisterObjectDefinition(typeof(TSerivice).FullName, odb.ObjectDefinition);
 		}
 
