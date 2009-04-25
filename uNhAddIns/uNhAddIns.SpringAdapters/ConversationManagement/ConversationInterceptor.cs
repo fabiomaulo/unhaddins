@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Reflection;
 using AopAlliance.Intercept;
 using Spring.Objects.Factory;
@@ -8,17 +7,14 @@ using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.SpringAdapters.ConversationManagement
 {
-	public class ConversationInterceptor : AbstractConversationInterceptor, IMethodInterceptor
+	public class ConversationInterceptor : AbstractConversationInterceptor, IMethodInterceptor, IObjectFactoryAware
 	{
-		private readonly IListableObjectFactory factory;
+		private IObjectFactory factory;
 
-		public ConversationInterceptor(IListableObjectFactory factory, IConversationalMetaInfoStore metadataStore,
+		public ConversationInterceptor(IConversationalMetaInfoStore metadataStore,
 		                               IConversationsContainerAccessor conversationsContainerAccessor,
 		                               IConversationFactory conversationFactory)
-			: base(metadataStore, conversationsContainerAccessor, conversationFactory)
-		{
-			this.factory = factory;
-		}
+			: base(metadataStore, conversationsContainerAccessor, conversationFactory) {}
 
 		public Type TargetType { get; set; }
 
@@ -26,6 +22,7 @@ namespace uNhAddIns.SpringAdapters.ConversationManagement
 
 		public object Invoke(IMethodInvocation invocation)
 		{
+			TargetType = invocation.TargetType;
 			MethodInfo methodInfo = invocation.Method;
 			if (!ShouldBeIntercepted(methodInfo))
 			{
@@ -50,6 +47,15 @@ namespace uNhAddIns.SpringAdapters.ConversationManagement
 
 		#endregion
 
+		#region IObjectFactoryAware Members
+
+		public IObjectFactory ObjectFactory
+		{
+			set { factory = value; }
+		}
+
+		#endregion
+
 		protected override Type GetConversationalImplementor()
 		{
 			return TargetType;
@@ -57,11 +63,13 @@ namespace uNhAddIns.SpringAdapters.ConversationManagement
 
 		protected override IConversationCreationInterceptor GetConversationCreationInterceptor(Type configuredConcreteType)
 		{
-			var convCtorInterceptors = factory.GetObjectsOfType(configuredConcreteType).Values;
-			IEnumerator it = convCtorInterceptors.GetEnumerator();
-			if (it.MoveNext())
+			// TODO: Spring throws an exception when the type does not exist so, for the moment,
+			// this is a restriction to register the IConversationCreationInterceptor
+			// The restriction : IConversationCreationInterceptor, if registered, should be registered
+			// with its fullname as key.
+			if (factory.ContainsObject(configuredConcreteType.FullName))
 			{
-				return (IConversationCreationInterceptor) it.Current;
+				return (IConversationCreationInterceptor) factory.GetObject(configuredConcreteType.FullName, configuredConcreteType);
 			}
 			return null;
 		}
