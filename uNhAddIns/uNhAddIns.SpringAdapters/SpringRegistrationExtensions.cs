@@ -1,10 +1,9 @@
-using Spring.Objects.Factory;
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
 using uNhAddIns.Adapters.Common;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
-using Spring.Aop.Framework.AutoProxy;
+using uNhAddIns.SpringAdapters.ConversationManagement;
 
 namespace uNhAddIns.SpringAdapters
 {
@@ -12,23 +11,37 @@ namespace uNhAddIns.SpringAdapters
 	{
 		private static readonly IObjectDefinitionFactory ObjectDefinitionFactory = new DefaultObjectDefinitionFactory();
 
-		public static void RegisterDefaultAdvisorAutoProxyCreator(this IConfigurableListableObjectFactory confObjFactory)
+		public static void RegisterDefaultConversationAop(this IConfigurableListableObjectFactory confObjFactory)
 		{
-			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(DefaultAdvisorAutoProxyCreator));
-			confObjFactory.RegisterObjectDefinition("autoProxyCreator", odb.ObjectDefinition);
+			var metaInfoStore = new ReflectionConversationalMetaInfoStore();
+			confObjFactory.RegisterInstance(metaInfoStore);
+			// register advisor definition
+			var pc =
+				ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory,
+				                                             typeof (ConversationInterceptor))
+																										 .SetAutowireMode(AutoWiringMode.Constructor)
+																										 .SetSingleton(false);
+
+			confObjFactory.RegisterObjectDefinition("PersistentConversationalInterceptor", pc.ObjectDefinition);
+			var postProcessor = new ConversationalAttributeAutoProxyCreator(metaInfoStore)
+			          	{
+										ObjectFactory = confObjFactory, 
+										InterceptorNames = new[] {"PersistentConversationalInterceptor"}
+									};
+
+			confObjFactory.AddObjectPostProcessor(postProcessor);
 		}
 
 		public static void Register<TSerivice, TImplementation>(this IConfigurableListableObjectFactory confObjFactory)
 		{
-			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation))
-				.SetAutowireMode(AutoWiringMode.ByType);
+			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation)).SetAutowireMode(AutoWiringMode.Constructor);
 			confObjFactory.RegisterObjectDefinition(typeof(TSerivice).FullName, odb.ObjectDefinition);
 		}
 
 		public static void RegisterPrototype<TSerivice, TImplementation>(this IConfigurableListableObjectFactory confObjFactory)
 		{
 			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation))
-				.SetSingleton(false).SetAutowireMode(AutoWiringMode.ByType);
+				.SetSingleton(false).SetAutowireMode(AutoWiringMode.Constructor);
 			confObjFactory.RegisterObjectDefinition(typeof(TSerivice).FullName, odb.ObjectDefinition);
 		}
 
@@ -39,7 +52,6 @@ namespace uNhAddIns.SpringAdapters
 
 		public static void RegisterDefaultPersistentConversationServices(this IConfigurableListableObjectFactory confObjFactory)
 		{
-			confObjFactory.Register<IConversationalMetaInfoStore, ReflectionConversationalMetaInfoStore>();
 			confObjFactory.Register<ISessionFactoryProvider, SessionFactoryProvider>();
 			confObjFactory.Register<ISessionWrapper, SessionWrapper>();
 			confObjFactory.Register<IConversationFactory, DefaultConversationFactory>();

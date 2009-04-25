@@ -14,6 +14,7 @@ namespace uNhAddIns.SpringAdapters.Tests.ConversationManagement
 	{
 		IConfigurableListableObjectFactory ObjectFactory { get; }
 	}
+
 	[TestFixture, Ignore("Not implemented yet")]
 	public class ConversationInterceptorFixture : ConversationFixtureBase
 	{
@@ -41,7 +42,7 @@ namespace uNhAddIns.SpringAdapters.Tests.ConversationManagement
 			IConfigurableApplicationContext context = new StaticApplicationContext();
 			var objectFactory = context.ObjectFactory;
 			objectFactory.RegisterInstance<ISpringConfigurationAccessor>(new TestSpringConfigurationAccessor(objectFactory));
-			
+			objectFactory.RegisterDefaultConversationAop();
 			// Services for this test
 			var sl = new SpringServiceLocatorAdapter(objectFactory);
 			objectFactory.RegisterInstance<IServiceLocator>(sl);
