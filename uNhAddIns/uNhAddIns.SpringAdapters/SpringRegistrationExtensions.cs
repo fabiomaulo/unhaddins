@@ -1,5 +1,7 @@
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
+using uNhAddIns.SessionEasier;
+using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.SpringAdapters
 {
@@ -24,6 +26,14 @@ namespace uNhAddIns.SpringAdapters
 		public static void RegisterInstance<TSerivice>(this IConfigurableListableObjectFactory confObjFactory, TSerivice instance)
 		{
 			confObjFactory.RegisterSingleton(typeof(TSerivice).FullName, instance);
+		}
+
+		public static void RegisterDefaultPersistentConversationServices(this IConfigurableListableObjectFactory confObjFactory)
+		{
+			confObjFactory.Register<ISessionFactoryProvider, SessionFactoryProvider>();
+			confObjFactory.Register<ISessionWrapper, SessionWrapper>();
+			confObjFactory.Register<IConversationFactory, DefaultConversationFactory>();
+			confObjFactory.Register<IConversationsContainerAccessor, NhConversationsContainerAccessor>();
 		}
 	}
 }
