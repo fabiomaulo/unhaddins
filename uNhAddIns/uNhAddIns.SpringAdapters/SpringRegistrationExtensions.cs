@@ -1,6 +1,5 @@
 using Spring.Objects.Factory.Config;
 using Spring.Objects.Factory.Support;
-using uNhAddIns.Adapters.Common;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 using uNhAddIns.SpringAdapters.ConversationManagement;
@@ -13,7 +12,7 @@ namespace uNhAddIns.SpringAdapters
 
 		public static void RegisterDefaultConversationAop(this IConfigurableListableObjectFactory confObjFactory)
 		{
-			var metaInfoStore = new ReflectionConversationalMetaInfoStore();
+			var metaInfoStore = new ReflectionConversationalMetaInfoSource();
 			confObjFactory.RegisterInstance(metaInfoStore);
 			// register advisor definition
 			var pc =

@@ -15,7 +15,7 @@ namespace uNhAddIns.SpringAdapters.Tests.ConversationManagement
 		IConfigurableListableObjectFactory ObjectFactory { get; }
 	}
 
-	[TestFixture, Ignore("Not implemented yet")]
+	[TestFixture]
 	public class ConversationInterceptorFixture : ConversationFixtureBase
 	{
 		private class TestSpringConfigurationAccessor : ISpringConfigurationAccessor

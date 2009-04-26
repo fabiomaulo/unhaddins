@@ -23,7 +23,12 @@ namespace uNhAddIns.Adapters.Common
 			return true;
 		}
 
-		private void BuildMetaInfoFromType(ConversationalMetaInfoHolder metaInfo, Type implementation)
+		protected IConversationalMetaInfoInspector MetaInfoInspector
+		{
+			get { return mii; }
+		}
+
+		protected virtual void BuildMetaInfoFromType(ConversationalMetaInfoHolder metaInfo, Type implementation)
 		{
 			if (implementation == typeof(object) || implementation == typeof(MarshalByRefObject)) return;
 
@@ -38,7 +43,7 @@ namespace uNhAddIns.Adapters.Common
 			BuildMetaInfoFromType(metaInfo, implementation.BaseType);
 		}
 
-		private static void AddMethodIfNecessary(ConversationalMetaInfoHolder holder, MethodInfo method, IPersistenceConversationInfo info)
+		protected void AddMethodIfNecessary(ConversationalMetaInfoHolder holder, MethodInfo method, IPersistenceConversationInfo info)
 		{
 			IPersistenceConversationInfo toAdd = null;
 			if (info != null)

@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="ConversationManagement\ConversationalAttributeAutoProxyCreator.cs" />
     <Compile Include="ConversationManagement\ConversationInterceptor.cs" />
+    <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionWrapper.cs" />
     <Compile Include="SpringRegistrationExtensions.cs" />
