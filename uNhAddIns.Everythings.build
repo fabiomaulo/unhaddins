@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTarget="Build"
+		 xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+	<Target Name="Build">
+		<MsBuild Projects="uNhAddIns\uNhAddIns.Everythings.sln
+		"/>
+	</Target>
+</Project>
