@@ -18,7 +18,7 @@ namespace uNhAddIns.SpringAdapters
 			var pc =
 				ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory,
 				                                             typeof (ConversationInterceptor))
-																										 .SetAutowireMode(AutoWiringMode.Constructor)
+																										 .SetAutowireMode(AutoWiringMode.AutoDetect)
 																										 .SetSingleton(false);
 
 			confObjFactory.RegisterObjectDefinition("PersistentConversationalInterceptor", pc.ObjectDefinition);
@@ -40,7 +40,7 @@ namespace uNhAddIns.SpringAdapters
 		public static void RegisterPrototype<TSerivice, TImplementation>(this IConfigurableListableObjectFactory confObjFactory)
 		{
 			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation))
-				.SetSingleton(false).SetAutowireMode(AutoWiringMode.Constructor);
+				.SetSingleton(false).SetAutowireMode(AutoWiringMode.AutoDetect);
 			confObjFactory.RegisterObjectDefinition(typeof(TSerivice).FullName, odb.ObjectDefinition);
 		}
 
