@@ -22,7 +22,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			store.Add(typeof (SillyCrudModel));
 			IConversationalMetaInfoHolder metainfo = store.GetMetadataFor(typeof (SillyCrudModel));
 			metainfo.Should().Not.Be.Null();
-			metainfo.ConversationalClass.Should().Be.Equal(typeof (SillyCrudModel));
+			metainfo.ConversationalClass.Should().Be.EqualTo(typeof (SillyCrudModel));
 			metainfo.Methods.Should().Not.Be.Empty();
 		}
 
@@ -33,13 +33,13 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			store.Add(typeof (SillyCrudModel));
 			store.Add(typeof (InheritedSillyCrudModelWithConcreteConversationCreationInterceptor));
 			
-			store.MetaData.Count().Should().Be.Equal(2);
+			store.MetaData.Count().Should().Be.EqualTo(2);
 
 			IConversationalMetaInfoHolder metainfo =
 				store.GetMetadataFor(typeof (InheritedSillyCrudModelWithConcreteConversationCreationInterceptor));
 			
 			metainfo.Should().Not.Be.Null();
-			metainfo.ConversationalClass.Should().Be.Equal(
+			metainfo.ConversationalClass.Should().Be.EqualTo(
 				typeof (InheritedSillyCrudModelWithConcreteConversationCreationInterceptor));
 			metainfo.Methods.Should().Not.Be.Empty();
 		}

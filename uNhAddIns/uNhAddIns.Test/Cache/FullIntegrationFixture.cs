@@ -73,10 +73,10 @@ namespace uNhAddIns.Test.Cache
 
 			// Asserts after execution
 			SessionFactory.Statistics.QueryCacheHitCount
-				.Should("not hit the query cache").Be.Equal(0);
+				.Should("not hit the query cache").Be.EqualTo(0);
 
 			SessionFactory.Statistics.QueryExecutionCount
-				.Should("execute both queries").Be.Equal(2);
+				.Should("execute both queries").Be.EqualTo(2);
 
 			// Update both tables
 			SessionFactory.EncloseInTransaction(session =>
@@ -97,10 +97,10 @@ namespace uNhAddIns.Test.Cache
 
 			// Asserts after execution
 			SessionFactory.Statistics.QueryCacheHitCount
-				.Should("Hit the query cache").Be.Equal(1);
+				.Should("Hit the query cache").Be.EqualTo(1);
 
 			SessionFactory.Statistics.QueryExecutionCount
-				.Should("execute only the query for Antiques").Be.Equal(1);
+				.Should("execute only the query for Antiques").Be.EqualTo(1);
 
 			// Clear SessionFactory Statistics again
 			SessionFactory.Statistics.Clear();
@@ -111,10 +111,10 @@ namespace uNhAddIns.Test.Cache
 			SessionFactory.EncloseInTransaction(session => musicQuery.GetExecutableQuery(session).List());
 			
 			SessionFactory.Statistics.QueryCacheHitCount
-				.Should("Not hit the query cache because stale").Be.Equal(0);
+				.Should("Not hit the query cache because stale").Be.EqualTo(0);
 
 			SessionFactory.Statistics.QueryExecutionCount
-				.Should("execute the query for MusicCD").Be.Equal(1);
+				.Should("execute the query for MusicCD").Be.EqualTo(1);
 
 			// Cleanup
 			SessionFactory.EncloseInTransaction(session =>

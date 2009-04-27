@@ -19,7 +19,7 @@ namespace uNhAddIns.Test.Cache
 				.ResolveRegion(regionName).Using<CustomQcStub>().TolerantWith("ATable");
 
 			nhcfg.GetQueryCacheRegionResolver(regionName)
-				.Should().Be.Equal(typeof(CustomQcStub));
+				.Should().Be.EqualTo(typeof(CustomQcStub));
 
 			nhcfg.GetQueryCacheRegionTolerance(regionName)
 				.Should().Have.SameSequenceAs(new[] { "ATable" });
@@ -28,16 +28,16 @@ namespace uNhAddIns.Test.Cache
 				.ResolveRegion(regionName1).Using<StandardQueryCache>().TolerantWith("ATable", "ATable2", "ATable1");
 
 			nhcfg.GetQueryCacheRegionResolver(regionName1)
-				.Should().Be.Equal(typeof(StandardQueryCache));
+				.Should().Be.EqualTo(typeof(StandardQueryCache));
 
 			nhcfg.GetQueryCacheRegionTolerance(regionName1)
 				.Should().Have.SameSequenceAs(new[] { "ATable", "ATable2", "ATable1" });
 
 			nhcfg.GetProperty(Environment.QueryCacheFactory)
-				.Should().Be.Equal(typeof (RegionQueryCacheFactory).AssemblyQualifiedName);
+				.Should().Be.EqualTo(typeof (RegionQueryCacheFactory).AssemblyQualifiedName);
 
 			nhcfg.GetProperty(Environment.UseQueryCache).ToLowerInvariant()
-				.Should().Be.Equal("true");
+				.Should().Be.EqualTo("true");
 		}
 	}
 }

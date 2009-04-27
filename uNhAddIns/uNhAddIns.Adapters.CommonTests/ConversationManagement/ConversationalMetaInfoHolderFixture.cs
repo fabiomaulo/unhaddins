@@ -20,13 +20,13 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		public void CTorProtection()
 		{
 			Assert.Throws<ArgumentNullException>(() => new ConversationalMetaInfoHolder(null, null))
-				.ParamName.Should().Be.Equal("conversationalClass");
+				.ParamName.Should().Be.EqualTo("conversationalClass");
 			Assert.Throws<ArgumentNullException>(() => new ConversationalMetaInfoHolder(typeof(object), null))
-				.ParamName.Should().Be.Equal("setting");
+				.ParamName.Should().Be.EqualTo("setting");
 
 			var settings = new PersistenceConversationalAttribute();
 			Assert.Throws<ArgumentNullException>(() => new ConversationalMetaInfoHolder(null, settings))
-				.ParamName.Should().Be.Equal("conversationalClass");
+				.ParamName.Should().Be.EqualTo("conversationalClass");
 		}
 
 		[Test]
@@ -34,7 +34,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		{
 			var settings = new PersistenceConversationalAttribute();
 			var classDef = new ConversationalMetaInfoHolder(typeof(Sample), settings);
-			classDef.ConversationalClass.Should().Be.Equal(typeof (Sample));
+			classDef.ConversationalClass.Should().Be.EqualTo(typeof (Sample));
 			classDef.Setting.Should().Be.SameInstanceAs(settings);
 			classDef.Methods.Should().Be.Empty();
 
@@ -48,7 +48,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			var methodSetting = new PersistenceConversationAttribute();
 			MethodInfo methodInfo = Reflector.MethodInfo<Sample>(o => o.PersistentMethod());
 			classDef.AddMethodInfo(methodInfo, methodSetting);
-			classDef.Methods.Count().Should().Be.Equal(1);
+			classDef.Methods.Count().Should().Be.EqualTo(1);
 			classDef.Methods.Should().Contain(methodInfo);
 			classDef.Contains(methodInfo).Should().Be.True();
 			classDef.GetConversationInfoFor(methodInfo).Should().Be.SameInstanceAs(methodSetting);
@@ -67,9 +67,9 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			MethodInfo methodInfo = Reflector.MethodInfo<Sample>(o => o.NoPersistentMethod());
 			var methodSetting = new PersistenceConversationAttribute();
 			Assert.Throws<ArgumentNullException>(() => classDef.AddMethodInfo(methodInfo, null))
-				.ParamName.Should().Be.Equal("persistenceConversationInfo");
+				.ParamName.Should().Be.EqualTo("persistenceConversationInfo");
 			Assert.Throws<ArgumentNullException>(() => classDef.AddMethodInfo(null, methodSetting))
-				.ParamName.Should().Be.Equal("methodInfo");
+				.ParamName.Should().Be.EqualTo("methodInfo");
 		}
 
 		[Test]
