@@ -253,10 +253,9 @@ namespace uNhAddIns.Test.DynamicQuery
 		}
 
 		[Test]
-		[ExpectedException(typeof(InvalidOperationException))]
 		public void GroupByFailsSettingOrderWithoutFrom()
 		{
-			new GroupBy().OrderBy("Name", true);
+			Assert.Throws<InvalidOperationException>(() => new GroupBy().OrderBy("Name", true));
 		}
 
 		[Test]
@@ -273,17 +272,15 @@ namespace uNhAddIns.Test.DynamicQuery
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void FailsIfGroupingByNothing()
 		{
-			new GroupBy().Add(" ");
+			Assert.Throws<ArgumentNullException>(() => new GroupBy().Add(" "));
 		}
 
 		[Test]
-		[ExpectedException(typeof(NotSupportedException))]
 		public void FailsIfSelectsHasNoFrom()
 		{
-			string clause = new Select("p").Clause;
+			Assert.Throws<NotSupportedException>(() => { string clause = new Select("p").Clause; });
 		}
 
 		[Test]
@@ -293,63 +290,55 @@ namespace uNhAddIns.Test.DynamicQuery
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void FailsIfSelectIsEmpty()
 		{
-			Select.Distinct("");
+			Assert.Throws<ArgumentNullException>(() => Select.Distinct(""));
 		}
 
 		[Test]
-		[ExpectedException(typeof(NotSupportedException))]
 		public void FailsIfOverwritingFromClause()
 		{
-			Select.Distinct("p").From("Foo p").From("Bar p");
+			Assert.Throws<NotSupportedException>(() => Select.Distinct("p").From("Foo p").From("Bar p"));
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void FailsIfSettingNullFrom()
 		{
 			Select select = Select.Distinct("p");
-			select.SetFrom(null);
+			Assert.Throws<ArgumentNullException>(() => select.SetFrom(null));
 		}
 
 		[Test]
-		[ExpectedException(typeof(NotSupportedException))]
 		public void FailsWhenGettingFromIfNotSet()
 		{
 			// no from is set yet!
-			Select.Distinct("p").From();
+			Assert.Throws<NotSupportedException>(() => Select.Distinct("p").From());
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void FailsIfWhereIsNull()
 		{
-			new From("Foo").SetWhere(null);
+			Assert.Throws<ArgumentNullException>(() => new From("Foo").SetWhere(null));
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void FailsIfOrderByIsNull()
 		{
-			new From("Foo").SetOrderBy(null);
+			Assert.Throws<ArgumentNullException>(() => new From("Foo").SetOrderBy(null));
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
 		public void FailsIfGroupByIsNull()
 		{
-			new From("Foo").SetGroupBy(null);
+			Assert.Throws<ArgumentNullException>(() => new From("Foo").SetGroupBy(null));
 		}
 
 		[Test]
-		[ExpectedException(typeof(NotSupportedException))]
 		public void WhereNotFailsWhereIsAlreadySet()
 		{
 			From from = new From("Foo");
 			from.Where().And("Name = 'Sean'");
-			from.WhereNot().And("Name = 'Sean'");
+			Assert.Throws<NotSupportedException>(() => from.WhereNot().And("Name = 'Sean'"));
 		}
 
 		[Test]
@@ -361,24 +350,16 @@ namespace uNhAddIns.Test.DynamicQuery
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void GroupByFailsIfPropertyIsEmpty()
+		public void GroupByFails()
 		{
-			new GroupBy().Add("");
+			Assert.Throws<ArgumentNullException>(() => new GroupBy().Add(""), "GroupBy should fail if property is Empty");
 		}
 
 		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void OrderByFailsIfPropertyIsEmpty()
+		public void OrderByFails()
 		{
-			new OrderBy().Add("");
-		}
-
-		[Test]
-		[ExpectedException(typeof(ArgumentNullException))]
-		public void OrderByFailsIfPropertyIsASpace()
-		{
-			new OrderBy().Add("  ");
+			Assert.Throws<ArgumentNullException>(() => new OrderBy().Add(""), "OrderBy should fail if property is Empty");
+			Assert.Throws<ArgumentNullException>(() => new OrderBy().Add("  "), "OrderBy should fail if property is spaces");
 		}
 
 		[Test]

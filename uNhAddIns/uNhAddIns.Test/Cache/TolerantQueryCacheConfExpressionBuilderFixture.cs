@@ -15,9 +15,9 @@ namespace uNhAddIns.Test.Cache
 			Assert.Throws<ArgumentNullException>(() => new TolerantQueryCacheConfExpressionBuilder(string.Empty));
 
 			var tqc = new TolerantQueryCacheConfExpressionBuilder("myRegion");
-			tqc.RegionName.Should().Be.Equal("myRegion");
+			tqc.RegionName.Should().Be.EqualTo("myRegion");
 
-			tqc.QueryCache.Should().Be.Equal(typeof (StandardQueryCache));
+			tqc.QueryCache.Should().Be.EqualTo(typeof (StandardQueryCache));
 			tqc.SpacesTolerance.Should().Be.Empty();
 		}
 
@@ -26,7 +26,7 @@ namespace uNhAddIns.Test.Cache
 		{
 			var tqc = new TolerantQueryCacheConfExpressionBuilder("myRegion");
 			tqc.SetRegionResolver<CustomQcStub>();
-			tqc.QueryCache.Should().Be.Equal(typeof(CustomQcStub));
+			tqc.QueryCache.Should().Be.EqualTo(typeof(CustomQcStub));
 			tqc.SpacesTolerance.Should().Be.Empty();
 		}
 

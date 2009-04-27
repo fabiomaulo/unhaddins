@@ -22,27 +22,27 @@ namespace uNhAddIns.Entities.Tests
 			var e1 = EntityStub.NewWithId(id1);
 			var e2 = EntityStub.NewWithId(id2);
 
-			e2.Should().Not.Be.Equal(e1);
-			e2.Should().Be.Equal(e2);
+			e2.Should().Not.Be.EqualTo(e1);
+			e2.Should().Be.EqualTo(e2);
 			Assert.That(1, Is.Not.EqualTo(e1));
 		}
 
 		[Test]
 		public void PersistentOfDifferentClassAndSameId()
 		{
-			EntityStubA.NewWithId(1).Should().Not.Be.Equal(EntityStub.NewWithId(1));
+			EntityStubA.NewWithId(1).Should().Not.Be.EqualTo(EntityStub.NewWithId(1));
 		}
 
 		[Test]
 		public void TransientsAreNotEquals()
 		{
-			(new EntityStub()).Should().Not.Be.Equal(new EntityStub());			
+			(new EntityStub()).Should().Not.Be.EqualTo(new EntityStub());			
 		}
 
 		[Test]
 		public void PersistentInheritedWithSameId()
 		{
-			EntityStubInherit.NewWithId(1).Should().Be.Equal(EntityStub.NewWithId(1));
+			EntityStubInherit.NewWithId(1).Should().Be.EqualTo(EntityStub.NewWithId(1));
 		}
 
 		[Test]
@@ -52,7 +52,7 @@ namespace uNhAddIns.Entities.Tests
 			var e = new EntityStub();
 			var oldHash = e.GetHashCode();
 			e.SetId(100);
-			e.GetHashCode().Should().Be.Equal(oldHash);
+			e.GetHashCode().Should().Be.EqualTo(oldHash);
 		}
 
 		[Test]
@@ -61,15 +61,15 @@ namespace uNhAddIns.Entities.Tests
 			const int id1 = 1;
 			(new EntityStub()).GetHashCode()
 				.Should("transients should not have same hash")
-				.Not.Be.Equal((new EntityStub()).GetHashCode());
+				.Not.Be.EqualTo((new EntityStub()).GetHashCode());
 
 			EntityStub.NewWithId(id1).GetHashCode()
 				.Should("persistent should have same hash.")
-				.Be.Equal(EntityStub.NewWithId(id1).GetHashCode());
+				.Be.EqualTo(EntityStub.NewWithId(id1).GetHashCode());
 
 			EntityStub.NewWithId(id1).GetHashCode()
 				.Should("persistent inherited should have same hash.")
-				.Be.Equal(EntityStubInherit.NewWithId(id1).GetHashCode());
+				.Be.EqualTo(EntityStubInherit.NewWithId(id1).GetHashCode());
 		}
 	}
 
