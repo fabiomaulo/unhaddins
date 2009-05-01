@@ -49,14 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAccessObjects\BaseDao.cs" />
-    <Compile Include="DataAccessObjects\BaseCrudDao.cs" />
-    <Compile Include="DataAccessObjects\TypeIdentifier\BaseCrudDao.cs" />
-    <Compile Include="DataAccessObjects\TypeIdentifier\BaseDaoWithTypeId.cs" />
-    <Compile Include="DataAccessObjects\ICrudDao.cs" />
-    <Compile Include="DataAccessObjects\TypeIdentifier\ICrudDaoWithTypeId.cs" />
-    <Compile Include="DataAccessObjects\TypeIdentifier\IDaoWithTypeId.cs" />
-    <Compile Include="DataAccessObjects\IDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

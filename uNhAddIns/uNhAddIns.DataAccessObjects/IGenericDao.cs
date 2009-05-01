@@ -1,3 +1,4 @@
+using System;
 using uNhAddIns.Entities;
 
 namespace uNhAddIns.DataAccessObjects
@@ -42,4 +43,6 @@ namespace uNhAddIns.DataAccessObjects
 		/// </returns>
 		TEntity Refresh(TEntity entity);
 	}
+
+	
 }
