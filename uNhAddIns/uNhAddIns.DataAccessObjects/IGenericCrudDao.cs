@@ -1,3 +1,4 @@
+using System;
 using uNhAddIns.Entities;
 
 namespace uNhAddIns.DataAccessObjects
@@ -33,4 +34,6 @@ namespace uNhAddIns.DataAccessObjects
 		/// <returns>The persistent state merged.</returns>
 		TEntity GetMerged(TEntity actualEntity);
 	}
+
+	
 }
