@@ -80,7 +80,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="NUnitEx, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NUnitEx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\NUnitEx.dll</HintPath>
     </Reference>
