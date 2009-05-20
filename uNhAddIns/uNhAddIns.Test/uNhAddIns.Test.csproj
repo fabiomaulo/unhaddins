@@ -213,6 +213,7 @@
     <EmbeddedResource Include="SessionEasier\Silly.hbm.xml" />
     <EmbeddedResource Include="Conversations\Silly.hbm.xml" />
     <EmbeddedResource Include="Cache\Items.hbm.xml" />
+    <EmbeddedResource Include="Audit\Person.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
