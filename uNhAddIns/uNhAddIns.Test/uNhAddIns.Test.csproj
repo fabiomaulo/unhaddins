@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="Audit\Simple.cs" />
     <Compile Include="Cache\ConfigurationExtensionsFixture.cs" />
     <Compile Include="Cache\CustomQcStub.cs" />
     <Compile Include="Cache\Entities.cs" />
@@ -214,6 +215,7 @@
     <EmbeddedResource Include="Conversations\Silly.hbm.xml" />
     <EmbeddedResource Include="Cache\Items.hbm.xml" />
     <EmbeddedResource Include="Audit\Person.hbm.xml" />
+    <EmbeddedResource Include="Audit\Simple.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
