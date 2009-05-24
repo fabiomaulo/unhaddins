@@ -73,8 +73,12 @@
     <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoInspectorFixture.cs" />
     <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoStoreFixture.cs" />
     <Compile Include="EnhancedBytecodeProvider\AbstractEntityInjectionFixture.cs" />
+    <Compile Include="EnhancedBytecodeProvider\Foo.cs" />
+    <Compile Include="EnhancedBytecodeProvider\IDelimiter.cs" />
     <Compile Include="EnhancedBytecodeProvider\IInvoice.cs" />
     <Compile Include="EnhancedBytecodeProvider\IInvoiceTotalCalculator.cs" />
+    <Compile Include="EnhancedBytecodeProvider\InjectableStringUserType.cs" />
+    <Compile Include="EnhancedBytecodeProvider\AbstractInjectableUserTypeFixture.cs" />
     <Compile Include="EnhancedBytecodeProvider\Invoice.cs" />
     <Compile Include="EnhancedBytecodeProvider\InvoiceItem.cs" />
     <Compile Include="EnhancedBytecodeProvider\Product.cs" />
@@ -107,6 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EnhancedBytecodeProvider\Domain.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EnhancedBytecodeProvider\Foo.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
