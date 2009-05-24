@@ -15,14 +15,7 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 
 		public object CreateInstance(Type type)
 		{
-			if (container.Kernel.HasComponent(type))
-			{
-				return container.Resolve(type);
-			}
-			else
-			{
-				return Activator.CreateInstance(type);
-			}
+			return container.Kernel.HasComponent(type) ? container.Resolve(type) : Activator.CreateInstance(type);
 		}
 
 		public object CreateInstance(Type type, bool nonPublic)
