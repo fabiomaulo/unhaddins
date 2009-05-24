@@ -72,6 +72,13 @@
     <Compile Include="ConversationManagement\DomainImpl.cs" />
     <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoInspectorFixture.cs" />
     <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoStoreFixture.cs" />
+    <Compile Include="EnhancedBytecodeProvider\AbstractEntityInjectionFixture.cs" />
+    <Compile Include="EnhancedBytecodeProvider\IInvoice.cs" />
+    <Compile Include="EnhancedBytecodeProvider\IInvoiceTotalCalculator.cs" />
+    <Compile Include="EnhancedBytecodeProvider\Invoice.cs" />
+    <Compile Include="EnhancedBytecodeProvider\InvoiceItem.cs" />
+    <Compile Include="EnhancedBytecodeProvider\Product.cs" />
+    <Compile Include="EnhancedBytecodeProvider\SumAndTaxTotalCalculator.cs" />
     <Compile Include="Integration\DomainImpl.cs" />
     <Compile Include="Integration\FullCreamFixtureBase.cs" />
     <Compile Include="Integration\SessionWrapperFixtureBase.cs" />
@@ -97,6 +104,9 @@
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EnhancedBytecodeProvider\Domain.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
