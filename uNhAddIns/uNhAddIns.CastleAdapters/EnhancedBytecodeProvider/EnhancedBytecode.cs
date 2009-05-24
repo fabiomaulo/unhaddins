@@ -8,13 +8,14 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 {
 	public class EnhancedBytecode : IBytecodeProvider
 	{
-		private readonly IObjectsFactory objectsFactory = new ActivatorObjectsFactory();
+		private readonly IObjectsFactory objectsFactory;
 
 		private readonly IWindsorContainer container;
 
 		public EnhancedBytecode(IWindsorContainer container)
 		{
 			this.container = container;
+			objectsFactory = new ObjectsFactory(container);
 		}
 
 		#region IBytecodeProvider Members
