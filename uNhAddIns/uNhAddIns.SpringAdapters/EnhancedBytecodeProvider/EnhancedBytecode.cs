@@ -8,6 +8,7 @@ namespace uNhAddIns.SpringAdapters.EnhancedBytecodeProvider
 {
 	public class EnhancedBytecode : IBytecodeProvider
 	{
+		// A better place for this classes is Spring.Data.NHibernate
 		private readonly IListableObjectFactory listableObjectFactory;
 		private readonly IObjectsFactory objectsFactory;
 
