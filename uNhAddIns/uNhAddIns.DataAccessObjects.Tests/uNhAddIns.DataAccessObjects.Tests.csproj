@@ -97,9 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenericDaoFixture.cs" />
-    <Compile Include="Foo.cs" />
-    <Compile Include="DaoBaseFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -119,13 +116,6 @@
       <Project>{7512944F-2C52-44E2-8287-2BD39DE552F1}</Project>
       <Name>uNhAddIns.TestUtils</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Foo.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="hibernate.cfg.xml.template" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
