@@ -43,6 +43,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.ByteCode.Spring, Version=2.1.0.1003, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\NHibernate.ByteCode.Spring.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Aop, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Spring.Aop.dll</HintPath>
@@ -61,6 +65,9 @@
     <Compile Include="ConversationManagement\ConversationalAttributeAutoProxyCreator.cs" />
     <Compile Include="ConversationManagement\ConversationInterceptor.cs" />
     <Compile Include="ConversationManagement\ReflectionConversationalMetaInfoSource.cs" />
+    <Compile Include="EnhancedBytecodeProvider\EnhancedBytecode.cs" />
+    <Compile Include="EnhancedBytecodeProvider\ObjectsFactory.cs" />
+    <Compile Include="EnhancedBytecodeProvider\ReflectionOptimizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionWrapper.cs" />
     <Compile Include="SpringRegistrationExtensions.cs" />
