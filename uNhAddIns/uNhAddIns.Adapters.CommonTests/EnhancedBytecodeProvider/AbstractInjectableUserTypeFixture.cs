@@ -38,6 +38,8 @@ namespace uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider
 			var cfg = new Configuration();
 			Environment.BytecodeProvider = GetBytecodeProvider();
 			cfg.Configure();
+			cfg.AddResource("uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider.Foo.Spechbm.xml",
+											typeof(AbstractInjectableUserTypeFixture).Assembly);
 			new SchemaExport(cfg).Create(false, true);
 			sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
 		}

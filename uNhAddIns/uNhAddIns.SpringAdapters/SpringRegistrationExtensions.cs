@@ -44,6 +44,13 @@ namespace uNhAddIns.SpringAdapters
 			confObjFactory.RegisterObjectDefinition(typeof(TSerivice).FullName, odb.ObjectDefinition);
 		}
 
+		public static void RegisterPrototype<TImplementation>(this IConfigurableListableObjectFactory confObjFactory)
+		{
+			var odb = ObjectDefinitionBuilder.RootObjectDefinition(ObjectDefinitionFactory, typeof(TImplementation))
+				.SetSingleton(false).SetAutowireMode(AutoWiringMode.AutoDetect);
+			confObjFactory.RegisterObjectDefinition(typeof(TImplementation).FullName, odb.ObjectDefinition);
+		}
+
 		public static void RegisterInstance<TSerivice>(this IConfigurableListableObjectFactory confObjFactory, TSerivice instance)
 		{
 			confObjFactory.RegisterSingleton(typeof(TSerivice).FullName, instance);
