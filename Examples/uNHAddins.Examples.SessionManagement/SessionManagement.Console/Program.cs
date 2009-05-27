@@ -36,7 +36,7 @@ namespace SessionManagement.WCF.Host
 
 		static void Main(string[] args)
 		{
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			var schemaCreator = new SchemaCreator();
 			schemaCreator.CreateSchema();
 
@@ -45,7 +45,6 @@ namespace SessionManagement.WCF.Host
 				.AddFacility<FactorySupportFacility>()
 				.Register(SessionEndPoint)
 				.Register(Component.For<IProductRepository>().ImplementedBy<ProductRepository>())
-				// .Register(Component.For<IProductModel>().ImplementedBy<ProductModel>());
 				.Register(Service<IProductModel, ProductModel>(9595));
 
 			var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
@@ -56,8 +55,6 @@ namespace SessionManagement.WCF.Host
 
 			IoC.RegisterResolver(new WindsorDependencyResolver(container));
 
-			var model = container.Resolve<IProductModel>();
-			
 			CurrentSessionContext.Wrapper = container.Resolve<ISessionWrapper>();
 
 			Console.WriteLine("Server started");
