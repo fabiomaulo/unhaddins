@@ -22,27 +22,4 @@
 			<one-to-many class="Animal"/>
 		</bag>
 	</class>
-
-	<class name="Animal" abstract="true">
-		<id type="int">
-			<generator class="hilo"/>
-		</id>
-		<discriminator column="ObjectType"/>
-		<property name="Description"/>
-		<subclass name="Reptile">
-			<property name="BodyTemperature"/>
-			<subclass name="Lizard"/>
-		</subclass>
-		<subclass name="Mammal">
-			<property name="Pregnant"/>
-			<property name="Birthdate" type="date"/>
-			<subclass name="DomesticAnimal">
-				<meta attribute="Auditable" inherit="true"/>
-				<property name="Name"/>
-				<many-to-one name="Owner"/>
-				<subclass name="Cat"/>
-				<subclass name="Dog"/>
-			</subclass>
-		</subclass>
-	</class>
 </hibernate-mapping>
