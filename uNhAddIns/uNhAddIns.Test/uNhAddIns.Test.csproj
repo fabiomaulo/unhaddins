@@ -94,7 +94,9 @@
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
     <Compile Include="Audit\Address.cs" />
+    <Compile Include="Audit\Animal.cs" />
     <Compile Include="Audit\MappingAuditableMetaDataStoreFixture.cs" />
+    <Compile Include="Audit\Person.cs" />
     <Compile Include="Audit\Simple.cs" />
     <Compile Include="Cache\ConfigurationExtensionsFixture.cs" />
     <Compile Include="Cache\CustomQcStub.cs" />
@@ -219,6 +221,7 @@
     <EmbeddedResource Include="Audit\Person.hbm.xml" />
     <EmbeddedResource Include="Audit\Simple.hbm.xml" />
     <EmbeddedResource Include="Audit\Address.hbm.xml" />
+    <EmbeddedResource Include="Audit\Animal.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
