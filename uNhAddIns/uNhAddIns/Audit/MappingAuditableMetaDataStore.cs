@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NHibernate.Cfg;
+using NHibernate.Mapping;
 
 namespace uNhAddIns.Audit
 {
@@ -21,8 +23,8 @@ namespace uNhAddIns.Audit
 
 		public virtual bool RegisterAuditableEntityIfNeeded(string entityName)
 		{
-			var pc = Cfg.GetClassMapping(entityName);
-			if(pc == null)
+			PersistentClass pc = Cfg.GetClassMapping(entityName);
+			if (pc == null)
 			{
 				return false;
 			}
@@ -31,11 +33,18 @@ namespace uNhAddIns.Audit
 				return false;
 			}
 			var meta = new AuditableMetaData(entityName);
+			string marker = GetAuditablePropertyMarker();
+			meta.AddProperties(pc.PropertyIterator.Where(p => p.MetaAttributes.ContainsKey(marker)).Select(p => p.Name));
 			store.Add(entityName, meta);
 			return true;
 		}
 
 		protected virtual string GetAuditableClassMarker()
+		{
+			return "Auditable";
+		}
+
+		protected virtual string GetAuditablePropertyMarker()
 		{
 			return "Auditable";
 		}

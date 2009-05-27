@@ -5,6 +5,7 @@ namespace uNhAddIns.Audit
 {
 	public class AuditableMetaData : IAuditableMetaData
 	{
+		private readonly HashSet<string> properties = new HashSet<string>();
 		private readonly string entityName;
 		private readonly int hashCode;
 
@@ -25,7 +26,12 @@ namespace uNhAddIns.Audit
 
 		public IEnumerable<string> Propeties
 		{
-			get { throw new NotImplementedException(); }
+			get { return properties; }
+		}
+
+		public void AddProperties(IEnumerable<string> propertiesNames)
+		{
+			properties.UnionWith(propertiesNames);
 		}
 
 		public override bool Equals(object obj)
