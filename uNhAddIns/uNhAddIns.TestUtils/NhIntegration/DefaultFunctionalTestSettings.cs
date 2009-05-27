@@ -109,7 +109,7 @@ namespace uNhAddIns.TestUtils.NhIntegration
 			new SchemaExport(configuration).Create(false, true);
 		}
 
-		public void SchemaShutdown(Configuration configuration)
+		public virtual void SchemaShutdown(Configuration configuration)
 		{
 			new SchemaExport(configuration).Drop(false, true);
 		}
