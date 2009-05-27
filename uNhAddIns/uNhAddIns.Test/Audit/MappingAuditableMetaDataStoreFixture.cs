@@ -9,7 +9,8 @@ namespace uNhAddIns.Test.Audit
 	[TestFixture]
 	public class MappingAuditableMetaDataStoreFixture
 	{
-		const string EntityName = "uNhAddIns.Test.Audit.Simple";
+		private readonly string EntityNameSimple = typeof(Simple).FullName;
+		private readonly string EntityNameAddress = typeof(Address).FullName;
 
 		[Test]
 		public void CtorProtection()
@@ -23,9 +24,9 @@ namespace uNhAddIns.Test.Audit
 			var conf = new Configuration().Configure();
 			conf.AddResource("uNhAddIns.Test.Audit.Simple.hbm.xml", GetType().Assembly);
 			IAuditableMetaDataStore store = new MappingAuditableMetaDataStore(conf);
-			store.RegisterAuditableEntityIfNeeded(EntityName).Should().Be.True();
-			store.GetAuditableMetaData(EntityName).Should().Not.Be.Null();
-			store.Contains(EntityName).Should().Be.True();
+			store.RegisterAuditableEntityIfNeeded(EntityNameSimple).Should().Be.True();
+			store.GetAuditableMetaData(EntityNameSimple).Should().Not.Be.Null();
+			store.Contains(EntityNameSimple).Should().Be.True();
 		}
 
 		[Test]
@@ -50,10 +51,27 @@ namespace uNhAddIns.Test.Audit
 			var conf = new Configuration().Configure();
 			conf.AddResource("uNhAddIns.Test.Audit.Simple.hbm.xml", GetType().Assembly);
 			IAuditableMetaDataStore store = new MappingAuditableMetaDataStore(conf);
-			store.RegisterAuditableEntityIfNeeded(EntityName);
-			var meta = store.GetAuditableMetaData(EntityName);
+			store.RegisterAuditableEntityIfNeeded(EntityNameSimple);
+			var meta = store.GetAuditableMetaData(EntityNameSimple);
 			meta.Propeties.Count().Should().Be.GreaterThan(0);
 			meta.Propeties.First().Should().Be.EqualTo("Description");
+		}
+
+		[Test]
+		[Description("Should not register properties to ignore")]
+		public void NotRegisterProperties()
+		{
+			var conf = new Configuration().Configure();
+			conf.AddResource("uNhAddIns.Test.Audit.Address.hbm.xml", GetType().Assembly);
+			IAuditableMetaDataStore store = new MappingAuditableMetaDataStore(conf);
+			store.RegisterAuditableEntityIfNeeded(EntityNameAddress);
+			var meta = store.GetAuditableMetaData(EntityNameAddress);
+			meta.Propeties.Should()
+				.Contain("CivicNumber")
+				.And
+				.Contain("StreetName")
+				.And
+				.Not.Contain("Info");
 		}
 	}
 }
