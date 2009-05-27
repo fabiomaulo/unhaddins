@@ -44,7 +44,13 @@ namespace uNhAddIns.TestUtils.NhIntegration
 		[TearDown]
 		public void TearDown()
 		{
+			OnTearDown();
 			AssertAllDataRemovedIfNeeded();
+		}
+
+		protected virtual void OnTearDown()
+		{
+
 		}
 	}
 }
