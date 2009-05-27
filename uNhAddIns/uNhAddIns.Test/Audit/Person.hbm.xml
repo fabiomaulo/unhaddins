@@ -23,18 +23,6 @@
 		</bag>
 	</class>
 
-	<class name="Address">
-		<meta attribute="Auditable"/>
-		<id name="Id">
-			<generator class="hilo"/>
-		</id>
-		<property name="StreetName"/>
-		<property name="CivicNumber"/>
-		<property name="Info">
-			<meta attribute="Auditable">false</meta>
-		</property>
-	</class>
-	
 	<class name="Animal" abstract="true">
 		<id type="int">
 			<generator class="hilo"/>

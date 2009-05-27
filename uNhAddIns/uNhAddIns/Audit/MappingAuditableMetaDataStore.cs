@@ -34,7 +34,10 @@ namespace uNhAddIns.Audit
 			}
 			var meta = new AuditableMetaData(entityName);
 			string marker = GetAuditablePropertyMarker();
-			meta.AddProperties(pc.PropertyIterator.Where(p => p.MetaAttributes.ContainsKey(marker)).Select(p => p.Name));
+			meta.AddProperties(pc.PropertyIterator
+				.Where(p => p.MetaAttributes
+					.Where(ma => ma.Value.Name == marker && (!ma.Value.Values.Contains("false"))).Count() > 0)
+				.Select(p => p.Name));
 			store.Add(entityName, meta);
 			return true;
 		}
