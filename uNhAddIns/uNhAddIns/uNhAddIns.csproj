@@ -72,6 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audit\AuditableMetaData.cs" />
+    <Compile Include="Audit\MappingAuditableMetaDataStore.cs" />
+    <Compile Include="Audit\IAuditableMetaData.cs" />
+    <Compile Include="Audit\IAuditableMetaDataStore.cs" />
     <Compile Include="Cache\ConfigurationExtensions.cs" />
     <Compile Include="Cache\ConfigurationImpl\QueryCacheFactoryConfiguration.cs" />
     <Compile Include="Cache\ConfigurationImpl\TolerantQueryCacheConfExpressionBuilder.cs" />
@@ -195,9 +199,6 @@
   <ItemGroup>
     <None Include="SessionEasier\Conversations\ConversationDiagram.cd" />
     <None Include="SessionEasier\Conversations\ConversationImplDiagram.cd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Audit\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

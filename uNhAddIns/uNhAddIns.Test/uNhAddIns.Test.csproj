@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="aReposEmul\GenericNHibernateDAO.cs" />
+    <Compile Include="Audit\MappingAuditableMetaDataStoreFixture.cs" />
     <Compile Include="Audit\Simple.cs" />
     <Compile Include="Cache\ConfigurationExtensionsFixture.cs" />
     <Compile Include="Cache\CustomQcStub.cs" />
