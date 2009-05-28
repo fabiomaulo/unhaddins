@@ -72,10 +72,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audit\AbstractEntityAuditor.cs" />
     <Compile Include="Audit\AuditableMetaData.cs" />
+    <Compile Include="Audit\AuditListener.cs" />
+    <Compile Include="Audit\IAuditor.cs" />
+    <Compile Include="Audit\IAuditorsFactory.cs" />
+    <Compile Include="Audit\IBusinessEvent.cs" />
     <Compile Include="Audit\MappingAuditableMetaDataStore.cs" />
     <Compile Include="Audit\IAuditableMetaData.cs" />
     <Compile Include="Audit\IAuditableMetaDataStore.cs" />
+    <Compile Include="Audit\MirrorEntityAuditor.cs" />
+    <Compile Include="Audit\MirrorEntityAuditorsFactory.cs" />
     <Compile Include="Cache\ConfigurationExtensions.cs" />
     <Compile Include="Cache\ConfigurationImpl\QueryCacheFactoryConfiguration.cs" />
     <Compile Include="Cache\ConfigurationImpl\TolerantQueryCacheConfExpressionBuilder.cs" />
@@ -87,6 +94,7 @@
     <Compile Include="DynQuery\GroupBy.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="GenericImpl\PaginableDynQuery.cs" />
+    <Compile Include="Mapping\MappingExtensions.cs" />
     <Compile Include="SessionEasier\AbstractConfigurationProvider.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\ConfigurationEvents.cs" />
