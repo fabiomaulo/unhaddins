@@ -28,6 +28,12 @@ namespace uNhAddIns.Audit
 			{
 				return false;
 			}
+			return RegisterAuditableEntityIfNeeded(pc);
+		}
+
+		public bool RegisterAuditableEntityIfNeeded(PersistentClass pc)
+		{
+			string entityName = pc.EntityName;
 			if (!pc.MetaAttributes.ContainsKey(GetAuditableClassMarker()))
 			{
 				return false;
@@ -35,9 +41,9 @@ namespace uNhAddIns.Audit
 			var meta = new AuditableMetaData(entityName);
 			string marker = GetAuditablePropertyMarker();
 			meta.AddProperties(pc.PropertyIterator
-				.Where(p => p.MetaAttributes
-					.Where(ma => ma.Value.Name == marker && (!ma.Value.Values.Contains("false"))).Count() > 0)
-				.Select(p => p.Name));
+			                   	.Where(p => p.MetaAttributes
+			                   	            	.Where(ma => ma.Value.Name == marker && (!ma.Value.Values.Contains("false"))).Count() > 0)
+			                   	.Select(p => p.Name));
 			store.Add(entityName, meta);
 			return true;
 		}
