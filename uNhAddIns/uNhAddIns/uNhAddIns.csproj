@@ -81,8 +81,8 @@
     <Compile Include="Audit\MappingAuditableMetaDataStore.cs" />
     <Compile Include="Audit\IAuditableMetaData.cs" />
     <Compile Include="Audit\IAuditableMetaDataStore.cs" />
-    <Compile Include="Audit\MirrorEntityAuditor.cs" />
-    <Compile Include="Audit\MirrorEntityAuditorsFactory.cs" />
+    <Compile Include="Audit\ParallelEntityAuditor.cs" />
+    <Compile Include="Audit\ParallelEntityAuditorsFactory.cs" />
     <Compile Include="Cache\ConfigurationExtensions.cs" />
     <Compile Include="Cache\ConfigurationImpl\QueryCacheFactoryConfiguration.cs" />
     <Compile Include="Cache\ConfigurationImpl\TolerantQueryCacheConfExpressionBuilder.cs" />

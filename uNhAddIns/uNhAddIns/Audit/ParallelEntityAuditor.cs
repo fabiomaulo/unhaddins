@@ -7,11 +7,11 @@ using uNhAddIns.Mapping;
 
 namespace uNhAddIns.Audit
 {
-	public class MirrorEntityAuditor : AbstractEntityAuditor
+	public class ParallelEntityAuditor : AbstractEntityAuditor
 	{
 		private string auditEntityName;
 
-		public MirrorEntityAuditor(string entityName, IAuditableMetaData meta) : base(entityName, meta)
+		public ParallelEntityAuditor(string entityName, IAuditableMetaData meta) : base(entityName, meta)
 		{
 			auditEntityName = StringHelper.UnqualifyEntityName(entityName).Trim() + "Audit";
 		}
