@@ -4,13 +4,6 @@
         <name>NHibernate.ByteCode.Spring</name>
     </assembly>
     <members>
-        <member name="T:NHibernate.ByteCode.Spring.AbstractProxyFactory">
-            <summary>
-            Convenience base class for <see cref="T:NHibernate.Proxy.IProxyFactory"/> implementations, 
-            providing common functionality.
-            </summary>
-            <author>Erich Eichinger (Spring.NET Team)</author>
-        </member>
         <member name="T:NHibernate.ByteCode.Spring.ProxyFactory">
             <summary>
             A Spring for .NET backed <see cref="T:NHibernate.Proxy.IProxyFactory"/> implementation for creating
@@ -23,9 +16,6 @@
             <summary>
             Creates a Spring for .NET backed <see cref="T:NHibernate.Proxy.IProxyFactory"/> instance.
             </summary>
-            <remarks>
-            TODO: mention how to configure
-            </remarks>
             <author>Erich Eichinger</author>
         </member>
     </members>
