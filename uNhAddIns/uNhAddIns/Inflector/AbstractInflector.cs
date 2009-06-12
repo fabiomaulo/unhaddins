@@ -19,7 +19,7 @@ namespace uNhAddIns.Inflector
 		{
 			string result = word;
 
-			if (!uncountables.Contains(word.ToLowerInvariant()))
+			if (!uncountables.Contains(word.ToLower()))
 			{
 				for (int i = rules.Count - 1; i >= 0; i--)
 				{
@@ -54,12 +54,12 @@ namespace uNhAddIns.Inflector
 			singulars.Add(new InflectorRule(rule, replacement));
 		}
 
-		public string Pluralize(string word)
+		public virtual string Pluralize(string word)
 		{
 			return ApplyRules(plurals, word);
 		}
 
-		public string Singularize(string word)
+		public virtual string Singularize(string word)
 		{
 			return ApplyRules(singulars, word);
 		}

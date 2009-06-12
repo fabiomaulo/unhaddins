@@ -1,30 +1,13 @@
-using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 using uNhAddIns.Inflector;
 
 namespace uNhAddIns.Test.Inflector
 {
 	[TestFixture]
-	public class EnglishInflectorFixture
+	public class EnglishInflectorFixture : BaseInflectorFixture
 	{
 		/// Originally implemented by http://andrewpeters.net/inflectornet/
     #region Fixture Data
-
-    public readonly Dictionary<string, string> SingularToPlural = new Dictionary<string, string>();
-    public readonly Dictionary<string, string> PascalToUnderscore = new Dictionary<string, string>();
-    public readonly Dictionary<string, string> UnderscoreToCamel = new Dictionary<string, string>();
-
-    public readonly Dictionary<string, string> PascalToUnderscoreWithoutReverse =
-      new Dictionary<string, string>();
-
-    public readonly Dictionary<string, string> CamelWithModuleToUnderscoreWithSlash =
-      new Dictionary<string, string>();
-
-    public readonly Dictionary<string, string> UnderscoreToHuman = new Dictionary<string, string>();
-    public readonly Dictionary<string, string> MixtureToTitleCase = new Dictionary<string, string>();
-    public readonly Dictionary<string, string> OrdinalNumbers = new Dictionary<string, string>();
-    public readonly Dictionary<string, string> UnderscoresToDashes = new Dictionary<string, string>();
 
     public EnglishInflectorFixture()
     {
@@ -183,117 +166,16 @@ namespace uNhAddIns.Test.Inflector
       UnderscoresToDashes.Add("street_address", "street-address");
       UnderscoresToDashes.Add("person_street_address", "person-street-address");
 
-    	EnglInflector = new EnglishInflector();
+    	TestInflector = new EnglishInflector();
     }
 
     #endregion
-		public IInflector EnglInflector { get; set; } 
 
     [Test]
     public void PluralizePlurals()
     {
-      Assert.AreEqual("plurals", EnglInflector.Pluralize("plurals"));
-      Assert.AreEqual("Plurals", EnglInflector.Pluralize("Plurals"));
-    }
-
-    [Test]
-    public void Pluralize()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in SingularToPlural)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Pluralize(keyValuePair.Key));
-        Assert.AreEqual(EnglInflector.Capitalize(keyValuePair.Value),
-                        EnglInflector.Pluralize(EnglInflector.Capitalize(keyValuePair.Key)));
-      }
-    }
-
-    [Test]
-    public void Singularize()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in SingularToPlural)
-      {
-        Assert.AreEqual(keyValuePair.Key, EnglInflector.Singularize(keyValuePair.Value));
-        Assert.AreEqual(EnglInflector.Capitalize(keyValuePair.Key),
-                        EnglInflector.Singularize(EnglInflector.Capitalize(keyValuePair.Value)));
-      }
-    }
-
-    [Test]
-    public void TitleCase()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in MixtureToTitleCase)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Titleize(keyValuePair.Key));
-      }
-    }
-
-    [Test]
-    public void Pascalize()
-    {
-			foreach (KeyValuePair<string, string> keyValuePair in PascalToUnderscore)
-      {
-        Assert.AreEqual(keyValuePair.Key, EnglInflector.Pascalize(keyValuePair.Value));
-      }
-    }
-
-    [Test]
-    public void Camelize()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in UnderscoreToCamel)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Camelize(keyValuePair.Key));
-      }
-    }
-
-    [Test]
-    public void Underscore()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in PascalToUnderscore)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Underscore(keyValuePair.Key));
-      }
-
-      foreach (KeyValuePair<string, string> keyValuePair in PascalToUnderscoreWithoutReverse)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Underscore(keyValuePair.Key));
-      }
-
-      foreach (KeyValuePair<string, string> keyValuePair in UnderscoreToCamel)
-      {
-        Assert.AreEqual(keyValuePair.Key, EnglInflector.Underscore(keyValuePair.Value));
-      }
-
-      foreach (KeyValuePair<string, string> keyValuePair in UnderscoreToHuman)
-      {
-        Assert.AreEqual(keyValuePair.Key, EnglInflector.Underscore(keyValuePair.Value));
-      }
-    }
-
-    [Test]
-    public void Humanize()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in UnderscoreToHuman)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Humanize(keyValuePair.Key));
-      }
-    }
-
-    [Test]
-    public void Ordinal()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in OrdinalNumbers)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Ordinalize(keyValuePair.Key));
-      }
-    }
-
-    [Test]
-    public void Dasherize()
-    {
-      foreach (KeyValuePair<string, string> keyValuePair in UnderscoresToDashes)
-      {
-        Assert.AreEqual(keyValuePair.Value, EnglInflector.Dasherize(keyValuePair.Key));
-      }
+      Assert.AreEqual("plurals", TestInflector.Pluralize("plurals"));
+      Assert.AreEqual("Plurals", TestInflector.Pluralize("Plurals"));
     }
 	}
 }
