@@ -127,6 +127,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Extensions\ReflectionExtensionsFixture.cs" />
+    <Compile Include="Inflector\EnglishInflectorFixture.cs" />
+    <Compile Include="Inflector\RuleFixture.cs" />
     <Compile Include="Mapping\MappingExtensionsFixture.cs" />
     <Compile Include="Mapping\Simple.cs" />
     <Compile Include="Pagination\AbstractPaginableCriteriaFixture.cs" />
