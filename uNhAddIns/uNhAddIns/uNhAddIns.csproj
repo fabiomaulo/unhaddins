@@ -98,6 +98,7 @@
     <Compile Include="Inflector\EnglishInflector.cs" />
     <Compile Include="Inflector\IInflector.cs" />
     <Compile Include="Inflector\InflectorRule.cs" />
+    <Compile Include="Inflector\SpanishInflector.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
     <Compile Include="SessionEasier\AbstractConfigurationProvider.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
