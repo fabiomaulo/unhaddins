@@ -33,6 +33,9 @@ namespace uNhAddIns.Test.Inflector
 
 			ClassNameToTableName.Add("Origenes", "Origén" );
 			ClassNameToTableName.Add("Ordenes", "Ordén");
+			ClassNameToTableName.Add("OrdenesClientes", "OrdenCliente");
+			ClassNameToTableName.Add("OrdenesProveedores", "OrdenProveedor");
+			ClassNameToTableName.Add("Facturas", "Factura");
 
 			TestInflector = new SpanishInflector();
 		}

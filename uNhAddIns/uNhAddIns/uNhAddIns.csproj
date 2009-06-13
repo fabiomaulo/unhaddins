@@ -98,10 +98,14 @@
     <Compile Include="Inflector\AbstractRule.cs" />
     <Compile Include="Inflector\CaseSensitiveRule.cs" />
     <Compile Include="Inflector\EnglishInflector.cs" />
+    <Compile Include="Inflector\EnglishNamingStrategy.cs" />
     <Compile Include="Inflector\IInflector.cs" />
+    <Compile Include="Inflector\InflectorExtensions.cs" />
+    <Compile Include="Inflector\InflectorNamingStrategy.cs" />
     <Compile Include="Inflector\NounsRule.cs" />
     <Compile Include="Inflector\IRule.cs" />
     <Compile Include="Inflector\SpanishInflector.cs" />
+    <Compile Include="Inflector\SpanishNamingStrategy.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
     <Compile Include="SessionEasier\AbstractConfigurationProvider.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
