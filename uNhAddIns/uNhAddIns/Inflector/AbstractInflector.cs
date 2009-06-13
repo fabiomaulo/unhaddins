@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace uNhAddIns.Inflector
@@ -16,6 +17,8 @@ namespace uNhAddIns.Inflector
 		private readonly List<IRule> singulars = new List<IRule>();
 		private readonly HashSet<string> uncountables = new HashSet<string>();
 		private readonly HashSet<IRule> unaccentRules = new HashSet<IRule>();
+		private readonly Regex wordsSplit = new Regex(@"([A-Z]+[a-z\d]*)|[_\s]", RegexOptions.Compiled);
+		private readonly Regex wordsWhiteSpaces = new Regex(@"[_\s]", RegexOptions.Compiled);
 		
 		protected AbstractInflector()
 		{
@@ -158,7 +161,23 @@ namespace uNhAddIns.Inflector
 
 		public virtual string Tableize(string className)
 		{
-			return Unaccent(Pluralize(className));
+			if (string.IsNullOrEmpty(className))
+			{
+				throw new ArgumentNullException("className");
+			}
+			var result = new StringBuilder(className.Length);
+			foreach (var word in className.SplitWords())
+			{
+				if (wordsWhiteSpaces.IsMatch(word))
+				{
+					result.Append(word);
+				}
+				else
+				{
+					result.Append(Unaccent(Pluralize(word)));
+				}
+			}
+			return result.ToString();
 		}
 
 		public string ForeignKey(string className, bool separateClassNameAndId)

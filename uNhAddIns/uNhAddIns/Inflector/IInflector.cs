@@ -79,6 +79,11 @@ namespace uNhAddIns.Inflector
 		/// </summary>
 		/// <param name="className">The class name (unqualified)</param>
 		/// <returns>The table name.</returns>
+		/// <remarks>
+		/// Convetion :
+		/// CostomerOrder -> CostomersOrders
+		/// Costomer_Order -> Costomers_Orders
+		/// </remarks>
 		string Tableize(string className);
 
 		/// <summary>
