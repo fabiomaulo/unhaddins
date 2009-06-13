@@ -150,9 +150,14 @@ namespace uNhAddIns.Inflector
 			return underscoredWord.Replace('_', '-');
 		}
 
-		public string Unaccent(string word)
+		public virtual string Unaccent(string word)
 		{
 			return ApplyRules(unaccentRules, word);
+		}
+
+		public virtual string Tableize(string className)
+		{
+			return Unaccent(Pluralize(className));
 		}
 	}
 }

@@ -73,5 +73,12 @@ namespace uNhAddIns.Inflector
 		/// <param name="word">string to transform.</param>
 		/// <returns>unaccented version</returns>
 		string Unaccent(string word);
+
+		/// <summary>
+		/// Converts a class name to its table name.
+		/// </summary>
+		/// <param name="className">The class name (unqualified)</param>
+		/// <returns>The table name.</returns>
+		string Tableize(string className);
 	}
 }
