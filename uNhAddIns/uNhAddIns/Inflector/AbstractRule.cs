@@ -3,12 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace uNhAddIns.Inflector
 {
-	public class InflectorRule
+	public abstract class AbstractRule : IRule
 	{
-		private readonly Regex regex;
 		private readonly int hashCode;
 
-		public InflectorRule(string pattern, string replacement)
+		protected AbstractRule(string pattern, string replacement)
 		{
 			if (string.IsNullOrEmpty(pattern))
 			{
@@ -18,32 +17,27 @@ namespace uNhAddIns.Inflector
 			{
 				throw new ArgumentNullException("replacement");
 			}
-			regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 			Pattern = pattern;
 			Replacement = replacement;
 			hashCode = 397 ^ Replacement.GetHashCode() ^ Pattern.GetHashCode();
+			Regex = CreateRegex();
 		}
+
 
 		public string Replacement { get; private set; }
 
 		public string Pattern { get; private set; }
+		public abstract string Apply(string word);
 
-		public string Apply(string word)
-		{
-			if (!regex.IsMatch(word))
-			{
-				return null;
-			}
-
-			return regex.Replace(word, Replacement);
-		}
+		protected Regex Regex { get; private set; }
+		protected abstract Regex CreateRegex();
 
 		public override bool Equals(object obj)
 		{
-			return Equals(obj as InflectorRule);
+			return Equals(obj as IRule);
 		}
 
-		public bool Equals(InflectorRule other)
+		public bool Equals(IRule other)
 		{
 			if (ReferenceEquals(null, other))
 			{

@@ -11,11 +11,38 @@ namespace uNhAddIns.Inflector
 	/// </remarks>
 	public abstract class AbstractInflector : IInflector
 	{
-		private readonly List<InflectorRule> plurals = new List<InflectorRule>();
-		private readonly List<InflectorRule> singulars = new List<InflectorRule>();
+		private readonly List<IRule> plurals = new List<IRule>();
+		private readonly List<IRule> singulars = new List<IRule>();
 		private readonly HashSet<string> uncountables = new HashSet<string>();
+		private readonly HashSet<IRule> unaccentRules = new HashSet<IRule>();
+		
+		protected AbstractInflector()
+		{
+			AddUnaccent("([ÀÁÂÃÄÅÆ])", "A");
+			AddUnaccent("([Ç])", "C");
+			AddUnaccent("([ÈÉÊË])", "E");
+			AddUnaccent("([ÌÍÎÏ])", "I");
+			AddUnaccent("([Ğ])", "D");
+			AddUnaccent("([Ñ])", "N");
+			AddUnaccent("([ÒÓÔÕÖØ])", "O");
+			AddUnaccent("([ÙÚÛÜ])", "U");
+			AddUnaccent("([İ])", "Y");
+			AddUnaccent("([Ş])", "T");
+			AddUnaccent("([ß])", "s");
+			AddUnaccent("([àáâãäåæ])", "a");
+			AddUnaccent("([ç])", "c");
+			AddUnaccent("([èéêë])", "e");
+			AddUnaccent("([ìíîï])", "i");
+			AddUnaccent("([ğ])", "e");
+			AddUnaccent("([ñ])", "n");
+			AddUnaccent("([òóôõöø])", "o");
+			AddUnaccent("([ùúûü])", "u");
+			AddUnaccent("([ı])", "y");
+			AddUnaccent("([ş])", "t");
+			AddUnaccent("([ÿ])", "y");
+		}
 
-		protected virtual string ApplyRules(IList<InflectorRule> rules, string word)
+		protected virtual string ApplyFirstMatchRule(IList<IRule> rules, string word)
 		{
 			string result = word;
 
@@ -29,7 +56,16 @@ namespace uNhAddIns.Inflector
 					}
 				}
 			}
+			return result;
+		}
 
+		protected virtual string ApplyRules(IEnumerable<IRule> rules, string word)
+		{
+			string result = word;
+			foreach (var rule in rules)
+			{
+				result = rule.Apply(result);
+			}
 			return result;
 		}
 
@@ -46,22 +82,27 @@ namespace uNhAddIns.Inflector
 
 		protected void AddPlural(string rule, string replacement)
 		{
-			plurals.Add(new InflectorRule(rule, replacement));
+			plurals.Add(new NounsRule(rule, replacement));
+		}
+
+		protected void AddUnaccent(string rule, string replacement)
+		{
+			unaccentRules.Add(new CaseSensitiveRule(rule, replacement));
 		}
 
 		protected void AddSingular(string rule, string replacement)
 		{
-			singulars.Add(new InflectorRule(rule, replacement));
+			singulars.Add(new NounsRule(rule, replacement));
 		}
 
 		public virtual string Pluralize(string word)
 		{
-			return ApplyRules(plurals, word);
+			return ApplyFirstMatchRule(plurals, word);
 		}
 
 		public virtual string Singularize(string word)
 		{
-			return ApplyRules(singulars, word);
+			return ApplyFirstMatchRule(singulars, word);
 		}
 
 		public string Titleize(string word)
@@ -107,6 +148,11 @@ namespace uNhAddIns.Inflector
 		public string Dasherize(string underscoredWord)
 		{
 			return underscoredWord.Replace('_', '-');
+		}
+
+		public string Unaccent(string word)
+		{
+			return ApplyRules(unaccentRules, word);
 		}
 	}
 }

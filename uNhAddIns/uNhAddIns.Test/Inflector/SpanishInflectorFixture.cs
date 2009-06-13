@@ -20,6 +20,16 @@ namespace uNhAddIns.Test.Inflector
 			SingularToPlural.Add("item", "items");
 			SingularToPlural.Add("linea", "lineas");
 			SingularToPlural.Add("proveedor", "proveedores");
+			SingularToPlural.Add("Terminal", "Terminales");
+			SingularToPlural.Add("ParteFichaTecnica", "ParteFichaTecnicas");
+			SingularToPlural.Add("pago", "pagos");
+			SingularToPlural.Add("Ubicación", "Ubicaciones");
+			SingularToPlural.Add("Origén", "Origenes");
+			SingularToPlural.Add("rol", "roles");
+			SingularToPlural.Add("ciudad", "ciudades");
+			SingularToPlural.Add("documento", "documentos");
+			SingularToPlural.Add("Historial", "Historiales");
+			SingularToPlural.Add("Promoción", "Promociones");
 
 			TestInflector = new SpanishInflector();
 		}
