@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
@@ -158,6 +159,11 @@ namespace uNhAddIns.Inflector
 		public virtual string Tableize(string className)
 		{
 			return Unaccent(Pluralize(className));
+		}
+
+		public string ForeignKey(string className, bool separateClassNameAndId)
+		{
+			return Unaccent(className + (separateClassNameAndId ? "_ID":"Id"));
 		}
 	}
 }
