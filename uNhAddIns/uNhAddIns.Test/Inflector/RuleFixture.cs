@@ -10,33 +10,33 @@ namespace uNhAddIns.Test.Inflector
 		[Test]
 		public void Ctor()
 		{
-			Assert.Throws<ArgumentNullException>(() => new InflectorRule(null, null));
-			Assert.Throws<ArgumentNullException>(() => new InflectorRule("$s", null));
-			Assert.Throws<ArgumentNullException>(() => new InflectorRule(null, "s"));
-			Assert.Throws<ArgumentNullException>(() => new InflectorRule("", "s"));
-			Assert.DoesNotThrow(() => new InflectorRule("$s", ""));
+			Assert.Throws<ArgumentNullException>(() => new NounsRule(null, null));
+			Assert.Throws<ArgumentNullException>(() => new NounsRule("$s", null));
+			Assert.Throws<ArgumentNullException>(() => new NounsRule(null, "s"));
+			Assert.Throws<ArgumentNullException>(() => new NounsRule("", "s"));
+			Assert.DoesNotThrow(() => new NounsRule("$s", ""));
 		}
 
 		[Test]
 		public void Equality()
 		{
-			var r = new InflectorRule("$s", "s");
-			r.Should().Be.EqualTo(new InflectorRule("$s", "s"));
-			r.Should().Not.Be.EqualTo(new InflectorRule("$s", "ss"));
+			var r = new NounsRule("$s", "s");
+			r.Should().Be.EqualTo(new NounsRule("$s", "s"));
+			r.Should().Not.Be.EqualTo(new NounsRule("$s", "ss"));
 		}
 
 		[Test]
 		public void HashCode()
 		{
-			var r = new InflectorRule("$s", "s");
-			r.GetHashCode().Should().Be.EqualTo((new InflectorRule("$s", "s")).GetHashCode());
-			r.GetHashCode().Should().Not.Be.EqualTo((new InflectorRule("$s", "ss")).GetHashCode());
+			var r = new NounsRule("$s", "s");
+			r.GetHashCode().Should().Be.EqualTo((new NounsRule("$s", "s")).GetHashCode());
+			r.GetHashCode().Should().Not.Be.EqualTo((new NounsRule("$s", "ss")).GetHashCode());
 		}
 
 		[Test]
 		public void Apply()
 		{
-			var r = new InflectorRule("(pizz)a$", "$1e");
+			var r = new NounsRule("(pizz)a$", "$1e");
 			r.Apply("pizza").Should().Be.EqualTo("pizze");
 		}
 	}

@@ -95,9 +95,12 @@
     <Compile Include="Extensions\ReflectionExtensions.cs" />
     <Compile Include="GenericImpl\PaginableDynQuery.cs" />
     <Compile Include="Inflector\AbstractInflector.cs" />
+    <Compile Include="Inflector\AbstractRule.cs" />
+    <Compile Include="Inflector\CaseSensitiveRule.cs" />
     <Compile Include="Inflector\EnglishInflector.cs" />
     <Compile Include="Inflector\IInflector.cs" />
-    <Compile Include="Inflector\InflectorRule.cs" />
+    <Compile Include="Inflector\NounsRule.cs" />
+    <Compile Include="Inflector\IRule.cs" />
     <Compile Include="Inflector\SpanishInflector.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
     <Compile Include="SessionEasier\AbstractConfigurationProvider.cs" />

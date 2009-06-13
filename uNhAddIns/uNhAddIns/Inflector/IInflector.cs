@@ -66,5 +66,12 @@ namespace uNhAddIns.Inflector
 		string Uncapitalize(string word);
 		string Ordinalize(string number);
 		string Dasherize(string underscoredWord);
+
+		/// <summary>
+		/// Transforms a string to its unaccented version.
+		/// </summary>
+		/// <param name="word">string to transform.</param>
+		/// <returns>unaccented version</returns>
+		string Unaccent(string word);
 	}
 }

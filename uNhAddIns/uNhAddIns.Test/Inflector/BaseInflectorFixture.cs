@@ -123,5 +123,12 @@ namespace uNhAddIns.Test.Inflector
 				Assert.AreEqual(keyValuePair.Value, TestInflector.Dasherize(keyValuePair.Key));
 			}
 		}
+
+		[Test]
+		public void Unaccent()
+		{
+			TestInflector.Unaccent("ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ‗אבגדהוזחטיךכלםמןנסעףפץצרשתûü‎‏ÿ")
+				.Should().Be.EqualTo("AAAAAAACEEEEIIIIDNOOOOOOUUUUYTsaaaaaaaceeeeiiiienoooooouuuuyty");
+		}
 	}
 }
