@@ -21,6 +21,7 @@ namespace uNhAddIns.Test.Inflector
 		public readonly Dictionary<string, string> OrdinalNumbers = new Dictionary<string, string>();
 		public readonly Dictionary<string, string> UnderscoresToDashes = new Dictionary<string, string>();
 		public readonly Dictionary<string, string> ClassNameToTableName = new Dictionary<string, string>();
+		public readonly Dictionary<string, string> ClassNameToForeignKeyName = new Dictionary<string, string>();
 
 		public IInflector TestInflector { get; set; }
 
@@ -130,6 +131,24 @@ namespace uNhAddIns.Test.Inflector
 		{
 			TestInflector.Unaccent("ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõöøùúûüışÿ")
 				.Should().Be.EqualTo("AAAAAAACEEEEIIIIDNOOOOOOUUUUYTsaaaaaaaceeeeiiiienoooooouuuuyty");
+		}
+
+		[Test]
+		public void Tableize()
+		{
+			foreach (KeyValuePair<string, string> keyValuePair in ClassNameToTableName)
+			{
+				Assert.AreEqual(keyValuePair.Key, TestInflector.Tableize(keyValuePair.Value));
+			}
+		}
+
+		[Test]
+		public void ForeignKey()
+		{
+			foreach (KeyValuePair<string, string> keyValuePair in ClassNameToForeignKeyName)
+			{
+				Assert.AreEqual(keyValuePair.Key, TestInflector.ForeignKey(keyValuePair.Value, false));
+			}
 		}
 	}
 }

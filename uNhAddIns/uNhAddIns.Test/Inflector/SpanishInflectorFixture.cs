@@ -31,8 +31,8 @@ namespace uNhAddIns.Test.Inflector
 			SingularToPlural.Add("Historial", "Historiales");
 			SingularToPlural.Add("Promoción", "Promociones");
 
-			ClassNameToTableName.Add("Origén", "Origenes");
-			ClassNameToTableName.Add("Ordén", "ordenes");
+			ClassNameToTableName.Add("Origenes", "Origén" );
+			ClassNameToTableName.Add("Ordenes", "Ordén");
 
 			TestInflector = new SpanishInflector();
 		}

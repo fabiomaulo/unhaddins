@@ -80,5 +80,13 @@ namespace uNhAddIns.Inflector
 		/// <param name="className">The class name (unqualified)</param>
 		/// <returns>The table name.</returns>
 		string Tableize(string className);
+
+		/// <summary>
+		/// Converts a class name to its ForeignKey column name.
+		/// </summary>
+		/// <param name="className">The class name (unqualified)</param>
+		/// <param name="separateClassNameAndId">true if an underscore is needed before "id"</param>
+		/// <returns><paramref name="className"/>, with "id" tacked on at the end.</returns>
+		string ForeignKey(string className, bool separateClassNameAndId);
 	}
 }
