@@ -20,6 +20,7 @@ namespace uNhAddIns.Test.Inflector
 		public readonly Dictionary<string, string> MixtureToTitleCase = new Dictionary<string, string>();
 		public readonly Dictionary<string, string> OrdinalNumbers = new Dictionary<string, string>();
 		public readonly Dictionary<string, string> UnderscoresToDashes = new Dictionary<string, string>();
+		public readonly Dictionary<string, string> ClassNameToTableName = new Dictionary<string, string>();
 
 		public IInflector TestInflector { get; set; }
 
