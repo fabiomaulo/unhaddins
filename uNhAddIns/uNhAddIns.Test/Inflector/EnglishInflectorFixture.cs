@@ -166,8 +166,8 @@ namespace uNhAddIns.Test.Inflector
       UnderscoresToDashes.Add("street_address", "street-address");
       UnderscoresToDashes.Add("person_street_address", "person-street-address");
 
-			ClassNameToTableName.Add("CostomersOrders", "CostomerOrder");
-			ClassNameToTableName.Add("Costomers_Orders", "Costomer_Order");
+			ClassNameToTableName.Add("CostomerOrders", "CostomerOrder");
+			ClassNameToTableName.Add("Costomer_Orders", "Costomer_Order");
 
 			ClassNameToForeignKeyName.Add("ProductId", "Product");
 			ClassNameToForeignKeyName.Add("SpecialGuestId", "SpecialGuest");
