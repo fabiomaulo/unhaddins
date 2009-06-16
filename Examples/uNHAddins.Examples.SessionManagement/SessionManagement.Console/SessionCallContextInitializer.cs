@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
-using System.Text;
 using NHibernate;
 using SessionManagement.Infrastructure.InversionOfControl;
-using SessionManagement.WCF.Host;
+using uNhAddIns.SessionEasier;
 
 namespace SessionManagement.WCF.Host
 {
@@ -17,16 +14,42 @@ namespace SessionManagement.WCF.Host
 
 		public object BeforeInvoke(InstanceContext instanceContext, IClientChannel channel, Message message)
 		{
-			var session = IoC.Resolve<ISessionFactory>().GetCurrentSession();
-			session.BeginTransaction();
-			OperationContext.Current.Extensions.Add(new ApplicationContext(session));
+			var sfp = IoC.Resolve<ISessionFactoryProvider>();
+
+			foreach (var factoryProvider in sfp)
+			{
+				var session = factoryProvider.GetCurrentSession();
+				session.FlushMode = FlushMode.Commit;
+				session.BeginTransaction();
+			}
+
 			return null;
 		}
 
 		public void AfterInvoke(object correlationState)
 		{
-			ApplicationContext.Session.Transaction.Commit();
-			ApplicationContext.CloseSession();
+			var sfp = IoC.Resolve<ISessionFactoryProvider>();
+
+			foreach (var factory in sfp)
+			{
+				var session = factory.GetCurrentSession();
+				try
+				{
+					if (session.IsOpen && session.Transaction.IsActive)
+					{
+						session.Transaction.Commit();
+					}
+				}
+				catch (Exception)
+				{
+					session.Transaction.Rollback();
+					throw;
+				}
+				finally
+				{
+					session.Dispose();
+				}
+			}
 		}
 
 		#endregion

@@ -49,7 +49,7 @@ namespace SessionManagement.WCF.Host
 
 			var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
 			var sfp = new SessionFactoryProvider(nhConfigurator);
-			container.Register(Component.For<ISessionFactoryProvider>().ImplementedBy<SessionFactoryProvider>());
+			container.Register(Component.For<ISessionFactoryProvider>().Instance(sfp));
 			container.Register(Component.For<ISessionWrapper>().ImplementedBy<SessionWrapper>());
 			container.Register(Component.For<ISessionFactory>().Instance(sfp.GetFactory(null)));
 
