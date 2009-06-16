@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -17,8 +18,8 @@ namespace uNhAddIns.Inflector
 		private readonly List<IRule> singulars = new List<IRule>();
 		private readonly HashSet<string> uncountables = new HashSet<string>();
 		private readonly HashSet<IRule> unaccentRules = new HashSet<IRule>();
-		private readonly Regex wordsSplit = new Regex(@"([A-Z]+[a-z\d]*)|[_\s]", RegexOptions.Compiled);
 		private readonly Regex wordsWhiteSpaces = new Regex(@"[_\s]", RegexOptions.Compiled);
+		private readonly Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
 		
 		protected AbstractInflector()
 		{
@@ -73,13 +74,13 @@ namespace uNhAddIns.Inflector
 			return result;
 		}
 
-		protected void AddIrregular(string singular, string plural)
+		protected virtual void AddIrregular(string singular, string plural)
 		{
 			AddPlural("(" + singular[0] + ")" + singular.Substring(1) + "$", "$1" + plural.Substring(1));
 			AddSingular("(" + plural[0] + ")" + plural.Substring(1) + "$", "$1" + singular.Substring(1));
 		}
 
-		protected void AddUncountable(string word)
+		protected virtual void AddUncountable(string word)
 		{
 			uncountables.Add(word.ToLower());
 		}
@@ -97,6 +98,11 @@ namespace uNhAddIns.Inflector
 		protected void AddSingular(string rule, string replacement)
 		{
 			singulars.Add(new NounsRule(rule, replacement));
+		}
+
+		public void AddDataDictionary(string className, string dataName)
+		{
+			dataDictionary[className] = dataName;
 		}
 
 		public virtual string Pluralize(string word)
@@ -165,19 +171,27 @@ namespace uNhAddIns.Inflector
 			{
 				throw new ArgumentNullException("className");
 			}
-			var result = new StringBuilder(className.Length);
-			foreach (var word in className.SplitWords())
+			string result;
+			if (!dataDictionary.TryGetValue(className, out result))
 			{
+				var builder = new StringBuilder(className.Length);
+				var words = className.SplitWords().ToArray();
+				for (int i = 0; i < words.Length - 1; i++)
+				{
+					builder.Append(words[i]);
+				}
+				var word = words[words.Length - 1];
 				if (wordsWhiteSpaces.IsMatch(word))
 				{
-					result.Append(word);
+					builder.Append(word);
 				}
 				else
 				{
-					result.Append(Unaccent(Pluralize(word)));
+					builder.Append(Unaccent(Pluralize(word)));
 				}
+				result = builder.ToString();
 			}
-			return result.ToString();
+			return result;
 		}
 
 		public string ForeignKey(string className, bool separateClassNameAndId)

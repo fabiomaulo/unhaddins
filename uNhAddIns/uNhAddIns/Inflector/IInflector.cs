@@ -81,8 +81,8 @@ namespace uNhAddIns.Inflector
 		/// <returns>The table name.</returns>
 		/// <remarks>
 		/// Convetion :
-		/// CostomerOrder -> CostomersOrders
-		/// Costomer_Order -> Costomers_Orders
+		/// CostomerOrder -> CostomerOrders
+		/// Costomer_Order -> Costomer_Orders
 		/// </remarks>
 		string Tableize(string className);
 

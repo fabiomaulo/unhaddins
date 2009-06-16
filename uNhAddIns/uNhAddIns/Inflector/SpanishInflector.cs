@@ -20,7 +20,7 @@ namespace uNhAddIns.Inflector
 		public SpanishInflector()
 		{
 			AddPlural("$", "es"); // ELSE +es (v.g. árbol->árboles)
-			AddPlural("(ng|[mwckgtp])$", "$1s"); // Anglicismos como puenting, frac, crack, show 
+			AddPlural("(ng|[mwckgtp])$", "$1s"); // Anglicismos como puenting, frac, crack, show, item 
 			AddPlural("([íú])$", "$1es"); // ceutí->ceutíes, tabú->tabúes
 			AddPlural("z$", "ces"); // luz->luces
 			AddPlural("([aeiou])s$", "$1s"); // atlas->atlas, virus->virus, etc.
@@ -68,6 +68,18 @@ namespace uNhAddIns.Inflector
 			AddUncountable("atlas");
 			AddUncountable("sms");
 			AddUncountable("déficit");
+		}
+
+		protected override void AddIrregular(string singular, string plural)
+		{
+			base.AddIrregular(singular, plural);
+			base.AddIrregular(Unaccent(singular), Unaccent(plural));
+		}
+
+		protected override void AddUncountable(string word)
+		{
+			base.AddUncountable(word);
+			base.AddUncountable(Unaccent(word));
 		}
 
 		private void AddPluralForEach(string charectersToMatch, string charectersToReplace, char wildChar, string ruleTemplate,
