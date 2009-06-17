@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace uNhAddIns.Inflector
 {
-	public abstract class AbstractRule : IRule
+	public abstract class AbstractRule : IReplacementRule
 	{
 		private readonly int hashCode;
 
@@ -23,7 +23,6 @@ namespace uNhAddIns.Inflector
 			Regex = CreateRegex();
 		}
 
-
 		public string Replacement { get; private set; }
 
 		public string Pattern { get; private set; }
@@ -34,10 +33,10 @@ namespace uNhAddIns.Inflector
 
 		public override bool Equals(object obj)
 		{
-			return Equals(obj as IRule);
+			return Equals(obj as IReplacementRule);
 		}
 
-		public bool Equals(IRule other)
+		public bool Equals(IReplacementRule other)
 		{
 			if (ReferenceEquals(null, other))
 			{

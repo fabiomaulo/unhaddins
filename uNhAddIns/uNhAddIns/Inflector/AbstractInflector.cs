@@ -13,10 +13,10 @@ namespace uNhAddIns.Inflector
 	/// </remarks>
 	public abstract class AbstractInflector : IInflector
 	{
-		private readonly List<IRule> plurals = new List<IRule>();
-		private readonly List<IRule> singulars = new List<IRule>();
+		private readonly List<IRuleApplier> plurals = new List<IRuleApplier>();
+		private readonly List<IRuleApplier> singulars = new List<IRuleApplier>();
 		private readonly HashSet<string> uncountables = new HashSet<string>();
-		private readonly HashSet<IRule> unaccentRules = new HashSet<IRule>();
+		private readonly HashSet<IRuleApplier> unaccentRules = new HashSet<IRuleApplier>();
 		private readonly List<IRuleApplier> dataDictionaryRules = new List<IRuleApplier>(50);
 
 		protected AbstractInflector()
@@ -110,12 +110,12 @@ namespace uNhAddIns.Inflector
 
 		public virtual string Pluralize(string word)
 		{
-			return ApplyFirstMatchRule(plurals.Cast<IRuleApplier>(), word);
+			return ApplyFirstMatchRule(plurals, word);
 		}
 
 		public virtual string Singularize(string word)
 		{
-			return ApplyFirstMatchRule(singulars.Cast<IRuleApplier>(), word);
+			return ApplyFirstMatchRule(singulars, word);
 		}
 
 		public string Titleize(string word)
@@ -165,7 +165,7 @@ namespace uNhAddIns.Inflector
 
 		public virtual string Unaccent(string word)
 		{
-			return ApplyRules(unaccentRules.Cast<IRuleApplier>(), word);
+			return ApplyRules(unaccentRules, word);
 		}
 
 		public virtual string Tableize(string className)
