@@ -106,7 +106,7 @@
     <Compile Include="Inflector\InflectorNamingStrategy.cs" />
     <Compile Include="Inflector\IRuleApplier.cs" />
     <Compile Include="Inflector\NounsRule.cs" />
-    <Compile Include="Inflector\IRule.cs" />
+    <Compile Include="Inflector\IReplacementRule.cs" />
     <Compile Include="Inflector\SpanishInflector.cs" />
     <Compile Include="Inflector\SpanishNamingStrategy.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
