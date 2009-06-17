@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace uNhAddIns.Inflector
@@ -18,9 +17,8 @@ namespace uNhAddIns.Inflector
 		private readonly List<IRule> singulars = new List<IRule>();
 		private readonly HashSet<string> uncountables = new HashSet<string>();
 		private readonly HashSet<IRule> unaccentRules = new HashSet<IRule>();
-		private readonly Regex wordsWhiteSpaces = new Regex(@"[_\s]", RegexOptions.Compiled);
-		private readonly Dictionary<string, string> dataDictionary = new Dictionary<string, string>();
-		
+		private readonly List<IRuleApplier> dataDictionaryRules = new List<IRuleApplier>(50);
+
 		protected AbstractInflector()
 		{
 			AddUnaccent("([ÀÁÂÃÄÅÆ])", "A");
@@ -45,26 +43,22 @@ namespace uNhAddIns.Inflector
 			AddUnaccent("([ý])", "y");
 			AddUnaccent("([þ])", "t");
 			AddUnaccent("([ÿ])", "y");
+
+			dataDictionaryRules.Add(new DefaultTableizeRuleApplier(this));
 		}
 
-		protected virtual string ApplyFirstMatchRule(IList<IRule> rules, string word)
+		protected virtual string ApplyFirstMatchRule(IEnumerable<IRuleApplier> rules, string word)
 		{
 			string result = word;
 
 			if (!uncountables.Contains(word.ToLower()))
 			{
-				for (int i = rules.Count - 1; i >= 0; i--)
-				{
-					if ((result = rules[i].Apply(word)) != null)
-					{
-						break;
-					}
-				}
+				rules.Reverse().First(r => (result = r.Apply(word)) != null);
 			}
 			return result;
 		}
 
-		protected virtual string ApplyRules(IEnumerable<IRule> rules, string word)
+		protected virtual string ApplyRules(IEnumerable<IRuleApplier> rules, string word)
 		{
 			string result = word;
 			foreach (var rule in rules)
@@ -102,17 +96,26 @@ namespace uNhAddIns.Inflector
 
 		public void AddDataDictionary(string className, string dataName)
 		{
-			dataDictionary[className] = dataName;
+			AddDataDictionary(new DataDictionaryRuleApplier(className, dataName));
+		}
+
+		public void AddDataDictionary(IRuleApplier ruleApplier)
+		{
+			if (ruleApplier == null)
+			{
+				throw new ArgumentNullException("ruleApplier");
+			}
+			dataDictionaryRules.Add(ruleApplier);
 		}
 
 		public virtual string Pluralize(string word)
 		{
-			return ApplyFirstMatchRule(plurals, word);
+			return ApplyFirstMatchRule(plurals.Cast<IRuleApplier>(), word);
 		}
 
 		public virtual string Singularize(string word)
 		{
-			return ApplyFirstMatchRule(singulars, word);
+			return ApplyFirstMatchRule(singulars.Cast<IRuleApplier>(), word);
 		}
 
 		public string Titleize(string word)
@@ -162,36 +165,12 @@ namespace uNhAddIns.Inflector
 
 		public virtual string Unaccent(string word)
 		{
-			return ApplyRules(unaccentRules, word);
+			return ApplyRules(unaccentRules.Cast<IRuleApplier>(), word);
 		}
 
 		public virtual string Tableize(string className)
 		{
-			if (string.IsNullOrEmpty(className))
-			{
-				throw new ArgumentNullException("className");
-			}
-			string result;
-			if (!dataDictionary.TryGetValue(className, out result))
-			{
-				var builder = new StringBuilder(className.Length);
-				var words = className.SplitWords().ToArray();
-				for (int i = 0; i < words.Length - 1; i++)
-				{
-					builder.Append(words[i]);
-				}
-				var word = words[words.Length - 1];
-				if (wordsWhiteSpaces.IsMatch(word))
-				{
-					builder.Append(word);
-				}
-				else
-				{
-					builder.Append(Unaccent(Pluralize(word)));
-				}
-				result = builder.ToString();
-			}
-			return result;
+			return ApplyFirstMatchRule(dataDictionaryRules, className);
 		}
 
 		public string ForeignKey(string className, bool separateClassNameAndId)

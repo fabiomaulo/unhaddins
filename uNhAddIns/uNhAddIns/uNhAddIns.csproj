@@ -97,11 +97,14 @@
     <Compile Include="Inflector\AbstractInflector.cs" />
     <Compile Include="Inflector\AbstractRule.cs" />
     <Compile Include="Inflector\CaseSensitiveRule.cs" />
+    <Compile Include="Inflector\DataDictionaryRuleApplier.cs" />
+    <Compile Include="Inflector\DefaultTableizeRuleApplier.cs" />
     <Compile Include="Inflector\EnglishInflector.cs" />
     <Compile Include="Inflector\EnglishNamingStrategy.cs" />
     <Compile Include="Inflector\IInflector.cs" />
     <Compile Include="Inflector\InflectorExtensions.cs" />
     <Compile Include="Inflector\InflectorNamingStrategy.cs" />
+    <Compile Include="Inflector\IRuleApplier.cs" />
     <Compile Include="Inflector\NounsRule.cs" />
     <Compile Include="Inflector\IRule.cs" />
     <Compile Include="Inflector\SpanishInflector.cs" />
