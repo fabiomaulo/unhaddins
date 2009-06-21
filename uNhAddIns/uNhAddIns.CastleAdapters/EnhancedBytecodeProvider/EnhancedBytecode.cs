@@ -3,6 +3,7 @@ using Castle.Windsor;
 using NHibernate.Bytecode;
 using NHibernate.ByteCode.Castle;
 using NHibernate.Properties;
+using NHibernate.Type;
 
 namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 {
@@ -11,11 +12,13 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 		private readonly IObjectsFactory objectsFactory;
 
 		private readonly IWindsorContainer container;
+		private readonly DefaultCollectionTypeFactory collectionTypefactory;
 
 		public EnhancedBytecode(IWindsorContainer container)
 		{
 			this.container = container;
 			objectsFactory = new ObjectsFactory(container);
+			collectionTypefactory = new DefaultCollectionTypeFactory();
 		}
 
 		#region IBytecodeProvider Members
@@ -33,6 +36,11 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 		public IObjectsFactory ObjectsFactory
 		{
 			get { return objectsFactory; }
+		}
+
+		public ICollectionTypeFactory CollectionTypeFactory
+		{
+			get { return collectionTypefactory; }
 		}
 
 		#endregion
