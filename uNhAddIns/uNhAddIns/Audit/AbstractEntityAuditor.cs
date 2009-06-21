@@ -26,9 +26,6 @@ namespace uNhAddIns.Audit
 		#region IAuditor Members
 
 		public abstract void Initialize(Configuration cfg);
-		public abstract void Inserting(PreInsertEvent eventArgs);
-		public abstract void Updating(PreUpdateEvent eventArgs);
-		public abstract void Deleting(PreDeleteEvent eventArgs);
 		public abstract void Inserted(PostInsertEvent eventArgs);
 		public abstract void Updated(PostUpdateEvent eventArgs);
 		public abstract void Deleted(PostDeleteEvent eventArgs);
