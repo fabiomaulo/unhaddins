@@ -126,6 +126,7 @@
     <Compile Include="DynamicQuery\DynQueryFixture.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Extensions\EnumerablesFixture.cs" />
     <Compile Include="Extensions\ReflectionExtensionsFixture.cs" />
     <Compile Include="Inflector\BaseInflectorFixture.cs" />
     <Compile Include="Inflector\EnglishInflectorFixture.cs" />
@@ -164,6 +165,8 @@
     <Compile Include="TestCase.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\EntityWithPropNames.cs" />
+    <Compile Include="UserTypes\PropertiesNamesIntegrationFixture.cs" />
     <Compile Include="UserTypes\TrimmedStringFixture.cs" />
     <Compile Include="UserTypes\EncryptedStringFixture.cs" />
     <Compile Include="UserTypes\Foo.cs" />
@@ -239,6 +242,7 @@
     <Content Include="TestConfigWithFactoryName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UserTypes\EntityWithPropNames.hbm.xml" />
     <EmbeddedResource Include="UserTypes\User.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
