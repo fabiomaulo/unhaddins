@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Data;
 using NHibernate;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
 using uNhAddIns.Extensions;
 using uNhAddIns.UserTypes;
+using System.Collections.Generic;
 
 namespace uNHAddIns.UserTypes
 {
@@ -166,7 +166,7 @@ namespace uNHAddIns.UserTypes
 
 		#region Implementation of IParameterizedType
 
-		public void SetParameterValues(IDictionary parameters)
+		public void SetParameterValues(IDictionary<string,string> parameters)
 		{
 			if (parameters != null)
 			{
