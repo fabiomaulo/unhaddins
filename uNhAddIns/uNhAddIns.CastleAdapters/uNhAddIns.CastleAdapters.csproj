@@ -109,6 +109,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)\..\..\Tools\ilmerge.exe /target:library /out:uNhAddIns.Adapters.Castle.dll $(TargetFileName) uNhAddIns.Adapters.Common.dll</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)\..\..\Tools\ilmerge.exe" /target:library /out:uNhAddIns.Adapters.Castle.dll $(TargetFileName) uNhAddIns.Adapters.Common.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>
