@@ -57,6 +57,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetFileName) $(SolutionDir)Lib</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetFileName) "$(SolutionDir)Lib"</PostBuildEvent>
   </PropertyGroup>
 </Project>
