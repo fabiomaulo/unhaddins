@@ -12,8 +12,6 @@ namespace uNhAddIns.Test.Listeners.AutoDirtyCheck
 	[TestFixture]
 	public class Fixture : FunctionalTestCase
 	{
-		private const string ReptilesfamilyEntityName = "ReptilesFamily";
-		private const string HumanfamilyEntityName = "HumanFamily";
 		private class DisableAutoDirtyCheckSettings:DefaultFunctionalTestSettings
 		{
 			public DisableAutoDirtyCheckSettings(IMappingsLoader mappingLoader) : base(mappingLoader) {}
@@ -44,14 +42,14 @@ namespace uNhAddIns.Test.Listeners.AutoDirtyCheck
 																								var reptileFamily =
 																									ReptileFamilyBuilder.StartRecording().WithChildren(2).Build();
 
-																								session.Save(ReptilesfamilyEntityName, reptileFamily);
+																								session.Save(reptileFamily);
 																							}
 
 																							for (int i = 0; i < 10; i++)
 																							{
 																								var humanFamily = HumanFamilyBuilder.StartRecording().WithChildren(1).Build();
 
-																								session.Save(HumanfamilyEntityName, humanFamily);
+																								session.Save(humanFamily);
 																							}
 																						});
 		}
@@ -84,8 +82,8 @@ namespace uNhAddIns.Test.Listeners.AutoDirtyCheck
 
 				SessionFactory.Statistics.Clear();
 
-				s.Update(ReptilesfamilyEntityName, reptiles.First());
-				s.Update(HumanfamilyEntityName, humans.First());
+				s.Update(reptiles.First());
+				s.Update(humans.First());
 
 				tx.Commit();
 			}
@@ -103,7 +101,7 @@ namespace uNhAddIns.Test.Listeners.AutoDirtyCheck
 																						{
 																							var reptileFamily =
 																								ReptileFamilyBuilder.StartRecording().WithChildren(2).Build();
-																							session.Save(ReptilesfamilyEntityName, reptileFamily);
+																							session.Save(reptileFamily);
 																						});
 
 			Family<Reptile> reptil;
@@ -136,7 +134,7 @@ namespace uNhAddIns.Test.Listeners.AutoDirtyCheck
 																						{
 																							var reptileFamily =
 																								ReptileFamilyBuilder.StartRecording().WithChildren(2).Build();
-																							session.Save(ReptilesfamilyEntityName, reptileFamily);
+																							session.Save(reptileFamily);
 																						});
 
 			SessionFactory.EncloseInTransaction(session =>
