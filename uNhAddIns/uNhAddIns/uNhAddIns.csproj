@@ -108,7 +108,13 @@
     <Compile Include="Inflector\IReplacementRule.cs" />
     <Compile Include="Inflector\SpanishInflector.cs" />
     <Compile Include="Inflector\SpanishNamingStrategy.cs" />
+    <Compile Include="Listeners\AutoDirtyCheck\ConfigurationExtensions.cs" />
+    <Compile Include="Listeners\AutoDirtyCheck\ResetReadOnlyCascadeAction.cs" />
+    <Compile Include="Listeners\AutoDirtyCheck\ResetReadOnlyEntityDeleteListener.cs" />
+    <Compile Include="Listeners\AutoDirtyCheck\ResetReadOnlyEntityUpdateListener.cs" />
+    <Compile Include="Listeners\AutoDirtyCheck\SetReadOnlyEntityPostLoadListener.cs" />
     <Compile Include="Mapping\MappingExtensions.cs" />
+    <Compile Include="NhCoreExtensions.cs" />
     <Compile Include="SessionEasier\AbstractConfigurationProvider.cs" />
     <Compile Include="SessionEasier\BasicTransactionProtectionWrapper.cs" />
     <Compile Include="SessionEasier\ConfigurationEvents.cs" />
