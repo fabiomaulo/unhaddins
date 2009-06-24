@@ -46,7 +46,12 @@ namespace uNhAddIns.Test.UserTypes
 		[Test]
 		public void SaveNullPropertiesNames()
 		{
-			FillDb();
+			using (ISession s = OpenSession())
+			{
+				savedId = s.Save(new EntityWithPropNames());
+				s.Flush();
+			}
+ 
 			using (ISession s = OpenSession())
 			{
 				var e = s.Get<EntityWithPropNames>(savedId);
