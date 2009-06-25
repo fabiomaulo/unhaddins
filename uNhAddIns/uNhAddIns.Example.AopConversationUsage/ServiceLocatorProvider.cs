@@ -3,7 +3,6 @@ using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate;
-using NHibernate.Tool.hbm2ddl;
 using uNhAddIns.CastleAdapters;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.Example.AopConversationUsage.BusinessLogic;
@@ -21,16 +20,29 @@ namespace uNhAddIns.Example.AopConversationUsage
 			var container = new WindsorContainer();
 			container.AddFacility<PersistenceConversationFacility>();
 
-			var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
-			nhConfigurator.AfterConfigure += ((sender, e) => new SchemaExport(e.Configuration).Create(false, true));
-			var sfp = new SessionFactoryProvider(nhConfigurator);
+			var sfp = new SessionFactoryProvider();
 			container.Register(Component.For<ISessionFactoryProvider>().Instance(sfp));
+
+			// This is because AFIK the programmatic conf of Windsor does not support the factory-method feature
+			// the equivalent XML conf should look like
+			/*
+			  <component id="uNhAddIns.sessionFactory"
+					type="NHibernate.ISessionFactory, NHibernate"
+					factoryId="sessionFactoryProvider"
+					factoryCreate="GetFactory">
+					<parameters>
+						<factoryId>null</factoryId>
+					</parameters>
+				</component>
+			 */
+			container.Register(Component.For<ISessionFactory>().Instance(sfp.GetFactory(null)));
+			//********************
+
 			container.Register(Component.For<ISessionWrapper>().ImplementedBy<SessionWrapper>());
 			container.Register(Component.For<IConversationFactory>().ImplementedBy<DefaultConversationFactory>());
 			container.Register(Component.For<IConversationsContainerAccessor>().ImplementedBy<NhConversationsContainerAccessor>());
 
 			container.Register(Component.For<IDaoFactory>().ImplementedBy<DaoFactory>());
-			container.Register(Component.For<ISessionFactory>().Instance(sfp.GetFactory(null)));
 
 			RegisterNaturalnessDaos<Reptile>(container);
 			RegisterNaturalnessDaos<Human>(container);
