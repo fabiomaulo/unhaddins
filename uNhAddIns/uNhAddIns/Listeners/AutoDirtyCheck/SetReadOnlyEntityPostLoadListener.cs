@@ -5,12 +5,33 @@ using NHibernate.Event;
 namespace uNhAddIns.Listeners.AutoDirtyCheck
 {
 	[Serializable]
-	public class SetReadOnlyEntityPostLoadListener : IPostLoadEventListener
+	public class SetReadOnlyEntityPostLoadListener : IPostLoadEventListener, ILockEventListener
 	{
+		#region IPostLoadEventListener Members
+
 		public void OnPostLoad(PostLoadEvent @event)
 		{
-			EntityEntry entry = @event.Session.PersistenceContext.GetEntry(@event.Entity);
-			entry.BackSetStatus(Status.ReadOnly);
+			SetReadOnlyEntity(@event.Session, @event.Entity);
+		}
+
+		#endregion
+
+		#region Implementation of ILockEventListener
+
+		public void OnLock(LockEvent @event)
+		{
+			SetReadOnlyEntity(@event.Session, @event.Entity);
+		}
+
+		#endregion
+
+		private void SetReadOnlyEntity(IEventSource session, object entity)
+		{
+			if (session.FetchProfile != "merge")
+			{
+				EntityEntry entry = session.PersistenceContext.GetEntry(entity);
+				entry.BackSetStatus(Status.ReadOnly);
+			}
 		}
 	}
 }

@@ -95,6 +95,287 @@ namespace uNhAddIns.Test.Listeners.AutoDirtyCheck
 		}
 
 		[Test]
+		public void ShouldUpdateReattaching()
+		{
+			FillDb();
+
+			IEnumerable<Family<Human>> humans;
+			IEnumerable<Family<Reptile>> reptiles;
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				reptiles = s.CreateQuery("from ReptilesFamily reptile join fetch reptile.Father join fetch reptile.Mother")
+					.Future<Family<Reptile>>();
+
+				humans = s.CreateQuery("from HumanFamily human join fetch human.Father join fetch human.Mother")
+					.Future<Family<Human>>();
+				foreach (var reptile in reptiles)
+				{
+					NHibernateUtil.Initialize(reptile.Children);
+				}
+				foreach (var human in humans)
+				{
+					NHibernateUtil.Initialize(human.Children);
+				}
+				tx.Commit();
+			}
+
+			ModifyAll(reptiles);
+			ModifyAll(humans);
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				SessionFactory.Statistics.Clear();
+
+				s.Update(reptiles.First());
+				s.Update(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(9); // 7 animals modified and the 2 families
+
+			CleanDb();
+		}
+
+		[Test]
+		public void ShouldWorkWithSaveOrUpdate()
+		{
+			FillDb();
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				var reptiles = s.CreateQuery("from ReptilesFamily")
+					.Future<Family<Reptile>>();
+
+				var humans = s.CreateQuery("from HumanFamily")
+					.Future<Family<Human>>();
+
+				ModifyAll(reptiles);
+				ModifyAll(humans);
+
+				SessionFactory.Statistics.Clear();
+
+				s.SaveOrUpdate(reptiles.First());
+				s.SaveOrUpdate(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(7);
+
+			CleanDb();
+		}
+
+		[Test]
+		public void ShouldWorkWithPersist()
+		{
+			FillDb();
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				var reptiles = s.CreateQuery("from ReptilesFamily")
+					.Future<Family<Reptile>>();
+
+				var humans = s.CreateQuery("from HumanFamily")
+					.Future<Family<Human>>();
+
+				ModifyAll(reptiles);
+				ModifyAll(humans);
+
+				SessionFactory.Statistics.Clear();
+
+				s.Persist(reptiles.First());
+				s.Persist(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(7);
+
+			CleanDb();
+		}
+
+		[Test]
+		public void ShouldWorkWithMergeInSameSession()
+		{
+			FillDb();
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				var reptiles = s.CreateQuery("from ReptilesFamily")
+					.Future<Family<Reptile>>();
+
+				var humans = s.CreateQuery("from HumanFamily")
+					.Future<Family<Human>>();
+
+				ModifyAll(reptiles);
+				ModifyAll(humans);
+
+				SessionFactory.Statistics.Clear();
+
+				s.Merge(reptiles.First());
+				s.Merge(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(7);
+
+			CleanDb();
+		}
+
+		[Test]
+		public void ShouldWorkWithMergeReattaching()
+		{
+			FillDb();
+
+			IEnumerable<Family<Human>> humans;
+			IEnumerable<Family<Reptile>> reptiles;
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				reptiles = s.CreateQuery("from ReptilesFamily reptile join fetch reptile.Father join fetch reptile.Mother")
+					.Future<Family<Reptile>>();
+
+				humans = s.CreateQuery("from HumanFamily human join fetch human.Father join fetch human.Mother")
+					.Future<Family<Human>>();
+				foreach (var reptile in reptiles)
+				{
+					NHibernateUtil.Initialize(reptile.Children);
+				}
+				foreach (var human in humans)
+				{
+					NHibernateUtil.Initialize(human.Children);
+				}
+				tx.Commit();
+			}
+
+			ModifyAll(reptiles);
+			ModifyAll(humans);
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				SessionFactory.Statistics.Clear();
+
+				s.Merge(reptiles.First());
+				s.Merge(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(7);
+
+			CleanDb();
+		}
+
+		[Test]
+		public void ShouldWorkWithLockReattaching()
+		{
+			FillDb();
+
+			IEnumerable<Family<Human>> humans;
+			IEnumerable<Family<Reptile>> reptiles;
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				reptiles = s.CreateQuery("from ReptilesFamily reptile join fetch reptile.Father join fetch reptile.Mother")
+					.Future<Family<Reptile>>();
+
+				humans = s.CreateQuery("from HumanFamily human join fetch human.Father join fetch human.Mother")
+					.Future<Family<Human>>();
+				foreach (var reptile in reptiles)
+				{
+					NHibernateUtil.Initialize(reptile.Children);
+				}
+				foreach (var human in humans)
+				{
+					NHibernateUtil.Initialize(human.Children);
+				}
+				tx.Commit();
+			}
+
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				foreach (var family in reptiles)
+				{
+					s.Lock(family, LockMode.None);
+				}
+				foreach (var human in humans)
+				{
+					s.Lock(human, LockMode.None);					
+				}
+				
+				ModifyAll(reptiles);
+				ModifyAll(humans);
+
+				SessionFactory.Statistics.Clear();
+
+				s.SaveOrUpdate(reptiles.First());
+				s.SaveOrUpdate(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(7);
+
+			CleanDb();
+		}
+
+		[Test]
+		public void ShouldWorkWithRefresh()
+		{
+			FillDb();
+
+			using (ISession s = SessionFactory.OpenSession())
+			using (ITransaction tx = s.BeginTransaction())
+			{
+				var reptiles = s.CreateQuery("from ReptilesFamily")
+					.Future<Family<Reptile>>();
+
+				var humans = s.CreateQuery("from HumanFamily")
+					.Future<Family<Human>>();
+
+				foreach (var family in reptiles)
+				{
+					s.Refresh(family);
+				}
+				foreach (var human in humans)
+				{
+					s.Refresh(human);
+				}
+
+				ModifyAll(reptiles);
+				ModifyAll(humans);
+
+				SessionFactory.Statistics.Clear();
+
+				s.Merge(reptiles.First());
+				s.Merge(humans.First());
+
+				tx.Commit();
+			}
+
+			SessionFactory.Statistics.EntityUpdateCount
+				.Should().Be.EqualTo(7);
+
+			CleanDb();
+		}
+
+		[Test]
 		public void ShouldUpdateCollection()
 		{
 			SessionFactory.EncloseInTransaction(session =>
