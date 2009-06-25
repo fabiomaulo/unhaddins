@@ -10,6 +10,7 @@ using uNhAddIns.Example.AopConversationUsage.DataAccessObjects;
 using uNhAddIns.Example.AopConversationUsage.Entities;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
+using Castle.Facilities.FactorySupport;
 
 namespace uNhAddIns.Example.AopConversationUsage
 {
@@ -18,25 +19,13 @@ namespace uNhAddIns.Example.AopConversationUsage
 		public static void Initialize()
 		{
 			var container = new WindsorContainer();
+			container.AddFacility<FactorySupportFacility>(); 
 			container.AddFacility<PersistenceConversationFacility>();
 
-			var sfp = new SessionFactoryProvider();
-			container.Register(Component.For<ISessionFactoryProvider>().Instance(sfp));
-
-			// This is because AFIK the programmatic conf of Windsor does not support the factory-method feature
-			// the equivalent XML conf should look like
-			/*
-			  <component id="uNhAddIns.sessionFactory"
-					type="NHibernate.ISessionFactory, NHibernate"
-					factoryId="sessionFactoryProvider"
-					factoryCreate="GetFactory">
-					<parameters>
-						<factoryId>null</factoryId>
-					</parameters>
-				</component>
-			 */
-			container.Register(Component.For<ISessionFactory>().Instance(sfp.GetFactory(null)));
-			//********************
+			container.Register(Component.For<ISessionFactoryProvider>().ImplementedBy<SessionFactoryProvider>());
+			container.Register(
+				Component.For<ISessionFactory>().UsingFactoryMethod(
+					() => container.Resolve<ISessionFactoryProvider>().GetFactory(null)));
 
 			container.Register(Component.For<ISessionWrapper>().ImplementedBy<SessionWrapper>());
 			container.Register(Component.For<IConversationFactory>().ImplementedBy<DefaultConversationFactory>());
@@ -57,19 +46,10 @@ namespace uNhAddIns.Example.AopConversationUsage
 
 		private static void RegisterNaturalnessDaos<T>(IWindsorContainer cont) where T : Animal
 		{
-			var animalDao = new AnimalDao<T>(cont.Resolve<ISessionFactory>());
 			cont.Register(
-				Component.For<IAnimalReadOnlyDao<T>>().Instance(animalDao).Named(
-					typeof (IAnimalReadOnlyDao<T>).AssemblyQualifiedName));
-			cont.Register(Component.For<ICrudDao<T>>().Instance(animalDao).Named(typeof (ICrudDao<T>).AssemblyQualifiedName));
-			cont.Register(Component.For<IDao<T>>().Instance(animalDao).Named(typeof (IDao<T>).AssemblyQualifiedName));
+				Component.For<IAnimalReadOnlyDao<T>, ICrudDao<T>, IDao<T>>().ImplementedBy<AnimalDao<T>>());
 
-			var familyDao = new FamilyDao<T>(cont.Resolve<ISessionFactory>());
-			cont.Register(Component.For<IFamilyDao<T>>().Instance(familyDao).Named(typeof (IFamilyDao<T>).AssemblyQualifiedName));
-			cont.Register(
-				Component.For<ICrudDao<Family<T>>>().Instance(familyDao).Named(typeof (ICrudDao<Family<T>>).AssemblyQualifiedName));
-			cont.Register(
-				Component.For<IDao<Family<T>>>().Instance(familyDao).Named(typeof (IDao<Family<T>>).AssemblyQualifiedName));
+			cont.Register(Component.For<IFamilyDao<T>, ICrudDao<Family<T>>, IDao<Family<T>>>().ImplementedBy<FamilyDao<T>>());
 		}
 	}
 }
