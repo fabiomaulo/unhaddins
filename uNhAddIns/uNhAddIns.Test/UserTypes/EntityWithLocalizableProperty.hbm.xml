@@ -9,7 +9,7 @@
 		<id type="int">
 			<generator class="native"/>
 		</id>
-		<property name="LocalizableProperty" type="localizable"/>
+		<property name="LocalizableDescriptions" type="localizable"/>
 	</class>
 
 </hibernate-mapping>
