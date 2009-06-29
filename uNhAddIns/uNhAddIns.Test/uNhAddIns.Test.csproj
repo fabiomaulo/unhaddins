@@ -118,6 +118,7 @@
     <Compile Include="Conversations\ThreadLocalConversationalSessionContextFixture.cs" />
     <Compile Include="Conversations\ThreadLocalConversationContainerFixture.cs" />
     <Compile Include="CriterionTest\CriterionTest.cs" />
+    <Compile Include="CriterionTest\LocalizableRestrictionFixture.cs" />
     <Compile Include="CriterionTest\Simple.cs" />
     <Compile Include="DebugConnectionProvider.cs" />
     <Compile Include="DynamicQuery\DetachedDynQueryFixture.cs">
@@ -128,6 +129,7 @@
     </Compile>
     <Compile Include="Extensions\EnumerablesFixture.cs" />
     <Compile Include="Extensions\ReflectionExtensionsFixture.cs" />
+    <Compile Include="Extensions\StringFixture.cs" />
     <Compile Include="Inflector\BaseInflectorFixture.cs" />
     <Compile Include="Inflector\EnglishInflectorFixture.cs" />
     <Compile Include="Inflector\InflectorExtensionsFixture.cs" />
@@ -168,7 +170,9 @@
     <Compile Include="TestCase.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\EntityWithLocalizableProperty.cs" />
     <Compile Include="UserTypes\EntityWithPropNames.cs" />
+    <Compile Include="UserTypes\LocalizablePropertyFixture.cs" />
     <Compile Include="UserTypes\PropertiesNamesIntegrationFixture.cs" />
     <Compile Include="UserTypes\TrimmedStringFixture.cs" />
     <Compile Include="UserTypes\EncryptedStringFixture.cs" />
@@ -247,6 +251,7 @@
     <Content Include="TestConfigWithFactoryName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UserTypes\EntityWithLocalizableProperty.hbm.xml" />
     <EmbeddedResource Include="UserTypes\EntityWithPropNames.hbm.xml" />
     <EmbeddedResource Include="UserTypes\User.hbm.xml" />
   </ItemGroup>
