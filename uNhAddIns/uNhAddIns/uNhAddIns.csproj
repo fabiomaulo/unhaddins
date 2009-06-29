@@ -89,9 +89,11 @@
     <Compile Include="Cache\ITolerantQueryCacheConfiguration.cs" />
     <Compile Include="Cache\RegionQueryCacheFactory.cs" />
     <Compile Include="Cache\TolerantQueryCache.cs" />
+    <Compile Include="Criterions\Localizable.cs" />
     <Compile Include="DynQuery\GroupBy.cs" />
     <Compile Include="Extensions\Enumerables.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />
+    <Compile Include="Extensions\String.cs" />
     <Compile Include="GenericImpl\PaginableDynQuery.cs" />
     <Compile Include="Inflector\AbstractInflector.cs" />
     <Compile Include="Inflector\AbstractRule.cs" />
@@ -191,6 +193,7 @@
     <Compile Include="SessionEasier\FakeSessionWrapper.cs" />
     <Compile Include="SessionEasier\SessionFactoryProvider.cs" />
     <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\LocalizablePropertyType.cs" />
     <Compile Include="UserTypes\PropertiesNamesType.cs" />
     <Compile Include="UserTypes\TrimString.cs" />
     <Compile Include="UserTypes\EncryptedString.cs" />
