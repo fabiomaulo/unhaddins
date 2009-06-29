@@ -34,7 +34,7 @@ namespace uNhAddIns.Test.UserTypes
 				savedId =
 					s.Save(new EntityWithLocalizableProperty
 					       	{
-					       		LocalizableProperty =
+					       		LocalizableDescriptions =
 					       			new Dictionary<CultureInfo, string>
 					       				{{new CultureInfo("es-AR"), "Hola"}, {new CultureInfo("en-US"), "Hello"}}
 					       	});
@@ -56,7 +56,7 @@ namespace uNhAddIns.Test.UserTypes
 			using (ISession s = OpenSession())
 			{
 				var e = s.Get<EntityWithLocalizableProperty>(savedId);
-				e.LocalizableProperty.Should().Have.SameSequenceAs(new[]
+				e.LocalizableDescriptions.Should().Have.SameSequenceAs(new[]
 				                                                   	{
 				                                                   		new KeyValuePair<CultureInfo, string>(
 				                                                   			new CultureInfo("es-AR"), "Hola"),
@@ -72,14 +72,14 @@ namespace uNhAddIns.Test.UserTypes
 		{
 			using (ISession s = OpenSession())
 			{
-				savedId = s.Save(new EntityWithLocalizableProperty {LocalizableProperty = null});
+				savedId = s.Save(new EntityWithLocalizableProperty {LocalizableDescriptions = null});
 				s.Flush();
 			}
 
 			using (ISession s = OpenSession())
 			{
 				var e = s.Get<EntityWithLocalizableProperty>(savedId);
-				e.LocalizableProperty.Should().Be.Null();
+				e.LocalizableDescriptions.Should().Be.Null();
 			}
 			Cleanup();
 		}
@@ -90,14 +90,14 @@ namespace uNhAddIns.Test.UserTypes
 			FillDb();
 			using (ISession s = OpenSession())
 			{
-				s.CreateQuery("from EntityWithLocalizableProperty e where e.LocalizableProperty like :pTemplate")
-					.SetString("pTemplate",LocalizablePropertyType.GetLikeClause("en-US", "H_ll_"))
+				s.CreateQuery("from EntityWithLocalizableProperty e where e.LocalizableDescriptions like :pTemplate")
+					.SetString("pTemplate", Localizable.ConvertToLikeClause("en-US", "H_l%"))
 					.List()
 					.Count
 					.Should().Be.EqualTo(1);
 
-				s.CreateQuery("from EntityWithLocalizableProperty e where e.LocalizableProperty like :pTemplate")
-					.SetString("pTemplate", LocalizablePropertyType.GetLikeClause("en-US", "H_l_"))
+				s.CreateQuery("from EntityWithLocalizableProperty e where e.LocalizableDescriptions like :pTemplate")
+					.SetString("pTemplate", Localizable.ConvertToLikeClause("en-US", "H_l_"))
 					.List()
 					.Count
 					.Should().Be.EqualTo(0);
@@ -112,7 +112,7 @@ namespace uNhAddIns.Test.UserTypes
 			using (ISession s = OpenSession())
 			{
 				s.CreateCriteria<EntityWithLocalizableProperty>()
-					.Add(Localizable.Like("LocalizableProperty", "en-US", "H_ll_"))
+					.Add(Localizable.Like("LocalizableDescriptions", "en-US", "H_ll_"))
 					.List<EntityWithLocalizableProperty>().Count
 					.Should().Be.EqualTo(1);
 			}

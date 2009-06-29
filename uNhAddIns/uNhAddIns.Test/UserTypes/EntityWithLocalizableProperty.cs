@@ -11,23 +11,23 @@ namespace uNhAddIns.Test.UserTypes
 		{
 			get
 			{
-				return LocalizableProperty.Count > 0
-				       	? LocalizableProperty.First(e => e.Key.Equals(Thread.CurrentThread.CurrentCulture)).Value
+				return LocalizableDescriptions.Count > 0
+				       	? LocalizableDescriptions.FirstOrDefault(e => e.Key.Equals(Thread.CurrentThread.CurrentCulture)).Value
 				       	: null;
 			}
 			set
 			{
 				if (value == null)
 				{
-					LocalizableProperty.Remove(Thread.CurrentThread.CurrentCulture);
+					LocalizableDescriptions.Remove(Thread.CurrentThread.CurrentCulture);
 				}
 				else
 				{
-					LocalizableProperty[Thread.CurrentThread.CurrentCulture] = value;
+					LocalizableDescriptions[Thread.CurrentThread.CurrentCulture] = value;
 				}
 			}
 		}
 
-		public virtual Dictionary<CultureInfo, string> LocalizableProperty { get; set; }
+		public virtual Dictionary<CultureInfo, string> LocalizableDescriptions { get; set; }
 	}
 }

@@ -135,15 +135,5 @@ namespace uNhAddIns.UserTypes
 		}
 
 		#endregion
-
-		public static string GetLikeClause(string cultureInfoName, string template)
-		{
-			return GetLikeClause(cultureInfoName, template, DefaultKeyValueEncloser);
-		}
-
-		public static string GetLikeClause(string cultureInfoName, string template, char keyValueEncloser)
-		{
-			return string.Format("%%{0}{1}{0}{0}{2}{0}%", keyValueEncloser, cultureInfoName, template);
-		}
 	}
 }
