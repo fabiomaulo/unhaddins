@@ -1,7 +1,5 @@
 using System;
 using System.ComponentModel;
-using Castle.Core;
-using Castle.Core.Interceptor;
 using Castle.Facilities.FactorySupport;
 using Castle.Windsor;
 using Microsoft.Practices.ServiceLocation;
@@ -10,41 +8,28 @@ using uNHAddIns.Examples.CustomInterceptor.Domain;
 using uNHAddIns.Examples.CustomInterceptor.Infrastructure;
 using uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors;
 using Component=Castle.MicroKernel.Registration.Component;
-using EntityNameInterceptor=
-    uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors.EntityNameInterceptor;
 
 namespace uNHAddIns.Examples.CustomInterceptor
 {
 
     //integration.
 
+    [Explicit]
     [TestFixture]
     public class CustomerTest : BaseTest
     {
         protected override void ConfigureWindsorContainer()
         {
             container.AddFacility<FactorySupportFacility>();
-            container.Register(Component.For<NotifyPropertyChangeInterceptor>().LifeStyle.Transient);
-            container.Register(Component.For<DataInterceptor>().LifeStyle.Transient);
+            container.Register(Component.For<PropertyChangeInterceptor>().LifeStyle.Transient);
 
             container.Register(Component.For<Customer>()
-                        .Named(typeof(Customer).FullName)
-                       .Proxy.AdditionalInterfaces(typeof(IProxiedEntity))
-                       .Interceptors(new InterceptorReference(typeof(NotifyPropertyChangeInterceptor))).Anywhere
-                       .LifeStyle.Transient);
+                        .WithNotificablePropertyChanged()
+                        .LifeStyle.Transient);
  
             container.Register(Component.For<IProduct>()
-                                        .Proxy.AdditionalInterfaces()
-                                        .UsingFactoryMethod(() =>{
-                                                        var proxyGen = new Castle.DynamicProxy.ProxyGenerator();
-                                                        return (IProduct) proxyGen.CreateInterfaceProxyWithoutTarget(
-                                                            typeof(IProduct), new[] { typeof(IProxiedEntity) },
-                                                            new EntityNameInterceptor(typeof(IProduct).FullName),
-                                                            new NotifyPropertyChangeInterceptor(), 
-                                                            new DataInterceptor());
-                                        }));
-
-
+                                        .WithNotificablePropertyChanged()
+                                        .TargetIsCommonDatastore());
         }
 
 
