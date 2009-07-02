@@ -4,6 +4,11 @@ using Castle.Core.Interceptor;
 
 namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors
 {
+    /// <summary>
+    /// Intercepts get_EntityName and retrieve the primary entity name.
+    /// The type.Name of a proxy should be something like this: "IProxy2313213123131221".
+    /// But the EntityName is = "IProduct" or "ICustomer".
+    /// </summary>
     public class EntityNameInterceptor : IInterceptor
     {
         private readonly string _entityName;

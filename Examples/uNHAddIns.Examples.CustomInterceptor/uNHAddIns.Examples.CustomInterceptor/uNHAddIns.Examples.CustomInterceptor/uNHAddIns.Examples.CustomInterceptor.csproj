@@ -103,7 +103,7 @@
     <Compile Include="Infrastructure\MethodsInterceptors\EntityNameInterceptor.cs" />
     <Compile Include="Infrastructure\MethodsInterceptors\DataInterceptor.cs" />
     <Compile Include="Infrastructure\EntityNameInterceptor.cs" />
-    <Compile Include="Infrastructure\MethodsInterceptors\NotifyPropertyChangeInterceptor.cs" />
+    <Compile Include="Infrastructure\MethodsInterceptors\PropertyChangeInterceptor.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Infrastructure\IProxiedEntity.cs" />
     <Compile Include="Infrastructure\ProxiedEntityInstantiator.cs" />

@@ -5,7 +5,7 @@ using Castle.Core.Interceptor;
 
 namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors
 {
-    public class NotifyPropertyChangeInterceptor : IInterceptor, IOnBehalfAware
+    public class PropertyChangeInterceptor : IInterceptor, IOnBehalfAware
     {
         private string _entityName = string.Empty;
         private PropertyChangedEventHandler _handler;
