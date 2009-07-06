@@ -5,7 +5,7 @@ using NHibernate.Tuple.Entity;
 namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
 {
     /// <summary>
-    /// For use ProxiedEntityInstantiator.
+    /// For use ServiceLocatorInstantiator.
     /// </summary>
     public class ProxiedTuplizer : PocoEntityTuplizer
     {
@@ -16,7 +16,7 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
 
         protected override IInstantiator BuildInstantiator(PersistentClass persistentClass)
         {
-            return new ProxiedEntityInstantiator(persistentClass.MappedClass);
+            return new ServiceLocatorInstantiator(persistentClass.MappedClass);
         }
     }
 }

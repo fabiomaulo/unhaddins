@@ -9,6 +9,7 @@ using Castle.MicroKernel.Proxy;
 using Castle.MicroKernel.Registration;
 using uNHAddIns.Examples.CustomInterceptor.Domain;
 using uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors;
+using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
 {
@@ -21,7 +22,7 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
         /// <typeparam name="TConcreteType"></typeparam>
         /// <param name="registration"></param>
         /// <returns></returns>
-        public static ComponentRegistration<TConcreteType> WithNotificablePropertyChanged<TConcreteType>(this ComponentRegistration<TConcreteType> registration)
+        public static ComponentRegistration<TConcreteType> NotifyOnPropertyChange<TConcreteType>(this ComponentRegistration<TConcreteType> registration)
         {
             var result = registration;
             if(!typeof(INotifyPropertyChanged).IsAssignableFrom(typeof(TConcreteType)))
@@ -29,18 +30,37 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
                 throw new Exception(string.Format("{0} must implement INotifyPropertyChanged.", 
                                                   typeof(TConcreteType).FullName.ToString()));
             }
-            if(!typeof(IProxiedEntity).IsAssignableFrom(typeof(TConcreteType)))
-            {
-                result = result.Proxy.AdditionalInterfaces(typeof (IProxiedEntity));
-            }
+            //if(!typeof(IProxiedEntity).IsAssignableFrom(typeof(TConcreteType)))
+            //{
+            //    result = result.Proxy.AdditionalInterfaces(typeof (IProxiedEntity));
+            //}
             result = result.Interceptors(new InterceptorReference(typeof(PropertyChangeInterceptor))).Anywhere;
             return result;
         }
 
-       
+        public static ComponentRegistration<TType> AddEditableObjectBehavior<TType>(this ComponentRegistration<TType> componentRegistration)
+        {
+            var result = componentRegistration;
+            if(!typeof(IEditableObject).IsAssignableFrom(typeof(TType)))
+            {
+                throw new Exception(string.Format("{0} must implement IEditableObject.",
+                                                  typeof(TType).FullName));
+            }
+            result = result
+                        .Interceptors(new InterceptorReference(typeof (EditableObjectInterceptor)))
+                        .Anywhere;
+            return result;
+        }
+
+
         public static ComponentRegistration<TType> TargetIsCommonDatastore<TType>(this ComponentRegistration<TType> registration)
         {
-            return registration.UsingFactoryMethod(kernel => CreateProxy<TType>(kernel));
+            var result = registration;
+            if(!typeof(IProxiedEntity).IsAssignableFrom(typeof(TType)))
+            {
+                result = result.Proxy.AdditionalInterfaces(typeof (IProxiedEntity));
+            }
+            return result.UsingFactoryMethod(kernel => CreateProxy<TType>(kernel));
         }
 
         /// <summary>
@@ -56,12 +76,12 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
             var currentInterceptorsReferences = componentModel.Interceptors;
             
             var currentInterceptors = currentInterceptorsReferences
-                .Select(refe => (IInterceptor)kernel.Resolve(refe.ServiceType))
+                .Select(refe => (IInterceptor) kernel.Resolve(refe.ServiceType))
                 .ToArray();
 
             var newInterceptors = new IInterceptor[]
                                       {
-                                          new MethodsInterceptors.EntityNameInterceptor(typeof (IProduct).FullName),
+                                          new EntityNameInterceptor(typeof (IProduct).FullName),
                                           new DataInterceptor()
                                       };
 
@@ -81,6 +101,12 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
                                typeof(TType),
                                interfaces,
                                interceptors);
+        }
+
+        public static ComponentRegistration<TType> EnableNhibernateEntityCompatibility<TType>(this ComponentRegistration<TType> registration )
+        {
+            return registration.Proxy.AdditionalInterfaces(typeof (IProxiedEntity))
+                .Interceptors(new InterceptorReference(typeof (EntityNameInterceptor))).Anywhere;
         }
     }
 }

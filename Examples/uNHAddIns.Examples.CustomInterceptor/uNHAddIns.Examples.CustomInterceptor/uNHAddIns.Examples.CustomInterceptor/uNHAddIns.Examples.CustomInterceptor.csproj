@@ -98,18 +98,23 @@
     <Compile Include="BaseTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomerTest.cs" />
+    <Compile Include="EditableObjectTest.cs" />
+    <Compile Include="Infrastructure\NhEntityNameInterceptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Infrastructure\MethodsInterceptors\EditableObjectInterceptor.cs" />
+    <Compile Include="NotifyPropertyChangedTest.cs" />
     <Compile Include="Domain\Product.cs" />
     <Compile Include="Infrastructure\MethodsInterceptors\EntityNameInterceptor.cs" />
     <Compile Include="Infrastructure\MethodsInterceptors\DataInterceptor.cs" />
-    <Compile Include="Infrastructure\EntityNameInterceptor.cs" />
     <Compile Include="Infrastructure\MethodsInterceptors\PropertyChangeInterceptor.cs" />
     <Compile Include="Domain\Customer.cs" />
     <Compile Include="Infrastructure\IProxiedEntity.cs" />
-    <Compile Include="Infrastructure\ProxiedEntityInstantiator.cs" />
+    <Compile Include="Infrastructure\ServiceLocatorInstantiator.cs" />
     <Compile Include="Infrastructure\ProxiedTuplizer.cs" />
     <Compile Include="Infrastructure\WindsorServiceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Infrastructure\WindsorRegistrationUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
