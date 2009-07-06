@@ -17,21 +17,22 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptor
             string methodName = invocation.Method.Name;
             if (methodName == "add_PropertyChanged")
             {
-                _handler = (PropertyChangedEventHandler) Delegate.Combine(_handler, (Delegate) invocation.Arguments[0]);
+                _handler = (PropertyChangedEventHandler) 
+                    Delegate.Combine(_handler, (Delegate) invocation.Arguments[0]);
                 return;
             }
             if (methodName == "remove_PropertyChanged")
             {
-                _handler = (PropertyChangedEventHandler) Delegate.Remove(_handler, (Delegate) invocation.Arguments[0]);
+                _handler = (PropertyChangedEventHandler) 
+                    Delegate.Remove(_handler, (Delegate) invocation.Arguments[0]);
                 return;
             }
-            if (methodName == "get_EntityName" && !string.IsNullOrEmpty(_entityName))
-            {
-                invocation.ReturnValue = _entityName;
-                return;
-            }
-            
-            //if(invocation.InvocationTarget != null)
+            //if (methodName == "get_EntityName" && !string.IsNullOrEmpty(_entityName))
+            //{
+            //    invocation.ReturnValue = _entityName;
+            //    return;
+            //}
+
             invocation.Proceed();
 
             if (invocation.MethodInvocationTarget.Name.StartsWith("set_"))

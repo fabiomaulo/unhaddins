@@ -2,7 +2,7 @@ using NHibernate;
 
 namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
 {
-    public class EntityNameInterceptor : EmptyInterceptor
+    public class NhEntityNameInterceptor : EmptyInterceptor
     {
         public override string GetEntityName(object entity)
         {

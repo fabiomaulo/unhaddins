@@ -9,13 +9,22 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptor
     /// The type.Name of a proxy should be something like this: "IProxy2313213123131221".
     /// But the EntityName is = "IProduct" or "ICustomer".
     /// </summary>
-    public class EntityNameInterceptor : IInterceptor
+    public class EntityNameInterceptor : IInterceptor, IOnBehalfAware
     {
-        private readonly string _entityName;
+        private string _entityName;
 
         public EntityNameInterceptor(string entityName)
         {
             _entityName = entityName;
+        }
+
+        /// <summary>
+        /// The entityname is resolved in SetInterceptedComponentModel.
+        /// The proxy need to have target.
+        /// </summary>
+        public EntityNameInterceptor()
+        {
+            
         }
         public void Intercept(IInvocation invocation)
         {
@@ -29,5 +38,12 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptor
             invocation.Proceed();
         }
 
+        public void SetInterceptedComponentModel(ComponentModel target)
+        {
+            if(target != null)
+            {
+                _entityName = target.Implementation.FullName;
+            }
+        }
     }
 }

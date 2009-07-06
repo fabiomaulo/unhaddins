@@ -8,6 +8,7 @@ using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
 using uNHAddIns.Examples.CustomInterceptor.Infrastructure;
+using uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors;
 using Environment = NHibernate.Cfg.Environment;
 
 namespace uNHAddIns.Examples.CustomInterceptor
@@ -35,7 +36,7 @@ namespace uNHAddIns.Examples.CustomInterceptor
             cfg = new Configuration();
             cfg.AddAssembly(typeof(BaseTest).Assembly);
             cfg.Configure();
-            cfg.Interceptor = new EntityNameInterceptor();
+            cfg.Interceptor = new NhEntityNameInterceptor();
             new SchemaExport(cfg).Create(false, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
         }
