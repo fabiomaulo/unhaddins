@@ -85,9 +85,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\BaseTest.cs" />
+    <Compile Include="Collections\ObservablePersistentGenericListFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericBagFixture.cs" />
+    <Compile Include="Collections\SampleDomain\Album.cs" />
     <Compile Include="Collections\SampleDomain\Invoice.cs" />
     <Compile Include="Collections\SampleDomain\InvoiceLine.cs" />
+    <Compile Include="Collections\SampleDomain\Track.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,7 +112,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Collections\SampleDomain\Mapping.hbm.xml" />
+    <EmbeddedResource Include="Collections\SampleDomain\Invoice.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Collections\SampleDomain\Album.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

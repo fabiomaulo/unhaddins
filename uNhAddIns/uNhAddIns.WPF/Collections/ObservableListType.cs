@@ -12,41 +12,41 @@ namespace uNhAddIns.WPF.Collections
 {
     //Todo: remove the inheritance of CollectionType, and write ReplaceElements.
 
-    public class ObservableGenericBagType<T> : CollectionType, IUserCollectionType
+    public class ObservableListType<T> : CollectionType, IUserCollectionType
     {
-        public ObservableGenericBagType(string role, string foreignKeyPropertyName, bool isEmbeddedInXML) 
+        public ObservableListType(string role, string foreignKeyPropertyName, bool isEmbeddedInXML)
             : base(role, foreignKeyPropertyName, isEmbeddedInXML)
         {
         }
 
-        public ObservableGenericBagType() 
+        public ObservableListType()
             : base(string.Empty, string.Empty, false)
         {
-            
+
         }
         public IPersistentCollection Instantiate(ISessionImplementor session, ICollectionPersister persister)
         {
-            return new PersistentObservableGenericBag<T>(session);
+            return new PersistentObservableGenericList<T>(session);
         }
 
         public override IPersistentCollection Instantiate(ISessionImplementor session, ICollectionPersister persister, object key)
         {
-            return new PersistentObservableGenericBag<T>(session);
+            return new PersistentObservableGenericList<T>(session);
         }
 
         public override IPersistentCollection Wrap(ISessionImplementor session, object collection)
         {
-            return new PersistentObservableGenericBag<T>(session, (ICollection<T>) collection);
+            return new PersistentObservableGenericList<T>(session, (IList<T>) collection);
         }
 
         public IEnumerable GetElements(object collection)
         {
-            return ((IEnumerable) collection);
+            return ((IEnumerable)collection);
         }
 
         public bool Contains(object collection, object entity)
         {
-            return ((ICollection<T>) collection).Contains((T) entity);
+            return ((ICollection<T>)collection).Contains((T)entity);
         }
 
 
@@ -64,7 +64,7 @@ namespace uNhAddIns.WPF.Collections
         {
             get
             {
-                return typeof(PersistentObservableGenericBag<T>);
+                return typeof(PersistentObservableGenericList<T>);
             }
         }
     }

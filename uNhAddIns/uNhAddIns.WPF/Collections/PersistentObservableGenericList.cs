@@ -7,24 +7,24 @@ using NHibernate.Persister.Collection;
 
 namespace uNhAddIns.WPF.Collections
 {
-    public class PersistentObservableGenericBag<T> : PersistentGenericBag<T>, INotifyCollectionChanged,
-                                                     INotifyPropertyChanged, IList<T>
+    public class PersistentObservableGenericList<T> : PersistentGenericList<T>, INotifyCollectionChanged,
+                                                      INotifyPropertyChanged, IList<T>
     {
         private NotifyCollectionChangedEventHandler _collectionChanged;
         private PropertyChangedEventHandler _propertyChanged;
 
-        public PersistentObservableGenericBag(ISessionImplementor sessionImplementor)
+        public PersistentObservableGenericList(ISessionImplementor sessionImplementor)
             : base(sessionImplementor)
         {
         }
 
-        public PersistentObservableGenericBag(ISessionImplementor sessionImplementor, ICollection<T> coll)
-            : base(sessionImplementor, coll)
+        public PersistentObservableGenericList(ISessionImplementor sessionImplementor, IList<T> list)
+            : base(sessionImplementor, list)
         {
-            CaptureEventHandlers(coll);
+            CaptureEventHandlers(list);
         }
 
-        public PersistentObservableGenericBag()
+        public PersistentObservableGenericList()
         {
         }
 
@@ -59,7 +59,7 @@ namespace uNhAddIns.WPF.Collections
         public override void BeforeInitialize(ICollectionPersister persister, int anticipatedSize)
         {
             base.BeforeInitialize(persister, anticipatedSize);
-            CaptureEventHandlers(InternalBag);
+            CaptureEventHandlers((ICollection<T>) list);
         }
 
         private void CaptureEventHandlers(ICollection<T> coll)

@@ -52,8 +52,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\PersistentObservableGenericList.cs" />
+    <Compile Include="Collections\ObservableListType.cs" />
     <Compile Include="Collections\PersistentObservableGenericBag.cs" />
-    <Compile Include="Collections\ObservableGenericBagType.cs" />
+    <Compile Include="Collections\ObservableBagType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
