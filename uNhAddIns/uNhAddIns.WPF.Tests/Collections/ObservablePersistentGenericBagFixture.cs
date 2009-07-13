@@ -111,7 +111,8 @@ namespace uNhAddIns.WPF.Tests.Collections
             using (ITransaction tx = session.BeginTransaction())
             {
                 var invoice = session.Get<Invoice>(id);
-                invoice.Lines.GetType().ShouldImplement<INotifyCollectionChanged>();
+                typeof (INotifyCollectionChanged)
+                    .Should().Be.AssignableFrom(invoice.Lines.GetType());
                 tx.Commit();
             }
         }
@@ -124,7 +125,9 @@ namespace uNhAddIns.WPF.Tests.Collections
             using (ITransaction tx = session.BeginTransaction())
             {
                 var invoice = session.Get<Invoice>(id);
-                invoice.Lines.GetType().ShouldImplement<INotifyPropertyChanged>();
+
+                typeof (INotifyPropertyChanged)
+                    .Should().Be.AssignableFrom(invoice.Lines.GetType());
                 tx.Commit();
             }
         }

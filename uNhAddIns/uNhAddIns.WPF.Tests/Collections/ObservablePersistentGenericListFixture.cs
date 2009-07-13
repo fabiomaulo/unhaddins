@@ -120,7 +120,8 @@ namespace uNhAddIns.WPF.Tests.Collections
             using (ITransaction tx = session.BeginTransaction())
             {
                 var album = session.Get<Album>(id);
-                album.Tracks.GetType().ShouldImplement<INotifyCollectionChanged>();
+                typeof (INotifyCollectionChanged)
+                    .Should().Be.AssignableFrom(album.Tracks.GetType());
                 tx.Commit();
             }
         }
@@ -133,7 +134,8 @@ namespace uNhAddIns.WPF.Tests.Collections
             using (ITransaction tx = session.BeginTransaction())
             {
                 var album = session.Get<Album>(id);
-                album.Tracks.GetType().ShouldImplement<INotifyPropertyChanged>();
+                typeof(INotifyPropertyChanged)
+                    .Should().Be.AssignableFrom(album.Tracks.GetType());
                 tx.Commit();
             }
         }
