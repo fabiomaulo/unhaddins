@@ -7,25 +7,24 @@ using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
 
-namespace uNhAddIns.WPF.Tests.Collections
+namespace uNhAddIns.WPF.Tests
 {
-    public class BaseTest
+    public class IntegrationBaseTest
     {
         protected static readonly WindsorContainer container;
         protected Configuration cfg;
         protected ISessionFactoryImplementor sessions;
 
-        static BaseTest()
+        static IntegrationBaseTest()
         {
             container = new WindsorContainer();
-            //DI.StackContainer(container);
         }
 
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
-            //ConfigureWindsorContainer();
+            ConfigureWindsorContainer();
 
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
             Environment.UseReflectionOptimizer = true;
@@ -33,14 +32,15 @@ namespace uNhAddIns.WPF.Tests.Collections
 
             cfg = new Configuration();
 
-            cfg.AddAssembly(typeof(BaseTest).Assembly);
+            cfg.AddAssembly(typeof(IntegrationBaseTest).Assembly);
             cfg.Configure();
             //cfg.Interceptor = new NhEntityNameInterceptor();
             new SchemaExport(cfg).Create(false, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
         }
 
-        //protected abstract void ConfigureWindsorContainer();
+        protected virtual void ConfigureWindsorContainer()
+        {}
 
         [TestFixtureTearDown]
         public void TestFixtureTearDown()

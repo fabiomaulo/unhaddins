@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using Castle.DynamicProxy;
 using NUnit.Framework;
 
@@ -14,6 +15,7 @@ namespace uNhAddIns.WPF.Tests
             public virtual string Name { get; set; }
             public virtual string Address { get; set; }
         }
+
 
         public Person CreateProxiedPerson()
         {
