@@ -14,6 +14,9 @@ namespace uNhAddIns.WPF.EntityNameResolver
             if (invocation.Method.Name == "get_EntityName")
             {
                 invocation.ReturnValue = _entityName;
+            }else
+            {
+                invocation.Proceed();
             }
         }
 
