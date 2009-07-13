@@ -62,7 +62,13 @@
     <Compile Include="Collections\ObservableBagType.cs" />
     <Compile Include="EditableBehaviorBase.cs" />
     <Compile Include="EditableBehaviorInterceptor.cs" />
+    <Compile Include="EntityNameResolver\EntityNameEventResolver.cs" />
+    <Compile Include="EntityNameResolver\GetEntityNameInterceptor.cs" />
+    <Compile Include="EntityNameResolver\INamedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityNameResolver\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

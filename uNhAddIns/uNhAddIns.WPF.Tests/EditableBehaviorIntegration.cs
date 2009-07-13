@@ -2,6 +2,7 @@
 using Castle.Core;
 using NHibernate;
 using NUnit.Framework;
+using uNhAddIns.WPF.EntityNameResolver;
 using uNhAddIns.WPF.Tests.Collections.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
@@ -15,9 +16,13 @@ namespace uNhAddIns.WPF.Tests
             container.Register(Component.For<EditableBehaviorInterceptor>()
                                         .LifeStyle.Transient);
 
+            container.Register(Component.For<GetEntityNameInterceptor>()
+                                        .LifeStyle.Transient);
+
             container.Register(Component.For<Album>()
-                                        .Proxy.AdditionalInterfaces(typeof(IEditableObject))
+                                        .Proxy.AdditionalInterfaces(typeof(IEditableObject),typeof(INamedEntity))
                                         .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Anywhere
+                                        .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere
                                         .LifeStyle.Transient);
         }
 
@@ -42,13 +47,13 @@ namespace uNhAddIns.WPF.Tests
             using (ITransaction tx = session.BeginTransaction())
             {
                 var album = container.Resolve<Album>();
-                session.Save(album);
+                session.SaveOrUpdate(album);
                 tx.Commit();
             }
         }
 
         [Test]
-        public void entity_should_implements_ieditableobject()
+        public void entity_should_implement_ieditableobject()
         {
             var id = CreateNewAlbum();
             using (ISession session = sessions.OpenSession())
