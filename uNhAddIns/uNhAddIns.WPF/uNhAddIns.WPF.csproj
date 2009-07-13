@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Castle.Core.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.2002, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\NHibernate.dll</HintPath>
@@ -56,6 +60,8 @@
     <Compile Include="Collections\ObservableListType.cs" />
     <Compile Include="Collections\PersistentObservableGenericBag.cs" />
     <Compile Include="Collections\ObservableBagType.cs" />
+    <Compile Include="EditableBehaviorBase.cs" />
+    <Compile Include="EditableBehaviorInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
