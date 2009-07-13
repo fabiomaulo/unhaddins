@@ -1,6 +1,7 @@
 //using NHibernate;
 
 using System;
+using System.Linq;
 using System.Reflection;
 using Castle.Core.Interceptor;
 
@@ -43,7 +44,8 @@ namespace uNhAddIns.WPF
 
             var isSet = invocation.Method.Name.StartsWith("set_");
             string propertyName = invocation.Method.Name.Substring(4);
-            PropertyInfo property = invocation.TargetType.GetProperty(propertyName);
+            PropertyInfo property = invocation.TargetType.GetProperties()
+                                        .FirstOrDefault(prop => prop.Name == propertyName);
 
             if(isSet)
             {

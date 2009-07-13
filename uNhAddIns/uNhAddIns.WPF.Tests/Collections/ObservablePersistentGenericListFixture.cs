@@ -7,7 +7,7 @@ using uNhAddIns.WPF.Tests.Collections.SampleDomain;
 namespace uNhAddIns.WPF.Tests.Collections
 {
     [TestFixture]
-    public class ObservablePersistentGenericListFixture : BaseTest
+    public class ObservablePersistentGenericListFixture : IntegrationBaseTest
     {
         private int CreateNewAlbum()
         {

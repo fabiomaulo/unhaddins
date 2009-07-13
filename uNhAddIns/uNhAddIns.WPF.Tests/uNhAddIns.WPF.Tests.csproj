@@ -88,7 +88,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\BaseTest.cs" />
+    <Compile Include="EditableBehaviorIntegration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IntegrationBaseTest.cs" />
     <Compile Include="Collections\ObservablePersistentGenericListFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericBagFixture.cs" />
     <Compile Include="Collections\SampleDomain\Album.cs" />

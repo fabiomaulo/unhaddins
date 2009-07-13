@@ -7,7 +7,7 @@ using uNhAddIns.WPF.Tests.Collections.SampleDomain;
 namespace uNhAddIns.WPF.Tests.Collections
 {
     [TestFixture]
-    public class ObservablePersistentGenericBagFixture : BaseTest
+    public class ObservablePersistentGenericBagFixture : IntegrationBaseTest
     {
         private int CreateNewInvoice()
         {
