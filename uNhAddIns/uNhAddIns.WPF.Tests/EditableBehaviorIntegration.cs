@@ -47,7 +47,7 @@ namespace uNhAddIns.WPF.Tests
             using (ITransaction tx = session.BeginTransaction())
             {
                 var album = container.Resolve<Album>();
-                session.SaveOrUpdate(album);
+                session.Save(album);
                 tx.Commit();
             }
         }
