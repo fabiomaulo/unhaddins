@@ -6,6 +6,7 @@ using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
+using uNhAddIns.WPF.EntityNameResolver;
 
 namespace uNhAddIns.WPF.Tests
 {
@@ -31,10 +32,10 @@ namespace uNhAddIns.WPF.Tests
             Environment.BytecodeProvider = new EnhancedBytecode(container);
 
             cfg = new Configuration();
-
+            cfg.RegisterEntityNameResolver();
             cfg.AddAssembly(typeof(IntegrationBaseTest).Assembly);
             cfg.Configure();
-            //cfg.Interceptor = new NhEntityNameInterceptor();
+            
             new SchemaExport(cfg).Create(false, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
         }
