@@ -153,7 +153,11 @@ namespace uNhAddIns.Adapters.Common
 		protected void DisposeConversationOnException()
 		{
 			var cca = ConversationsContainerAccessor;
-			cca.Container.Unbind(conversationId).Dispose();
+			var conversation = cca.Container.Unbind(conversationId);
+			if (!ReferenceEquals(null, conversation))
+			{
+				conversation.Dispose();
+			}
 		}
 	}
 }
