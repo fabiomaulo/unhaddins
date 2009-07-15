@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("uNhAddIns.WPF")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AVR Seguridad")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("uNhAddIns.WPF")]
-[assembly: AssemblyCopyright("Copyright © AVR Seguridad 2009")]
+[assembly: AssemblyCopyright("Copyright ©  2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
