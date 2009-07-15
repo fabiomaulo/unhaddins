@@ -10,8 +10,6 @@ namespace uNhAddIns.WPF.EntityNameResolver
         {
             EventListeners listeners = configuration.EventListeners;
             var entityNameResolver = new EntityNameResolver();
-            listeners.PersistEventListeners =
-                new[] { entityNameResolver }.Concat(listeners.PersistEventListeners).ToArray();
             listeners.MergeEventListeners =
                 new[] { entityNameResolver }.Concat(listeners.MergeEventListeners).ToArray();
             listeners.UpdateEventListeners =

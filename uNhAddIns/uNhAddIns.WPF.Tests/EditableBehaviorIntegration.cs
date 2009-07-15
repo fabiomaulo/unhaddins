@@ -20,7 +20,7 @@ namespace uNhAddIns.WPF.Tests
                                         .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
-                                        .Proxy.AdditionalInterfaces(typeof(IEditableObject),typeof(INamedEntity))
+                                        .Proxy.AdditionalInterfaces(typeof(IEditableObject), typeof(INamedEntity))
                                         .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Anywhere
                                         .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere
                                         .LifeStyle.Transient);
@@ -38,18 +38,6 @@ namespace uNhAddIns.WPF.Tests
                 tx.Commit();
             }
             return id;
-        }
-
-        [Test]
-        public void can_save_editable_trascient_entity()
-        {
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var album = container.Resolve<Album>();
-                session.Save(album);
-                tx.Commit();
-            }
         }
 
         [Test]

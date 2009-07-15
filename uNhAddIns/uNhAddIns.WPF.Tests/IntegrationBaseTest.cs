@@ -1,6 +1,4 @@
 ﻿using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
-using Microsoft.Practices.ServiceLocation;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
@@ -12,22 +10,22 @@ namespace uNhAddIns.WPF.Tests
 {
     public class IntegrationBaseTest
     {
-        protected static readonly WindsorContainer container;
+        protected WindsorContainer container;
         protected Configuration cfg;
         protected ISessionFactoryImplementor sessions;
 
-        static IntegrationBaseTest()
-        {
-            container = new WindsorContainer();
-        }
+        //static IntegrationBaseTest()
+        //{
+           
+        //}
 
 
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
+            container = new WindsorContainer();
             ConfigureWindsorContainer();
 
-            ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
             Environment.UseReflectionOptimizer = true;
             Environment.BytecodeProvider = new EnhancedBytecode(container);
 

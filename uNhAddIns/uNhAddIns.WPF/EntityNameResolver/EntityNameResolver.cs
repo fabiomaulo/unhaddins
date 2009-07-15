@@ -4,29 +4,9 @@ using NHibernate.Event;
 
 namespace uNhAddIns.WPF.EntityNameResolver
 {
-    public class EntityNameResolver : ISaveOrUpdateEventListener, IPersistEventListener, IMergeEventListener
+    public class EntityNameResolver : ISaveOrUpdateEventListener, IMergeEventListener
     {
         public void OnSaveOrUpdate(SaveOrUpdateEvent @event)
-        {
-            @event.EntityName = GetEntityName(@event.Entity);
-        }
-
-        public void OnPersist(PersistEvent @event)
-        {
-            @event.EntityName = GetEntityName(@event.Entity);
-        }
-
-        public void OnPersist(PersistEvent @event, IDictionary createdAlready)
-        {
-            @event.EntityName = GetEntityName(@event.Entity);
-        }
-
-        public void OnMerge(MergeEvent @event)
-        {
-            @event.EntityName = GetEntityName(@event.Entity);
-        }
-
-        public void OnMerge(MergeEvent @event, IDictionary copiedAlready)
         {
             @event.EntityName = GetEntityName(@event.Entity);
         }
@@ -34,7 +14,17 @@ namespace uNhAddIns.WPF.EntityNameResolver
         private static string GetEntityName(object entity)
         {
             var namedEntity = entity as INamedEntity;
-            return namedEntity != null ? namedEntity.EntityName : string.Empty;
+            return namedEntity != null ? namedEntity.EntityName : null;
+        }
+
+        public void OnMerge(MergeEvent @event)
+        {
+            @event.EntityName = GetEntityName(@event.Original);
+        }
+
+        public void OnMerge(MergeEvent @event, IDictionary copiedAlready)
+        {
+            @event.EntityName = GetEntityName(@event.Original);
         }
     }
 }
