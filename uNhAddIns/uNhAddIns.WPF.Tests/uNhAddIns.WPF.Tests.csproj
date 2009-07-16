@@ -80,7 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditableBehaviorIntegration.cs">
+    <Compile Include="EditableBehaviorTest\EditableBehaviorIntegration.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="EntityNameResolverFixture.cs" />
@@ -91,8 +91,8 @@
     <Compile Include="Collections\SampleDomain\Invoice.cs" />
     <Compile Include="Collections\SampleDomain\InvoiceLine.cs" />
     <Compile Include="Collections\SampleDomain\Track.cs" />
-    <Compile Include="EditableBehaviorBaseFixture.cs" />
-    <Compile Include="EditableBehaviorInterceptorFixture.cs" />
+    <Compile Include="EditableBehaviorTest\EditableBehaviorBaseFixture.cs" />
+    <Compile Include="EditableBehaviorTest\EditableBehaviorInterceptorFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

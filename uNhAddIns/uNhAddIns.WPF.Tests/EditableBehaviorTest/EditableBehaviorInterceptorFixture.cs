@@ -3,10 +3,8 @@ using System.Linq;
 using Castle.DynamicProxy;
 using NUnit.Framework;
 
-namespace uNhAddIns.WPF.Tests
+namespace uNhAddIns.WPF.Tests.EditableBehaviorTest
 {
-    //TODO: move this class to uNhAddIns.WPF.Castle.Tests ?
-
     [TestFixture]
     public class EditableBehaviorInterceptorFixture
     {
