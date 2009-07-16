@@ -4,7 +4,7 @@ using Castle.Facilities.FactorySupport;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.WPF.EntityNameResolver;
-using uNhAddIns.WPF.Tests.Collections.SampleDomain;
+using uNhAddIns.WPF.Tests.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNhAddIns.WPF.Tests.Castle
