@@ -59,6 +59,8 @@
     <Compile Include="EntityNameResolver\GetEntityNameInterceptor.cs" />
     <Compile Include="EntityNameResolver\INamedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyChangeNotifier.cs" />
+    <Compile Include="PropertyChangeNotifierBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityNameResolver\readme.txt" />
