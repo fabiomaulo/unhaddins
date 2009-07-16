@@ -62,7 +62,7 @@ namespace uNhAddIns.WPF.Tests.Castle
         }
 
         [Test]
-        public void can_raise_propertychanged_in_nontrascientobject()
+        public void can_raise_propertychanged_in_nontransientobject()
         {
             int id = CreateNewAlbum();
             bool eventWasRaised = false;

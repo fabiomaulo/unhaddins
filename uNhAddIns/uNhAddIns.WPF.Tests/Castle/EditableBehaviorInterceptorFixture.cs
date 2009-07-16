@@ -41,7 +41,7 @@ namespace uNhAddIns.WPF.Tests.Castle
         }
 
         [Test]
-        public void trascient_entity_should_commitchanges_after_endedit()
+        public void transient_entity_should_commitchanges_after_endedit()
         {
             var album = container.Resolve<Album>();
             const string title = "The dark side of the moon";
@@ -58,7 +58,7 @@ namespace uNhAddIns.WPF.Tests.Castle
 
 
         [Test]
-        public void trascient_entity_should_rollback_after_canceledit()
+        public void transient_entity_should_rollback_after_canceledit()
         {
             var album = container.Resolve<Album>();
             const string title = "The dark side of the moon";

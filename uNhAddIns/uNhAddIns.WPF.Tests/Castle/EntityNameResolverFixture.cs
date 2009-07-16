@@ -40,7 +40,7 @@ namespace uNhAddIns.WPF.Tests.Castle
         }
 
         [Test]
-        public void can_attach_nontrascient_entity()
+        public void can_attach_nontransient_entity()
         {
             int idAlbum = CreateNewAlbum();
             Album album;
@@ -133,7 +133,7 @@ namespace uNhAddIns.WPF.Tests.Castle
         }
 
         [Test]
-        public void can_save_trascient_entity()
+        public void can_save_transient_entity()
         {
             using (ISession session = sessions.OpenSession())
             using (ITransaction tx = session.BeginTransaction())
