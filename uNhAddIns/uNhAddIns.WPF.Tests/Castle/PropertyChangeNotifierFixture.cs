@@ -3,9 +3,10 @@ using Castle.Core;
 using Castle.Facilities.FactorySupport;
 using NHibernate;
 using NUnit.Framework;
-using uNhAddIns.WPF.EntityNameResolver;
+using uNhAddIns.WPF.Castle;
 using uNhAddIns.WPF.Tests.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
+using GetEntityNameInterceptor=uNhAddIns.WPF.EntityNameResolver.GetEntityNameInterceptor;
 
 namespace uNhAddIns.WPF.Tests.Castle
 {
