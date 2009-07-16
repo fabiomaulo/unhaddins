@@ -6,7 +6,6 @@ using NUnit.Framework;
 using uNhAddIns.WPF.Castle;
 using uNhAddIns.WPF.EntityNameResolver;
 using uNhAddIns.WPF.Tests.SampleDomain;
-using GetEntityNameInterceptor=uNhAddIns.WPF.EntityNameResolver.GetEntityNameInterceptor;
 
 namespace uNhAddIns.WPF.Tests.Castle
 {
