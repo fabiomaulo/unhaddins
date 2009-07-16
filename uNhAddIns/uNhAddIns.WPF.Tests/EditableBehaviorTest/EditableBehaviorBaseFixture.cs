@@ -2,7 +2,7 @@
 using System.Reflection;
 using NUnit.Framework;
 
-namespace uNhAddIns.WPF.Tests
+namespace uNhAddIns.WPF.Tests.EditableBehaviorTest
 {
     [TestFixture]
     public class EditableBehaviorBaseFixture

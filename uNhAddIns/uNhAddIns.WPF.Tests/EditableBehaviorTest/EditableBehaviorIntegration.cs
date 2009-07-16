@@ -6,7 +6,7 @@ using uNhAddIns.WPF.EntityNameResolver;
 using uNhAddIns.WPF.Tests.Collections.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
-namespace uNhAddIns.WPF.Tests
+namespace uNhAddIns.WPF.Tests.EditableBehaviorTest
 {
     [TestFixture]
     public class EditableBehaviorIntegration : IntegrationBaseTest
@@ -14,16 +14,16 @@ namespace uNhAddIns.WPF.Tests
         protected override void ConfigureWindsorContainer()
         {
             container.Register(Component.For<EditableBehaviorInterceptor>()
-                                        .LifeStyle.Transient);
+                                   .LifeStyle.Transient);
 
             container.Register(Component.For<GetEntityNameInterceptor>()
-                                        .LifeStyle.Transient);
+                                   .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
-                                        .Proxy.AdditionalInterfaces(typeof(IEditableObject), typeof(INamedEntity))
-                                        .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Anywhere
-                                        .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere
-                                        .LifeStyle.Transient);
+                                   .Proxy.AdditionalInterfaces(typeof(IEditableObject), typeof(INamedEntity))
+                                   .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Anywhere
+                                   .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere
+                                   .LifeStyle.Transient);
         }
 
         private int CreateNewAlbum()
