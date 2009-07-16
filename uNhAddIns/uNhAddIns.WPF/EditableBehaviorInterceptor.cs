@@ -1,16 +1,21 @@
 //using NHibernate;
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Castle.Core;
 using Castle.Core.Interceptor;
 
 namespace uNhAddIns.WPF
 {
     //Todo: move to another assembly and remove castle references.
 
-    public class EditableBehaviorInterceptor : EditableBehaviorBase, IInterceptor
+    public class EditableBehaviorInterceptor : EditableBehaviorBase, IInterceptor, IOnBehalfAware
     {
+        private Dictionary<string, PropertyInfo> _properties;
+
         public void Intercept(IInvocation invocation)
         {
 
@@ -44,8 +49,7 @@ namespace uNhAddIns.WPF
 
             var isSet = invocation.Method.Name.StartsWith("set_");
             string propertyName = invocation.Method.Name.Substring(4);
-            PropertyInfo property = invocation.TargetType.GetProperties()
-                                        .FirstOrDefault(prop => prop.Name == propertyName);
+            PropertyInfo property = _properties[propertyName];
 
             if(isSet)
             {
@@ -56,5 +60,29 @@ namespace uNhAddIns.WPF
                 invocation.ReturnValue = GetTempValue(property) ?? invocation.ReturnValue;                
             }
         }
+
+        public void SetInterceptedComponentModel(ComponentModel target)
+        {
+            StoreProperties(target.Implementation);
+        }
+
+        #region Constructors
+        public EditableBehaviorInterceptor(Type targetType)
+        {
+            StoreProperties(targetType);
+        }
+
+        public EditableBehaviorInterceptor()
+        { } 
+        #endregion
+
+        private void StoreProperties(Type targetType)
+        {
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
+            _properties = targetType.GetProperties(flags)
+                                    .ToDictionary(p => p.Name, p => p);
+        }
+
+
     }
 }

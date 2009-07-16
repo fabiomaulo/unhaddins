@@ -20,9 +20,10 @@ namespace uNhAddIns.WPF.Tests
         public Person CreateProxiedPerson()
         {
             var proxyGenerator = new ProxyGenerator();
+            //Note: use without args when inject into the container (IOnBehalfAware)
             return (Person) proxyGenerator.CreateClassProxy(typeof (Person),
                                                             new[] {typeof (IEditableObject)},
-                                                            new[] {new EditableBehaviorInterceptor()});
+                                                            new[] {new EditableBehaviorInterceptor(typeof(Person))});
         }
 
         [Test]
