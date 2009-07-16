@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using Castle.Core;
 using Castle.Facilities.FactorySupport;
 using NHibernate;
@@ -11,7 +7,7 @@ using uNhAddIns.WPF.EntityNameResolver;
 using uNhAddIns.WPF.Tests.Collections.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
-namespace uNhAddIns.WPF.Tests
+namespace uNhAddIns.WPF.Tests.Castle
 {
     [TestFixture]
     public class PropertyChangeNotifierFixture : IntegrationBaseTest
@@ -21,15 +17,15 @@ namespace uNhAddIns.WPF.Tests
             container.AddFacility<FactorySupportFacility>();
 
             container.Register(Component.For<PropertyChangeNotifier>()
-                                         .LifeStyle.Transient);
+                                   .LifeStyle.Transient);
 
             container.Register(Component.For<GetEntityNameInterceptor>()
-                                        .LifeStyle.Transient);
+                                   .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
-                                        .Proxy.AdditionalInterfaces(typeof(INotifyPropertyChanged))
-                                        .Interceptors(new InterceptorReference(typeof(PropertyChangeNotifier))).Anywhere
-                                        .LifeStyle.Transient);
+                                   .Proxy.AdditionalInterfaces(typeof (INotifyPropertyChanged))
+                                   .Interceptors(new InterceptorReference(typeof (PropertyChangeNotifier))).Anywhere
+                                   .LifeStyle.Transient);
         }
 
 
@@ -41,12 +37,11 @@ namespace uNhAddIns.WPF.Tests
             {
                 var album = new Album();
                 album.Title = "The dark side of the moon";
-                id = (int)session.Save(album);
+                id = (int) session.Save(album);
                 tx.Commit();
             }
             return id;
         }
-
 
 
         [Test]
@@ -55,12 +50,12 @@ namespace uNhAddIns.WPF.Tests
             bool eventWasRaised = false;
 
             var album = container.Resolve<Album>();
-            ((INotifyPropertyChanged)album).PropertyChanged += 
+            ((INotifyPropertyChanged) album).PropertyChanged +=
                 (sender, e) =>
-                            {
-                                eventWasRaised = true;
-                                e.PropertyName.Should().Be.EqualTo("Title");
-                            };
+                    {
+                        eventWasRaised = true;
+                        e.PropertyName.Should().Be.EqualTo("Title");
+                    };
 
             album.Title = "dark side";
             eventWasRaised.Should().Be.True();
@@ -76,12 +71,12 @@ namespace uNhAddIns.WPF.Tests
             {
                 var album = session.Get<Album>(id);
 
-                ((INotifyPropertyChanged)album).PropertyChanged +=
-                (sender, e) =>
-                            {
-                                eventWasRaised = true;
-                                e.PropertyName.Should().Be.EqualTo("Title");
-                            };
+                ((INotifyPropertyChanged) album).PropertyChanged +=
+                    (sender, e) =>
+                        {
+                            eventWasRaised = true;
+                            e.PropertyName.Should().Be.EqualTo("Title");
+                        };
 
                 album.Title = "dark side";
 

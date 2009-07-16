@@ -6,10 +6,10 @@ using uNhAddIns.WPF.EntityNameResolver;
 using uNhAddIns.WPF.Tests.Collections.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
-namespace uNhAddIns.WPF.Tests.EditableBehaviorTest
+namespace uNhAddIns.WPF.Tests.Castle
 {
     [TestFixture]
-    public class EditableBehaviorIntegration : IntegrationBaseTest
+    public class EditableBehaviorInterceptorFixture : IntegrationBaseTest
     {
         protected override void ConfigureWindsorContainer()
         {
@@ -39,6 +39,41 @@ namespace uNhAddIns.WPF.Tests.EditableBehaviorTest
             }
             return id;
         }
+
+        [Test]
+        public void trascient_entity_should_commitchanges_after_endedit()
+        {
+            var album = container.Resolve<Album>();
+            const string title = "The dark side of the moon";
+            const string newTitle = "Dark side of the moon";
+            
+            album.Title = title;
+            ((IEditableObject)album).BeginEdit();
+            album.Title = newTitle;
+            album.Title.Should().Be.EqualTo(newTitle);
+            ((IEditableObject)album).EndEdit();
+
+            album.Title.Should().Be.EqualTo(newTitle);
+        }
+
+
+        [Test]
+        public void trascient_entity_should_rollback_after_canceledit()
+        {
+            var album = container.Resolve<Album>();
+            const string title = "The dark side of the moon";
+            const string newTitle = "Dark side of the moon";
+
+            album.Title = title;
+            ((IEditableObject)album).BeginEdit();
+            album.Title = newTitle;
+            album.Title.Should().Be.EqualTo(newTitle);
+            ((IEditableObject)album).CancelEdit();
+
+            album.Title.Should().Be.EqualTo(title);
+
+        }
+
 
         [Test]
         public void entity_should_implement_ieditableobject()

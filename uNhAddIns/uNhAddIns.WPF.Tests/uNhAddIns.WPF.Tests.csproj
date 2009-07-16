@@ -74,10 +74,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EditableBehaviorTest\EditableBehaviorIntegration.cs">
+    <Compile Include="Castle\EditableBehaviorInterceptorFixture.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EntityNameResolverFixture.cs" />
+    <Compile Include="Castle\EntityNameResolverFixture.cs" />
     <Compile Include="IntegrationBaseTest.cs" />
     <Compile Include="Collections\ObservablePersistentGenericListFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericBagFixture.cs" />
@@ -85,10 +85,8 @@
     <Compile Include="Collections\SampleDomain\Invoice.cs" />
     <Compile Include="Collections\SampleDomain\InvoiceLine.cs" />
     <Compile Include="Collections\SampleDomain\Track.cs" />
-    <Compile Include="EditableBehaviorTest\EditableBehaviorBaseFixture.cs" />
-    <Compile Include="EditableBehaviorTest\EditableBehaviorInterceptorFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChangeNotifierFixture.cs" />
+    <Compile Include="Castle\PropertyChangeNotifierFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uNhAddIns.CastleAdapters\uNhAddIns.CastleAdapters.csproj">
