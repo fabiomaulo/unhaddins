@@ -66,16 +66,6 @@ namespace uNhAddIns.WPF
             StoreProperties(target.Implementation);
         }
 
-        #region Constructors
-        public EditableBehaviorInterceptor(Type targetType)
-        {
-            StoreProperties(targetType);
-        }
-
-        public EditableBehaviorInterceptor()
-        { } 
-        #endregion
-
         private void StoreProperties(Type targetType)
         {
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
