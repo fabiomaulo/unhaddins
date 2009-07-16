@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using Castle.Core.Interceptor;
 
-namespace uNhAddIns.WPF
+namespace uNhAddIns.WPF.Castle
 {
     public class PropertyChangeNotifier : PropertyChangeNotifierBase, IInterceptor
     {
