@@ -1,6 +1,6 @@
 using uNhAddIns.Entities;
 
-namespace uNhAddIns.WPF.Tests.Collections.SampleDomain
+namespace uNhAddIns.WPF.Tests.SampleDomain
 {
     public class Track : Entity
     {

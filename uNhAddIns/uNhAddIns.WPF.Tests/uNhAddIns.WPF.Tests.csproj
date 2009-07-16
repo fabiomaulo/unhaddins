@@ -81,10 +81,10 @@
     <Compile Include="IntegrationBaseTest.cs" />
     <Compile Include="Collections\ObservablePersistentGenericListFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericBagFixture.cs" />
-    <Compile Include="Collections\SampleDomain\Album.cs" />
-    <Compile Include="Collections\SampleDomain\Invoice.cs" />
-    <Compile Include="Collections\SampleDomain\InvoiceLine.cs" />
-    <Compile Include="Collections\SampleDomain\Track.cs" />
+    <Compile Include="SampleDomain\Album.cs" />
+    <Compile Include="SampleDomain\Invoice.cs" />
+    <Compile Include="SampleDomain\InvoiceLine.cs" />
+    <Compile Include="SampleDomain\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Castle\PropertyChangeNotifierFixture.cs" />
   </ItemGroup>
@@ -106,10 +106,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Collections\SampleDomain\Invoice.hbm.xml" />
+    <EmbeddedResource Include="SampleDomain\Invoice.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Collections\SampleDomain\Album.hbm.xml" />
+    <EmbeddedResource Include="SampleDomain\Album.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

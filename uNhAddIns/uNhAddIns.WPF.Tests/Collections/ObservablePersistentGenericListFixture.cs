@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using NHibernate;
 using NUnit.Framework;
-using uNhAddIns.WPF.Tests.Collections.SampleDomain;
+using uNhAddIns.WPF.Tests.SampleDomain;
 
 namespace uNhAddIns.WPF.Tests.Collections
 {

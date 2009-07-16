@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using uNhAddIns.Entities;
 
-namespace uNhAddIns.WPF.Tests.Collections.SampleDomain
+namespace uNhAddIns.WPF.Tests.SampleDomain
 {
     public class Invoice : Entity
     {
