@@ -7,27 +7,19 @@ namespace uNhAddIns.WPF
     public class EditableBehaviorBase
     {
         private bool _isInEditMode;
-        private const string ErrorNotInEditMode = "The current object isn't in editable mode.";
+        private const string ErrorNotInEditMode = "The current object is not in editable mode.";
         public void BeginEdit()
         {
-            if (_isInEditMode)
-                throw new InvalidOperationException("The current object is already in editable mode.");
-
             _isInEditMode = true;
         }
 
         public void CancelEdit()
         {
-            if (!_isInEditMode)
-                throw new InvalidOperationException(ErrorNotInEditMode);
-
             _isInEditMode = false;
         }
 
         public void EndEdit(object target)
         {
-            if (!_isInEditMode)
-                throw new InvalidOperationException(ErrorNotInEditMode);
             _isInEditMode = false;
             foreach(var property in _tempValues.Keys)
             {
