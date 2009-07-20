@@ -76,6 +76,21 @@ namespace uNhAddIns.WPF.Tests.Castle
 
         }
 
+        [Test]
+        public void tempvalues_should_not_traverse_session()
+        {
+            var album = container.Resolve<Album>();
+            const string title = "The dark side of the moon";
+            album.Title = title;
+            
+            ((IEditableObject)album).BeginEdit();
+            album.Title = "dark side";
+            ((IEditableObject)album).CancelEdit();
+            
+            ((IEditableObject)album).BeginEdit();
+            album.Title.Should().Be.EqualTo(title);
+            ((IEditableObject)album).CancelEdit();
+        }
 
         [Test]
         public void entity_should_implement_ieditableobject()

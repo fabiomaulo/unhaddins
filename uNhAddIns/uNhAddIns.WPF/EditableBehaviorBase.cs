@@ -15,6 +15,7 @@ namespace uNhAddIns.WPF
 
         public void CancelEdit()
         {
+            _tempValues.Clear();
             _isInEditMode = false;
         }
 
