@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Castle\EditableNotifyIntegrationFixture.cs" />
     <Compile Include="Castle\EditableBehaviorInterceptorFixture.cs">
       <SubType>Code</SubType>
     </Compile>
