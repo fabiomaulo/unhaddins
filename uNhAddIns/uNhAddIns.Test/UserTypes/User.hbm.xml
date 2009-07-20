@@ -3,14 +3,14 @@
 				   assembly="uNhAddIns.Test"
 				   namespace="uNhAddIns.Test.UserTypes" default-lazy="false">
 	
-	<typedef class="uNHAddIns.UserTypes.EncryptedString, uNHAddIns" name="Encrypted">
+	<typedef class="uNhAddIns.UserTypes.EncryptedString, uNHAddIns" name="Encrypted">
 		<param name="encryptor">uNhAddIns.UserTypes.uNHAddinsEncryptor, uNhAddIns</param>
 		<param name="encryptionKey">myRGBKey</param>
 	</typedef>
 	
-	<typedef class="uNHAddIns.UserTypes.EncryptedString, uNHAddIns" name="EncryptedDefault"/>
+	<typedef class="uNhAddIns.UserTypes.EncryptedString, uNHAddIns" name="EncryptedDefault"/>
 
-	<typedef class="uNHAddIns.UserTypes.TrimString, uNHAddIns" name="Trimmed" />
+	<typedef class="uNhAddIns.UserTypes.TrimString, uNHAddIns" name="Trimmed" />
 	
   <class name="User" table="Users">
     <id name="Id" type="int">

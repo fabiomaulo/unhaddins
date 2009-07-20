@@ -11,7 +11,7 @@
     <property name="Name"/>
     
     <property name="Description" 
-              type="uNHAddIns.UserTypes.UpperString, uNHAddIns"
+              type="uNhAddIns.UserTypes.UpperString, uNHAddIns"
               not-null="false"/>
   </class>
 

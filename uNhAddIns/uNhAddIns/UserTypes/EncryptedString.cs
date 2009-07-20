@@ -7,7 +7,7 @@ using uNhAddIns.Extensions;
 using uNhAddIns.UserTypes;
 using System.Collections.Generic;
 
-namespace uNHAddIns.UserTypes
+namespace uNhAddIns.UserTypes
 {
 	/// <summary>
 	/// Hashes a string when it's saved
