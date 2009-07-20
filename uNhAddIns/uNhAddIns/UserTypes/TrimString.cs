@@ -4,7 +4,7 @@ using NHibernate;
 using NHibernate.SqlTypes;
 using NHibernate.UserTypes;
 
-namespace uNHAddIns.UserTypes
+namespace uNhAddIns.UserTypes
 {
     /// <summary>
     /// Convert the String to Upper when the object it's saved
