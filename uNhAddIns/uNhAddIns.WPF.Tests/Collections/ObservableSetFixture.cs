@@ -11,6 +11,7 @@ namespace uNhAddIns.WPF.Tests.Collections
         private const string COUNT_PROPERTY_NAME = "Count";
         private const string ISEMPTY_PROPERTY_NAME = "IsEmpty";
 
+
         [Test]
         public void add_object_should_raise_collectionchanged()
         {
