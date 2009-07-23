@@ -10,7 +10,7 @@
     </id>
     <property name="Title" />
     <list name="Tracks" cascade="all" 
-      collection-type="uNhAddIns.WPF.Collections.ObservableListType`1[Track], uNhAddIns.WPF">
+      collection-type="uNhAddIns.WPF.Collections.Types.ObservableListType`1[Track], uNhAddIns.WPF">
       <key column="AlbumId" />
       <index column="TrackNumber" />
       <one-to-many class="Track" />

@@ -5,26 +5,26 @@ using NHibernate.Collection.Generic;
 using NHibernate.Engine;
 using NHibernate.Persister.Collection;
 
-namespace uNhAddIns.WPF.Collections
+namespace uNhAddIns.WPF.Collections.PersistentImpl
 {
-    public class PersistentObservableGenericList<T> : PersistentGenericList<T>, INotifyCollectionChanged,
-                                                      INotifyPropertyChanged, IList<T>
+    public class PersistentObservableGenericBag<T> : PersistentGenericBag<T>, INotifyCollectionChanged,
+                                                     INotifyPropertyChanged, IList<T>
     {
         private NotifyCollectionChangedEventHandler _collectionChanged;
         private PropertyChangedEventHandler _propertyChanged;
 
-        public PersistentObservableGenericList(ISessionImplementor sessionImplementor)
+        public PersistentObservableGenericBag(ISessionImplementor sessionImplementor)
             : base(sessionImplementor)
         {
         }
 
-        public PersistentObservableGenericList(ISessionImplementor sessionImplementor, IList<T> list)
-            : base(sessionImplementor, list)
+        public PersistentObservableGenericBag(ISessionImplementor sessionImplementor, ICollection<T> coll)
+            : base(sessionImplementor, coll)
         {
-            CaptureEventHandlers(list);
+            CaptureEventHandlers(coll);
         }
 
-        public PersistentObservableGenericList()
+        public PersistentObservableGenericBag()
         {
         }
 
@@ -59,7 +59,7 @@ namespace uNhAddIns.WPF.Collections
         public override void BeforeInitialize(ICollectionPersister persister, int anticipatedSize)
         {
             base.BeforeInitialize(persister, anticipatedSize);
-            CaptureEventHandlers((ICollection<T>) list);
+            CaptureEventHandlers(InternalBag);
         }
 
         private void CaptureEventHandlers(ICollection<T> coll)

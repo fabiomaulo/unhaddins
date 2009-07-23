@@ -7,11 +7,10 @@ using NHibernate.Engine;
 using NHibernate.Persister.Collection;
 using NHibernate.Type;
 using NHibernate.UserTypes;
+using uNhAddIns.WPF.Collections.PersistentImpl;
 
-namespace uNhAddIns.WPF.Collections
+namespace uNhAddIns.WPF.Collections.Types
 {
-    //Todo: remove the inheritance of CollectionType, and write ReplaceElements.
-
     public class ObservableBagType<T> : CollectionType, IUserCollectionType
     {
         public ObservableBagType(string role, string foreignKeyPropertyName, bool isEmbeddedInXML) 
