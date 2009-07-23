@@ -5,8 +5,8 @@ namespace Chinook.Domain
 {
     public class Album
     {
-        public virtual Artist Artist { get; private set; }
-        public virtual int AlbumId { get; set; }
+        public virtual Artist Artist { get;  set; }
+        public virtual int AlbumId { get; private set; }
         public virtual string Title { get; set; }
 
         public virtual IList<Track> Tracks { get; private set; }
