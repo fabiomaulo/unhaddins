@@ -2,7 +2,7 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
 				   assembly="Chinook.Domain"
 				   namespace="Chinook.Domain">
-  <class name="InvoiceLine" table="InvoiceLine">
+  <class name="InvoiceLine">
     <id name="InvoiceLineId" column="InvoiceLineId">
       <generator class="identity"/>
     </id>
