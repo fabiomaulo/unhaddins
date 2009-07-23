@@ -32,6 +32,11 @@ namespace uNhAddIns.DynQuery
 			get { return (select != null) ? select.Clause : from.Clause; }
 		}
 
+		public Select Select
+		{
+			get { return select; }
+		}
+
 		public From Query
 		{
 			get { return (select != null) ? select.From() : from; }
