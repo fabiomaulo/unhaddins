@@ -4,7 +4,7 @@ namespace Chinook.Domain
 {
     public class Employee : Person
     {
-        public virtual int EmployeeId { get; set; }
+        public virtual int EmployeeId { get; private set; }
 
         public virtual string Title { get; set; }
         public virtual DateTime BirthDate { get; set; }
