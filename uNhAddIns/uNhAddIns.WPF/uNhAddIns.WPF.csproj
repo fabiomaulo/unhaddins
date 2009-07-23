@@ -51,10 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\ObservableSet.cs" />
-    <Compile Include="Collections\PersistentObservableGenericList.cs" />
-    <Compile Include="Collections\ObservableListType.cs" />
-    <Compile Include="Collections\PersistentObservableGenericBag.cs" />
-    <Compile Include="Collections\ObservableBagType.cs" />
+    <Compile Include="Collections\PersistentImpl\PersistentObservableGenericList.cs" />
+    <Compile Include="Collections\Types\ObservableListType.cs" />
+    <Compile Include="Collections\PersistentImpl\PersistentObservableGenericBag.cs" />
+    <Compile Include="Collections\Types\ObservableBagType.cs" />
     <Compile Include="EditableBehaviorBase.cs" />
     <Compile Include="EntityNameResolver\ConfigurationExtension.cs" />
     <Compile Include="EntityNameResolver\EntityNameResolver.cs" />

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Iesi.Collections.Generic;
-using uNhAddIns.WPF.Helpers;
 
 namespace uNhAddIns.WPF.Collections
 {

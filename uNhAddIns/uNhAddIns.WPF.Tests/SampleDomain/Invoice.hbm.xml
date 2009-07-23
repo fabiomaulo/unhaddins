@@ -9,7 +9,7 @@
            <generator class="hilo"/>
        </id>
        <bag name="Lines" cascade="all" inverse="true"
-            collection-type="uNhAddIns.WPF.Collections.ObservableBagType`1[InvoiceLine], uNhAddIns.WPF">
+            collection-type="uNhAddIns.WPF.Collections.Types.ObservableBagType`1[InvoiceLine], uNhAddIns.WPF">
          <key column="InvoiceId"/>
          <one-to-many class="InvoiceLine" />
        </bag>
