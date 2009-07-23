@@ -4,7 +4,7 @@ namespace Chinook.Domain
 {
     public class Track
     {
-        public virtual int TrackId { get; set; }
+        public virtual int TrackId { get; private set; }
         public virtual string Name { get; set; }
         public virtual Album Album { get; set; }
         public virtual MediaType MediaType { get; set; }

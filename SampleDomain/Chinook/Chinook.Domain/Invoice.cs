@@ -6,7 +6,7 @@ namespace Chinook.Domain
 {
     public class Invoice
     {
-        public virtual int InvoiceId { get; set; }
+        public virtual int InvoiceId { get; private set; }
         public virtual Customer Customer { get; set; }
         public virtual DateTime InvoiceDate { get; set; }
 
