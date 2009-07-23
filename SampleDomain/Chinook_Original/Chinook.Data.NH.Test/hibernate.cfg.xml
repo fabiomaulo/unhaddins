@@ -9,7 +9,7 @@ for your own use before compile tests in VisualStudio.
 	<session-factory name="NHibernate.Test">
 		<property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
 		<property name="connection.connection_string">
-      Server=.\sqlexpress;initial catalog=Chinook;Integrated Security=True;
+      Server=servidorsql;initial catalog=Chinook;UID=sa;pwd=lorenqw5656;
     </property>
 		<property name="adonet.batch_size">10</property>
 		<property name="dialect">NHibernate.Dialect.MsSql2005Dialect</property>

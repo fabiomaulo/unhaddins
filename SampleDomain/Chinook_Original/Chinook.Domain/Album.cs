@@ -13,6 +13,7 @@ namespace Chinook.Domain
 
         public virtual void AddTrack(Track track)
         {
+            track.Album = this;
             Tracks.Add(track);
         }
 

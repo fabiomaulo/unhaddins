@@ -26,6 +26,7 @@ namespace Chinook.Domain
 
         public virtual void AddLine(InvoiceLine line)
         {
+            line.Invoice = this;
             Lines.Add(line);
         }
 
