@@ -51,7 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\ObservableSet.cs" />
+    <Compile Include="Collections\PersistentImpl\PersistentObservableGenericSet.cs" />
     <Compile Include="Collections\PersistentImpl\PersistentObservableGenericList.cs" />
+    <Compile Include="Collections\Types\ObservableSetType.cs" />
     <Compile Include="Collections\Types\ObservableListType.cs" />
     <Compile Include="Collections\PersistentImpl\PersistentObservableGenericBag.cs" />
     <Compile Include="Collections\Types\ObservableBagType.cs" />

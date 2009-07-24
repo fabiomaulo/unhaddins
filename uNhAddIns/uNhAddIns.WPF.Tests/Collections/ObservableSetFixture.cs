@@ -297,7 +297,7 @@ namespace uNhAddIns.WPF.Tests.Collections
         [Test]
         public void retainall_should_work()
         {
-            var observableSet = new ObservableSet<int> { 1, 2, 3, 4, 5 };
+            ObservableSet<int> observableSet = new ObservableSet<int> { 1, 2, 3, 4, 5 };
             observableSet.RetainAll(new[] {2, 3});
             observableSet.Count.Should().Be.EqualTo(2);
             observableSet.Should().Have.SameSequenceAs(new[] {2, 3});

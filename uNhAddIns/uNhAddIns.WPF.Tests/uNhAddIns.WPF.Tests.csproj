@@ -83,6 +83,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Castle\EntityNameResolverFixture.cs" />
+    <Compile Include="Collections\ObservablePersistentGenericSetFixture.cs" />
     <Compile Include="Collections\ObservableSetFixture.cs" />
     <Compile Include="IntegrationBaseTest.cs" />
     <Compile Include="Collections\ObservablePersistentGenericListFixture.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="SampleDomain\Album.cs" />
     <Compile Include="SampleDomain\Invoice.cs" />
     <Compile Include="SampleDomain\InvoiceLine.cs" />
+    <Compile Include="SampleDomain\Playlist.cs" />
     <Compile Include="SampleDomain\Track.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Castle\PropertyChangeNotifierFixture.cs" />
@@ -120,6 +122,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SampleDomain\Album.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SampleDomain\Playlist.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
