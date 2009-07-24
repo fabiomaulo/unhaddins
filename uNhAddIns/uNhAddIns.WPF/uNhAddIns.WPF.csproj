@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\WpfCollectionTypeFactory.cs" />
     <Compile Include="Collections\ObservableSet.cs" />
     <Compile Include="Collections\PersistentImpl\PersistentObservableGenericSet.cs" />
     <Compile Include="Collections\PersistentImpl\PersistentObservableGenericList.cs" />
