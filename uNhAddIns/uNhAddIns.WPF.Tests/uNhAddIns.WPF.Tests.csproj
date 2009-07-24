@@ -85,6 +85,7 @@
     <Compile Include="Castle\EntityNameResolverFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericSetFixture.cs" />
     <Compile Include="Collections\ObservableSetFixture.cs" />
+    <Compile Include="Collections\WpfCollectionTypeFactoryFixture.cs" />
     <Compile Include="IntegrationBaseTest.cs" />
     <Compile Include="Collections\ObservablePersistentGenericListFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericBagFixture.cs" />
