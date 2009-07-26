@@ -20,20 +20,22 @@ namespace uNHAddIns.Examples.CustomInterceptor
         protected override void ConfigureWindsorContainer()
         {
             container.AddFacility<FactorySupportFacility>();
-            container.Register(Component.For<PropertyChangeInterceptor>().LifeStyle.Transient);
+
+            container.Register(Component.For<CommonPropertyStoreInterceptor>()
+                                         .LifeStyle.Transient);
+
+            container.Register(Component.For<PropertyChangeInterceptor>()
+                                         .LifeStyle.Transient);
+
+            container.Register(Component.For<EditableObjectInterceptor>()
+                                         .LifeStyle.Transient);
+
             container.Register(Component.For<EntityNameInterceptor>()
-                                   .LifeStyle.Transient);
+                                        .LifeStyle.Transient);
 
-            container.Register(Component.For<Customer>()
-                                   .NotifyOnPropertyChange()
-                                   .EnableNhibernateEntityCompatibility()
-                                   .LifeStyle.Transient);
-
-
-            //If you use Common Datastore you don't need to set NhibernateEntityCompatibility.
             container.Register(Component.For<IProduct>()
-                                   .NotifyOnPropertyChange()
-                                   .TargetIsCommonDatastore());
+                                        .NotifyOnPropertyChange()
+                                        .TargetIsCommonDatastore());
         }
 
 
@@ -55,56 +57,10 @@ namespace uNHAddIns.Examples.CustomInterceptor
             return id;
         }
 
-        private Guid CreatePepeCustomer()
-        {
-            Guid id;
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var pepe = ServiceLocator.Current.GetInstance<Customer>();
-
-                pepe.Name = "Pepe";
-                pepe.Address = "Siempreviva 1234";
-
-                id = (Guid) session.Save(pepe);
-                tx.Commit();
-                session.Clear();
-            }
-            return id;
-        }
+ 
 
         [Test]
         public void can_raise_propertychanged()
-        {
-            bool eventWasRaised = false;
-
-            var customer = container.Resolve<Customer>();
-            customer.PropertyChanged += (sender, e) => eventWasRaised = true;
-
-            customer.Name = "a";
-            eventWasRaised.Should().Be.True();
-        }
-
-        [Test]
-        public void can_raise_propertychanged_in_nontrascientobject()
-        {
-            Guid id = CreatePepeCustomer();
-            bool eventWasRaised = false;
-            using (ISession session = sessions.OpenSession())
-            {
-                var customer = session.Get<Customer>(id);
-
-                ((INotifyPropertyChanged) customer).PropertyChanged +=
-                    (sender, e) => eventWasRaised = true;
-
-                customer.Name = "Jota";
-
-                eventWasRaised.Should().Be.True();
-            }
-        }
-
-        [Test]
-        public void can_raise_propertychanged_with_nonimplementedinterface()
         {
             bool eventWasRaised = false;
 
@@ -116,7 +72,7 @@ namespace uNHAddIns.Examples.CustomInterceptor
         }
 
         [Test]
-        public void can_raise_with_nonimplementedinterface_in_nontrascientobject()
+        public void can_raise_propertychanged_in_nontrascientobject()
         {
             Guid id = CreatePotatoesProduct();
             bool eventWasRaised = false;

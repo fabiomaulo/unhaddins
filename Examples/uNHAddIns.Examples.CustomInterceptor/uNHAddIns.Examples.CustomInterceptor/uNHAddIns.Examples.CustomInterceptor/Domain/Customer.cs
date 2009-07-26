@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace uNHAddIns.Examples.CustomInterceptor.Domain
 {
-    public class Customer : INotifyPropertyChanged
+    public class Customer : INotifyPropertyChanged, IEditableObject
     {
         //don't raise this event... Is aop baby.
         public virtual event PropertyChangedEventHandler PropertyChanged;
@@ -11,15 +11,13 @@ namespace uNHAddIns.Examples.CustomInterceptor.Domain
         //public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
         public virtual string Address { get; set; }
+        public virtual void BeginEdit()
+        {}
+
+        public virtual void EndEdit()
+        {}
+
+        public virtual void CancelEdit()
+        {}
     }
-
-
-    //: ICustomer
-    //public interface ICustomer
-    //{
-    //    //TODO: remove the set_Id.
-    //    Guid Id { get; set; }
-    //    string Name { get; set; }
-    //    string Address { get; set; }
-    //}
 }

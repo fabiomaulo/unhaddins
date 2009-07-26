@@ -1,15 +1,11 @@
-﻿using System;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 using Microsoft.Practices.ServiceLocation;
-using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
 using uNHAddIns.Examples.CustomInterceptor.Infrastructure;
-using uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors;
-using Environment = NHibernate.Cfg.Environment;
 
 namespace uNHAddIns.Examples.CustomInterceptor
 {
@@ -30,15 +26,18 @@ namespace uNHAddIns.Examples.CustomInterceptor
         public void TestFixtureSetUp()
         {
             ConfigureWindsorContainer();
-            
+
             ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
-            
+            Environment.UseReflectionOptimizer = true;
+            Environment.BytecodeProvider = new EnhancedBytecode(container);
+
             cfg = new Configuration();
-            cfg.AddAssembly(typeof(BaseTest).Assembly);
+
+            cfg.AddAssembly(typeof (BaseTest).Assembly);
             cfg.Configure();
             cfg.Interceptor = new NhEntityNameInterceptor();
             new SchemaExport(cfg).Create(false, true);
-            sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
+            sessions = (ISessionFactoryImplementor) cfg.BuildSessionFactory();
         }
 
         protected abstract void ConfigureWindsorContainer();
@@ -51,9 +50,5 @@ namespace uNHAddIns.Examples.CustomInterceptor
             sessions = null;
             cfg = null;
         }
-
-       
-
-
     }
 }
