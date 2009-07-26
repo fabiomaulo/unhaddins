@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Castle.Core;
@@ -9,104 +10,82 @@ using Castle.MicroKernel.Proxy;
 using Castle.MicroKernel.Registration;
 using uNHAddIns.Examples.CustomInterceptor.Domain;
 using uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptors;
-using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure
 {
     public static class WindsorRegistrationUtil
     {
-       
         /// <summary>
         /// Add the PropertyChangeInterceptor to the component.
         /// </summary>
-        /// <typeparam name="TConcreteType"></typeparam>
+        /// <typeparam name="TService"></typeparam>
         /// <param name="registration"></param>
         /// <returns></returns>
-        public static ComponentRegistration<TConcreteType> NotifyOnPropertyChange<TConcreteType>(this ComponentRegistration<TConcreteType> registration)
+        public static ComponentRegistration<TService> NotifyOnPropertyChange<TService>(
+            this ComponentRegistration<TService> registration)
         {
-            var result = registration;
-            if(!typeof(INotifyPropertyChanged).IsAssignableFrom(typeof(TConcreteType)))
+            ComponentRegistration<TService> result = registration;
+            if (!typeof (INotifyPropertyChanged).IsAssignableFrom(typeof (TService)))
             {
-                throw new Exception(string.Format("{0} must implement INotifyPropertyChanged.", 
-                                                  typeof(TConcreteType).FullName.ToString()));
+                result = result.Proxy.AdditionalInterfaces(typeof (INotifyPropertyChanged));
             }
-            //if(!typeof(IProxiedEntity).IsAssignableFrom(typeof(TConcreteType)))
-            //{
-            //    result = result.Proxy.AdditionalInterfaces(typeof (IProxiedEntity));
-            //}
-            result = result.Interceptors(new InterceptorReference(typeof(PropertyChangeInterceptor))).Anywhere;
+
+            result = result.Interceptors(new InterceptorReference(typeof (PropertyChangeInterceptor)))
+                .Anywhere;
+
             return result;
         }
 
-        public static ComponentRegistration<TType> AddEditableObjectBehavior<TType>(this ComponentRegistration<TType> componentRegistration)
+        public static ComponentRegistration<TService> EditableObjectBehavior<TService>(
+            this ComponentRegistration<TService> componentRegistration)
         {
-            var result = componentRegistration;
-            if(!typeof(IEditableObject).IsAssignableFrom(typeof(TType)))
+            ComponentRegistration<TService> result = componentRegistration;
+            if (!typeof (IEditableObject).IsAssignableFrom(typeof (TService)))
             {
-                throw new Exception(string.Format("{0} must implement IEditableObject.",
-                                                  typeof(TType).FullName));
+                result = result.Proxy.AdditionalInterfaces(typeof (IEditableObject));
             }
-            result = result
-                        .Interceptors(new InterceptorReference(typeof (EditableObjectInterceptor)))
-                        .Anywhere;
+            result = result.Interceptors(new InterceptorReference(typeof (EditableObjectInterceptor)))
+                .Anywhere;
             return result;
         }
 
-
-        public static ComponentRegistration<TType> TargetIsCommonDatastore<TType>(this ComponentRegistration<TType> registration)
+        public static ComponentRegistration<TService> TargetIsCommonDatastore<TService>(
+            this ComponentRegistration<TService> registration)
         {
-            var result = registration;
-            if(!typeof(IProxiedEntity).IsAssignableFrom(typeof(TType)))
+            ComponentRegistration<TService> result = registration;
+            if (!typeof (IProxiedEntity).IsAssignableFrom(typeof (TService)))
             {
                 result = result.Proxy.AdditionalInterfaces(typeof (IProxiedEntity));
             }
-            return result.UsingFactoryMethod(kernel => CreateProxy<TType>(kernel));
+            result = result.Interceptors(new InterceptorReference(typeof(EntityNameInterceptor))).Anywhere;
+            return result.Interceptors(new InterceptorReference(typeof (CommonPropertyStoreInterceptor))).Last;
         }
 
-        /// <summary>
-        /// Factory method to create a proxie.
-        /// This method take cares about the preexistent interceptors and additional interfaces.
-        /// </summary>
-        /// <typeparam name="TType"></typeparam>
-        /// <param name="kernel"></param>
-        /// <returns></returns>
-        private static TType CreateProxy<TType>(IKernel kernel)
-        {
-            var componentModel = kernel.GetHandler(typeof(TType)).ComponentModel;
-            var currentInterceptorsReferences = componentModel.Interceptors;
-            
-            var currentInterceptors = currentInterceptorsReferences
-                .Select(refe => (IInterceptor) kernel.Resolve(refe.ServiceType))
-                .ToArray();
-
-            var newInterceptors = new IInterceptor[]
-                                      {
-                                          new EntityNameInterceptor(typeof (IProduct).FullName),
-                                          new DataInterceptor()
-                                      };
-
-            var interceptors = currentInterceptors.Union(newInterceptors).ToArray();
-
-            var additionalInterfaces = ProxyUtil.ObtainProxyOptions(componentModel, true)
-                .AdditionalInterfaces.ToList();
-            
-            if(!additionalInterfaces.Contains(typeof(IProxiedEntity)))
-                additionalInterfaces.Add(typeof(IProxiedEntity));
-
-            var interfaces = additionalInterfaces.ToArray();
-
-            
-            var proxyGen = new Castle.DynamicProxy.ProxyGenerator();
-            return (TType) proxyGen.CreateInterfaceProxyWithoutTarget(
-                               typeof(TType),
-                               interfaces,
-                               interceptors);
-        }
-
-        public static ComponentRegistration<TType> EnableNhibernateEntityCompatibility<TType>(this ComponentRegistration<TType> registration )
+        public static ComponentRegistration<TService> EnableNhibernateEntityCompatibility<TService>(
+            this ComponentRegistration<TService> registration)
         {
             return registration.Proxy.AdditionalInterfaces(typeof (IProxiedEntity))
                 .Interceptors(new InterceptorReference(typeof (EntityNameInterceptor))).Anywhere;
+        }
+
+
+        public static TEditableInterface GenerateEditableModel<TEditableInterface, TDomainInterface>(
+            TDomainInterface entity)
+            where TEditableInterface : INotifyPropertyChanged, IEditableObject, TDomainInterface
+        {
+            var proxyGen = new ProxyGenerator();
+
+            return (TEditableInterface)
+                   proxyGen.CreateInterfaceProxyWithTargetInterface(typeof (TDomainInterface),
+                                                                    new[] {typeof (TEditableInterface)},
+                                                                    entity,
+                                                                    new ProxyGenerationOptions(),
+                                                                    new IInterceptor[]
+                                                                        {
+                                                                            new EditableObjectInterceptor(),
+                                                                            new PropertyChangeInterceptor()
+                                                                        }
+                       );
         }
     }
 }

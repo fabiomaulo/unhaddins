@@ -8,7 +8,8 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptor
     public class EditableObjectInterceptor : IInterceptor
     {
         private bool _isEditing;
-        private readonly Dictionary<string, object> _propertyTempValues = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _propertyTempValues 
+                                    = new Dictionary<string, object>();
 
         public void Intercept(IInvocation invocation)
         {
@@ -22,7 +23,10 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptor
                     return;
                 case "EndEdit":
                     _isEditing = false;
-                    AssignValues(invocation.InvocationTarget);
+                    //Todo: this will raise the NotifyPropertyChanged!
+                    //      if assign the values to the target... 
+                    //      I don't know what to do when working without target.
+                    AssignValues(invocation.Proxy);
                     return;
             }
             if (!_isEditing)
@@ -30,7 +34,8 @@ namespace uNHAddIns.Examples.CustomInterceptor.Infrastructure.MethodsInterceptor
                 invocation.Proceed();
                 return;
             }
-            if(!invocation.Method.Name.StartsWith("set_") && !invocation.Method.Name.StartsWith("get_"))
+            if(!invocation.Method.Name.StartsWith("set_") 
+                && !invocation.Method.Name.StartsWith("get_"))
                 return;
 
             var isSet = invocation.Method.Name.StartsWith("set_");

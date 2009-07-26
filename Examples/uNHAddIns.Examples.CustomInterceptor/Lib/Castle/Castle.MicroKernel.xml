@@ -1732,6 +1732,11 @@
             Gets or sets the proxy hook.
             </summary>
         </member>
+        <member name="P:Castle.MicroKernel.Proxy.ProxyOptions.Selector">
+            <summary>
+            Gets or sets the interceptor selector.
+            </summary>
+        </member>
         <member name="P:Castle.MicroKernel.Proxy.ProxyOptions.OmitTarget">
             <summary>
             Determines if the proxied component uses a target.
@@ -2567,6 +2572,13 @@
             Set the interceptors for this component.
             </summary>
             <param name="interceptors">The interceptors.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Castle.MicroKernel.Registration.ComponentRegistration`1.SelectInterceptorsWith(Castle.Core.Interceptor.IInterceptorSelector)">
+            <summary>
+            Sets the interceptor selector for this component.
+            </summary>
+            <param name="selector"></param>
             <returns></returns>
         </member>
         <member name="M:Castle.MicroKernel.Registration.ComponentRegistration`1.Startable">
