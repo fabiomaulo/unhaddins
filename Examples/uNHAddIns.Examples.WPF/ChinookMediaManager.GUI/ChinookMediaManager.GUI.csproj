@@ -107,7 +107,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\AlbumManagementView.xaml">
+    <Page Include="Views\AlbumManagerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -119,8 +119,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\AlbumManagementView.xaml.cs">
-      <DependentUpon>AlbumManagementView.xaml</DependentUpon>
+    <Compile Include="Views\AlbumManagerView.xaml.cs">
+      <DependentUpon>AlbumManagerView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Caliburn.PresentationFramework.ApplicationModel;
+﻿using System.Collections.Generic;
 using Caliburn.Testability.Assertions;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
+using ChinookMediaManager.Infrastructure;
 using ChinookMediaManager.Presenters.Interfaces;
 using Moq;
 using NUnit.Framework;
@@ -17,7 +16,7 @@ namespace ChinookMediaManager.Presenters.Test
         public void can_browse_artist()
         {
             var browseArtistModelMoq = new Mock<IBrowseArtistModel>();
-            var albumManagerMoq = new Mock<IAlbumManagementPresenter>();
+            var presenterFactory = new Mock<IPresenterFactory>();
 
             var artists = new List<Artist>();
 
@@ -26,7 +25,7 @@ namespace ChinookMediaManager.Presenters.Test
                 .AtMostOnce();
 
             var browseArtist = new BrowseArtistPresenter(browseArtistModelMoq.Object,
-                                                         albumManagerMoq.Object);
+                                                         presenterFactory.Object);
 
 
             //TODO: find a better syntax for this.
@@ -46,20 +45,25 @@ namespace ChinookMediaManager.Presenters.Test
         public void edit_albums_should_work()
         {
             var browseArtistModelMoq = new Mock<IBrowseArtistModel>();
-            var albumManagerMoq = new Mock<IAlbumManagementPresenter>();
-
-
+            var presenterFactory = new Mock<IPresenterFactory>();
+            var albumManagerMoq = new Mock<IAlbumManagerPresenter>();
             albumManagerMoq.Setup(am => am.OpenView(null, null)).AtMostOnce();
-            
+
+            presenterFactory.Setup(pf => pf.GetPresenter<IAlbumManagerPresenter>())
+                            .Returns(albumManagerMoq.Object)
+                            .AtMostOnce();
+
             var browseArtist = new BrowseArtistPresenter(browseArtistModelMoq.Object,
-                                                         albumManagerMoq.Object);
+                                                         presenterFactory.Object);
 
             var artist = new Artist {Name = "Rolling Stones"};
 
             browseArtist.EditAlbums(artist);
 
 
+            presenterFactory.Verify(pf => pf.GetPresenter<IAlbumManagerPresenter>());
             albumManagerMoq.Verify(a => a.OpenView(browseArtist, artist));
+
         }
     }
 }

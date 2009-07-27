@@ -9,16 +9,16 @@ namespace ChinookMediaManager.Domain.Impl
     [PersistenceConversational(
         MethodsIncludeMode = MethodsIncludeMode.Implicit,
         DefaultEndMode = EndMode.Continue)]
-    public class AlbumManagementModel : IAlbumManagementModel
+    public class AlbumManagerModel : IAlbumManagerModel
     {
         private readonly IAlbumRepository _albumRepository;
 
-        public AlbumManagementModel(IAlbumRepository albumRepository)
+        public AlbumManagerModel(IAlbumRepository albumRepository)
         {
             _albumRepository = albumRepository;
         }
 
-        #region IAlbumManagementModel Members
+        #region IAlbumManagerModel Members
 
         public IEnumerable<Album> GetAlbumsOfArtist(Artist artist)
         {

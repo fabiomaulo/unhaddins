@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ChinookMediaManager.Domain.Model
 {
-    public interface IAlbumManagementModel
+    public interface IAlbumManagerModel
     {
         IEnumerable<Album> GetAlbumsOfArtist(Artist artist);
     }
