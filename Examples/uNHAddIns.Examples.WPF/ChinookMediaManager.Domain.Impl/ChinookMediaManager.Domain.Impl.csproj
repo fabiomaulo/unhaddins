@@ -48,7 +48,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumManagementModel.cs" />
+    <Compile Include="AlbumManagerModel.cs" />
     <Compile Include="BrowseArtistModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using ChinookMediaManager.Domain;
 
 namespace ChinookMediaManager.Presenters.Interfaces
 {
-    public interface IAlbumManagementPresenter : IPresenterManager
+    public interface IAlbumManagerPresenter : IPresenterManager
     {
         void LoadData();
         void OpenView(IPresenter owner, Artist artist);

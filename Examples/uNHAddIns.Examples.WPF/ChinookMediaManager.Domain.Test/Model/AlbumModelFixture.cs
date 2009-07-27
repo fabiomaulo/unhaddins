@@ -33,7 +33,7 @@ namespace ChinookMediaManager.Domain.Test.Model
                       .Return(albums.GetEnumerator());
             }
 
-            var albumModel = new AlbumManagementModel(albumRepository);
+            var albumModel = new AlbumManagerModel(albumRepository);
 
             using(_mocks.Playback())
             {

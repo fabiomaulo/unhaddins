@@ -8,37 +8,42 @@ using ChinookMediaManager.Presenters.Interfaces;
 
 namespace ChinookMediaManager.Presenters
 {
-    public class AlbumManagementPresenter : MultiPresenterManager, IAlbumManagementPresenter
+    public class AlbumManagerPresenter : MultiPresenterManager, IAlbumManagerPresenter
     {
-        private readonly IAlbumManagementModel _albumManagementModel;
+        private readonly IAlbumManagerModel _albumManagerModel;
         private readonly IWindowManager _windowManager;
         private IPresenter _owner;
         private Artist _artist;
         
-        public AlbumManagementPresenter(IAlbumManagementModel albumManagementModel, IWindowManager windowManager)
+        public AlbumManagerPresenter(IAlbumManagerModel albumManagerModel, IWindowManager windowManager)
         {
-            _albumManagementModel = albumManagementModel;
+            _albumManagerModel = albumManagerModel;
             _windowManager = windowManager;
         }
-
-        #region IAlbumManagementPresenter Members
+  
+        #region IAlbumManagerPresenter Members
 
         [AsyncAction]
         public void LoadData()
         {
-            Albums = _albumManagementModel.GetAlbumsOfArtist(_artist);
+            Albums = _albumManagerModel.GetAlbumsOfArtist(_artist);
             NotifyOfPropertyChange("Albums");
         }
 
         public void OpenView(IPresenter owner, Artist artist)
         {
+            if (owner == null) 
+                throw new ArgumentNullException("owner");
+            if (artist == null) 
+                throw new ArgumentNullException("artist");
+
             SetUp(owner, artist);
             _windowManager.Show(this);
         }
 
         public IEnumerable<Album> Albums { get; private set; }
 
-        public void SetUp(IPresenter owner, Artist artist)
+        private void SetUp(IPresenter owner, Artist artist)
         {
             _owner = owner;
             _artist = artist;

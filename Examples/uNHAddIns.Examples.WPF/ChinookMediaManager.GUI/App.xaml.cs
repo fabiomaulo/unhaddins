@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Castle;
+using Caliburn.PresentationFramework;
 using Caliburn.PresentationFramework.ApplicationModel;
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel.Registration;
@@ -12,13 +15,13 @@ using ChinookMediaManager.Infrastructure;
 using ChinookMediaManager.Presenters.Interfaces;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate;
-using NHibernate.Cfg;
 using uNhAddIns.CastleAdapters;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 using uNhAddIns.WPF.EntityNameResolver;
+using Environment=NHibernate.Cfg.Environment;
 
 namespace ChinookMediaManager.GUI
 {
@@ -40,7 +43,7 @@ namespace ChinookMediaManager.GUI
             return new WindsorAdapter(container);
         }
 
-        protected override void ConfigurePresentationFramework(Caliburn.PresentationFramework.PresentationFrameworkModule module)
+        protected override void ConfigurePresentationFramework(PresentationFrameworkModule module)
         {
             base.ConfigurePresentationFramework(module);
             module.UsingViewStrategy<ViewStrategy>();
@@ -48,44 +51,48 @@ namespace ChinookMediaManager.GUI
 
         private static void ConfigurePresenters(IWindsorContainer container)
         {
-            var presenterServices = typeof(IAlbumManagementPresenter).Assembly
-                        .GetTypes().Where(t => t.IsInterface && t.Namespace.EndsWith("Interfaces"));
+            IEnumerable<Type> presenterServices = typeof (IAlbumManagerPresenter).Assembly
+                .GetTypes().Where(t => t.IsInterface && t.Namespace.EndsWith("Interfaces"));
 
-            var presenterImpl = typeof(IAlbumManagementPresenter).Assembly.GetTypes()
-                        .Where(t => t.GetInterfaces().Any(i => presenterServices.Contains(i)));
+            IEnumerable<Type> presenterImpl = typeof (IAlbumManagerPresenter).Assembly.GetTypes()
+                .Where(t => t.GetInterfaces().Any(i => presenterServices.Contains(i)));
 
-            foreach (var service in presenterServices)
-                foreach (var impl in presenterImpl)
+            foreach (Type service in presenterServices)
+                foreach (Type impl in presenterImpl)
                     if (service.IsAssignableFrom(impl))
                         container.Register(Component.For(service).ImplementedBy(impl).LifeStyle.Transient);
+
+
+            container.Register(Component.For<IPresenterFactory>().ImplementedBy<PresenterFactory>());
         }
 
         private static void ConfigureModels(IWindsorContainer container)
         {
-            var repositoryServices = typeof(IAlbumManagementModel).Assembly
-                        .GetTypes().Where(t => t.IsInterface && t.Namespace.EndsWith("Model"));
+            IEnumerable<Type> repositoryServices = typeof (IAlbumManagerModel).Assembly
+                .GetTypes().Where(t => t.IsInterface && t.Namespace.EndsWith("Model"));
 
-            var repositoryImpl = Assembly.Load("ChinookMediaManager.Domain.Impl").GetTypes()
-                        .Where(t => t.GetInterfaces().Any(i => repositoryServices.Contains(i)));
+            IEnumerable<Type> repositoryImpl = Assembly.Load("ChinookMediaManager.Domain.Impl").GetTypes()
+                .Where(t => t.GetInterfaces().Any(i => repositoryServices.Contains(i)));
 
-            foreach (var service in repositoryServices)
-                foreach (var impl in repositoryImpl)
+            foreach (Type service in repositoryServices)
+                foreach (Type impl in repositoryImpl)
                     if (service.IsAssignableFrom(impl))
                         container.Register(Component.For(service).ImplementedBy(impl).LifeStyle.Transient);
         }
 
         private static void ConfigureRepositories(IWindsorContainer container)
         {
-            var repositoryServices = typeof(IAlbumRepository).Assembly.GetTypes().Where(t => t.IsInterface);
-            var repositoryImpl = Assembly.Load("ChinookMediaManager.Data.Impl").GetTypes()
+            IEnumerable<Type> repositoryServices =
+                typeof (IAlbumRepository).Assembly.GetTypes().Where(t => t.IsInterface);
+            IEnumerable<Type> repositoryImpl = Assembly.Load("ChinookMediaManager.Data.Impl").GetTypes()
                 .Where(t => t.GetInterfaces().Any(i => repositoryServices.Contains(i)));
 
-            foreach (var service in repositoryServices)
-                foreach (var impl in repositoryImpl)
+            foreach (Type service in repositoryServices)
+                foreach (Type impl in repositoryImpl)
                     if (service.IsAssignableFrom(impl))
                         container.Register(Component.For(service).ImplementedBy(impl).LifeStyle.Transient);
         }
-        
+
         private static void ConfigureNhibernate(IWindsorContainer container)
         {
             container.AddFacility<PersistenceConversationFacility>();
@@ -106,14 +113,15 @@ namespace ChinookMediaManager.GUI
 
             container.Register(Component.For<ISessionWrapper>().ImplementedBy<SessionWrapper>());
             container.Register(Component.For<IConversationFactory>().ImplementedBy<DefaultConversationFactory>());
-            container.Register(Component.For<IConversationsContainerAccessor>().ImplementedBy<NhConversationsContainerAccessor>());
+            container.Register(
+                Component.For<IConversationsContainerAccessor>().ImplementedBy<NhConversationsContainerAccessor>());
         }
 
         private void ConfigureViews(IWindsorContainer container)
         {
             container.Register(AllTypes.FromAssemblyContaining(GetType())
-                                       .Where(t => typeof(Window).IsAssignableFrom(t))
-                                       .Configure(c => c.LifeStyle.Transient));
+                                   .Where(t => typeof (Window).IsAssignableFrom(t))
+                                   .Configure(c => c.LifeStyle.Transient));
         }
 
         protected override object CreateRootModel()

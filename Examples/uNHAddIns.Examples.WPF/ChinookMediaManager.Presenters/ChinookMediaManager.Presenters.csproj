@@ -57,16 +57,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumManagementPresenter.cs" />
+    <Compile Include="AlbumManagerPresenter.cs" />
     <Compile Include="BrowseArtistPresenter.cs" />
     <Compile Include="Interfaces\IBrowseArtistPresenter.cs" />
-    <Compile Include="Interfaces\IAlbumManagementPresenter.cs" />
+    <Compile Include="Interfaces\IAlbumManagerPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
+      <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
+      <Name>ChinookMediaManager.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
