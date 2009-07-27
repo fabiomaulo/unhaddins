@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Caliburn.PresentationFramework.ApplicationModel;
 using ChinookMediaManager.Domain;
 
@@ -8,5 +9,6 @@ namespace ChinookMediaManager.Presenters.Interfaces
         void LoadData();
         void OpenView(IPresenter owner, Artist artist);
         //void SetUp(IPresenter owner, Artist artist);
+        IEnumerable<Album> Albums { get; }
     }
 }

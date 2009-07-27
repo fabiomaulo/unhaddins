@@ -55,17 +55,30 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\NUnitEx.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
     <Reference Include="uNhAddIns.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumManagerPresenterFixture.cs" />
+    <Compile Include="BindingTest\SelectArtistUIFixture.cs" />
+    <Compile Include="BindingTest\AlbumManagerViewFixture.cs" />
     <Compile Include="BrowseArtistPresenterFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +86,10 @@
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.GUI\ChinookMediaManager.GUI.csproj">
+      <Project>{C3DB558C-F203-4132-9635-B4DEC818A011}</Project>
+      <Name>ChinookMediaManager.GUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
       <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
@@ -82,6 +99,9 @@
       <Project>{9BC63B81-8674-42CE-BE06-237B9D308725}</Project>
       <Name>ChinookMediaManager.Presenters</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
