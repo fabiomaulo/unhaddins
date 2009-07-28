@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ChinookMediaManager.GUI.Views.EditAlbumView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:PresentationFramework="clr-namespace:Caliburn.PresentationFramework;assembly=Caliburn.PresentationFramework"
+    Height="300" Width="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Grid.Column="0" 
+                   Grid.ColumnSpan="2"
+                   Margin="5">
+            <Run Text="Edit album"/></TextBlock>
+
+        <TextBlock Margin="7" Grid.Column="0" Grid.Row="1"><Run Text="Artist"/></TextBlock>
+        <TextBlock  Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Album.Artist.Name}" />
+
+        <TextBlock Margin="7" Grid.Column="0" Grid.Row="2"><Run Text="Title"/></TextBlock>
+        <TextBlock  Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Album.Title}" />
+
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Grid.Row="2" Grid.Column="0" PresentationFramework:Message.Attach="Acept()">
+                <TextBlock Text="Acept"/>
+            </Button>
+            <Button Grid.Row="2" Grid.Column="1" PresentationFramework:Message.Attach="Cancel()">
+                <TextBlock Text="Cancel"  />
+            </Button>
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>
