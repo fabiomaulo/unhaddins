@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumManagerPresenterFixture.cs" />
+    <Compile Include="BindingTest\EditAlbumViewFixture.cs" />
     <Compile Include="BindingTest\SelectArtistUIFixture.cs" />
     <Compile Include="BindingTest\AlbumManagerViewFixture.cs" />
     <Compile Include="BrowseArtistPresenterFixture.cs" />
