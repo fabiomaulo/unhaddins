@@ -3,48 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
-using log4net.Config;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Engine;
-using NHibernate.Tool.hbm2ddl;
 using NHibernate.Type;
 using NUnit.Framework;
 
 namespace ChinookMediaManager.Data.Test
 {
-
     /// <summary>
     /// ghostbuster
     /// </summary>
     [TestFixture]
-    public class PersistenceFixture
+    public class GhostBuster : PersistenceFixtureBase
     {
         private const string DefaultIdName = "Id";
-        private static readonly ILog log = LogManager.GetLogger(typeof(PersistenceFixture));
-        private static readonly ILog logError = LogManager.GetLogger(typeof(PersistenceFixture).FullName + "error");
-
-        protected Configuration cfg;
-        protected ISessionFactoryImplementor sessions;
-
-        [TestFixtureSetUp]
-        public void TestFixtureSetUp()
-        {
-            XmlConfigurator.Configure();
-            cfg = new Configuration();
-            cfg.Configure();
-            //new SchemaExport(cfg).Create(false, true);
-            sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
-        }
-
-        [TestFixtureTearDown]
-        public void TestFixtureTearDown()
-        {
-            new SchemaExport(cfg).Drop(false, true);
-            sessions.Close();
-            sessions = null;
-            cfg = null;
-        }
+        private static readonly ILog log = LogManager.GetLogger(typeof(GhostBuster));
+        private static readonly ILog logError = LogManager.GetLogger(typeof(GhostBuster).FullName + "error");
 
         [Test, Explicit]
         public void UnexpectedUpdateDeleteOnFetch()

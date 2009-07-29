@@ -18,7 +18,7 @@ for your own use before compile tests in VisualStudio.
     <property name="command_timeout">10</property>
     <property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
     <property name="current_session_context_class">
-      uNhAddIns.SessionEasier.Conversations.ThreadLocalConversationalSessionContext, uNhAddIns
+      thread_static
     </property>
     <property name="proxyfactory.factory_class">NHibernate.ByteCode.Castle.ProxyFactoryFactory, NHibernate.ByteCode.Castle</property>
     <!-- Only for tests-->

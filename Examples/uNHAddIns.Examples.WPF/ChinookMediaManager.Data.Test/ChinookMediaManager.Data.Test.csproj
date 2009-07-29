@@ -56,9 +56,15 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="uNhAddIns.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersistenceFixture.cs" />
+    <Compile Include="AlbumDataTest.cs" />
+    <Compile Include="GhostBuster.cs" />
+    <Compile Include="PersistenceFixtureBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +76,10 @@
     <ProjectReference Include="..\ChinookMediaManager.Data.Impl\ChinookMediaManager.Data.Impl.csproj">
       <Project>{6DC83393-3D32-4E87-82EE-8D2E50176C07}</Project>
       <Name>ChinookMediaManager.Data.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.Data\ChinookMediaManager.Data.csproj">
+      <Project>{1E1A7CE8-81F9-455E-A7D2-C9E644F1B951}</Project>
+      <Name>ChinookMediaManager.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
