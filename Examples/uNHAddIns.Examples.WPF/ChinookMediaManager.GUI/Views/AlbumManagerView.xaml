@@ -19,7 +19,7 @@
             <ListBox Name="AlbumsList" ItemsSource="{Binding Albums}" DisplayMemberPath="Title" DockPanel.Dock="Top" >
             </ListBox>
         </DockPanel>
-        <StackPanel>
+        <StackPanel Grid.Column="1">
             <ContentControl ApplicationModel:View.Model="{Binding CurrentPresenter}">
             </ContentControl>
         </StackPanel>

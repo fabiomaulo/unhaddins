@@ -10,9 +10,11 @@ using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ChinookMediaManager.Data.Repositories;
+using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
 using ChinookMediaManager.Infrastructure;
 using ChinookMediaManager.Presenters.Interfaces;
+using ChinookMediaManager.Presenters.ModelInterfaces;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate;
 using uNhAddIns.CastleAdapters;
@@ -22,6 +24,7 @@ using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 using uNhAddIns.WPF.EntityNameResolver;
 using Environment=NHibernate.Cfg.Environment;
+using uNhAddIns.WPF.Castle;
 
 namespace ChinookMediaManager.GUI
 {
@@ -39,7 +42,7 @@ namespace ChinookMediaManager.GUI
             ConfigureModels(container);
             ConfigurePresenters(container);
             ConfigureViews(container);
-
+            ConfigureEntities(container);
             return new WindsorAdapter(container);
         }
 
@@ -102,6 +105,7 @@ namespace ChinookMediaManager.GUI
 
             var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
             nhConfigurator.BeforeConfigure += (sender, e) => e.Configuration.RegisterEntityNameResolver();
+            
             var sfp = new SessionFactoryProvider(nhConfigurator);
 
             container.Register(Component.For<ISessionFactoryProvider>()
@@ -115,6 +119,17 @@ namespace ChinookMediaManager.GUI
             container.Register(Component.For<IConversationFactory>().ImplementedBy<DefaultConversationFactory>());
             container.Register(
                 Component.For<IConversationsContainerAccessor>().ImplementedBy<NhConversationsContainerAccessor>());
+        }
+
+        private static void ConfigureEntities(IWindsorContainer container)
+        {
+            container.AddFacility<WpfFacility>();
+
+            container.Register(Component.For<Album>()
+                                        .AddEditableBehavior()
+                                        .AddNotificableBehavior()
+                                        .NhibernateEntity()
+                                        .Proxy.AdditionalInterfaces(typeof(IEditableAlbum)).LifeStyle.Transient);
         }
 
         private void ConfigureViews(IWindsorContainer container)
