@@ -5,6 +5,7 @@ using Caliburn.PresentationFramework.ApplicationModel;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
 using ChinookMediaManager.Presenters.Interfaces;
+using ChinookMediaManager.Presenters.ModelInterfaces;
 
 namespace ChinookMediaManager.Presenters
 {
@@ -12,13 +13,14 @@ namespace ChinookMediaManager.Presenters
     {
         private readonly IAlbumManagerModel _albumManagerModel;
         private readonly IWindowManager _windowManager;
-        private IPresenter _owner;
+        private readonly IEditAlbumPresenter _editAlbumPresenter;
         private Artist _artist;
         
-        public AlbumManagerPresenter(IAlbumManagerModel albumManagerModel, IWindowManager windowManager)
+        public AlbumManagerPresenter(IAlbumManagerModel albumManagerModel, IWindowManager windowManager, IEditAlbumPresenter editAlbumPresenter)
         {
             _albumManagerModel = albumManagerModel;
             _windowManager = windowManager;
+            _editAlbumPresenter = editAlbumPresenter;
         }
   
         #region IAlbumManagerPresenter Members
@@ -30,26 +32,26 @@ namespace ChinookMediaManager.Presenters
             NotifyOfPropertyChange("Albums");
         }
 
-        public void OpenView(IPresenter owner, Artist artist)
+        public void OpenView(Artist artist)
         {
-            if (owner == null) 
-                throw new ArgumentNullException("owner");
             if (artist == null) 
                 throw new ArgumentNullException("artist");
 
-            SetUp(owner, artist);
+            _artist = artist;
             _windowManager.Show(this);
         }
 
         public IEnumerable<IAlbum> Albums { get; private set; }
 
-        private void SetUp(IPresenter owner, Artist artist)
-        {
-            _owner = owner;
-            _artist = artist;
-            
-        }
+        
 
         #endregion
+
+        public void LaunchEdit(IEditableAlbum album)
+        {
+            album.BeginEdit();
+            _editAlbumPresenter.Setup(this, album, _albumManagerModel);
+            this.Open(_editAlbumPresenter);
+        }
     }
 }
