@@ -145,6 +145,17 @@ namespace uNhAddIns.WPF.Tests.Castle
             }
         }
 
+        [Test]
+        public void can_persist_transient_entity()
+        {
+            using (ISession session = sessions.OpenSession())
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                var album = container.Resolve<Album>();
+                session.Persist(album);
+                tx.Commit();
+            }
+        }
 
         // TODO: EnhacedProxyFactory.
         [Test]
