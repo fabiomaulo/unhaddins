@@ -2,17 +2,26 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="clr-namespace:Caliburn.PresentationFramework;assembly=Caliburn.PresentationFramework"
-    Height="300" Width="300" 
+    xmlns:ApplicationModel="clr-namespace:Caliburn.PresentationFramework.ApplicationModel;assembly=Caliburn.PresentationFramework"
+    Height="298" Width="256" 
     cal:Message.Attach="[Event Loaded] = [Action LoadData]">
     <Grid>
-        <DockPanel>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Column="0" >
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
-                <Button>
-                    Edit Albums</Button>
+                <Button cal:Message.Attach="LaunchEdit(AlbumsList.SelectedItem:OneWay)">Edit Albums</Button>
                 <Button>Close</Button>
             </StackPanel>
-            <ListBox Name="ArtistsList" ItemsSource="{Binding Albums}" DisplayMemberPath="Title" DockPanel.Dock="Top" >
+            <ListBox Name="AlbumsList" ItemsSource="{Binding Albums}" DisplayMemberPath="Title" DockPanel.Dock="Top" >
             </ListBox>
         </DockPanel>
+        <StackPanel>
+            <ContentControl ApplicationModel:View.Model="{Binding CurrentPresenter}">
+            </ContentControl>
+        </StackPanel>
     </Grid>
 </Window>

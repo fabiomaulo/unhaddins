@@ -46,7 +46,7 @@ namespace ChinookMediaManager.Presenters
         public void EditAlbums(Artist artist)
         {
             var albumManagerPresenter = _presenterFactory.GetPresenter<IAlbumManagerPresenter>();
-            albumManagerPresenter.OpenView(this, artist);
+            albumManagerPresenter.OpenView(artist);
         }
     }
 

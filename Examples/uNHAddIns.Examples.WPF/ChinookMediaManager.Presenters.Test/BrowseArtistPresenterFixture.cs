@@ -47,7 +47,7 @@ namespace ChinookMediaManager.Presenters.Test
             var browseArtistModelMoq = new Mock<IBrowseArtistModel>();
             var presenterFactory = new Mock<IPresenterFactory>();
             var albumManagerMoq = new Mock<IAlbumManagerPresenter>();
-            albumManagerMoq.Setup(am => am.OpenView(null, null)).AtMostOnce();
+            albumManagerMoq.Setup(am => am.OpenView(It.IsAny<Artist>())).AtMostOnce();
 
             presenterFactory.Setup(pf => pf.GetPresenter<IAlbumManagerPresenter>())
                             .Returns(albumManagerMoq.Object)
@@ -62,7 +62,7 @@ namespace ChinookMediaManager.Presenters.Test
 
 
             presenterFactory.Verify(pf => pf.GetPresenter<IAlbumManagerPresenter>());
-            albumManagerMoq.Verify(a => a.OpenView(browseArtist, artist));
+            albumManagerMoq.Verify(a => a.OpenView(artist));
 
         }
     }
