@@ -29,21 +29,21 @@
       <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1438" fromTop="26" />
       <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IBrowseArtistPresenter.cs" caret="307" fromTop="9" />
       <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/d:Model/f:IAlbumManagerModel.cs" caret="0" fromTop="0" />
-      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IAlbumRepository.cs" caret="0" fromTop="0" />
       <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IAlbumManagerPresenter.cs" caret="0" fromTop="0" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:EditAlbumPresenter.cs" caret="1027" fromTop="23" />
       <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:Repository.cs" caret="853" fromTop="13" />
       <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IRepository.cs" caret="202" fromTop="7" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:AlbumRepository.cs" caret="0" fromTop="0" />
-      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="958" fromTop="15" />
       <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagerPresenter.cs" caret="0" fromTop="0" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="0" fromTop="0" />
-      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1337" fromTop="7" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="306" fromTop="5" />
       <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:BrowseArtistPresenterFixture.cs" caret="661" fromTop="21" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="2024" fromTop="45" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:ModelInterfaces/f:IEditableAlbum.cs" caret="224" fromTop="7" />
+      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:AlbumRepository.cs" caret="411" fromTop="13" />
+      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IAlbumRepository.cs" caret="224" fromTop="7" />
+      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="763" fromTop="10" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:EditAlbumPresenter.cs" caret="0" fromTop="0" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1763" fromTop="25" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="0" fromTop="0" />
     </RecentFiles>
     <RecentEdits>
-      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="0" fromTop="0" />
       <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:PresenterFactory.cs" caret="255" fromTop="8" />
       <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:PresenterFactory.cs" caret="844" fromTop="25" />
       <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:App.config" caret="41" fromTop="1" />
@@ -70,9 +70,10 @@
       <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1744" fromTop="25" />
       <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:Repository.cs" caret="891" fromTop="14" />
       <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1330" fromTop="10" />
-      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="1082" fromTop="21" />
+      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="885" fromTop="21" />
       <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="819" fromTop="8" />
       <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="2024" fromTop="45" />
+      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="763" fromTop="10" />
     </RecentEdits>
   </RecentFiles>
   <UnitTestRunner>
