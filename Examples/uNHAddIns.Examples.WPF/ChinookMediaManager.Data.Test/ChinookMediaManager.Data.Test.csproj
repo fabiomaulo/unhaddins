@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{055E275D-791F-4CFB-AA57-19BA944A2E04}</ProjectGuid>
+    <ProjectGuid>{386EEF5F-3E82-490E-84AF-4380957DC073}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ChinookMediaManager.Domain.Test</RootNamespace>
-    <AssemblyName>ChinookMediaManager.Domain.Test</AssemblyName>
+    <RootNamespace>ChinookMediaManager.Data.Test</RootNamespace>
+    <AssemblyName>ChinookMediaManager.Data.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,9 +31,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=3.5.716.1, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\Moq.dll</HintPath>
+      <HintPath>..\libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.1.9189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -47,28 +55,29 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="uNhAddIns.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\AlbumModelFixture.cs" />
+    <Compile Include="PersistenceFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChinookMediaManager.Data\ChinookMediaManager.Data.csproj">
-      <Project>{1E1A7CE8-81F9-455E-A7D2-C9E644F1B951}</Project>
-      <Name>ChinookMediaManager.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.Domain.Impl\ChinookMediaManager.Domain.Impl.csproj">
-      <Project>{47F559A1-96FC-42A2-8C66-E94A340E8FDF}</Project>
-      <Name>ChinookMediaManager.Domain.Impl</Name>
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChinookMediaManager.Data.Impl\ChinookMediaManager.Data.Impl.csproj">
+      <Project>{6DC83393-3D32-4E87-82EE-8D2E50176C07}</Project>
+      <Name>ChinookMediaManager.Data.Impl</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
