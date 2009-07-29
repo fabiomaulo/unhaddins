@@ -59,9 +59,11 @@
   <ItemGroup>
     <Compile Include="AlbumManagerPresenter.cs" />
     <Compile Include="BrowseArtistPresenter.cs" />
+    <Compile Include="EditAlbumPresenter.cs" />
     <Compile Include="Interfaces\IBrowseArtistPresenter.cs" />
     <Compile Include="Interfaces\IAlbumManagerPresenter.cs" />
     <Compile Include="Interfaces\IEditAlbumPresenter.cs" />
+    <Compile Include="ModelInterfaces\IEditableAlbum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

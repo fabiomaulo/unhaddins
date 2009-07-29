@@ -12,68 +12,67 @@
   </NAntValidationSettings>
   <RecentFiles>
     <RecentFiles>
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:ArtistRepository.cs" caret="232" fromTop="6" />
-      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IArtistRepository.cs" caret="156" fromTop="5" />
-      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:BrowseArtistModel.cs" caret="908" fromTop="29" />
-      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1451" fromTop="18" />
-      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IAlbumRepository.cs" caret="143" fromTop="4" />
-      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/f:Track.cs" caret="539" fromTop="15" />
-      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/f:MediaType.cs" caret="122" fromTop="6" />
-      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/f:Genre.cs" caret="116" fromTop="5" />
-      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/f:Artist.cs" caret="126" fromTop="7" />
-      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/f:Album.cs" caret="151" fromTop="6" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Domain/f:Album.hbm.xml" caret="139" fromTop="2" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Domain/f:Track.hbm.xml" caret="0" fromTop="0" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Domain/f:MediaType.hbm.xml" caret="0" fromTop="0" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Domain/f:Genre.hbm.xml" caret="0" fromTop="0" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Domain/f:Artist.hbm.xml" caret="0" fromTop="0" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:hibernate.cfg.xml" caret="764" fromTop="14" />
-      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:Repository.cs" caret="1152" fromTop="29" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:Class1.cs" caret="330" fromTop="10" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagementPresenter.cs" caret="868" fromTop="26" />
-      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagementModel.cs" caret="949" fromTop="26" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/d:Properties/f:AssemblyInfo.cs" caret="593" fromTop="12" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/d:Properties/f:AssemblyInfo.cs" caret="0" fromTop="0" />
+      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/d:Properties/f:AssemblyInfo.cs" caret="464" fromTop="10" />
+      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:App.xaml.cs" caret="1767" fromTop="7" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:IPresenterFactory.cs" caret="128" fromTop="4" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:PresenterFactory.cs" caret="844" fromTop="25" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="896" fromTop="26" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:App.config" caret="396" fromTop="14" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1438" fromTop="26" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IBrowseArtistPresenter.cs" caret="307" fromTop="9" />
+      <File id="B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6/d:Model/f:IAlbumManagerModel.cs" caret="0" fromTop="0" />
+      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IAlbumRepository.cs" caret="0" fromTop="0" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IAlbumManagerPresenter.cs" caret="0" fromTop="0" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:EditAlbumPresenter.cs" caret="1027" fromTop="23" />
+      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:Repository.cs" caret="853" fromTop="13" />
+      <File id="1E1A7CE8-81F9-455E-A7D2-C9E644F1B951/d:Repositories/f:IRepository.cs" caret="202" fromTop="7" />
       <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:AlbumRepository.cs" caret="0" fromTop="0" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:AlbumManagementView.xaml" caret="704" fromTop="13" />
-      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="938" fromTop="17" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:ArtistManagement.xaml.cs" caret="358" fromTop="13" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:AlbumManagementView.xaml.cs" caret="389" fromTop="14" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:App.xaml.cs" caret="1655" fromTop="33" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IAlbumManagementPresenter.cs" caret="268" fromTop="8" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:ArtistManagement.xaml" caret="411" fromTop="5" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1241" fromTop="18" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:Class1.cs" caret="1290" fromTop="26" />
+      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="958" fromTop="15" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagerPresenter.cs" caret="0" fromTop="0" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="0" fromTop="0" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1337" fromTop="7" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:BrowseArtistPresenterFixture.cs" caret="661" fromTop="21" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="2024" fromTop="45" />
     </RecentFiles>
     <RecentEdits>
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:ArtistManagement.xaml" caret="625" fromTop="10" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1488" fromTop="21" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:Class1.cs" caret="330" fromTop="10" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagementPresenter.cs" caret="556" fromTop="1" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:AlbumManagementView.xaml" caret="518" fromTop="8" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:AlbumManagementView.xaml" caret="384" fromTop="5" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IAlbumManagementPresenter.cs" caret="268" fromTop="8" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagementPresenter.cs" caret="1197" fromTop="32" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="625" fromTop="14" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:App.xaml.cs" caret="5568" fromTop="27" />
-      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="2625" fromTop="51" />
-      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="2625" fromTop="16" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:App.xaml.cs" caret="1387" fromTop="27" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:App.xaml.cs" caret="1655" fromTop="33" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:AlbumManagementView.xaml.cs" caret="389" fromTop="14" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:ArtistManagement.xaml.cs" caret="358" fromTop="13" />
-      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="962" fromTop="17" />
-      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="938" fromTop="17" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagementPresenter.cs" caret="1003" fromTop="29" />
-      <File id="C3DB558C-F203-4132-9635-B4DEC818A011/f:AlbumManagementView.xaml" caret="674" fromTop="13" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1845" fromTop="33" />
-      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagementModel.cs" caret="876" fromTop="25" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagementPresenter.cs" caret="1002" fromTop="30" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:Class1.cs" caret="114" fromTop="7" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="0" fromTop="0" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1784" fromTop="29" />
-      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1241" fromTop="18" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:Class1.cs" caret="473" fromTop="15" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:Class1.cs" caret="706" fromTop="20" />
-      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:Class1.cs" caret="1290" fromTop="32" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:ViewStrategy.cs" caret="0" fromTop="0" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:PresenterFactory.cs" caret="255" fromTop="8" />
+      <File id="1A7929AD-C569-4B96-87E3-79B94931C6D4/f:PresenterFactory.cs" caret="844" fromTop="25" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:App.config" caret="41" fromTop="1" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:App.config" caret="396" fromTop="14" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1327" fromTop="21" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:BrowseArtistPresenter.cs" caret="1438" fromTop="26" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:BrowseArtistPresenterFixture.cs" caret="1197" fromTop="15" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:BrowseArtistPresenterFixture.cs" caret="1345" fromTop="15" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/d:Interfaces/f:IBrowseArtistPresenter.cs" caret="307" fromTop="9" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="1710" fromTop="12" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="1987" fromTop="19" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="1668" fromTop="12" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="1888" fromTop="17" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:AlbumManagerPresenter.cs" caret="1475" fromTop="12" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="2291" fromTop="27" />
+      <File id="9BC63B81-8674-42CE-BE06-237B9D308725/f:EditAlbumPresenter.cs" caret="1027" fromTop="23" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:EditAlbumPresenterFixture.cs" caret="1301" fromTop="2" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="177" fromTop="6" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1564" fromTop="19" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1755" fromTop="13" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1755" fromTop="21" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1755" fromTop="11" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1518" fromTop="16" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1744" fromTop="25" />
+      <File id="6DC83393-3D32-4E87-82EE-8D2E50176C07/d:Repositories/f:Repository.cs" caret="891" fromTop="14" />
+      <File id="055E275D-791F-4CFB-AA57-19BA944A2E04/d:Model/f:AlbumModelFixture.cs" caret="1330" fromTop="10" />
+      <File id="47F559A1-96FC-42A2-8C66-E94A340E8FDF/f:AlbumManagerModel.cs" caret="1082" fromTop="21" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="819" fromTop="8" />
+      <File id="CEF123C7-2ACD-40F3-8777-9F95048CC50F/f:AlbumManagerPresenterFixture.cs" caret="2024" fromTop="45" />
     </RecentEdits>
   </RecentFiles>
   <UnitTestRunner>
@@ -84,30 +83,30 @@
       <Item value="using" priority="4" />
       <Item value="NHibernate" priority="0" />
       <Item value="Linq" priority="1" />
-      <Item value="Session" priority="1" />
+      <Item value="Session" priority="2" />
       <Item value="return" priority="5" />
       <Item value="Repository" priority="1" />
       <Item value="AlbumRepository" priority="0" />
-      <Item value="Album" priority="5" />
-      <Item value="Artist" priority="7" />
-      <Item value="public" priority="17" />
+      <Item value="Album" priority="7" />
+      <Item value="Artist" priority="9" />
+      <Item value="public" priority="20" />
       <Item value="AlbumManagementModel" priority="0" />
-      <Item value="albumRepository" priority="3" />
+      <Item value="albumRepository" priority="4" />
       <Item value="_albumRepository" priority="1" />
-      <Item value="album" priority="1" />
+      <Item value="album" priority="5" />
       <Item value="artist" priority="6" />
       <Item value="static" priority="1" />
-      <Item value="class" priority="1" />
-      <Item value="this" priority="5" />
+      <Item value="class" priority="2" />
+      <Item value="this" priority="6" />
       <Item value="IEnumerable" priority="1" />
       <Item value="TimeZoneNotFoundException" priority="0" />
-      <Item value="new" priority="16" />
+      <Item value="new" priority="27" />
       <Item value="ObservableCollection&lt;T&gt;" priority="0" />
       <Item value="Microsoft" priority="1" />
       <Item value="Practices" priority="1" />
       <Item value="ServiceLocation" priority="1" />
       <Item value="ServiceLocator" priority="2" />
-      <Item value="container" priority="2" />
+      <Item value="container" priority="4" />
       <Item value="provider" priority="0" />
       <Item value="AssemblyLoadEventArgs" priority="0" />
       <Item value="Assembly" priority="0" />
@@ -120,27 +119,27 @@
       <Item value="File" priority="0" />
       <Item value="t" priority="2" />
       <Item value="ArrayList" priority="0" />
-      <Item value="TestFixture" priority="0" />
-      <Item value="void" priority="13" />
+      <Item value="TestFixture" priority="1" />
+      <Item value="void" priority="15" />
       <Item value="AlbumModelFixture" priority="0" />
-      <Item value="var" priority="7" />
+      <Item value="var" priority="15" />
       <Item value="Name" priority="1" />
       <Item value="List" priority="2" />
-      <Item value="Title" priority="0" />
+      <Item value="Title" priority="1" />
       <Item value="albums" priority="1" />
       <Item value="TestFixtureSetUp" priority="1" />
       <Item value="SetUpFixture" priority="0" />
       <Item value="_mocks" priority="3" />
       <Item value="Expect" priority="1" />
       <Item value="IAlbumRepository" priority="0" />
-      <Item value="albumModel" priority="0" />
-      <Item value="result" priority="2" />
+      <Item value="albumModel" priority="3" />
+      <Item value="result" priority="5" />
       <Item value="foreach" priority="0" />
       <Item value="PresentationFramework" priority="0" />
       <Item value="AlbumManagementPresenter" priority="0" />
       <Item value="albumManagementModel" priority="0" />
       <Item value="_albumManagementModel" priority="0" />
-      <Item value="override" priority="6" />
+      <Item value="override" priority="8" />
       <Item value="configuration" priority="0" />
       <Item value="BrowseArtistPresenter" priority="1" />
       <Item value="IList" priority="0" />
@@ -156,13 +155,13 @@
       <Item value="PersistenceConversation" priority="0" />
       <Item value="EndMode" priority="1" />
       <Item value="ConversationEndMode" priority="0" />
-      <Item value="a" priority="0" />
+      <Item value="a" priority="3" />
       <Item value="browseArtistPresenter" priority="0" />
-      <Item value="IPresenter" priority="0" />
+      <Item value="IPresenter" priority="1" />
       <Item value="owner" priority="0" />
       <Item value="IAlbumManagementModel" priority="1" />
       <Item value="IPresenterManager" priority="0" />
-      <Item value="base" priority="0" />
+      <Item value="base" priority="1" />
       <Item value="_albumManagementPresenter" priority="1" />
       <Item value="windowManager" priority="1" />
       <Item value="assemblySource" priority="0" />
@@ -172,9 +171,9 @@
       <Item value="ViewStrategy" priority="0" />
       <Item value="className" priority="0" />
       <Item value="fullClassName" priority="0" />
-      <Item value="null" priority="1" />
-      <Item value="Moq" priority="3" />
-      <Item value="Mock" priority="2" />
+      <Item value="null" priority="4" />
+      <Item value="Moq" priority="7" />
+      <Item value="Mock" priority="7" />
       <Item value="artistBrowseModel" priority="0" />
       <Item value="List&lt;Artist&gt;" priority="0" />
       <Item value="false" priority="0" />
@@ -182,9 +181,51 @@
       <Item value="browseArtist" priority="1" />
       <Item value="artists" priority="0" />
       <Item value="browseArtistModelMoq" priority="0" />
+      <Item value="albumMgmModel" priority="1" />
+      <Item value="windowsManager" priority="2" />
+      <Item value="albumMgm" priority="2" />
+      <Item value="Stub" priority="0" />
+      <Item value="ArgumentNullException" priority="1" />
+      <Item value="Action" priority="4" />
+      <Item value="presenter" priority="1" />
+      <Item value="wm" priority="1" />
+      <Item value="ITypeConstraints" priority="0" />
+      <Item value="albumMgmPresenter" priority="0" />
+      <Item value="It" priority="2" />
+      <Item value="object" priority="1" />
+      <Item value="ISubordinate" priority="1" />
+      <Item value="typeof" priority="0" />
+      <Item value="AlbumManagerView" priority="0" />
+      <Item value="where" priority="0" />
+      <Item value="T" priority="1" />
+      <Item value="Component" priority="0" />
+      <Item value="IPresenterFactory" priority="2" />
+      <Item value="Presenter" priority="0" />
+      <Item value="PresenterFactory" priority="1" />
+      <Item value="windsorContainer" priority="0" />
+      <Item value="_windsorContainer" priority="0" />
+      <Item value="presenterFactory" priority="3" />
+      <Item value="_presenterFactory" priority="0" />
+      <Item value="AlbumManagerPresenter" priority="0" />
+      <Item value="pf" priority="1" />
+      <Item value="IAlbumManagerPresenter" priority="1" />
+      <Item value="BrowseArtistView" priority="0" />
+      <Item value="p" priority="0" />
+      <Item value="IEditableAlbum" priority="0" />
+      <Item value="editableAlbum" priority="2" />
+      <Item value="am" priority="1" />
+      <Item value="ea" priority="0" />
+      <Item value="IAlbum" priority="0" />
+      <Item value="if" priority="0" />
+      <Item value="default" priority="0" />
+      <Item value="int" priority="0" />
+      <Item value="Framework" priority="0" />
+      <Item value="AssertionException" priority="0" />
+      <Item value="entity" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:NHibernate.ISession">
       <Item value="Linq" priority="1" />
+      <Item value="Persist" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:NHibernate.Linq.INHibernateQueryable`1">
       <Item value="GetEnumerator" priority="1" />
@@ -212,7 +253,7 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:@Microsoft.Practices.ServiceLocation.ServiceLocator">
       <Item value="SetLocatorProvider" priority="2" />
-      <Item value="Current" priority="0" />
+      <Item value="Current" priority="1" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Reflection.Assembly">
       <Item value="Load" priority="0" />
@@ -233,6 +274,7 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.String">
       <Item value="EndsWith" priority="1" />
+      <Item value="Should" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Castle.MicroKernel.Registration.BasedOnDescriptor">
       <Item value="WithService" priority="1" />
@@ -309,6 +351,7 @@
     </ItemStatistics>
     <ItemStatistics item="Qualified:ChinookMediaManager.Presenters.Interfaces.IBrowseArtistPresenter">
       <Item value="LoadList" priority="0" />
+      <Item value="Artists" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:ChinookMediaManager.Presenters.Interfaces.IAlbumManagementPresenter">
       <Item value="Initialize" priority="0" />
@@ -318,7 +361,7 @@
       <Item value="Initialize" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Caliburn.PresentationFramework.ApplicationModel.IWindowManager">
-      <Item value="Show" priority="0" />
+      <Item value="Show" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Caliburn.PresentationFramework.PresentationFrameworkModule">
       <Item value="UsingViewStrategy" priority="0" />
@@ -327,18 +370,103 @@
       <Item value="Format" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Moq.Mock`1">
-      <Item value="Setup" priority="0" />
-      <Item value="Object" priority="2" />
-      <Item value="VerifyAll" priority="0" />
+      <Item value="Setup" priority="6" />
+      <Item value="Object" priority="13" />
+      <Item value="VerifyAll" priority="1" />
+      <Item value="Verify" priority="5" />
+      <Item value="SetupGet" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Moq.Language.Flow.ISetup`2">
-      <Item value="Returns" priority="0" />
+      <Item value="Returns" priority="1" />
+      <Item value="Callback" priority="0" />
+      <Item value="Throws" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:Moq.Language.Flow.IReturnsResult`1">
-      <Item value="AtMostOnce" priority="0" />
+      <Item value="AtMostOnce" priority="2" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:NUnit.Framework.IEnumerableBeConstraints`1">
       <Item value="SameInstanceAs" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ChinookMediaManager.Presenters.AlbumManagementPresenter">
+      <Item value="SetUp" priority="1" />
+      <Item value="OpenView" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Action">
+      <Item value="Should" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IActionConstraints">
+      <Item value="Throw" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IAndConstraints`1">
+      <Item value="And" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IThrowConstraints`1">
+      <Item value="ValueOf" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.ArgumentNullException">
+      <Item value="Message" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IStringConstraints">
+      <Item value="Be" priority="2" />
+      <Item value="EndWith" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IStringBeConstraints">
+      <Item value="EqualTo" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Language.Flow.ISetup`1">
+      <Item value="AtMostOnce" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Moq.It">
+      <Item value="IsAny" priority="4" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Castle.Windsor.IWindsorContainer">
+      <Item value="Register" priority="1" />
+      <Item value="AddComponentLifeStyle" priority="0" />
+      <Item value="Resolve" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Castle.Core.LifestyleType">
+      <Item value="Transient" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Microsoft.Practices.ServiceLocation.IServiceLocator">
+      <Item value="GetInstance" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Castle.MicroKernel.Registration.Component">
+      <Item value="For" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Castle.MicroKernel.Registration.ComponentRegistration`1">
+      <Item value="ImplementedBy" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ChinookMediaManager.Infrastructure.IPresenterFactory">
+      <Item value="GetPresenter" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Caliburn.Testability.Validator">
+      <Item value="For" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Caliburn.Testability.ValidationResult`1">
+      <Item value="HasErrors" priority="0" />
+      <Item value="ErrorSummary" priority="0" />
+      <Item value="WasBoundTo" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Boolean">
+      <Item value="Should" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IBooleanConstraints">
+      <Item value="Be" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:NUnit.Framework.IBooleanBeConstraints">
+      <Item value="True" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ChinookMediaManager.Presenters.ModelInterfaces.IEditableAlbum">
+      <Item value="EndEdit" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ChinookMediaManager.Domain.Model.IAlbumManagerModel">
+      <Item value="Save" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:ChinookMediaManager.Domain.IAlbum">
+      <Item value="Id" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Moq.Language.Flow.ISetupGetter`2">
+      <Item value="Returns" priority="0" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>

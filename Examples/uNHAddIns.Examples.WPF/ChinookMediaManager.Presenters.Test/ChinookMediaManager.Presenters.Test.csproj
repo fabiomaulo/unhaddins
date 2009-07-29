@@ -81,6 +81,9 @@
     <Compile Include="BindingTest\SelectArtistUIFixture.cs" />
     <Compile Include="BindingTest\AlbumManagerViewFixture.cs" />
     <Compile Include="BrowseArtistPresenterFixture.cs" />
+    <Compile Include="EditAlbumPresenterFixture.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

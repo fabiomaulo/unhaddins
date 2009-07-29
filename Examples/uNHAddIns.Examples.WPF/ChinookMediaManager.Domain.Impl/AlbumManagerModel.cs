@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Model;
@@ -20,12 +21,19 @@ namespace ChinookMediaManager.Domain.Impl
 
         #region IAlbumManagerModel Members
 
-        public IEnumerable<Album> GetAlbumsOfArtist(Artist artist)
+        public IEnumerable<IAlbum> GetAlbumsByArtist(Artist artist)
         {
-            //album.Artist.Equals(artist)
-            return _albumRepository.Where(album => album.Artist != null && album.Artist.Id == artist.Id ).ToList();
-            //.AsObservable();
+            return _albumRepository.GetByArtist(artist);
         }
+
+        public void Save(IAlbum album)
+        {
+            _albumRepository.MakePersistent(album);
+        }
+
+        [PersistenceConversation(ConversationEndMode = EndMode.End)]
+        public void AceptAll()
+        {}
 
         #endregion
     }

@@ -17,7 +17,11 @@ namespace ChinookMediaManager.Presenters.Test
             var windowsManager = new Mock<IWindowManager>();
             var previousPresenter = new Mock<IPresenter>();
 
-            windowsManager.Setup(wm => wm.Show(null, null, null)).AtMostOnce();
+            windowsManager.Setup(
+                wm => wm.Show(It.IsAny<object>(), 
+                              It.IsAny<object>(), 
+                              It.IsAny<Action<ISubordinate,Action>>()))
+                              .AtMostOnce();
 
             var albumMgmPresenter = new AlbumManagerPresenter(albumMgmModel.Object, windowsManager.Object);
 
@@ -45,8 +49,6 @@ namespace ChinookMediaManager.Presenters.Test
             new Action(() => albumMgm.OpenView(presenter.Object, null)).Should().Throw<ArgumentNullException>()
                 .And.ValueOf.Message.Should().EndWith("artist");
         }
-
-
-
+        
     }
 }
