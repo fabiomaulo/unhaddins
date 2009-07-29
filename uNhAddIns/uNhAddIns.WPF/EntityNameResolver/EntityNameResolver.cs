@@ -4,7 +4,7 @@ using NHibernate.Event;
 
 namespace uNhAddIns.WPF.EntityNameResolver
 {
-    public class EntityNameResolver : ISaveOrUpdateEventListener, IMergeEventListener
+    public class EntityNameResolver : ISaveOrUpdateEventListener, IMergeEventListener, IPersistEventListener
     {
         public void OnSaveOrUpdate(SaveOrUpdateEvent @event)
         {
@@ -25,6 +25,16 @@ namespace uNhAddIns.WPF.EntityNameResolver
         public void OnMerge(MergeEvent @event, IDictionary copiedAlready)
         {
             @event.EntityName = GetEntityName(@event.Original);
+        }
+
+        public void OnPersist(PersistEvent @event)
+        {
+            @event.EntityName = GetEntityName(@event.Entity);
+        }
+
+        public void OnPersist(PersistEvent @event, IDictionary createdAlready)
+        {
+            @event.EntityName = GetEntityName(@event.Entity);
         }
     }
 }
