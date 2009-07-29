@@ -1,61 +1,60 @@
 using System.Collections.Generic;
+using System.Linq;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Impl;
+using Moq;
 using NUnit.Framework;
-using Rhino.Mocks;
-using System.Linq;
+
 
 namespace ChinookMediaManager.Domain.Test.Model
 {
     [TestFixture]
-    public class AlbumModelFixture 
+    public class AlbumModelFixture
     {
-        private MockRepository _mocks;
-
-        [TestFixtureSetUp]
-        public void SetUpFixture()
+        private static IList<IAlbum> CreateSampleAlbumsForArtist(Artist artist)
         {
-            _mocks = new MockRepository();
+            return new List<IAlbum>
+                       {
+                           new Album {Artist = artist, Title = "A"},
+                           new Album {Artist = artist, Title = "B"},
+                       };
         }
 
         [Test]
         public void can_get_albums_from_artist()
         {
             var artist = new Artist {Name = "A"};
-            var albums = CreateSampleAlbumsForArtist(artist);
-            albums.Add(new Album{ Artist = new Artist(), Title = "C" });
+            IList<IAlbum> albums = CreateSampleAlbumsForArtist(artist);
+            var albumRepository = new Mock<IAlbumRepository>();
 
-            IAlbumRepository albumRepository = _mocks.DynamicMock<IAlbumRepository>();
+            albumRepository.Setup(ar => ar.GetByArtist(artist))
+                .Returns(albums).AtMostOnce();
 
-            using(_mocks.Record())
-            {
-                Expect.Call(albumRepository.GetEnumerator())
-                      .Return(albums.GetEnumerator());
-            }
+            var albumModel = new AlbumManagerModel(albumRepository.Object);
 
-            var albumModel = new AlbumManagerModel(albumRepository);
+            IEnumerable<IAlbum> result = albumModel.GetAlbumsByArtist(artist);
 
-            using(_mocks.Playback())
-            {
-                var result = albumModel.GetAlbumsOfArtist(artist);
+            result.Count().Should().Be.EqualTo(2);
 
-                result.Count().Should().Be.EqualTo(2);
-                foreach (var album in result)
-                    album.Artist.Should().Be.EqualTo(artist);
-            }
+
+            albumRepository.VerifyAll();
         }
 
-
-
-
-
-        private static IList<Album> CreateSampleAlbumsForArtist(Artist artist)
+        [Test]
+        public void can_save_album()
         {
-            return new List<Album>()
-                             {
-                                 new Album {Artist = artist, Title = "A"},
-                                 new Album {Artist = artist, Title = "B"},
-                             };
+            var albumRepository = new Mock<IAlbumRepository>();
+            var album = new Album();
+
+            albumRepository.Setup(ar => ar.MakePersistent(album))
+                           .Returns(album).AtMostOnce();
+
+
+            var albumModel = new AlbumManagerModel(albumRepository.Object);
+
+            albumModel.Save(album);
+
+            albumRepository.VerifyAll();
         }
     }
 }

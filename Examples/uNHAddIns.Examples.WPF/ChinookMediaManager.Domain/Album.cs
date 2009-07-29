@@ -4,7 +4,7 @@ using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Domain
 {
-    public class Album : Entity
+    public class Album : Entity, IAlbum
     {
         public virtual Artist Artist { get;  set; }
         public virtual string Title { get; set; }

@@ -46,6 +46,7 @@
     <Compile Include="Album.cs" />
     <Compile Include="Artist.cs" />
     <Compile Include="Genre.cs" />
+    <Compile Include="IAlbum.cs" />
     <Compile Include="MediaType.cs" />
     <Compile Include="Model\IAlbumManagerModel.cs" />
     <Compile Include="Model\IBrowseArtistModel.cs" />

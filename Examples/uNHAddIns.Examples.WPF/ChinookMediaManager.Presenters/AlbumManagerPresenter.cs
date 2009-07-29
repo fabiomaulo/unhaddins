@@ -26,7 +26,7 @@ namespace ChinookMediaManager.Presenters
         [AsyncAction]
         public void LoadData()
         {
-            Albums = _albumManagerModel.GetAlbumsOfArtist(_artist);
+            Albums = _albumManagerModel.GetAlbumsByArtist(_artist);
             NotifyOfPropertyChange("Albums");
         }
 
@@ -41,7 +41,7 @@ namespace ChinookMediaManager.Presenters
             _windowManager.Show(this);
         }
 
-        public IEnumerable<Album> Albums { get; private set; }
+        public IEnumerable<IAlbum> Albums { get; private set; }
 
         private void SetUp(IPresenter owner, Artist artist)
         {

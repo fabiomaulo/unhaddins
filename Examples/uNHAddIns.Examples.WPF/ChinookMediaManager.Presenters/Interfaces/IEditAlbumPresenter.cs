@@ -1,9 +1,14 @@
-using ChinookMediaManager.Domain;
+using Caliburn.PresentationFramework.ApplicationModel;
+using ChinookMediaManager.Domain.Model;
+using ChinookMediaManager.Presenters.ModelInterfaces;
 
 namespace ChinookMediaManager.Presenters.Interfaces
 {
-    public interface IEditAlbumPresenter
+    public interface IEditAlbumPresenter : IPresenter
     {
-        Album Album { get; }
+        IEditableAlbum Album { get; }
+        void Setup(IPresenterManager owner, IEditableAlbum album, IAlbumManagerModel albumManagerModel);
+        void Cancel();
+        void Acept();
     }
 }

@@ -5,6 +5,8 @@ namespace ChinookMediaManager.Domain.Model
 {
     public interface IAlbumManagerModel
     {
-        IEnumerable<Album> GetAlbumsOfArtist(Artist artist);
+        IEnumerable<IAlbum> GetAlbumsByArtist(Artist artist);
+        void Save(IAlbum album);
+        void AceptAll();
     }
 }
