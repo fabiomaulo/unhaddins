@@ -18,15 +18,15 @@
 
         <TextBlock Grid.Row="0" 
                    Grid.Column="0" 
-                   Grid.ColumnSpan="2"
-                   Margin="5">
+                   Grid.ColumnSpan="2" Background="Cyan"
+                   Margin="5" FontSize="15">
             <Run Text="Edit album"/></TextBlock>
 
         <TextBlock Margin="7" Grid.Column="0" Grid.Row="1"><Run Text="Artist"/></TextBlock>
         <TextBlock  Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Album.Artist.Name}" />
 
         <TextBlock Margin="7" Grid.Column="0" Grid.Row="2"><Run Text="Title"/></TextBlock>
-        <TextBlock  Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Album.Title}" />
+        <TextBox  Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Album.Title}" />
 
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Grid.Row="2" Grid.Column="0" PresentationFramework:Message.Attach="Acept()">
