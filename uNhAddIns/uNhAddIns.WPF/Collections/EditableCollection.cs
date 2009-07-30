@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 
 namespace uNhAddIns.WPF.Collections
 {
-    public class EditableCollection<T> : ObservableCollection<T>, IEditableObject
+    public class EditableCollection<T> : ObservableCollection<T>, IEditableCollection<T>
     {
         private IList<T> _bakupList;
         private bool _isInEditMode;
