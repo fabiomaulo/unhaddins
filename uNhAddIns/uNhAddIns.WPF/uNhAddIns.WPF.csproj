@@ -50,7 +50,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CollectionsExtension.cs" />
+    <Compile Include="Collections\CollectionsExtension.cs" />
+    <Compile Include="Collections\EditableCollection.cs" />
     <Compile Include="Collections\WpfCollectionTypeFactory.cs" />
     <Compile Include="Collections\ObservableSet.cs" />
     <Compile Include="Collections\PersistentImpl\PersistentObservableGenericSet.cs" />
