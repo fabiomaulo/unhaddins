@@ -3,25 +3,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cal="clr-namespace:Caliburn.PresentationFramework;assembly=Caliburn.PresentationFramework"
     xmlns:ApplicationModel="clr-namespace:Caliburn.PresentationFramework.ApplicationModel;assembly=Caliburn.PresentationFramework"
-    Height="298" Width="256" 
-    cal:Message.Attach="[Event Loaded] = [Action LoadData]">
+    Height="298" Width="536" 
+    cal:Message.Attach="[Event Loaded] = [Action LoadData]" ResizeMode="CanMinimize">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <DockPanel Grid.Column="0" >
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
-                <Button cal:Message.Attach="LaunchEdit(AlbumsList.SelectedItem:OneWay)">Edit Albums</Button>
-                <Button>Close</Button>
-            </StackPanel>
-            <ListBox Name="AlbumsList" ItemsSource="{Binding Albums}" DisplayMemberPath="Title" DockPanel.Dock="Top" >
-            </ListBox>
-        </DockPanel>
-        <StackPanel Grid.Column="1">
-            <ContentControl ApplicationModel:View.Model="{Binding CurrentPresenter}">
-            </ContentControl>
-        </StackPanel>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="*"/>
+    	</Grid.ColumnDefinitions>
+    	<DockPanel LastChildFill="False" VerticalAlignment="Stretch" Margin="0,0,8,0"  >
+			<DockPanel DockPanel.Dock="Left" Width="178.143">
+				<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
+	                <Button cal:Message.Attach="LaunchEdit(AlbumsList.SelectedItem:OneWay)">Edit Albums</Button>
+	                <Button>Close</Button>
+	            </StackPanel>
+	            <ListBox Name="AlbumsList" 
+						 ItemsSource="{Binding Albums}" 
+						 DisplayMemberPath="Title" DockPanel.Dock="Top">
+	            </ListBox>
+			</DockPanel>
+    		<ContentControl DockPanel.Dock="Right" ApplicationModel:View.Model="{Binding Path=CurrentPresenter}" Margin="0,0,3.056,0"/>
+    	</DockPanel>
+        
+
     </Grid>
 </Window>

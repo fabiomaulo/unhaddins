@@ -2,41 +2,36 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:PresentationFramework="clr-namespace:Caliburn.PresentationFramework;assembly=Caliburn.PresentationFramework"
-    Height="300" Width="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" 
-                   Grid.Column="0" 
-                   Grid.ColumnSpan="2" Background="Cyan"
-                   Margin="5" FontSize="15">
-            <Run Text="Edit album"/></TextBlock>
-
-        <TextBlock Margin="7" Grid.Column="0" Grid.Row="1"><Run Text="Artist"/></TextBlock>
-        <TextBlock  Margin="5" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Album.Artist.Name}" />
-
-        <TextBlock Margin="7" Grid.Column="0" Grid.Row="2"><Run Text="Title"/></TextBlock>
-        <TextBox  Margin="5" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Album.Title}" />
-
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Grid.Row="2" Grid.Column="0" PresentationFramework:Message.Attach="Acept()">
-                <TextBlock Text="Acept"/>
-            </Button>
-            <Button Grid.Row="2" Grid.Column="1" PresentationFramework:Message.Attach="Cancel()">
-                <TextBlock Text="Cancel"  />
-            </Button>
-        </StackPanel>
-
+    Height="293.333" Width="300" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" Foreground="{x:Null}" Background="{x:Null}">
+    <Grid Height="303.333">
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="0.251*"/>
+    		<ColumnDefinition Width="0.749*"/>
+    	</Grid.ColumnDefinitions>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="0.07*"/>
+    		<RowDefinition Height="0.07*"/>
+    		<RowDefinition Height="0.628*"/>
+    		<RowDefinition Height="0.232*"/>
+    	</Grid.RowDefinitions>
+    	<TextBlock Margin="8,0,8,8" TextWrapping="Wrap" Foreground="#FF080808" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2" TextAlignment="Center"><Run Language="es-mx" Text="Album Edit"/></TextBlock>
+    	<TextBlock Margin="8,0,8,8" Grid.Row="1" TextWrapping="Wrap" Foreground="#FF080808"><Run Foreground="#FF000000" Language="es-mx" Text="Title"/></TextBlock>
+    	<TextBlock Margin="8,8,8,0" TextWrapping="Wrap" Grid.Row="2" Height="13.233" VerticalAlignment="Top" Foreground="{x:Null}"><Run Foreground="#FF000000" Language="es-mx" Text="Tracks"/></TextBlock>
+        <ListBox Margin="8,34.924,8,8.001" IsSynchronizedWithCurrentItem="True" Grid.Row="2" Grid.ColumnSpan="2" 
+                 ItemsSource="{Binding Album.Tracks}" DisplayMemberPath="Name" >
+        </ListBox>
+        <Button Margin="110.462,8,63.119,0" VerticalAlignment="Top" Height="19.797" Content="Acept" Grid.Column="1" Grid.Row="3" IsDefault="True" PresentationFramework:Message.Attach="Acept()"/>
+    	<Button Margin="0,8,8,0" VerticalAlignment="Top" Height="19.797" Content="Cancel" Grid.Column="1" Grid.Row="3" Width="51.119" HorizontalAlignment="Right" IsCancel="True" PresentationFramework:Message.Attach="Cancel()"/>
+    	<TextBox Margin="8.001,0,7.999,0" Grid.Column="1" Grid.Row="1" 
+			Text="{Binding Path=Album.Title}" TextWrapping="Wrap"/>
+    	<Button Margin="0,8,35.225,0" VerticalAlignment="Top" Height="22.925" Grid.Column="1" Grid.Row="2" Width="23.894" HorizontalAlignment="Right" ToolTip="Add new track.">
+    		<Image Width="16" Height="16" Source="..\ImageResources\add.png" Stretch="Fill"/>
+    	</Button>
+    	<Button HorizontalAlignment="Right" Margin="0,8,8,0" VerticalAlignment="Top" Width="23.894" Height="22.925" Grid.Column="1" Grid.Row="2" ToolTip="Remove selected track." RenderTransformOrigin="0.483,0.559">
+    		<Image Width="16" Height="16" Source="..\ImageResources\error.png" Stretch="Fill"/>
+    	</Button>
+        
+      
     </Grid>
 
 </UserControl>
