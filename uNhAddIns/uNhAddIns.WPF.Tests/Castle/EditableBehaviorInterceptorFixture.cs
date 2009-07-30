@@ -137,5 +137,14 @@ namespace uNhAddIns.WPF.Tests.Castle
                 tx.Commit();
             }
         }
+
+        [Test]
+        public void get_on_readonly_property_should_work()
+        {
+            var album = container.Resolve<Album>();
+            ((IEditableObject)album).BeginEdit();
+            album.Tracks.Should().Not.Be.Null();
+            ((IEditableObject)album).CancelEdit();
+        }
     }
 }
