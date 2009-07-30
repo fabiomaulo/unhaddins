@@ -14,7 +14,16 @@ namespace ChinookMediaManager.Presenters
 
         #region IEditAlbumPresenter Members
 
-        public IEditableAlbum Album { get; private set; }
+        private IEditableAlbum _album;
+        public IEditableAlbum Album
+        {
+            get { return _album; }
+            private set
+            {
+                _album = value;
+                NotifyOfPropertyChange("Album");
+            }
+        }
 
         public void Setup(IPresenterManager owner, IEditableAlbum album, IAlbumManagerModel albumManagerModel)
         {
