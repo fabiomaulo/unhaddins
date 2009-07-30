@@ -45,8 +45,13 @@ namespace uNhAddIns.WPF.Castle
 
             bool isSet = invocation.Method.Name.StartsWith("set_");
             string propertyName = invocation.Method.Name.Substring(4);
-            PropertyInfo property = _properties[propertyName];
-
+            PropertyInfo property;
+            if(!_properties.TryGetValue(propertyName, out property))
+            {
+                invocation.Proceed();
+                return;
+            }
+            
             if (isSet)
             {
                 StoreTempValue(property, invocation.Arguments[0]);
@@ -62,18 +67,15 @@ namespace uNhAddIns.WPF.Castle
 
         #region IOnBehalfAware Members
 
+        
         public void SetInterceptedComponentModel(ComponentModel target)
         {
-            StoreProperties(target.Implementation);
+            //I take advantage of the target.Properties of the component model.
+            _properties = target.Properties
+                        .ToDictionary(p => p.Property.Name, p => p.Property);
         }
 
         #endregion
 
-        private void StoreProperties(Type targetType)
-        {
-            const BindingFlags flags = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly;
-            _properties = targetType.GetProperties(flags)
-                .ToDictionary(p => p.Name, p => p);
-        }
     }
 }
