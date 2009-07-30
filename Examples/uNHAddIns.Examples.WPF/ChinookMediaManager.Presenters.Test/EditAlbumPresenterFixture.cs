@@ -13,6 +13,28 @@ namespace ChinookMediaManager.Presenters.Test
     public class EditAlbumPresenterFixture
     {
         [Test]
+        public void setup_should_notify_album_change()
+        {
+            IEditAlbumPresenter editAlbumPresenter = new EditAlbumPresenter();
+            var owner = new Mock<IPresenterManager>();
+            var album = new Mock<IEditableAlbum>();
+            var albumModel = new Mock<IAlbumManagerModel>();
+
+            bool eventWasRaised = false;
+            editAlbumPresenter.PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName.Equals("Album"))
+                    eventWasRaised = true;
+            };
+
+            editAlbumPresenter.Setup(owner.Object, album.Object, albumModel.Object);
+            
+            eventWasRaised.Should().Be.True();
+
+
+        }
+
+        [Test]
         public void can_cancel_edit()
         {
             IEditAlbumPresenter editAlbumPresenter = new EditAlbumPresenter();
