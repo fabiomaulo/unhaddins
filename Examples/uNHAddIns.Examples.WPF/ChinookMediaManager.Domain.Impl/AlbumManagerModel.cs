@@ -23,12 +23,14 @@ namespace ChinookMediaManager.Domain.Impl
 
         public IEnumerable<IAlbum> GetAlbumsByArtist(Artist artist)
         {
-            return _albumRepository.GetByArtist(artist);
+            //The repository only can work with concrete types.
+            return _albumRepository.GetByArtist(artist).OfType<IAlbum>();
         }
 
         public void Save(IAlbum album)
         {
-            _albumRepository.MakePersistent(album);
+            //The repository only can work with concrete types.
+            _albumRepository.MakePersistent((Album)album);
         }
 
         [PersistenceConversation(ConversationEndMode = EndMode.End)]

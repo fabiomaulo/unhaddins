@@ -11,9 +11,9 @@ namespace ChinookMediaManager.Domain.Test.Model
     [TestFixture]
     public class AlbumModelFixture
     {
-        private static IList<IAlbum> CreateSampleAlbumsForArtist(Artist artist)
+        private static IList<Album> CreateSampleAlbumsForArtist(Artist artist)
         {
-            return new List<IAlbum>
+            return new List<Album>
                        {
                            new Album {Artist = artist, Title = "A"},
                            new Album {Artist = artist, Title = "B"},
@@ -24,7 +24,7 @@ namespace ChinookMediaManager.Domain.Test.Model
         public void can_get_albums_from_artist()
         {
             var artist = new Artist {Name = "A"};
-            IList<IAlbum> albums = CreateSampleAlbumsForArtist(artist);
+            IList<Album> albums = CreateSampleAlbumsForArtist(artist);
             var albumRepository = new Mock<IAlbumRepository>();
 
             albumRepository.Setup(ar => ar.GetByArtist(artist))
