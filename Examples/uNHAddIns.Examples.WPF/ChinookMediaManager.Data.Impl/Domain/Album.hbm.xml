@@ -9,7 +9,7 @@
 
     <property name="Title" />
     <many-to-one name="Artist" class="Artist" column="ArtistId" />
-    <bag name="Tracks" inverse="true">
+    <bag name="Tracks" inverse="true" cascade="all">
       <key column="AlbumId" />
       <one-to-many class="Track" />
     </bag>
