@@ -53,5 +53,11 @@ namespace ChinookMediaManager.Presenters
             _editAlbumPresenter.Setup(this, album, _albumManagerModel);
             this.Open(_editAlbumPresenter);
         }
+
+        [AsyncAction]
+        public void SaveAll()
+        {
+            _albumManagerModel.AceptAll();
+        }
     }
 }
