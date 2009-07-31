@@ -1,8 +1,8 @@
-using System.Collections.Generic;
+using System.Linq;
 
 namespace ChinookMediaManager.Data.Repositories
 {
-    public interface IRepository<T> : IEnumerable<T>
+    public interface IRepository<T> : IQueryable<T>
     {
         T Get(object id);
         T Load(object id);

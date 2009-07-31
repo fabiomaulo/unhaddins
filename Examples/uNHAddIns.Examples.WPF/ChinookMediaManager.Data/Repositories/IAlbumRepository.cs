@@ -3,8 +3,8 @@ using ChinookMediaManager.Domain;
 
 namespace ChinookMediaManager.Data.Repositories
 {
-    public interface IAlbumRepository : IRepository<IAlbum>
+    public interface IAlbumRepository : IRepository<Album>
     {
-        ICollection<IAlbum> GetByArtist(Artist artist);
+        ICollection<Album> GetByArtist(Artist artist);
     }
 }

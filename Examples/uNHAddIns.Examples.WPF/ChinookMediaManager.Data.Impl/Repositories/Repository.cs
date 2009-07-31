@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using ChinookMediaManager.Data.Repositories;
 using NHibernate;
 using NHibernate.Linq;
@@ -47,14 +50,34 @@ namespace ChinookMediaManager.Data.Impl.Repositories
 
         public IEnumerator<T> GetEnumerator()
         {
-            return Session.Linq<T>().GetEnumerator();
+            return GetLinq().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return Session.Linq<T>().GetEnumerator();
+            return GetLinq().GetEnumerator();
+        }
+
+        public Expression Expression
+        {
+            get { return GetLinq().Expression; }
+        }
+
+        public Type ElementType
+        {
+            get { return GetLinq().ElementType; }
+        }
+
+        public IQueryProvider Provider
+        {
+            get { return GetLinq().Provider; }
         }
 
         #endregion
+
+        private INHibernateQueryable<T> GetLinq()
+        {
+            return Session.Linq<T>();
+        }
     }
 }
