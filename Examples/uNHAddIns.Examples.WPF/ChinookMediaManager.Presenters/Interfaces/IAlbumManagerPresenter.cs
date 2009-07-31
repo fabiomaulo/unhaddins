@@ -12,5 +12,6 @@ namespace ChinookMediaManager.Presenters.Interfaces
         //void SetUp(IPresenter owner, Artist artist);
         IEnumerable<IAlbum> Albums { get; }
         void LaunchEdit(IEditableAlbum album);
+        void SaveAll();
     }
 }

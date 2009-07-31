@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Caliburn.PresentationFramework.ApplicationModel;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
+using ChinookMediaManager.Infrastructure;
 using ChinookMediaManager.Presenters.Interfaces;
 using ChinookMediaManager.Presenters.ModelInterfaces;
 using Moq;
@@ -86,8 +87,7 @@ namespace ChinookMediaManager.Presenters.Test
             albumMgmModel.Verify(am => am.GetAlbumsByArtist(artist));
 
         }
-
-
+        
         [Test]
         public void edit_should_open_edit_album()
         {
@@ -119,6 +119,24 @@ namespace ChinookMediaManager.Presenters.Test
 
             albumMgm.CurrentPresenter.Should().Be.EqualTo(editPresenter.Object);
             
+        }
+
+        [Test]
+        public void can_commit_all()
+        {
+            var albumManagerModelMoq = new Mock<IAlbumManagerModel>();
+            var windowsManager = new Mock<IWindowManager>();
+            var editAlbumPresenter = new Mock<IEditAlbumPresenter>();
+            albumManagerModelMoq.Setup(am => am.AceptAll()).AtMostOnce();
+
+            IAlbumManagerPresenter albumManagerPresenter =
+                new AlbumManagerPresenter(albumManagerModelMoq.Object,
+                                          windowsManager.Object,
+                                          editAlbumPresenter.Object);
+
+            albumManagerPresenter.SaveAll();
+
+            albumManagerModelMoq.VerifyAll();
         }
     }
 }
