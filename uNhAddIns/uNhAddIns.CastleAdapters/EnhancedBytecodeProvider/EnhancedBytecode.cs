@@ -7,12 +7,12 @@ using NHibernate.Type;
 
 namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 {
-	public class EnhancedBytecode : IBytecodeProvider
+	public class EnhancedBytecode : IBytecodeProvider, IInjectableCollectionTypeFactoryClass
 	{
 		private readonly IObjectsFactory objectsFactory;
 
 		private readonly IWindsorContainer container;
-		private readonly DefaultCollectionTypeFactory collectionTypefactory;
+		private ICollectionTypeFactory collectionTypefactory;
 
 		public EnhancedBytecode(IWindsorContainer container)
 		{
@@ -44,5 +44,15 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 		}
 
 		#endregion
+
+	    public void SetCollectionTypeFactoryClass(string typeAssemblyQualifiedName)
+	    {
+	        SetCollectionTypeFactoryClass(Type.GetType(typeAssemblyQualifiedName, true));
+	    }
+
+	    public void SetCollectionTypeFactoryClass(Type type)
+	    {
+	        collectionTypefactory = (ICollectionTypeFactory) Activator.CreateInstance(type);
+	    }
 	}
 }
