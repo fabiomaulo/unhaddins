@@ -93,7 +93,6 @@
   <ItemGroup>
     <Compile Include="AutomaticConversationManagement\ConversationInterceptorFixture.cs" />
     <Compile Include="AutomaticConversationManagement\FullCreamFixture.cs" />
-    <Compile Include="EnhancedBytecodeProvider\CollectionTypeFactoryInjectionFixture.cs" />
     <Compile Include="EnhancedBytecodeProvider\EntityInjectionFixture.cs" />
     <Compile Include="EnhancedBytecodeProvider\InjectableUserTypeFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
