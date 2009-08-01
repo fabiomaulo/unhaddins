@@ -179,6 +179,8 @@
     <Compile Include="UserTypes\Foo.cs" />
     <Compile Include="UserTypes\UpperStringFixture.cs" />
     <Compile Include="UserTypes\User.cs" />
+    <Compile Include="UserTypes\UserMitaMita.cs" />
+    <Compile Include="UserTypes\WellKnowInstanceTypeFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uNhAddIns.TestUtils\uNhAddIns.TestUtils.csproj">
@@ -249,6 +251,7 @@
     <Content Include="TestConfigWithFactoryName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UserTypes\UserMitaMita.hbm.xml" />
     <EmbeddedResource Include="UserTypes\EntityWithLocalizableProperty.hbm.xml" />
     <EmbeddedResource Include="UserTypes\EntityWithPropNames.hbm.xml" />
     <EmbeddedResource Include="UserTypes\User.hbm.xml" />

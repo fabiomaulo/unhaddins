@@ -200,6 +200,7 @@
     <Compile Include="UserTypes\uNHAddinsEncryptor.cs" />
     <Compile Include="UserTypes\IEncryptor.cs" />
     <Compile Include="UserTypes\UpperString.cs" />
+    <Compile Include="UserTypes\WellKnowInstanceType.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
