@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Project DefaultTargets="BuildAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
 	<PropertyGroup>
 		<SrcDir>$(MSBuildProjectDirectory)\uNhAddIns</SrcDir>
     	<AssemblyInfoFile>$(SrcDir)\CommonAssemblyInfo.cs</AssemblyInfoFile>
 		<AssemblyProjectName>uNhAddIns</AssemblyProjectName>
 		<AssemblyCompany>uNhAddIns</AssemblyCompany>
-    	<Version>$(BUILD_NUMBER)</Version>
+    	<Version>2.0.0</Version>
     	<Info></Info>
 		<SolutionFile>$(SrcDir)\uNhAddIns.Everythings.sln</SolutionFile>
 		<OutDir>$(MSBuildProjectDirectory)\Build\</OutDir>
 		<ToolsDir>$(MSBuildProjectDirectory)\Tools</ToolsDir>
-		<NUnitToolPath>$(ToolsDir)\Nunit\</NUnitToolPath>
+		<NUnitDir>$(ToolsDir)\Nunit\</NUnitDir>
+		<SVNDir>$(ToolsDir)\Subversion\</SVNDir>
 		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 		<ArtifactsDir>$(MSBuildProjectDirectory)\Artifacts</ArtifactsDir>
 		<ReportFile>nunit-result.xml</ReportFile>
@@ -20,6 +21,7 @@
 	</PropertyGroup>
 
 	<Target Name="Build" DependsOnTargets="BeforeCompile;Compile;BeforeTest;NUnit"/>
+	
 	<Target Name="BuildAll" DependsOnTargets="Clean;BeforeCompile;Compile;BeforeTest;NUnit;BeforeZip;Zip;"/>
 	
 	<Target Name="Clean">
@@ -31,7 +33,9 @@
 	</ItemGroup>
 
 	<Target Name="BeforeCompile"/>
+	
 	<Target Name="BeforeTest"/>
+	
 	<Target Name="BeforeZip"/>
 	
     <Target Name="NUnit" Condition="$(EnableTest)">
@@ -45,17 +49,23 @@
 	<ItemGroup>
 		<ExistingZipFiles Include="$(ArtifactsDir)\*.zip"/>
 	</ItemGroup>
+
+	<Target Name="SVNRevision" Condition="'$(BUILD_NUMBER)' == ''">
+		<SvnVersion LocalPath="." ToolPath="$(SVNDir)">
+			<Output TaskParameter="Revision" PropertyName="Revision" />
+		</SvnVersion>
+	</Target>
 	
-	<Target Name="GenerateAssemblyInfo">
+	<Target Name="GenerateAssemblyInfo" DependsOnTargets="SVNRevision">
 		<AssemblyInfo 
 			AssemblyCompany ="$(AssemblyCompany)"
 			AssemblyCopyright="Copyright (c) $(AssemblyCompany), 2008. All rights reserved."
 			AssemblyDescription="$(AssemblyProjectName)"
-			AssemblyInformationalVersion="$(Version)"
+			AssemblyInformationalVersion="$(Version).$(Revision)"
 			AssemblyTitle ="$(AssemblyProjectName)$(Info)"
 			CodeLanguage="CS"
 			CLSCompliant ="$(ClsCompliant)"
-			AssemblyVersion ="$(Version)"
+			AssemblyVersion ="$(Version).$(Revision)"
 			OutputFile="$(AssemblyInfoFile)"
 		/>
 	</Target>
@@ -73,6 +83,7 @@
 			<Output TaskParameter="Include" ItemName="ZipFiles"/>
 		</CreateItem>
 	</Target>
+	
 	<Target Name="Zip">
 		<Delete Files="@(ExistingZipFiles)"/>
 		<Time Format="yyyy-MM-dd-HH-mm">
