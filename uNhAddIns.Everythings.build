@@ -1,8 +1,92 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Project DefaultTarget="Build"
-		 xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
-	<Target Name="Build">
-		<MsBuild Projects="uNhAddIns\uNhAddIns.Everythings.sln
-		"/>
+<Project DefaultTargets="BuildAll" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+	<PropertyGroup>
+		<SrcDir>$(MSBuildProjectDirectory)\uNhAddIns</SrcDir>
+    	<AssemblyInfoFile>$(SrcDir)\CommonAssemblyInfo.cs</AssemblyInfoFile>
+		<AssemblyProjectName>uNhAddIns</AssemblyProjectName>
+		<AssemblyCompany>uNhAddIns</AssemblyCompany>
+    	<Version>$(BUILD_NUMBER)</Version>
+    	<Info></Info>
+		<SolutionFile>$(SrcDir)\uNhAddIns.Everythings.sln</SolutionFile>
+		<OutDir>$(MSBuildProjectDirectory)\Build\</OutDir>
+		<ToolsDir>$(MSBuildProjectDirectory)\Tools</ToolsDir>
+		<NUnitToolPath>$(ToolsDir)\Nunit\</NUnitToolPath>
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<ArtifactsDir>$(MSBuildProjectDirectory)\Artifacts</ArtifactsDir>
+		<ReportFile>nunit-result.xml</ReportFile>
+		<FlattenZipFile>True</FlattenZipFile>
+		<EnableTest>False</EnableTest>
+		<MSBuildCommunityTasksPath>$(ToolsDir)\MSBuildCommunityTasks</MSBuildCommunityTasksPath>
+	</PropertyGroup>
+
+	<Target Name="Build" DependsOnTargets="BeforeCompile;Compile;BeforeTest;NUnit"/>
+	<Target Name="BuildAll" DependsOnTargets="Clean;BeforeCompile;Compile;BeforeTest;NUnit;BeforeZip;Zip;"/>
+	
+	<Target Name="Clean">
+		<MSBuild Projects="$(SolutionFile)" Properties="Configuration=$(Configuration);OutDir=$(OutDir);OutputPath=$(OutDir)" Targets="Clean" />
 	</Target>
+	
+	<ItemGroup>
+		<TestAssembly Include="$(OutDir)*.Tests.dll"/>
+	</ItemGroup>
+
+	<Target Name="BeforeCompile"/>
+	<Target Name="BeforeTest"/>
+	<Target Name="BeforeZip"/>
+	
+    <Target Name="NUnit" Condition="$(EnableTest)">
+        <NUnit 
+        	Assemblies="@(TestAssembly)" 
+        	ToolPath="$(NUnitToolPath)"
+        	OutputXmlFile="$(ReportFile)"
+        />
+    </Target>
+
+	<ItemGroup>
+		<ExistingZipFiles Include="$(ArtifactsDir)\*.zip"/>
+	</ItemGroup>
+	
+	<Target Name="GenerateAssemblyInfo">
+		<AssemblyInfo 
+			AssemblyCompany ="$(AssemblyCompany)"
+			AssemblyCopyright="Copyright (c) $(AssemblyCompany), 2008. All rights reserved."
+			AssemblyDescription="$(AssemblyProjectName)"
+			AssemblyInformationalVersion="$(Version)"
+			AssemblyTitle ="$(AssemblyProjectName)$(Info)"
+			CodeLanguage="CS"
+			CLSCompliant ="$(ClsCompliant)"
+			AssemblyVersion ="$(Version)"
+			OutputFile="$(AssemblyInfoFile)"
+		/>
+	</Target>
+
+	<Target Name="Compile" DependsOnTargets="GenerateAssemblyInfo">
+		<MSBuild Projects="$(SolutionFile)"
+				 Properties="Configuration=$(Configuration);
+				 OutDir=$(OutDir);
+				 OutputPath=$(OutDir);
+				 TreatWarningsAsErrors=False" />
+	</Target>
+
+	<Target Name="BeforeZip">
+		<CreateItem Include="$(OutDir)\*.*;">
+			<Output TaskParameter="Include" ItemName="ZipFiles"/>
+		</CreateItem>
+	</Target>
+	<Target Name="Zip">
+		<Delete Files="@(ExistingZipFiles)"/>
+		<Time Format="yyyy-MM-dd-HH-mm">
+			<Output TaskParameter="FormattedTime"
+					PropertyName="buildDate" />
+		</Time>
+		<CreateProperty value="$(ArtifactsDir)\$(AssemblyProjectName)-$(Version)-$(Configuration)-$(buildDate).zip">
+			<Output TaskParameter="Value"
+					PropertyName="ZipFileName" />
+		</CreateProperty>
+		<Zip Files="@(ZipFiles)" Flatten="$(FlattenZipFile)" ZipLevel="9"
+		    WorkingDirectory="$(OutDir)"
+			ZipFileName="$(ZipFileName)" />
+	</Target>
+
+	<Import Project="$(ToolsDir)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
 </Project>
