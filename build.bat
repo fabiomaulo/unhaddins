@@ -8,7 +8,7 @@ REM if exist commonfiles\uNhAddIns.snk goto build
 REM echo Generating strong key...
 REM %sn% -k commonfiles\uNhAddIns.snk
 :build
-%msbuild% uNhAddIns.Everythings.build /v:m
+%msbuild% uNhAddIns.Everythings.build /v:m /p:BUILD_NUMBER=2.0.0.0
 :end
 echo -------------------------------
 pause
