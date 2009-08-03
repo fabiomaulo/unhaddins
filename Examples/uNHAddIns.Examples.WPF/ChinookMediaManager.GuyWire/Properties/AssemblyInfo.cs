@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ChinookMediaManager.GuyWire")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("AVR Seguridad")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("ChinookMediaManager.GuyWire")]
-[assembly: AssemblyCopyright("Copyright © AVR Seguridad 2009")]
+[assembly: AssemblyCopyright("Copyright 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

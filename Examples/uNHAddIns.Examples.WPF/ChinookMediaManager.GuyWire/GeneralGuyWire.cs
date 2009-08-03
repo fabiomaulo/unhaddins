@@ -1,5 +1,4 @@
-﻿using System;
-using Castle.Windsor;
+﻿using Castle.Windsor;
 using ChinookMediaManager.GuyWire.Configurators;
 using uNhAddIns.Adapters;
 
@@ -8,16 +7,25 @@ namespace ChinookMediaManager.GuyWire
     public class GeneralGuyWire : IGuyWire, IContainerAccessor
     {
         private readonly IConfigurator[] configurators = new IConfigurator[]
-                  {
-                      new NHibernateConfigurator(),
-                      new RepositoriesConfigurator(),
-                      new EntitiesConfigurator(),
-                      new ModelsConfigurator(),
-                      new PresentersConfigurator(),
-                      new ViewsConfigurator()
-                  };
+                                                             {
+                                                                 new NHibernateConfigurator(),
+                                                                 new RepositoriesConfigurator(),
+                                                                 new EntitiesConfigurator(),
+                                                                 new ModelsConfigurator(),
+                                                                 new PresentersConfigurator(),
+                                                                 new ViewsConfigurator()
+                                                             };
 
         private IWindsorContainer container;
+
+        #region IContainerAccessor Members
+
+        public IWindsorContainer Container
+        {
+            get { return container; }
+        }
+
+        #endregion
 
         #region IGuyWire Members
 
@@ -47,14 +55,10 @@ namespace ChinookMediaManager.GuyWire
         /// </remarks>
         public void Dewire()
         {
-            container.Dispose();
+            if (container != null)
+                container.Dispose();
         }
 
         #endregion
-
-        public IWindsorContainer Container
-        {
-            get { return container; }
-        }
     }
 }

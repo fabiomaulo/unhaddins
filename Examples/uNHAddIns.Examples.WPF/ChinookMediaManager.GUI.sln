@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookMediaManager.Present
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookMediaManager.Data.Test", "ChinookMediaManager.Data.Test\ChinookMediaManager.Data.Test.csproj", "{386EEF5F-3E82-490E-84AF-4380957DC073}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChinookMediaManager.GuyWire", "ChinookMediaManager.GuyWire\ChinookMediaManager.GuyWire.csproj", "{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{386EEF5F-3E82-490E-84AF-4380957DC073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{386EEF5F-3E82-490E-84AF-4380957DC073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{386EEF5F-3E82-490E-84AF-4380957DC073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,5 +96,6 @@ Global
 		{CEF123C7-2ACD-40F3-8777-9F95048CC50F} = {CC8D22E1-4376-4951-8C5F-8F9BCDA14834}
 		{386EEF5F-3E82-490E-84AF-4380957DC073} = {CC8D22E1-4376-4951-8C5F-8F9BCDA14834}
 		{1A7929AD-C569-4B96-87E3-79B94931C6D4} = {44A6B3E0-B6C5-4FE9-AA1D-4BECEFCE2926}
+		{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28} = {44A6B3E0-B6C5-4FE9-AA1D-4BECEFCE2926}
 	EndGlobalSection
 EndGlobal
