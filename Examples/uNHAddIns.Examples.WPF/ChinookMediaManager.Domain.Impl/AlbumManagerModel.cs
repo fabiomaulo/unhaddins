@@ -36,6 +36,9 @@ namespace ChinookMediaManager.Domain.Impl
         [PersistenceConversation(ConversationEndMode = EndMode.End)]
         public void AceptAll()
         {}
+        [PersistenceConversation(ConversationEndMode = EndMode.Abort)]
+        public void CancelAll()
+        {}
 
         #endregion
     }

@@ -55,11 +55,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumManagerPresenter.cs" />
     <Compile Include="BrowseArtistPresenter.cs" />
-    <Compile Include="EditAlbumPresenter.cs" />
+    <Compile Include="EditAlbumPresenter.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\IBrowseArtistPresenter.cs" />
     <Compile Include="Interfaces\IAlbumManagerPresenter.cs" />
     <Compile Include="Interfaces\IEditAlbumPresenter.cs" />

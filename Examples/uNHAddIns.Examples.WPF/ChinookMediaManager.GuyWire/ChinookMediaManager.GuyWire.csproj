@@ -131,4 +131,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetDir)*.*" "$(SolutionDir)ChinookMediaManager.Domain.Test\Bin\Debug\"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
