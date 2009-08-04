@@ -7,7 +7,7 @@ namespace ChinookMediaManager.Domain.Model
     {
         IEnumerable<IAlbum> GetAlbumsByArtist(Artist artist);
         void Save(IAlbum album);
-        void AceptAll();
+        void AcceptAll();
         void CancelAll();
     }
 }
