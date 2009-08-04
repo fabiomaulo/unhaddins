@@ -127,7 +127,7 @@ namespace ChinookMediaManager.Presenters.Test
             var albumManagerModelMoq = new Mock<IAlbumManagerModel>();
             var windowsManager = new Mock<IWindowManager>();
             var editAlbumPresenter = new Mock<IEditAlbumPresenter>();
-            albumManagerModelMoq.Setup(am => am.AceptAll()).AtMostOnce();
+            albumManagerModelMoq.Setup(am => am.AcceptAll()).AtMostOnce();
 
             IAlbumManagerPresenter albumManagerPresenter =
                 new AlbumManagerPresenter(albumManagerModelMoq.Object,
