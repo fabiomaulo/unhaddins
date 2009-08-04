@@ -57,7 +57,7 @@ namespace ChinookMediaManager.Presenters
         [AsyncAction]
         public void SaveAll()
         {
-            _albumManagerModel.AceptAll();
+            _albumManagerModel.AcceptAll();
         }
     }
 }
