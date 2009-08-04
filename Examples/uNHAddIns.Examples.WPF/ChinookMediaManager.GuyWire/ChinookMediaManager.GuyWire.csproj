@@ -83,11 +83,11 @@
     </Reference>
     <Reference Include="uNhAddIns.WPF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ChinookMediaManager.GUI\bin\Debug\uNhAddIns.WPF.dll</HintPath>
+      <HintPath>..\libs\uNhAddIns.WPF.dll</HintPath>
     </Reference>
     <Reference Include="uNhAddIns.WPF.Castle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ChinookMediaManager.GUI\bin\Debug\uNhAddIns.WPF.Castle.dll</HintPath>
+      <HintPath>..\libs\uNhAddIns.WPF.Castle.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
