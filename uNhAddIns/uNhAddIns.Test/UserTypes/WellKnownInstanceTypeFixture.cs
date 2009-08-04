@@ -5,13 +5,13 @@ using uNhAddIns.UserTypes;
 
 namespace uNhAddIns.Test.UserTypes
 {
-	public class CountryType : WellKnowInstanceType<Country>
+	public class CountryType : WellKnownInstanceType<Country>
 	{
 		public CountryType() : base(new Countries(), (e, k) => e.Id == k, e => e.Id) {}
 	}
 
 	[TestFixture]
-	public class WellKnowInstanceTypeFixture : TestCase
+	public class WellKnownInstanceTypeFixture : TestCase
 	{
 		protected override IList<string> Mappings
 		{
