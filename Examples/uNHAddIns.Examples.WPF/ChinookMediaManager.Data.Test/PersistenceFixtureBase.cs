@@ -24,7 +24,6 @@ namespace ChinookMediaManager.Data.Test
         [TestFixtureTearDown]
         public void TestFixtureTearDown()
         {
-            new SchemaExport(cfg).Drop(false, true);
             sessions.Close();
             sessions = null;
             cfg = null;
