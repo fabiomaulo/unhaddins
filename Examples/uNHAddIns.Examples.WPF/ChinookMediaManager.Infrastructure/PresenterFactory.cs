@@ -7,17 +7,6 @@ namespace ChinookMediaManager.Infrastructure
     {
         private readonly IWindsorContainer _windsorContainer;
 
-
-        //#region IPresenterFactory Members
-
-        //public T GetPresenter<T>()
-        //    where T : IPresenter
-        //{
-        //    return ServiceLocator.Current.GetInstance<T>();
-        //}
-
-        //#endregion
-
         public PresenterFactory(IWindsorContainer windsorContainer)
         {
             _windsorContainer = windsorContainer;
