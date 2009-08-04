@@ -66,6 +66,7 @@ namespace ChinookMediaManager.Domain.Test.Model
 
             conversationalAttribute.Should().Not.Be.Null();
             conversationalAttribute.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
+            conversationalAttribute.MethodsIncludeMode.Should().Be.EqualTo(MethodsIncludeMode.Implicit);
         }
 
         [Test]
