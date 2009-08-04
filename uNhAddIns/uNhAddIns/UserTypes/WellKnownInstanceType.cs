@@ -15,7 +15,7 @@ namespace uNhAddIns.UserTypes
 	/// <typeparamref name="T"/> is the type tp use in the entity owning the relation, the type in the persistence is <see cref="int"/>.
 	/// </remarks>
 	[Serializable]
-	public abstract class WellKnowInstanceType<T> : IUserType where T : class
+	public abstract class WellKnownInstanceType<T> : IUserType where T : class
 	{
 		private static readonly SqlType[] ReturnSqlTypes = {SqlTypeFactory.Int32};
 		private readonly Func<T, int, bool> findPredicate;
@@ -28,7 +28,7 @@ namespace uNhAddIns.UserTypes
 		/// <param name="repository">The collection that represent a in-memory repository.</param>
 		/// <param name="findPredicate">The predicate an instance by the persisted value.</param>
 		/// <param name="idGetter">The getter of the persisted value.</param>
-		protected WellKnowInstanceType(IEnumerable<T> repository, Func<T, int, bool> findPredicate, Func<T, int> idGetter)
+		protected WellKnownInstanceType(IEnumerable<T> repository, Func<T, int, bool> findPredicate, Func<T, int> idGetter)
 		{
 			this.repository = repository;
 			this.findPredicate = findPredicate;
