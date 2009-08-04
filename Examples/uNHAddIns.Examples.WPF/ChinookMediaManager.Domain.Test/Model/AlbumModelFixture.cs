@@ -1,60 +1,89 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
-using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Impl;
-using Moq;
+using ChinookMediaManager.Domain.Model;
+using NHibernate;
 using NUnit.Framework;
-
+using uNhAddIns.SessionEasier.Conversations;
 
 namespace ChinookMediaManager.Domain.Test.Model
 {
     [TestFixture]
-    public class AlbumModelFixture
+    public class AlbumModelFixture : TestModelBase
     {
-        private static IList<Album> CreateSampleAlbumsForArtist(Artist artist)
+        private ConversationObserver<AlbumManagerModel> conversationObserver;
+        private IAlbumManagerModel albumModel;
+
+        public override void OnSetup()
         {
-            return new List<Album>
-                       {
-                           new Album {Artist = artist, Title = "A"},
-                           new Album {Artist = artist, Title = "B"},
-                       };
+            conversationObserver = (ConversationObserver<AlbumManagerModel>) container
+                                                                                 .Resolve
+                                                                                 <
+                                                                                 IConversationCreationInterceptorConvention
+                                                                                 <AlbumManagerModel>>();
+            albumModel = container.Resolve<IAlbumManagerModel>();
+        }
+
+        private Artist GetAcDc()
+        {
+            Artist artist;
+
+            using (ISession session = sessions.OpenSession())
+            {
+                artist = session.Get<Artist>(1);
+            }
+            return artist;
         }
 
         [Test]
         public void can_get_albums_from_artist()
         {
-            var artist = new Artist {Name = "A"};
-            IList<Album> albums = CreateSampleAlbumsForArtist(artist);
-            var albumRepository = new Mock<IAlbumRepository>();
+            bool conversationWasPaused = false;
+            Artist artist = GetAcDc();
 
-            albumRepository.Setup(ar => ar.GetByArtist(artist))
-                .Returns(albums).AtMostOnce();
+            conversationObserver.Paused += (sender, args) => { conversationWasPaused = true; };
 
-            var albumModel = new AlbumManagerModel(albumRepository.Object);
+            IList<IAlbum> albums = albumModel.GetAlbumsByArtist(artist).ToList();
 
-            IEnumerable<IAlbum> result = albumModel.GetAlbumsByArtist(artist);
+            conversationWasPaused.Should().Be.True();
 
-            result.Count().Should().Be.EqualTo(2);
-
-
-            albumRepository.VerifyAll();
+            albums.Count.Should().Be.EqualTo(2);
         }
 
         [Test]
-        public void can_save_album()
+        public void track_list_should_implement_collectionchanged()
         {
-            var albumRepository = new Mock<IAlbumRepository>();
-            var album = new Album();
+            Artist artist = GetAcDc();
 
-            albumRepository.Setup(ar => ar.MakePersistent(album))
-                           .Returns(album).AtMostOnce();
+            IList<IAlbum> albums = albumModel.GetAlbumsByArtist(artist).ToList();
 
+            albums[0].Tracks.GetType().Should().Be.AssignableTo(typeof (INotifyCollectionChanged));
+        }
 
-            var albumModel = new AlbumManagerModel(albumRepository.Object);
+        [Test]
+        public void acceptalll_end_the_conversation()
+        {
+            bool conversationWasEnded = false;
+            conversationObserver.Ending += (sender, args) =>
+                                              {
+                                                  conversationWasEnded = true;
+                                              };
+            albumModel.AceptAll();
+            conversationWasEnded.Should().Be.True();
+        }
 
-            albumModel.Save(album);
+        [Test]
+        public void cancelall_end_the_conversation()
+        {
+            bool conversationWasAborted = false;
 
-            albumRepository.VerifyAll();
+            conversationObserver.Aborting += (sender, args) =>
+            {
+                conversationWasAborted = true;
+            };
+            albumModel.CancelAll();
+            conversationWasAborted.Should().Be.True();
         }
     }
 }

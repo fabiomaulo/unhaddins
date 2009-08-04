@@ -1,10 +1,11 @@
+using System;
 using Castle.Windsor;
 using ChinookMediaManager.GuyWire.Configurators;
 using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.GuyWire
 {
-    public class ModelTestsGuyWire : IGuyWire
+    public class ModelTestsGuyWire : IGuyWire, IContainerAccessor
     {
         private readonly IConfigurator[] configurators = new IConfigurator[]
                                                              {
@@ -48,5 +49,10 @@ namespace ChinookMediaManager.GuyWire
         }
 
         #endregion
+
+        public IWindsorContainer Container
+        {
+            get { return container; }
+        }
     }
 }
