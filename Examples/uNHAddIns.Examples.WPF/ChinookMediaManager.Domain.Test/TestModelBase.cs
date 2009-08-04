@@ -1,3 +1,4 @@
+using System;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NHibernate;
@@ -40,5 +41,28 @@ namespace ChinookMediaManager.Domain.Test
             OnTeardown();
             guyWire.Dewire();
         }
+
+
+        public void Assert_Was_Ended<T>(Action action, ConversationObserver<T> conversationObserver) where T : class
+        {
+            bool conversationWasEnded = false;
+            conversationObserver.Ending += (sender, args) =>
+            {
+                conversationWasEnded = true;
+            };
+            action();
+            conversationWasEnded.Should().Be.True();
+        }
+        public void Assert_Was_Aborted<T>(Action action, ConversationObserver<T> conversationObserver) where T : class
+        {
+            bool conversationWasAborted = false;
+            conversationObserver.Aborting += (sender, args) =>
+            {
+                conversationWasAborted = true;
+            };
+            action();
+            conversationWasAborted.Should().Be.True();
+        }
+
     }
 }

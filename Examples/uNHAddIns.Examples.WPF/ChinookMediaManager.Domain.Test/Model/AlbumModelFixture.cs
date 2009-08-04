@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -64,26 +65,13 @@ namespace ChinookMediaManager.Domain.Test.Model
         [Test]
         public void acceptalll_end_the_conversation()
         {
-            bool conversationWasEnded = false;
-            conversationObserver.Ending += (sender, args) =>
-                                              {
-                                                  conversationWasEnded = true;
-                                              };
-            albumModel.AceptAll();
-            conversationWasEnded.Should().Be.True();
+            Assert_Was_Ended(albumModel.AceptAll, conversationObserver);
         }
-
+        
         [Test]
         public void cancelall_end_the_conversation()
         {
-            bool conversationWasAborted = false;
-
-            conversationObserver.Aborting += (sender, args) =>
-            {
-                conversationWasAborted = true;
-            };
-            albumModel.CancelAll();
-            conversationWasAborted.Should().Be.True();
+            Assert_Was_Aborted(albumModel.CancelAll, conversationObserver);
         }
     }
 }
