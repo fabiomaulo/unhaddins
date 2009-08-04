@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Model;
@@ -7,9 +6,7 @@ using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.Domain.Impl
 {
-    [PersistenceConversational(
-        MethodsIncludeMode = MethodsIncludeMode.Implicit,
-        DefaultEndMode = EndMode.Continue)]
+    [PersistenceConversational]
     public class AlbumManagerModel : IAlbumManagerModel
     {
         private readonly IAlbumRepository _albumRepository;
@@ -34,7 +31,7 @@ namespace ChinookMediaManager.Domain.Impl
         }
 
         [PersistenceConversation(ConversationEndMode = EndMode.End)]
-        public void AceptAll()
+        public void AcceptAll()
         {}
         [PersistenceConversation(ConversationEndMode = EndMode.Abort)]
         public void CancelAll()

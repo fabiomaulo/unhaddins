@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChinookMediaManager.Data.Repositories;
@@ -62,11 +61,35 @@ namespace ChinookMediaManager.Domain.Test.Model
         [Test]
         public void model_has_conversation_attribute()
         {
-            typeof (AlbumManagerModel).Should().Have
-                .Attribute<PersistenceConversationalAttribute>();
+            var conversationalAttribute = typeof (AlbumManagerModel)
+                    .GetAttribute<PersistenceConversationalAttribute>();
+
+            conversationalAttribute.Should().Not.Be.Null();
+            conversationalAttribute.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
+        }
+
+        [Test]
+        public void acept_all_has_end_conversation()
+        {
+            var conversationAttribute = typeof (AlbumManagerModel)
+                                    .GetMethod("AcceptAll")
+                                    .GetAttribute<PersistenceConversationAttribute>();
+                                    
+            conversationAttribute.Should().Not.Be.Null();
+            conversationAttribute.ConversationEndMode.Should().Be.EqualTo(EndMode.End);
+            conversationAttribute.Exclude.Should().Be.False();
+        }
+
+        [Test]
+        public void cancel_all_has_abort_conversation()
+        {
+            var conversationAttribute = typeof(AlbumManagerModel)
+                                    .GetMethod("CancelAll")
+                                    .GetAttribute<PersistenceConversationAttribute>();
+
+            conversationAttribute.Should().Not.Be.Null();
+            conversationAttribute.ConversationEndMode.Should().Be.EqualTo(EndMode.Abort);
+            conversationAttribute.Exclude.Should().Be.False();
         }
     }
-
-    
-
 }
