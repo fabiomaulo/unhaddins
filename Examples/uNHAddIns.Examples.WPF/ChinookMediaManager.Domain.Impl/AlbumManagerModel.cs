@@ -6,7 +6,7 @@ using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.Domain.Impl
 {
-    [PersistenceConversational]
+    [PersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit)]
     public class AlbumManagerModel : IAlbumManagerModel
     {
         private readonly IAlbumRepository _albumRepository;
