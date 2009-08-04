@@ -102,7 +102,6 @@
     <Compile Include="GeneralGuyWire.cs" />
     <Compile Include="IConfigurator.cs" />
     <Compile Include="Configurators\NHibernateConfigurator.cs" />
-    <Compile Include="ModelTestsGuyWire.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +131,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)*.*" "$(SolutionDir)ChinookMediaManager.Domain.Test\Bin\Debug\"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

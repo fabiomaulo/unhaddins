@@ -1,77 +1,72 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
+using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Impl;
-using ChinookMediaManager.Domain.Model;
-using NHibernate;
+using Moq;
 using NUnit.Framework;
-using uNhAddIns.SessionEasier.Conversations;
+using uNhAddIns.Adapters;
+
 
 namespace ChinookMediaManager.Domain.Test.Model
 {
     [TestFixture]
-    public class AlbumModelFixture : TestModelBase
+    public class AlbumModelFixture
     {
-        private ConversationObserver<AlbumManagerModel> conversationObserver;
-        private IAlbumManagerModel albumModel;
-
-        public override void OnSetup()
+        private static IList<Album> CreateSampleAlbumsForArtist(Artist artist)
         {
-            conversationObserver = (ConversationObserver<AlbumManagerModel>) container
-                                                                                 .Resolve
-                                                                                 <
-                                                                                 IConversationCreationInterceptorConvention
-                                                                                 <AlbumManagerModel>>();
-            albumModel = container.Resolve<IAlbumManagerModel>();
-        }
-
-        private Artist GetAcDc()
-        {
-            Artist artist;
-
-            using (ISession session = sessions.OpenSession())
-            {
-                artist = session.Get<Artist>(1);
-            }
-            return artist;
+            return new List<Album>
+                       {
+                           new Album {Artist = artist, Title = "A"},
+                           new Album {Artist = artist, Title = "B"},
+                       };
         }
 
         [Test]
         public void can_get_albums_from_artist()
         {
-            bool conversationWasPaused = false;
-            Artist artist = GetAcDc();
+            var artist = new Artist {Name = "A"};
+            IList<Album> albums = CreateSampleAlbumsForArtist(artist);
+            var albumRepository = new Mock<IAlbumRepository>();
 
-            conversationObserver.Paused += (sender, args) => { conversationWasPaused = true; };
+            albumRepository.Setup(ar => ar.GetByArtist(artist))
+                .Returns(albums).AtMostOnce();
 
-            IList<IAlbum> albums = albumModel.GetAlbumsByArtist(artist).ToList();
+            var albumModel = new AlbumManagerModel(albumRepository.Object);
 
-            conversationWasPaused.Should().Be.True();
+            IEnumerable<IAlbum> result = albumModel.GetAlbumsByArtist(artist);
 
-            albums.Count.Should().Be.EqualTo(2);
+            result.Count().Should().Be.EqualTo(2);
+
+
+            albumRepository.VerifyAll();
         }
 
         [Test]
-        public void track_list_should_implement_collectionchanged()
+        public void can_save_album()
         {
-            Artist artist = GetAcDc();
+            var albumRepository = new Mock<IAlbumRepository>();
+            var album = new Album();
 
-            IList<IAlbum> albums = albumModel.GetAlbumsByArtist(artist).ToList();
+            albumRepository.Setup(ar => ar.MakePersistent(album))
+                           .Returns(album).AtMostOnce();
 
-            albums[0].Tracks.GetType().Should().Be.AssignableTo(typeof (INotifyCollectionChanged));
-        }
 
-        [Test]
-        public void acceptalll_end_the_conversation()
-        {
-            Assert_Was_Ended(albumModel.AceptAll, conversationObserver);
-        }
+            var albumModel = new AlbumManagerModel(albumRepository.Object);
         
+            albumModel.Save(album);
+
+            albumRepository.VerifyAll();
+        }
+
         [Test]
-        public void cancelall_end_the_conversation()
+        public void model_has_conversation_attribute()
         {
-            Assert_Was_Aborted(albumModel.CancelAll, conversationObserver);
+            typeof (AlbumManagerModel).Should().Have
+                .Attribute<PersistenceConversationalAttribute>();
         }
     }
+
+    
+
 }
