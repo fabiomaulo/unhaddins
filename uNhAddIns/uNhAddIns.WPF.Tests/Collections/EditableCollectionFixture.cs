@@ -87,45 +87,5 @@ namespace uNhAddIns.WPF.Tests.Collections
             editableList.Should().Have.SameSequenceAs("a,b,c,f".Split(','));
         }
 
-        [Test]
-        public void cancel_edit_without_beginedit_should_throw_inopex()
-        {
-            var editableList = new EditableCollection<string>
-                                   {
-                                       "a","b","c"
-                                   };
-
-            new Action(editableList.CancelEdit)
-                .Should().Throw<InvalidOperationException>()
-                .And.ValueOf.Message.Should().Be.EqualTo("CancelEdit without BeginEdit");
-        }
-
-        [Test]
-        public void end_edit_without_beginedit_should_throw_inopex()
-        {
-            var editableList = new EditableCollection<string>
-                                   {
-                                       "a","b","c"
-                                   };
-
-            new Action(editableList.EndEdit)
-                .Should().Throw<InvalidOperationException>()
-                .And.ValueOf.Message.Should().Be.EqualTo("EndEdit without BeginEdit");
-        }
-
-        [Test]
-        public void double_beginedit_should_throw_inopex()
-        {
-            var editableList = new EditableCollection<string>
-                                   {
-                                       "a","b","c"
-                                   };
-
-            editableList.BeginEdit();
-
-            new Action(editableList.BeginEdit)
-                .Should().Throw<InvalidOperationException>()
-                .And.ValueOf.Message.Should().Be.EqualTo("The object is already in edit mode");
-        }
-    }
+   }
 }
