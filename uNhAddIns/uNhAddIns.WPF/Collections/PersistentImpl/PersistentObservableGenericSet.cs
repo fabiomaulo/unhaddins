@@ -15,6 +15,7 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
     {
         private NotifyCollectionChangedEventHandler _collectionChanged;
         private PropertyChangedEventHandler _propertyChanged;
+        private bool _isDirtyPreviousState;
 
         public PersistentObservableGenericSet(ISessionImplementor sessionImplementor)
             : base(sessionImplementor)
@@ -89,12 +90,15 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
             if (changed != null) changed(this, e);
         }
 
+
         /// <summary>
         /// Begins an edit on an object.
         /// </summary>
         public void BeginEdit()
         {
-            throw new NotImplementedException();
+            Initialize(false);
+            ((IEditableObject)set).BeginEdit();
+            _isDirtyPreviousState = IsDirty;
         }
 
         /// <summary>
@@ -102,7 +106,7 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         /// </summary>
         public void EndEdit()
         {
-            throw new NotImplementedException();
+            ((IEditableObject)set).EndEdit();
         }
 
         /// <summary>
@@ -110,7 +114,10 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         /// </summary>
         public void CancelEdit()
         {
-            throw new NotImplementedException();
+            ((IEditableObject)set).CancelEdit();
+
+            if(!_isDirtyPreviousState)
+                ClearDirty();
         }
     }
 }
