@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Collections\CollectionsExtension.cs" />
     <Compile Include="Collections\EditableCollection.cs" />
+    <Compile Include="Collections\EditableObservableSet.cs" />
     <Compile Include="Collections\IEditableCollection.cs" />
     <Compile Include="Collections\WpfCollectionTypeFactory.cs" />
     <Compile Include="Collections\ObservableSet.cs" />

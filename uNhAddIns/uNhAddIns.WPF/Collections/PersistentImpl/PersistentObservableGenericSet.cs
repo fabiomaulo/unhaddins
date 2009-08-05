@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using Iesi.Collections;
@@ -10,7 +11,7 @@ using NHibernate.Persister.Collection;
 namespace uNhAddIns.WPF.Collections.PersistentImpl
 {
     public class PersistentObservableGenericSet<T> : PersistentGenericSet<T>, INotifyCollectionChanged,
-                                                     INotifyPropertyChanged
+                                                     INotifyPropertyChanged, IEditableObject
     {
         private NotifyCollectionChangedEventHandler _collectionChanged;
         private PropertyChangedEventHandler _propertyChanged;
@@ -86,6 +87,30 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         {
             NotifyCollectionChangedEventHandler changed = _collectionChanged;
             if (changed != null) changed(this, e);
+        }
+
+        /// <summary>
+        /// Begins an edit on an object.
+        /// </summary>
+        public void BeginEdit()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Pushes changes since the last <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> or <see cref="M:System.ComponentModel.IBindingList.AddNew"/> call into the underlying object.
+        /// </summary>
+        public void EndEdit()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Discards changes since the last <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> call.
+        /// </summary>
+        public void CancelEdit()
+        {
+            throw new NotImplementedException();
         }
     }
 }

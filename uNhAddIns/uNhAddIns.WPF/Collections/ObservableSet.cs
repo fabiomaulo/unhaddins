@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -7,6 +6,10 @@ using Iesi.Collections.Generic;
 
 namespace uNhAddIns.WPF.Collections
 {
+    /// <summary>
+    /// ISet that implements INotifyCollectionChanged
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ObservableSet<T> : HashedSet<T>, INotifyCollectionChanged, INotifyPropertyChanged
     {
         private const string COUNT_PROPERTY_NAME = "Count";
