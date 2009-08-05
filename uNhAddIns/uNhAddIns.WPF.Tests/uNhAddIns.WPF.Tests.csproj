@@ -117,9 +117,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="SampleDomain\Invoice.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
