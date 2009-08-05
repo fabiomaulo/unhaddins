@@ -13,6 +13,9 @@ namespace uNhAddIns.WPF.Collections
 
         public void BeginEdit()
         {
+            if (_isInEditMode)
+                throw new InvalidOperationException("The object is already in edit mode");
+
             _bakupList = new List<T>();
             Items.ForEach(_bakupList.Add);
             _isInEditMode = true;
@@ -21,7 +24,7 @@ namespace uNhAddIns.WPF.Collections
         public void EndEdit()
         {
             if (!_isInEditMode)
-                throw new InvalidOperationException("EndEdit without a BeginEdit"); 
+                throw new InvalidOperationException("EndEdit without BeginEdit"); 
 
             _isInEditMode = false;
             _bakupList = null;
@@ -30,7 +33,7 @@ namespace uNhAddIns.WPF.Collections
         public void CancelEdit()
         {
             if(!_isInEditMode)
-                throw new InvalidOperationException("CancelEdit without a BeginEdit"); 
+                throw new InvalidOperationException("CancelEdit without BeginEdit"); 
             _isInEditMode = false;
             ClearItems();
             _bakupList.ForEach(Add);
