@@ -133,6 +133,7 @@
     <Compile Include="Inflector\BaseInflectorFixture.cs" />
     <Compile Include="Inflector\EnglishInflectorFixture.cs" />
     <Compile Include="Inflector\InflectorExtensionsFixture.cs" />
+    <Compile Include="Inflector\ItalianInflectorFixture.cs" />
     <Compile Include="Inflector\RuleFixture.cs" />
     <Compile Include="Inflector\SpanishInflectorFixture.cs" />
     <Compile Include="Listeners\AutoDirtyCheck\Domain.cs" />
@@ -195,6 +196,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Listeners\AutoDirtyCheck\DomainDiagram.cd" />
+    <None Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pagination\PagTest.hbm.xml" />

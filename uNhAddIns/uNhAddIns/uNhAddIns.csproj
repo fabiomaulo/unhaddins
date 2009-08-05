@@ -107,6 +107,8 @@
     <Compile Include="Inflector\InflectorExtensions.cs" />
     <Compile Include="Inflector\InflectorNamingStrategy.cs" />
     <Compile Include="Inflector\IRuleApplier.cs" />
+    <Compile Include="Inflector\ItalianInflector.cs" />
+    <Compile Include="Inflector\ItalianNamingStrategy.cs" />
     <Compile Include="Inflector\NounsRule.cs" />
     <Compile Include="Inflector\IReplacementRule.cs" />
     <Compile Include="Inflector\SpanishInflector.cs" />
