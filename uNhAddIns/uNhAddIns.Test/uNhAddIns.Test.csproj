@@ -196,9 +196,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Listeners\AutoDirtyCheck\DomainDiagram.cd" />
-    <None Include="hibernate.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pagination\PagTest.hbm.xml" />
