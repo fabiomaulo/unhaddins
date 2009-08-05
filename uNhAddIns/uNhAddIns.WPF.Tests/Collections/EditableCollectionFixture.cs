@@ -97,7 +97,7 @@ namespace uNhAddIns.WPF.Tests.Collections
 
             new Action(editableList.CancelEdit)
                 .Should().Throw<InvalidOperationException>()
-                .And.ValueOf.Message.Should().Be.EqualTo("CancelEdit without a BeginEdit");
+                .And.ValueOf.Message.Should().Be.EqualTo("CancelEdit without BeginEdit");
         }
 
         [Test]
@@ -110,7 +110,22 @@ namespace uNhAddIns.WPF.Tests.Collections
 
             new Action(editableList.EndEdit)
                 .Should().Throw<InvalidOperationException>()
-                .And.ValueOf.Message.Should().Be.EqualTo("EndEdit without a BeginEdit");
+                .And.ValueOf.Message.Should().Be.EqualTo("EndEdit without BeginEdit");
+        }
+
+        [Test]
+        public void double_beginedit_should_throw_inopex()
+        {
+            var editableList = new EditableCollection<string>
+                                   {
+                                       "a","b","c"
+                                   };
+
+            editableList.BeginEdit();
+
+            new Action(editableList.BeginEdit)
+                .Should().Throw<InvalidOperationException>()
+                .And.ValueOf.Message.Should().Be.EqualTo("The object is already in edit mode");
         }
     }
 }
