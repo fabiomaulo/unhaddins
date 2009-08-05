@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using NHibernate.Collection.Generic;
@@ -8,10 +7,8 @@ using NHibernate.Persister.Collection;
 
 namespace uNhAddIns.WPF.Collections.PersistentImpl
 {
-    public class PersistentObservableGenericBag<T> : PersistentGenericBag<T>, 
-                                                     INotifyCollectionChanged,
-                                                     INotifyPropertyChanged,
-                                                     IEditableObject
+    public class PersistentObservableGenericBag<T> : PersistentGenericBag<T>, INotifyCollectionChanged,
+                                                     INotifyPropertyChanged, IList<T>
     {
         private NotifyCollectionChangedEventHandler _collectionChanged;
         private PropertyChangedEventHandler _propertyChanged;
@@ -88,54 +85,5 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
             NotifyCollectionChangedEventHandler changed = _collectionChanged;
             if (changed != null) changed(this, e);
         }
-
-        private bool _isInEditMode = false;
-        private bool _previousDirtyState = false;
-        private IList<T> _backupBag;
-        /// <summary>
-        /// Begins an edit on an object.
-        /// </summary>
-        public void BeginEdit()
-        {
-            if (_isInEditMode)
-                return;
-
-            Initialize(false); 
-            _backupBag = new List<T>();
-            _isInEditMode = true;
-            _previousDirtyState = IsDirty;
-            InternalBag.ForEach(_backupBag.Add);
-        }
-
-        /// <summary>
-        /// Pushes changes since the last <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> or <see cref="M:System.ComponentModel.IBindingList.AddNew"/> call into the underlying object.
-        /// </summary>
-        public void EndEdit()
-        {
-            if (!_isInEditMode)
-                return;
-
-            _backupBag = null;
-            _isInEditMode = false;
-        }
-
-        /// <summary>
-        /// Discards changes since the last <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> call.
-        /// </summary>
-        public void CancelEdit()
-        {
-            if (!_isInEditMode)
-                return;
-
-            _isInEditMode = false;
-            bag.Clear();
-            _backupBag.ForEach(InternalBag.Add);
-            
-            if (!_previousDirtyState)
-                ClearDirty();
-
-            _backupBag = null;
-        }
-
     }
 }
