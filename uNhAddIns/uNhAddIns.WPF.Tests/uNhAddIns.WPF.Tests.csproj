@@ -83,8 +83,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Castle\EntityNameResolverFixture.cs" />
-    <Compile Include="Collections\EditableObservableSetFixture.cs" />
-    <Compile Include="Collections\EditableCollectionFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericSetFixture.cs" />
     <Compile Include="Collections\ObservableSetFixture.cs" />
     <Compile Include="Collections\WpfCollectionTypeFactoryFixture.cs" />

@@ -59,8 +59,7 @@ namespace uNhAddIns.WPF.Collections.Types
 
         public override object Instantiate(int anticipatedSize)
         {
-            //return new ObservableSet<T>();
-            return new EditableObservableSet<T>();
+            return new ObservableSet<T>();
         }
 
         #endregion
