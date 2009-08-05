@@ -30,9 +30,10 @@ namespace uNhAddIns.WPF.Tests
             Environment.BytecodeProvider = new EnhancedBytecode(container);
 
             cfg = new Configuration();
+            cfg.Configure();
             cfg.RegisterEntityNameResolver();
             cfg.AddAssembly(typeof(IntegrationBaseTest).Assembly);
-            cfg.Configure();
+            //cfg.Configure();
             
             new SchemaExport(cfg).Create(false, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
