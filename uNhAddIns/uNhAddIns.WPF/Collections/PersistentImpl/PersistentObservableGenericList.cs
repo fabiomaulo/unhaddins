@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using NHibernate.Collection.Generic;
@@ -8,10 +9,13 @@ using NHibernate.Persister.Collection;
 namespace uNhAddIns.WPF.Collections.PersistentImpl
 {
     public class PersistentObservableGenericList<T> : PersistentGenericList<T>, INotifyCollectionChanged,
-                                                      INotifyPropertyChanged, IList<T>
+                                                      INotifyPropertyChanged, IEditableObject
     {
         private NotifyCollectionChangedEventHandler _collectionChanged;
         private PropertyChangedEventHandler _propertyChanged;
+        private bool _isInEditMode;
+        private bool _previousDirtyState;
+        private IList<T> _backupBag;
 
         public PersistentObservableGenericList(ISessionImplementor sessionImplementor)
             : base(sessionImplementor)
@@ -84,6 +88,50 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         {
             NotifyCollectionChangedEventHandler changed = _collectionChanged;
             if (changed != null) changed(this, e);
+        }
+
+        /// <summary>
+        /// Begins an edit on an object.
+        /// </summary>
+        public void BeginEdit()
+        {
+            if(_isInEditMode)
+                throw new InvalidOperationException("The collection is already in EditMode");
+
+            Initialize(false);
+            _isInEditMode = true;
+            _previousDirtyState = IsDirty;
+            _backupBag = new List<T>();
+            list.ForEach(obj => _backupBag.Add((T)obj));
+        }
+
+        /// <summary>
+        /// Pushes changes since the last <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> or <see cref="M:System.ComponentModel.IBindingList.AddNew"/> call into the underlying object.
+        /// </summary>
+        public void EndEdit()
+        {
+            if (!_isInEditMode)
+                throw new InvalidOperationException("EndEdit without BeginEdit");
+            _isInEditMode = false;
+            _backupBag = null;
+        }
+
+        /// <summary>
+        /// Discards changes since the last <see cref="M:System.ComponentModel.IEditableObject.BeginEdit"/> call.
+        /// </summary>
+        public void CancelEdit()
+        {
+            if (!_isInEditMode)
+                throw new InvalidOperationException("CancelEdit without BeginEdit");
+            _isInEditMode = false;
+
+            list.Clear();
+            _backupBag.ForEach(item => list.Add(item));
+
+            if (!_previousDirtyState)
+                ClearDirty();
+
+            _backupBag = null;
         }
     }
 }
