@@ -168,35 +168,6 @@ namespace uNhAddIns.WPF.Tests.Collections
         #region "IEditableObject behavior"
 
         [Test]
-        public void invalid_calls_for_ieditableobject_methods()
-        {
-            int id = CreateNewInvoice();
-
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var invoice = session.Get<Invoice>(id);
-
-                new Action(() => ((IEditableObject) invoice.Lines).EndEdit())
-                    .Should().Throw<InvalidOperationException>()
-                    .And.ValueOf.Message.Should().Be.EqualTo("EndEdit without BeginEdit");
-
-                new Action(() => ((IEditableObject)invoice.Lines).CancelEdit())
-                    .Should().Throw<InvalidOperationException>()
-                    .And.ValueOf.Message.Should().Be.EqualTo("CancelEdit without BeginEdit");
-
-                ((IEditableObject)invoice.Lines).BeginEdit();
-
-                new Action(() => ((IEditableObject)invoice.Lines).BeginEdit())
-                    .Should().Throw<InvalidOperationException>()
-                    .And.ValueOf.Message.Should().Be.EqualTo("The collection is already in EditMode");
-
-                tx.Commit();
-            }
-        }
-
-
-        [Test]
         public void add_item_and_cancel_should_revert_changes()
         {
             int id = CreateNewInvoice();

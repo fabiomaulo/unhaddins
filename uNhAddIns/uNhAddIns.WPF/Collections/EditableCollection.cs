@@ -24,7 +24,7 @@ namespace uNhAddIns.WPF.Collections
         public void EndEdit()
         {
             if (!_isInEditMode)
-                throw new InvalidOperationException("EndEdit without BeginEdit"); 
+                return; 
 
             _isInEditMode = false;
             _bakupList = null;
@@ -33,7 +33,7 @@ namespace uNhAddIns.WPF.Collections
         public void CancelEdit()
         {
             if(!_isInEditMode)
-                throw new InvalidOperationException("CancelEdit without BeginEdit"); 
+                return; 
             _isInEditMode = false;
             ClearItems();
             _bakupList.ForEach(Add);

@@ -98,7 +98,7 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         public void BeginEdit()
         {
             if (_isInEditMode)
-                throw new InvalidOperationException("The collection is already in EditMode");
+                return;
 
             Initialize(false); 
             _backupBag = new List<T>();
@@ -113,7 +113,7 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         public void EndEdit()
         {
             if (!_isInEditMode)
-                throw new InvalidOperationException("EndEdit without BeginEdit");
+                return;
 
             _backupBag = null;
             _isInEditMode = false;
@@ -124,8 +124,9 @@ namespace uNhAddIns.WPF.Collections.PersistentImpl
         /// </summary>
         public void CancelEdit()
         {
-            if(!_isInEditMode)
-                throw new InvalidOperationException("CancelEdit without BeginEdit");
+            if (!_isInEditMode)
+                return;
+
             _isInEditMode = false;
             bag.Clear();
             _backupBag.ForEach(InternalBag.Add);

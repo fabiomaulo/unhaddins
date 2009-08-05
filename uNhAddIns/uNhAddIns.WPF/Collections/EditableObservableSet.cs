@@ -21,7 +21,7 @@ namespace uNhAddIns.WPF.Collections
         public void BeginEdit()
         {
             if (_isInEditMode)
-                throw new InvalidOperationException("The collection is already in edit mode");
+                return;
 
             _isInEditMode = true;
             
@@ -36,7 +36,7 @@ namespace uNhAddIns.WPF.Collections
         public void EndEdit()
         {
             if(!_isInEditMode)
-                throw new InvalidOperationException("EndEdit without BeginEdit");
+                return;
             _isInEditMode = false;
             _backupList = null;
         }
@@ -47,7 +47,7 @@ namespace uNhAddIns.WPF.Collections
         public void CancelEdit()
         {
             if(!_isInEditMode)
-                throw new InvalidOperationException("CancelEdit without BeginEdit");
+                return;
 
             _isInEditMode = false;
             Clear();

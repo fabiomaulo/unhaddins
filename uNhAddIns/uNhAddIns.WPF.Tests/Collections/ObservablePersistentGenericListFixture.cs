@@ -146,34 +146,7 @@ namespace uNhAddIns.WPF.Tests.Collections
         }
 
         #region "IEditableObject behavior"
-        [Test]
-        public void invalid_calls_for_ieditableobject_methods()
-        {
-            int id = CreateNewAlbum();
-
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var album = session.Get<Album>(id);
-
-                new Action(() => ((IEditableObject)album.Tracks).EndEdit())
-                    .Should().Throw<InvalidOperationException>()
-                    .And.ValueOf.Message.Should().Be.EqualTo("EndEdit without BeginEdit");
-
-                new Action(() => ((IEditableObject)album.Tracks).CancelEdit())
-                    .Should().Throw<InvalidOperationException>()
-                    .And.ValueOf.Message.Should().Be.EqualTo("CancelEdit without BeginEdit");
-
-                ((IEditableObject)album.Tracks).BeginEdit();
-
-                new Action(() => ((IEditableObject)album.Tracks).BeginEdit())
-                    .Should().Throw<InvalidOperationException>()
-                    .And.ValueOf.Message.Should().Be.EqualTo("The collection is already in EditMode");
-
-                tx.Commit();
-            }
-        }
-
+        
         [Test]
         public void add_item_and_cancel_should_revert_changes()
         {
