@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -49,11 +50,19 @@ namespace uNhAddIns.WPF.Collections
         }
 
 
-        public static void ForEach<T>(this ICollection<T> collection, Action<T> action)
+        public static void ForEach<T>(this IEnumerable<T> collection, Action<T> action)
         {
             foreach (var item in collection)
             {
-                action.Invoke(item);
+                action(item);
+            }            
+        }
+
+        public static void ForEach(this IEnumerable enumerable, Action<object> action)
+        {
+            foreach (var item in enumerable)
+            {
+                action(item);
             }            
         }
     }
