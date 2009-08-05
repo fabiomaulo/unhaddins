@@ -67,6 +67,24 @@ namespace uNhAddIns.WPF.Tests.Collections
             }
         }
         
-        //TODO: Find the way to inherit
+        [Test]
+        public void add_item_and_cancel_session_should_not_be_dirty()
+        {
+            using (ISession session = sessions.OpenSession())
+            {
+                var id = CreateNewPlayList();
+              
+                var playlist = session.Get<Playlist>(id);
+                
+                ((IEditableObject)playlist.Tracks).BeginEdit();
+                playlist.AddTrack(new Track
+                                      {
+                                          Name = "what a wonderful world"
+                                      });
+                ((IEditableObject)playlist.Tracks).CancelEdit();
+
+                session.IsDirty().Should().Be.False();
+            }   
+        }
     }
 }
