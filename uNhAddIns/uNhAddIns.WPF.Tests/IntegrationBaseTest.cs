@@ -24,19 +24,22 @@ namespace uNhAddIns.WPF.Tests
         public void TestFixtureSetUp()
         {
             container = new WindsorContainer();
-            ConfigureWindsorContainer();
+            log4net.Config.XmlConfigurator.Configure();
 
             Environment.UseReflectionOptimizer = true;
             Environment.BytecodeProvider = new EnhancedBytecode(container);
 
             cfg = new Configuration();
             cfg.Configure();
+            cfg.Properties[Environment.CurrentSessionContextClass] = "thread_static";
             cfg.RegisterEntityNameResolver();
             cfg.AddAssembly(typeof(IntegrationBaseTest).Assembly);
             //cfg.Configure();
             
             new SchemaExport(cfg).Create(false, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
+            ConfigureWindsorContainer();
+
         }
 
         protected virtual void ConfigureWindsorContainer()
