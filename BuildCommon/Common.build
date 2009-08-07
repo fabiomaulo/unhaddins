@@ -6,7 +6,7 @@
 		<MSBuildCommunityTasksPath>$(ToolsDir)\MSBuildCommunityTasks\</MSBuildCommunityTasksPath>
 		<NUnitDir>$(ToolsDir)\Nunit</NUnitDir>
 		<ReportFile>nunit-result.xml</ReportFile>
-		<SkipAllTests>False</SkipAllTests>
+		<SkipAllTests>True</SkipAllTests>
 	</PropertyGroup>
 
 	<Target Name="CommonBuild">
