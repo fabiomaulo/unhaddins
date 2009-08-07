@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+
+	<Target Name="CommonInit">
+		<PropertyGroup>
+			<AssemblyCompany>uNhAddIns</AssemblyCompany>
+			<AssemblyCopyright>Copyright (c) $(AssemblyCompany), 2008. All rights reserved.</AssemblyCopyright>
+			<AssemblyCodeLanguage>CS</AssemblyCodeLanguage>
+	    	<AssemblyVersion>2.0.0</AssemblyVersion>
+	    	<AssemblyOutputFile>Properties\AssemblyInfo.cs</AssemblyOutputFile>
+			<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+			<BinDir>$(MSBuildProjectDirectory)\..\..\Build</BinDir>
+			<SVNDir>$(MSBuildProjectDirectory)\..\..\Tools\Subversion</SVNDir>
+			<SkipTest>False</SkipTest>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="CommonCompile" DependsOnTargets="CommonGenerateAssemblyInfo">
+		<MSBuild Projects ="$(MSBuildProjectDirectory)\$(ProjectFile)"
+             ContinueOnError ="false"
+             Properties="Configuration=$(Configuration)">
+        	<Output ItemName="OutputFiles" TaskParameter="TargetOutputs"/>
+    	</MSBuild>
+	</Target>
+
+	<Target Name="CommonGenerateAssemblyInfo" DependsOnTargets="CommonSVNRevision">
+		<AssemblyInfo 
+			AssemblyCompany ="$(AssemblyCompany)"
+			AssemblyCopyright="$(AssemblyCopyright)"
+			AssemblyDescription="$(AssemblyDescription)"
+			AssemblyProduct="$(AssemblyProduct)"
+			AssemblyTitle ="$(AssemblyTitle)"
+			CodeLanguage="$(AssemblyCodeLanguage)"
+			CLSCompliant ="$(AssemblyClsCompliant)"
+			AssemblyInformationalVersion="$(AssemblyVersion).$(BUILD_VCS_NUMBER)"
+			AssemblyVersion ="$(AssemblyVersion).$(BUILD_VCS_NUMBER)"
+			OutputFile="$(AssemblyOutputFile)"
+		/>
+	</Target>
+	
+	<Target Name="CommonSVNRevision" Condition="'$(BUILD_VCS_NUMBER)' == ''">
+		<SvnVersion LocalPath="." ToolPath="$(SVNDir)">
+			<Output TaskParameter="Revision" PropertyName="BUILD_VCS_NUMBER" />
+		</SvnVersion>
+	</Target>
+	
+	<Target Name="CommonCopyToBin">
+    	<Copy SourceFiles="@(OutputFiles)" 
+    		DestinationFiles="@(OutputFiles->'$(BinDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
+  	</Target>
+
+	<Target Name="CommonCompileTest" Condition="!$(SkipTest)" DependsOnTargets="CommonCompile" Outputs="@(TestAssemblies)">
+	    <ItemGroup>
+		  <TestAssemblies Include="@(OutputFiles)"/>
+		</ItemGroup>
+	</Target>
+
+	<Target Name="CommonCompileToBin" DependsOnTargets="CommonCompile;CommonCopyToBin"/>
+
+	<Import Project="Common.build"/>
+</Project>
