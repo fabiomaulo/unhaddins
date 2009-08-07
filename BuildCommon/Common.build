@@ -20,7 +20,7 @@
 		</MsBuild>
 	</Target>
 	
-    <Target Name="CommonTest" Condition="!$(SkipAllTests) or '@(TestAssemblies)' != ''">
+    <Target Name="CommonTest" Condition="!$(SkipAllTests) and '@(TestAssemblies)' != ''">
         <NUnit 
         	Assemblies="@(TestAssemblies)" 
         	ToolPath="$(NUnitDir)"
