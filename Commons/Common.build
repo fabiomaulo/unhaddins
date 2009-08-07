@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+
+	<PropertyGroup>
+		<ToolsDir>$(RootDir)\Tools</ToolsDir>
+		<MSBuildCommunityTasksPath>$(ToolsDir)\MSBuildCommunityTasks\</MSBuildCommunityTasksPath>
+		<NUnitDir>$(ToolsDir)\Nunit</NUnitDir>
+		<ReportFile>nunit-result.xml</ReportFile>
+		<SkipAllTests>False</SkipAllTests>
+	</PropertyGroup>
+
+	<Target Name="CommonBuild">
+		<MsBuild 
+			Projects="@(BuildFiles)" 
+			Properties="BUILD_VCS_NUMBER=$(BUILD_VCS_NUMBER);RootDir=$(RootDir)">
+			<Output 
+				ItemName="TestAssemblies"
+				TaskParameter="TargetOutputs"
+			/>
+		</MsBuild>
+	</Target>
+	
+    <Target Name="CommonTest" Condition="!$(SkipAllTests) or '@(TestAssemblies)' != ''">
+        <NUnit 
+        	Assemblies="@(TestAssemblies)" 
+        	ToolPath="$(NUnitDir)"
+        	OutputXmlFile="$(ReportFile)"
+        />
+    </Target>
+    
+    <Target Name="Build" DependsOnTargets="CommonBuild;CommonTest"/>
+	
+	<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+
+</Project>
