@@ -43,6 +43,15 @@ namespace ChinookMediaManager.Data.Impl.Repositories
             return entity;
         }
 
+        public void Refresh(T entity)
+        {
+            var id = Session.GetIdentifier(entity);
+            Session.Evict(entity);
+            Session.Load(entity, id);
+
+            //Session.Refresh(entity);
+        }
+
         public void MakeTransient(T entity)
         {
             Session.Delete(entity);

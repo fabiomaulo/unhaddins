@@ -81,7 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\AlbumModelFixture.cs" />
-    <Compile Include="Model\GetAttributeExtesion.cs" />
+    <Compile Include="Helpers\StrongReflection.cs" />
+    <Compile Include="Helpers\GetAttributeExtesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

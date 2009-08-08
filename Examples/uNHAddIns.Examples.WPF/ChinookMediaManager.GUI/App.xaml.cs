@@ -23,7 +23,7 @@ namespace ChinookMediaManager.GUI
         protected override IServiceLocator CreateContainer()
         {
             guyWire.Wire();
-
+            log4net.Config.XmlConfigurator.Configure();
             var containerAccessor = (IContainerAccessor)guyWire;
             return new WindsorAdapter(containerAccessor.Container);
         }

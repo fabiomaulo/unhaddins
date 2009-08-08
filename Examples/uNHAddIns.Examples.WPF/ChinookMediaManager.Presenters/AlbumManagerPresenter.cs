@@ -5,7 +5,6 @@ using Caliburn.PresentationFramework.ApplicationModel;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
 using ChinookMediaManager.Presenters.Interfaces;
-using ChinookMediaManager.Presenters.ModelInterfaces;
 
 namespace ChinookMediaManager.Presenters
 {
@@ -41,15 +40,14 @@ namespace ChinookMediaManager.Presenters
             _windowManager.Show(this);
         }
 
-        public IEnumerable<IAlbum> Albums { get; private set; }
+        public IEnumerable<Album> Albums { get; private set; }
 
         
 
         #endregion
 
-        public void LaunchEdit(IEditableAlbum album)
+        public void LaunchEdit(Album album)
         {
-            album.BeginEdit();
             _editAlbumPresenter.Setup(this, album, _albumManagerModel);
             this.Open(_editAlbumPresenter);
         }
@@ -57,7 +55,7 @@ namespace ChinookMediaManager.Presenters
         [AsyncAction]
         public void SaveAll()
         {
-            _albumManagerModel.AcceptAll();
+            _albumManagerModel.SaveAll();
         }
     }
 }

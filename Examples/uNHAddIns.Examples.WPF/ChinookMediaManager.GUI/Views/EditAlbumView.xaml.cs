@@ -23,5 +23,6 @@ namespace ChinookMediaManager.GUI.Views
         {
             InitializeComponent();
         }
+
     }
 }

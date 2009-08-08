@@ -1,96 +1,96 @@
 using System.Collections.Generic;
-using System.Linq;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Impl;
+using ChinookMediaManager.Domain.Test.Helpers;
 using Moq;
 using NUnit.Framework;
 using uNhAddIns.Adapters;
-
 
 namespace ChinookMediaManager.Domain.Test.Model
 {
     [TestFixture]
     public class AlbumModelFixture
     {
-        private static IList<Album> CreateSampleAlbumsForArtist(Artist artist)
+        [Test]
+        public void can_cancel_album()
         {
-            return new List<Album>
-                       {
-                           new Album {Artist = artist, Title = "A"},
-                           new Album {Artist = artist, Title = "B"},
-                       };
+            var repository = new Mock<IAlbumRepository>();
+            var album = new Album();
+            repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album).AtMostOnce();
+
+            var albumManagerModel = new AlbumManagerModel(repository.Object);
+
+            albumManagerModel.CancelAlbum(album);
+
+            repository.Verify(rep => rep.Refresh(album));
         }
 
         [Test]
-        public void can_get_albums_from_artist()
+        public void can_get_all_albums_by_artist()
         {
-            var artist = new Artist {Name = "A"};
-            IList<Album> albums = CreateSampleAlbumsForArtist(artist);
-            var albumRepository = new Mock<IAlbumRepository>();
+            var artist = new Artist();
+            var albums = new List<Album> {new Album()};
+            var repository = new Mock<IAlbumRepository>();
 
-            albumRepository.Setup(ar => ar.GetByArtist(artist))
+            repository.Setup(rep => rep.GetByArtist(It.IsAny<Artist>()))
                 .Returns(albums).AtMostOnce();
 
-            var albumModel = new AlbumManagerModel(albumRepository.Object);
+            var albumManagerModel = new AlbumManagerModel(repository.Object);
 
-            IEnumerable<IAlbum> result = albumModel.GetAlbumsByArtist(artist);
+            albumManagerModel.GetAlbumsByArtist(artist);
 
-            result.Count().Should().Be.EqualTo(2);
-
-
-            albumRepository.VerifyAll();
+            repository.Verify(rep => rep.GetByArtist(artist));
         }
 
         [Test]
         public void can_save_album()
         {
-            var albumRepository = new Mock<IAlbumRepository>();
+            var repository = new Mock<IAlbumRepository>();
             var album = new Album();
+            repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album).AtMostOnce();
 
-            albumRepository.Setup(ar => ar.MakePersistent(album))
-                           .Returns(album).AtMostOnce();
+            var albumManagerModel = new AlbumManagerModel(repository.Object);
+
+            albumManagerModel.SaveAlbum(album);
+
+            repository.Verify(rep => rep.MakePersistent(album));
+        }
+
+        [Test]
+        public void model_represents_conversation()
+        {
+            var attribute = typeof(AlbumManagerModel)
+                .GetAttribute<PersistenceConversationalAttribute>();
+
+            attribute.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
+            attribute.MethodsIncludeMode.Should().Be.EqualTo(MethodsIncludeMode.Implicit);
+        }
+
+        [Test]
+        public void cancel_all_abort_the_conversation()
+        {
+            var attribute = Strong.Instance<AlbumManagerModel>
+                .Method(am => am.CancelAll())
+                .GetAttribute<PersistenceConversationAttribute>();
 
 
-            var albumModel = new AlbumManagerModel(albumRepository.Object);
+            attribute.Should().Not.Be.Null();
+
+            attribute.ConversationEndMode
+                .Should().Be.EqualTo(EndMode.Abort);
+        }
         
-            albumModel.Save(album);
-
-            albumRepository.VerifyAll();
-        }
-
         [Test]
-        public void model_has_conversation_attribute()
+        public void save_all_end_the_conversation()
         {
-            var conversationalAttribute = typeof (AlbumManagerModel)
-                    .GetAttribute<PersistenceConversationalAttribute>();
+            var attribute = Strong.Instance<AlbumManagerModel>
+                .Method(am => am.SaveAll())
+                .GetAttribute<PersistenceConversationAttribute>();
 
-            conversationalAttribute.Should().Not.Be.Null();
-            conversationalAttribute.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
-            conversationalAttribute.MethodsIncludeMode.Should().Be.EqualTo(MethodsIncludeMode.Implicit);
-        }
+            attribute.Should().Not.Be.Null();
 
-        [Test]
-        public void acept_all_has_end_conversation()
-        {
-            var conversationAttribute = typeof (AlbumManagerModel)
-                                    .GetMethod("AcceptAll")
-                                    .GetAttribute<PersistenceConversationAttribute>();
-                                    
-            conversationAttribute.Should().Not.Be.Null();
-            conversationAttribute.ConversationEndMode.Should().Be.EqualTo(EndMode.End);
-            conversationAttribute.Exclude.Should().Be.False();
-        }
-
-        [Test]
-        public void cancel_all_has_abort_conversation()
-        {
-            var conversationAttribute = typeof(AlbumManagerModel)
-                                    .GetMethod("CancelAll")
-                                    .GetAttribute<PersistenceConversationAttribute>();
-
-            conversationAttribute.Should().Not.Be.Null();
-            conversationAttribute.ConversationEndMode.Should().Be.EqualTo(EndMode.Abort);
-            conversationAttribute.Exclude.Should().Be.False();
+            attribute.ConversationEndMode
+                .Should().Be.EqualTo(EndMode.End);
         }
     }
 }
