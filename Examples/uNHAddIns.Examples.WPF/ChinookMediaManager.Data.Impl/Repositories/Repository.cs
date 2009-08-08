@@ -39,7 +39,6 @@ namespace ChinookMediaManager.Data.Impl.Repositories
         public T MakePersistent(T entity)
         {
             Session.Persist(entity);
-            //.SaveOrUpdate(entity);
             return entity;
         }
 
@@ -48,8 +47,6 @@ namespace ChinookMediaManager.Data.Impl.Repositories
             var id = Session.GetIdentifier(entity);
             Session.Evict(entity);
             Session.Load(entity, id);
-
-            //Session.Refresh(entity);
         }
 
         public void MakeTransient(T entity)
