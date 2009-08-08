@@ -3,6 +3,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Engine;
 using uNhAddIns.CastleAdapters;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
@@ -42,6 +43,9 @@ namespace ChinookMediaManager.GuyWire.Configurators
                 Component.For<ISessionFactory>().UsingFactoryMethod(
                     () => container.Resolve<ISessionFactoryProvider>().GetFactory(null)));
 
+            container.Register(
+                Component.For<ISessionFactoryImplementor>().UsingFactoryMethod(
+                    () => (ISessionFactoryImplementor)container.Resolve<ISessionFactoryProvider>().GetFactory(null)));
 
             container.Register(Component.For<ISessionWrapper>().ImplementedBy<SessionWrapper>());
             container.Register(Component.For<IConversationFactory>().ImplementedBy<DefaultConversationFactory>());

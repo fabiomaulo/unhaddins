@@ -16,7 +16,6 @@ namespace ChinookMediaManager.Data.Impl.Repositories
 
         public ICollection<Album> GetByArtist(Artist artist)
         {
-            //Todo could be implemented as an extesion method
             return this.Where(album => album.Artist != null && album.Artist.Id == artist.Id)
                        .ToList();
         }

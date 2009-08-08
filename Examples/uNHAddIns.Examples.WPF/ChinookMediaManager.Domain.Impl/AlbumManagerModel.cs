@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Model;
 using uNhAddIns.Adapters;
@@ -9,34 +9,56 @@ namespace ChinookMediaManager.Domain.Impl
     [PersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit)]
     public class AlbumManagerModel : IAlbumManagerModel
     {
-        private readonly IAlbumRepository _albumRepository;
+
+        private readonly IAlbumRepository albumRepository;
 
         public AlbumManagerModel(IAlbumRepository albumRepository)
         {
-            _albumRepository = albumRepository;
+            this.albumRepository = albumRepository;
         }
 
-        #region IAlbumManagerModel Members
-
-        public IEnumerable<IAlbum> GetAlbumsByArtist(Artist artist)
+        /// <summary>
+        /// Search all the albums from a given artist.
+        /// </summary>
+        /// <param name="artist"></param>
+        /// <returns></returns>
+        public IEnumerable<Album> GetAlbumsByArtist(Artist artist)
         {
-            //The repository only can work with concrete types.
-            return _albumRepository.GetByArtist(artist).OfType<IAlbum>();
+            return albumRepository.GetByArtist(artist);
         }
 
-        public void Save(IAlbum album)
+        /// <summary>
+        /// Persist an album.
+        /// </summary>
+        /// <param name="album"></param>
+        public void SaveAlbum(Album album)
         {
-            //The repository only can work with concrete types.
-            _albumRepository.MakePersistent((Album)album);
+            albumRepository.MakePersistent(album);
         }
 
+        /// <summary>
+        /// Revert changes from a given album to his original state.
+        /// </summary>
+        /// <param name="album"></param>
+        public void CancelAlbum(Album album)
+        {
+            albumRepository.Refresh(album);
+        }
+
+        /// <summary>
+        /// Flush all changes to the database.
+        /// </summary>
         [PersistenceConversation(ConversationEndMode = EndMode.End)]
-        public void AcceptAll()
+        public void SaveAll()
         {}
+
+        /// <summary>
+        /// Cancel all changes.
+        /// </summary>
         [PersistenceConversation(ConversationEndMode = EndMode.Abort)]
         public void CancelAll()
-        {}
-
-        #endregion
+        {
+            throw new NotImplementedException();
+        }
     }
 }

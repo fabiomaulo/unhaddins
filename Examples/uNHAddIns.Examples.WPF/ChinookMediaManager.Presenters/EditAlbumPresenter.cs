@@ -1,9 +1,9 @@
 using System;
 using Caliburn.PresentationFramework.Actions;
 using Caliburn.PresentationFramework.ApplicationModel;
+using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
 using ChinookMediaManager.Presenters.Interfaces;
-using ChinookMediaManager.Presenters.ModelInterfaces;
 
 namespace ChinookMediaManager.Presenters
 {
@@ -14,8 +14,8 @@ namespace ChinookMediaManager.Presenters
 
         #region IEditAlbumPresenter Members
 
-        private IEditableAlbum _album;
-        public IEditableAlbum Album
+        private Album _album;
+        public Album Album
         {
             get { return _album; }
             private set
@@ -25,25 +25,38 @@ namespace ChinookMediaManager.Presenters
             }
         }
 
-        public void Setup(IPresenterManager owner, IEditableAlbum album, IAlbumManagerModel albumManagerModel)
+        public void Setup(IPresenterManager owner, Album album, IAlbumManagerModel albumManagerModel)
         {
             Album = album;
             _owner = owner;
             _albumModel = albumManagerModel;
         }
 
+        [AsyncAction]
         public void Cancel()
         {
-            Album.CancelEdit();
+            _albumModel.CancelAlbum(Album);
+            _owner.Shutdown(this);
+        }
+        
+        [AsyncAction]
+        public void Save()
+        {
+            _albumModel.SaveAlbum(Album);
             _owner.Shutdown(this);
         }
 
-        [AsyncAction]
-        public void Acept()
+        public void AddNewEmptyTrack()
         {
-            Album.EndEdit();
-            _albumModel.Save(Album);
-            _owner.Shutdown(this);
+            Album.AddTrack(new Track
+                               {
+                                   Name = "New track"
+                               });
+        }
+
+        public void RemoveSelectedTrack(Track track)
+        {
+            Album.RemoveTrack(track);
         }
 
         #endregion

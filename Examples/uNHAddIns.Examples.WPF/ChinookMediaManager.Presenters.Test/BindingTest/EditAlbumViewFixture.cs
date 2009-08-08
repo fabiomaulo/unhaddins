@@ -14,7 +14,6 @@ namespace ChinookMediaManager.Presenters.Test.BindingTest
             var validator = Validator.For<EditAlbumView, IEditAlbumPresenter>();
             var result = validator.Validate();
             result.WasBoundTo(p => p.Album.Title).Should().Be.True();
-            result.WasBoundTo(p => p.Album.Artist.Name).Should().Be.True();
         }
     }
 }

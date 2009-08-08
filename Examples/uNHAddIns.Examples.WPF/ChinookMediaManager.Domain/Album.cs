@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Domain
 {
-    public class Album : Entity, IAlbum
+    public class Album : Entity
     {
-        public virtual Artist Artist { get;  set; }
+        public Album()
+        {
+            Tracks = new List<Track>();
+        }
+
+        #region IAlbum Members
+
+        public virtual Artist Artist { get; set; }
         public virtual string Title { get; set; }
 
         public virtual IList<Track> Tracks { get; private set; }
@@ -17,9 +23,12 @@ namespace ChinookMediaManager.Domain
             Tracks.Add(track);
         }
 
-        public Album()
+        public virtual void RemoveTrack(Track track)
         {
-            Tracks = new List<Track>();
+            track.Album = null;
+            Tracks.Remove(track);
         }
+
+        #endregion
     }
 }

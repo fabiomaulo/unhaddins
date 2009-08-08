@@ -1,7 +1,6 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ChinookMediaManager.Domain;
-using ChinookMediaManager.Presenters.ModelInterfaces;
 using uNhAddIns.WPF.Castle;
 
 namespace ChinookMediaManager.GuyWire.Configurators
@@ -13,10 +12,9 @@ namespace ChinookMediaManager.GuyWire.Configurators
             container.AddFacility<WpfFacility>();
 
             container.Register(Component.For<Album>()
-                                   .AddEditableBehavior()
-                                   .AddNotificableBehavior()
-                                   .NhibernateEntity()
-                                   .Proxy.AdditionalInterfaces(typeof(IEditableAlbum)).LifeStyle.Transient);
+                                    .NhibernateEntity()
+                                    .AddNotificableBehavior().LifeStyle.Transient);
+            //                       .Proxy.AdditionalInterfaces(typeof(IEditableAlbum)).LifeStyle.Transient);
         }
     }
 }
