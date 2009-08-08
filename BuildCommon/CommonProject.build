@@ -16,6 +16,7 @@
 	</Target>
 
 	<Target Name="CommonCompile" DependsOnTargets="CommonGenerateAssemblyInfo">
+		<Message Text="Compiling $(AssemblyProduct)"/>
 		<MSBuild Projects ="$(MSBuildProjectDirectory)\$(ProjectFile)"
              ContinueOnError ="false"
              Properties="Configuration=$(Configuration)">
