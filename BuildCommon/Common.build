@@ -6,8 +6,14 @@
 		<MSBuildCommunityTasksPath>$(ToolsDir)\MSBuildCommunityTasks\</MSBuildCommunityTasksPath>
 		<NUnitDir>$(ToolsDir)\Nunit</NUnitDir>
 		<ReportFile>nunit-result.xml</ReportFile>
-		<SkipAllTests>True</SkipAllTests>
+		<ArtifactsDir>$(RootDir)\Artifacts\</ArtifactsDir>
+		<FlattenZipFile>True</FlattenZipFile>
+		<SkipAllTests>False</SkipAllTests>
 	</PropertyGroup>
+	
+	<ItemGroup>
+		<ExistingZipFiles Include="$(ArtifactsDir)\*.zip"/>
+	</ItemGroup>
 
 	<Target Name="CommonBuild">
 		<MsBuild 
@@ -28,8 +34,27 @@
         />
     </Target>
     
-    <Target Name="Build" DependsOnTargets="CommonBuild;CommonTest"/>
+	<Target Name="CommonZip">
+		<Delete Files="@(ExistingZipFiles)"/>
+		<Time Format="yyyy-MMM-dd-HH-mm">
+			<Output TaskParameter="FormattedTime"
+					PropertyName="buildDate" />
+		</Time>
+		<CreateProperty value="$(ArtifactsDir)\$(AssemblyProjectName)-$(FullVersion)-$(Configuration)-$(buildDate).zip">
+			<Output TaskParameter="Value"
+					PropertyName="ZipFileName" />
+		</CreateProperty>
+		<Zip Files="@(ZipFiles)" Flatten="$(FlattenZipFile)" ZipLevel="9"
+		    WorkingDirectory="$(MSBuildProjectDirectory)"
+			 ZipFileName="$(ZipFileName)" />
+	</Target>
 	
+	<Target Name="CommonBeforeZip">
+		<CreateItem Include="$(BinDir)\*.*;">
+			<Output TaskParameter="Include" ItemName="ZipFiles"/>
+		</CreateItem>
+	</Target>
+    
 	<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
 
 </Project>
