@@ -8,7 +8,7 @@
 			<AssemblyProduct>uNhAddIns.WPF.Tests</AssemblyProduct>
 			<AssemblyDescription></AssemblyDescription>
 			<AssemblyClsCompliant>True</AssemblyClsCompliant>
-			<SkipTest>False</SkipTest>
+			<SkipTest>True</SkipTest>
 		</PropertyGroup>
 	</Target>
 	

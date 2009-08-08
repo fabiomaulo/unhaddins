@@ -5,23 +5,37 @@
 		<RootDir>$(MSBuildProjectDirectory)</RootDir>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns\uNhAddIns2.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters\Adapters.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.Common\Adapters.Common.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.CommonTests\Adapters.CommonTests.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters\CastleAdapters.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters.Tests\CastleAdapters.Tests.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.LinFuAdapters\LinFuAdapters.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.SpringAdapters\SpringAdapters.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Test\Test.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.TestUtils\TestUtils.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.TestUtils.Tests\TestUtils.Tests.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Web\Web.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF\WPF.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF.Castle\WPF.Castle.build"/>
-		<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF.Tests\WPF.Tests.build"/>
-	</ItemGroup>
+	<Target Name = "Build" DependsOnTargets="uNhAddIns;CommonBuild;CommonTest"/>
+	
+	<Target Name="uNhAddIns">
+		<ItemGroup>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns\uNhAddIns2.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.CommonTests\Adapters.CommonTests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters\Adapters.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.Common\Adapters.Common.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters\CastleAdapters.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters.Tests\CastleAdapters.Tests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.LinFuAdapters\LinFuAdapters.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.SpringAdapters\SpringAdapters.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Test\Test.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.TestUtils\TestUtils.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.TestUtils.Tests\TestUtils.Tests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Web\Web.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF\WPF.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF.Castle\WPF.Castle.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF.Tests\WPF.Tests.build"/>			
+		</ItemGroup>
+		
+		<ItemGroup>
+			<LibFiles Include="$(RootDir)\Libs"/>
+		</ItemGroup>
+	</Target>
+	
+	<Target Name="ApplicationBlocks">
+		<ItemGroup>
+		</ItemGroup>
+	</Target>
+	
 	
 	<Import Project="BuildCommon\Common.build"/>
 
