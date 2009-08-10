@@ -5,12 +5,26 @@ using ChinookMediaManager.Domain.Test.Helpers;
 using Moq;
 using NUnit.Framework;
 using uNhAddIns.Adapters;
+using uNhAddIns.Adapters.Common;
 
 namespace ChinookMediaManager.Domain.Test.Model
 {
     [TestFixture]
     public class AlbumModelFixture
     {
+
+        private ReflectionConversationalMetaInfoStore conversationalMetaInfoStore 
+            = new ReflectionConversationalMetaInfoStore();
+
+        private IConversationalMetaInfoHolder metaInfo;
+
+        [TestFixtureSetUp]
+        public void FixtureSetUp()
+        {
+            conversationalMetaInfoStore.Add(typeof (AlbumManagerModel));
+            metaInfo = conversationalMetaInfoStore.GetMetadataFor(typeof(AlbumManagerModel));
+        }
+
         [Test]
         public void can_cancel_album()
         {
@@ -59,38 +73,33 @@ namespace ChinookMediaManager.Domain.Test.Model
         [Test]
         public void model_represents_conversation()
         {
-            var attribute = typeof(AlbumManagerModel)
-                .GetAttribute<PersistenceConversationalAttribute>();
-
-            attribute.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
-            attribute.MethodsIncludeMode.Should().Be.EqualTo(MethodsIncludeMode.Implicit);
+            metaInfo.Should().Not.Be.Null();
+            metaInfo.Setting.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
+            metaInfo.Setting.MethodsIncludeMode.Should().Be.EqualTo(MethodsIncludeMode.Implicit);
         }
 
         [Test]
         public void cancel_all_abort_the_conversation()
         {
-            var attribute = Strong.Instance<AlbumManagerModel>
-                .Method(am => am.CancelAll())
-                .GetAttribute<PersistenceConversationAttribute>();
+            var method = Strong.Instance<AlbumManagerModel>
+                .Method(am => am.CancelAll());
 
+            var conversationInfo = metaInfo.GetConversationInfoFor(method);
 
-            attribute.Should().Not.Be.Null();
-
-            attribute.ConversationEndMode
-                .Should().Be.EqualTo(EndMode.Abort);
+            conversationInfo.ConversationEndMode
+                            .Should().Be.EqualTo(EndMode.Abort);
         }
         
         [Test]
         public void save_all_end_the_conversation()
         {
-            var attribute = Strong.Instance<AlbumManagerModel>
-                .Method(am => am.SaveAll())
-                .GetAttribute<PersistenceConversationAttribute>();
+            var method = Strong.Instance<AlbumManagerModel>
+                .Method(am => am.SaveAll());
 
-            attribute.Should().Not.Be.Null();
-
-            attribute.ConversationEndMode
-                .Should().Be.EqualTo(EndMode.End);
+            var conversationInfo = metaInfo.GetConversationInfoFor(method);
+    
+            conversationInfo.ConversationEndMode
+                            .Should().Be.EqualTo(EndMode.End);
         }
     }
 }
