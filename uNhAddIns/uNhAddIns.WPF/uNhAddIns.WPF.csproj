@@ -61,6 +61,7 @@
     <Compile Include="Collections\Types\ObservableBagType.cs" />
     <Compile Include="EditableBehaviorBase.cs" />
     <Compile Include="EntityNameResolver\ConfigurationExtension.cs" />
+    <Compile Include="EntityNameResolver\EntityNameInterceptor.cs" />
     <Compile Include="EntityNameResolver\EntityNameResolver.cs" />
     <Compile Include="EntityNameResolver\INamedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

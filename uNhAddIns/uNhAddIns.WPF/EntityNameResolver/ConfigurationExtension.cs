@@ -21,6 +21,7 @@ namespace uNhAddIns.WPF.EntityNameResolver
             listeners.PersistEventListeners =
                 new[] {entityNameResolver}.Concat(listeners.PersistEventListeners).ToArray();
 
+            configuration.Interceptor = new EntityNameInterceptor();
             return configuration;
         }
     }
