@@ -10,6 +10,7 @@ namespace uNhAddIns.WPF.Castle
             Kernel.Register(Component.For<EditableBehaviorInterceptor>().LifeStyle.Transient);
             Kernel.Register(Component.For<GetEntityNameInterceptor>().LifeStyle.Transient);
             Kernel.Register(Component.For<PropertyChangeNotifier>().LifeStyle.Transient);
+            Kernel.Register(Component.For<NhEditableBehaviorInterceptor>().LifeStyle.Transient);
         }
     }
 }
