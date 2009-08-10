@@ -21,6 +21,14 @@ namespace uNhAddIns.WPF.Castle
                 .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Last;
         }
 
+        public static ComponentRegistration<T> AddNhEditableBehavior<T>(
+            this ComponentRegistration<T> componentRegistration)
+        {
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(IEditableObject))
+                .Interceptors(new InterceptorReference(typeof(NhEditableBehaviorInterceptor))).Last;
+
+        }
+
         public static ComponentRegistration<T> AddNotificableBehavior<T>(
             this ComponentRegistration<T> componentRegistration)
         {
