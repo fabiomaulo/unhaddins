@@ -93,7 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumManagerPresenterFixture.cs" />
-    <Compile Include="BindingTest\ModelsCallsFixture.cs" />
+    <Compile Include="ModelsCallsFixture.cs" />
     <Compile Include="BindingTest\EditAlbumViewFixture.cs" />
     <Compile Include="BindingTest\GlobalDataBinding.cs" />
     <Compile Include="BindingTest\SelectArtistUIFixture.cs" />

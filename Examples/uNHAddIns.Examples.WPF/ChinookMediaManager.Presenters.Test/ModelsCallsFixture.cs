@@ -5,13 +5,13 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using NUnit.Framework;
 
-namespace ChinookMediaManager.Presenters.Test.BindingTest
+namespace ChinookMediaManager.Presenters.Test
 {
     [TestFixture]
     public class ModelsCallsFixture
     {
-        IEnumerable<string> models;
-        AssemblyDefinition presenters;
+        private IEnumerable<string> models;
+        private AssemblyDefinition presenters;
 
         [TestFixtureSetUp]
         public void FixtureSetup()
@@ -34,12 +34,11 @@ namespace ChinookMediaManager.Presenters.Test.BindingTest
             return query.Contains(typeof (AsyncActionAttribute).FullName);
         }
 
-        
-        private void should_not_contains_a_modell_call(IMemberReference type, 
-                                                 MethodDefinition method,
-                                                 IEnumerable<string> models)
+
+        private void should_not_contains_a_model_call(IMemberReference type,
+                                                      MethodDefinition method)
         {
-            if(method.Body == null) return;
+            if (method.Body == null) return;
 
             foreach (Instruction instruction in method.Body.Instructions)
             {
@@ -54,12 +53,10 @@ namespace ChinookMediaManager.Presenters.Test.BindingTest
                 if (methodCall != null)
                 {
                     var methodDef = methodCall.GetOriginalMethod() as MethodDefinition;
-                    if(methodDef != null)
+                    if (methodDef != null)
                     {
                         //recursive-call
-                        should_not_contains_a_modell_call(
-                            methodCall.DeclaringType,
-                            methodDef, models);
+                        should_not_contains_a_model_call(methodCall.DeclaringType, methodDef);
                     }
                 }
             }
@@ -78,20 +75,20 @@ namespace ChinookMediaManager.Presenters.Test.BindingTest
         /// should be made inside [AsyncActions] methods."
         /// </summary>
         [Test]
-        public void models_calls_ocurrs_on_async_thread()
+        public void models_calls_occurs_on_async_thread()
         {
-            var concreteTypes = presenters.MainModule
-                                .Types.OfType<TypeDefinition>()
-                                .Where(t => !t.IsInterface && !t.IsAbstract);
+            IEnumerable<TypeDefinition> concreteTypes = presenters.MainModule
+                .Types.OfType<TypeDefinition>()
+                .Where(t => !t.IsInterface && !t.IsAbstract);
             foreach (TypeDefinition type in concreteTypes)
             {
                 //public and not async methods.
-                var publicMethods = type.Methods.OfType<MethodDefinition>()
-                                        .Where(m => m.IsPublic && !MethodIsAsync(m));
+                IEnumerable<MethodDefinition> publicMethods = type.Methods.OfType<MethodDefinition>()
+                    .Where(m => m.IsPublic && !MethodIsAsync(m));
 
                 foreach (MethodDefinition method in publicMethods)
                 {
-                    should_not_contains_a_modell_call(type, method, models);
+                    should_not_contains_a_model_call(type, method);
                 }
             }
         }
