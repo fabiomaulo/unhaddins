@@ -1,48 +1,36 @@
-﻿using Caliburn.Castle;
-using Caliburn.PresentationFramework;
-using Caliburn.PresentationFramework.ApplicationModel;
+﻿using System.Windows;
 using Castle.Windsor;
-using ChinookMediaManager.Infrastructure;
-using ChinookMediaManager.Presenters.Interfaces;
-using Microsoft.Practices.ServiceLocation;
+using ChinookMediaManager.GUI.ViewModels;
+using ChinookMediaManager.GUI.Views;
 using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.GUI
 {
-    
     /// <summary>
     /// Lógica de interacción para App.xaml
     /// </summary>
-    public partial class App : CaliburnApplication
+    public partial class App : Application
     {
-        //private ApplicationConfiguration appConfig
-        //    = new ApplicationConfiguration();
-
         private readonly IGuyWire guyWire = ApplicationConfiguration.GetGuyWire();
+        private IWindsorContainer container;
 
-        protected override IServiceLocator CreateContainer()
+        public App()
         {
             guyWire.Wire();
             log4net.Config.XmlConfigurator.Configure();
             var containerAccessor = (IContainerAccessor)guyWire;
-            return new WindsorAdapter(containerAccessor.Container);
+            container = containerAccessor.Container;
         }
-
-        protected override void ConfigurePresentationFramework(PresentationFrameworkModule module)
+        
+        protected override void OnStartup(StartupEventArgs e)
         {
-            base.ConfigurePresentationFramework(module);
-            module.UsingViewStrategy<ViewStrategy>();
-        }
+            var browseArtistPresenter = container.Resolve<IBrowseArtistViewModel>();
 
-        protected override object CreateRootModel()
-        {
-            return Container.GetInstance<IBrowseArtistPresenter>();
-        }
-
-        protected override void OnExit(System.Windows.ExitEventArgs e)
-        {
-            base.OnExit(e);
-            guyWire.Dewire();
+            BrowseArtistView bav = new BrowseArtistView
+                                       {
+                                           DataContext = browseArtistPresenter
+                                       };
+            bav.Show();
         }
     }
 }

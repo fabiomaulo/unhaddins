@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos atributos para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("ChinookMediaManager.Presenters.Test")]
+[assembly: AssemblyTitle("ChinookMediaManager.ViewModels.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ChinookMediaManager.Presenters.Test")]
-[assembly: AssemblyCopyright("Copyright © 2009")]
+[assembly: AssemblyCompany("AVR Seguridad")]
+[assembly: AssemblyProduct("ChinookMediaManager.ViewModels.Test")]
+[assembly: AssemblyCopyright("Copyright © AVR Seguridad 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como identificador de typelib si este proyecto se expone a COM
-[assembly: Guid("10c93d6c-147c-4e0c-b72c-219f5d6c0e2f")]
+[assembly: Guid("4591a97e-0ec4-42f4-b203-2df24efbad1e")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //

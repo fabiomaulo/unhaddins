@@ -1,17 +1,16 @@
 ﻿<Window x:Class="ChinookMediaManager.GUI.Views.BrowseArtistView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cal="clr-namespace:Caliburn.PresentationFramework;assembly=Caliburn.PresentationFramework"
-    Title="Pick an artist" Height="300" Width="300"
-    cal:Message.Attach="[Event Loaded] = [Action LoadList]">
+    Title="Pick an artist" Height="300" Width="300">
+
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
-                <Button cal:Message.Attach="EditAlbums(ArtistsList.SelectedItem:OneWay)">
-                    Edit Albums</Button>
-                <Button>Close</Button>
+                <Button Command="{Binding LoadListCommand}">Load Artists</Button>
+                <Button Command="{Binding EditAlbumsCommand}">Edit Albums</Button>
             </StackPanel>
-            <ListBox Name="ArtistsList" ItemsSource="{Binding Artists}" DisplayMemberPath="Name" DockPanel.Dock="Top" >
+            <ListBox Name="ArtistsList" ItemsSource="{Binding Artists}" 
+                     DisplayMemberPath="Name" DockPanel.Dock="Top" SelectedItem="{Binding SelectedArtist}" >
             </ListBox>
         </DockPanel>
     </Grid>

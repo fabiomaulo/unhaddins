@@ -96,7 +96,7 @@
   <ItemGroup>
     <Compile Include="Configurators\EntitiesConfigurator.cs" />
     <Compile Include="Configurators\ModelsConfigurator.cs" />
-    <Compile Include="Configurators\PresentersConfigurator.cs" />
+    <Compile Include="Configurators\ViewModelConfigurator.cs" />
     <Compile Include="Configurators\RepositoriesConfigurator.cs" />
     <Compile Include="Configurators\ViewsConfigurator.cs" />
     <Compile Include="GeneralGuyWire.cs" />
@@ -113,13 +113,17 @@
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.GUI\ChinookMediaManager.GUI.csproj">
+      <Project>{C3DB558C-F203-4132-9635-B4DEC818A011}</Project>
+      <Name>ChinookMediaManager.GUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
       <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
       <Name>ChinookMediaManager.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.Presenters\ChinookMediaManager.Presenters.csproj">
-      <Project>{9BC63B81-8674-42CE-BE06-237B9D308725}</Project>
-      <Name>ChinookMediaManager.Presenters</Name>
+    <ProjectReference Include="..\ChinookMediaManager.ViewModels\ChinookMediaManager.ViewModels.csproj">
+      <Project>{A8A3E81F-E77B-4948-A660-57336FF7D73B}</Project>
+      <Name>ChinookMediaManager.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
