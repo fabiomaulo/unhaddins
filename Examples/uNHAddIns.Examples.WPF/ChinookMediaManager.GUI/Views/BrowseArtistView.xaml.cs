@@ -22,5 +22,10 @@ namespace ChinookMediaManager.GUI.Views
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

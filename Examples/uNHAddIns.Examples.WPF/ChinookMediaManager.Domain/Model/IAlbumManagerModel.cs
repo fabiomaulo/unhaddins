@@ -21,7 +21,7 @@ namespace ChinookMediaManager.Domain.Model
         void SaveAlbum(Album album);
 
         /// <summary>
-        /// Revert changes from a given album to his original state.
+        /// Revert changes of a given album to his current persisted state.
         /// </summary>
         /// <param name="album"></param>
         void CancelAlbum(Album album);

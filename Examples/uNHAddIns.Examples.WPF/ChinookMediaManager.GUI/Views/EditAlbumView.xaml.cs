@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace ChinookMediaManager.GUI.Views
 {
     /// <summary>
-    /// Lógica de interacción para EditAlbumView.xaml
+    /// Lógica de interacción para EditAlbumViewModel.xaml
     /// </summary>
     public partial class EditAlbumView : UserControl
     {

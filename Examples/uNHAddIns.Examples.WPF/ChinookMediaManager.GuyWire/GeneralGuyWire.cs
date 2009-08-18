@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using ChinookMediaManager.GuyWire.Configurators;
 using uNhAddIns.Adapters;
 
@@ -12,7 +13,7 @@ namespace ChinookMediaManager.GuyWire
                                                                  new RepositoriesConfigurator(),
                                                                  new EntitiesConfigurator(),
                                                                  new ModelsConfigurator(),
-                                                                 new PresentersConfigurator(),
+                                                                 new ViewModelConfigurator(),
                                                                  new ViewsConfigurator()
                                                              };
 
@@ -40,6 +41,8 @@ namespace ChinookMediaManager.GuyWire
             if (container != null)
                 Dewire();
             container = new WindsorContainer();
+            
+            container.Register(Component.For<IWindsorContainer>().Instance(container));
 
             foreach (IConfigurator configurator in configurators)
             {

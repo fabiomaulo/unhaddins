@@ -13,8 +13,9 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
             container.Register(Component.For<Album>()
                                     .NhibernateEntity()
-                                    .AddNotificableBehavior().LifeStyle.Transient);
-            //                       .Proxy.AdditionalInterfaces(typeof(IEditableAlbum)).LifeStyle.Transient);
+                                    .AddNotificableBehavior()
+                                    .LifeStyle.Transient);
+            
         }
     }
 }

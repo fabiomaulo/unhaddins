@@ -71,6 +71,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Adapters.dll</HintPath>
     </Reference>
+    <Reference Include="uNhAddIns.Adapters.Castle, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\uNhAddIns.Adapters.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="uNhAddIns.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>

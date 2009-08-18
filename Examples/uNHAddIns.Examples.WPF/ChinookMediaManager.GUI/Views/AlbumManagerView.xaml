@@ -1,31 +1,53 @@
 ﻿<Window x:Class="ChinookMediaManager.GUI.Views.AlbumManagerView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cal="clr-namespace:Caliburn.PresentationFramework;assembly=Caliburn.PresentationFramework"
-    xmlns:ApplicationModel="clr-namespace:Caliburn.PresentationFramework.ApplicationModel;assembly=Caliburn.PresentationFramework"
-    Height="298" Width="613" 
-    cal:Message.Attach="[Event Loaded] = [Action LoadData]" ResizeMode="CanMinimize">
-    <Grid>
-    	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="*"/>
-    	</Grid.ColumnDefinitions>
-    	<DockPanel LastChildFill="False">
-			<DockPanel DockPanel.Dock="Left" Width="239" Height="256">
-				<StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
-	                <Button cal:Message.Attach="LaunchEdit(AlbumsList.SelectedItem:TwoWay)">Edit</Button>
-	                <Button>Close</Button>
-	            </StackPanel>
-	            <ListBox Name="AlbumsList" 
+    Width="650" Height="420"
+    ResizeMode="CanMinimize">
+    
+    <Window.Resources>
+        <ResourceDictionary Source="AlbumManagerView_Res.xaml" />
+    </Window.Resources>
+
+    <DockPanel>
+
+        <Grid Margin="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" 
+                Style="{StaticResource MainBorderStyle}"
+                Width="170" >
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
+                        <Button Command="{Binding EditSelectedAlbumCommand}" >Edit</Button>
+                        <Button>Close</Button>
+                    </StackPanel>
+                    <ListBox Name="AlbumsList" 
 						 ItemsSource="{Binding Albums}" 
                          DisplayMemberPath="Title"
-						 DockPanel.Dock="Top" Height="211">
+                         SelectedItem="{Binding SelectedAlbum}"
+						 DockPanel.Dock="Top" Height="302">
+                    </ListBox>
+                    <Button Command="{Binding SaveAllCommand}" >Save All</Button>
+                    <Button Command="{Binding CancelAllCommand}" >Cancel All</Button>
+                </StackPanel>
 
-	            </ListBox>
-                <Button cal:Message.Attach="SaveAll()" DockPanel.Dock="Bottom">Save All</Button>
-            </DockPanel>
-    		<ContentControl DockPanel.Dock="Left" ApplicationModel:View.Model="{Binding Path=CurrentPresenter}" Margin="0,0,3.056,0"/>
-    	</DockPanel>
-        
+            </Border>
 
-    </Grid>
+
+
+
+            <Border Grid.Column="2" 
+                    Style="{StaticResource MainBorderStyle}">
+                <HeaderedContentControl 
+                  Content="{Binding Path=AlbumEditWorkspaces}"
+                  ContentTemplate="{StaticResource WorkspacesTemplate}"
+                  Header="Workspaces"
+                  Style="{StaticResource MainHCCStyle}"
+                  />
+            </Border>
+        </Grid>
+    </DockPanel>
 </Window>

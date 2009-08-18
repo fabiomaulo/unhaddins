@@ -30,7 +30,8 @@ namespace ChinookMediaManager.Domain.Test.Model
         {
             var repository = new Mock<IAlbumRepository>();
             var album = new Album();
-            repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album).AtMostOnce();
+            repository.Setup(rep => rep.Refresh(It.IsAny<Album>()))
+                      .AtMostOnce();
 
             var albumManagerModel = new AlbumManagerModel(repository.Object);
 
@@ -97,7 +98,7 @@ namespace ChinookMediaManager.Domain.Test.Model
                 .Method(am => am.SaveAll());
 
             var conversationInfo = metaInfo.GetConversationInfoFor(method);
-    
+
             conversationInfo.ConversationEndMode
                             .Should().Be.EqualTo(EndMode.End);
         }
