@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Windows;
 using Castle.Windsor;
-using ChinookMediaManager.Domain;
-using ChinookMediaManager.GUI.ViewModels;
 using ChinookMediaManager.Infrastructure;
 
 namespace ChinookMediaManager.GUI.Artifacts
@@ -32,21 +30,18 @@ namespace ChinookMediaManager.GUI.Artifacts
             return _container.Resolve<TViewModel>();
         }
 
+        #endregion
+
         private Window GetView<TViewModel>(TViewModel viewModel)
         {
-            var viewName = typeof (TViewModel).Name.Substring(1).Replace("ViewModel", "View");
+            string viewName = typeof (TViewModel).Name.Substring(1).Replace("ViewModel", "View");
             string viewFullName = string.Format("ChinookMediaManager.GUI.Views.{0}, ChinookMediaManager.GUI", viewName);
 
-            var viewType = Type.GetType(viewFullName, true);
+            Type viewType = Type.GetType(viewFullName, true);
 
             var view = (Window) _container.Resolve(viewType);
             view.DataContext = viewModel;
             return view;
         }
-
-       
-
-
-        #endregion
     }
 }
