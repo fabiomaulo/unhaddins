@@ -11,7 +11,16 @@
   xmlns:vw="clr-namespace:ChinookMediaManager.GUI.Views"
   xmlns:ViewModels="clr-namespace:ChinookMediaManager.GUI.ViewModels"
   >
-
+    <Style TargetType="{x:Type TextBox}">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self}, 
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
     <LinearGradientBrush x:Key="Brush_HeaderBackground" StartPoint="0.5,0" EndPoint="0.5,1">
         <GradientStop Color="#66000084" Offset="0" />
         <GradientStop Color="#BB000084" Offset="1" />
@@ -135,10 +144,10 @@
   -->
     <DataTemplate x:Key="WorkspacesTemplate">
         <TabControl 
-      IsSynchronizedWithCurrentItem="True" 
-      ItemsSource="{Binding}" 
-      ItemTemplate="{StaticResource ClosableTabItemTemplate}"
-      ContentTemplateSelector="{StaticResource templateSelector}"
+        IsSynchronizedWithCurrentItem="True" 
+        ItemsSource="{Binding}" 
+        ItemTemplate="{StaticResource ClosableTabItemTemplate}"
+        ContentTemplateSelector="{StaticResource templateSelector}"
       Margin="4"
       />
     </DataTemplate>

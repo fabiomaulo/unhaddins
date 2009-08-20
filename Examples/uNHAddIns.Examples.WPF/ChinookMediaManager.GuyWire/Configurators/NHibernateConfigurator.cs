@@ -1,9 +1,10 @@
+using System.Linq;
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Engine;
+using NHibernate.Validator.Cfg;
 using uNhAddIns.CastleAdapters;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
@@ -11,6 +12,7 @@ using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 using uNhAddIns.WPF.Collections;
 using uNhAddIns.WPF.EntityNameResolver;
+using Environment=NHibernate.Cfg.Environment;
 
 namespace ChinookMediaManager.GuyWire.Configurators
 {
@@ -29,12 +31,12 @@ namespace ChinookMediaManager.GuyWire.Configurators
             var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
             nhConfigurator.BeforeConfigure += (sender, e) =>
                                                   {
+                                                      ValidatorInitializer.Initialize(e.Configuration);
                                                       e.Configuration.RegisterEntityNameResolver();
                                                       e.Configuration.Properties[Environment.CollectionTypeFactoryClass]
-                                                          =
-                                                          typeof (WpfCollectionTypeFactory).AssemblyQualifiedName;
+                                                          = typeof (WpfCollectionTypeFactory).AssemblyQualifiedName;
                                                   };
-
+            
             var sfp = new SessionFactoryProvider(nhConfigurator);
 
             container.Register(Component.For<ISessionFactoryProvider>()

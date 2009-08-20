@@ -55,6 +55,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.Validator, Version=1.2.0.3001, Culture=neutral, PublicKeyToken=70154e18752585bd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\NHibernate.Validator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -78,6 +82,7 @@
   <ItemGroup>
     <Compile Include="IPresenterFactory.cs" />
     <Compile Include="IViewFactory.cs" />
+    <Compile Include="NHVSharedEngineProvider.cs" />
     <Compile Include="PresenterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewStrategy.cs">

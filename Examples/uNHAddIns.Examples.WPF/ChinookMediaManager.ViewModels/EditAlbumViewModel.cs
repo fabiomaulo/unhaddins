@@ -13,9 +13,9 @@ namespace ChinookMediaManager.ViewModels
         private RelayCommand _addNewTrackCommand;
         private Album _album;
         private IAlbumManagerModel _albumManagerModel;
-        private RelayCommand _closeCommand;
-        private RelayCommand _deleteSelectedTrackCommand;
-        private RelayCommand _saveCommand;
+        private ICommand _closeCommand;
+        private ICommand _deleteSelectedTrackCommand;
+        private ICommand _saveCommand;
 
         #region IEditAlbumViewModel Members
 
@@ -95,7 +95,8 @@ namespace ChinookMediaManager.ViewModels
             get
             {
                 if (_deleteSelectedTrackCommand == null)
-                    _deleteSelectedTrackCommand = new RelayCommand(o => DeleteSelectedTrack());
+                    _deleteSelectedTrackCommand = new RelayCommand(o => DeleteSelectedTrack(),
+                                                                   o => SelectedTrack != null);
                 return _deleteSelectedTrackCommand;
             }
         }
@@ -110,7 +111,7 @@ namespace ChinookMediaManager.ViewModels
 
         private void AddNewTrack()
         {
-            var track = new Track {Name = "New Album"};
+            var track = new Track {Name = "New Track"};
             Album.AddTrack(track);
             SelectedTrack = track;
         }
