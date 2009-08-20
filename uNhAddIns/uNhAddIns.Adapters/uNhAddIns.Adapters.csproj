@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
+    <Compile Include="IInvalidValueInfo.cs" />
     <Compile Include="EndMode.cs" />
+    <Compile Include="IEntityValidator.cs" />
     <Compile Include="IGuyWire.cs" />
     <Compile Include="IPersistenceConversationalInfo.cs" />
     <Compile Include="IPersistenceConversationInfo.cs" />
