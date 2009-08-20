@@ -14,6 +14,7 @@ namespace ChinookMediaManager.GUI.ViewModels
         /// The album being edited.
         /// </summary>
         Album Album { get; }
+       
         /// <summary>
         /// The title of the tab.
         /// </summary>

@@ -13,6 +13,7 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
             container.Register(Component.For<Album>()
                                     .NhibernateEntity()
+                                    .AddWpfValidationCompatibility()
                                     .AddNotificableBehavior()
                                     .LifeStyle.Transient);
             

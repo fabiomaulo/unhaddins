@@ -13,6 +13,7 @@ namespace ChinookMediaManager.GuyWire
                                                                  new RepositoriesConfigurator(),
                                                                  new EntitiesConfigurator(),
                                                                  new ModelsConfigurator(),
+                                                                 new NHVConfigurator(),
                                                                  new ViewModelConfigurator(),
                                                                  new ViewsConfigurator()
                                                              };

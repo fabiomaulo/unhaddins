@@ -1,6 +1,6 @@
 ﻿<UserControl x:Class="ChinookMediaManager.GUI.Views.EditAlbumView"
  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
- xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Height="283" Width="383">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -17,7 +17,7 @@
         <TextBlock Grid.Row="1" >Title</TextBlock>
         <TextBlock Grid.Row="2" >Tracks</TextBlock>
         
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Album.Title}" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Album.Title, ValidatesOnDataErrors=true}" />
         <my:DataGrid Grid.Row="2" xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit" 
             CanUserAddRows="False" CanUserDeleteRows="False"
             Grid.ColumnSpan="2" ItemsSource="{Binding Album.Tracks}" 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NHibernate.Validator.Constraints;
 using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Domain
@@ -13,6 +14,8 @@ namespace ChinookMediaManager.Domain
         #region IAlbum Members
 
         public virtual Artist Artist { get; set; }
+
+        [NotNullNotEmpty]
         public virtual string Title { get; set; }
 
         public virtual IList<Track> Tracks { get; private set; }

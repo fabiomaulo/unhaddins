@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
@@ -16,7 +17,6 @@ namespace ChinookMediaManager.ViewModels
     public class AlbumManagerViewModel : IAlbumManagerViewModel
     {
         private readonly IAlbumManagerModel _albumManagerModel;
-        private readonly IList<Album> _editingAlbums = new List<Album>();
         private readonly IViewFactory _viewFactory;
         private ObservableCollection<IEditAlbumViewModel> _workspaces;
 
@@ -35,7 +35,17 @@ namespace ChinookMediaManager.ViewModels
 
         #region IAlbumManagerViewModel Members
 
-        public IEnumerable<Album> Albums { get; private set; }
+        private IEnumerable<Album> _albums;
+        public IEnumerable<Album> Albums
+        {
+            get { return _albums; }
+            private set
+            {
+                _albums = value;
+                OnPropertyChanged("Albums");
+            }
+        }
+
         public Album SelectedAlbum { get; set; }
 
         public ICommand EditSelectedAlbumCommand
@@ -45,7 +55,7 @@ namespace ChinookMediaManager.ViewModels
                 if (_editSelectedAlbumCommand == null)
                     _editSelectedAlbumCommand = new RelayCommand(
                         o => EditSelectedAlbum(),
-                        o => !AlbumEditWorkspaces.Any(ae => ae.Album == SelectedAlbum));
+                        o => SelectedAlbum != null &&!AlbumEditWorkspaces.Any(ae => ae.Album == SelectedAlbum));
                 return _editSelectedAlbumCommand;
             }
         }
@@ -70,6 +80,13 @@ namespace ChinookMediaManager.ViewModels
             }
         }
 
+        void SetActiveWorkspace(IEditAlbumViewModel workspace)
+        {
+            ICollectionView collectionView = CollectionViewSource.GetDefaultView(AlbumEditWorkspaces);
+            if (collectionView != null)
+                collectionView.MoveCurrentTo(workspace);
+        }
+
         public ObservableCollection<IEditAlbumViewModel> AlbumEditWorkspaces
         {
             get
@@ -87,7 +104,6 @@ namespace ChinookMediaManager.ViewModels
         public void SetUp(Artist artist)
         {
             Albums = _albumManagerModel.GetAlbumsByArtist(artist);
-            OnPropertyChanged("Albums");
         }
 
 
@@ -97,13 +113,16 @@ namespace ChinookMediaManager.ViewModels
 
         private void EditSelectedAlbum()
         {
-            _editingAlbums.Add(SelectedAlbum);
-
+            //Resolve a new instance of EditAlbumViewModel
             var newWp = _viewFactory.ResolveViewModel<IEditAlbumViewModel>();
+            //Setup the new viewmodel.
             newWp.SetUp(SelectedAlbum, _albumManagerModel);
+            //subscribe to close request.
             newWp.RequestClose += EditAlbumRequestClose;
+            //add the new viewmodel to the workspace collection.
             AlbumEditWorkspaces.Add(newWp);
-
+            //set the new viewmodel as the active wp.
+            SetActiveWorkspace(newWp);
         }
 
         void EditAlbumRequestClose(object sender, EventArgs e)
