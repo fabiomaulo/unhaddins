@@ -10,15 +10,15 @@ namespace uNhAddIns.WPF.Castle
     {
         public static ComponentRegistration<T> NhibernateEntity<T>(this ComponentRegistration<T> componentRegistration)
         {
-            return componentRegistration.Proxy.AdditionalInterfaces(typeof (INamedEntity))
-                .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere;
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(INamedEntity))
+                .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere;
         }
 
         public static ComponentRegistration<T> AddEditableBehavior<T>(
             this ComponentRegistration<T> componentRegistration)
         {
-            return componentRegistration.Proxy.AdditionalInterfaces(typeof (IEditableObject))
-                .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Last;
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(IEditableObject))
+                .Interceptors(new InterceptorReference(typeof(EditableBehaviorInterceptor))).Last;
         }
 
         public static ComponentRegistration<T> AddNhEditableBehavior<T>(
@@ -32,8 +32,16 @@ namespace uNhAddIns.WPF.Castle
         public static ComponentRegistration<T> AddNotificableBehavior<T>(
             this ComponentRegistration<T> componentRegistration)
         {
-            return componentRegistration.Proxy.AdditionalInterfaces(typeof (INotifyPropertyChanged))
-                .Interceptors(new InterceptorReference(typeof (PropertyChangeNotifier))).First;
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(INotifyPropertyChanged))
+                .Interceptors(new InterceptorReference(typeof(PropertyChangeNotifier))).First;
+
+
+        }
+        public static ComponentRegistration<T> AddWpfValidationCompatibility<T>(
+            this ComponentRegistration<T> componentRegistration)
+        {
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(IDataErrorInfo))
+                .Interceptors(new InterceptorReference(typeof(DataErrorInfoInterceptor))).Anywhere;
         }
     }
 }

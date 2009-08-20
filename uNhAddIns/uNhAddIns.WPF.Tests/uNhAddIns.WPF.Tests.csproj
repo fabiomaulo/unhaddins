@@ -67,6 +67,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.Validator, Version=1.2.0.3001, Culture=neutral, PublicKeyToken=70154e18752585bd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\NHibernate.Validator.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.0.9122, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
@@ -93,6 +97,7 @@
     <Compile Include="Castle\EntityNameResolverFixture.cs" />
     <Compile Include="Castle\NhEditableBehaviorInterceptorFixture.cs" />
     <Compile Include="Castle\SessionFactoryExtension.cs" />
+    <Compile Include="Castle\Validator\DataErrorInfoValidatorFixture.cs" />
     <Compile Include="Collections\ObservablePersistentGenericSetFixture.cs" />
     <Compile Include="Collections\ObservableSetFixture.cs" />
     <Compile Include="Collections\WpfCollectionTypeFactoryFixture.cs" />
@@ -108,6 +113,10 @@
     <Compile Include="Castle\PropertyChangeNotifierFixture.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
+      <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
+      <Name>uNhAddIns.Adapters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.CastleAdapters\uNhAddIns.CastleAdapters.csproj">
       <Project>{0140ED11-A9A2-4795-9BE9-22E86A9F0057}</Project>
       <Name>uNhAddIns.CastleAdapters</Name>
@@ -115,6 +124,10 @@
     <ProjectReference Include="..\uNhAddIns.Entities\uNhAddIns.Entities.csproj">
       <Project>{676FDC6C-A4BB-42A5-9C56-C2D1669E45A8}</Project>
       <Name>uNhAddIns.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uNhAddIns.NHibernateValidator\uNhAddIns.NHibernateValidator.csproj">
+      <Project>{6C864615-C94A-49A7-9556-55955E6A90BA}</Project>
+      <Name>uNhAddIns.NHibernateValidator</Name>
     </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.WPF.Castle\uNhAddIns.WPF.Castle.csproj">
       <Project>{5C999026-7D20-495E-BD31-63993EF308BB}</Project>
@@ -136,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
