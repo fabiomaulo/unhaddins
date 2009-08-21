@@ -23,8 +23,6 @@ namespace ChinookMediaManager.GuyWire.Configurators
             container.Register(Component.For<IEditAlbumViewModel>()
                                        .ImplementedBy<EditAlbumViewModel>()
                                        .LifeStyle.Transient);
-
-            container.Register(Component.For<IPresenterFactory>().ImplementedBy<PresenterFactory>());
         }
 
         #endregion
