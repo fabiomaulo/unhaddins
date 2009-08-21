@@ -59,6 +59,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Spring.Aop, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Spring.Aop.dll</HintPath>
+    </Reference>
     <Reference Include="Spring.Core, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Spring.Core.dll</HintPath>

@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("uNhAddIns")]
 [assembly: AssemblyCopyright("Copyright (c) uNhAddIns, 2008. All rights reserved.")]
-[assembly: AssemblyProduct("uNhAddIns.WPF.Castle")]
-[assembly: AssemblyTitle("uNhAddIns.WPF.Castle")]
+[assembly: AssemblyProduct("uNhAddIns.SpringAdapters.Tests")]
+[assembly: AssemblyTitle("uNhAddIns.SpringAdapters.Tests")]
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyInformationalVersion("2.0.0.720")]
 [assembly: AssemblyVersion("2.0.0.720")]
