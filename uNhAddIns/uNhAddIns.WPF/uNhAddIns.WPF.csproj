@@ -59,16 +59,7 @@
     <Compile Include="Collections\Types\ObservableListType.cs" />
     <Compile Include="Collections\PersistentImpl\PersistentObservableGenericBag.cs" />
     <Compile Include="Collections\Types\ObservableBagType.cs" />
-    <Compile Include="EditableBehaviorBase.cs" />
-    <Compile Include="EntityNameResolver\ConfigurationExtension.cs" />
-    <Compile Include="EntityNameResolver\EntityNameInterceptor.cs" />
-    <Compile Include="EntityNameResolver\EntityNameResolver.cs" />
-    <Compile Include="EntityNameResolver\INamedEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChangeNotifierBase.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EntityNameResolver\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

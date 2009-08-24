@@ -3,7 +3,7 @@ using Castle.Core;
 using Castle.Windsor;
 using NUnit.Framework;
 using uNhAddIns.WPF.Castle;
-using uNhAddIns.WPF.EntityNameResolver;
+using uNhAddIns.WPF.Castle.EntityNameResolver;
 using uNhAddIns.WPF.Tests.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
