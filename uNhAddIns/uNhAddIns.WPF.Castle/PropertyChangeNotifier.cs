@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Castle.Core.Interceptor;
-using System.Linq;
+using uNhAddIns.WPF.Castle.BaseClasses;
 
 namespace uNhAddIns.WPF.Castle
 {

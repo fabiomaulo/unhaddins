@@ -1,4 +1,4 @@
-namespace uNhAddIns.WPF.EntityNameResolver
+namespace uNhAddIns.WPF.Castle.EntityNameResolver
 {
     public interface INamedEntity
     {

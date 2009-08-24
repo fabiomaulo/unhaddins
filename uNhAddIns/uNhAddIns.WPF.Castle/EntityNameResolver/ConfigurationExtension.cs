@@ -2,7 +2,7 @@ using System.Linq;
 using NHibernate.Cfg;
 using NHibernate.Event;
 
-namespace uNhAddIns.WPF.EntityNameResolver
+namespace uNhAddIns.WPF.Castle.EntityNameResolver
 {
     public static class ConfigurationExtension
     {
@@ -11,13 +11,13 @@ namespace uNhAddIns.WPF.EntityNameResolver
             EventListeners listeners = configuration.EventListeners;
             var entityNameResolver = new EntityNameResolver();
             listeners.MergeEventListeners =
-                new[] { entityNameResolver }.Concat(listeners.MergeEventListeners).ToArray();
+                new[] {entityNameResolver}.Concat(listeners.MergeEventListeners).ToArray();
             listeners.UpdateEventListeners =
-                new[] { entityNameResolver }.Concat(listeners.UpdateEventListeners).ToArray();
+                new[] {entityNameResolver}.Concat(listeners.UpdateEventListeners).ToArray();
             listeners.SaveOrUpdateEventListeners =
-                new[] { entityNameResolver }.Concat(listeners.SaveOrUpdateEventListeners).ToArray();
+                new[] {entityNameResolver}.Concat(listeners.SaveOrUpdateEventListeners).ToArray();
             listeners.SaveEventListeners =
-                new[] { entityNameResolver }.Concat(listeners.SaveEventListeners).ToArray();
+                new[] {entityNameResolver}.Concat(listeners.SaveEventListeners).ToArray();
             listeners.PersistEventListeners =
                 new[] {entityNameResolver}.Concat(listeners.PersistEventListeners).ToArray();
 

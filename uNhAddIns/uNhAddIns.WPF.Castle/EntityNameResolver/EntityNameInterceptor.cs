@@ -1,14 +1,14 @@
 ﻿using NHibernate;
 
-namespace uNhAddIns.WPF.EntityNameResolver
+namespace uNhAddIns.WPF.Castle.EntityNameResolver
 {
     public class EntityNameInterceptor : EmptyInterceptor
     {
         public override string GetEntityName(object entity)
         {
-            if(entity is INamedEntity)
+            if (entity is INamedEntity)
             {
-                var namedEntity = (INamedEntity)entity;
+                var namedEntity = (INamedEntity) entity;
                 return namedEntity.EntityName;
             }
 

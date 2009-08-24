@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace uNhAddIns.WPF
+namespace uNhAddIns.WPF.Castle.BaseClasses
 {
     public class PropertyChangeNotifierBase
     {

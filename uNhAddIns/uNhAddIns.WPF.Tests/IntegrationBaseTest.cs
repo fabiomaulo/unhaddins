@@ -4,7 +4,7 @@ using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
-using uNhAddIns.WPF.EntityNameResolver;
+using uNhAddIns.WPF.Castle.EntityNameResolver;
 
 namespace uNhAddIns.WPF.Tests
 {

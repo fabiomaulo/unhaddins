@@ -49,8 +49,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseClasses\EditableBehaviorBase.cs" />
+    <Compile Include="BaseClasses\PropertyChangeNotifierBase.cs" />
     <Compile Include="DataErrorInfoInterceptor.cs" />
     <Compile Include="EditableBehaviorInterceptor.cs" />
+    <Compile Include="EntityNameResolver\ConfigurationExtension.cs" />
+    <Compile Include="EntityNameResolver\EntityNameInterceptor.cs" />
+    <Compile Include="EntityNameResolver\EntityNameResolver.cs" />
+    <Compile Include="EntityNameResolver\INamedEntity.cs" />
     <Compile Include="GetEntityNameInterceptor.cs" />
     <Compile Include="NhEditableBehaviorInterceptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +73,9 @@
       <Project>{7ECACA3E-1ABF-4733-99A7-BE1CDC982D61}</Project>
       <Name>uNhAddIns.WPF</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="EntityNameResolver\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace uNhAddIns.WPF
+namespace uNhAddIns.WPF.Castle.BaseClasses
 {
     public class EditableBehaviorBase
     {
-        private bool _isInEditMode;
         private const string ErrorNotInEditMode = "The current object is not in editable mode.";
+
+        private readonly IDictionary<PropertyInfo, object> _tempValues
+            = new Dictionary<PropertyInfo, object>();
+
+        private bool _isInEditMode;
+
+        public virtual bool IsEditing
+        {
+            get { return _isInEditMode; }
+        }
+
         public void BeginEdit()
         {
             _isInEditMode = true;
@@ -22,7 +32,7 @@ namespace uNhAddIns.WPF
         public void EndEdit(object target)
         {
             _isInEditMode = false;
-            foreach(var property in _tempValues.Keys)
+            foreach (PropertyInfo property in _tempValues.Keys)
             {
                 property.SetValue(target, _tempValues[property], null);
             }
@@ -43,16 +53,5 @@ namespace uNhAddIns.WPF
             _tempValues.TryGetValue(property, out value);
             return value;
         }
-
-        public virtual bool IsEditing
-        {
-            get
-            {
-                return _isInEditMode;    
-            }
-        }
-
-        private readonly IDictionary<PropertyInfo, object> _tempValues 
-            = new Dictionary<PropertyInfo, object>();
     }
 }

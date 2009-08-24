@@ -14,7 +14,8 @@ namespace uNhAddIns.WPF.Castle
             if (invocation.Method.Name == "get_EntityName")
             {
                 invocation.ReturnValue = _entityName;
-            }else
+            }
+            else
             {
                 invocation.Proceed();
             }
