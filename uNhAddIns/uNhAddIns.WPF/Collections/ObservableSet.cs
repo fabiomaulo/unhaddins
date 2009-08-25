@@ -94,12 +94,21 @@ namespace uNhAddIns.WPF.Collections
         /// </returns>
         public override bool Remove(T o)
         {
+            var itemIndex = 0;
+            foreach (var obj in this)
+            {
+                if (obj.Equals(o)) break;
+                itemIndex++;
+            }
+                
+                    
+
             bool result = base.Remove(o);
             if(result && !_isInXAllOperation)
             {
                 OnPropertyChanged(ISEMPTY_PROPERTY_NAME);
                 OnPropertyChanged(COUNT_PROPERTY_NAME);
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, o));    
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, o, itemIndex));    
             }
             return result;
         }

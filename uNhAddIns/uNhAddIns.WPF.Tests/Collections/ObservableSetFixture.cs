@@ -172,11 +172,12 @@ namespace uNhAddIns.WPF.Tests.Collections
                                                        sender.Should().Be.EqualTo(observableSet);
                                                        args.Action.Should().Be.EqualTo(
                                                            NotifyCollectionChangedAction.Remove);
-                                                       args.OldItems[0].Should().Be.EqualTo(1);
+                                                       args.OldItems[0].Should().Be.EqualTo(2);
+                                                       args.OldStartingIndex.Should().Be.EqualTo(1);
                                                        eventWasRaised = true;
                                                    };
 
-            observableSet.Remove(1);
+            observableSet.Remove(2);
             eventWasRaised.Should().Be.True();
         }
 
