@@ -8,18 +8,6 @@ namespace uNhAddIns.ComponentBehaviors.Castle
     public static class RegistrationExtensions
     {
         /// <summary>
-        /// With this behavior NHibernate will figure out how to persist and IProxy12312312.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="componentRegistration"></param>
-        /// <returns></returns>
-        public static ComponentRegistration<T> NhibernateEntity<T>(this ComponentRegistration<T> componentRegistration)
-        {
-            return componentRegistration.Proxy.AdditionalInterfaces(typeof (INamedEntity))
-                .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere;
-        }
-
-        /// <summary>
         /// Add the interface IEditableObject and the basic editable behavior.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -71,6 +59,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle
         {
             return componentRegistration.Proxy.AdditionalInterfaces(typeof (IDataErrorInfo))
                 .Interceptors(new InterceptorReference(typeof (DataErrorInfoInterceptor))).Anywhere;
+        }
+
+        public static ComponentRegistration<T> NhibernateEntity<T>(this ComponentRegistration<T> componentRegistration)
+        {
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(INamedEntity))
+                .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere;
         }
     }
 }
