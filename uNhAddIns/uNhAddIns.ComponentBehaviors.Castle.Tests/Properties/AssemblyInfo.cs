@@ -15,10 +15,10 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("uNhAddIns")]
 [assembly: AssemblyCopyright("Copyright (c) uNhAddIns, 2008. All rights reserved.")]
-[assembly: AssemblyProduct("uNhAddIns.CastleAdapters")]
-[assembly: AssemblyTitle("uNhAddIns.CastleAdapters")]
-[assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("2.0.0.726")]
-[assembly: AssemblyVersion("2.0.0.726")]
+[assembly: AssemblyProduct("uNhAddIns.ComponentBehaviors.Castle.Tests")]
+[assembly: AssemblyTitle("uNhAddIns.ComponentBehaviors.Castle.Tests")]
+[assembly: CLSCompliant(true)]
+[assembly: AssemblyInformationalVersion("2.0.0.1")]
+[assembly: AssemblyVersion("2.0.0.1")]
 
 

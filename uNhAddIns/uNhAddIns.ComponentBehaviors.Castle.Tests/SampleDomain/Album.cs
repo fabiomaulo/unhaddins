@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
+using uNhAddIns.Entities;
 
-namespace uNhAddIns.WPF.Tests.SampleDomain
+namespace uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain
 {
-    public class Album 
+    public class Album : Entity
     {
-        public virtual int Id { get; set; }
         public Album()
         {
             Tracks = new List<Track>();

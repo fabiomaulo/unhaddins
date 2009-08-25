@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.Web")]
 [assembly: AssemblyTitle("uNhAddIns.Web")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("2.0.0.720")]
-[assembly: AssemblyVersion("2.0.0.720")]
+[assembly: AssemblyInformationalVersion("2.0.0.726")]
+[assembly: AssemblyVersion("2.0.0.726")]
 
 

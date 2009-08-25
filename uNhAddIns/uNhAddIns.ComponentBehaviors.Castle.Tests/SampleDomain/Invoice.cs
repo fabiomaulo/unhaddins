@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using uNhAddIns.Entities;
 
-namespace uNhAddIns.WPF.Tests.SampleDomain
+namespace uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain
 {
-    public class Invoice 
+    public class Invoice : Entity
     {
-        public virtual int Id { get; set; }
         public virtual IList<InvoiceLine> Lines { get; private set; }
         public virtual void AddLine(InvoiceLine invoiceLine)
         {
