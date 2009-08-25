@@ -49,7 +49,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle
         }
 
         /// <summary>
-        /// Add the interface IDataErrorInfo and through the common validator.
+        /// Add the interface IDataErrorInfo and the expected behavior through the common validator.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="componentRegistration"></param>
