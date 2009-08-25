@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.WPF")]
 [assembly: AssemblyTitle("uNhAddIns.WPF")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("2.0.0.720")]
-[assembly: AssemblyVersion("2.0.0.720")]
+[assembly: AssemblyInformationalVersion("2.0.0.729")]
+[assembly: AssemblyVersion("2.0.0.729")]
 
 

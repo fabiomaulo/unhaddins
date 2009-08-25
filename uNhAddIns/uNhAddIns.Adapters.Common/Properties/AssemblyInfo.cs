@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.Adapters.Common")]
 [assembly: AssemblyTitle("uNhAddIns.Adapters.Common")]
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("2.0.0.720")]
-[assembly: AssemblyVersion("2.0.0.720")]
+[assembly: AssemblyInformationalVersion("2.0.0.726")]
+[assembly: AssemblyVersion("2.0.0.726")]
 
 

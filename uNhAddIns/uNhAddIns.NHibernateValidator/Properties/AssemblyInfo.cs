@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.NHibernateValidator")]
 [assembly: AssemblyTitle("uNhAddIns.NHibernateValidator")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("2.0.0.1")]
-[assembly: AssemblyVersion("2.0.0.1")]
+[assembly: AssemblyInformationalVersion("2.0.0.724")]
+[assembly: AssemblyVersion("2.0.0.724")]
 
 

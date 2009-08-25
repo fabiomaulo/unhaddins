@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.SpringAdapters")]
 [assembly: AssemblyTitle("uNhAddIns.SpringAdapters")]
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyInformationalVersion("2.0.0.720")]
-[assembly: AssemblyVersion("2.0.0.720")]
+[assembly: AssemblyInformationalVersion("2.0.0.726")]
+[assembly: AssemblyVersion("2.0.0.726")]
 
 

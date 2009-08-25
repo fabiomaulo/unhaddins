@@ -1,11 +1,11 @@
 ﻿using Iesi.Collections.Generic;
-using uNhAddIns.Entities;
 using uNhAddIns.WPF.Collections;
 
 namespace uNhAddIns.WPF.Tests.SampleDomain
 {
-    public class Playlist : Entity
+    public class Playlist 
     {
+        public virtual int Id { get; set; }
         public Playlist()
         {
             Tracks = new ObservableSet<Track>();
