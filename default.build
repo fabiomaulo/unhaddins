@@ -22,7 +22,9 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.TestUtils.Tests\TestUtils.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Web\Web.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF\WPF.build"/>
-			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF.Castle\WPF.Castle.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.ComponentBehaviors.Castle\ComponentBehaviors.Castle.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.ComponentBehaviors.Castle.Tests\ComponentBehaviors.Castle.Tests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.NHibernateValidator\NHibernateValidator.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF.Tests\WPF.Tests.build"/>			
 		</ItemGroup>
 		
