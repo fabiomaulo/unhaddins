@@ -8,6 +8,6 @@ REM if exist commonfiles\uNhAddIns.snk goto build
 REM echo Generating strong key...
 REM %sn% -k commonfiles\uNhAddIns.snk
 :build
-%msbuild% default.build /v:n
+%msbuild% default.build /v:n /t:Build
 :end
 echo -------------------------------

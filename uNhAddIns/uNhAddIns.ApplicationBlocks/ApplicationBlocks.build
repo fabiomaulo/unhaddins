@@ -3,19 +3,16 @@
 	
 	<Target Name="_Init" DependsOnTargets="ProjectInit">
 		<PropertyGroup>
-			<ProjectFile>uNhAddIns.TestUtils.Tests.csproj</ProjectFile>
-			<AssemblyTitle>uNhAddIns.TestUtils.Tests</AssemblyTitle>
-			<AssemblyProduct>uNhAddIns.TestUtils.Tests</AssemblyProduct>
+			<ProjectFile>uNhAddIns.ApplicationBlocks.csproj</ProjectFile>
+			<AssemblyTitle>uNhAddIns.ApplicationBlocks</AssemblyTitle>
+			<AssemblyProduct>uNhAddIns.ApplicationBlocks</AssemblyProduct>
 			<AssemblyDescription></AssemblyDescription>
 			<AssemblyClsCompliant>True</AssemblyClsCompliant>
-			<SkipTest>False</SkipTest>
 		</PropertyGroup>
 	</Target>
 	
-	<Target Name="_Build" DependsOnTargets="_Init;ProjectCompileTest" Outputs="@(TestAssemblies)"/>
+	<Target Name="_Build" DependsOnTargets="_Init;ProjectCompileToBin"/>
 	<Target Name = "_GenerateAssemblyInfo" DependsOnTargets="_Init;ProjectGenerateAssemblyInfo"/>
-	
+
 	<Import Project="$(RootDir)\BuildCommon\CommonProject.build"/>
 </Project>
-
-

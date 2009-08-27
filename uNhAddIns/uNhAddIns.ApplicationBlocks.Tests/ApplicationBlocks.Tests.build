@@ -3,9 +3,9 @@
 	
 	<Target Name="_Init" DependsOnTargets="ProjectInit">
 		<PropertyGroup>
-			<ProjectFile>uNhAddIns.TestUtils.Tests.csproj</ProjectFile>
-			<AssemblyTitle>uNhAddIns.TestUtils.Tests</AssemblyTitle>
-			<AssemblyProduct>uNhAddIns.TestUtils.Tests</AssemblyProduct>
+			<ProjectFile>uNhAddIns.ApplicationBlocks.Tests.csproj</ProjectFile>
+			<AssemblyTitle>uNhAddIns.ApplicationBlocks.Tests</AssemblyTitle>
+			<AssemblyProduct>uNhAddIns.ApplicationBlocks.Tests</AssemblyProduct>
 			<AssemblyDescription></AssemblyDescription>
 			<AssemblyClsCompliant>True</AssemblyClsCompliant>
 			<SkipTest>False</SkipTest>

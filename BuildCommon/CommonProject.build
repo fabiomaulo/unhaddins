@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
 
-	<Target Name="CommonInit">
+	<Target Name="ProjectInit">
 		<PropertyGroup>
 			<AssemblyCompany>uNhAddIns</AssemblyCompany>
 			<AssemblyCopyright>Copyright (c) $(AssemblyCompany), 2008. All rights reserved.</AssemblyCopyright>
@@ -15,7 +15,7 @@
 		</PropertyGroup>
 	</Target>
 
-	<Target Name="CommonCompile" DependsOnTargets="CommonGenerateAssemblyInfo">
+	<Target Name="ProjectCompile">
 		<Message Text="Compiling $(AssemblyProduct)"/>
 		<MSBuild Projects ="$(MSBuildProjectDirectory)\$(ProjectFile)"
              ContinueOnError ="false"
@@ -24,7 +24,7 @@
     	</MSBuild>
 	</Target>
 
-	<Target Name="CommonGenerateAssemblyInfo" DependsOnTargets="CommonSVNRevision">
+	<Target Name="ProjectGenerateAssemblyInfo" DependsOnTargets="ProjectSVNRevision">
 		<AssemblyInfo 
 			AssemblyCompany ="$(AssemblyCompany)"
 			AssemblyCopyright="$(AssemblyCopyright)"
@@ -39,24 +39,24 @@
 		/>
 	</Target>
 	
-	<Target Name="CommonSVNRevision" Condition="'$(BUILD_VCS_NUMBER)' == ''">
+	<Target Name="ProjectSVNRevision" Condition="'$(BUILD_VCS_NUMBER)' == ''">
 		<SvnVersion LocalPath="." ToolPath="$(SVNDir)">
 			<Output TaskParameter="Revision" PropertyName="BUILD_VCS_NUMBER" />
 		</SvnVersion>
 	</Target>
 	
-	<Target Name="CommonCopyToBin">
+	<Target Name="ProjectCopyToBin">
     	<Copy SourceFiles="@(OutputFiles)" 
     		DestinationFiles="@(OutputFiles->'$(BinDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
   	</Target>
 
-	<Target Name="CommonCompileTest" Condition="!$(SkipTest)" DependsOnTargets="CommonCompile" Outputs="@(TestAssemblies)">
+	<Target Name="ProjectCompileTest" Condition="!$(SkipTest)" DependsOnTargets="ProjectCompile" Outputs="@(TestAssemblies)">
 	    <ItemGroup>
 		  <TestAssemblies Include="@(OutputFiles)"/>
 		</ItemGroup>
 	</Target>
 
-	<Target Name="CommonCompileToBin" DependsOnTargets="CommonCompile;CommonCopyToBin"/>
+	<Target Name="ProjectCompileToBin" DependsOnTargets="ProjectCompile;ProjectCopyToBin"/>
 
 	<Import Project="Common.build"/>
 </Project>
