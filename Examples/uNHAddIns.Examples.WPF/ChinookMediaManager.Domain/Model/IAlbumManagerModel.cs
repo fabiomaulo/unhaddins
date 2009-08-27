@@ -35,5 +35,7 @@ namespace ChinookMediaManager.Domain.Model
         /// Cancel all changes.
         /// </summary>
         void CancelAll();
+
+        bool IsValid(Album album);
     }
 }

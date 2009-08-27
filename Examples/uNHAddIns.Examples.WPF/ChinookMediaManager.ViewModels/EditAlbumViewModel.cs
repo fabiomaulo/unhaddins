@@ -74,7 +74,8 @@ namespace ChinookMediaManager.ViewModels
                                                         {
                                                             _albumManagerModel.SaveAlbum(Album);
                                                             OnRequestClose();
-                                                        });
+                                                        },
+                                                      o=> _albumManagerModel.IsValid(Album));
                 return _saveCommand;
             }
         }

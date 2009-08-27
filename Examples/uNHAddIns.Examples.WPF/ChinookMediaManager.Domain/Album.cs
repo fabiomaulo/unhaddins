@@ -15,7 +15,8 @@ namespace ChinookMediaManager.Domain
 
         public virtual Artist Artist { get; set; }
 
-        [NotNullNotEmpty]
+        [Length(Max = 200, Message= "Title should not exceed 200 chars.")]
+        [NotNullNotEmpty(Message = "Title should not be null.")]
         public virtual string Title { get; set; }
 
         public virtual IList<Track> Tracks { get; private set; }
