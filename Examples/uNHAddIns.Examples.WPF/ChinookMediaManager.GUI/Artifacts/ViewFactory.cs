@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Windows;
-using Castle.Windsor;
 using ChinookMediaManager.Infrastructure;
+using Microsoft.Practices.ServiceLocation;
 
 namespace ChinookMediaManager.GUI.Artifacts
 {
     public class ViewFactory : IViewFactory
     {
-        private readonly IWindsorContainer _container;
+        private readonly IServiceLocator _serviceLocator;
 
-        public ViewFactory(IWindsorContainer container)
+        public ViewFactory(IServiceLocator serviceLocator)
         {
-            _container = container;
+            _serviceLocator = serviceLocator;
         }
 
         #region IViewFactory Members
@@ -27,7 +27,7 @@ namespace ChinookMediaManager.GUI.Artifacts
 
         public TViewModel ResolveViewModel<TViewModel>()
         {
-            return _container.Resolve<TViewModel>();
+            return _serviceLocator.GetInstance<TViewModel>();
         }
 
         #endregion
@@ -39,7 +39,8 @@ namespace ChinookMediaManager.GUI.Artifacts
 
             Type viewType = Type.GetType(viewFullName, true);
 
-            var view = (Window) _container.Resolve(viewType);
+            //var view = (Window) _serviceLocator.Resolve(viewType);
+            var view = (Window) _serviceLocator.GetInstance(viewType);
             view.DataContext = viewModel;
             return view;
         }

@@ -1,11 +1,13 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ChinookMediaManager.GuyWire.Configurators;
+using CommonServiceLocator.WindsorAdapter;
+using Microsoft.Practices.ServiceLocation;
 using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.GuyWire
 {
-    public class GeneralGuyWire : IGuyWire, IContainerAccessor
+    public class GeneralGuyWire : IGuyWire
     {
         private readonly IConfigurator[] configurators = new IConfigurator[]
                                                              {
@@ -20,15 +22,6 @@ namespace ChinookMediaManager.GuyWire
 
         private IWindsorContainer container;
 
-        #region IContainerAccessor Members
-
-        public IWindsorContainer Container
-        {
-            get { return container; }
-        }
-
-        #endregion
-
         #region IGuyWire Members
 
         /// <summary>
@@ -42,8 +35,12 @@ namespace ChinookMediaManager.GuyWire
             if (container != null)
                 Dewire();
             container = new WindsorContainer();
-            
-            container.Register(Component.For<IWindsorContainer>().Instance(container));
+
+
+            //container.Register(Component.For<IWindsorContainer>().Instance(container));
+
+            ServiceLocator.SetLocatorProvider(() => new WindsorServiceLocator(container));
+            container.Register(Component.For<IServiceLocator>().Instance(ServiceLocator.Current));
 
             foreach (IConfigurator configurator in configurators)
             {
