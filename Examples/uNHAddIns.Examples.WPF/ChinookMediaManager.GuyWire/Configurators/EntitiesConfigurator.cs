@@ -1,6 +1,7 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ChinookMediaManager.Domain;
+using ChinookMediaManager.Infrastructure;
 using uNhAddIns.WPF.Castle;
 
 namespace ChinookMediaManager.GuyWire.Configurators
@@ -16,7 +17,9 @@ namespace ChinookMediaManager.GuyWire.Configurators
                                     .AddWpfValidationCompatibility()
                                     .AddNotificableBehavior()
                                     .LifeStyle.Transient);
-            
+
+            container.Register(Component.For<IEntityFactory>()
+                                        .ImplementedBy<EntityFactory>());
         }
     }
 }
