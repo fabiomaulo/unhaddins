@@ -51,6 +51,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.Validator, Version=1.2.0.3001, Culture=neutral, PublicKeyToken=70154e18752585bd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\NHibernate.Validator.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.1.9189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
@@ -88,6 +92,7 @@
     <Compile Include="Helpers\StrongReflection.cs" />
     <Compile Include="Helpers\GetAttributeExtesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationTests\AlbumValidationFixture.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChinookMediaManager.Data\ChinookMediaManager.Data.csproj">
@@ -101,6 +106,10 @@
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.GuyWire\ChinookMediaManager.GuyWire.csproj">
+      <Project>{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}</Project>
+      <Name>ChinookMediaManager.GuyWire</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

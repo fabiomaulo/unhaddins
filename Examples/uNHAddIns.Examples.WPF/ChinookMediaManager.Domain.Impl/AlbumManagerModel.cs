@@ -11,10 +11,12 @@ namespace ChinookMediaManager.Domain.Impl
     {
 
         private readonly IAlbumRepository albumRepository;
+        private readonly IEntityValidator _entityValidator;
 
-        public AlbumManagerModel(IAlbumRepository albumRepository)
+        public AlbumManagerModel(IAlbumRepository albumRepository, IEntityValidator entityValidator)
         {
             this.albumRepository = albumRepository;
+            _entityValidator = entityValidator;
         }
 
         /// <summary>
@@ -45,6 +47,11 @@ namespace ChinookMediaManager.Domain.Impl
             albumRepository.Refresh(album);
         }
 
+        public bool IsValid(Album album)
+        {
+            return _entityValidator.IsValid(album);
+        }
+
         /// <summary>
         /// Flush all changes to the database.
         /// </summary>
@@ -58,7 +65,6 @@ namespace ChinookMediaManager.Domain.Impl
         [PersistenceConversation(ConversationEndMode = EndMode.Abort)]
         public void CancelAll()
         {
-            throw new NotImplementedException();
         }
     }
 }
