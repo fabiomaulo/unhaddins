@@ -9,12 +9,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
 
         public void OnMerge(MergeEvent @event)
         {
-            @event.EntityName = GetEntityName(@event.Original);
+            @event.EntityName = GetEntityName(@event.Original, @event.EntityName);
         }
 
         public void OnMerge(MergeEvent @event, IDictionary copiedAlready)
         {
-            @event.EntityName = GetEntityName(@event.Original);
+            @event.EntityName = GetEntityName(@event.Original, @event.EntityName);
         }
 
         #endregion
@@ -23,12 +23,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
 
         public void OnPersist(PersistEvent @event)
         {
-            @event.EntityName = GetEntityName(@event.Entity);
+            @event.EntityName = GetEntityName(@event.Entity, @event.EntityName);
         }
 
         public void OnPersist(PersistEvent @event, IDictionary createdAlready)
         {
-            @event.EntityName = GetEntityName(@event.Entity);
+            @event.EntityName = GetEntityName(@event.Entity, @event.EntityName);
         }
 
         #endregion
@@ -37,13 +37,16 @@ namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
 
         public void OnSaveOrUpdate(SaveOrUpdateEvent @event)
         {
-            @event.EntityName = GetEntityName(@event.Entity);
+            @event.EntityName = GetEntityName(@event.Entity, @event.EntityName);
         }
 
         #endregion
 
-        private static string GetEntityName(object entity)
+        private static string GetEntityName(object entity, string actual)
         {
+            if (actual != null && !string.IsNullOrEmpty(actual))
+                return actual;
+
             var namedEntity = entity as INamedEntity;
             return namedEntity != null ? namedEntity.EntityName : null;
         }
