@@ -2,7 +2,8 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Infrastructure;
-using uNhAddIns.WPF.Castle;
+using uNhAddIns.ComponentBehaviors.Castle;
+
 
 namespace ChinookMediaManager.GuyWire.Configurators
 {
@@ -10,11 +11,11 @@ namespace ChinookMediaManager.GuyWire.Configurators
     {
         public void Configure(IWindsorContainer container)
         {
-            container.AddFacility<WpfFacility>();
+            container.AddFacility<ComponentBehaviorsFacility>();
 
             container.Register(Component.For<Album>()
                                     .NhibernateEntity()
-                                    .AddWpfValidationCompatibility()
+                                    .AddDataErrorInfoBehavior()
                                     .AddNotificableBehavior()
                                     .LifeStyle.Transient);
 
