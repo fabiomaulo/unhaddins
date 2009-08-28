@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using ChinookMediaManager.Data.Repositories;
 using NHibernate;
 using NHibernate.Linq;
+using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Data.Impl.Repositories
 {
@@ -44,6 +45,10 @@ namespace ChinookMediaManager.Data.Impl.Repositories
 
         public void Refresh(T entity)
         {
+            if ((entity is Entity) 
+                && (entity as Entity).Id == 0)
+                return;
+
             var id = Session.GetIdentifier(entity);
             Session.Evict(entity);
             Session.Load(entity, id);

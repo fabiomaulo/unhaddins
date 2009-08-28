@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Reflection;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Impl;
 using ChinookMediaManager.Domain.Test.Helpers;
+using ChinookMediaManager.Infrastructure;
 using Moq;
 using NUnit.Framework;
 using uNhAddIns.Adapters;
@@ -12,8 +14,7 @@ namespace ChinookMediaManager.Domain.Test.Model
     [TestFixture]
     public class AlbumModelFixture
     {
-
-        private ReflectionConversationalMetaInfoStore conversationalMetaInfoStore 
+        private readonly ReflectionConversationalMetaInfoStore conversationalMetaInfoStore
             = new ReflectionConversationalMetaInfoStore();
 
         private IConversationalMetaInfoHolder metaInfo;
@@ -22,7 +23,7 @@ namespace ChinookMediaManager.Domain.Test.Model
         public void FixtureSetUp()
         {
             conversationalMetaInfoStore.Add(typeof (AlbumManagerModel));
-            metaInfo = conversationalMetaInfoStore.GetMetadataFor(typeof(AlbumManagerModel));
+            metaInfo = conversationalMetaInfoStore.GetMetadataFor(typeof (AlbumManagerModel));
         }
 
         [Test]
@@ -30,12 +31,15 @@ namespace ChinookMediaManager.Domain.Test.Model
         {
             var repository = new Mock<IAlbumRepository>();
             var entityValidator = new Mock<IEntityValidator>();
+            var entityFactory = new Mock<IEntityFactory>();
 
             var album = new Album();
             repository.Setup(rep => rep.Refresh(It.IsAny<Album>()))
-                      .AtMostOnce();
+                .AtMostOnce();
 
-            var albumManagerModel = new AlbumManagerModel(repository.Object, entityValidator.Object);
+            var albumManagerModel = new AlbumManagerModel(repository.Object,
+                                                          entityValidator.Object,
+                                                          entityFactory.Object);
 
             albumManagerModel.CancelAlbum(album);
 
@@ -49,10 +53,14 @@ namespace ChinookMediaManager.Domain.Test.Model
             var albums = new List<Album> {new Album()};
             var repository = new Mock<IAlbumRepository>();
             var entityValidator = new Mock<IEntityValidator>();
+            var entityFactory = new Mock<IEntityFactory>();
+
             repository.Setup(rep => rep.GetByArtist(It.IsAny<Artist>()))
                 .Returns(albums).AtMostOnce();
 
-            var albumManagerModel = new AlbumManagerModel(repository.Object, entityValidator.Object);
+            var albumManagerModel = new AlbumManagerModel(repository.Object,
+                                                          entityValidator.Object,
+                                                          entityFactory.Object);
 
             albumManagerModel.GetAlbumsByArtist(artist);
 
@@ -60,18 +68,15 @@ namespace ChinookMediaManager.Domain.Test.Model
         }
 
         [Test]
-        public void can_save_album()
+        public void cancel_all_abort_the_conversation()
         {
-            var repository = new Mock<IAlbumRepository>();
-            var entityValidator = new Mock<IEntityValidator>();
-            var album = new Album();
-            repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album).AtMostOnce();
+            MethodInfo method = Strong.Instance<AlbumManagerModel>
+                .Method(am => am.CancelAll());
 
-            var albumManagerModel = new AlbumManagerModel(repository.Object, entityValidator.Object);
+            IPersistenceConversationInfo conversationInfo = metaInfo.GetConversationInfoFor(method);
 
-            albumManagerModel.SaveAlbum(album);
-
-            repository.Verify(rep => rep.MakePersistent(album));
+            conversationInfo.ConversationEndMode
+                .Should().Be.EqualTo(EndMode.Abort);
         }
 
         [Test]
@@ -83,27 +88,57 @@ namespace ChinookMediaManager.Domain.Test.Model
         }
 
         [Test]
-        public void cancel_all_abort_the_conversation()
+        public void save_album_should_not_persist_if_album_is_invalid()
         {
-            var method = Strong.Instance<AlbumManagerModel>
-                .Method(am => am.CancelAll());
+            var repository = new Mock<IAlbumRepository>();
+            var entityValidator = new Mock<IEntityValidator>();
+            var entityFactory = new Mock<IEntityFactory>();
 
-            var conversationInfo = metaInfo.GetConversationInfoFor(method);
+            var album = new Album();
 
-            conversationInfo.ConversationEndMode
-                            .Should().Be.EqualTo(EndMode.Abort);
+            entityValidator.Setup(ev => ev.IsValid(album)).Returns(false);
+
+            var albumManagerModel = new AlbumManagerModel(repository.Object,
+                                                          entityValidator.Object,
+                                                          entityFactory.Object);
+
+            albumManagerModel.SaveAlbum(album);
+
+            entityValidator.Verify(ev => ev.IsValid(album));
         }
-        
+
+        [Test]
+        public void save_album_should_work()
+        {
+            var repository = new Mock<IAlbumRepository>();
+            var entityValidator = new Mock<IEntityValidator>();
+            var entityFactory = new Mock<IEntityFactory>();
+            var album = new Album();
+
+            entityValidator.Setup(ev => ev.IsValid(album)).Returns(true);
+            repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album);
+
+            var albumManagerModel = new AlbumManagerModel(repository.Object,
+                                                          entityValidator.Object,
+                                                          entityFactory.Object);
+
+            albumManagerModel.SaveAlbum(album);
+
+            entityValidator.Verify(ev => ev.IsValid(album));
+            repository.Verify(rep => rep.MakePersistent(album));
+        }
+
+
         [Test]
         public void save_all_end_the_conversation()
         {
-            var method = Strong.Instance<AlbumManagerModel>
+            MethodInfo method = Strong.Instance<AlbumManagerModel>
                 .Method(am => am.SaveAll());
 
-            var conversationInfo = metaInfo.GetConversationInfoFor(method);
+            IPersistenceConversationInfo conversationInfo = metaInfo.GetConversationInfoFor(method);
 
             conversationInfo.ConversationEndMode
-                            .Should().Be.EqualTo(EndMode.End);
+                .Should().Be.EqualTo(EndMode.End);
         }
     }
 }

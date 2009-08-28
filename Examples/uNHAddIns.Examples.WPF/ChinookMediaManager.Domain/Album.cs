@@ -19,7 +19,7 @@ namespace ChinookMediaManager.Domain
         [NotNullNotEmpty(Message = "Title should not be null.")]
         public virtual string Title { get; set; }
 
-        public virtual IList<Track> Tracks { get; private set; }
+        public virtual IList<Track> Tracks { get; set; }
 
         public virtual void AddTrack(Track track)
         {

@@ -4,6 +4,6 @@ namespace ChinookMediaManager.Infrastructure
 {
     public interface IEntityFactory
     {
-        T Instantiate<T>() where T : Entity;
+        T Create<T>() where T : Entity;
     }
 }

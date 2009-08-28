@@ -62,10 +62,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumManagerViewModelTest.cs" />
     <Compile Include="BrowseArtistViewModelTest.cs" />
+    <Compile Include="EntityExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

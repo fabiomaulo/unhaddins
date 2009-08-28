@@ -51,10 +51,6 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="uNhAddIns, Version=2.0.0.38873, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\uNhAddIns.dll</HintPath>
-    </Reference>
     <Reference Include="uNhAddIns.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>

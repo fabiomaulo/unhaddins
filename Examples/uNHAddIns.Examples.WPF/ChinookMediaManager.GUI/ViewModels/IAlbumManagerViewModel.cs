@@ -30,6 +30,11 @@ namespace ChinookMediaManager.GUI.ViewModels
         ICommand EditSelectedAlbumCommand { get; }
 
         /// <summary>
+        /// Open an edition workspace for editing the selected album.
+        /// </summary>
+        ICommand EditNewAlbumCommand { get; }
+
+        /// <summary>
         /// Commit all the changes.
         /// </summary>
         ICommand SaveAllCommand { get; }
