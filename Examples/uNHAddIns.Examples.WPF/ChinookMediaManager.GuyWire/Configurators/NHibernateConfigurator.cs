@@ -8,10 +8,10 @@ using NHibernate.Validator.Cfg;
 using uNhAddIns.CastleAdapters;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
+using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
 using uNhAddIns.WPF.Collections;
-using uNhAddIns.WPF.EntityNameResolver;
 using Environment=NHibernate.Cfg.Environment;
 
 namespace ChinookMediaManager.GuyWire.Configurators

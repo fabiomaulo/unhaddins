@@ -7,7 +7,6 @@ using NHibernate.Validator.Cfg.Loquacious;
 using NHibernate.Validator.Engine;
 using uNhAddIns.Adapters;
 using uNhAddIns.NHibernateValidator;
-using uNhAddIns.WPF.Castle;
 
 namespace ChinookMediaManager.GuyWire.Configurators
 {
@@ -21,10 +20,6 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
             container.Register(Component.For<IEntityValidator>()
                                         .ImplementedBy<EntityValidator>());
-
-            container.Register(Component.For<DataErrorInfoInterceptor>()
-                                        .ImplementedBy<DataErrorInfoInterceptor>()
-                                        .LifeStyle.Transient);
 
             container.Register(Component.For<ValidatorEngine>()
                                         .Instance(ve)
