@@ -36,6 +36,9 @@ namespace ChinookMediaManager.ViewModels
         #region IAlbumManagerViewModel Members
 
         private IEnumerable<Album> _albums;
+        private ICommand _editNewAlbumCommand;
+        private Artist _artist;
+
         public IEnumerable<Album> Albums
         {
             get { return _albums; }
@@ -57,6 +60,25 @@ namespace ChinookMediaManager.ViewModels
                         o => EditSelectedAlbum(),
                         o => SelectedAlbum != null &&!AlbumEditWorkspaces.Any(ae => ae.Album == SelectedAlbum));
                 return _editSelectedAlbumCommand;
+            }
+        }
+        
+        /// <summary>
+        /// Open an edition workspace for editing the new album.
+        /// </summary>
+        public ICommand EditNewAlbumCommand
+        {
+            get
+            {
+                if (_editNewAlbumCommand == null)
+                    _editNewAlbumCommand = new RelayCommand(() =>
+                    {
+                        SelectedAlbum = _albumManagerModel.CreateNewAlbum(_artist);
+                        EditSelectedAlbum();
+                    }
+                                                           );
+
+                return _editNewAlbumCommand;
             }
         }
 
@@ -94,6 +116,16 @@ namespace ChinookMediaManager.ViewModels
                 if (_workspaces == null)
                 {
                     _workspaces = new ObservableCollection<IEditAlbumViewModel>();
+                    _workspaces.CollectionChanged += (sender, args) =>
+                                  {
+                                      if(args.Action == NotifyCollectionChangedAction.Add)
+                                          foreach (var wp in args.NewItems.OfType<IEditAlbumViewModel>())
+                                              wp.RequestClose += EditAlbumRequestClose;
+
+                                      if(args.Action == NotifyCollectionChangedAction.Remove)
+                                          foreach (var wp in args.OldItems.OfType<IEditAlbumViewModel>())
+                                              wp.RequestClose -= EditAlbumRequestClose;
+                                  };
                     
                 }
                 return _workspaces;
@@ -103,6 +135,7 @@ namespace ChinookMediaManager.ViewModels
 
         public void SetUp(Artist artist)
         {
+            _artist = artist;
             Albums = _albumManagerModel.GetAlbumsByArtist(artist);
         }
 
@@ -117,10 +150,10 @@ namespace ChinookMediaManager.ViewModels
             var newWp = _viewFactory.ResolveViewModel<IEditAlbumViewModel>();
             //Setup the new viewmodel.
             newWp.SetUp(SelectedAlbum, _albumManagerModel);
-            //subscribe to close request.
-            newWp.RequestClose += EditAlbumRequestClose;
+
             //add the new viewmodel to the workspace collection.
             AlbumEditWorkspaces.Add(newWp);
+
             //set the new viewmodel as the active wp.
             SetActiveWorkspace(newWp);
         }
@@ -129,7 +162,13 @@ namespace ChinookMediaManager.ViewModels
         {
             var editAlbumViewModel = (IEditAlbumViewModel) sender;
             AlbumEditWorkspaces.Remove(editAlbumViewModel);
-            editAlbumViewModel.RequestClose -= EditAlbumRequestClose;
+            
+            if (!Albums.Contains(editAlbumViewModel.Album) &&
+                editAlbumViewModel.Album.Id != 0)
+            {
+                Albums = new List<Album>(Albums) {editAlbumViewModel.Album};
+            }
+
         }
 
         private void OnPropertyChanged(string propertyName)

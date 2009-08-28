@@ -36,6 +36,17 @@ namespace ChinookMediaManager.Domain.Model
         /// </summary>
         void CancelAll();
 
+        /// <summary>
+        /// Return true if the album is valid.
+        /// </summary>
+        /// <param name="album"></param>
+        /// <returns></returns>
         bool IsValid(Album album);
+
+        /// <summary>
+        /// Create a new instance of Album.
+        /// </summary>
+        /// <returns></returns>
+        Album CreateNewAlbum(Artist artist);
     }
 }

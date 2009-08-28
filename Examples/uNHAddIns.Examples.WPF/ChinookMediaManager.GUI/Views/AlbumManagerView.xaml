@@ -21,8 +21,8 @@
                 Width="170" >
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
-                        <Button Command="{Binding EditSelectedAlbumCommand}" >Edit</Button>
-                        <Button>Close</Button>
+                        <Button Command="{Binding EditNewAlbumCommand}" >New Album</Button>
+                        <Button Command="{Binding EditSelectedAlbumCommand}" >Edit Album</Button>
                     </StackPanel>
                     <ListBox Name="AlbumsList" 
 						 ItemsSource="{Binding Albums}" 

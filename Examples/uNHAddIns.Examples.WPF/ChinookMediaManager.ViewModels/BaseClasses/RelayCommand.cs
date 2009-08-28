@@ -17,8 +17,15 @@ namespace ChinookMediaManager.ViewModels.BaseClasses
 
         public RelayCommand(Action<object> execute)
             : this(execute, null)
-        {
-        }
+        {}
+
+        public RelayCommand(Action execute) 
+            : this(o => execute())
+        {}
+
+        public RelayCommand(Action execute, Func<bool> canExecute) 
+            :  this(o => execute(), o => canExecute())
+        {}
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {

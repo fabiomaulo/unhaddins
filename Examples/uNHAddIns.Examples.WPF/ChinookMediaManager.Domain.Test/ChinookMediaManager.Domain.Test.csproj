@@ -111,6 +111,10 @@
       <Project>{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}</Project>
       <Name>ChinookMediaManager.GuyWire</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
+      <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
+      <Name>ChinookMediaManager.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

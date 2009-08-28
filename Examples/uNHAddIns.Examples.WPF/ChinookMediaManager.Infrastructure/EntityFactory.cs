@@ -13,7 +13,7 @@ namespace ChinookMediaManager.Infrastructure
             _serviceLocator = serviceLocator;
         }
 
-        public T Instantiate<T>() where T : Entity
+        public T Create<T>() where T : Entity
         {
             try
             {
