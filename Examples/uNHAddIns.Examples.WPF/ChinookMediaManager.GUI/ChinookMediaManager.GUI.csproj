@@ -67,7 +67,10 @@
     <Reference Include="PresentationFramework">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\WPF Toolkit\v3.5.40619.1\WPFToolkit.dll</HintPath>
+    </Reference>
     <Resource Include="ImageResources\add.png" />
     <Resource Include="ImageResources\error.png" />
   </ItemGroup>
