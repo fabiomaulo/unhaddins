@@ -1,6 +1,0 @@
-﻿- Each node must expose the way to be created outside a parsing process.
-For example an IntegerLiteral must expose a property/method to assign an int/long value
-and the implementation must assign the same values availables during the string-parse process.
-The same for ValueClause (it must expose something to assign values).
-This feature give us the opportunity to create an HQL-AST from multiple source including criteria-API or
-any other OO query system ( ;) ).
