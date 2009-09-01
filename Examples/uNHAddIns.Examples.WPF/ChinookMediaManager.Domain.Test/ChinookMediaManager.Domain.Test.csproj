@@ -67,6 +67,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.XML" />
     <Reference Include="uNhAddIns, Version=2.0.0.38873, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.dll</HintPath>
@@ -83,11 +84,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
     </Reference>
+    <Reference Include="uNhAddIns.NHibernateValidator, Version=2.0.0.740, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\uNhAddIns.NHibernateValidator.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\ChinookMediaManager.GuyWire\Configurators\NHVConfigurator.cs">
+      <Link>NHVConfigurator.cs</Link>
+    </Compile>
+    <Compile Include="..\ChinookMediaManager.GuyWire\IConfigurator.cs">
+      <Link>IConfigurator.cs</Link>
+    </Compile>
     <Compile Include="Model\AlbumModelFixture.cs" />
     <Compile Include="Helpers\StrongReflection.cs" />
     <Compile Include="Helpers\GetAttributeExtesion.cs" />
@@ -106,10 +117,6 @@
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.GuyWire\ChinookMediaManager.GuyWire.csproj">
-      <Project>{F6AFEAF8-1FE6-43F9-A8B8-94CDF5A02D28}</Project>
-      <Name>ChinookMediaManager.GuyWire</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
       <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
