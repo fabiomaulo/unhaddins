@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseClasses\EditableBehaviorBase.cs" />
-    <Compile Include="BaseClasses\PropertyChangeNotifierBase.cs" />
     <Compile Include="DataErrorInfoInterceptor.cs" />
     <Compile Include="EditableBehaviorInterceptor.cs" />
     <Compile Include="EntityNameResolver\ConfigurationExtension.cs" />
