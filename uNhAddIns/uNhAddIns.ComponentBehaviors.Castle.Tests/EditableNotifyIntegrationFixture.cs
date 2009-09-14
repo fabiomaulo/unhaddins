@@ -8,7 +8,7 @@ using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 {
-    [TestFixture, Ignore]
+    [TestFixture]
     public class EditableNotifyIntegrationFixture //: IntegrationBaseTest
     {
         private readonly IWindsorContainer _container = new WindsorContainer();
