@@ -148,7 +148,7 @@
         ItemsSource="{Binding}" 
         ItemTemplate="{StaticResource ClosableTabItemTemplate}"
         ContentTemplateSelector="{StaticResource templateSelector}"
-      Margin="4"
+        Margin="4"
       />
     </DataTemplate>
 

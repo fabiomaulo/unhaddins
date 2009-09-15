@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Castle.Windsor;
@@ -26,10 +27,7 @@ namespace ChinookMediaManager.Domain.Test.ValidationTests
         [Test]
         public void title_constraints()
         {
-            Attribute constraint = GetConstraint<Album, NotNullNotEmptyAttribute>(a => a.Title);
-
-
-            GetConstraint<Album, NotNullNotEmptyAttribute>(a => a.Title)
+            GetConstraint<Album, NotEmptyAttribute>(a => a.Title)
                 .Message
                 .Should().Be.EqualTo("Title should not be null.");
 
@@ -37,9 +35,7 @@ namespace ChinookMediaManager.Domain.Test.ValidationTests
                 .Should().Be.OfType<LengthAttribute>()
                 .And.ValueOf.Message.Should().Be.EqualTo("Title should not exceed 200 chars.");
                 
-                
-
-            constraint.Should().Not.Be.Null();
+            
         }
 
         private TConstraintType GetConstraint<T, TConstraintType>(Expression<Func<T, object>> property) where TConstraintType : Attribute
@@ -53,8 +49,15 @@ namespace ChinookMediaManager.Domain.Test.ValidationTests
             var constraints = ve.GetClassValidator(typeof(T))
                                 .GetMemberConstraints(propertyName);
 
-            return (TConstraintType)constraints.Where(a => a.GetType().Equals(typeof(TConstraintType)))
-                              .First();
+            ICollection<Attribute> matchedConstraints = constraints.Where(a => a.GetType().Equals(typeof(TConstraintType))).ToArray();
+            
+            matchedConstraints.Count.Should(string.Format("{0}.{1} doesn't have a {2} constraint", 
+                                            typeof (T).Name,
+                                            propertyName, 
+                                            typeof (TConstraintType).Name))
+                                    .Be.GreaterThan(0);
+
+            return (TConstraintType)matchedConstraints.First();
         }
     }
 }

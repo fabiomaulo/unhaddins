@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using ChinookMediaManager.Data.Repositories;
 using ChinookMediaManager.Domain.Model;
 using ChinookMediaManager.Infrastructure;
@@ -13,11 +14,10 @@ namespace ChinookMediaManager.Domain.Impl
         private readonly IEntityFactory _entityFactory;
         private readonly IEntityValidator _entityValidator;
 
-        public AlbumManagerModel(IAlbumRepository albumRepository, IEntityValidator entityValidator,
+        public AlbumManagerModel(IAlbumRepository albumRepository, 
                                  IEntityFactory entityFactory)
         {
             _albumRepository = albumRepository;
-            _entityValidator = entityValidator;
             _entityFactory = entityFactory;
         }
 
@@ -57,9 +57,10 @@ namespace ChinookMediaManager.Domain.Impl
         /// </summary>
         /// <param name="album"></param>
         /// <returns></returns>
+        [PersistenceConversation(Exclude = true)]
         public bool IsValid(Album album)
         {
-            return _entityValidator.IsValid(album);
+            return string.IsNullOrEmpty(((IDataErrorInfo) album).Error);
         }
 
         /// <summary>

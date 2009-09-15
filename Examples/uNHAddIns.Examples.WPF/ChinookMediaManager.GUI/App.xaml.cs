@@ -24,5 +24,11 @@ namespace ChinookMediaManager.GUI
             var viewFactory = ServiceLocator.Current.GetInstance<IViewFactory>();
             viewFactory.ShowView<IBrowseArtistViewModel>();
         }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            base.OnExit(e);
+            guyWire.Dewire();
+        }
     }
 }
