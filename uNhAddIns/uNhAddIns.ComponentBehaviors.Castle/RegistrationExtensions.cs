@@ -58,7 +58,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle
             this ComponentRegistration<T> componentRegistration)
         {
             return componentRegistration.Proxy.AdditionalInterfaces(typeof (IDataErrorInfo))
-                .Interceptors(new InterceptorReference(typeof (DataErrorInfoInterceptor))).Anywhere;
+                .Interceptors(new InterceptorReference(typeof (DataErrorInfoInterceptor))).Last;
         }
 
         public static ComponentRegistration<T> NhibernateEntity<T>(this ComponentRegistration<T> componentRegistration)

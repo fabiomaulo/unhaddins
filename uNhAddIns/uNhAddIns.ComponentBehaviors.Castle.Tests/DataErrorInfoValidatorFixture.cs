@@ -1,21 +1,16 @@
 using System;
 using System.ComponentModel;
 using Castle.Windsor;
-using NHibernate.Validator.Cfg.Loquacious;
-using NHibernate.Validator.Constraints;
-using NHibernate.Validator.Engine;
+using Moq;
 using NUnit.Framework;
 using uNhAddIns.Adapters;
-using uNhAddIns.NHibernateValidator;
 using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 {
-    public class Person
+    public class Person 
     {
-        [Length(5, Message = "Lenght should be 2.")]
-        [Email(Message = "Should be email address.")]
-        public string Mail { get; set; }
+        public virtual string Mail { get; set; }
     }
 
     [TestFixture]
@@ -23,38 +18,60 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
     {
         private IWindsorContainer container;
 
+        private static IEntityValidator CreateMockedEntityValidator()
+        {
+            var invalid1 = new Mock<IInvalidValueInfo>();
+            var invalid2 = new Mock<IInvalidValueInfo>();
+            invalid1.SetupGet(i => i.Message).Returns("Lenght should be 2.");
+            invalid2.SetupGet(i => i.Message).Returns("Should be email address.");
+
+            var entityValidator = new Mock<IEntityValidator>();
+            entityValidator.Setup(ev => ev.Validate(It.IsAny<object>()))
+                .Returns(new []{ invalid1.Object, invalid2.Object})
+                .Callback<object>(o =>
+                 {
+                    if (!o.GetType().Equals(typeof (Person)))
+                    {
+                        Assert.Fail("You should give me the target. Not proxy.");
+                    }
+                 }
+                );
+            
+            entityValidator.Setup(ev=>ev.Validate(It.IsAny<object>(), It.IsAny<string>()))
+                           .Returns(new[] { invalid1.Object, invalid2.Object })
+                .Callback<object,string>((o,s) =>
+                {
+                    if (!o.GetType().Equals(typeof(Person)))
+                    {
+                        Assert.Fail("You should give me the target. Not proxy.");
+                    }
+                }
+                );
+
+            return entityValidator.Object;
+        }
+
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
             container = new WindsorContainer();
-            var ve = new ValidatorEngine();
+
 
             container.AddFacility<ComponentBehaviorsFacility>();
 
             container.Register(Component.For<IEntityValidator>()
-                                   .ImplementedBy<EntityValidator>());
-
-            container.Register(Component.For<ValidatorEngine>()
-                                   .Instance(ve)
+                                   .Instance(CreateMockedEntityValidator())
                                    .LifeStyle.Singleton);
-
-            var configure = new FluentConfiguration();
-
-            configure.Register(typeof (Person).Assembly.ValidationDefinitions())
-                .SetDefaultValidatorMode(ValidatorMode.UseAttribute)
-                .IntegrateWithNHibernate.ApplyingDDLConstraints().And.RegisteringListeners();
-
-            ve.Configure(configure);
 
 
             container.Register(Component.For<Person>()
-                                   .ImplementedBy<Person>()
                                    .AddDataErrorInfoBehavior()
                                    .LifeStyle.Transient);
         }
 
+
         [Test]
-        public void error_should_work()
+        public void get_error_should_work()
         {
             var person = container.Resolve<Person>();
 
@@ -84,5 +101,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             errorMessages.Should().Contain("Lenght should be 2.")
                 .And.Contain("Should be email address.");
         }
+
+
     }
 }
