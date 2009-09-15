@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{055E275D-791F-4CFB-AA57-19BA944A2E04}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -106,6 +106,10 @@
     <Compile Include="ValidationTests\AlbumValidationFixture.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ChinookMediaManager.Data.Impl\ChinookMediaManager.Data.Impl.csproj">
+      <Project>{6DC83393-3D32-4E87-82EE-8D2E50176C07}</Project>
+      <Name>ChinookMediaManager.Data.Impl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Data\ChinookMediaManager.Data.csproj">
       <Project>{1E1A7CE8-81F9-455E-A7D2-C9E644F1B951}</Project>
       <Name>ChinookMediaManager.Data</Name>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Domain

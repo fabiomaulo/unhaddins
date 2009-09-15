@@ -59,7 +59,8 @@ namespace ChinookMediaManager.ViewModels.Test
             var albumList = new List<Album> {album};
 
 
-            editAlbumViewModel.Setup(ea => ea.SetUp(album, albumManagerModel.Object));
+            //editAlbumViewModel.Setup(ea => ea.SetUp(album, albumManagerModel.Object));
+
             viewInsantiator.Setup(vi => vi.ResolveViewModel<IEditAlbumViewModel>())
                            .Returns(editAlbumViewModel.Object)
                            .AtMostOnce();
@@ -74,13 +75,13 @@ namespace ChinookMediaManager.ViewModels.Test
             albumManagerVm.SetUp(artist);
 
             albumManagerVm.SelectedAlbum = album;
+            
             albumManagerVm.EditSelectedAlbumCommand.Execute(null);
 
             //Cannot execute edit until ends editing.
             albumManagerVm.EditSelectedAlbumCommand.CanExecute(null).Should().Be.False();
-
-
-            editAlbumViewModel.VerifyAll();
+            
+            editAlbumViewModel.Verify(ea => ea.SetUp(album, albumManagerModel.Object));
             viewInsantiator.VerifyAll();
         }
 

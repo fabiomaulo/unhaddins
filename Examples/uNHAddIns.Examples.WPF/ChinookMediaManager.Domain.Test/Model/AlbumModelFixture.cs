@@ -38,7 +38,6 @@ namespace ChinookMediaManager.Domain.Test.Model
                 .AtMostOnce();
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityValidator.Object,
                                                           entityFactory.Object);
 
             albumManagerModel.CancelAlbum(album);
@@ -59,7 +58,6 @@ namespace ChinookMediaManager.Domain.Test.Model
                 .Returns(albums).AtMostOnce();
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityValidator.Object,
                                                           entityFactory.Object);
 
             albumManagerModel.GetAlbumsByArtist(artist);
@@ -99,7 +97,6 @@ namespace ChinookMediaManager.Domain.Test.Model
             entityValidator.Setup(ev => ev.IsValid(album)).Returns(false);
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityValidator.Object,
                                                           entityFactory.Object);
 
             albumManagerModel.SaveAlbum(album);
@@ -119,7 +116,6 @@ namespace ChinookMediaManager.Domain.Test.Model
             repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album);
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityValidator.Object,
                                                           entityFactory.Object);
 
             albumManagerModel.SaveAlbum(album);
@@ -127,18 +123,23 @@ namespace ChinookMediaManager.Domain.Test.Model
             entityValidator.Verify(ev => ev.IsValid(album));
             repository.Verify(rep => rep.MakePersistent(album));
         }
-
-
+        
         [Test]
         public void save_all_end_the_conversation()
         {
             MethodInfo method = Strong.Instance<AlbumManagerModel>
-                .Method(am => am.SaveAll());
+                                      .Method(am => am.SaveAll());
+            
+            //typeof(AlbumManagerModel).GetMethod("SaveAll")
 
             IPersistenceConversationInfo conversationInfo = metaInfo.GetConversationInfoFor(method);
 
             conversationInfo.ConversationEndMode
                 .Should().Be.EqualTo(EndMode.End);
+
+            
+
+
         }
     }
 }

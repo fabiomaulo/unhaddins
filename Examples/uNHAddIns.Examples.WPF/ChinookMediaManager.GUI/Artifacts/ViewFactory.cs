@@ -11,6 +11,8 @@ namespace ChinookMediaManager.GUI.Artifacts
 
         public ViewFactory(IServiceLocator serviceLocator)
         {
+
+
             _serviceLocator = serviceLocator;
         }
 
@@ -41,7 +43,15 @@ namespace ChinookMediaManager.GUI.Artifacts
 
             //var view = (Window) _serviceLocator.Resolve(viewType);
             var view = (Window) _serviceLocator.GetInstance(viewType);
+
+
+
             view.DataContext = viewModel;
+
+
+
+
+
             return view;
         }
     }

@@ -1,6 +1,6 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using ChinookMediaManager.Domain;
+using ChinookMediaManager.Data.Impl.Constraints;
 using ChinookMediaManager.Infrastructure;
 using NHibernate.Validator.Cfg;
 using NHibernate.Validator.Cfg.Loquacious;
@@ -19,15 +19,15 @@ namespace ChinookMediaManager.GuyWire.Configurators
             var ve = new ValidatorEngine();
 
             container.Register(Component.For<IEntityValidator>()
-                                        .ImplementedBy<EntityValidator>());
+                                   .ImplementedBy<EntityValidator>());
 
             container.Register(Component.For<ValidatorEngine>()
-                                        .Instance(ve)
-                                        .LifeStyle.Singleton);
+                                   .Instance(ve)
+                                   .LifeStyle.Singleton);
 
             //Register the service for ISharedEngineProvider
             container.Register(Component.For<ISharedEngineProvider>()
-                                        .ImplementedBy<NHVSharedEngineProvider>());
+                                   .ImplementedBy<NHVSharedEngineProvider>());
 
             //Assign the shared engine provider for NHV.
             Environment.SharedEngineProvider =
@@ -36,8 +36,8 @@ namespace ChinookMediaManager.GuyWire.Configurators
             //Configure validation framework fluently
             var configure = new FluentConfiguration();
 
-            configure.Register(typeof (Album).Assembly.ValidationDefinitions())
-                .SetDefaultValidatorMode(ValidatorMode.UseAttribute)
+            configure.Register(typeof (AlbumValidationDef).Assembly.ValidationDefinitions())
+                .SetDefaultValidatorMode(ValidatorMode.OverrideAttributeWithExternal)
                 .IntegrateWithNHibernate.ApplyingDDLConstraints().And.RegisteringListeners();
 
             ve.Configure(configure);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NHibernate.Validator.Constraints;
 using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Domain
@@ -15,8 +14,6 @@ namespace ChinookMediaManager.Domain
 
         public virtual Artist Artist { get; set; }
 
-        [Length(Max = 200, Message= "Title should not exceed 200 chars.")]
-        [NotNullNotEmpty(Message = "Title should not be null.")]
         public virtual string Title { get; set; }
 
         public virtual IList<Track> Tracks { get; set; }

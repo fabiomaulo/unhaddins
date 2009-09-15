@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -148,6 +149,10 @@ namespace ChinookMediaManager.ViewModels
         {
             //Resolve a new instance of EditAlbumViewModel
             var newWp = _viewFactory.ResolveViewModel<IEditAlbumViewModel>();
+
+
+            Debug.WriteLine(((IDataErrorInfo) SelectedAlbum).Error);
+
             //Setup the new viewmodel.
             newWp.SetUp(SelectedAlbum, _albumManagerModel);
 

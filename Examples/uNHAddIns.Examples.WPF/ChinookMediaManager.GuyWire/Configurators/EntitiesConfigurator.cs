@@ -16,8 +16,7 @@ namespace ChinookMediaManager.GuyWire.Configurators
         {
             container.AddFacility<ComponentBehaviorsFacility>();
 
-            container.Register(Component.For<Album>()
-                                    .DependsOn(Property.ForKey("Tracks").Eq(new ObservableCollection<Track>()))
+            container.Register(Component.For<Album>().DependsOn(Property.ForKey("Tracks").Eq(new ObservableCollection<Track>()))
                                     .NhibernateEntity()
                                     .AddDataErrorInfoBehavior()
                                     .AddNotificableBehavior()
