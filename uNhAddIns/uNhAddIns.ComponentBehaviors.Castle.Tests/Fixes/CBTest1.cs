@@ -2,6 +2,7 @@ using System.ComponentModel;
 using NHibernate;
 using NHibernate.Context;
 using NUnit.Framework;
+using uNhAddIns.ComponentBehaviors.Castle.Configuration;
 using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 

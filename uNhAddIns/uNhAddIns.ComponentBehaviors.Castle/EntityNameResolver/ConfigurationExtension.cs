@@ -1,12 +1,12 @@
+
 using System.Linq;
-using NHibernate.Cfg;
 using NHibernate.Event;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
 {
     public static class ConfigurationExtension
     {
-        public static Configuration RegisterEntityNameResolver(this Configuration configuration)
+        public static NHibernate.Cfg.Configuration RegisterEntityNameResolver(this NHibernate.Cfg.Configuration configuration)
         {
             EventListeners listeners = configuration.EventListeners;
             var entityNameResolver = new EntityNameResolver();

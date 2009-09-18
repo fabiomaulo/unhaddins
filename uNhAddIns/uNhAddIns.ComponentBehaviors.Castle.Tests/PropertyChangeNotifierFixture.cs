@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
-using Castle.Core;
-using Castle.Facilities.FactorySupport;
 using NHibernate;
 using NUnit.Framework;
+using uNhAddIns.ComponentBehaviors.Castle.Configuration;
 using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
 using Component=Castle.MicroKernel.Registration.Component;
 
@@ -13,18 +12,13 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
     {
         protected override void ConfigureWindsorContainer()
         {
-            container.AddFacility<FactorySupportFacility>();
+            container.AddFacility<ComponentBehaviorsFacility>();
+            var config = new DefaultBehaviorStore();
 
-            container.Register(Component.For<PropertyChangedInterceptor>()
-                                   .LifeStyle.Transient);
+            config.SetBehaviors(typeof(Album), Behaviors.NotifiableBehavior);
+            container.Register(Component.For<IBehaviorStore>().Instance(config));
 
-            container.Register(Component.For<GetEntityNameInterceptor>()
-                                   .LifeStyle.Transient);
-
-            container.Register(Component.For<Album>()
-                                   .Proxy.AdditionalInterfaces(typeof (INotifyPropertyChanged))
-                                   .Interceptors(new InterceptorReference(typeof (PropertyChangedInterceptor))).Anywhere
-                                   .LifeStyle.Transient);
+            container.Register(Component.For<Album>().LifeStyle.Transient);
         }
 
 

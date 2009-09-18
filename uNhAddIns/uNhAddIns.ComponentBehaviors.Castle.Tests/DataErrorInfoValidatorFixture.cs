@@ -4,6 +4,7 @@ using Castle.Windsor;
 using Moq;
 using NUnit.Framework;
 using uNhAddIns.Adapters;
+using uNhAddIns.ComponentBehaviors.Castle.Configuration;
 using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
@@ -56,17 +57,24 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         {
             container = new WindsorContainer();
 
-
+            //Add the facility
             container.AddFacility<ComponentBehaviorsFacility>();
 
+            //configure behaviors
+            var config = new DefaultBehaviorStore();
+            
+            config.SetBehaviors(typeof(Person), Behaviors.DataErrorInfoBehavior);
+
+            container.Register(Component.For<IBehaviorStore>().Instance(config));
+
+            //Register a mock instance of EntityValidator.
             container.Register(Component.For<IEntityValidator>()
-                                   .Instance(CreateMockedEntityValidator())
-                                   .LifeStyle.Singleton);
+                                        .Instance(CreateMockedEntityValidator())
+                                        .LifeStyle.Singleton);
 
-
+            //Register the entity
             container.Register(Component.For<Person>()
-                                   .AddDataErrorInfoBehavior()
-                                   .LifeStyle.Transient);
+                                        .LifeStyle.Transient);
         }
 
 
