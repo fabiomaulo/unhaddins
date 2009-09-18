@@ -7,18 +7,20 @@ using NHibernate.Type;
 
 namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 {
-	public class EnhancedBytecode : IBytecodeProvider, IInjectableCollectionTypeFactoryClass
+	public class EnhancedBytecode : IBytecodeProvider, IInjectableCollectionTypeFactoryClass, IInjectableProxyFactoryFactory
 	{
 		private readonly IObjectsFactory objectsFactory;
 
 		private readonly IWindsorContainer container;
 		private ICollectionTypeFactory collectionTypefactory;
+	    private IProxyFactoryFactory proxyFactoryFactory;
 
 		public EnhancedBytecode(IWindsorContainer container)
 		{
 			this.container = container;
 			objectsFactory = new ObjectsFactory(container);
 			collectionTypefactory = new DefaultCollectionTypeFactory();
+		    proxyFactoryFactory = new ProxyFactoryFactory();
 		}
 
 		#region IBytecodeProvider Members
@@ -27,10 +29,13 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 		{
 			return new ReflectionOptimizer(container, clazz, getters, setters);
 		}
-
+        
 		public IProxyFactoryFactory ProxyFactoryFactory
 		{
-			get { return new ProxyFactoryFactory(); }
+			get
+			{
+			    return proxyFactoryFactory;
+			}
 		}
 
 		public IObjectsFactory ObjectsFactory
@@ -52,7 +57,19 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 
 	    public void SetCollectionTypeFactoryClass(Type type)
 	    {
-	        collectionTypefactory = (ICollectionTypeFactory) Activator.CreateInstance(type);
+            if (container.Kernel.HasComponent(type))
+                collectionTypefactory = (ICollectionTypeFactory)container.Resolve(type);
+            else
+	            collectionTypefactory = (ICollectionTypeFactory) Activator.CreateInstance(type);
+	    }
+
+	    public void SetProxyFactoryFactory(string typeName)
+	    {
+	        Type type = Type.GetType(typeName, true);
+            if (container.Kernel.HasComponent(type))
+                proxyFactoryFactory = (IProxyFactoryFactory)container.Resolve(type);
+            else
+                proxyFactoryFactory = (IProxyFactoryFactory)Activator.CreateInstance(type);
 	    }
 	}
 }

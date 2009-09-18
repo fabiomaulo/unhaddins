@@ -1,4 +1,5 @@
 using System;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using NHibernate.Type;
 using NUnit.Framework;
@@ -34,6 +35,24 @@ namespace uNhAddIns.CastleAdapters.Tests.EnhancedBytecodeProvider
 
             bytecode.CollectionTypeFactory.GetType()
                     .Should().Be.EqualTo(collFactoryType);
+
+        }
+
+        [Test]
+        public void can_inject_through_type_and_resolve_from_container()
+        {
+            var container = new WindsorContainer();
+            var bytecode = new EnhancedBytecode(container);
+            var collFactory = new TestCollTypeFactory();
+
+            container.Register(Component.For<TestCollTypeFactory>().Instance(collFactory));
+
+            Type collFactoryType = typeof(TestCollTypeFactory);
+
+            bytecode.SetCollectionTypeFactoryClass(collFactoryType);
+
+            bytecode.CollectionTypeFactory
+                    .Should().Be.SameInstanceAs(collFactory);
 
         }
 
