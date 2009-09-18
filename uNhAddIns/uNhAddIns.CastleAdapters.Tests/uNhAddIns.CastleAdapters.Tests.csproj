@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{22FC518C-41B7-43E8-A24E-75220A159B51}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -93,8 +93,10 @@
   <ItemGroup>
     <Compile Include="AutomaticConversationManagement\ConversationInterceptorFixture.cs" />
     <Compile Include="AutomaticConversationManagement\FullCreamFixture.cs" />
+    <Compile Include="EnhancedBytecodeProvider\CollectionTypeFactoryInjectionFixture.cs" />
     <Compile Include="EnhancedBytecodeProvider\EntityInjectionFixture.cs" />
     <Compile Include="EnhancedBytecodeProvider\InjectableUserTypeFixture.cs" />
+    <Compile Include="EnhancedBytecodeProvider\ProxyFactoryFactoryInjectionFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionWrapperFixture.cs" />
   </ItemGroup>
