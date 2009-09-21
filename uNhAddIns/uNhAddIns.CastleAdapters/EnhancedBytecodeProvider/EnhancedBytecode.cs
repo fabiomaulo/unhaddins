@@ -7,69 +7,74 @@ using NHibernate.Type;
 
 namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 {
-	public class EnhancedBytecode : IBytecodeProvider, IInjectableCollectionTypeFactoryClass, IInjectableProxyFactoryFactory
-	{
-		private readonly IObjectsFactory objectsFactory;
+    public class EnhancedBytecode : IBytecodeProvider, IInjectableCollectionTypeFactoryClass,
+                                    IInjectableProxyFactoryFactory
+    {
+        private readonly IWindsorContainer container;
+        private readonly IObjectsFactory objectsFactory;
+        private ICollectionTypeFactory collectionTypefactory;
+        private IProxyFactoryFactory proxyFactoryFactory;
 
-		private readonly IWindsorContainer container;
-		private ICollectionTypeFactory collectionTypefactory;
-	    private IProxyFactoryFactory proxyFactoryFactory;
+        public EnhancedBytecode(IWindsorContainer container)
+        {
+            this.container = container;
+            objectsFactory = new ObjectsFactory(container);
+            collectionTypefactory = new DefaultCollectionTypeFactory();
+            proxyFactoryFactory = new ProxyFactoryFactory();
+        }
 
-		public EnhancedBytecode(IWindsorContainer container)
-		{
-			this.container = container;
-			objectsFactory = new ObjectsFactory(container);
-			collectionTypefactory = new DefaultCollectionTypeFactory();
-		    proxyFactoryFactory = new ProxyFactoryFactory();
-		}
+        #region IBytecodeProvider Members
 
-		#region IBytecodeProvider Members
+        public IReflectionOptimizer GetReflectionOptimizer(Type clazz, IGetter[] getters, ISetter[] setters)
+        {
+            return new ReflectionOptimizer(container, clazz, getters, setters);
+        }
 
-		public IReflectionOptimizer GetReflectionOptimizer(Type clazz, IGetter[] getters, ISetter[] setters)
-		{
-			return new ReflectionOptimizer(container, clazz, getters, setters);
-		}
-        
-		public IProxyFactoryFactory ProxyFactoryFactory
-		{
-			get
-			{
-			    return proxyFactoryFactory;
-			}
-		}
+        public IProxyFactoryFactory ProxyFactoryFactory
+        {
+            get { return proxyFactoryFactory; }
+        }
 
-		public IObjectsFactory ObjectsFactory
-		{
-			get { return objectsFactory; }
-		}
+        public IObjectsFactory ObjectsFactory
+        {
+            get { return objectsFactory; }
+        }
 
-		public ICollectionTypeFactory CollectionTypeFactory
-		{
-			get { return collectionTypefactory; }
-		}
+        public ICollectionTypeFactory CollectionTypeFactory
+        {
+            get { return collectionTypefactory; }
+        }
 
-		#endregion
+        #endregion
 
-	    public void SetCollectionTypeFactoryClass(string typeAssemblyQualifiedName)
-	    {
-	        SetCollectionTypeFactoryClass(Type.GetType(typeAssemblyQualifiedName, true));
-	    }
+        #region IInjectableCollectionTypeFactoryClass Members
 
-	    public void SetCollectionTypeFactoryClass(Type type)
-	    {
+        public void SetCollectionTypeFactoryClass(string typeAssemblyQualifiedName)
+        {
+            SetCollectionTypeFactoryClass(Type.GetType(typeAssemblyQualifiedName, true));
+        }
+
+        public void SetCollectionTypeFactoryClass(Type type)
+        {
             if (container.Kernel.HasComponent(type))
-                collectionTypefactory = (ICollectionTypeFactory)container.Resolve(type);
+                collectionTypefactory = (ICollectionTypeFactory) container.Resolve(type);
             else
-	            collectionTypefactory = (ICollectionTypeFactory) Activator.CreateInstance(type);
-	    }
+                collectionTypefactory = (ICollectionTypeFactory) Activator.CreateInstance(type);
+        }
 
-	    public void SetProxyFactoryFactory(string typeName)
-	    {
-	        Type type = Type.GetType(typeName, true);
+        #endregion
+
+        #region IInjectableProxyFactoryFactory Members
+
+        public void SetProxyFactoryFactory(string typeName)
+        {
+            Type type = Type.GetType(typeName, true);
             if (container.Kernel.HasComponent(type))
-                proxyFactoryFactory = (IProxyFactoryFactory)container.Resolve(type);
+                proxyFactoryFactory = (IProxyFactoryFactory) container.Resolve(type);
             else
-                proxyFactoryFactory = (IProxyFactoryFactory)Activator.CreateInstance(type);
-	    }
-	}
+                proxyFactoryFactory = (IProxyFactoryFactory) Activator.CreateInstance(type);
+        }
+
+        #endregion
+    }
 }
