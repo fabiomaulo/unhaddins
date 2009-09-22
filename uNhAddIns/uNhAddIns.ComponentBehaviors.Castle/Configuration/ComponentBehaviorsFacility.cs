@@ -9,7 +9,6 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
         {
             
             Kernel.Register(Component.For<EditableBehaviorInterceptor>().LifeStyle.Transient);
-            Kernel.Register(Component.For<NhEditableBehaviorInterceptor>().LifeStyle.Transient);
             Kernel.Register(Component.For<PropertyChangedInterceptor>().LifeStyle.Transient);
             Kernel.Register(Component.For<GetEntityNameInterceptor>().LifeStyle.Transient);
             Kernel.Register(Component.For<DataErrorInfoInterceptor>().LifeStyle.Transient);

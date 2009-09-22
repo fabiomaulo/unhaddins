@@ -63,10 +63,10 @@ namespace uNhAddIns.NHibernateValidator
         ///<returns></returns>
         public IList<IInvalidValueInfo> Validate(object entityInstance, string property)
         {
-            return _validatorEngine.GetClassValidator(entityInstance.GetType())
-                                   .GetInvalidValues(entityInstance, property)
+            return _validatorEngine.ValidatePropertyValue(entityInstance, property)
                                    .Select(iv => new InvalidValueInfo(iv))
-                                   .OfType<IInvalidValueInfo>().ToList();
+                                   .OfType<IInvalidValueInfo>()
+                                   .ToList();
         }
     }
 }
