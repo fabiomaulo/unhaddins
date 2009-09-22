@@ -21,21 +21,6 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
         }
 
         /// <summary>
-        /// Add the interface IEditableObject and a nhibernate editable behavior.
-        /// CancelEdit force a refresh of the entity.
-        /// EndEdit persist the object.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="componentRegistration"></param>
-        /// <returns></returns>
-        public static ComponentRegistration<T> AddNhEditableBehavior<T>(
-            this ComponentRegistration<T> componentRegistration)
-        {
-            return componentRegistration.Proxy.AdditionalInterfaces(typeof (IEditableObject))
-                .Interceptors(new InterceptorReference(typeof (NhEditableBehaviorInterceptor))).Last;
-        }
-
-        /// <summary>
         /// Add the interface INotifyPropertyChanged and the corresponding behavior.
         /// </summary>
         /// <typeparam name="T"></typeparam>

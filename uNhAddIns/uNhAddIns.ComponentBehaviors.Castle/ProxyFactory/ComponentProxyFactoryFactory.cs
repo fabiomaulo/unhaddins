@@ -11,11 +11,14 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
         private readonly IWindsorContainer _container;
 
         //TODO: Find a better way. Avoid injecting the container itself.
-        public ComponentProxyFactoryFactory(IBehaviorToProxyResolver behaviorToProxyResolver, IWindsorContainer container)
+        public ComponentProxyFactoryFactory(IBehaviorToProxyResolver behaviorToProxyResolver,
+                                            IWindsorContainer container)
         {
             _behaviorToProxyResolver = behaviorToProxyResolver;
             _container = container;
         }
+
+        #region IProxyFactoryFactory Members
 
         /// <summary>
         /// Build a proxy factory specifically for handling runtime
@@ -33,5 +36,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
         {
             get { return new DynProxyTypeValidator(); }
         }
+
+        #endregion
     }
 }
