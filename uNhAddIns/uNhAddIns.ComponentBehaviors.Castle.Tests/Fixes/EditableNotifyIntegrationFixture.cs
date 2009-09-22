@@ -6,7 +6,7 @@ using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
 using uNhAddIns.NHibernateTypeResolver;
 using Component=Castle.MicroKernel.Registration.Component;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.Tests
+namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Fixes
 {
     [TestFixture]
     public class EditableNotifyIntegrationFixture //: IntegrationBaseTest

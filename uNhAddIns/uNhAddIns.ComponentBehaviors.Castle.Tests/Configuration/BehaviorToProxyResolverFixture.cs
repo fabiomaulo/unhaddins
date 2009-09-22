@@ -6,9 +6,8 @@ using NUnit.Framework;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
 using uNhAddIns.NHibernateTypeResolver;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.Tests
+namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
 {
-
     public class A
     {}
 
@@ -40,7 +39,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         {
             var behaviorStore = new Mock<IBehaviorStore>();
             behaviorStore.Setup(bs => bs.GetBehaviorsForType(typeof (A)))
-                         .Returns(Behaviors.None);
+                .Returns(Behaviors.None);
             
             var behaviorToProxyResolver = new BehaviorToProxyResolver(behaviorStore.Object);
             //Method under test.
@@ -55,9 +54,9 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             var behaviorStore = new Mock<IBehaviorStore>();
 
             behaviorStore.Setup(bs => bs.GetBehaviorsForType(typeof(B)))
-                         .Returns(Behaviors.NotifiableBehavior 
-                                | Behaviors.EditableBehavior 
-                                | Behaviors.DataErrorInfoBehavior);
+                .Returns(Behaviors.NotifiableBehavior 
+                         | Behaviors.EditableBehavior 
+                         | Behaviors.DataErrorInfoBehavior);
 
             var behaviorToProxyResolver = new BehaviorToProxyResolver(behaviorStore.Object);
             //Method under test.
@@ -163,7 +162,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             var proxyInfo = behaviorToProxyResolver.GetProxyInformation(typeof(A));
 
             proxyInfo.AdditionalInterfaces
-                 .Should().Satisfy(adi => adi.Any(i => i.Equals(expectedInterface)));
+                .Should().Satisfy(adi => adi.Any(i => i.Equals(expectedInterface)));
         }
     }
 }
