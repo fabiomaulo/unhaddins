@@ -88,7 +88,8 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
                 .And.Contain("Should be email address.");
         }
 
-        [Test, Ignore]
+        [Test]
+        [Ignore("Until NHV team apply http://nhjira.koah.net/browse/NHV-56.")]
         public void get_item_should_work()
         {
             var person = container.Resolve<Person>();
