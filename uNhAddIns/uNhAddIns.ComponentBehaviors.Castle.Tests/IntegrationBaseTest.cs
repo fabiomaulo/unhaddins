@@ -6,8 +6,7 @@ using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
-using uNhAddIns.ComponentBehaviors.Castle.ProxyFactory;
+using uNhAddIns.NHibernateTypeResolver;
 using Environment=NHibernate.Cfg.Environment;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests

@@ -1,7 +1,7 @@
 using System.Collections;
 using NHibernate.Event;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
+namespace uNhAddIns.NHibernateTypeResolver
 {
     public class EntityNameResolver : ISaveOrUpdateEventListener, IMergeEventListener, IPersistEventListener
     {
@@ -47,7 +47,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
             if (actual != null && !string.IsNullOrEmpty(actual))
                 return actual;
 
-            var namedEntity = entity as INamedEntity;
+            var namedEntity = entity as IWellKnownProxy;
             return namedEntity != null ? namedEntity.EntityName : null;
         }
     }

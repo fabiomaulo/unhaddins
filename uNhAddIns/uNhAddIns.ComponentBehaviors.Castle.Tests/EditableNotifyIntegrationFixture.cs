@@ -2,8 +2,8 @@ using System.ComponentModel;
 using Castle.Core;
 using Castle.Windsor;
 using NUnit.Framework;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
 using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
+using uNhAddIns.NHibernateTypeResolver;
 using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
@@ -24,7 +24,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 
             _container.Register(Component.For<PropertyChangedInterceptor>().LifeStyle.Transient);
             _container.Register(Component.For<Album>()
-                                    .Proxy.AdditionalInterfaces(typeof (IEditableObject), typeof (INamedEntity),
+                                    .Proxy.AdditionalInterfaces(typeof (IEditableObject), typeof (IWellKnownProxy),
                                                                 typeof (INotifyPropertyChanged))
                                     .Interceptors(new InterceptorReference(typeof (PropertyChangedInterceptor))).First
                                     .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere

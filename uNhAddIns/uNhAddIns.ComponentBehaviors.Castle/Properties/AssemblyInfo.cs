@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.ComponentBehaviors.Castle")]
 [assembly: AssemblyTitle("uNhAddIns.ComponentBehaviors.Castle")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("2.0.0.758")]
-[assembly: AssemblyVersion("2.0.0.758")]
+[assembly: AssemblyInformationalVersion("2.0.0.762")]
+[assembly: AssemblyVersion("2.0.0.762")]
 
 

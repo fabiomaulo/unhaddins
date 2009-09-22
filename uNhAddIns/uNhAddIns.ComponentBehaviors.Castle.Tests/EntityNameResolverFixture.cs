@@ -3,9 +3,8 @@ using Castle.Core;
 using Castle.MicroKernel.Registration;
 using NHibernate;
 using NUnit.Framework;
-using uNhAddIns.ComponentBehaviors.Castle;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
 using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
+using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 {
@@ -21,7 +20,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
                                    .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
-                                   .Proxy.AdditionalInterfaces(typeof (INamedEntity))
+                                   .Proxy.AdditionalInterfaces(typeof (IWellKnownProxy))
                                    .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere
                                    .LifeStyle.Transient);
         }
@@ -32,8 +31,10 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             using (ISession session = sessions.OpenSession())
             using (ITransaction tx = session.BeginTransaction())
             {
-                var album = new Album();
-                album.Title = "The dark side of the moon";
+                var album = new Album
+                                {
+                                    Title = "The dark side of the moon"
+                                };
                 id = (int) session.Save(album);
                 tx.Commit();
             }
@@ -134,6 +135,18 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         }
 
         [Test]
+        public void can_persist_transient_entity()
+        {
+            using (ISession session = sessions.OpenSession())
+            using (ITransaction tx = session.BeginTransaction())
+            {
+                var album = container.Resolve<Album>();
+                session.Persist(album);
+                tx.Commit();
+            }
+        }
+
+        [Test]
         public void can_save_transient_entity()
         {
             using (ISession session = sessions.OpenSession())
@@ -146,32 +159,11 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         }
 
         [Test]
-        public void can_persist_transient_entity()
+        public void get_entity_type_works()
         {
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var album = container.Resolve<Album>();
-                session.Persist(album);
-                tx.Commit();
-            }
-        }
-
-        // TODO: EnhacedProxyFactory.
-        [Test]
-        [Ignore(@"this test should not be here. 
-                 I need to build an EnhancedProxyFactory")]
-        public void loaded_entity_implements_INamedEntity()
-        {
-            int id = CreateNewAlbum();
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var album = session.Load<Album>(id);
-                NHibernateUtil.Initialize(album);
-                album.GetType().GetInterfaces()
-                    .Any(i => i.Equals(typeof (INamedEntity))).Should().Be.True();
-            }
+            var album = container.Resolve<Album>();
+            album.GetType().Should().Not.Be.EqualTo(typeof(Album));
+            ((IWellKnownProxy) album).EntityType.Should().Be.EqualTo(typeof (Album));
         }
     }
 }

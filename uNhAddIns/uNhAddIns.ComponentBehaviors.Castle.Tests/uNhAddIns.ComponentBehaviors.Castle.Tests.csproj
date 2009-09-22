@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{35D46D7F-AD68-4B18-8FCA-158644BA15F2}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -120,6 +120,10 @@
     <ProjectReference Include="..\uNhAddIns.Entities\uNhAddIns.Entities.csproj">
       <Project>{676FDC6C-A4BB-42A5-9C56-C2D1669E45A8}</Project>
       <Name>uNhAddIns.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\uNhAddIns.NHibernateTypeResolver\uNhAddIns.NHibernateTypeResolver.csproj">
+      <Project>{A57F0E70-9283-414F-B697-1637F11B01FB}</Project>
+      <Name>uNhAddIns.NHibernateTypeResolver</Name>
     </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.TestUtils\uNhAddIns.TestUtils.csproj">
       <Project>{7512944F-2C52-44E2-8287-2BD39DE552F1}</Project>

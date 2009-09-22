@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
+using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 {
@@ -63,7 +63,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 
         public static ComponentRegistration<T> NhibernateEntity<T>(this ComponentRegistration<T> componentRegistration)
         {
-            return componentRegistration.Proxy.AdditionalInterfaces(typeof(INamedEntity))
+            return componentRegistration.Proxy.AdditionalInterfaces(typeof(IWellKnownProxy))
                 .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere;
         }
     }
