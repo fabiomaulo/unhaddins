@@ -2,11 +2,9 @@
 using Castle.Core;
 using NHibernate;
 using NUnit.Framework;
-using uNhAddIns.ComponentBehaviors.Castle;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
 using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
+using uNhAddIns.NHibernateTypeResolver;
 using Component=Castle.MicroKernel.Registration.Component;
-
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 {
@@ -22,9 +20,10 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
                                    .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
-                                   .Proxy.AdditionalInterfaces(typeof(IEditableObject), typeof(INamedEntity))
-                                   .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Anywhere
-                                   .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere
+                                   .Proxy.AdditionalInterfaces(typeof (IEditableObject), typeof (IWellKnownProxy))
+                                   .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).
+                                   Anywhere
+                                   .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere
                                    .LifeStyle.Transient);
         }
 
@@ -36,60 +35,10 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             {
                 var album = new Album();
                 album.Title = "The dark side of the moon";
-                id = (int)session.Save(album);
+                id = (int) session.Save(album);
                 tx.Commit();
             }
             return id;
-        }
-
-        [Test]
-        public void transient_entity_should_commitchanges_after_endedit()
-        {
-            var album = container.Resolve<Album>();
-            const string title = "The dark side of the moon";
-            const string newTitle = "Dark side of the moon";
-            
-            album.Title = title;
-            ((IEditableObject)album).BeginEdit();
-            album.Title = newTitle;
-            album.Title.Should().Be.EqualTo(newTitle);
-            ((IEditableObject)album).EndEdit();
-
-            album.Title.Should().Be.EqualTo(newTitle);
-        }
-
-
-        [Test]
-        public void transient_entity_should_rollback_after_canceledit()
-        {
-            var album = container.Resolve<Album>();
-            const string title = "The dark side of the moon";
-            const string newTitle = "Dark side of the moon";
-
-            album.Title = title;
-            ((IEditableObject)album).BeginEdit();
-            album.Title = newTitle;
-            album.Title.Should().Be.EqualTo(newTitle);
-            ((IEditableObject)album).CancelEdit();
-
-            album.Title.Should().Be.EqualTo(title);
-
-        }
-
-        [Test]
-        public void tempvalues_should_not_traverse_session()
-        {
-            var album = container.Resolve<Album>();
-            const string title = "The dark side of the moon";
-            album.Title = title;
-            
-            ((IEditableObject)album).BeginEdit();
-            album.Title = "dark side";
-            ((IEditableObject)album).CancelEdit();
-            
-            ((IEditableObject)album).BeginEdit();
-            album.Title.Should().Be.EqualTo(title);
-            ((IEditableObject)album).CancelEdit();
         }
 
         [Test]
@@ -106,6 +55,15 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         }
 
         [Test]
+        public void get_on_readonly_property_should_work()
+        {
+            var album = container.Resolve<Album>();
+            ((IEditableObject) album).BeginEdit();
+            album.Tracks.Should().Not.Be.Null();
+            ((IEditableObject) album).CancelEdit();
+        }
+
+        [Test]
         public void session_should_be_dirty_after_commitchanges()
         {
             var id = CreateNewAlbum();
@@ -113,9 +71,9 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             using (ITransaction tx = session.BeginTransaction())
             {
                 var album = session.Get<Album>(id);
-                ((IEditableObject)album).BeginEdit();
+                ((IEditableObject) album).BeginEdit();
                 album.Title = "Dark side of the moon";
-                ((IEditableObject)album).EndEdit();
+                ((IEditableObject) album).EndEdit();
                 session.IsDirty().Should().Be.True();
                 tx.Commit();
             }
@@ -129,9 +87,9 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             using (ITransaction tx = session.BeginTransaction())
             {
                 var album = session.Get<Album>(id);
-                ((IEditableObject)album).BeginEdit();
+                ((IEditableObject) album).BeginEdit();
                 album.Title = "Dark side of the moon";
-                ((IEditableObject)album).CancelEdit();
+                ((IEditableObject) album).CancelEdit();
                 session.IsDirty().Should().Be.False();
 
                 tx.Commit();
@@ -139,12 +97,52 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         }
 
         [Test]
-        public void get_on_readonly_property_should_work()
+        public void tempvalues_should_not_traverse_session()
         {
             var album = container.Resolve<Album>();
-            ((IEditableObject)album).BeginEdit();
-            album.Tracks.Should().Not.Be.Null();
-            ((IEditableObject)album).CancelEdit();
+            const string title = "The dark side of the moon";
+            album.Title = title;
+
+            ((IEditableObject) album).BeginEdit();
+            album.Title = "dark side";
+            ((IEditableObject) album).CancelEdit();
+
+            ((IEditableObject) album).BeginEdit();
+            album.Title.Should().Be.EqualTo(title);
+            ((IEditableObject) album).CancelEdit();
+        }
+
+        [Test]
+        public void transient_entity_should_commitchanges_after_endedit()
+        {
+            var album = container.Resolve<Album>();
+            const string title = "The dark side of the moon";
+            const string newTitle = "Dark side of the moon";
+
+            album.Title = title;
+            ((IEditableObject) album).BeginEdit();
+            album.Title = newTitle;
+            album.Title.Should().Be.EqualTo(newTitle);
+            ((IEditableObject) album).EndEdit();
+
+            album.Title.Should().Be.EqualTo(newTitle);
+        }
+
+
+        [Test]
+        public void transient_entity_should_rollback_after_canceledit()
+        {
+            var album = container.Resolve<Album>();
+            const string title = "The dark side of the moon";
+            const string newTitle = "Dark side of the moon";
+
+            album.Title = title;
+            ((IEditableObject) album).BeginEdit();
+            album.Title = newTitle;
+            album.Title.Should().Be.EqualTo(newTitle);
+            ((IEditableObject) album).CancelEdit();
+
+            album.Title.Should().Be.EqualTo(title);
         }
     }
 }

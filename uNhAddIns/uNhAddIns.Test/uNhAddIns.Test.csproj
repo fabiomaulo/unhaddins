@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -171,9 +171,11 @@
     <Compile Include="TestCase.cs" />
     <Compile Include="TestHelpers.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
+    <Compile Include="UserTypes\GenericWellKnownInstanceTypeFixture.cs" />
     <Compile Include="UserTypes\EntityWithLocalizableProperty.cs" />
     <Compile Include="UserTypes\EntityWithPropNames.cs" />
     <Compile Include="UserTypes\LocalizablePropertyFixture.cs" />
+    <Compile Include="UserTypes\PersonMitaMita.cs" />
     <Compile Include="UserTypes\PropertiesNamesIntegrationFixture.cs" />
     <Compile Include="UserTypes\TrimmedStringFixture.cs" />
     <Compile Include="UserTypes\EncryptedStringFixture.cs" />
@@ -252,6 +254,7 @@
     <Content Include="TestConfigWithFactoryName.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UserTypes\PersonMitaMita.hbm.xml" />
     <EmbeddedResource Include="UserTypes\UserMitaMita.hbm.xml" />
     <EmbeddedResource Include="UserTypes\EntityWithLocalizableProperty.hbm.xml" />
     <EmbeddedResource Include="UserTypes\EntityWithPropNames.hbm.xml" />

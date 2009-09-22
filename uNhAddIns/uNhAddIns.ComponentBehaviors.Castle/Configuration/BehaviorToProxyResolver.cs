@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Castle.Core;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
+using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 {
@@ -67,7 +67,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
             
             if(interceptorReferences.Count > 0)
             {
-                additionalInterfaces.Add(typeof(INamedEntity));
+                additionalInterfaces.Add(typeof(IWellKnownProxy));
                 interceptorReferences
                         .Insert(0, typeof(GetEntityNameInterceptor));
             }

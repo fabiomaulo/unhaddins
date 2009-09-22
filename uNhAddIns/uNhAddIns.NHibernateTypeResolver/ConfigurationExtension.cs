@@ -2,7 +2,7 @@
 using System.Linq;
 using NHibernate.Event;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver
+namespace uNhAddIns.NHibernateTypeResolver
 {
     public static class ConfigurationExtension
     {

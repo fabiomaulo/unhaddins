@@ -4,7 +4,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
-using uNhAddIns.ComponentBehaviors.Castle.EntityNameResolver;
+using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 {
@@ -130,7 +130,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
                 .Should().Satisfy(irs => irs.Any(ir => ir.Equals(typeof(GetEntityNameInterceptor))));
 
             proxyInfo.AdditionalInterfaces
-                .Should().Satisfy(interfaces => interfaces.Any(i => i.Equals(typeof(INamedEntity))));
+                .Should().Satisfy(interfaces => interfaces.Any(i => i.Equals(typeof(IWellKnownProxy))));
         }
 
 

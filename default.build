@@ -16,6 +16,8 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.Common\Adapters.Common.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters\CastleAdapters.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters.Tests\CastleAdapters.Tests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.NinjectAdapters\NinjectAdapters.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.NinjectAdapters.Tests\NinjectAdapters.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.LinFuAdapters\LinFuAdapters.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.SpringAdapters\SpringAdapters.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.SpringAdapters.Tests\SpringAdapters.Tests.build"/>	
@@ -25,6 +27,9 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.TestUtils.Tests\TestUtils.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Web\Web.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.WPF\WPF.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.NHibernateTypeResolver\NHibernateTypeResolver.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.ComponentBehaviors\ComponentBehaviors.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.ComponentBehaviors.Tests\ComponentBehaviors.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.ComponentBehaviors.Castle\ComponentBehaviors.Castle.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.ComponentBehaviors.Castle.Tests\ComponentBehaviors.Castle.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.NHibernateValidator\NHibernateValidator.build"/>
