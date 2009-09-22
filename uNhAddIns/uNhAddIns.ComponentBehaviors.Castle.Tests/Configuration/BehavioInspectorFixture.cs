@@ -8,7 +8,7 @@ using Moq;
 using NUnit.Framework;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.Tests
+namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
 {
     public class SampleEntity
     {
@@ -46,7 +46,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
                              ));
 
             kernel.Setup(k => k[typeof (IBehaviorToProxyResolver)])
-                  .Returns(behaviorToProxyResolver.Object);
+                .Returns(behaviorToProxyResolver.Object);
 
             var behaviorInspector = new BehaviorInspector();
 

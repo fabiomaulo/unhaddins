@@ -7,7 +7,7 @@ using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
 using uNhAddIns.TestUtils.NhIntegration;
 using Component=Castle.MicroKernel.Registration.Component;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.Tests
+namespace uNhAddIns.ComponentBehaviors.Castle.Tests.ProxyFactory
 {
     [TestFixture]
     public class ProxyFactoryTest : IntegrationBaseTest
@@ -45,10 +45,10 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
                 //simple test
                 bool eventWasRaised = false;
                 ((INotifyPropertyChanged) album).PropertyChanged += (sender, args) =>
-                                 {
-                                     if (args.PropertyName.Equals("Title"))
-                                         eventWasRaised = true;
-                                 };
+                                                                        {
+                                                                            if (args.PropertyName.Equals("Title"))
+                                                                                eventWasRaised = true;
+                                                                        };
 
                 album.Title = "new title";
                 eventWasRaised.Should().Be.True();
