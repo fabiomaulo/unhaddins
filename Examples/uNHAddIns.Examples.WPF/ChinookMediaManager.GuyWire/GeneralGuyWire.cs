@@ -1,4 +1,6 @@
-﻿using Castle.MicroKernel.Registration;
+﻿using Castle.Facilities.FactorySupport;
+using Castle.MicroKernel.Facilities.OnCreate;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using ChinookMediaManager.GuyWire.Configurators;
 using CommonServiceLocator.WindsorAdapter;
@@ -13,9 +15,9 @@ namespace ChinookMediaManager.GuyWire
                                                              {
                                                                  new NHibernateConfigurator(),
                                                                  new RepositoriesConfigurator(),
+																 new NHVConfigurator(),
                                                                  new EntitiesConfigurator(),
                                                                  new ModelsConfigurator(),
-                                                                 new NHVConfigurator(),
                                                                  new ViewModelConfigurator(),
                                                                  new ViewsConfigurator()
                                                              };
@@ -35,7 +37,8 @@ namespace ChinookMediaManager.GuyWire
             if (container != null)
                 Dewire();
             container = new WindsorContainer();
-
+        	container.AddFacility<OnCreateFacility>();
+        	container.AddFacility<FactorySupportFacility>();
 
             //container.Register(Component.For<IWindsorContainer>().Instance(container));
 

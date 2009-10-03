@@ -6,6 +6,7 @@ using NHibernate.Validator.Cfg;
 using NHibernate.Validator.Cfg.Loquacious;
 using NHibernate.Validator.Engine;
 using uNhAddIns.Adapters;
+using uNhAddIns.NHibernateTypeResolver;
 using uNhAddIns.NHibernateValidator;
 
 namespace ChinookMediaManager.GuyWire.Configurators
@@ -38,6 +39,7 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
             configure.Register(typeof (AlbumValidationDef).Assembly.ValidationDefinitions())
                 .SetDefaultValidatorMode(ValidatorMode.OverrideAttributeWithExternal)
+				.AddEntityTypeInspector<NHVTypeInspector>()
                 .IntegrateWithNHibernate.ApplyingDDLConstraints().And.RegisteringListeners();
 
             ve.Configure(configure);
