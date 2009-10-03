@@ -13,17 +13,17 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
     {
         protected override void ConfigureWindsorContainer()
         {
-            container.Register(Component.For<EditableBehaviorInterceptor>()
+            container.Register(Component.For<EditableBehavior>()
                                    .LifeStyle.Transient);
 
-            container.Register(Component.For<GetEntityNameInterceptor>()
+            container.Register(Component.For<GetEntityNameBehavior>()
                                    .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
                                    .Proxy.AdditionalInterfaces(typeof (IEditableObject), typeof (IWellKnownProxy))
-                                   .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).
+                                   .Interceptors(new InterceptorReference(typeof (EditableBehavior))).
                                    Anywhere
-                                   .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere
+                                   .Interceptors(new InterceptorReference(typeof (GetEntityNameBehavior))).Anywhere
                                    .LifeStyle.Transient);
         }
 
@@ -107,7 +107,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             album.Title = "dark side";
             ((IEditableObject) album).CancelEdit();
 
-            ((IEditableObject) album).BeginEdit();
+			((IEditableObject) album).BeginEdit();
             album.Title.Should().Be.EqualTo(title);
             ((IEditableObject) album).CancelEdit();
         }
@@ -144,5 +144,20 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 
             album.Title.Should().Be.EqualTo(title);
         }
+
+
+		[Test]
+		public void null_values_in_edit_session_should_work()
+		{
+			var album = container.Resolve<Album>();
+
+			album.Title = "The dark side of the moon";
+
+			((IEditableObject)album).BeginEdit();
+			album.Title = null;
+			album.Title.Should().Be.EqualTo(null);
+			((IEditableObject)album).EndEdit();
+            
+		}
     }
 }

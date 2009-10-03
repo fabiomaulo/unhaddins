@@ -15,9 +15,9 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Fixes
         {
             base.ConfigureWindsorContainer();
 
-            container.Register(Component.For<EditableBehaviorInterceptor>());
-            container.Register(Component.For<GetEntityNameInterceptor>());
-            container.Register(Component.For<PropertyChangedInterceptor>());
+            container.Register(Component.For<EditableBehavior>());
+            container.Register(Component.For<GetEntityNameBehavior>());
+            container.Register(Component.For<NotifyPropertyChangedBehavior>());
 
             container.Register(Component.For<AlreadyNamedEntity>()
                                    .AddNotificableBehavior()

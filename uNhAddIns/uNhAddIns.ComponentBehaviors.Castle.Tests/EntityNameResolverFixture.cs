@@ -13,15 +13,15 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
     {
         protected override void ConfigureWindsorContainer()
         {
-            container.Register(Component.For<EditableBehaviorInterceptor>()
+            container.Register(Component.For<EditableBehavior>()
                                    .LifeStyle.Transient);
 
-            container.Register(Component.For<GetEntityNameInterceptor>()
+            container.Register(Component.For<GetEntityNameBehavior>()
                                    .LifeStyle.Transient);
 
             container.Register(Component.For<Album>()
                                    .Proxy.AdditionalInterfaces(typeof (IWellKnownProxy))
-                                   .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere
+                                   .Interceptors(new InterceptorReference(typeof (GetEntityNameBehavior))).Anywhere
                                    .LifeStyle.Transient);
         }
 

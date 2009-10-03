@@ -69,16 +69,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClasses\EditableBehaviorBase.cs" />
-    <Compile Include="BaseClasses\PropertyChangeNotifierBase.cs" />
-    <Compile Include="Configuration\BehaviorToProxyResolver.cs" />
-    <Compile Include="DataErrorInfoInterceptor.cs" />
-    <Compile Include="EditableBehaviorInterceptor.cs" />
-    <Compile Include="GetEntityNameInterceptor.cs" />
+    <Compile Include="Configuration\BehaviorConfigurator.cs" />
+    <Compile Include="DataErrorInfoBehavior.cs" />
+    <Compile Include="EditableBehavior.cs" />
+    <Compile Include="GetEntityNameBehavior.cs" />
     <Compile Include="Configuration\BehaviorInspector.cs" />
-    <Compile Include="Configuration\IBehaviorToProxyResolver.cs" />
+    <Compile Include="Configuration\IBehaviorConfigurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyChangedInterceptor.cs" />
+    <Compile Include="NotifyPropertyChangedBehavior.cs" />
     <Compile Include="Configuration\ProxyInformation.cs" />
     <Compile Include="Configuration\RegistrationExtensions.cs" />
     <Compile Include="Configuration\ComponentBehaviorsFacility.cs" />

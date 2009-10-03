@@ -2,7 +2,7 @@ using System;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 {
-    public interface IBehaviorToProxyResolver
+    public interface IBehaviorConfigurator
     {
         ProxyInformation GetProxyInformation(Type implementationType);
     }

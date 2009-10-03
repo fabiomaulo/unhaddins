@@ -17,7 +17,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
             this ComponentRegistration<T> componentRegistration)
         {
             return componentRegistration.Proxy.AdditionalInterfaces(typeof (IEditableObject))
-                .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Last;
+                .Interceptors(new InterceptorReference(typeof (EditableBehavior))).Last;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
             this ComponentRegistration<T> componentRegistration)
         {
             return componentRegistration.Proxy.AdditionalInterfaces(typeof (INotifyPropertyChanged))
-                .Interceptors(new InterceptorReference(typeof (PropertyChangedInterceptor))).First;
+                .Interceptors(new InterceptorReference(typeof (NotifyPropertyChangedBehavior))).First;
         }
 
         /// <summary>
@@ -43,13 +43,13 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
             this ComponentRegistration<T> componentRegistration)
         {
             return componentRegistration.Proxy.AdditionalInterfaces(typeof (IDataErrorInfo))
-                .Interceptors(new InterceptorReference(typeof (DataErrorInfoInterceptor))).Last;
+                .Interceptors(new InterceptorReference(typeof (DataErrorInfoBehavior))).Last;
         }
 
         public static ComponentRegistration<T> NhibernateEntity<T>(this ComponentRegistration<T> componentRegistration)
         {
             return componentRegistration.Proxy.AdditionalInterfaces(typeof(IWellKnownProxy))
-                .Interceptors(new InterceptorReference(typeof(GetEntityNameInterceptor))).Anywhere;
+                .Interceptors(new InterceptorReference(typeof(GetEntityNameBehavior))).Anywhere;
         }
     }
 }

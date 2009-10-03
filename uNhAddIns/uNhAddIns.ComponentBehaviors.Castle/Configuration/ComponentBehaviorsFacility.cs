@@ -1,3 +1,4 @@
+using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel.Facilities;
 using Castle.MicroKernel.Registration;
 
@@ -7,13 +8,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
     {
         protected override void Init()
         {
-            
-            Kernel.Register(Component.For<EditableBehaviorInterceptor>().LifeStyle.Transient);
-            Kernel.Register(Component.For<PropertyChangedInterceptor>().LifeStyle.Transient);
-            Kernel.Register(Component.For<GetEntityNameInterceptor>().LifeStyle.Transient);
-            Kernel.Register(Component.For<DataErrorInfoInterceptor>().LifeStyle.Transient);
-            Kernel.Register(Component.For<IBehaviorToProxyResolver>()
-                                     .ImplementedBy<BehaviorToProxyResolver>()
+        	Kernel.Register(Component.For<EditableBehavior>().LifeStyle.Transient);
+            Kernel.Register(Component.For<NotifyPropertyChangedBehavior>().LifeStyle.Transient);
+            Kernel.Register(Component.For<GetEntityNameBehavior>().LifeStyle.Transient);
+            Kernel.Register(Component.For<DataErrorInfoBehavior>().LifeStyle.Transient);
+            Kernel.Register(Component.For<IBehaviorConfigurator>()
+                                     .UsingFactoryMethod(k => new BehaviorConfigurator(k.Resolve<IBehaviorStore>(), k.ResolveAll<IBehavior>()))
                                      .LifeStyle.Singleton);
             Kernel.ComponentModelBuilder.AddContributor(new BehaviorInspector());
         }

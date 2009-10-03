@@ -1,10 +1,11 @@
+using System;
 using Castle.Core;
 using Castle.Core.Interceptor;
 using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle
 {
-    public class GetEntityNameInterceptor : IInterceptor
+    public class GetEntityNameBehavior : IInterceptor, IBehavior
     {
         #region IInterceptor Members
 
@@ -28,5 +29,23 @@ namespace uNhAddIns.ComponentBehaviors.Castle
         }
 
         #endregion
+
+    	/// <summary>
+    	/// Additional interfaces for the proxy.
+    	/// </summary>
+    	/// <returns></returns>
+    	public Type[] GetAdditionalInterfaces()
+    	{
+    		return new[] {typeof (IWellKnownProxy)};
+    	}
+
+    	/// <summary>
+    	/// Relative order as interceptor.
+    	/// </summary>
+    	/// <returns></returns>
+    	public int GetRelativeOrder()
+    	{
+    		return 1;
+    	}
     }
 }

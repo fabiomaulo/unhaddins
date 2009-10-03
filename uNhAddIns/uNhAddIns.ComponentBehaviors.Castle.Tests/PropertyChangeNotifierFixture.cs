@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Castle.Facilities.FactorySupport;
 using NHibernate;
 using NUnit.Framework;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
@@ -7,74 +8,75 @@ using Component=Castle.MicroKernel.Registration.Component;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests
 {
-    [TestFixture]
-    public class PropertyChangeNotifierFixture : IntegrationBaseTest
-    {
-        protected override void ConfigureWindsorContainer()
-        {
-            container.AddFacility<ComponentBehaviorsFacility>();
-            var config = new DefaultBehaviorStore();
+	[TestFixture]
+	public class PropertyChangeNotifierFixture : IntegrationBaseTest
+	{
+		protected override void ConfigureWindsorContainer()
+		{
+			container.AddFacility<FactorySupportFacility>();
+			container.AddFacility<ComponentBehaviorsFacility>();
 
-            config.SetBehaviors(typeof(Album), Behaviors.NotifiableBehavior);
-            container.Register(Component.For<IBehaviorStore>().Instance(config));
+			var config = new BehaviorDictionary();
+			config.For<Album>().Add<NotifyPropertyChangedBehavior>();
+			container.Register(Component.For<IBehaviorStore>().Instance(config));
 
-            container.Register(Component.For<Album>().LifeStyle.Transient);
-        }
-
-
-        private int CreateNewAlbum()
-        {
-            int id;
-            using (ISession session = sessions.OpenSession())
-            using (ITransaction tx = session.BeginTransaction())
-            {
-                var album = new Album();
-                album.Title = "The dark side of the moon";
-                id = (int) session.Save(album);
-                tx.Commit();
-            }
-            return id;
-        }
+			container.Register(Component.For<Album>().LifeStyle.Transient);
+		}
 
 
-        [Test]
-        public void can_raise_propertychanged()
-        {
-            bool eventWasRaised = false;
+		int CreateNewAlbum()
+		{
+			int id;
+			using (ISession session = sessions.OpenSession())
+			using (ITransaction tx = session.BeginTransaction())
+			{
+				var album = new Album();
+				album.Title = "The dark side of the moon";
+				id = (int) session.Save(album);
+				tx.Commit();
+			}
+			return id;
+		}
 
-            var album = container.Resolve<Album>();
-            ((INotifyPropertyChanged) album).PropertyChanged +=
-                (sender, e) =>
-                    {
-                        eventWasRaised = true;
-                        e.PropertyName.Should().Be.EqualTo("Title");
-                    };
 
-            album.Title = "dark side";
-            eventWasRaised.Should().Be.True();
-        }
+		[Test]
+		public void can_raise_propertychanged()
+		{
+			bool eventWasRaised = false;
 
-        [Test]
-        public void can_raise_propertychanged_in_nontransientobject()
-        {
-            int id = CreateNewAlbum();
-            bool eventWasRaised = false;
+			var album = container.Resolve<Album>();
+			((INotifyPropertyChanged) album).PropertyChanged +=
+				(sender, e) =>
+					{
+						eventWasRaised = true;
+						e.PropertyName.Should().Be.EqualTo("Title");
+					};
 
-            using (ISession session = sessions.OpenSession())
-            {
-                var album = session.Get<Album>(id);
+			album.Title = "dark side";
+			eventWasRaised.Should().Be.True();
+		}
 
-                ((INotifyPropertyChanged) album).PropertyChanged +=
-                    (sender, e) =>
-                        {
-                            eventWasRaised = true;
-                            e.PropertyName.Should().Be.EqualTo("Title");
-                        };
+		[Test]
+		public void can_raise_propertychanged_in_nontransientobject()
+		{
+			int id = CreateNewAlbum();
+			bool eventWasRaised = false;
 
-                album.Title = "dark side";
+			using (ISession session = sessions.OpenSession())
+			{
+				var album = session.Get<Album>(id);
 
-                eventWasRaised.Should().Be.True();
-            }
-        }
-    }
+				((INotifyPropertyChanged) album).PropertyChanged +=
+					(sender, e) =>
+						{
+							eventWasRaised = true;
+							e.PropertyName.Should().Be.EqualTo("Title");
+						};
+
+				album.Title = "dark side";
+
+				eventWasRaised.Should().Be.True();
+			}
+		}
+	}
 }
