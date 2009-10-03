@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
 using Castle.Core;
 using Castle.Windsor;
 using NUnit.Framework;
@@ -16,39 +19,42 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Fixes
         [TestFixtureSetUp]
         protected void ConfigureWindsorContainer()
         {
-            _container.Register(Component.For<EditableBehaviorInterceptor>()
+            _container.Register(Component.For<EditableBehavior>()
                                     .LifeStyle.Transient);
 
-            _container.Register(Component.For<GetEntityNameInterceptor>()
+            _container.Register(Component.For<GetEntityNameBehavior>()
                                     .LifeStyle.Transient);
 
-            _container.Register(Component.For<PropertyChangedInterceptor>().LifeStyle.Transient);
+            _container.Register(Component.For<NotifyPropertyChangedBehavior>().LifeStyle.Transient);
             _container.Register(Component.For<Album>()
                                     .Proxy.AdditionalInterfaces(typeof (IEditableObject), typeof (IWellKnownProxy),
                                                                 typeof (INotifyPropertyChanged))
-                                    .Interceptors(new InterceptorReference(typeof (PropertyChangedInterceptor))).First
-                                    .Interceptors(new InterceptorReference(typeof (GetEntityNameInterceptor))).Anywhere
-                                    .Interceptors(new InterceptorReference(typeof (EditableBehaviorInterceptor))).Last
+                                    .Interceptors(new InterceptorReference(typeof (NotifyPropertyChangedBehavior))).First
+                                    .Interceptors(new InterceptorReference(typeof (GetEntityNameBehavior))).Anywhere
+                                    .Interceptors(new InterceptorReference(typeof (EditableBehavior))).Last
                                     .LifeStyle.Transient);
         }
 
         [Test]
-        public void canceledit_should_notify_for_each_restored_property()
+        public void canceledit_should_notify_for_each_property()
         {
             var album = _container.Resolve<Album>();
-            int eventTimes = 0;
-            ((INotifyPropertyChanged) album).PropertyChanged += (sender, e) =>
-                                                                    {
-                                                                        eventTimes++;
-                                                                        e.PropertyName.Should().Be.EqualTo("Title");
-                                                                    };
+            
+			var writtablePropertiesCount = album.GetType()
+												.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+												.Where(p => p.CanWrite)
+												.Select(p => p.Name)
+												.ToArray();
+        	
+			var hashedSet = new HashSet<string>();
 
-            album.Title = "dark";
-            ((IEditableObject) album).BeginEdit();
-            album.Title = "dark side of the moon";
+            ((INotifyPropertyChanged) album).PropertyChanged += (sender, e) => hashedSet.Add(e.PropertyName);
+
+			((IEditableObject) album).BeginEdit();
             ((IEditableObject) album).CancelEdit();
 
-            eventTimes.Should().Be.EqualTo(3);
+			writtablePropertiesCount.All(hashedSet.Contains).Should().Be.True();
+        	
         }
     }
 }

@@ -45,8 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors.cs" />
-    <Compile Include="DefaultBehaviorStore.cs" />
+    <Compile Include="BehaviorDictionary.cs" />
+    <Compile Include="BehaviorList.cs" />
+    <Compile Include="IBehavior.cs" />
     <Compile Include="IBehaviorStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

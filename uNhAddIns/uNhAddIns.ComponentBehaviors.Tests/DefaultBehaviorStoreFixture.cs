@@ -3,25 +3,46 @@ using NUnit.Framework;
 
 namespace uNhAddIns.ComponentBehaviors.Tests
 {
+	public class SampleBehavior : IBehavior
+	{
+		public Type[] GetAdditionalInterfaces()
+		{
+			throw new NotImplementedException();
+		}
+
+		public int GetRelativeOrder()
+		{
+			throw new NotImplementedException();
+		}
+	}
+
+	public class SecondSampleBehavior : IBehavior
+	{
+		public Type[] GetAdditionalInterfaces()
+		{
+			throw new NotImplementedException();
+		}
+		public int GetRelativeOrder()
+		{
+			throw new NotImplementedException();
+		}
+	}
+
     [TestFixture]
     public class DefaultBehaviorStoreFixture
     {
         [Test]
-        public void can_put_and_get_multiples_behaviors()
+        public void can_push_and_pull_multiples_behaviors()
         {
-            var defaultBehaviorStore = new DefaultBehaviorStore();
+            var defaultBehaviorStore = new BehaviorDictionary();
 
-            defaultBehaviorStore.SetBehaviors(typeof (Decimal),
-                                              Behaviors.EditableBehavior
-                                              | Behaviors.NotifiableBehavior);
+        	defaultBehaviorStore.For<Decimal>()
+				.Add<SampleBehavior>()
+				.Add<SecondSampleBehavior>();
+				
+			var behaviors = defaultBehaviorStore.GetBehaviorsForType(typeof (Decimal));
 
-            Behaviors behaviors = defaultBehaviorStore.GetBehaviorsForType(typeof (Decimal));
-
-            ((behaviors & Behaviors.NotifiableBehavior) == Behaviors.NotifiableBehavior)
-                .Should().Be.True();
-
-            ((behaviors & Behaviors.EditableBehavior) == Behaviors.EditableBehavior)
-                .Should().Be.True();
+        	behaviors.Should().Contain(typeof (SampleBehavior)).And.Contain(typeof (SecondSampleBehavior));
         }
     }
 }

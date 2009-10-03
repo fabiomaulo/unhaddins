@@ -7,15 +7,11 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
 {
     public class ComponentProxyFactoryFactory : IProxyFactoryFactory
     {
-        private readonly IBehaviorToProxyResolver _behaviorToProxyResolver;
-        private readonly IWindsorContainer _container;
+        private readonly IBehaviorConfigurator _behaviorConfigurator;
 
-        //TODO: Find a better way. Avoid injecting the container itself.
-        public ComponentProxyFactoryFactory(IBehaviorToProxyResolver behaviorToProxyResolver,
-                                            IWindsorContainer container)
+    	public ComponentProxyFactoryFactory(IBehaviorConfigurator behaviorConfigurator)
         {
-            _behaviorToProxyResolver = behaviorToProxyResolver;
-            _container = container;
+            _behaviorConfigurator = behaviorConfigurator;
         }
 
         #region IProxyFactoryFactory Members
@@ -29,7 +25,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
         /// </returns>
         public IProxyFactory BuildProxyFactory()
         {
-            return new ComponentProxyFactory(_behaviorToProxyResolver, _container);
+        	return new ComponentProxyFactory(_behaviorConfigurator);
         }
 
         public IProxyValidator ProxyValidator
