@@ -15,8 +15,8 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("uNhAddIns")]
 [assembly: AssemblyCopyright("Copyright (c) uNhAddIns, 2008. All rights reserved.")]
-[assembly: AssemblyProduct("uNhAddIns.ComponentBehaviors.Castle")]
-[assembly: AssemblyTitle("uNhAddIns.ComponentBehaviors.Castle")]
+[assembly: AssemblyProduct("uNhAddIns.ComponentBehaviors")]
+[assembly: AssemblyTitle("uNhAddIns.ComponentBehaviors")]
 [assembly: CLSCompliant(true)]
 [assembly: AssemblyInformationalVersion("2.0.0.771")]
 [assembly: AssemblyVersion("2.0.0.771")]

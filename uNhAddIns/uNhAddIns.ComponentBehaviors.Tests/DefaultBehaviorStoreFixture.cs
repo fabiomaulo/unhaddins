@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace uNhAddIns.ComponentBehaviors.Tests
 {
-	public class SampleBehavior : IBehavior
+	public class SampleBehavior 
 	{
 		public Type[] GetAdditionalInterfaces()
 		{
@@ -16,7 +16,7 @@ namespace uNhAddIns.ComponentBehaviors.Tests
 		}
 	}
 
-	public class SecondSampleBehavior : IBehavior
+	public class SecondSampleBehavior 
 	{
 		public Type[] GetAdditionalInterfaces()
 		{
@@ -42,7 +42,8 @@ namespace uNhAddIns.ComponentBehaviors.Tests
 				
 			var behaviors = defaultBehaviorStore.GetBehaviorsForType(typeof (Decimal));
 
-        	behaviors.Should().Contain(typeof (SampleBehavior)).And.Contain(typeof (SecondSampleBehavior));
+        	behaviors.Should().Contain(typeof (SampleBehavior))
+				.And.Contain(typeof (SecondSampleBehavior));
         }
     }
 }

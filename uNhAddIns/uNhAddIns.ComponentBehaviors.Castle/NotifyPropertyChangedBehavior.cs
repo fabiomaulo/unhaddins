@@ -6,31 +6,10 @@ using Castle.Core.Interceptor;
 
 namespace uNhAddIns.ComponentBehaviors.Castle
 {
-	public class NotifyPropertyChangedBehavior : IInterceptor, IBehavior
+	[Behavior(1, typeof(INotifyPropertyChanged))]
+	public class NotifyPropertyChangedBehavior : IInterceptor
 	{
 		PropertyChangedEventHandler _handler;
-
-		#region IBehavior Members
-
-		/// <summary>
-		/// Additional interfaces for the proxy.
-		/// </summary>
-		/// <returns></returns>
-		public Type[] GetAdditionalInterfaces()
-		{
-			return new[] {typeof (INotifyPropertyChanged)};
-		}
-
-		/// <summary>
-		/// Relative order as interceptor.
-		/// </summary>
-		/// <returns></returns>
-		public int GetRelativeOrder()
-		{
-			return 1;
-		}
-
-		#endregion
 
 		#region IInterceptor Members
 

@@ -1,20 +1,24 @@
+using Castle.MicroKernel;
 using Castle.Windsor;
 using NHibernate.Bytecode;
 using NHibernate.Proxy;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
+using IProxyFactory=NHibernate.Proxy.IProxyFactory;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
 {
     public class ComponentProxyFactoryFactory : IProxyFactoryFactory
     {
         private readonly IBehaviorConfigurator _behaviorConfigurator;
+    	readonly IKernel _kernel;
 
-    	public ComponentProxyFactoryFactory(IBehaviorConfigurator behaviorConfigurator)
-        {
-            _behaviorConfigurator = behaviorConfigurator;
-        }
+    	public ComponentProxyFactoryFactory(IBehaviorConfigurator behaviorConfigurator, IKernel kernel)
+    	{
+    		_behaviorConfigurator = behaviorConfigurator;
+    		_kernel = kernel;
+    	}
 
-        #region IProxyFactoryFactory Members
+    	#region IProxyFactoryFactory Members
 
         /// <summary>
         /// Build a proxy factory specifically for handling runtime
@@ -25,7 +29,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
         /// </returns>
         public IProxyFactory BuildProxyFactory()
         {
-        	return new ComponentProxyFactory(_behaviorConfigurator);
+			return new ComponentProxyFactory(_behaviorConfigurator, _kernel);
         }
 
         public IProxyValidator ProxyValidator

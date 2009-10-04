@@ -48,7 +48,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             cfg.AddAssembly(typeof(IntegrationBaseTest).Assembly);
             //cfg.Configure();
             
-            new SchemaExport(cfg).Create(false, true);
+            new SchemaExport(cfg).Create(true, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
             
 

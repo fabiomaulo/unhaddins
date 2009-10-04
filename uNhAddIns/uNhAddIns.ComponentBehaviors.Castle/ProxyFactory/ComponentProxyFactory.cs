@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Castle.DynamicProxy;
+using Castle.MicroKernel;
 using log4net;
 using NHibernate;
 using NHibernate.ByteCode.Castle;
@@ -17,11 +18,13 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
 		protected static readonly ILog log = LogManager.GetLogger(typeof (ComponentProxyFactory));
 		static readonly ProxyGenerator ProxyGenerator = new ProxyGenerator();
 		readonly IBehaviorConfigurator _behaviorConfigurator;
+		readonly IKernel _kernel;
 
 		// Methods
-		public ComponentProxyFactory(IBehaviorConfigurator behaviorConfigurator)
+		public ComponentProxyFactory(IBehaviorConfigurator behaviorConfigurator, IKernel kernel)
 		{
 			_behaviorConfigurator = behaviorConfigurator;
+			_kernel = kernel;
 		}
 
 		// Properties
@@ -41,14 +44,16 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
 				var initializer = new LazyInitializer(EntityName, PersistentClass, id, GetIdentifierMethod,
 				                                      SetIdentifierMethod, ComponentIdType, session);
 
-				IInterceptor[] interceptors = behaviorInfo.Interceptors.OfType<IInterceptor>()
-					.Union(new[] {initializer}).ToArray();
+				IInterceptor[] interceptors = behaviorInfo.Interceptors
+														.Select(i => _kernel.Resolve(i))
+														.OfType<IInterceptor>()
+                                                        .Union(new[] {initializer}).ToArray();
 
 				Type[] interfaces = Interfaces.Union(behaviorInfo.AdditionalInterfaces).ToArray();
 
 				object obj2 = IsClassProxy
 				              	? ProxyGenerator.CreateClassProxy(PersistentClass, interfaces, interceptors)
-				              	: ProxyGenerator.CreateInterfaceProxyWithoutTarget(interfaces[0], interfaces,
+                                : ProxyGenerator.CreateInterfaceProxyWithoutTarget(interfaces[0], interfaces,
 				              	                                                   new IInterceptor[] {initializer});
 				initializer._constructed = true;
 				proxy = (INHibernateProxy) obj2;

@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
+using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
 {
@@ -45,6 +47,38 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
 	public class BehaviorToProxyResolverFixture
 	{
 		[Test]
+		public void behavior_configurator_should_work()
+		{
+			var behaviorStore = new Mock<IBehaviorStore>();
+
+			var behaviorsTypes = new HashSet<Type>
+			               	{
+								typeof (NotifyPropertyChangedBehavior),
+			               		typeof (DataErrorInfoBehavior),
+			               		typeof (EditableBehavior)
+			               	};
+
+			behaviorStore.Setup(bs => bs.GetBehaviorsForType(typeof (A)))
+							.Returns(behaviorsTypes);
+
+			var additionalInterfaces = new[]
+			                	{
+			                		typeof(IDataErrorInfo),
+			                		typeof(INotifyPropertyChanged),
+			                		typeof(IEditableObject),
+			                		typeof(IWellKnownProxy)
+			                	};
+
+			var behaviorToProxyResolver = new BehaviorConfigurator(behaviorStore.Object);
+
+			var proxyInfo = behaviorToProxyResolver.GetProxyInformation(typeof (A));
+
+			behaviorsTypes.All(b => proxyInfo.Interceptors.Contains(b)).Should().Be.True();
+
+			additionalInterfaces.All(i => proxyInfo.AdditionalInterfaces.Contains(i)).Should().Be.True();
+		}
+
+		[Test]
 		public void already_implemented_interfaces_in_target_are_evicted()
 		{
 			var behaviorStore = new Mock<IBehaviorStore>();
@@ -57,7 +91,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
 				         		typeof (EditableBehavior)
 				         	});
 
-			var behaviorToProxyResolver = new BehaviorConfigurator(behaviorStore.Object, new IBehavior[] {});
+			var behaviorToProxyResolver = new BehaviorConfigurator(behaviorStore.Object);
 			//Method under test.
 			var proxyInfo = behaviorToProxyResolver.GetProxyInformation(typeof (B));
 			proxyInfo.AdditionalInterfaces.Should()
@@ -73,7 +107,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
 			behaviorStore.Setup(bs => bs.GetBehaviorsForType(typeof (A)))
 				.Returns(new HashSet<Type>());
 
-			var behaviorToProxyResolver = new BehaviorConfigurator(behaviorStore.Object, new IBehavior[] {});
+			var behaviorToProxyResolver = new BehaviorConfigurator(behaviorStore.Object);
 			//Method under test.
 			var proxyInfo = behaviorToProxyResolver.GetProxyInformation(typeof (A));
 			proxyInfo.AdditionalInterfaces.Should().Be.Empty();

@@ -6,14 +6,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 {
 	public class BehaviorConfigurator : IBehaviorConfigurator
 	{
-		readonly IBehavior[] _behaviors;
 		readonly IBehaviorStore _behaviorStore;
 
 
-		public BehaviorConfigurator(IBehaviorStore behaviorStore, IBehavior[] behaviors)
+		public BehaviorConfigurator(IBehaviorStore behaviorStore)
 		{
 			_behaviorStore = behaviorStore;
-			_behaviors = behaviors;
 		}
 
 		#region IBehaviorConfigurator Members
@@ -21,30 +19,26 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 		public ProxyInformation GetProxyInformation(Type implementationType)
 		{
 			var selectedBehaviors = _behaviorStore.GetBehaviorsForType(implementationType);
-
-			var involvedBehaviors = _behaviors.Where(b => selectedBehaviors.Contains(b.GetType()));
-
+			
 			//Interfaces that are not already implemented by the implementationType.
-			var additionalInterfaces = (from b in involvedBehaviors
-			                            from i in b.GetAdditionalInterfaces()
-			                            where !i.IsAssignableFrom(implementationType)
-			                            select i).ToList();
-
-
+            var additionalInterfaces = 
+					(from t in selectedBehaviors
+			        from attrib in t.GetCustomAttributes(typeof (BehaviorAttribute), true).OfType<BehaviorAttribute>()
+			        from i in attrib.AdditionalInterfaces
+					where !i.IsAssignableFrom(implementationType)
+					select i).ToList();
+			
+            
 			//select interceptors
-			var interceptorReferences = involvedBehaviors
-				.OrderBy(b => b.GetRelativeOrder())
-				.Select(b => b)
-				.ToList();
-
-
-			if (interceptorReferences.Count > 0)
+			var interceptors = selectedBehaviors.ToList();
+            
+			if (interceptors.Count > 0)
 			{
 				additionalInterfaces.Add(typeof (IWellKnownProxy));
-				interceptorReferences.Insert(0, _behaviors.First(b => typeof (GetEntityNameBehavior).IsInstanceOfType(b)));
+				interceptors.Insert(0, typeof(GetEntityNameBehavior));
 			}
 
-			return new ProxyInformation(additionalInterfaces, interceptorReferences);
+			return new ProxyInformation(additionalInterfaces, interceptors);
 		}
 
 		#endregion
