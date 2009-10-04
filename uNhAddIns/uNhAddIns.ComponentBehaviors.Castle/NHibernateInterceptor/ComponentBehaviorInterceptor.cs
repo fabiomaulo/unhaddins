@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Castle.DynamicProxy;
 using Castle.MicroKernel;
 using NHibernate;
@@ -16,13 +17,24 @@ namespace uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor
 			new ProxyGenerator();
         private readonly IBehaviorConfigurator _behaviorConfigurator;
 		private readonly IKernel _kernel;
-        private readonly IDictionary<string, ProxyInformation> _cachedProxyInformation =
+
+
+
+		private readonly IDictionary<string, ProxyInformation> _cachedProxyInformation =
 						new Dictionary<string, ProxyInformation>();
 
 		public ComponentBehaviorInterceptor(IBehaviorConfigurator behaviorConfigurator, IKernel kernel)
 		{
 			_behaviorConfigurator = behaviorConfigurator;
 			_kernel = kernel;
+		}
+
+		private ISessionFactory SessionFactory
+		{
+			get
+			{
+				return _kernel.Resolve<ISessionFactory>();
+			}
 		}
 
 		private ProxyInformation GetProxyInformation(string clazz)
@@ -60,10 +72,13 @@ namespace uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor
 					object instance = proxyGenerator.CreateClassProxy(proxyInfo.EntityType,
 																	  additionalInterfacesToProxy,
 																	  interceptors);
+					SessionFactory.GetClassMetadata(clazz).SetIdentifier(instance, id, entityMode);
+					
 					return instance;
 				}
 			}
 			return base.Instantiate(clazz, entityMode, id);
 		}
 	}
+	
 }
