@@ -38,8 +38,8 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 			//apply interceptor references to the model
 			foreach (var interceptorType in proxyInfo.Interceptors)
 			{
-				model.Dependencies.Add(new DependencyModel(DependencyType.Service, null, interceptorType.GetType(), false));
-				model.Interceptors.Add(new InterceptorReference(interceptorType.GetType()));
+				model.Dependencies.Add(new DependencyModel(DependencyType.Service, null, interceptorType, false));
+				model.Interceptors.Add(new InterceptorReference(interceptorType));
 			}
 
 			//apply additional interfaces

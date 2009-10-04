@@ -35,13 +35,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
             var kernel = new Mock<IKernel>();
             var behaviorConfigurator = new Mock<IBehaviorConfigurator>();
 
-            var additionalInterfaces = new[] {typeof (IDataErrorInfo), typeof (INotifyPropertyChanged)};
-
+            
             behaviorConfigurator.Setup(b => b.GetProxyInformation(typeof (SampleEntity)))
                 .Returns(new ProxyInformation
                              (
-                             additionalInterfaces,
-                             new []{new NotifyPropertyChangedBehavior()}
+                             new []{typeof (IDataErrorInfo), typeof (INotifyPropertyChanged)},
+                             new []{typeof(NotifyPropertyChangedBehavior), typeof(DataErrorInfoBehavior)}
                              ));
 
 
@@ -60,11 +59,13 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
             behaviorInspector.ProcessModel(kernel.Object, componentModel);
             //
 
-			componentModel.Interceptors.Should().Satisfy(irc => irc.Any(ir => ir.ServiceType.Equals(typeof(NotifyPropertyChangedBehavior))));
-
+        	var interceptorsTypes = componentModel.Interceptors.Select(ir => ir.ServiceType);
+			interceptorsTypes.Should().Contain(typeof (NotifyPropertyChangedBehavior))
+									.And.Contain(typeof (DataErrorInfoBehavior));
+										
             ProxyUtil.ObtainProxyOptions(componentModel, true).AdditionalInterfaces
-                .Should().Contain(additionalInterfaces[0])
-                .And.Contain(additionalInterfaces[1]);
+                .Should().Contain(typeof(IDataErrorInfo))
+                .And.Contain(typeof(INotifyPropertyChanged));
         }
     }
 }

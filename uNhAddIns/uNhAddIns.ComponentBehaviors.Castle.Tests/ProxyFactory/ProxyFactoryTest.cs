@@ -1,7 +1,9 @@
 using System.ComponentModel;
 using Castle.Facilities.FactorySupport;
 using Castle.Windsor;
+using Moq;
 using NUnit.Framework;
+using uNhAddIns.Adapters;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
 using uNhAddIns.ComponentBehaviors.Castle.ProxyFactory;
 using uNhAddIns.ComponentBehaviors.Castle.Tests.SampleDomain;
@@ -16,16 +18,15 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.ProxyFactory
 		protected override void ConfigureWindsorContainer()
 		{
 			container.AddFacility<FactorySupportFacility>();
-			//add the component behavior facility
 			container.AddFacility<ComponentBehaviorsFacility>();
 
 			//container.Register(Component.For<Album>().LifeStyle.Transient);
 			//register the proxyfactoryfactory.
-			container.Register(Component.For<ComponentProxyFactoryFactory>().LifeStyle.Singleton);
+			container.Register(Component.For<IEntityValidator>().Instance(new Mock<IEntityValidator>().Object));
 
 			//configure the behavior metadata
 			var config = new BehaviorDictionary();
-			config.For<Album>().Add<NotifyPropertyChangedBehavior>();
+			config.For<Album>().Add<NotifyPropertyChangedBehavior>().Add<DataErrorInfoBehavior>();
 			container.Register(Component.For<IBehaviorStore>().Instance(config));
 
 		}
@@ -66,7 +67,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.ProxyFactory
 			{
 				var album = s.Load<Album>(id);
 				album.Should().Be.AssignableTo<INotifyPropertyChanged>();
-
+				album.Should().Be.AssignableTo<IDataErrorInfo>();
 
 				//simple test
 				bool eventWasRaised = false;

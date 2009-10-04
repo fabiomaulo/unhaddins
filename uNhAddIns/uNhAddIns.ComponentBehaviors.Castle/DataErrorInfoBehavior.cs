@@ -6,7 +6,8 @@ using uNhAddIns.Adapters;
 
 namespace uNhAddIns.ComponentBehaviors.Castle
 {
-    public class DataErrorInfoBehavior : IInterceptor, IBehavior
+	[Behavior(0, typeof(IDataErrorInfo))]
+    public class DataErrorInfoBehavior : IInterceptor
     {
         private readonly IEntityValidator _entityValidator;
 
@@ -47,22 +48,5 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 
         #endregion
 
-    	/// <summary>
-    	/// Additional interfaces for the proxy.
-    	/// </summary>
-    	/// <returns></returns>
-    	public Type[] GetAdditionalInterfaces()
-    	{
-    		return new[] {typeof(IDataErrorInfo)};
-    	}
-
-    	/// <summary>
-    	/// Relative order as interceptor.
-    	/// </summary>
-    	/// <returns></returns>
-    	public int GetRelativeOrder()
-    	{
-    		return 0;
-    	}
     }
 }

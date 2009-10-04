@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +6,8 @@ using Castle.Core.Interceptor;
 
 namespace uNhAddIns.ComponentBehaviors.Castle
 {
-	public class EditableBehavior : IInterceptor, IBehavior
+	[Behavior(0, typeof (IEditableObject))]
+	public class EditableBehavior : IInterceptor
 	{
 		readonly IDictionary<PropertyInfo, object> _tempValues
 			= new Dictionary<PropertyInfo, object>();
@@ -19,28 +19,6 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 		{
 			get { return _isInEditMode; }
 		}
-
-		#region IBehavior Members
-
-		/// <summary>
-		/// Additional interfaces for the proxy.
-		/// </summary>
-		/// <returns></returns>
-		public Type[] GetAdditionalInterfaces()
-		{
-			return new[] {typeof (IEditableObject)};
-		}
-
-		/// <summary>
-		/// Relative order as interceptor.
-		/// </summary>
-		/// <returns></returns>
-		public int GetRelativeOrder()
-		{
-			return 0;
-		}
-
-		#endregion
 
 		#region IInterceptor Members
 

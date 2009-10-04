@@ -1,6 +1,7 @@
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel.Facilities;
 using Castle.MicroKernel.Registration;
+using uNhAddIns.ComponentBehaviors.Castle.ProxyFactory;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 {
@@ -13,9 +14,11 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
             Kernel.Register(Component.For<GetEntityNameBehavior>().LifeStyle.Transient);
             Kernel.Register(Component.For<DataErrorInfoBehavior>().LifeStyle.Transient);
             Kernel.Register(Component.For<IBehaviorConfigurator>()
-                                     .UsingFactoryMethod(k => new BehaviorConfigurator(k.Resolve<IBehaviorStore>(), k.ResolveAll<IBehavior>()))
-                                     .LifeStyle.Singleton);
-            Kernel.ComponentModelBuilder.AddContributor(new BehaviorInspector());
+									.ImplementedBy<BehaviorConfigurator>().LifeStyle.Singleton);
+        	Kernel.Register(Component.For<ComponentProxyFactoryFactory>()
+        	                	.UsingFactoryMethod(
+        	                	k => new ComponentProxyFactoryFactory(k.Resolve<IBehaviorConfigurator>(), k)));
+			Kernel.ComponentModelBuilder.AddContributor(new BehaviorInspector());
         }
     }
 }

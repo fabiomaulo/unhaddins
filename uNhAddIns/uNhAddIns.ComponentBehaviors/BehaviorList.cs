@@ -12,7 +12,7 @@ namespace uNhAddIns.ComponentBehaviors
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <returns></returns>
-		public BehaviorList Add<T> () where T : IBehavior
+		public BehaviorList Add<T> ()
 		{
 			_behaviors.Add(typeof(T));
 			return this;
