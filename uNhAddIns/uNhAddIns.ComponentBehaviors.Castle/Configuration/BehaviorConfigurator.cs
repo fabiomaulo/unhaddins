@@ -38,7 +38,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 				interceptors.Insert(0, typeof(GetEntityNameBehavior));
 			}
 
-			return new ProxyInformation(additionalInterfaces, interceptors);
+			return new ProxyInformation(implementationType, additionalInterfaces, interceptors);
 		}
 
 		#endregion

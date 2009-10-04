@@ -1,6 +1,7 @@
 ﻿using System;
 using Castle.Windsor;
 //using NHibernate.ByteCode.Castle;
+using NHibernate;
 using NHibernate.ByteCode.Castle;
 using NHibernate.Engine;
 using NHibernate.Tool.hbm2ddl;
@@ -17,12 +18,6 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
         protected NHibernate.Cfg.Configuration cfg;
         protected ISessionFactoryImplementor sessions;
 
-        //static IntegrationBaseTest()
-        //{
-           
-        //}
-
-
         [TestFixtureSetUp]
         public void TestFixtureSetUp()
         {
@@ -35,26 +30,26 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             Environment.BytecodeProvider = new EnhancedBytecode(container);
 
             cfg = new NHibernate.Cfg.Configuration();
-            //cfg.Properties[Environment.ProxyFactoryFactoryClass] = 
-
-           
 
             cfg.Configure();
             
             cfg.Properties[Environment.ProxyFactoryFactoryClass] = GetProxyFactoryFactory();
- 
-            cfg.Properties[Environment.CurrentSessionContextClass] = "thread_static";
-            cfg.RegisterEntityNameResolver();
+			cfg.Properties[Environment.CurrentSessionContextClass] = "thread_static";
+        	cfg.RegisterEntityNameResolver();
+			cfg.Interceptor = GetInterceptor();
             cfg.AddAssembly(typeof(IntegrationBaseTest).Assembly);
-            //cfg.Configure();
             
             new SchemaExport(cfg).Create(true, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
             
-
         }
 
-        protected virtual string GetProxyFactoryFactory()
+    	protected virtual IInterceptor GetInterceptor()
+    	{
+    		return new EntityNameInterceptor();
+    	}
+
+    	protected virtual string GetProxyFactoryFactory()
         {
             return typeof (ProxyFactoryFactory).AssemblyQualifiedName;
         }

@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
-using Castle.Core;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.Configuration
 {
-    public class ProxyInformation
-    {
-        public ProxyInformation(ICollection<Type> additionalInterfaces,
-								ICollection<Type> interceptorReferences)
-        {
-            AdditionalInterfaces = additionalInterfaces;
-            Interceptors = interceptorReferences;
-        }
+	public class ProxyInformation
+	{
+		public ProxyInformation(Type entityType,
+		                        ICollection<Type> additionalInterfaces,
+		                        ICollection<Type> interceptorReferences)
+		{
+			EntityType = entityType;
+			AdditionalInterfaces = additionalInterfaces;
+			Interceptors = interceptorReferences;
+		}
 
-        public ICollection<Type> AdditionalInterfaces { get; private set; }
-        public ICollection<Type> Interceptors { get; private set; }
-    }
+		public Type EntityType { get; private set; }
+		public ICollection<Type> AdditionalInterfaces { get; private set; }
+		public ICollection<Type> Interceptors { get; private set; }
+	}
 }
