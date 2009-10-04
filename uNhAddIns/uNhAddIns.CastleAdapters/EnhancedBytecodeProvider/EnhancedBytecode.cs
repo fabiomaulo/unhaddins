@@ -12,15 +12,16 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
     {
         private readonly IWindsorContainer container;
         private readonly IObjectsFactory objectsFactory;
-        private ICollectionTypeFactory collectionTypefactory;
+
+        private ICollectionTypeFactory collectionTypeFactory;
         private IProxyFactoryFactory proxyFactoryFactory;
+    	private Type proxyFactoryFactoryType = typeof (ProxyFactoryFactory);
+    	private Type colletionTypeFactoryType = typeof (DefaultCollectionTypeFactory);
 
         public EnhancedBytecode(IWindsorContainer container)
         {
             this.container = container;
             objectsFactory = new ObjectsFactory(container);
-            collectionTypefactory = new DefaultCollectionTypeFactory();
-            proxyFactoryFactory = new ProxyFactoryFactory();
         }
 
         #region IBytecodeProvider Members
@@ -32,7 +33,17 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 
         public IProxyFactoryFactory ProxyFactoryFactory
         {
-            get { return proxyFactoryFactory; }
+            get
+            {
+				if(proxyFactoryFactory == null)
+				{
+					if (container.Kernel.HasComponent(proxyFactoryFactoryType))
+						proxyFactoryFactory = (IProxyFactoryFactory)container.Resolve(proxyFactoryFactoryType);
+					else
+						proxyFactoryFactory = (IProxyFactoryFactory)Activator.CreateInstance(proxyFactoryFactoryType);	
+				}
+            	return proxyFactoryFactory;
+            }
         }
 
         public IObjectsFactory ObjectsFactory
@@ -42,7 +53,17 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 
         public ICollectionTypeFactory CollectionTypeFactory
         {
-            get { return collectionTypefactory; }
+            get
+            {
+				if(collectionTypeFactory == null)
+				{
+					if (container.Kernel.HasComponent(colletionTypeFactoryType))
+						collectionTypeFactory = (ICollectionTypeFactory)container.Resolve(colletionTypeFactoryType);
+					else
+						collectionTypeFactory = (ICollectionTypeFactory)Activator.CreateInstance(colletionTypeFactoryType);
+				}
+				return collectionTypeFactory;
+            }
         }
 
         #endregion
@@ -56,10 +77,7 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 
         public void SetCollectionTypeFactoryClass(Type type)
         {
-            if (container.Kernel.HasComponent(type))
-                collectionTypefactory = (ICollectionTypeFactory) container.Resolve(type);
-            else
-                collectionTypefactory = (ICollectionTypeFactory) Activator.CreateInstance(type);
+        	colletionTypeFactoryType = type;
         }
 
         #endregion
@@ -68,13 +86,11 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 
         public void SetProxyFactoryFactory(string typeName)
         {
-            Type type = Type.GetType(typeName, true);
-            if (container.Kernel.HasComponent(type))
-                proxyFactoryFactory = (IProxyFactoryFactory) container.Resolve(type);
-            else
-                proxyFactoryFactory = (IProxyFactoryFactory) Activator.CreateInstance(type);
+            proxyFactoryFactoryType = Type.GetType(typeName, true);
         }
 
         #endregion
+
+		
     }
 }
