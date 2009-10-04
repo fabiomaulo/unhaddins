@@ -38,7 +38,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests.Configuration
             
             behaviorConfigurator.Setup(b => b.GetProxyInformation(typeof (SampleEntity)))
                 .Returns(new ProxyInformation
-                             (
+                             (typeof (SampleEntity),
                              new []{typeof (IDataErrorInfo), typeof (INotifyPropertyChanged)},
                              new []{typeof(NotifyPropertyChangedBehavior), typeof(DataErrorInfoBehavior)}
                              ));
