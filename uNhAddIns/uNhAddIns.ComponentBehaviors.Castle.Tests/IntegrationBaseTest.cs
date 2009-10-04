@@ -1,4 +1,5 @@
 ﻿using System;
+using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 //using NHibernate.ByteCode.Castle;
 using NHibernate;
@@ -41,6 +42,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             
             new SchemaExport(cfg).Create(true, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
+        	container.Register(Component.For<ISessionFactory>().Instance(sessions));
             
         }
 
