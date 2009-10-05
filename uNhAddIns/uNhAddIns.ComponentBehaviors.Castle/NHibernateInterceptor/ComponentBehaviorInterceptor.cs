@@ -1,84 +1,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Castle.DynamicProxy;
-using Castle.MicroKernel;
 using NHibernate;
-using uNhAddIns.ComponentBehaviors.Castle.Configuration;
+using uNhAddIns.ComponentBehaviors.Castle.ComponentProxyFactory;
 using uNhAddIns.NHibernateTypeResolver;
-using IInterceptor=Castle.Core.Interceptor.IInterceptor;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor
 {
 	public class ComponentBehaviorInterceptor : EntityNameInterceptor
 	{
-		private static readonly ProxyGenerator proxyGenerator =
-			new ProxyGenerator();
-        private readonly IBehaviorConfigurator _behaviorConfigurator;
-		private readonly IKernel _kernel;
+		//TODO: improve. This is done because I can't get a type with the not-qualified name.
+		private readonly IDictionary<string, Type> _cachedTypes = new Dictionary<string, Type>();
+		private readonly IComponentProxyFactory _componentProxyFactory;
 
-
-
-		private readonly IDictionary<string, ProxyInformation> _cachedProxyInformation =
-						new Dictionary<string, ProxyInformation>();
-
-		public ComponentBehaviorInterceptor(IBehaviorConfigurator behaviorConfigurator, IKernel kernel)
+		public ComponentBehaviorInterceptor(IComponentProxyFactory componentProxyFactory)
 		{
-			_behaviorConfigurator = behaviorConfigurator;
-			_kernel = kernel;
+			_componentProxyFactory = componentProxyFactory;
 		}
 
-		private ISessionFactory SessionFactory
-		{
-			get
-			{
-				return _kernel.Resolve<ISessionFactory>();
-			}
-		}
-
-		private ProxyInformation GetProxyInformation(string clazz)
-		{
-			ProxyInformation result;
-			if(_cachedProxyInformation.TryGetValue(clazz, out result))
-			{
-				return result;
-			}
-
-			//TODO: Find a better way to resolve a type with fullname (without the qualified name).
-			var query = from a in AppDomain.CurrentDomain.GetAssemblies()
-						from t in a.GetTypes()
-						where t.FullName.Equals(clazz)
-						select t;
-
-			Type type = query.FirstOrDefault();
-			if(type == null) return null;
-
-			ProxyInformation proxyInfo = _behaviorConfigurator.GetProxyInformation(type);
-			_cachedProxyInformation[clazz] = proxyInfo;
-			return proxyInfo;
-		}
+		public ISessionFactory SessionFactory { get; set; }
 
 		public override object Instantiate(string clazz, EntityMode entityMode, object id)
 		{
 			if (entityMode == EntityMode.Poco)
 			{
-				var proxyInfo = GetProxyInformation(clazz);
-				if(proxyInfo != null && proxyInfo.Interceptors.Count > 0)
+				Type type;
+				if (!_cachedTypes.TryGetValue(clazz, out type))
 				{
-					Type[] additionalInterfacesToProxy = proxyInfo.AdditionalInterfaces.ToArray();
-					IInterceptor[] interceptors = proxyInfo.Interceptors.Select(i => _kernel[i]).OfType<IInterceptor>().ToArray();
-
-					object instance = proxyGenerator.CreateClassProxy(proxyInfo.EntityType,
-																	  additionalInterfacesToProxy,
-																	  interceptors);
-					SessionFactory.GetClassMetadata(clazz).SetIdentifier(instance, id, entityMode);
-					
-					return instance;
+					type = GetType(clazz);
+					_cachedTypes[clazz] = type;
 				}
+				object entity = _componentProxyFactory.GetEntity(type);
+				if(SessionFactory == null)
+				{
+					throw new InvalidOperationException("You should inject the ISessionFactory.");
+				}
+				SessionFactory.GetClassMetadata(clazz).SetIdentifier(entity, id, entityMode);
+				return entity;
 			}
 			return base.Instantiate(clazz, entityMode, id);
 		}
+
+		private static Type GetType(string clazz)
+		{
+			//TODO: Find a better way to resolve a type with fullname (without the qualified name).
+			IEnumerable<Type> query = from a in AppDomain.CurrentDomain.GetAssemblies()
+			                          from t in a.GetTypes()
+			                          where t.FullName.Equals(clazz)
+			                          select t;
+
+			Type type = query.FirstOrDefault();
+			if (type == null)
+			{
+				throw new InvalidOperationException(string.Format("Cannot find the type {0}.", clazz));
+			}
+			return type;
+		}
 	}
-	
 }

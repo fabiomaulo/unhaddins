@@ -42,7 +42,11 @@ namespace uNhAddIns.ComponentBehaviors.Castle.Tests
             
             new SchemaExport(cfg).Create(true, true);
             sessions = (ISessionFactoryImplementor)cfg.BuildSessionFactory();
-        	container.Register(Component.For<ISessionFactory>().Instance(sessions));
+
+
+        	var componentInterceptor = cfg.Interceptor as Castle.NHibernateInterceptor.ComponentBehaviorInterceptor;
+        	if(componentInterceptor  != null)
+        		componentInterceptor.SessionFactory = sessions;
             
         }
 
