@@ -1,6 +1,6 @@
 using System;
 
-namespace uNhAddIns.ComponentBehaviors.Castle.ComponentProxyFactory
+namespace uNhAddIns.ComponentBehaviors
 {
 	public interface IComponentProxyFactory
 	{

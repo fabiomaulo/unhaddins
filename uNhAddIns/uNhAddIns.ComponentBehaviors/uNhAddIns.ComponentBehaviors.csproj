@@ -49,6 +49,7 @@
     <Compile Include="BehaviorList.cs" />
     <Compile Include="BehaviorAttribute.cs" />
     <Compile Include="IBehaviorStore.cs" />
+    <Compile Include="IComponentProxyFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

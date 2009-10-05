@@ -1,7 +1,6 @@
 using Castle.MicroKernel.Facilities;
 using Castle.MicroKernel.Registration;
 using NHibernate;
-using uNhAddIns.ComponentBehaviors.Castle.ComponentProxyFactory;
 using uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor;
 using uNhAddIns.ComponentBehaviors.Castle.ProxyFactory;
 
