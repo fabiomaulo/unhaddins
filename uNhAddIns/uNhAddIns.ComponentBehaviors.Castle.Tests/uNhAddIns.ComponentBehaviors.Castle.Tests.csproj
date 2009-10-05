@@ -78,6 +78,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComponentProxyFactory\ComponentProxyFactoryFixture.cs" />
     <Compile Include="Configuration\BehavioInspectorFixture.cs" />
     <Compile Include="Configuration\BehaviorToProxyResolverFixture.cs" />
     <Compile Include="DataErrorInfoValidatorFixture.cs" />
