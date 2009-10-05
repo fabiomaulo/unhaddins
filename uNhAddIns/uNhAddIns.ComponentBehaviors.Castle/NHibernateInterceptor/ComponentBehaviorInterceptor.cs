@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
-using uNhAddIns.ComponentBehaviors.Castle.ComponentProxyFactory;
 using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor
