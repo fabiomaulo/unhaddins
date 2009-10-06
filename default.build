@@ -43,6 +43,8 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.DataAccessObjects.Tests\DataAccessObjects.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Example.ConversationUsage\Example.ConversationUsage.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Example.AopConversationUsage\Example.AopConversationUsage.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.DataAnnotations\DataAnnotations.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.DataAnnotations.Tests\DataAnnotations.Tests.build"/>
 		</ItemGroup>
 		
 		<ItemGroup>
