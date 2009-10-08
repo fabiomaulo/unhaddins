@@ -45,6 +45,8 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Example.AopConversationUsage\Example.AopConversationUsage.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.DataAnnotations\DataAnnotations.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.DataAnnotations.Tests\DataAnnotations.Tests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleValidator\CastleValidator.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleValidator.Tests\CastleValidator.Tests.build"/>
 		</ItemGroup>
 		
 		<ItemGroup>
