@@ -47,6 +47,8 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.DataAnnotations.Tests\DataAnnotations.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleValidator\CastleValidator.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleValidator.Tests\CastleValidator.Tests.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.VAB\VAB.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.VAB.Tests\VAB.Tests.build"/>
 		</ItemGroup>
 		
 		<ItemGroup>
