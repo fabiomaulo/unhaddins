@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="hibernate.cfg.template" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SampleDomain\AlreadyNamedEntity.hbm.xml" />
