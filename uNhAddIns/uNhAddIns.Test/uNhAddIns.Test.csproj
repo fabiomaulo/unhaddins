@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{36E6304A-EACB-41B9-ADF1-E81BE6EDF0CB}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -269,13 +269,12 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>
-	if exist hibernate.cfg.xml (del hibernate.cfg.xml)
-	if exist "$(ProjectDir)hibernate.cfg.xml" (copy "$(ProjectDir)hibernate.cfg.xml" "hibernate.cfg.xml")
-	if exist TestConfig1.cfg.xml (del TestConfig1.cfg.xml)
-	if exist "$(ProjectDir)TestConfig1.cfg.xml" (copy "$(ProjectDir)TestConfig1.cfg.xml" "TestConfig1.cfg.xml")
-	if exist TestConfig2.cfg.xml (del TestConfig2.cfg.xml)
-	if exist "$(ProjectDir)TestConfig2.cfg.xml" (copy "$(ProjectDir)TestConfig2.cfg.xml" "TestConfig2.cfg.xml")
+    <PostBuildEvent>if exist hibernate.cfg.xml (del hibernate.cfg.xml)
+if exist "$(ProjectDir)hibernate.cfg.xml" (copy "$(ProjectDir)hibernate.cfg.xml" "hibernate.cfg.xml")
+if exist TestConfig1.cfg.xml (del TestConfig1.cfg.xml)
+if exist "$(ProjectDir)TestConfig1.cfg.xml" (copy "$(ProjectDir)TestConfig1.cfg.xml" "TestConfig1.cfg.xml")
+if exist TestConfig2.cfg.xml (del TestConfig2.cfg.xml)
+if exist "$(ProjectDir)TestConfig2.cfg.xml" (copy "$(ProjectDir)TestConfig2.cfg.xml" "TestConfig2.cfg.xml")
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
