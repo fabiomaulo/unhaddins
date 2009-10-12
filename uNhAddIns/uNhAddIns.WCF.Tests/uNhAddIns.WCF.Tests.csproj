@@ -4,11 +4,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{38E03C8A-82EA-4064-B5F2-7F6D20433C9C}</ProjectGuid>
+    <ProjectGuid>{C8359531-8392-43F3-8459-73F6C5A270FD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>uNhAddIns.WCF</RootNamespace>
-    <AssemblyName>uNhAddIns.WCF</AssemblyName>
+    <RootNamespace>uNhAddIns.WCF.Tests</RootNamespace>
+    <AssemblyName>uNhAddIns.WCF.Tests</AssemblyName>
     <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
@@ -35,12 +35,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Moq, Version=3.5.716.1, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=2.1.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NUnitEx, Version=1.0.5.0, Culture=neutral, PublicKeyToken=57e34ad207e9e5a3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\NUnitEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -57,22 +68,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstanciateThroughServiceLocator.cs" />
-    <Compile Include="NhSessionPerCallBehaviorExtensionElement.cs" />
-    <Compile Include="NhSessionPerCallContextBehavior.cs" />
-    <Compile Include="NhSessionPerCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLocatorBehaviorExtensionElement.cs" />
-    <Compile Include="ServiceLocatorInstanceProvider.cs" />
+    <Compile Include="ServiceLocatorInstanceProviderTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="WCF.build" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.WCF\uNhAddIns.WCF.csproj">
+      <Project>{38E03C8A-82EA-4064-B5F2-7F6D20433C9C}</Project>
+      <Name>uNhAddIns.WCF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WCFTest.build" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -91,4 +101,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>if exist "$(ProjectDir)hibernate.cfg.xml" (copy "$(ProjectDir)hibernate.cfg.xml" "hibernate.cfg.xml")</PostBuildEvent>
+  </PropertyGroup>
 </Project>

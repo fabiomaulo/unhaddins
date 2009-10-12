@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="_Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+
+	<Target Name="_Init" DependsOnTargets="ProjectInit">
+		<PropertyGroup>
+			<ProjectFile>uNhAddIns.WCF.Tests.csproj</ProjectFile>
+			<AssemblyTitle>uNhAddIns.WCF.Tests</AssemblyTitle>
+			<AssemblyProduct>uNhAddIns</AssemblyProduct>
+			<AssemblyDescription></AssemblyDescription>
+			<AssemblyClsCompliant>True</AssemblyClsCompliant>
+			<SkipTest>True</SkipTest>
+		</PropertyGroup>
+	</Target>
+
+	<Target Name="_Build" DependsOnTargets="_Init;ProjectCompileTest" Outputs="@(TestAssemblies)"/>
+	<Target Name = "_GenerateAssemblyInfo" DependsOnTargets="_Init;ProjectGenerateAssemblyInfo"/>
+
+	<Import Project="$(RootDir)\BuildCommon\CommonProject.build"/>
+</Project>
