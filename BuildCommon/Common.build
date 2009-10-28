@@ -8,24 +8,30 @@
 		<ArtifactsDir>$(RootDir)\Artifacts\</ArtifactsDir>
 		<FlattenZipFile>True</FlattenZipFile>
 		<SkipAllTests>False</SkipAllTests>
+		<BinDir>$(RootDir)\Build</BinDir>
+		<TestDataBaseFileName>uNh.mdf</TestDataBaseFileName>
+		<TestDataBaseLogFileName>uNh_log.ldf</TestDataBaseLogFileName>
+		<TestDataBaseFullPath>$(RootDir)\BuildCommon\$(TestDataBaseFileName)</TestDataBaseFullPath>
+		<TestDataBaseLogFullPath>$(RootDir)\BuildCommon\$(TestDataBaseLogFileName)</TestDataBaseLogFullPath>
 	</PropertyGroup>
 	
 	<ItemGroup>
 		<ExistingZipFiles Include="$(ArtifactsDir)\*.zip"/>
 	</ItemGroup>
 
-	<Target Name="CommonBuild">
+	<Target Name="RunBuild">
 		<MsBuild 
 			Projects="@(BuildFiles)" 
-			Properties="BUILD_VCS_NUMBER=$(BUILD_VCS_NUMBER);RootDir=$(RootDir)">
+			Properties="BUILD_VCS_NUMBER=$(BUILD_VCS_NUMBER);RootDir=$(RootDir);Configuration=$(Configuration);BinDir=$(BinDir)"			>
 			<Output 
 				ItemName="TestAssemblies"
 				TaskParameter="TargetOutputs"
 			/>
 		</MsBuild>
+
 	</Target>
 
-	<Target Name="CommonGenerateAssemblyInfo">
+	<Target Name="RunGenerateAssemblyInfo">
 		<MsBuild 
 			Projects="@(BuildFiles)"
 			Properties="BUILD_VCS_NUMBER=$(BUILD_VCS_NUMBER);RootDir=$(RootDir)"
@@ -34,7 +40,7 @@
 	</Target>
 
 	
-    <Target Name="CommonTest" Condition="!$(SkipAllTests) and '@(TestAssemblies)' != ''">
+    <Target Name="RunTest" Condition="!$(SkipAllTests) and '@(TestAssemblies)' != ''">
         <NUnit 
         	Assemblies="@(TestAssemblies)" 
         	ToolPath="$(NUnitDir)"
@@ -42,7 +48,7 @@
         />
     </Target>
     
-	<Target Name="CommonZip">
+	<Target Name="RunZip">
 		<Delete Files="@(ExistingZipFiles)"/>
 		<Time Format="yyyy-MMM-dd-HH-mm">
 			<Output TaskParameter="FormattedTime"
@@ -57,12 +63,11 @@
 			 ZipFileName="$(ZipFileName)" />
 	</Target>
 	
-	<Target Name="CommonBeforeZip">
+	<Target Name="BeforeZip">
 		<CreateItem Include="$(BinDir)\*.*;">
 			<Output TaskParameter="Include" ItemName="ZipFiles"/>
 		</CreateItem>
 	</Target>
     
 	<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
-
 </Project>

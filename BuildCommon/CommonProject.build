@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
-
-	<Target Name="ProjectInit">
+	<Target Name="Init">
 		<PropertyGroup>
 			<AssemblyCompany>uNhAddIns</AssemblyCompany>
 			<AssemblyCopyright>Copyright (c) $(AssemblyCompany), 2008. All rights reserved.</AssemblyCopyright>
 			<AssemblyCodeLanguage>CS</AssemblyCodeLanguage>
 	    	<AssemblyVersion>2.0.0</AssemblyVersion>
 	    	<AssemblyOutputFile>Properties\AssemblyInfo.cs</AssemblyOutputFile>
-			<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-			<BinDir>$(MSBuildProjectDirectory)\..\..\Build</BinDir>
+			<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 			<SVNDir>$(MSBuildProjectDirectory)\..\..\Tools\Subversion</SVNDir>
 			<SkipTest>False</SkipTest>
+			<TeamCity>True</TeamCity>
+			<TeamCity Condition="'$(BUILD_VCS_NUMBER)' == ''">False</TeamCity>
+			<ForceTeamCity>False</ForceTeamCity>			
 		</PropertyGroup>
 	</Target>
 
-	<Target Name="ProjectCompile">
-		<Message Text="Compiling $(AssemblyProduct)"/>
+	<Target Name="Compile">
+		<Message Importance="High" Text="Compiling $(AssemblyProduct) configuration=$(Configuration)"/>
 		<MSBuild Projects ="$(MSBuildProjectDirectory)\$(ProjectFile)"
              ContinueOnError ="false"
              Properties="Configuration=$(Configuration)">
         	<Output ItemName="OutputFiles" TaskParameter="TargetOutputs"/>
     	</MSBuild>
+    </Target>
+
+	<Target Name="SVNRevision" Condition="!$(TeamCity)">
+		<SvnVersion LocalPath="." ToolPath="$(SVNDir)">
+			<Output TaskParameter="Revision" PropertyName="BUILD_VCS_NUMBER" />
+		</SvnVersion>
 	</Target>
 
-	<Target Name="ProjectGenerateAssemblyInfo" DependsOnTargets="ProjectSVNRevision">
+	<Target Name="GenerateAssemblyInfo" DependsOnTargets="SVNRevision">
 		<AssemblyInfo 
 			AssemblyCompany ="$(AssemblyCompany)"
 			AssemblyCopyright="$(AssemblyCopyright)"
@@ -38,25 +45,28 @@
 			OutputFile="$(AssemblyOutputFile)"
 		/>
 	</Target>
-	
-	<Target Name="ProjectSVNRevision" Condition="'$(BUILD_VCS_NUMBER)' == ''">
-		<SvnVersion LocalPath="." ToolPath="$(SVNDir)">
-			<Output TaskParameter="Revision" PropertyName="BUILD_VCS_NUMBER" />
-		</SvnVersion>
-	</Target>
-	
-	<Target Name="ProjectCopyToBin">
+		
+	<Target Name="CopyOutputsToBin">
     	<Copy SourceFiles="@(OutputFiles)" 
     		DestinationFiles="@(OutputFiles->'$(BinDir)\%(RecursiveDir)%(Filename)%(Extension)')" />
   	</Target>
 
-	<Target Name="ProjectCompileTest" Condition="!$(SkipTest)" DependsOnTargets="ProjectCompile" Outputs="@(TestAssemblies)">
-	    <ItemGroup>
-		  <TestAssemblies Include="@(OutputFiles)"/>
-		</ItemGroup>
+	<Target Name="IncludeOutputsToTestAssemblies" Condition="!$(SkipTest)" Outputs="@(TestAssemblies)">
+		    <ItemGroup>
+			  <TestAssemblies Include="@(OutputFiles)"/>
+			</ItemGroup>
+	</Target>
+	
+	
+	<Target Name="CopyTestDatabase" Condition="$(TeamCity) Or $(ForceTeamCity)">
+		<Copy SourceFiles="$(TestDataBaseFullPath)" DestinationFiles="@(OutputFiles->'%(RelativeDir)$(TestDataBaseFileName)')"/>
+		<Copy SourceFiles="$(TestDataBaseLogFullPath)" DestinationFiles="@(OutputFiles->'%(RelativeDir)$(TestDataBaseLogFileName)')"/>
+	</Target>
+	
+	<Target Name="CopyTeamCityHibernateCfg" Condition="$(TeamCity) Or $(ForceTeamCity)">
+		<Copy SourceFiles="teamcity.hibernate.cfg.xml" DestinationFiles="@(OutputFiles->'%(RelativeDir)hibernate.cfg.xml')"/>
 	</Target>
 
-	<Target Name="ProjectCompileToBin" DependsOnTargets="ProjectCompile;ProjectCopyToBin"/>
 
 	<Import Project="Common.build"/>
 </Project>

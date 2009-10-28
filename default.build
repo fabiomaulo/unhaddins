@@ -3,14 +3,16 @@
 
 	<PropertyGroup>
 		<RootDir>$(MSBuildProjectDirectory)</RootDir>
+		<Configuration>Debug</Configuration>
 	</PropertyGroup>
 
-	<Target Name = "Build" DependsOnTargets="Everythings;CommonGenerateAssemblyInfo;CommonBuild"/>
-	<Target Name = "Test" DependsOnTargets="Everythings;CommonGenerateAssemblyInfo;CommonBuild;CommonTest"/>
-	<Target Name = "GenerateAssemblyInfo" DependsOnTargets="Everythings;CommonGenerateAssemblyInfo"/>
-	
-	<Target Name="Everythings">
-		<ItemGroup>
+	<Target Name = "AutomatedBuild" DependsOnTargets="DefineBuild;RunGenerateAssemblyInfo;RunBuild;RunTest"/>
+	<Target Name = "Build" DependsOnTargets="DefineBuild;RunGenerateAssemblyInfo;RunBuild"/>
+	<Target Name = "Test" DependsOnTargets="DefineBuild;RunGenerateAssemblyInfo;RunBuild;RunTest"/>
+	<Target Name = "GenerateAssemblyInfo" DependsOnTargets="DefineBuild;RunGenerateAssemblyInfo"/>
+		
+	<Target Name="DefineBuild">
+		<ItemGroup>	
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns\uNhAddIns2.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters\Adapters.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.Common\Adapters.Common.build"/>
@@ -52,12 +54,7 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.VAB\VAB.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.VAB.Tests\VAB.Tests.build"/>
 		</ItemGroup>
-		
-		<ItemGroup>
-			<LibFiles Include="$(RootDir)\Libs"/>
-		</ItemGroup>
 	</Target>
-	
 
 	<Import Project="BuildCommon\Common.build"/>
 </Project>
