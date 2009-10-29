@@ -7,7 +7,7 @@
 			<AssemblyProduct>uNhAddIns</AssemblyProduct>
 			<AssemblyDescription></AssemblyDescription>
 			<AssemblyClsCompliant>True</AssemblyClsCompliant>
-			<SkipTest>True</SkipTest>
+			<SkipTest>False</SkipTest>
 		</PropertyGroup>
 	</Target>
 	
