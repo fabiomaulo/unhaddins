@@ -12,7 +12,7 @@
 			<SkipTest>False</SkipTest>
 			<TeamCity>True</TeamCity>
 			<TeamCity Condition="'$(BUILD_VCS_NUMBER)' == ''">False</TeamCity>
-			<ForceTeamCity>False</ForceTeamCity>			
+			<ForceTeamCity>True</ForceTeamCity>			
 		</PropertyGroup>
 	</Target>
 

@@ -7,7 +7,7 @@
 			<AssemblyProduct>uNhAddIns.VAB.Tests</AssemblyProduct>
 			<AssemblyDescription></AssemblyDescription>
 			<AssemblyClsCompliant>True</AssemblyClsCompliant>
-			<SkipTest>True</SkipTest>
+			<SkipTest>Test</SkipTest>
 		</PropertyGroup>
 	</Target>
 
