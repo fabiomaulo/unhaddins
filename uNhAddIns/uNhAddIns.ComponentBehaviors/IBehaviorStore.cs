@@ -6,6 +6,5 @@ namespace uNhAddIns.ComponentBehaviors
 	public interface IBehaviorStore
 	{
 		ICollection<Type> GetBehaviorsForType(Type type);
-		BehaviorList For<TType>();
 	}
 }
