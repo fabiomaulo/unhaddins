@@ -20,8 +20,13 @@ namespace uNhAddIns.ComponentBehaviors
 		
 		public BehaviorList For<TType>()
 		{
+			return For(typeof (TType));
+		}
+
+		public BehaviorList For(Type type)
+		{
 			var behaviorList = new BehaviorList();
-			_behaviors[typeof(TType)] = behaviorList;
+			_behaviors[type] = behaviorList;
 			return behaviorList;
 		}
     }
