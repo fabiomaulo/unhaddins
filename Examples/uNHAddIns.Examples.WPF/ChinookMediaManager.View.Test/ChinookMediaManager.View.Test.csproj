@@ -72,6 +72,10 @@
       <Project>{C3DB558C-F203-4132-9635-B4DEC818A011}</Project>
       <Name>ChinookMediaManager.GUI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.ViewModels\ChinookMediaManager.ViewModels.csproj">
+      <Project>{A8A3E81F-E77B-4948-A660-57336FF7D73B}</Project>
+      <Name>ChinookMediaManager.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

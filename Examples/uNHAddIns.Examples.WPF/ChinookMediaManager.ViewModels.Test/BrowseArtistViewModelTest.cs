@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
-using ChinookMediaManager.GUI.ViewModels;
 using ChinookMediaManager.Infrastructure;
 using Moq;
 using NUnit.Framework;
@@ -30,13 +29,13 @@ namespace ChinookMediaManager.ViewModels.Test
         {
             var artistModel = new Mock<IBrowseArtistModel>();
             var viewInstantiator = new Mock<IViewFactory>();
-            var albumManagerViewModel = new Mock<IAlbumManagerViewModel>();
+            var albumManagerViewModel = new Mock<AlbumManagerViewModel>(null,null);
             var artist = new Artist {Name = "John"};
-
+			
             albumManagerViewModel.Setup(amvm => amvm.SetUp(artist))
                 .AtMostOnce();
 
-            viewInstantiator.Setup(vi => vi.ShowView<IAlbumManagerViewModel>())
+            viewInstantiator.Setup(vi => vi.ShowView<AlbumManagerViewModel>())
                 .Returns(albumManagerViewModel.Object)
                 .AtMostOnce();
 

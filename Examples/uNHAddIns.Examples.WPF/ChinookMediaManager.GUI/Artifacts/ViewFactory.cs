@@ -36,7 +36,7 @@ namespace ChinookMediaManager.GUI.Artifacts
 
         private Window GetView<TViewModel>(TViewModel viewModel)
         {
-            string viewName = typeof (TViewModel).Name.Substring(1).Replace("ViewModel", "View");
+            string viewName = typeof (TViewModel).Name.Replace("ViewModel", "View");
             string viewFullName = string.Format("ChinookMediaManager.GUI.Views.{0}, ChinookMediaManager.GUI", viewName);
 
             Type viewType = Type.GetType(viewFullName, true);

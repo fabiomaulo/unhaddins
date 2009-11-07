@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
-using ChinookMediaManager.GUI.ViewModels;
 using ChinookMediaManager.Infrastructure;
 using Moq;
 using NUnit.Framework;
@@ -52,16 +51,15 @@ namespace ChinookMediaManager.ViewModels.Test
         {
             var albumManagerModel = new Mock<IAlbumManagerModel>();
             var viewInsantiator = new Mock<IViewFactory>();
-            var editAlbumViewModel = new Mock<IEditAlbumViewModel>();
+            var editAlbumViewModel = new Mock<EditAlbumViewModel>();
 
             var artist = new Artist {Name = "John"};
             var album = new Album {Artist = artist};
             var albumList = new List<Album> {album};
 
+        	editAlbumViewModel.SetupGet(ea => ea.Album).Returns(album);
 
-            //editAlbumViewModel.Setup(ea => ea.SetUp(album, albumManagerModel.Object));
-
-            viewInsantiator.Setup(vi => vi.ResolveViewModel<IEditAlbumViewModel>())
+            viewInsantiator.Setup(vi => vi.ResolveViewModel<EditAlbumViewModel>())
                            .Returns(editAlbumViewModel.Object)
                            .AtMostOnce();
 
@@ -90,7 +88,7 @@ namespace ChinookMediaManager.ViewModels.Test
         {
             var model = new Mock<IAlbumManagerModel>();
             var viewFactory = new Mock<IViewFactory>();
-            var editAlbumViewModel = new Mock<IEditAlbumViewModel>();
+            var editAlbumViewModel = new Mock<EditAlbumViewModel>();
 
             var artist = new Artist();
             var album = new Album{Artist = artist};
@@ -98,7 +96,7 @@ namespace ChinookMediaManager.ViewModels.Test
             model.Setup(m => m.CreateNewAlbum(artist))
                  .Returns(album);
 
-            viewFactory.Setup(vf => vf.ResolveViewModel<IEditAlbumViewModel>())
+            viewFactory.Setup(vf => vf.ResolveViewModel<EditAlbumViewModel>())
                        .Returns(editAlbumViewModel.Object)
                        .AtMostOnce();
 
@@ -125,7 +123,7 @@ namespace ChinookMediaManager.ViewModels.Test
         {
             var model = new Mock<IAlbumManagerModel>();
             var viewFactory = new Mock<IViewFactory>();
-            var editAlbumViewModel = new Mock<IEditAlbumViewModel>();
+            var editAlbumViewModel = new Mock<EditAlbumViewModel>();
 
             var albumManagerViewModel = new AlbumManagerViewModel(
                                                            model.Object,
@@ -151,7 +149,7 @@ namespace ChinookMediaManager.ViewModels.Test
         {
             var model = new Mock<IAlbumManagerModel>();
             var viewFactory = new Mock<IViewFactory>();
-            var editAlbumViewModel = new Mock<IEditAlbumViewModel>();
+            var editAlbumViewModel = new Mock<EditAlbumViewModel>();
 
             var albumManagerViewModel = new AlbumManagerViewModel(
                                                            model.Object,
@@ -166,8 +164,7 @@ namespace ChinookMediaManager.ViewModels.Test
             albumManagerViewModel.SetUp(artist);
             albumManagerViewModel.AlbumEditWorkspaces.Add(editAlbumViewModel.Object);
 
-            editAlbumViewModel.Raise(ea => ea.RequestClose += null,
-                                     new EventArgs());
+            editAlbumViewModel.Raise(ea => ea.RequestClose += null, new EventArgs());
 
             albumManagerViewModel.Albums.Contains(newAlbumSaved).Should().Be.False();
         }
@@ -177,7 +174,7 @@ namespace ChinookMediaManager.ViewModels.Test
         {
             var model = new Mock<IAlbumManagerModel>();
             var viewFactory = new Mock<IViewFactory>();
-            var editAlbumViewModel = new Mock<IEditAlbumViewModel>();
+            var editAlbumViewModel = new Mock<EditAlbumViewModel>();
 
             var albumManagerViewModel = new AlbumManagerViewModel(
                                                            model.Object,
