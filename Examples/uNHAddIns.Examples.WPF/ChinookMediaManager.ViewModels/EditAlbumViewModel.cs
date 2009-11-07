@@ -3,12 +3,11 @@ using System.ComponentModel;
 using System.Windows.Input;
 using ChinookMediaManager.Domain;
 using ChinookMediaManager.Domain.Model;
-using ChinookMediaManager.GUI.ViewModels;
 using ChinookMediaManager.ViewModels.BaseClasses;
 
 namespace ChinookMediaManager.ViewModels
 {
-    public class EditAlbumViewModel : IEditAlbumViewModel
+    public class EditAlbumViewModel : INotifyPropertyChanged
     {
         private RelayCommand _addNewTrackCommand;
         private Album _album;
@@ -19,7 +18,7 @@ namespace ChinookMediaManager.ViewModels
 
         #region IEditAlbumViewModel Members
 
-        public void SetUp(Album album, IAlbumManagerModel albumManagerModel)
+        public virtual void SetUp(Album album, IAlbumManagerModel albumManagerModel)
         {
             if (album == null) throw new ArgumentNullException("album");
             if (albumManagerModel == null) throw new ArgumentNullException("albumManagerModel");
@@ -27,7 +26,7 @@ namespace ChinookMediaManager.ViewModels
             _albumManagerModel = albumManagerModel;
         }
 
-        public Album Album
+        public virtual Album Album
         {
             get { return _album; }
             private set
@@ -104,7 +103,7 @@ namespace ChinookMediaManager.ViewModels
 
         public Track SelectedTrack { get; set; }
 
-        public event EventHandler RequestClose;
+        public virtual event EventHandler RequestClose;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

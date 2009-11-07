@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using ChinookMediaManager.GUI.ViewModels;
 using ChinookMediaManager.Infrastructure;
+using ChinookMediaManager.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using uNhAddIns.Adapters;
 
@@ -22,7 +22,7 @@ namespace ChinookMediaManager.GUI
         protected override void OnStartup(StartupEventArgs e)
         {
             var viewFactory = ServiceLocator.Current.GetInstance<IViewFactory>();
-            viewFactory.ShowView<IBrowseArtistViewModel>();
+            viewFactory.ShowView<BrowseArtistViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)

@@ -103,9 +103,6 @@
   <ItemGroup>
     <Compile Include="Artifacts\TemplateSelector.cs" />
     <Compile Include="Artifacts\ViewFactory.cs" />
-    <Compile Include="ViewModels\IAlbumManagerViewModel.cs" />
-    <Compile Include="ViewModels\IBrowseArtistViewModel.cs" />
-    <Compile Include="ViewModels\IEditAlbumViewModel.cs" />
     <Compile Include="Views\AlbumManagerView.xaml.cs">
       <DependentUpon>AlbumManagerView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -148,6 +145,10 @@
     <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
       <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
       <Name>ChinookMediaManager.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.ViewModels\ChinookMediaManager.ViewModels.csproj">
+      <Project>{A8A3E81F-E77B-4948-A660-57336FF7D73B}</Project>
+      <Name>ChinookMediaManager.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

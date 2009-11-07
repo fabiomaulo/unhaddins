@@ -7,10 +7,8 @@
 <ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:Artifacts="clr-namespace:ChinookMediaManager.GUI.Artifacts"
   xmlns:vw="clr-namespace:ChinookMediaManager.GUI.Views"
-  xmlns:ViewModels="clr-namespace:ChinookMediaManager.GUI.ViewModels"
-  >
+  xmlns:ViewModels1="clr-namespace:ChinookMediaManager.ViewModels;assembly=ChinookMediaManager.ViewModels">
     <Style TargetType="{x:Type TextBox}">
         <Style.Triggers>
             <Trigger Property="Validation.HasError" Value="true">
@@ -26,9 +24,7 @@
         <GradientStop Color="#BB000084" Offset="1" />
     </LinearGradientBrush>
     
-    <Artifacts:TemplateSelector x:Key="templateSelector" />
-
-    <DataTemplate x:Key="dt" DataType="{x:Type ViewModels:IEditAlbumViewModel}" >
+    <DataTemplate DataType="{x:Type ViewModels1:EditAlbumViewModel}" >
         <vw:EditAlbumView />
     </DataTemplate>
     
@@ -147,9 +143,7 @@
         IsSynchronizedWithCurrentItem="True" 
         ItemsSource="{Binding}" 
         ItemTemplate="{StaticResource ClosableTabItemTemplate}"
-        ContentTemplateSelector="{StaticResource templateSelector}"
-        Margin="4"
-      />
+        Margin="4"/>
     </DataTemplate>
 
 </ResourceDictionary>
