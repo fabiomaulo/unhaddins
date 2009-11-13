@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationTemplates", "ConfigurationTemplates", "{D121F01C-1CD3-4E44-B4C3-853E00B2D97D}"
 	ProjectSection(SolutionItems) = preProject
 		ConfigurationTemplates\FireBird.cfg.xml.tmpl = ConfigurationTemplates\FireBird.cfg.xml.tmpl
+		ConfigurationTemplates\MSSQL.cfg.xml.tmpl = ConfigurationTemplates\MSSQL.cfg.xml.tmpl
 		ConfigurationTemplates\MySql.cfg.xml.tmpl = ConfigurationTemplates\MySql.cfg.xml.tmpl
 		ConfigurationTemplates\Oracle.cfg.xml.tmpl = ConfigurationTemplates\Oracle.cfg.xml.tmpl
 		ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl = ConfigurationTemplates\PostgreSQL.cfg.xml.tmpl
