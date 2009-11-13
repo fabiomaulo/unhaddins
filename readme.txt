@@ -6,5 +6,5 @@ Because we dont have AssemblyInfo.cs files into repository, u should run 'genera
 
 Before you run any test you must:
 1-Create a Database named uNhAITests
-2-Copy each hibernate.cfg.template from uNhAddIns.XYZAdapters.Tests to his respective Bin\Debug folder, rename the file to hibernate.cfg.xml and change the connection settings to fit your needs. Optionally you can set the file as read only to prevent Visual Studio delete it in each build.
-4-Copy one template from "uNhAddIns\ConfigurationTemplates" to "uNhAddIns\Bin\Debug\" and edit to fit your needs. Also, rename this file to hibernate.cfg.xml
+2-Copy each hibernate.cfg.template from uNhAddIns.XYZAdapters.Tests to his respective project folder, rename the file to hibernate.cfg.xml and change the connection settings to fit your needs. 
+4-Copy one template from "uNhAddIns\ConfigurationTemplates" to unhaddins.Test project folder rename this file to hibernate.cfg.xml and change the connection settings to fit your needs. 
