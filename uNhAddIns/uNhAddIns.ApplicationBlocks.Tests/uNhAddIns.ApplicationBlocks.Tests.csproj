@@ -45,12 +45,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\uNhAddIns.ApplicationBlocks\uNhAddIns.ApplicationBlocks.csproj">
-      <Project>{022F6317-80B0-480B-9192-3FEF9D4335E8}</Project>
-      <Name>uNhAddIns.ApplicationBlocks</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
