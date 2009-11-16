@@ -170,6 +170,7 @@
     <Compile Include="SessionEasier\TransactionProtectionWrapperFixture.cs" />
     <Compile Include="TestCase.cs" />
     <Compile Include="TestHelpers.cs" />
+    <Compile Include="Transform\DelegateResultTransformer.cs" />
     <Compile Include="Transform\PosToBeanResultTransformer.cs" />
     <Compile Include="UserTypes\GenericWellKnownInstanceTypeFixture.cs" />
     <Compile Include="UserTypes\EntityWithLocalizableProperty.cs" />
