@@ -12,23 +12,23 @@ namespace uNhAddIns.Test.Conversations
 			this.factory = factory;
 		}
 
-		public Silly Get(int id)
+		public Silly3 Get(int id)
 		{
-			return factory.GetCurrentSession().Get<Silly>(id);
+			return factory.GetCurrentSession().Get<Silly3>(id);
 		}
 
-		public IList<Silly> GetAll()
+		public IList<Silly3> GetAll()
 		{
-			return factory.GetCurrentSession().CreateQuery("from Silly").List<Silly>();
+			return factory.GetCurrentSession().CreateQuery("from Silly3").List<Silly3>();
 		}
 
-		public Silly MakePersistent(Silly entity)
+		public Silly3 MakePersistent(Silly3 entity)
 		{
 			factory.GetCurrentSession().SaveOrUpdate(entity);
 			return entity;
 		}
 
-		public void MakeTransient(Silly entity)
+		public void MakeTransient(Silly3 entity)
 		{
 			factory.GetCurrentSession().Delete(entity);
 		}

@@ -3,15 +3,15 @@
 				   assembly="uNhAddIns.Test"
 				   namespace="uNhAddIns.Test.SessionEasier">
 	
-	<class name="Silly">
+	<class name="Silly2">
 		<id name="Id">
 			<generator class="native"/>
 		</id>
 		<property name="Name"/>
-		<many-to-one name="Other" class="Other" cascade="all"/>
+		<many-to-one name="Other" class="Other2" cascade="all"/>
 	</class>
 
-	<class name="Other">
+	<class name="Other2">
 		<id name="Id">
 			<generator class="native"/>
 		</id>

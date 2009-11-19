@@ -160,12 +160,12 @@
     <Compile Include="Serialization\FooChild.cs" />
     <Compile Include="SessionEasier\NoWrappedSessionWrapperFixture.cs" />
     <Compile Include="SessionEasier\Other.cs" />
-    <Compile Include="SessionEasier\Silly.cs" />
     <Compile Include="SessionEasier\Contexts\ThreadLocalSessionContextFixture.cs" />
     <Compile Include="SessionEasier\DefaultMultiFactoryConfigurationProviderFixture.cs" />
     <Compile Include="SessionEasier\DefaultSessionFactoryConfigurationProviderFixture.cs" />
     <Compile Include="SessionEasier\MultiSessionFactoryProviderFixture.cs" />
     <Compile Include="SessionEasier\SessionFactoryProviderFixture.cs" />
+    <Compile Include="SessionEasier\Silly2.cs" />
     <Compile Include="SessionEasier\TestConfigurationHelper.cs" />
     <Compile Include="SessionEasier\TransactionProtectionWrapperFixture.cs" />
     <Compile Include="TestCase.cs" />
@@ -237,7 +237,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SessionEasier\Silly.hbm.xml" />
     <EmbeddedResource Include="Conversations\Silly.hbm.xml" />
     <EmbeddedResource Include="Cache\Items.hbm.xml" />
     <EmbeddedResource Include="Audit\Person.hbm.xml" />
@@ -246,6 +245,7 @@
     <EmbeddedResource Include="Audit\Animal.hbm.xml" />
     <EmbeddedResource Include="Mapping\Simple.hbm.xml" />
     <EmbeddedResource Include="Listeners\AutoDirtyCheck\Domain.hbm.xml" />
+    <EmbeddedResource Include="SessionEasier\Silly2.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

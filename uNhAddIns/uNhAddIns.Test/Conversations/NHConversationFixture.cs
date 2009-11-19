@@ -18,17 +18,17 @@ namespace uNhAddIns.Test.Conversations
 
 		protected override void OnTearDown()
 		{
-			CommitInNewSession(session => session.Delete("from Silly"));
+			CommitInNewSession(session => session.Delete("from Silly3"));
 		}
 
-		private void AssertExistsInDb(Silly persistedObject)
+		private void AssertExistsInDb(Silly3 persistedObject)
 		{
-			Assert.That(ExistsInDb<Silly>(persistedObject.Id), Is.True, "object expected to be in db");
+			Assert.That(ExistsInDb<Silly3>(persistedObject.Id), Is.True, "object expected to be in db");
 		}
 
-		private void AssertDoesNotExistInDb(Silly persistedObject)
+		private void AssertDoesNotExistInDb(Silly3 persistedObject)
 		{
-			Assert.That(ExistsInDb<Silly>(persistedObject.Id), Is.False, "object expected not to be in db");
+			Assert.That(ExistsInDb<Silly3>(persistedObject.Id), Is.False, "object expected not to be in db");
 		}
 
 		private void AssertIsOpen(ISession s)
@@ -72,8 +72,8 @@ namespace uNhAddIns.Test.Conversations
 		{
 			CommitInNewSession(session =>
 			                   	{
-			                   		var o = new Other {Name = "some other silly"};
-			                   		var e = new Silly {Name = "somebody", Other = o};
+			                   		var o = new Other3 {Name = "some other silly"};
+			                   		var e = new Silly3 {Name = "somebody", Other = o};
 			                   		session.Save(e);
 			                   	});
 
@@ -81,7 +81,7 @@ namespace uNhAddIns.Test.Conversations
 			{
 				c.Start();
 				ISession s = c.GetSession(sessions);
-				IList<Silly> sl = s.CreateQuery("from Silly").List<Silly>();
+				IList<Silly3> sl = s.CreateQuery("from Silly3").List<Silly3>();
 				c.Pause();
 				Assert.That(sl.Count == 1);
 				Assert.That(!NHibernateUtil.IsInitialized(sl[0].Other));
@@ -100,7 +100,7 @@ namespace uNhAddIns.Test.Conversations
 			{
 				c.Start();
 				ISession s = c.GetSession(sessions);
-				s.Delete("from Silly");
+				s.Delete("from Silly3");
 				c.End();
 			}
 		}
@@ -142,7 +142,7 @@ namespace uNhAddIns.Test.Conversations
 			NhConversation c = NewPausedConversation();
 			c.Resume();
 			ISession s = c.GetSession(sessions);
-			var persistedObj = new Silly();
+			var persistedObj = new Silly3();
 			s.Save(persistedObj);
 
 			c.End();
@@ -154,7 +154,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			NhConversation c = NewStartedConversation();
 			ISession s = c.GetSession(sessions);
-			var persistedObj = new Silly();
+			var persistedObj = new Silly3();
 			s.Save(persistedObj);
 
 			c.End();
@@ -166,7 +166,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			NhConversation c = NewPausedConversation();
 			ISession s = c.GetSession(sessions);
-			var persistedObj = new Silly();
+			var persistedObj = new Silly3();
 			s.Save(persistedObj);
 
 			c.End();
@@ -201,7 +201,7 @@ namespace uNhAddIns.Test.Conversations
 		public void PauseShouldNotFlushUnitOfWork()
 		{
 			NhConversation c = NewStartedConversation();
-			var persistedObj = new Silly();
+			var persistedObj = new Silly3();
 			c.GetSession(sessions).Save(persistedObj);
 
 			c.Pause();
@@ -326,7 +326,7 @@ namespace uNhAddIns.Test.Conversations
 		{
 			NhConversation c = NewStartedConversation();
 			ISession s = c.GetSession(sessions);
-			var persistedObj = new Silly();
+			var persistedObj = new Silly3();
 			s.Save(persistedObj);
 
 			c.FlushAndPause();
