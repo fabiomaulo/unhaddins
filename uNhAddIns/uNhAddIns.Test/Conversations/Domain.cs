@@ -3,7 +3,7 @@ using System;
 namespace uNhAddIns.Test.Conversations
 {
     [Serializable]
-    public class Other
+    public class Other3
     {
         private readonly Guid _id = Guid.NewGuid();
         public virtual Guid Id
@@ -22,7 +22,7 @@ namespace uNhAddIns.Test.Conversations
 
 
     [Serializable]
-    public class Silly
+    public class Silly3
     {
         private Guid _id = Guid.NewGuid();
         public virtual Guid Id
@@ -38,6 +38,6 @@ namespace uNhAddIns.Test.Conversations
 
         public virtual string Name { get; set; }
 
-        public virtual Other Other { get; set; }
+        public virtual Other3 Other { get; set; }
     }
 }

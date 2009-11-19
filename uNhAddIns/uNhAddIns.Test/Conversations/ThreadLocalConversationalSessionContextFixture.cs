@@ -45,14 +45,14 @@ namespace uNhAddIns.Test.Conversations
 			var dao = new SillyDao(sessions);
 			tc1.SetAsCurrent("1");
 			tc1.CurrentConversation.Start();
-			var o = new Other { Name = "some other silly" };
-            var e = new Silly { Name = "somebody", Other = o };
+			var o = new Other3 { Name = "some other silly" };
+            var e = new Silly3 { Name = "somebody", Other = o };
 			dao.MakePersistent(e);
 			tc1.CurrentConversation.Pause();
 
 			tc1.SetAsCurrent("2");
             tc1.CurrentConversation.Start();
-            IList<Silly> sl = dao.GetAll();
+            IList<Silly3> sl = dao.GetAll();
             Assert.That(sl.Count, Is.EqualTo(0), "changes in c1 should not have been flushed to db yet");
             tc1.CurrentConversation.Pause();
 
@@ -82,7 +82,7 @@ namespace uNhAddIns.Test.Conversations
 
         protected override void OnTearDown()
         {
-            CommitInNewSession(session => session.Delete("from Silly"));
+            CommitInNewSession(session => session.Delete("from Silly3"));
         }
 	}
 }

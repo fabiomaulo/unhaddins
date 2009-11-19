@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -99,6 +99,10 @@
     <Compile Include="SessionFactoryExtension.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\uNhAddIns.Adapters.CommonTests\uNhAddIns.Adapters.CommonTests.csproj">
+      <Project>{2F125B66-33E5-4C9A-849E-6CB763FF1001}</Project>
+      <Name>uNhAddIns.Adapters.CommonTests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
       <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
       <Name>uNhAddIns.Adapters</Name>
@@ -131,6 +135,10 @@
       <Project>{7512944F-2C52-44E2-8287-2BD39DE552F1}</Project>
       <Name>uNhAddIns.TestUtils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\uNhAddIns.WPF\uNhAddIns.WPF.csproj">
+      <Project>{7ECACA3E-1ABF-4733-99A7-BE1CDC982D61}</Project>
+      <Name>uNhAddIns.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SampleDomain\Album.hbm.xml" />
@@ -153,4 +161,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>if exist hibernate.cfg.xml (del hibernate.cfg.xml)
+if exist "$(ProjectDir)hibernate.cfg.xml" (copy "$(ProjectDir)hibernate.cfg.xml" "hibernate.cfg.xml")</PostBuildEvent>
+  </PropertyGroup>
 </Project>

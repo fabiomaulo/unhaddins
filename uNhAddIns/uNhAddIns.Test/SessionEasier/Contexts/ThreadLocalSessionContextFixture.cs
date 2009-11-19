@@ -12,7 +12,7 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 	{
 		protected override IList<string> Mappings
 		{
-			get { return new[] { "SessionEasier.Silly.hbm.xml" }; }
+			get { return new[] { "SessionEasier.Silly2.hbm.xml" }; }
 		}
 
 		protected override void Configure(Configuration configuration)
@@ -61,7 +61,7 @@ namespace uNhAddIns.Test.SessionEasier.Contexts
 			{
 				try
 				{
-					session.CreateQuery("from Silly");
+					session.CreateQuery("from Silly2");
 					Assert.Fail("method other than beginTransaction{} allowed");
 				}
 				catch (HibernateException)

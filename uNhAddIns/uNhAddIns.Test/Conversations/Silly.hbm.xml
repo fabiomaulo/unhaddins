@@ -3,16 +3,16 @@
 				   assembly="uNhAddIns.Test"
 				   namespace="uNhAddIns.Test.Conversations">
 	
-	<class name="Silly">
+	<class name="Silly3">
     <id name="Id" access="field.camelcase-underscore">
       <generator class="assigned"/>
     </id>
     <version name="ConcurrencyId" unsaved-value="-1" access="field.camelcase-underscore"/>
     <property name="Name"/>
-    <many-to-one name="Other" class="Other" cascade="all"/>
+    <many-to-one name="Other" class="Other3" cascade="all"/>
 	</class>
 
-  <class name="Other">
+  <class name="Other3">
     <id name="Id" access="field.camelcase-underscore">
       <generator class="assigned"/>
     </id>

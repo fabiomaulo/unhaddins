@@ -44,10 +44,10 @@ namespace uNhAddIns.Test.Conversations
 
 			using (var session = sessions.OpenSession())
 			{
-				var sillies = session.CreateCriteria(typeof (Silly)).List<Silly>();
+				var sillies = session.CreateCriteria(typeof (Silly3)).List<Silly3>();
 				Assert.That(sillies.Count, Is.EqualTo(1));
 
-				session.Delete("from Silly");
+				session.Delete("from Silly3");
 				session.Flush();
 			}
 		}
@@ -66,8 +66,8 @@ namespace uNhAddIns.Test.Conversations
 				var dao = new SillyDao(sessions);
 				tc1.SetAsCurrent("1");
 				tc1.CurrentConversation.Start();
-				var o = new Other { Name = "some other silly" };
-				var e = new Silly { Name = "somebody", Other = o };
+				var o = new Other3 { Name = "some other silly" };
+				var e = new Silly3 { Name = "somebody", Other = o };
 				dao.MakePersistent(e);
 
 				tc1.CurrentConversation.End();
