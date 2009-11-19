@@ -12,7 +12,8 @@ namespace uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider
 {
 	public abstract class AbstractEntityInjectionFixture
 	{
-		protected ISessionFactoryImplementor sessions;
+		private ISessionFactoryImplementor sessions;
+		private Configuration cfg;
 
 		static AbstractEntityInjectionFixture()
 		{
@@ -42,7 +43,7 @@ namespace uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider
 		public void CreateDb()
 		{
 			InitializeServiceLocator();
-			var cfg = new Configuration();
+			cfg = new Configuration();
 			Environment.BytecodeProvider = GetBytecodeProvider();
 			cfg.Configure();
 			cfg.AddResource("uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider.Domain.Spechbm.xml",
@@ -58,6 +59,7 @@ namespace uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider
 			{
 				sessions.Dispose();
 			}
+			new SchemaExport(cfg).Drop(false, true);
 			sessions = null;
 		}
 
