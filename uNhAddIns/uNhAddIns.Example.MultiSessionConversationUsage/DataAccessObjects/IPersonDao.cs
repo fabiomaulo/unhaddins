@@ -6,5 +6,6 @@ namespace uNhAddIns.Example.MultiSessionConversationUsage.DataAccessObjects
 	public interface IPersonDao : ICrudDao<Person>
 	{
 		IList<Person> GetAll();
+		IList<Person> GetByDocumentStart(int start);
 	}
 }

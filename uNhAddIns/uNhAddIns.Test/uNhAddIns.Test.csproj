@@ -117,6 +117,7 @@
     <Compile Include="Conversations\TestConversation.cs" />
     <Compile Include="Conversations\ThreadLocalConversationalSessionContextFixture.cs" />
     <Compile Include="Conversations\ThreadLocalConversationContainerFixture.cs" />
+    <Compile Include="CriterionTest\StartsWithCriterionTest.cs" />
     <Compile Include="CriterionTest\CriterionTest.cs" />
     <Compile Include="CriterionTest\LocalizableRestrictionFixture.cs" />
     <Compile Include="CriterionTest\Simple.cs" />

@@ -9,5 +9,6 @@
 			<generator class="hilo"/>
 		</id>
 		<property name="Name"/>
+		<property name="Document" />
 	</class>
 </hibernate-mapping>

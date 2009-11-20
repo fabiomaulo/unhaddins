@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using uNhAddIns.Example.MultiSessionConversationUsage.DataAccessObjects;
 using uNhAddIns.Example.MultiSessionConversationUsage.Entities;
@@ -38,5 +39,11 @@ namespace uNhAddIns.Example.MultiSessionConversationUsage.BusinessLogic
 
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
 		public void CancelAll() { }
+
+		[PersistenceConversation]
+		public IList<Person> GetPersonsWithDocumentStartingWith(int documentStart)
+		{
+			return personDao.GetByDocumentStart(documentStart);
+		}
 	}
 }
