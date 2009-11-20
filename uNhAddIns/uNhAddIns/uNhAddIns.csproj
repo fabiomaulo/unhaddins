@@ -91,6 +91,7 @@
     <Compile Include="Cache\RegionQueryCacheFactory.cs" />
     <Compile Include="Cache\TolerantQueryCache.cs" />
     <Compile Include="Criterions\Localizable.cs" />
+    <Compile Include="Criterions\StartsWithExpression.cs" />
     <Compile Include="DynQuery\GroupBy.cs" />
     <Compile Include="Extensions\Enumerables.cs" />
     <Compile Include="Extensions\ReflectionExtensions.cs" />

@@ -16,8 +16,28 @@ namespace uNhAddIns.Example.MultiSessionConversationUsage
 			
 			CreatePerson();
 			WorkWithPerson();
+			StartsWithTest();
 
 			Console.ReadLine();
+		}
+
+		private static void StartsWithTest()
+		{
+			var personModel = ServiceLocator.Current.GetInstance<IPersonCrudModel>();
+			SearchDocumentStarting(personModel, 112);
+			SearchDocumentStarting(personModel, 114);
+		}
+
+		private static void SearchDocumentStarting(IPersonCrudModel personModel, int start)
+		{
+			Console.WriteLine();
+			Console.WriteLine("Persons with document starting with {0}", start);
+			Console.WriteLine("---------------------------------------");
+			
+			foreach (var person in personModel.GetPersonsWithDocumentStartingWith(start))
+			{
+				Console.WriteLine(person);
+			}
 		}
 
 		private static void WorkWithPerson()
@@ -25,7 +45,7 @@ namespace uNhAddIns.Example.MultiSessionConversationUsage
 			var personModel = ServiceLocator.Current.GetInstance<IPersonCrudModel>();
 			foreach (var person in personModel.GetAllPersons())
 			{
-				Console.WriteLine(person.Name);
+				Console.WriteLine(person);
 			}
 			personModel.AcceptAll();
 		}
@@ -33,9 +53,9 @@ namespace uNhAddIns.Example.MultiSessionConversationUsage
 		private static void CreatePerson()
 		{
 			var personModel = ServiceLocator.Current.GetInstance<IPersonCrudModel>();
-			personModel.Save(new Person {Name = "Tito"});
-			personModel.Save(new Person { Name = "Pepe" });
-			personModel.Save(new Person { Name = "Juancho" });
+			personModel.Save(new Person {Name = "Tito", Document = 1123456});
+			personModel.Save(new Person { Name = "Pepe", Document = 1125789 });
+			personModel.Save(new Person { Name = "Juancho", Document = 1144955 });
 			personModel.AcceptAll();
 		}
 

@@ -9,6 +9,7 @@
 			<generator class="native"/>
 		</id>
 		<property name="Name" length="50"/>
+		<property name="Number" />
 	</class>
 
 </hibernate-mapping>

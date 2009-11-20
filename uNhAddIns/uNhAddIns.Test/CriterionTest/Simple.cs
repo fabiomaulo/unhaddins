@@ -16,5 +16,12 @@ namespace uNhAddIns.Test.CriterionTest
 			get { return name; }
 			set { name = value; }
 		}
+
+		private int number;
+		public virtual int Number
+		{
+			get { return number; }
+			set { number = value; }
+		}
 	}
 }
