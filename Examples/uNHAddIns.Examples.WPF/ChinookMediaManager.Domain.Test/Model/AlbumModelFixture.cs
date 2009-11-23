@@ -38,7 +38,7 @@ namespace ChinookMediaManager.Domain.Test.Model
                 .AtMostOnce();
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityFactory.Object);
+                                                          entityFactory.Object,  new Mock<IEntityValidator>().Object);
 
             albumManagerModel.CancelAlbum(album);
 
@@ -58,7 +58,7 @@ namespace ChinookMediaManager.Domain.Test.Model
                 .Returns(albums).AtMostOnce();
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityFactory.Object);
+														  entityFactory.Object, new Mock<IEntityValidator>().Object);
 
             albumManagerModel.GetAlbumsByArtist(artist);
 
@@ -97,7 +97,8 @@ namespace ChinookMediaManager.Domain.Test.Model
             entityValidator.Setup(ev => ev.IsValid(album)).Returns(false);
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityFactory.Object);
+                                                          entityFactory.Object,
+														  entityValidator.Object);
 
             albumManagerModel.SaveAlbum(album);
 
@@ -116,7 +117,8 @@ namespace ChinookMediaManager.Domain.Test.Model
             repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album);
 
             var albumManagerModel = new AlbumManagerModel(repository.Object,
-                                                          entityFactory.Object);
+														  entityFactory.Object, 
+														  entityValidator.Object);
 
             albumManagerModel.SaveAlbum(album);
 

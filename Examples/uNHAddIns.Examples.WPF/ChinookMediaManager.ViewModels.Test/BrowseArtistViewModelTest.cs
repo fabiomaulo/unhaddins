@@ -68,9 +68,33 @@ namespace ChinookMediaManager.ViewModels.Test
 
             browseArtistVm.LoadListCommand.CanExecute(null).Should().Be.True();
 
-            browseArtistVm.LoadListCommand.Execute(null);
+            browseArtistVm.LoadListCommand.ExecuteSync(null);
 
-            browseArtistVm.Artists.Should().Be.SameInstanceAs(artists);
+			artistModel.VerifyAll();
+
+            //browseArtistVm.Artists.Should().Be.SameInstanceAs(artists);
         }
+
+		[Test]
+		public void preview_of_load_list_should_show_status_info()
+		{
+			var browseArtistVm = new BrowseArtistViewModel(new Mock<IBrowseArtistModel>().Object,
+														   new Mock<IViewFactory>().Object);
+			
+			browseArtistVm.LoadListCommand.Preview(null);
+			browseArtistVm.Status.Should().Be.EqualTo("Loading artists...");
+		}
+
+		[Test]
+		public void completed_of_load_list_should_load_the_list_and_change_status()
+		{
+			var browseArtistVm = new BrowseArtistViewModel(new Mock<IBrowseArtistModel>().Object,
+														   new Mock<IViewFactory>().Object);
+			var artists = new List<Artist>();
+
+			browseArtistVm.LoadListCommand.Completed(null, artists);
+			browseArtistVm.Artists.Should().Be.SameInstanceAs(artists);
+			browseArtistVm.Status.Should().Be.EqualTo("Finished");
+		}
     }
 }
