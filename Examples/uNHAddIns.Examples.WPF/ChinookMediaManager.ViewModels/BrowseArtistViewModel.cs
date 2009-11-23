@@ -13,8 +13,8 @@ namespace ChinookMediaManager.ViewModels
 	{
 		private readonly IBrowseArtistModel _browseArtistModel;
 		private readonly IViewFactory _viewFactory;
-		private RelayCommand _editAlbumsCommand;
-		private RelayCommand _loadListCommand;
+		private ICommand _editAlbumsCommand;
+		private IAsyncCommandWithResult<object, IList<Artist>> _loadListCommand;
 
 
 		public BrowseArtistViewModel(IBrowseArtistModel browseArtistModel, IViewFactory viewFactory)
@@ -25,15 +25,37 @@ namespace ChinookMediaManager.ViewModels
 			_viewFactory = viewFactory;
 		}
 
-		public virtual ICommand LoadListCommand
+		public virtual IAsyncCommandWithResult<object, IList<Artist>> LoadListCommand
 		{
 			get
 			{
 				if (_loadListCommand == null)
-					_loadListCommand = new RelayCommand(o => LoadList());
-
-				return new RelayCommand(o => LoadList());
+					_loadListCommand = new AsyncCommandWithResult<object, IList<Artist>>(o => _browseArtistModel.GetAllArtists())
+					                   	{
+					                   		BlockInteraction = true,
+					                   		Preview = o => Status = "Loading artists...",
+					                   		Completed = (o, artists) =>
+					                   			{
+					                   				Artists = artists;
+					                   				Status = "Finished";
+					                   			}
+					                   	};
+						
+				return _loadListCommand;
 			}
+		}
+
+		private string _status;
+		public virtual string Status { 
+			get
+			{
+				return _status;
+			}	
+			set
+			{
+				_status = value;
+				OnPropertyChanged("Status");
+			} 
 		}
 
 		public ICommand EditAlbumsCommand
@@ -47,7 +69,18 @@ namespace ChinookMediaManager.ViewModels
 			}
 		}
 
-		public virtual IList<Artist> Artists { get; private set; }
+		private IList<Artist> _artists;
+
+		public virtual IList<Artist> Artists
+		{
+			get { return _artists; }
+			private set
+			{
+				_artists = value;
+				OnPropertyChanged("Artists");
+			}
+		}
+
 		public Artist SelectedArtist { get; set; }
 
 		private void EditAlbums()
@@ -56,11 +89,6 @@ namespace ChinookMediaManager.ViewModels
 			amViewModel.SetUp(SelectedArtist);
 		}
 
-		public virtual void LoadList()
-		{
-			Artists = _browseArtistModel.GetAllArtists();
-			OnPropertyChanged("Artists");
-		}
 
 
 		public event PropertyChangedEventHandler PropertyChanged;

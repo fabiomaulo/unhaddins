@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumManagerViewModel.cs" />
+    <Compile Include="BaseClasses\AsyncCommandWithResult.cs" />
+    <Compile Include="BaseClasses\IAsyncCommandWithResult.cs" />
     <Compile Include="BaseClasses\ViewModelBase.cs" />
     <Compile Include="BrowseArtistViewModel.cs" />
     <Compile Include="EditAlbumViewModel.cs" />
