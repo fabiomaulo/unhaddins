@@ -26,7 +26,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor
 				Type type;
 				if (!_cachedTypes.TryGetValue(clazz, out type))
 				{
-					type = GetType(clazz);
+					type = GetType(clazz, entityMode);
 					_cachedTypes[clazz] = type;
 				}
 				object entity = _componentProxyFactory.GetEntity(type);
@@ -40,15 +40,10 @@ namespace uNhAddIns.ComponentBehaviors.Castle.NHibernateInterceptor
 			return base.Instantiate(clazz, entityMode, id);
 		}
 
-		private static Type GetType(string clazz)
+		private Type GetType(string clazz, EntityMode entityMode)
 		{
-			//TODO: Find a better way to resolve a type with fullname (without the qualified name).
-			IEnumerable<Type> query = from a in AppDomain.CurrentDomain.GetAssemblies()
-			                          from t in a.GetTypes()
-			                          where t.FullName.Equals(clazz)
-			                          select t;
-
-			Type type = query.FirstOrDefault();
+			Type type = SessionFactory.GetClassMetadata(clazz)
+										.GetMappedClass(entityMode);
 			if (type == null)
 			{
 				throw new InvalidOperationException(string.Format("Cannot find the type {0}.", clazz));
