@@ -30,7 +30,6 @@ namespace ChinookMediaManager.Domain.Test.Model
         public void can_cancel_album()
         {
             var repository = new Mock<IAlbumRepository>();
-            var entityValidator = new Mock<IEntityValidator>();
             var entityFactory = new Mock<IEntityFactory>();
 
             var album = new Album();
@@ -51,7 +50,6 @@ namespace ChinookMediaManager.Domain.Test.Model
             var artist = new Artist();
             var albums = new List<Album> {new Album()};
             var repository = new Mock<IAlbumRepository>();
-            var entityValidator = new Mock<IEntityValidator>();
             var entityFactory = new Mock<IEntityFactory>();
 
             repository.Setup(rep => rep.GetByArtist(It.IsAny<Artist>()))

@@ -12,13 +12,14 @@ namespace ChinookMediaManager.Domain.Impl
     {
         private readonly IAlbumRepository _albumRepository;
         private readonly IEntityFactory _entityFactory;
-        private readonly IEntityValidator _entityValidator;
+    	private readonly IEntityValidator _validator;
+    	private readonly IEntityValidator _entityValidator;
 
-        public AlbumManagerModel(IAlbumRepository albumRepository, 
-                                 IEntityFactory entityFactory)
+        public AlbumManagerModel(IAlbumRepository albumRepository, IEntityFactory entityFactory, IEntityValidator validator)
         {
             _albumRepository = albumRepository;
             _entityFactory = entityFactory;
+        	_validator = validator;
         }
 
         #region IAlbumManagerModel Members
@@ -60,7 +61,7 @@ namespace ChinookMediaManager.Domain.Impl
         [PersistenceConversation(Exclude = true)]
         public bool IsValid(Album album)
         {
-            return string.IsNullOrEmpty(((IDataErrorInfo) album).Error);
+			return _validator.IsValid(album);
         }
 
         /// <summary>
