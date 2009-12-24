@@ -68,6 +68,6 @@ namespace ChinookMediaManager.ViewModels.BaseClasses
 			return _action(obj);
 		}
 
-		private static readonly BackgroundWorker worker = new BackgroundWorker();
+		private readonly BackgroundWorker worker = new BackgroundWorker();
 	}
 }
