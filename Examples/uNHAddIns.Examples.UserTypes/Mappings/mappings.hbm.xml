@@ -6,7 +6,7 @@
 			<generator class="assigned"/>
 		</id>
 		<property name="FirstName"  />
-		<property name="LastName" type="uNHAddIns.UserTypes.UpperString, uNHAddIns"  />
+		<property name="LastName" type="uNhAddIns.UserTypes.UpperString, uNhAddIns"  />
 	</class>
 
 </hibernate-mapping>
