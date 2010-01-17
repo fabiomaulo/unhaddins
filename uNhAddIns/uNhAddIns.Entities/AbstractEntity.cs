@@ -6,7 +6,7 @@ namespace uNhAddIns.Entities
 
 		#region IGenericEntity<TIdentity> Members
 
-		public abstract TIdentity Id { get; protected set; }
+		public virtual TIdentity Id { get; protected set; }
 
 		/// <summary>
 		/// Compare equality trough Id
