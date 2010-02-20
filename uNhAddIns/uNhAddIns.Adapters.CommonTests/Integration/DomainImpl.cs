@@ -157,5 +157,11 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 		{
 			return EntityDao.Retrieve(s => true);
 		}
+
+		[PersistenceConversation(ConversationEndMode = EndMode.End)]
+		public void End()
+		{
+		}
+
 	}
 }
