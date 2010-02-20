@@ -80,5 +80,8 @@ namespace uNhAddIns.Adapters.CommonTests
 	public interface ISillyReportModel
 	{
 		IQueryable<Silly> GetSillies();
+
+		//this method is suppossed to not work properly.
+		void End();
 	}
 }

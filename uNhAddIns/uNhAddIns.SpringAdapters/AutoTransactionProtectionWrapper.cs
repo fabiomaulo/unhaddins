@@ -20,6 +20,7 @@ namespace uNhAddIns.SpringAdapters
 			{
 				autoTransaction.Commit();
 				autoTransaction.Dispose();
+				autoTransaction = null;
 			}
 			return result;
 		}

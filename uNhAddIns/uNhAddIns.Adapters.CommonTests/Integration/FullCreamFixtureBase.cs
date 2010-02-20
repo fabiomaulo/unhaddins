@@ -258,5 +258,14 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 			var sillies = model.GetSillies().ToList();
 			Assert.IsEmpty(sillies);
 		}
+
+		[Test]
+		public void ShouldWorkWithAllowOutsidePersistentCallWhenCommitTransaction()
+		{
+			var model = ServiceLocator.Current.GetInstance<ISillyReportModel>();
+			model.GetSillies().ToList();
+			model.End();
+			
+		}
 	}
 }

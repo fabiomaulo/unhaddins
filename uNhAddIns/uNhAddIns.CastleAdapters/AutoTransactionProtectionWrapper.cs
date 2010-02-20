@@ -20,6 +20,7 @@ namespace uNhAddIns.CastleAdapters
 			if (autoTransaction == null) return;
 			autoTransaction.Commit();
 			autoTransaction.Dispose();
+			autoTransaction = null;
 		}
 
 		protected override bool HandleMissingTransaction(string methodName)
