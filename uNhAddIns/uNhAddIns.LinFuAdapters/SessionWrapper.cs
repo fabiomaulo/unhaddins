@@ -1,3 +1,4 @@
+using System;
 using LinFu.DynamicProxy;
 using NHibernate;
 using uNhAddIns.SessionEasier;
@@ -15,6 +16,11 @@ namespace uNhAddIns.LinFuAdapters
 			var wrapper = new TransactionProtectionWrapper(realSession, closeDelegate, disposeDelegate);
 			var wrapped = proxyFactory.CreateProxy<ISession>(wrapper, Commons.SessionProxyInterfaces);
 			return wrapped;
+		}
+
+		public ISession WrapWithAutoTransaction(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate)
+		{
+			throw new NotImplementedException();
 		}
 
 		public bool IsWrapped(ISession session)

@@ -26,6 +26,11 @@ namespace uNhAddIns.SpringAdapters
 			}
 			var wrapper = new TransactionProtectionWrapper(realSession, closeDelegate, disposeDelegate);
 
+			return BuildSessionWrapped(wrapper);
+		}
+
+		private static ISession BuildSessionWrapped(TransactionProtectionWrapper wrapper)
+		{
 			var proxyFactory = new SerializableProxyFactory
 			                   	{
 			                   		Interfaces = Commons.SessionProxyInterfaces,
@@ -35,6 +40,17 @@ namespace uNhAddIns.SpringAdapters
 			proxyFactory.AddAdvice(wrapper);
 
 			return (ISession) proxyFactory.GetProxy();
+		}
+
+		public ISession WrapWithAutoTransaction(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate)
+		{
+			if (IsWrapped(realSession))
+			{
+				return realSession;
+			}
+			var wrapper = new AutoTransactionProtectionWrapper(realSession, closeDelegate, disposeDelegate);
+
+			return BuildSessionWrapped(wrapper);
 		}
 
 		public bool IsWrapped(ISession session)

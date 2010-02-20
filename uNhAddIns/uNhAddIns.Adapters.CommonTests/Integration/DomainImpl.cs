@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace uNhAddIns.Adapters.CommonTests.Integration
 {
@@ -47,6 +50,11 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 			return factory.GetCurrentSession().CreateQuery("from Silly").List<Silly>();
 		}
 
+		public IQueryable<Silly> Retrieve(Expression<Func<Silly, bool>> predicate)
+		{
+			return factory.GetCurrentSession().Linq<Silly>();
+		}
+
 		public Silly MakePersistent(Silly entity)
 		{
 			factory.GetCurrentSession().SaveOrUpdate(entity);
@@ -57,6 +65,8 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 		{
 			factory.GetCurrentSession().Delete(entity);
 		}
+
+
 	}
 
 	[PersistenceConversational]
@@ -124,5 +134,28 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 		#endregion
 	}
 
+	[PersistenceConversational(AllowOutsidePersistentCall = true)]
+	public class SillyReportModel : ISillyReportModel
+	{
+		private readonly IDaoFactory factory;
 
+		public SillyReportModel(IDaoFactory factory)
+		{
+			if (factory == null)
+			{
+				throw new ArgumentNullException("factory");
+			}
+			this.factory = factory;
+		}
+
+		protected ISillyDao EntityDao
+		{
+			get { return factory.GetDao<ISillyDao>(); }
+		}
+
+		public IQueryable<Silly> GetSillies()
+		{
+			return EntityDao.Retrieve(s => true);
+		}
+	}
 }

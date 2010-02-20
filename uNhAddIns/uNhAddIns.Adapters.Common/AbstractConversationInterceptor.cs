@@ -148,6 +148,15 @@ namespace uNhAddIns.Adapters.Common
 			{
 				cci.Configure(conversation);
 			}
+			if(Metadata.Setting.AllowOutsidePersistentCall)
+			{
+				var conversationWithOpc = conversation as ISupportOutsidePersistentCall;
+				if(conversationWithOpc == null)
+				{
+					throw new InvalidOperationException("The conversation doesn't support outside persistent call");
+				}
+				conversationWithOpc.UseSupportForOutsidePersistentCall = true;
+			}
 		}
 
 		protected void DisposeConversationOnException()

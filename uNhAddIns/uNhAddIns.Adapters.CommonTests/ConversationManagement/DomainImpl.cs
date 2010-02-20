@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using log4net;
 using Microsoft.Practices.ServiceLocation;
+using uNhAddIns.Adapters.CommonTests.Integration;
 using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
@@ -80,6 +83,11 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		public IList<Silly> GetAll()
 		{
 			return new List<Silly>(new[] {new Silly(Guid.NewGuid())});
+		}
+
+		public IQueryable<Silly> Retrieve(Expression<Func<Silly, bool>> predicate)
+		{
+			return GetAll().Where(predicate.Compile()).AsQueryable();
 		}
 
 		public Silly MakePersistent(Silly entity)

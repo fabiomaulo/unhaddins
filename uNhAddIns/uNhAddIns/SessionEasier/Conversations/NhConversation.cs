@@ -7,7 +7,7 @@ using NHibernate.Engine;
 namespace uNhAddIns.SessionEasier.Conversations
 {
 	[Serializable]
-	public class NhConversation : AbstractConversation
+	public class NhConversation : AbstractConversation, ISupportOutsidePersistentCall
 	{
 		// TODO : use System.Transaction to enclose multi DB conversation
 		// NOTE : NH2.1 are supporting ambient transactions (even if the implementation is not complete)
@@ -157,6 +157,10 @@ namespace uNhAddIns.SessionEasier.Conversations
 
 		protected virtual ISession Wrap(ISession session)
 		{
+			if (UseSupportForOutsidePersistentCall)
+			{
+				return Wrapper.WrapWithAutoTransaction(session, null, Unbind);
+			}
 			return Wrapper.Wrap(session, null, Unbind);
 		}
 
@@ -277,5 +281,7 @@ namespace uNhAddIns.SessionEasier.Conversations
 			IDictionary<ISessionFactory, ISession> sessions = GetFromContext();
 			sessions[factory] = session;
 		}
+
+		public bool UseSupportForOutsidePersistentCall { get; set; }
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using NHibernate;
 
 namespace uNhAddIns.SessionEasier
@@ -15,6 +16,11 @@ namespace uNhAddIns.SessionEasier
 		#region Implementation of ISessionWrapper
 
 		public ISession Wrap(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate)
+		{
+			return realSession;
+		}
+
+		public ISession WrapWithAutoTransaction(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate)
 		{
 			return realSession;
 		}

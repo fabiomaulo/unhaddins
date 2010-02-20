@@ -61,5 +61,10 @@ namespace uNhAddIns.Adapters
 		/// where T is the class indicated by <seealso cref="IPersistenceConversationalInfo"/>.
 		/// </summary>
 		bool UseConversationCreationInterceptorConvention { get; }
+
+		/// <summary>
+		/// Allow persistent call outside of the service scope.	Usefull in combination with linq queries.
+		/// </summary>
+		bool AllowOutsidePersistentCall { get; set; }
 	}
 }

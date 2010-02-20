@@ -20,7 +20,7 @@ namespace uNhAddIns.CastleAdapters
 
 		#region IInterceptor Members
 
-		public void Intercept(IInvocation invocation)
+		public virtual void Intercept(IInvocation invocation)
 		{
 			invocation.ReturnValue = null;
 			try

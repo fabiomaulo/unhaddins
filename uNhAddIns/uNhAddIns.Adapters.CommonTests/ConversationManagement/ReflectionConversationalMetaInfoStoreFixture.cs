@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using NUnit.Framework;
 using uNhAddIns.Adapters.Common;
+using uNhAddIns.Adapters.CommonTests.Integration;
 
 namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 {

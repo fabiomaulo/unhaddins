@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using log4net.Config;
 using Microsoft.Practices.ServiceLocation;
 using NUnit.Framework;
+using uNhAddIns.Adapters.CommonTests.Integration;
 using uNhAddIns.SessionEasier.Conversations;
 using uNhAddIns.TestUtils.Logging;
 
@@ -280,5 +282,6 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(0),
 			            "Should have NO active conversation because the method AcceptAll end the conversation.");
 		}
+
 	}
 }

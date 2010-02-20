@@ -75,11 +75,24 @@ namespace uNhAddIns.SessionEasier
 				}
 				else
 				{
-					throw new HibernateException(methodName + " is not valid without active transaction");
+					if(HandleMissingTransaction(methodName))
+					{
+						return InvokeImplementation;
+					}
 				}
 			}
 			log.Debug("allowing proxied method [" + methodName + "] to proceed to real session");
 			return InvokeImplementation;
+		}
+
+		/// <summary>
+		/// Method to handle the absence of transaction.
+		/// </summary>
+		/// <param name="methodName"></param>
+		/// <returns>Return true if the interceptor must proceed with the transaction.</returns>
+		protected virtual bool HandleMissingTransaction(string methodName)
+		{
+			throw new HibernateException(methodName + " is not valid without active transaction");
 		}
 
 		protected virtual bool IsPassThroughMethodWithoutTransaction(string methodName)
