@@ -72,6 +72,7 @@
     <Compile Include="AutomaticConversationManagement\ConversationInterceptor.cs" />
     <Compile Include="AutomaticConversationManagement\PersistenceConversationalComponentInspector.cs" />
     <Compile Include="AutomaticConversationManagement\PersistenceConversationFacility.cs" />
+    <Compile Include="AutoTransactionProtectionWrapper.cs" />
     <Compile Include="EnhancedBytecodeProvider\EnhancedBytecode.cs" />
     <Compile Include="EnhancedBytecodeProvider\ObjectsFactory.cs" />
     <Compile Include="EnhancedBytecodeProvider\ReflectionOptimizer.cs" />

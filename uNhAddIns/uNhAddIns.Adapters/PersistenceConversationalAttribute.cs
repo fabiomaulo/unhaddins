@@ -15,6 +15,7 @@ namespace uNhAddIns.Adapters
 		{
 			DefaultEndMode = EndMode.Continue;
 			UseConversationCreationInterceptorConvention = true;
+			MethodsIncludeMode = MethodsIncludeMode.Implicit;
 		}
 
 		/// <summary>
@@ -68,5 +69,13 @@ namespace uNhAddIns.Adapters
 		/// where T is the class indicated by <seealso cref="PersistenceConversationalAttribute"/>.
 		/// </summary>
 		public bool UseConversationCreationInterceptorConvention { get; set; }
+
+		/// <summary>
+		/// Allow persistent call outside of the service scope.	Usefull in combination with linq queries.
+		/// </summary>
+		/// <remarks>
+		/// Optional, default false
+		/// </remarks>
+		public bool AllowOutsidePersistentCall { get; set;}
 	}
 }

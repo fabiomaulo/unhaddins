@@ -30,7 +30,8 @@ namespace uNhAddIns.SpringAdapters.Tests.ConversationManagement
 
             //Register SillyCrudModel dependant on DaoFactory (which uses the ServiceLocator)
             objectFactory.Register<IDaoFactory, DaoFactory>();
-            objectFactory.RegisterPrototype<ISillyCrudModel, Adapters.CommonTests.SillyCrudModel>();
+            objectFactory.RegisterPrototype<ISillyCrudModel, SillyCrudModel>();
+			objectFactory.RegisterPrototype<ISillyReportModel, SillyReportModel>();
         }
 
         #endregion

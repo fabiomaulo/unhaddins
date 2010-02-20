@@ -14,8 +14,9 @@ namespace uNhAddIns.Adapters.CommonTests.AttributesDefaults
 			Assert.That(a.ConversationId, Is.Null);
 			Assert.That(a.DefaultEndMode, Is.EqualTo(EndMode.Continue));
 			Assert.That(a.IdPrefix, Is.Null);
-			Assert.That(a.MethodsIncludeMode, Is.EqualTo(MethodsIncludeMode.Explicit));
+			Assert.That(a.MethodsIncludeMode, Is.EqualTo(MethodsIncludeMode.Implicit));
 			Assert.That(a.UseConversationCreationInterceptorConvention, Is.True);
+			Assert.That(a.AllowOutsidePersistentCall, Is.False);
 		}
 	}
 }

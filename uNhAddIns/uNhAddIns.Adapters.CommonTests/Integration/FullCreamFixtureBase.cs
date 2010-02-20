@@ -63,6 +63,10 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 		/// - uNhAddIns.Adapters.CommonTests.ISillyCrudModel
 		///		Implementation : uNhAddIns.Adapters.CommonTests.Integration.SillyCrudModel
 		///		Lyfe : Transient
+		/// 
+		/// - uNhAddIns.Adapters.CommonTests.ISillyReportModel
+		///		Implementation : uNhAddIns.Adapters.CommonTests.Integration.SillyReportModel
+		///		Lyfe : Transient
 		/// </remarks>
 		protected abstract void InitializeServiceLocator();
 
@@ -243,6 +247,16 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 			var scm2 = ServiceLocator.Current.GetInstance<ISillyCrudModel>();
 			Silly silly = scm2.GetIfAvailable(savedId);
 			Assert.That(silly, Is.Null, "Silly was supposed to be removed immediately");
+		}
+
+
+		[Test]
+		public void ShouldWorkWithAllowOutsidePersistentCall()
+		{
+			var model = ServiceLocator.Current.GetInstance<ISillyReportModel>();
+
+			var sillies = model.GetSillies().ToList();
+			Assert.IsEmpty(sillies);
 		}
 	}
 }

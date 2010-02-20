@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace uNhAddIns.Adapters.CommonTests
 {
@@ -59,6 +61,7 @@ namespace uNhAddIns.Adapters.CommonTests
 	{
 		Silly Get(Guid id);
 		IList<Silly> GetAll();
+		IQueryable<Silly> Retrieve(Expression<Func<Silly, bool>>  predicate);
 		Silly MakePersistent(Silly entity);
 		void MakeTransient(Silly entity);
 	}
@@ -74,68 +77,8 @@ namespace uNhAddIns.Adapters.CommonTests
 		void Abort();
 	}
 
-	[PersistenceConversational]
-	public class SillyCrudModel : ISillyCrudModel
+	public interface ISillyReportModel
 	{
-		private readonly IDaoFactory factory;
-
-		public SillyCrudModel(IDaoFactory factory)
-		{
-			if (factory == null)
-			{
-				throw new ArgumentNullException("factory");
-			}
-			this.factory = factory;
-		}
-
-		protected ISillyDao EntityDao
-		{
-			get { return factory.GetDao<ISillyDao>(); }
-		}
-
-		#region Implementation of ISillyCrudModel
-		[PersistenceConversation]
-		public virtual IList<Silly> GetEntirelyList()
-		{
-			return EntityDao.GetAll();
-		}
-
-		[PersistenceConversation]
-		public virtual Silly GetIfAvailable(Guid id)
-		{
-			return EntityDao.Get(id);
-		}
-
-		[PersistenceConversation]
-		public virtual Silly Save(Silly entity)
-		{
-			return EntityDao.MakePersistent(entity);
-		}
-
-		[PersistenceConversation]
-		public virtual void Delete(Silly entity)
-		{
-		    EntityDao.MakeTransient(entity);
-		}
-
-		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
-		public virtual void ImmediateDelete(Silly entity)
-		{
-			EntityDao.MakeTransient(entity);
-		}
-
-		[PersistenceConversation(ConversationEndMode = EndMode.End)]
-		public virtual void AcceptAll()
-		{
-			// method for use-case End
-		}
-
-		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
-		public virtual void Abort()
-		{
-			// method for use-case Abort
-		}
-
-		#endregion
+		IQueryable<Silly> GetSillies();
 	}
 }

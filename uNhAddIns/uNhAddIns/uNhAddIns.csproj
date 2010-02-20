@@ -133,6 +133,7 @@
     <Compile Include="SessionEasier\Conversations\IConversationCreationInterceptor.cs" />
     <Compile Include="SessionEasier\Conversations\IConversationFactory.cs" />
     <Compile Include="SessionEasier\Conversations\IConversationsContainerAccessor.cs" />
+    <Compile Include="SessionEasier\Conversations\ISupportOutsidePersistentCall.cs" />
     <Compile Include="SessionEasier\Conversations\NhConversation.cs" />
     <Compile Include="SessionEasier\Conversations\NhConversationsContainerAccessor.cs" />
     <Compile Include="SessionEasier\Conversations\ThreadLocalConversationalSessionContext.cs" />
