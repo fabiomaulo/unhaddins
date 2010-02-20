@@ -196,6 +196,7 @@
     <Compile Include="SessionEasier\ISessionProxy.cs" />
     <Compile Include="SessionEasier\MultiSessionFactoryProvider.cs" />
     <Compile Include="SessionEasier\FakeSessionWrapper.cs" />
+    <Compile Include="SessionEasier\SerializedSessionFactoryConfigurationProvider.cs" />
     <Compile Include="SessionEasier\SessionFactoryProvider.cs" />
     <Compile Include="Transform\DelegateResultTransformer.cs" />
     <Compile Include="Transform\PositionalToBeanResultTransformer.cs" />
