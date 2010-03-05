@@ -11,17 +11,6 @@ using uNhAddIns.SessionEasier.Conversations;
 
 namespace uNhAddIns.PostSharpAdapters
 {
-	//[Serializable]
-	//public class AaaAttribute : OnMethodBoundaryAspect
-	//{
-	//    public override void OnEntry(MethodExecutionEventArgs eventArgs)
-	//    {
-	//        Console.WriteLine(eventArgs.Method.Name);
-	//        base.OnEntry(eventArgs);
-	//    }
-	//}
-	
-
 	[Serializable]
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method, Inherited = true)]
 	public class PsPersistenceConversationalAttribute : OnMethodBoundaryAspect
