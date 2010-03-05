@@ -176,22 +176,12 @@ namespace uNhAddIns.PostSharpAdapters
 
 		private static IConversationCreationInterceptor GetConversationCreationInterceptor(Type creationInterceptorType)
 		{
-			try
-			{
-				return (IConversationCreationInterceptor)ServiceLocator.Current.GetInstance(creationInterceptorType);	
-			}catch(Exception)
-			{
-				return null;
-			}
-			
+			return (IConversationCreationInterceptor) ServiceLocator
+								.Current
+								.GetAllInstances(creationInterceptorType)
+								.FirstOrDefault();
+	
 		}
-
-		//private PsPersistenceConversationalAttribute  GetAttribute(object instance)
-		//{
-		//    var attribute = instance.GetType().GetCustomAttributes(typeof(PsPersistenceConversationalAttribute), false)
-		//        .OfType<PsPersistenceConversationalAttribute>().FirstOrDefault();
-		//    return attribute ?? this;
-		//}
 
 		private bool ShouldBeIntercepted(MethodBase method, object instance)
 		{
