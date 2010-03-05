@@ -135,7 +135,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		}
 
 		[Test]
-		public void ShouldWorkWithServiceCtorInterceptor()
+		public virtual void ShouldWorkWithServiceCtorInterceptor()
 		{
 			IServiceLocator serviceLocator = NewServiceLocator();
 
@@ -163,7 +163,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		}
 
 		[Test]
-		public void ShouldWorkWithConventionCtorInterceptor()
+		public virtual void ShouldWorkWithConventionCtorInterceptor()
 		{
 			IServiceLocator serviceLocator = NewServiceLocator();
 
