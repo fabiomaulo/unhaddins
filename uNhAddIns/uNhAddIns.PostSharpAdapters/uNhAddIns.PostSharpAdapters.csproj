@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConversationPausedWatcher.cs" />
+    <Compile Include="NoopConversationalMarker.cs" />
     <Compile Include="PersistenceConversationalAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
