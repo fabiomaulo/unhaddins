@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommonServiceLocator.WindsorAdapter;
@@ -44,6 +47,67 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			base.ShouldWorkWithServiceCtorInterceptor();
 		}
 
+
+		[Test]
+		public void ShouldSupportsExplicitMethodsInclusionOfPrivateMethod()
+		{
+			IServiceLocator serviceLocator = NewServiceLocator();
+
+			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
+
+			bool startedCalled = false;
+			var convFactory = new ConversationFactoryStub(delegate(string id)
+			                                              	{
+			                                              		IConversation result = new NoOpConversationStub(id);
+			                                              		result.Started += ((s, a) => startedCalled = true);
+			                                              		return result;
+			                                              	});
+
+			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub) serviceLocator.GetInstance<IConversationContainer>();
+
+			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
+
+			scm.GetType().GetMethod("GetEntirelyListPrivate", BindingFlags.Instance | BindingFlags.NonPublic)
+				.Invoke(scm, null);
+
+			Assert.That(startedCalled, "An explicit method inclusion of a private member don't start the conversation.");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+			            "Should have one active conversation because the default mode is continue.");
+			conversationContainer.Reset();
+		}
+
+		[Test]
+		public void ShouldSupportNestedConversationalMethods()
+		{
+			IServiceLocator serviceLocator = NewServiceLocator();
+
+			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
+
+			int startedCalledTimes = 0;
+			var convFactory = new ConversationFactoryStub(delegate(string id)
+			{
+				IConversation result = new NoOpConversationStub(id);
+				result.Started += (s, a) => startedCalledTimes++;
+				return result;
+			});
+
+			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub)serviceLocator.GetInstance<IConversationContainer>();
+
+			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
+
+			scm.GetEntirelyList();
+
+			Assert.That(startedCalledTimes, Is.EqualTo(1), 
+						"The conversation should be started once in the former conversational method.");
+			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
+						"Should have one active conversation because the default mode is continue.");
+			conversationContainer.Reset();
+		}
+        
 		protected override IServiceLocator NewServiceLocator()
 		{
 			var container = new WindsorContainer();
@@ -67,60 +131,24 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			return sl;
 		}
 
+
+		private readonly IDictionary<Type,Type> implementationReplacements 
+			= new Dictionary<Type, Type>
+			  	{
+					{typeof(SillyCrudModel),typeof(PostSharpSillyCrudModel)},
+					{typeof(InheritedSillyCrudModelWithConcreteConversationCreationInterceptor), typeof(PostSharpInheritedSillyCrudModelWithConcreteConversationCreationInterceptor)},
+					{typeof(InheritedSillyCrudModelWithConvetionConversationCreationInterceptor), typeof(PostSharpInheritedSillyCrudModelWithConvetionConversationCreationInterceptor)},
+					{typeof(SillyCrudModelDefaultEnd), typeof(PostSharpSillyCrudModelDefaultEnd)},
+					{typeof(SillyCrudModelWithImplicit), typeof(PostSharpSillyCrudModelWithImplicit)}
+				};
+
 		protected override void RegisterAsTransient<TService, TImplementor>(IServiceLocator serviceLocator)
 		{
 			var windsor = serviceLocator.GetInstance<IContainerAccessor>();
-			if(typeof(TService).Equals(typeof(ISillyCrudModel)))
+			Type implementationReplacement;
+			if(implementationReplacements.TryGetValue(typeof(TImplementor), out implementationReplacement))
 			{
-				if (typeof (TImplementor).Equals(typeof (SillyCrudModel)))
-				{
-					windsor.Container.Register(
-					                          	Component
-					                          		.For<ISillyCrudModel>()
-					                          		.ImplementedBy<PostSharpSillyCrudModel>()
-					                          		.LifeStyle.Transient);
-					return;
-				}
-				if (typeof (TImplementor).Equals(typeof (InheritedSillyCrudModelWithConcreteConversationCreationInterceptor)))
-				{
-					windsor.Container.Register(
-					                          	Component
-					                          		.For<ISillyCrudModel>()
-					                          		.ImplementedBy
-					                          		<PostSharpInheritedSillyCrudModelWithConcreteConversationCreationInterceptor>());
-					return;
-				}
-				
-				if (typeof(TImplementor).Equals(typeof(InheritedSillyCrudModelWithConvetionConversationCreationInterceptor)))
-				{
-					windsor.Container.Register(
-												Component
-													.For<ISillyCrudModel>()
-													.ImplementedBy
-													<PostSharpInheritedSillyCrudModelWithConvetionConversationCreationInterceptor>());
-					return;					
-				}
-
-				if (typeof (TImplementor).Equals(typeof (SillyCrudModelDefaultEnd)))
-				{
-					windsor.Container.Register(
-					                          	Component
-					                          		.For<ISillyCrudModel>()
-					                          		.ImplementedBy
-					                          		<PostSharpSillyCrudModelDefaultEnd>());
-                    return;
-				}
-			}
-			if (typeof(TService).Equals(typeof(ISillyCrudModelExtended)))
-			{
-				if (typeof(TImplementor).Equals(typeof(SillyCrudModelWithImplicit)))
-				{
-					windsor.Container.Register(
-						Component
-							.For<ISillyCrudModelExtended>()
-							.ImplementedBy<PostSharpSillyCrudModelWithImplicit>());
-					return;
-				}
+				windsor.Container.Register(Component.For<TService>().ImplementedBy(implementationReplacement).LifeStyle.Transient);
 			}
 			windsor.Container.Register(Component.For<TService>().ImplementedBy<TImplementor>().LifeStyle.Transient);
 		}

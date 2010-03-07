@@ -51,6 +51,7 @@ namespace uNhAddIns.PostSharpAdapters
 
 		/// <summary>
 		/// Define the way each method, of the target class, will be included in a persistent conversation.
+		/// In implicit mode only the public methods will be intercepted.
 		/// </summary>
 		/// <remarks>
 		/// Optional, default <see cref="uNhAddIns.Adapters.MethodsIncludeMode.Implicit"/>
@@ -195,6 +196,7 @@ namespace uNhAddIns.PostSharpAdapters
 			if(attribute.MethodsIncludeMode == MethodsIncludeMode.Implicit 
 				&& (conversationInfo == null || !conversationInfo.Exclude))
 			{
+				if (conversationInfo != null && !conversationInfo.Exclude) return true;
 				return method.IsPublic && !method.IsConstructor;
 			}
 

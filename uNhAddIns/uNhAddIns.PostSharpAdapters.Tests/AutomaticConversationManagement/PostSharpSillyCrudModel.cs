@@ -7,7 +7,7 @@ using uNhAddIns.Adapters.CommonTests.Integration;
 
 namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 {
-	[PsPersistenceConversational]
+	[PsPersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Explicit)]
 	public class PostSharpSillyCrudModel : ISillyCrudModel
 	{
 		private readonly IDaoFactory factory;
@@ -120,7 +120,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 		public virtual IList<Silly> GetEntirelyList()
 		{
-			return EntityDao.GetAll();
+			return GetEntirelyListPrivate();
 		}
 
 		public virtual Silly GetIfAvailable(Guid id)
@@ -171,6 +171,12 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 		[PersistenceConversation(Exclude = true)]
 		public virtual void DoSomethingNoPersistent() { }
+
+		[PersistenceConversation]
+		private IList<Silly> GetEntirelyListPrivate()
+		{
+			return EntityDao.GetAll();
+		}
 	}
 
 
