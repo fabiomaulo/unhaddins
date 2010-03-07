@@ -120,7 +120,23 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			
 			conversationContainer.Reset();
 		}
-        
+
+
+		[Test]
+		public void ShouldWorkWithNoopMarker()
+		{
+			var serviceLocator = NewServiceLocator();
+
+			RegisterInstanceForService(serviceLocator, new NoopConversationalMarker());
+			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
+
+			var service = new PostSharpSillyCrudModelWithImplicit(new DaoFactoryStub(serviceLocator));
+
+			Assert.DoesNotThrow(() => service.GetEntirelyList()); 
+			
+		}
+
+
 		protected override IServiceLocator NewServiceLocator()
 		{
 			var container = new WindsorContainer();

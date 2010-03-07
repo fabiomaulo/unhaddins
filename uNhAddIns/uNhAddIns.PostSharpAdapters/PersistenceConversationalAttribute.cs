@@ -118,7 +118,7 @@ namespace uNhAddIns.PostSharpAdapters
 
 		public override void OnEntry(MethodExecutionEventArgs eventArgs)
 		{
-			if (!ShouldBeIntercepted(eventArgs.Method, eventArgs.Instance)) return;
+			if (!ShouldBeIntercepted(eventArgs.Method)) return;
 			string convId = GetConvesationId(eventArgs.Instance);
 			IConversation c = ConversationsContainerAccessor.Container.Get(convId);
 			if (c == null)
@@ -192,11 +192,25 @@ namespace uNhAddIns.PostSharpAdapters
 								.FirstOrDefault();
 	
 		}
-
-		private bool ShouldBeIntercepted(MethodBase method, object instance)
+		
+		private bool IsNoopConversationalMarkerActive
 		{
+			get
+			{
+				return ServiceLocator.Current
+									.GetAllInstances<NoopConversationalMarker>()
+									.Any();
+			}
+
+		}
+		
+		private bool ShouldBeIntercepted(MethodBase method)
+		{
+			if (IsNoopConversationalMarkerActive) return false;
+
 			var conversationInfo = method.GetCustomAttributes(typeof (PersistenceConversationAttribute), true)
-										.OfType<PersistenceConversationAttribute>().FirstOrDefault();
+										.OfType<PersistenceConversationAttribute>()
+										.FirstOrDefault();
 
 
 
@@ -218,7 +232,7 @@ namespace uNhAddIns.PostSharpAdapters
 			return false;
 		}
 
-		private EndMode GetEndMode(MethodBase method, object instance)
+		private EndMode GetEndMode(MethodBase method)
 		{
 			var conversationInfo = method.GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
 										.OfType<PersistenceConversationAttribute>().FirstOrDefault();
@@ -247,9 +261,9 @@ namespace uNhAddIns.PostSharpAdapters
 
 		public override void OnSuccess(MethodExecutionEventArgs eventArgs)
 		{
-			if(!ShouldBeIntercepted(eventArgs.Method, eventArgs.Instance)) return;
+			if(!ShouldBeIntercepted(eventArgs.Method)) return;
 			if(eventArgs.MethodExecutionTag == NestedMethodMarker) return;
-			var endMode = GetEndMode(eventArgs.Method, eventArgs.Instance);
+			var endMode = GetEndMode(eventArgs.Method);
 			var cca = ConversationsContainerAccessor;
 			IConversation c = cca.Container.Get(GetConvesationId(eventArgs.Instance));
 			switch (endMode)
