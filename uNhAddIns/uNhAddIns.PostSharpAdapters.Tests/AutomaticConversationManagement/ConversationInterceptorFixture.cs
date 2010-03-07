@@ -86,10 +86,14 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
 
 			int startedCalledTimes = 0;
+			int resumedTimes = 0;
+			int pausedTimes = 0;
 			var convFactory = new ConversationFactoryStub(delegate(string id)
 			{
 				IConversation result = new NoOpConversationStub(id);
 				result.Started += (s, a) => startedCalledTimes++;
+				result.Resumed += (s, a) => resumedTimes++;
+				result.Paused += (s, a) => pausedTimes++;
 				return result;
 			});
 
@@ -103,8 +107,17 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 			Assert.That(startedCalledTimes, Is.EqualTo(1), 
 						"The conversation should be started once in the former conversational method.");
+
+			Assert.That(resumedTimes, Is.EqualTo(0),
+						"The conversation should not be resumed because the second conversational method is nested.");
+
+			Assert.That(pausedTimes, Is.EqualTo(1),
+						"The conversation should be paused once because the second conversational method is nested.");
+
 			Assert.That(conversationContainer.BindedConversationCount, Is.EqualTo(1),
 						"Should have one active conversation because the default mode is continue.");
+
+			
 			conversationContainer.Reset();
 		}
         
