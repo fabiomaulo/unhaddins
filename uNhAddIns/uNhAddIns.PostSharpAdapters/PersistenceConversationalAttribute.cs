@@ -16,6 +16,8 @@ namespace uNhAddIns.PostSharpAdapters
 	public class PsPersistenceConversationalAttribute : OnMethodBoundaryAspect
 	{
 		protected static readonly Type BaseConventionType = typeof(IConversationCreationInterceptorConvention<>);
+		protected static readonly ConversationPausedWatcher ConversationPausedWatcher = new ConversationPausedWatcher();
+		protected static readonly object NestedMethodMarker = new object();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PersistenceConversationalAttribute"/> class.
@@ -134,11 +136,18 @@ namespace uNhAddIns.PostSharpAdapters
 				ConfigureConversation(c, eventArgs.Instance);
 				ConversationsContainerAccessor.Container.SetAsCurrent(c);
 				c.Start();
+				ConversationPausedWatcher.Watch(c);
 			}
 			else
 			{
 				ConversationsContainerAccessor.Container.SetAsCurrent(c);
-				c.Resume();
+				if(ConversationPausedWatcher.IsPaused(c))
+				{
+					c.Resume();	
+				}else
+				{
+					eventArgs.MethodExecutionTag = NestedMethodMarker;
+				}
 			}
 		}
 
@@ -239,6 +248,7 @@ namespace uNhAddIns.PostSharpAdapters
 		public override void OnSuccess(MethodExecutionEventArgs eventArgs)
 		{
 			if(!ShouldBeIntercepted(eventArgs.Method, eventArgs.Instance)) return;
+			if(eventArgs.MethodExecutionTag == NestedMethodMarker) return;
 			var endMode = GetEndMode(eventArgs.Method, eventArgs.Instance);
 			var cca = ConversationsContainerAccessor;
 			IConversation c = cca.Container.Get(GetConvesationId(eventArgs.Instance));
