@@ -15,10 +15,10 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("uNhAddIns")]
 [assembly: AssemblyCopyright("Copyright (c) uNhAddIns, 2008. All rights reserved.")]
-[assembly: AssemblyProduct("uNhAddIns.PostSharpAdapters.Tests")]
-[assembly: AssemblyTitle("uNhAddIns.PostSharpAdapters.Tests")]
+[assembly: AssemblyProduct("uNhAddIns.PostSharpAdapters")]
+[assembly: AssemblyTitle("uNhAddIns.PostSharpAdapters")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("2.0.0.854")]
-[assembly: AssemblyVersion("2.0.0.854")]
+[assembly: AssemblyInformationalVersion("2.0.0.855")]
+[assembly: AssemblyVersion("2.0.0.855")]
 
 
