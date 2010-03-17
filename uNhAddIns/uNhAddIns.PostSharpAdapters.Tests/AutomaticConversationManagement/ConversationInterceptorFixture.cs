@@ -127,13 +127,30 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 		{
 			var serviceLocator = NewServiceLocator();
 
+			RegisterInstanceForService(serviceLocator, new NoopConversationalMarker{Noop = true});
+			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
+
+			var service = new PostSharpSillyCrudModelWithImplicit(new DaoFactoryStub(serviceLocator));
+
+			Assert.DoesNotThrow(() => service.GetEntirelyList());
+			
+		}
+
+		[Test]
+		public void ShouldWorkWithNoopMarkerEvenWithABadBoyContainer()
+		{
+			var serviceLocator = NewServiceLocator();
+
 			RegisterInstanceForService(serviceLocator, new NoopConversationalMarker());
 			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
 
 			var service = new PostSharpSillyCrudModelWithImplicit(new DaoFactoryStub(serviceLocator));
 
-			Assert.DoesNotThrow(() => service.GetEntirelyList()); 
-			
+			//With a bad boy container. A container that register 
+			//NoopConversationalMarker should throw because we have not registered a conversation factory.
+
+			Assert.Throws<ActivationException>(() => service.GetEntirelyList());
+
 		}
 
 
