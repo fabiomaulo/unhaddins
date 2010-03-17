@@ -109,6 +109,7 @@ namespace uNhAddIns.PostSharpAdapters
 
 		public override void OnException(MethodExecutionEventArgs eventArgs)
 		{
+			if (IsNoopConversationalMarkerActive) return;
 			if(eventArgs.Exception is ConversationException)
 			{
 				ConversationsContainerAccessor.Container.Unbind(GetConvesationId(eventArgs.Instance));	
@@ -118,6 +119,7 @@ namespace uNhAddIns.PostSharpAdapters
 
 		public override void OnEntry(MethodExecutionEventArgs eventArgs)
 		{
+			if(IsNoopConversationalMarkerActive) return;
 			if (!ShouldBeIntercepted(eventArgs.Method)) return;
 			string convId = GetConvesationId(eventArgs.Instance);
 			IConversation c = ConversationsContainerAccessor.Container.Get(convId);
@@ -192,21 +194,22 @@ namespace uNhAddIns.PostSharpAdapters
 								.FirstOrDefault();
 	
 		}
-		
+		//TODO: this approach is wrong.
 		private bool IsNoopConversationalMarkerActive
 		{
 			get
 			{
-				return ServiceLocator.Current
-									.GetAllInstances<NoopConversationalMarker>()
-									.Any();
-			}
+				var noopServiceMarker = ServiceLocator
+					.Current
+					.GetAllInstances<NoopConversationalMarker>().FirstOrDefault();
 
+				return noopServiceMarker != null && noopServiceMarker.Noop;
+			}
 		}
 		
 		private bool ShouldBeIntercepted(MethodBase method)
 		{
-			if (IsNoopConversationalMarkerActive) return false;
+			//if (IsNoopConversationalMarkerActive) return false;
 
 			var conversationInfo = method.GetCustomAttributes(typeof (PersistenceConversationAttribute), true)
 										.OfType<PersistenceConversationAttribute>()
@@ -261,6 +264,7 @@ namespace uNhAddIns.PostSharpAdapters
 
 		public override void OnSuccess(MethodExecutionEventArgs eventArgs)
 		{
+			if (IsNoopConversationalMarkerActive) return;
 			if(!ShouldBeIntercepted(eventArgs.Method)) return;
 			if(eventArgs.MethodExecutionTag == NestedMethodMarker) return;
 			var endMode = GetEndMode(eventArgs.Method);
