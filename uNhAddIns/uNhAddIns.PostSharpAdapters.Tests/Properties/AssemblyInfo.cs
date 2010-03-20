@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("uNhAddIns.PostSharpAdapters.Tests")]
 [assembly: AssemblyTitle("uNhAddIns.PostSharpAdapters.Tests")]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyInformationalVersion("2.0.0.854")]
-[assembly: AssemblyVersion("2.0.0.854")]
+[assembly: AssemblyInformationalVersion("2.0.0.859")]
+[assembly: AssemblyVersion("2.0.0.859")]
 
 

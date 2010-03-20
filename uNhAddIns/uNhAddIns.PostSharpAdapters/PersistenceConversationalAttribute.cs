@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Microsoft.Practices.ServiceLocation;
 using PostSharp.Extensibility;
 using PostSharp.Laos;
@@ -12,7 +11,8 @@ using uNhAddIns.SessionEasier.Conversations;
 namespace uNhAddIns.PostSharpAdapters
 {
 	[Serializable]
-	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method, Inherited = true)]
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true)]
+	[MulticastAttributeUsage(MulticastTargets.Method)]
 	public class PsPersistenceConversationalAttribute : OnMethodBoundaryAspect
 	{
 		protected static readonly Type BaseConventionType = typeof(IConversationCreationInterceptorConvention<>);
@@ -24,9 +24,11 @@ namespace uNhAddIns.PostSharpAdapters
 		/// </summary>
 		public PsPersistenceConversationalAttribute()
 		{
-			DefaultEndMode = EndMode.Continue;
+			ConversationEndMode = EndMode.Continue;
 			UseConversationCreationInterceptorConvention = true;
-			MethodsIncludeMode = MethodsIncludeMode.Implicit;
+			//MethodsIncludeMode = MethodsIncludeMode.Implicit;
+			AttributeTargetElements = MulticastTargets.Method;
+			AttributeTargetTypeAttributes = MulticastAttributes.Public;
 		}
 
 		/// <summary>
@@ -51,22 +53,15 @@ namespace uNhAddIns.PostSharpAdapters
 		/// </remarks>
 		public string IdPrefix { get; set; }
 
-		/// <summary>
-		/// Define the way each method, of the target class, will be included in a persistent conversation.
-		/// In implicit mode only the public methods will be intercepted.
-		/// </summary>
-		/// <remarks>
-		/// Optional, default <see cref="uNhAddIns.Adapters.MethodsIncludeMode.Implicit"/>
-		/// </remarks>
-		public MethodsIncludeMode MethodsIncludeMode { get; set; }
-
-		/// <summary>
-		/// Define the <see cref="EndMode"/> of each method where not explicity declared.
-		/// </summary>
-		/// <remarks>
-		/// Optional, default <see cref="EndMode.Continue"/>
-		/// </remarks>
-		public EndMode DefaultEndMode { get; set; }
+		
+		///// <summary>
+		///// Define the <see cref="EndMode"/> of each method where not explicity declared.
+		///// </summary>
+		///// <remarks>
+		///// Optional, default <see cref="EndMode.Continue"/>
+		///// </remarks>
+		//public EndMode DefaultEndMode { get; set; }
+		public EndMode ConversationEndMode { get; set; }
 
 		///<summary>
 		/// Define the class where conversation's events handlers are implemented.
@@ -98,6 +93,7 @@ namespace uNhAddIns.PostSharpAdapters
 				return ServiceLocator.Current.GetInstance<IConversationsContainerAccessor>();
 			}
 		}
+
 		protected IConversationFactory ConversationFactory
 		{
 			get
@@ -120,7 +116,6 @@ namespace uNhAddIns.PostSharpAdapters
 		public override void OnEntry(MethodExecutionEventArgs eventArgs)
 		{
 			if(IsNoopConversationalMarkerActive) return;
-			if (!ShouldBeIntercepted(eventArgs.Method)) return;
 			string convId = GetConvesationId(eventArgs.Instance);
 			IConversation c = ConversationsContainerAccessor.Container.Get(convId);
 			if (c == null)
@@ -207,70 +202,14 @@ namespace uNhAddIns.PostSharpAdapters
 			}
 		}
 		
-		private bool ShouldBeIntercepted(MethodBase method)
-		{
-			//if (IsNoopConversationalMarkerActive) return false;
-
-			var conversationInfo = method.GetCustomAttributes(typeof (PersistenceConversationAttribute), true)
-										.OfType<PersistenceConversationAttribute>()
-										.FirstOrDefault();
-
-
-
-			var attribute = this;
-
-			if(attribute.MethodsIncludeMode == MethodsIncludeMode.Implicit 
-				&& (conversationInfo == null || !conversationInfo.Exclude))
-			{
-				if (conversationInfo != null && !conversationInfo.Exclude) return true;
-				return method.IsPublic && !method.IsConstructor;
-			}
-
-			if (attribute.MethodsIncludeMode == MethodsIncludeMode.Explicit 
-				&& conversationInfo != null && !conversationInfo.Exclude)
-			{
-				return true;
-			}
-
-			return false;
-		}
-
-		private EndMode GetEndMode(MethodBase method)
-		{
-			var conversationInfo = method.GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
-										.OfType<PersistenceConversationAttribute>().FirstOrDefault();
-
-			var psPersistenceConversationalAttribute = this;
-
-			var methodsIncludeMode = psPersistenceConversationalAttribute.MethodsIncludeMode;
-
-			if (methodsIncludeMode == MethodsIncludeMode.Implicit)
-			{
-				if (conversationInfo == null || conversationInfo.ConversationEndMode == EndMode.Unspecified)
-				{
-					return psPersistenceConversationalAttribute.DefaultEndMode;	
-				}
-				return conversationInfo.ConversationEndMode;
-			}
-
-			if (methodsIncludeMode == MethodsIncludeMode.Explicit 
-				&& conversationInfo != null)
-			{
-				return conversationInfo.ConversationEndMode;
-			}
-
-			throw new InvalidOperationException("Missing endmode");
-		}
-
 		public override void OnSuccess(MethodExecutionEventArgs eventArgs)
 		{
 			if (IsNoopConversationalMarkerActive) return;
-			if(!ShouldBeIntercepted(eventArgs.Method)) return;
+			
 			if(eventArgs.MethodExecutionTag == NestedMethodMarker) return;
-			var endMode = GetEndMode(eventArgs.Method);
 			var cca = ConversationsContainerAccessor;
 			IConversation c = cca.Container.Get(GetConvesationId(eventArgs.Instance));
-			switch (endMode)
+			switch (ConversationEndMode)
 			{
 				case EndMode.End:
 					c.End();

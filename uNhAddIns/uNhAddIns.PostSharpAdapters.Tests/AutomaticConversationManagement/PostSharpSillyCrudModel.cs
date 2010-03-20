@@ -7,7 +7,7 @@ using uNhAddIns.Adapters.CommonTests.Integration;
 
 namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 {
-	[PsPersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Explicit)]
+	//[PsPersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Explicit)]
 	public class PostSharpSillyCrudModel : ISillyCrudModel
 	{
 		private readonly IDaoFactory factory;
@@ -28,43 +28,43 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 		#region Implementation of ISillyCrudModel
 
-		[PersistenceConversation]
+		[PsPersistenceConversational]
 		public virtual IList<Silly> GetEntirelyList()
 		{
 			return EntityDao.GetAll();
 		}
 
-		[PersistenceConversation]
+		[PsPersistenceConversational]
 		public virtual Silly GetIfAvailable(Guid id)
 		{
 			return EntityDao.Get(id);
 		}
 
-		[PersistenceConversation]
+		[PsPersistenceConversational]
 		public virtual Silly Save(Silly entity)
 		{
 			return EntityDao.MakePersistent(entity);
 		}
 
-		[PersistenceConversation]
+		[PsPersistenceConversational]
 		public virtual void Delete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
+		[PsPersistenceConversational(ConversationEndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PersistenceConversation(ConversationEndMode = EndMode.End)]
+		[PsPersistenceConversational(ConversationEndMode = EndMode.End)]
 		public virtual void AcceptAll()
 		{
 			// method for use-case End
 		}
 
-		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
+		[PsPersistenceConversational(ConversationEndMode = EndMode.Abort)]
 		public virtual void Abort()
 		{
 			// method for use-case Abort
@@ -85,7 +85,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 		}
 	}
 
-	[PsPersistenceConversational(DefaultEndMode = EndMode.End)]
+	[PsPersistenceConversational(ConversationEndMode = EndMode.End)]
 	public class PostSharpSillyCrudModelDefaultEnd : PostSharpSillyCrudModel
 	{
 		public PostSharpSillyCrudModelDefaultEnd(IDaoFactory factory) : base(factory) { }
@@ -97,7 +97,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 	}
 
 
-	[PsPersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Implicit)]
+	[PsPersistenceConversational]
 	public class PostSharpSillyCrudModelWithImplicit : ISillyCrudModelExtended
 	{
 		private readonly IDaoFactory factory;
@@ -138,19 +138,19 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PersistenceConversation(ConversationEndMode = EndMode.CommitAndContinue)]
+		[PsPersistenceConversational(ConversationEndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PersistenceConversation(ConversationEndMode = EndMode.End)]
+		[PsPersistenceConversational(ConversationEndMode = EndMode.End)]
 		public virtual void AcceptAll()
 		{
 			// method for use-case End
 		}
 
-		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]
+		[PsPersistenceConversational(ConversationEndMode = EndMode.Abort)]
 		public virtual void Abort()
 		{
 			// method for use-case Abort
@@ -160,7 +160,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 		public string PropertyOutConversation
 		{
-			[PersistenceConversation(Exclude = true)]
+			[PsPersistenceConversational(AttributeExclude = true)]
 			get { return null; }
 		}
 
@@ -169,10 +169,10 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			get { return null; }
 		}
 
-		[PersistenceConversation(Exclude = true)]
+		[PsPersistenceConversational(AttributeExclude = true)]
 		public virtual void DoSomethingNoPersistent() { }
 
-		[PersistenceConversation]
+		[PsPersistenceConversational]
 		private IList<Silly> GetEntirelyListPrivate()
 		{
 			return EntityDao.GetAll();
