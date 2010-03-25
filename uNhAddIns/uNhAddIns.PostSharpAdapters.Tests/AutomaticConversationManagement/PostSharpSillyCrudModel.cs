@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using PostSharp.Extensibility;
 using uNhAddIns.Adapters;
 using uNhAddIns.Adapters.CommonTests;
 using uNhAddIns.Adapters.CommonTests.ConversationManagement;
@@ -7,7 +8,7 @@ using uNhAddIns.Adapters.CommonTests.Integration;
 
 namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 {
-	//[PsPersistenceConversational(MethodsIncludeMode = MethodsIncludeMode.Explicit)]
+	[ImplicitConversation(AttributeInheritance = MulticastInheritance.Multicast)]
 	public class PostSharpSillyCrudModel : ISillyCrudModel
 	{
 		private readonly IDaoFactory factory;
@@ -28,43 +29,40 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 		#region Implementation of ISillyCrudModel
 
-		[PsPersistenceConversational]
+		
 		public virtual IList<Silly> GetEntirelyList()
 		{
 			return EntityDao.GetAll();
 		}
 
-		[PsPersistenceConversational]
 		public virtual Silly GetIfAvailable(Guid id)
 		{
 			return EntityDao.Get(id);
 		}
 
-		[PsPersistenceConversational]
 		public virtual Silly Save(Silly entity)
 		{
 			return EntityDao.MakePersistent(entity);
 		}
 
-		[PsPersistenceConversational]
 		public virtual void Delete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PsPersistenceConversational(ConversationEndMode = EndMode.CommitAndContinue)]
+		[ImplicitConversation(EndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PsPersistenceConversational(ConversationEndMode = EndMode.End)]
+		[ImplicitConversation(EndMode = EndMode.End)]
 		public virtual void AcceptAll()
 		{
 			// method for use-case End
 		}
 
-		[PsPersistenceConversational(ConversationEndMode = EndMode.Abort)]
+		[ImplicitConversation(EndMode = EndMode.Abort)]
 		public virtual void Abort()
 		{
 			// method for use-case Abort
@@ -73,7 +71,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 		#endregion
 	}
 
-	[PsPersistenceConversational(ConversationCreationInterceptor = typeof(ConversationCreationInterceptor))]
+	[ImplicitConversation(ConversationCreationInterceptor = typeof(ConversationCreationInterceptor))]
 	public class PostSharpInheritedSillyCrudModelWithConcreteConversationCreationInterceptor : PostSharpSillyCrudModel
 	{
 		public PostSharpInheritedSillyCrudModelWithConcreteConversationCreationInterceptor(IDaoFactory factory) 
@@ -85,11 +83,11 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 		}
 	}
 
-	[PsPersistenceConversational(ConversationEndMode = EndMode.End)]
+	
 	public class PostSharpSillyCrudModelDefaultEnd : PostSharpSillyCrudModel
 	{
 		public PostSharpSillyCrudModelDefaultEnd(IDaoFactory factory) : base(factory) { }
-		
+		[ImplicitConversation(EndMode = EndMode.End)]
 		public override Silly GetIfAvailable(Guid id)
 		{
 			return base.GetIfAvailable(id);
@@ -97,7 +95,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 	}
 
 
-	[PsPersistenceConversational]
+	[ImplicitConversation]
 	public class PostSharpSillyCrudModelWithImplicit : ISillyCrudModelExtended
 	{
 		private readonly IDaoFactory factory;
@@ -117,6 +115,13 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 		}
 
 		#region Implementation of ISillyCrudModel
+
+		[ImplicitConversation(AttributeExclude = true)]
+		public virtual void ProcessSilly()
+		{
+			DoSomethingPrivate();
+		}
+		private void DoSomethingPrivate() {}
 
 		public virtual IList<Silly> GetEntirelyList()
 		{
@@ -138,19 +143,19 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PsPersistenceConversational(ConversationEndMode = EndMode.CommitAndContinue)]
+		[ImplicitConversation(EndMode = EndMode.CommitAndContinue)]
 		public virtual void ImmediateDelete(Silly entity)
 		{
 			EntityDao.MakeTransient(entity);
 		}
 
-		[PsPersistenceConversational(ConversationEndMode = EndMode.End)]
+		[ImplicitConversation(EndMode = EndMode.End)]
 		public virtual void AcceptAll()
 		{
 			// method for use-case End
 		}
 
-		[PsPersistenceConversational(ConversationEndMode = EndMode.Abort)]
+		[ImplicitConversation(EndMode = EndMode.Abort)]
 		public virtual void Abort()
 		{
 			// method for use-case Abort
@@ -160,7 +165,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 		public string PropertyOutConversation
 		{
-			[PsPersistenceConversational(AttributeExclude = true)]
+			[ImplicitConversation(AttributeExclude = true)]
 			get { return null; }
 		}
 
@@ -169,10 +174,10 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			get { return null; }
 		}
 
-		[PsPersistenceConversational(AttributeExclude = true)]
+		[ImplicitConversation(AttributeExclude = true)]
 		public virtual void DoSomethingNoPersistent() { }
 
-		[PsPersistenceConversational]
+		[PersistenceConversation]
 		private IList<Silly> GetEntirelyListPrivate()
 		{
 			return EntityDao.GetAll();
@@ -180,7 +185,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 	}
 
 
-	[PsPersistenceConversational]
+	[ImplicitConversation]
 	public class PostSharpInheritedSillyCrudModelWithConvetionConversationCreationInterceptor : PostSharpSillyCrudModel
 	{
 		public PostSharpInheritedSillyCrudModelWithConvetionConversationCreationInterceptor(IDaoFactory factory) 

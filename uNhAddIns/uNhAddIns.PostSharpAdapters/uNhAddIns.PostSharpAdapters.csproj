@@ -52,15 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConversationPausedWatcher.cs" />
+    <Compile Include="EndMode.cs" />
     <Compile Include="NoopConversationalMarker.cs" />
     <Compile Include="PersistenceConversationalAttribute.cs" />
+    <Compile Include="PersistenceConversationalBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
-      <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
-      <Name>uNhAddIns.Adapters</Name>
-    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns\uNhAddIns.csproj">
       <Project>{59233B1D-6DDE-4C05-A9E9-D0A1A8144112}</Project>
       <Name>uNhAddIns</Name>
