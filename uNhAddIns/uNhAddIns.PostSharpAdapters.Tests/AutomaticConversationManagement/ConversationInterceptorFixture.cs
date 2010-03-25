@@ -121,6 +121,37 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			conversationContainer.Reset();
 		}
 
+		[Test]
+		public void PrivateMethodsShouldNotBeImplicitlyIncluded()
+		{
+			IServiceLocator serviceLocator = NewServiceLocator();
+
+			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
+
+			int startedCalledTimes = 0;
+			//int resumedTimes = 0;
+			//int pausedTimes = 0;
+			var convFactory = new ConversationFactoryStub(delegate(string id)
+			                                              	{
+			                                              		IConversation result = new NoOpConversationStub(id);
+			                                              		result.Started += (s, a) => startedCalledTimes++;
+																//result.Resumed += (s, a) => resumedTimes++;
+																//result.Paused += (s, a) => pausedTimes++;
+			                                              		return result;
+			                                              	});
+
+			RegisterInstanceForService<IConversationFactory>(serviceLocator, convFactory);
+			var conversationContainer =
+				(ThreadLocalConversationContainerStub)serviceLocator.GetInstance<IConversationContainer>();
+			
+			var scm = serviceLocator.GetInstance<ISillyCrudModel>();
+
+			((PostSharpSillyCrudModelWithImplicit)scm).ProcessSilly();
+
+			Assert.That(startedCalledTimes, Is.EqualTo(0),
+			"The conversation should not be started.");
+
+		}
 
 		[Test]
 		public void ShouldWorkWithNoopMarker()

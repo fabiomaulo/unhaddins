@@ -82,10 +82,6 @@
       <Project>{2F125B66-33E5-4C9A-849E-6CB763FF1001}</Project>
       <Name>uNhAddIns.Adapters.CommonTests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\uNhAddIns.Adapters\uNhAddIns.Adapters.csproj">
-      <Project>{0C444B46-80FD-47D6-BB7C-848EB1626FED}</Project>
-      <Name>uNhAddIns.Adapters</Name>
-    </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.PostSharpAdapters\uNhAddIns.PostSharpAdapters.csproj">
       <Project>{3F4A54F0-95F6-4DFC-83B5-01CAF623CC6F}</Project>
       <Name>uNhAddIns.PostSharpAdapters</Name>
