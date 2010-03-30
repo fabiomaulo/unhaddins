@@ -163,5 +163,46 @@ namespace uNhAddIns.WPF.Tests.Collections
                 tx.Commit();
             }
         }
+
+		[Test]
+		public void can_merge_collection()
+		{
+
+			int id = CreateNewInvoice();
+			Invoice invoice;
+
+			using (ISession session = sessions.OpenSession())
+			{
+				using (ITransaction tx = session.BeginTransaction())
+				{
+					invoice = session.Get<Invoice>(id);
+					invoice.Lines.Count.Should().Be.EqualTo(1);
+					tx.Commit();
+				}
+			}
+
+			//detached  object - add new line
+			invoice.AddLine(new InvoiceLine());
+
+
+			using (ISession session = sessions.OpenSession())
+			{
+				using (ITransaction tx = session.BeginTransaction())
+				{
+
+					var temp_invoice = session.Load<Invoice>(id);
+
+					session.Contains(invoice).Should().Be.False();
+
+					session.Merge(invoice);
+
+					temp_invoice.Lines.Count.Should().Be.EqualTo(invoice.Lines.Count);
+					
+					tx.Commit();
+				}
+			}
+
+		}
+
     }
 }

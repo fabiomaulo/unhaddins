@@ -49,10 +49,24 @@ namespace uNhAddIns.WPF.Collections.Types
         }
 
 
-        public object ReplaceElements(object original, object target, ICollectionPersister persister, object owner, IDictionary copyCache, ISessionImplementor session)
-        {
-            return base.ReplaceElements(original, target, owner, copyCache, session);
-        }
+		protected override void Clear(object collection)
+		{
+			((IList)collection).Clear();
+		}
+
+		public object ReplaceElements(object original, object target, ICollectionPersister persister, object owner, IDictionary copyCache, ISessionImplementor session)
+		{
+			var result = (ICollection<T>)target;
+			result.Clear();
+			foreach (var item in ((IEnumerable)original))
+			{
+				if (copyCache.Contains(item))
+					result.Add((T)copyCache[item]);
+				else
+					result.Add((T)item);
+			}
+			return result;
+		}
 
         public override object Instantiate(int anticipatedSize)
         {
