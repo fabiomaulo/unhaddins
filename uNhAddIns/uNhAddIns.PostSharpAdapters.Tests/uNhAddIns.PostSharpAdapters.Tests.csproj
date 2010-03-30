@@ -57,14 +57,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp.Laos, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+    <Reference Include="NUnitEx, Version=1.0.5.0, Culture=neutral, PublicKeyToken=57e34ad207e9e5a3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\PostSharp.Laos.dll</HintPath>
+      <HintPath>..\..\Lib\NUnitEx.dll</HintPath>
     </Reference>
-    <Reference Include="PostSharp.Public, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Lib\PostSharp.Public.dll</HintPath>
-    </Reference>
+    <Reference Include="PostSharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -75,6 +72,7 @@
     <Compile Include="AutomaticConversationManagement\ConversationInterceptorFixture.cs" />
     <Compile Include="AutomaticConversationManagement\FullCreamFixture.cs" />
     <Compile Include="AutomaticConversationManagement\PostSharpSillyCrudModel.cs" />
+    <Compile Include="ConversationalMethodInspectorFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

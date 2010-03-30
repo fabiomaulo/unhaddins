@@ -173,8 +173,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 			var serviceLocator = NewServiceLocator();
 
 			RegisterInstanceForService(serviceLocator, new NoopConversationalMarker());
-			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModelWithImplicit>(serviceLocator);
-
+		
 			var service = new PostSharpSillyCrudModelWithImplicit(new DaoFactoryStub(serviceLocator));
 
 			//With a bad boy container. A container that register 
@@ -182,6 +181,19 @@ namespace uNhAddIns.PostSharpAdapters.Tests.AutomaticConversationManagement
 
 			Assert.Throws<ActivationException>(() => service.GetEntirelyList());
 
+		}
+
+		[Test]
+		public void ConversationalAttributeShouldBePersisted()
+		{
+			var serviceLocator = NewServiceLocator();
+
+			RegisterInstanceForService(serviceLocator, new NoopConversationalMarker());
+			RegisterAsTransient<ISillyCrudModel, PostSharpSillyCrudModel>(serviceLocator);
+
+			var model = serviceLocator.GetInstance<ISillyCrudModel>();
+			model.GetType().IsDefined(typeof (PersistenceConversationalAttribute), true)
+				.Should("PersistMetaData should be true").Be.True();
 		}
 
 
