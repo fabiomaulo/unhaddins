@@ -42,12 +42,33 @@ namespace uNhAddIns.PostSharpAdapters
 			var persistenceConversation =
 				methodInfo.GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
 					.OfType<PersistenceConversationAttribute>().FirstOrDefault();
-
+			if(persistenceConversation == null && (methodInfo.Name.StartsWith("set_") || methodInfo.Name.StartsWith("get_")))
+			{
+				persistenceConversation = GetProperty(methodInfo).GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
+					.OfType<PersistenceConversationAttribute>().FirstOrDefault();
+			}
 			if (aspect.MethodsIncludeMode == MethodsIncludeMode.Implicit && methodInfo.IsPublic)
 			{
 				return persistenceConversation == null || !persistenceConversation.Exclude;
 			}
 			return persistenceConversation != null && !persistenceConversation.Exclude;
+		}
+
+		static PropertyInfo GetProperty(MethodInfo method)
+		{
+			bool takesArg = method.GetParameters().Length == 1;
+			bool hasReturn = method.ReturnType != typeof(void);
+			if (takesArg == hasReturn) return null;
+			if (takesArg)
+			{
+				return method.DeclaringType.GetProperties()
+					.Where(prop => prop.GetSetMethod() == method).FirstOrDefault();
+			}
+			else
+			{
+				return method.DeclaringType.GetProperties()
+					.Where(prop => prop.GetGetMethod() == method).FirstOrDefault();
+			}
 		}
 	}
 }
