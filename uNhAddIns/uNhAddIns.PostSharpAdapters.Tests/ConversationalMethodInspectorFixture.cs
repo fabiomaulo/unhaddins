@@ -39,6 +39,9 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 	{
 		[PersistenceConversation(Exclude = true)]
 		public string SomeProperty { get; set; }
+		
+		[PersistenceConversation]
+		private string SomePrivatePropertyIncluded { get; set; }
 	}
 
 
@@ -104,7 +107,15 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 		public void exclude_at_property_level_works()
 		{
 			var methodInspector = new ConversationalMethodInspector(typeof (Baz), new PersistenceConversationalAttribute());
-			methodInspector.GetMethods().Should().Be.Empty();
+			methodInspector.GetMethods().Select(m => m.Name).Should().Not.Contain("set_SomeProperty");
+		}
+
+		[Test]
+		public void include_private_property_should_work()
+		{
+			var methodInspector = new ConversationalMethodInspector(typeof(Baz), new PersistenceConversationalAttribute());
+			methodInspector.GetMethods().Select(m => m.Name)
+				.Should().Contain("set_SomePrivatePropertyIncluded");
 		}
 	}
 }

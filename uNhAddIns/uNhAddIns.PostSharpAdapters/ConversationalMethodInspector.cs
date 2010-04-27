@@ -9,6 +9,9 @@ namespace uNhAddIns.PostSharpAdapters
 	{
 		private readonly Type type;
 		private readonly PersistenceConversationalAttribute aspect;
+		private const BindingFlags AllMethodsBindingFlags =
+				BindingFlags.NonPublic | BindingFlags.Public
+				| BindingFlags.Instance | BindingFlags.Static;
 
 		public ConversationalMethodInspector(Type type, PersistenceConversationalAttribute aspect)
 		{
@@ -18,11 +21,9 @@ namespace uNhAddIns.PostSharpAdapters
 
 		public IEnumerable<MethodInfo> GetMethods()
 		{
-			const BindingFlags bindingFlags =
-				BindingFlags.NonPublic | BindingFlags.Public
-				| BindingFlags.Instance | BindingFlags.Static;
+			
 
-			return type.GetMethods(bindingFlags).Where(IsConversationalMethod);
+			return type.GetMethods(AllMethodsBindingFlags).Where(IsConversationalMethod);
 		}
 
 		private bool IsConversationalMethod(MethodInfo methodInfo)
@@ -42,10 +43,15 @@ namespace uNhAddIns.PostSharpAdapters
 			var persistenceConversation =
 				methodInfo.GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
 					.OfType<PersistenceConversationAttribute>().FirstOrDefault();
+
 			if(persistenceConversation == null && (methodInfo.Name.StartsWith("set_") || methodInfo.Name.StartsWith("get_")))
 			{
-				persistenceConversation = GetProperty(methodInfo).GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
-					.OfType<PersistenceConversationAttribute>().FirstOrDefault();
+				var propertyInfo = GetProperty(methodInfo);
+				if(propertyInfo != null)
+				{
+					persistenceConversation = propertyInfo.GetCustomAttributes(typeof(PersistenceConversationAttribute), true)
+						.OfType<PersistenceConversationAttribute>().FirstOrDefault();	
+				}
 			}
 			if (aspect.MethodsIncludeMode == MethodsIncludeMode.Implicit && methodInfo.IsPublic)
 			{
@@ -61,14 +67,11 @@ namespace uNhAddIns.PostSharpAdapters
 			if (takesArg == hasReturn) return null;
 			if (takesArg)
 			{
-				return method.DeclaringType.GetProperties()
-					.Where(prop => prop.GetSetMethod() == method).FirstOrDefault();
+				return method.DeclaringType.GetProperties(AllMethodsBindingFlags)
+					.Where(prop => prop.Name == method.Name.Substring(4)).FirstOrDefault();
 			}
-			else
-			{
-				return method.DeclaringType.GetProperties()
-					.Where(prop => prop.GetGetMethod() == method).FirstOrDefault();
-			}
+			return method.DeclaringType.GetProperties(AllMethodsBindingFlags)
+				.Where(prop => prop.Name == method.Name.Substring(4)).FirstOrDefault();
 		}
 	}
 }
