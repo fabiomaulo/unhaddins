@@ -31,8 +31,15 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 
 		[PersistenceConversation(Exclude = true)]
 		public void DoSomethingElse(){}
+
+		
 	}
 
+	public class Baz
+	{
+		[PersistenceConversation(Exclude = true)]
+		public string SomeProperty { get; set; }
+	}
 
 
 	[TestFixture]
@@ -73,7 +80,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 				new PersistenceConversationalAttribute());
 			aspect.GetMethods().Any(m => m.Name == "DoSomethingElse").Should().Be.False();
 		}
-
+               
 
 		[Test]
 		public void should_exclude_public_methods_when_the_aspect_is_excplit()
@@ -91,6 +98,13 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 				typeof(BarBar),
 				new PersistenceConversationalAttribute());
 			aspect.GetMethods().Count().Should().Be.EqualTo(0);
+		}
+
+		[Test]
+		public void exclude_at_property_level_works()
+		{
+			var methodInspector = new ConversationalMethodInspector(typeof (Baz), new PersistenceConversationalAttribute());
+			methodInspector.GetMethods().Should().Be.Empty();
 		}
 	}
 }

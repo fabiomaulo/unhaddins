@@ -5,7 +5,7 @@ namespace uNhAddIns.PostSharpAdapters
 	/// <summary>
 	/// Attribute to mark a method as involved in a persistence conversation
 	/// </summary>
-	[AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+	[AttributeUsage(AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
 	public class PersistenceConversationAttribute : Attribute
 	{
 		public PersistenceConversationAttribute()
