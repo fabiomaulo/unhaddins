@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace uNhAddIns.Adapters.Common
@@ -36,15 +37,23 @@ namespace uNhAddIns.Adapters.Common
 			get { return info.Keys; }
 		}
 
+		readonly Func<MethodInfo, MethodInfo, bool> matchingMethod = (k, m) => k.DeclaringType.Equals(m.DeclaringType)
+					  && k.Name.Equals(m.Name)
+					  && k.GetParameters().Select(p => p.Name).SequenceEqual(m.GetParameters().Select(p => p.Name))
+					  && k.GetParameters().Select(p => p.ParameterType).SequenceEqual(m.GetParameters().Select(p => p.ParameterType));
+
 		public bool Contains(MethodInfo methodInfo)
 		{
-			return info.ContainsKey(methodInfo);
+			return info.Keys.Any(k => matchingMethod(k,methodInfo));
 		}
 
 		public IPersistenceConversationInfo GetConversationInfoFor(MethodInfo methodInfo)
 		{
+			var key = info.Keys.FirstOrDefault(m => matchingMethod(m, methodInfo));
+			if(key == null) return null;
+
 			IPersistenceConversationInfo result;
-			info.TryGetValue(methodInfo, out result);
+			info.TryGetValue(key, out result);
 			return result;
 		}
 

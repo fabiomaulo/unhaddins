@@ -1,5 +1,5 @@
+using System;
 using Castle.MicroKernel;
-using Castle.Windsor;
 using NHibernate.Bytecode;
 using NHibernate.Proxy;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
@@ -32,7 +32,12 @@ namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
 			return new ComponentProxyFactory(_behaviorConfigurator, _kernel);
         }
 
-        public IProxyValidator ProxyValidator
+    	public bool IsInstrumented(Type entityClass)
+    	{
+    		return false;
+    	}
+
+    	public IProxyValidator ProxyValidator
         {
             get { return new DynProxyTypeValidator(); }
         }

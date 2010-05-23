@@ -5,7 +5,7 @@
 			<AssemblyCompany>uNhAddIns</AssemblyCompany>
 			<AssemblyCopyright>Copyright (c) $(AssemblyCompany), 2008. All rights reserved.</AssemblyCopyright>
 			<AssemblyCodeLanguage>CS</AssemblyCodeLanguage>
-	    	<AssemblyVersion>2.0.0</AssemblyVersion>
+	    	<AssemblyVersion>3.0.0</AssemblyVersion>
 	    	<AssemblyOutputFile>Properties\AssemblyInfo.cs</AssemblyOutputFile>
 			<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 			<SVNDir>$(MSBuildProjectDirectory)\..\..\Tools\Subversion</SVNDir>
@@ -41,7 +41,7 @@
 			CodeLanguage="$(AssemblyCodeLanguage)"
 			CLSCompliant ="$(AssemblyClsCompliant)"
 			AssemblyInformationalVersion="$(AssemblyVersion).$(BUILD_VCS_NUMBER)"
-			AssemblyVersion ="$(AssemblyVersion).$(BUILD_VCS_NUMBER)"
+			AssemblyVersion ="$(AssemblyVersion)"
 			OutputFile="$(AssemblyOutputFile)"
 		/>
 	</Target>
