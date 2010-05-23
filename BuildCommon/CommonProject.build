@@ -41,7 +41,7 @@
 			CodeLanguage="$(AssemblyCodeLanguage)"
 			CLSCompliant ="$(AssemblyClsCompliant)"
 			AssemblyInformationalVersion="$(AssemblyVersion).$(BUILD_VCS_NUMBER)"
-			AssemblyVersion ="$(AssemblyVersion)"
+			AssemblyVersion ="$(AssemblyVersion).$(BUILD_VCS_NUMBER)"
 			OutputFile="$(AssemblyOutputFile)"
 		/>
 	</Target>
