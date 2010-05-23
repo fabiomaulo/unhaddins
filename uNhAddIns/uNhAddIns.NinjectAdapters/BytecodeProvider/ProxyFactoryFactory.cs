@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using System;
+using Ninject;
 using NHibernate.Bytecode;
 
 namespace uNhAddIns.NinjectAdapters.BytecodeProvider
@@ -21,9 +22,14 @@ namespace uNhAddIns.NinjectAdapters.BytecodeProvider
             return kernel.Get<NHibernate.Proxy.IProxyFactory>();
         }
 
-        NHibernate.Proxy.IProxyValidator IProxyFactoryFactory.ProxyValidator
+    	public bool IsInstrumented(Type entityClass)
+    	{
+    		return false;
+    	}
+
+    	NHibernate.Proxy.IProxyValidator IProxyFactoryFactory.ProxyValidator
         {
-            get {return new uNhAddIns.NinjectAdapters.Proxy.ProxyTypeValidator();}
+            get {return new Proxy.ProxyTypeValidator();}
         }
 
         #endregion

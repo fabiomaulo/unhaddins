@@ -52,7 +52,7 @@ namespace uNhAddIns.Adapters.CommonTests.Integration
 
 		public IQueryable<Silly> Retrieve(Expression<Func<Silly, bool>> predicate)
 		{
-			return factory.GetCurrentSession().Linq<Silly>();
+			return factory.GetCurrentSession().Query<Silly>();
 		}
 
 		public Silly MakePersistent(Silly entity)
