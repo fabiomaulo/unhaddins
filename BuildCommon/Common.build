@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<ToolsDir>$(RootDir)\Tools</ToolsDir>
 		<MSBuildCommunityTasksPath>$(ToolsDir)\MSBuildCommunityTasks\</MSBuildCommunityTasksPath>
+		<MercurialTasksPath>$(ToolsDir)\Mercurial\</MercurialTasksPath>
 		<NUnitDir>$(ToolsDir)\Nunit</NUnitDir>
 		<ReportFile>nunit-result.xml</ReportFile>
 		<ArtifactsDir>$(RootDir)\Artifacts\</ArtifactsDir>
@@ -70,4 +71,5 @@
 	</Target>
     
 	<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+	<Import Project="$(MercurialTasksPath)\MSBuild.Mercurial.tasks"/>
 </Project>

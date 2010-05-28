@@ -6,7 +6,8 @@
 			<AssemblyCopyright>Copyright (c) $(AssemblyCompany), 2008. All rights reserved.</AssemblyCopyright>
 			<AssemblyCodeLanguage>CS</AssemblyCodeLanguage>
 	    	<AssemblyVersion>3.0.0</AssemblyVersion>
-	    	<AssemblyOutputFile>Properties\AssemblyInfo.cs</AssemblyOutputFile>
+			<AssemblyOutputDir>Properties</AssemblyOutputDir>
+	    	<AssemblyOutputFile>$(AssemblyOutputDir)\AssemblyInfo.cs</AssemblyOutputFile>
 			<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 			<SVNDir>$(MSBuildProjectDirectory)\..\..\Tools\Subversion</SVNDir>
 			<SkipTest>False</SkipTest>
@@ -25,13 +26,21 @@
     	</MSBuild>
     </Target>
 
-	<Target Name="SVNRevision" Condition="!$(TeamCity)">
+	<Target Name="HgRevision" Condition="!$(TeamCity) And Exists('$(RootDir)\.hg')">
+		<HgVersion LocalPath="." Timeout="5000">
+			<Output TaskParameter="Revision" PropertyName="BUILD_VCS_NUMBER" />
+		</HgVersion>
+	</Target>
+
+	<Target Name="SVNRevision" Condition="!$(TeamCity) And !Exists('$(RootDir)\.hg')">
 		<SvnVersion LocalPath="." ToolPath="$(SVNDir)">
 			<Output TaskParameter="Revision" PropertyName="BUILD_VCS_NUMBER" />
 		</SvnVersion>
 	</Target>
-
-	<Target Name="GenerateAssemblyInfo" DependsOnTargets="SVNRevision">
+	
+	<Target Name="GenerateAssemblyInfo" DependsOnTargets="HgRevision; SVNRevision">
+		<MakeDir Directories="$(AssemblyOutputDir)" />
+		<Message Text="Writing the revision number $(BUILD_VCS_NUMBER) in assemblyinfo.cs." />
 		<AssemblyInfo 
 			AssemblyCompany ="$(AssemblyCompany)"
 			AssemblyCopyright="$(AssemblyCopyright)"
