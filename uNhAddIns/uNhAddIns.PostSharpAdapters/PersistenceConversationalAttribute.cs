@@ -155,8 +155,7 @@ namespace uNhAddIns.PostSharpAdapters
 		#endregion
 
 		[AspectTypeDependency(AspectDependencyAction.Commute, typeof(PersistenceConversationalAttribute))]
-		[MethodPointcut("GetMethods")]
-		[OnMethodExceptionAdvice]
+		[OnMethodExceptionAdvice(Master = "OnEntry")]
 		public void OnException(MethodExecutionArgs eventArgs)
 		{
 			if (IsNoopConversationalMarkerActive) return;
@@ -266,8 +265,7 @@ namespace uNhAddIns.PostSharpAdapters
 		}
 
 		[AspectTypeDependency(AspectDependencyAction.Commute, typeof(PersistenceConversationalAttribute))]
-		[MethodPointcut("GetMethods")]
-		[OnMethodSuccessAdvice]
+		[OnMethodSuccessAdvice(Master = "OnEntry")]
 		public void OnSuccess(MethodExecutionArgs eventArgs)
 		{
 			if (IsNoopConversationalMarkerActive) return;
