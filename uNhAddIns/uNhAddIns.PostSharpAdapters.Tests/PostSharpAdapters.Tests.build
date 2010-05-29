@@ -10,7 +10,7 @@
 		</PropertyGroup>
 	</Target>
 	
-	<Target Name="_Build" DependsOnTargets="_Init;Compile;CopyOutputsToBin"/>
+	<Target Name="_Build" DependsOnTargets="_Init;Compile"/>
 	
 	<Target Name = "_GenerateAssemblyInfo" DependsOnTargets="_Init;GenerateAssemblyInfo"/>
 
