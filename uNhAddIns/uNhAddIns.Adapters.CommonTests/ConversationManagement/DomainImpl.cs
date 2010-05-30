@@ -158,7 +158,7 @@ namespace uNhAddIns.Adapters.CommonTests.ConversationManagement
 		// at the end of each test.
 		public void Reset()
 		{
-			store.Clear();
+			if(store != null) store.Clear();
 			currentId = null;
 		}
 

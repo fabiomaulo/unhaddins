@@ -71,11 +71,13 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomaticConversationManagement\ConversationInterceptorFixture.cs" />
-    <Compile Include="AutomaticConversationManagement\FullCreamFixture.cs" />
-    <Compile Include="AutomaticConversationManagement\PostSharpSillyCrudModel.cs" />
     <Compile Include="ConversationalMethodInspectorFixture.cs" />
+    <Compile Include="Model\InterceptorStuff.cs" />
+    <Compile Include="Model\MyLogger.cs" />
+    <Compile Include="Model\Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSuite.cs" />
+    <Compile Include="Util\ServiceLocatorStub.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uNhAddIns.Adapters.CommonTests\uNhAddIns.Adapters.CommonTests.csproj">
