@@ -12,6 +12,8 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 		readonly IDictionary<PropertyInfo, object> _tempValues
 			= new Dictionary<PropertyInfo, object>();
 
+		private object target;
+
 		bool _isInEditMode;
 		Dictionary<string, PropertyInfo> _properties;
 
@@ -33,7 +35,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 					CancelEdit();
 					return;
 				case "EndEdit":
-					EndEdit(invocation.InvocationTarget);
+					EndEdit(target);
 					return;
 				default:
 					break;
@@ -58,6 +60,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 					if (!_properties.ContainsKey(propertyInfo.Name))
 						_properties[propertyInfo.Name] = propertyInfo;
 				}
+				target = invocation.InvocationTarget;
 			}
 
 			bool isSet = invocation.Method.Name.StartsWith("set_");
