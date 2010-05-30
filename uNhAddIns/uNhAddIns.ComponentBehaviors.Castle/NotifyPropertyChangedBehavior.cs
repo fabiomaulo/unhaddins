@@ -20,7 +20,7 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 			object proxy = invocation.Proxy;
 			bool isEditableObject = proxy is IEditableObject;
 
-			if (invocation.MethodInvocationTarget.DeclaringType.Equals(typeof (INotifyPropertyChanged)))
+			if (invocation.Method.DeclaringType.Equals(typeof (INotifyPropertyChanged)))
 			{
 				if (methodName == "add_PropertyChanged")
 				{
