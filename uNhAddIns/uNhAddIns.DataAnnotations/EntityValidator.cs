@@ -5,11 +5,14 @@ using System.Linq.Expressions;
 using System.Reflection;
 using uNhAddIns.Adapters;
 using System.ComponentModel.DataAnnotations;
+using uNhAddIns.DataAnnotations.Engine;
 
 namespace uNhAddIns.DataAnnotations
 {
 	public class EntityValidator : IEntityValidator
 	{
+		private static readonly DataAnnotationsEntityInspector inspector =
+							new DataAnnotationsEntityInspector();
 
 		#region IEntityValidator Members
 
@@ -20,15 +23,13 @@ namespace uNhAddIns.DataAnnotations
 		///<returns></returns>
 		public bool IsValid(object entityInstance)
 		{
-			var validators = from property in entityInstance.GetType().GetProperties()
-			                 from attribute in property.GetCustomAttributes(typeof (ValidationAttribute), true)
-												.OfType<ValidationAttribute>()
-			                  select new {
-											Validator = attribute, 
-											ValueToValidate =	property.GetValue(entityInstance, null)
-										 };
+			var metadata = inspector.GetMetadata(entityInstance.GetType());
+			var isValid = metadata.ValidationsPerProperty
+				.All(propertyValidator => 
+					!propertyValidator.Value.Any(v => 
+						!v.IsValid(propertyValidator.Key.GetValue(entityInstance, null))));
 
-			return validators.Any(validation => validation.Validator.IsValid(validation.ValueToValidate));
+			return isValid;
 		}
 
 		///<summary>
@@ -38,13 +39,21 @@ namespace uNhAddIns.DataAnnotations
 		///<returns></returns>
 		public IList<IInvalidValueInfo> Validate(object entityInstance)
 		{
-			Type type = entityInstance.GetType();
+			var result = inspector.GetMetadata(entityInstance.GetType())
+				.ValidationsPerProperty
+				.Select(kv => new
+				              	{
+				              		Property = kv.Key,
+				              		Validators = kv.Value,
+				              		Value = kv.Key.GetValue(entityInstance, null)
+				              	})
+				.SelectMany(pvv =>
+				            pvv.Validators
+				            	.Where(v => !v.IsValid(pvv.Value))
+				            	.Select(v => new InvalidValueInfo(entityInstance.GetType(), pvv.Property.Name, v))
+				).Cast<IInvalidValueInfo>().ToList();
 
-			var validators = from property in type.GetProperties()
-			                 from invalidMessage in GetInvalidValues(entityInstance, property, property.GetValue(entityInstance, null))
-			                 select invalidMessage;
-
-			return validators.ToList();
+			return result;			
 		}
 
 		///<summary>
@@ -57,27 +66,45 @@ namespace uNhAddIns.DataAnnotations
 		///<returns></returns>
 		public IList<IInvalidValueInfo> Validate<T, TP>(T entityInstance, Expression<Func<T, TP>> property) where T : class
 		{
-			MemberInfo propertyInfo = GetMemberInfo(property);
-			var value = property.Compile()(entityInstance);
+			var propertyInfo = DecodeMemberAccessExpression(property) as PropertyInfo;
+			if(propertyInfo == null)
+			{
+				throw new InvalidOperationException("The expression should be a property");
+			}
 
-			return GetInvalidValues(entityInstance, propertyInfo, value);
+			var value = propertyInfo.GetValue(entityInstance, null);
+			var entityType = typeof(T);
+			var validators = inspector.GetMetadata(entityType)
+				.ValidationsPerProperty[propertyInfo];
+			var result = Validate(validators, entityType, value, propertyInfo);
+
+			return result;
 		}
 
-		private static IList<IInvalidValueInfo> GetInvalidValues<T, TP>(T entityInstance, MemberInfo propertyInfo, TP value)
+		private static List<IInvalidValueInfo> Validate(
+			IEnumerable<ValidationAttribute> validators, 
+			Type entityType, object value, 
+			PropertyInfo propertyInfo)
 		{
-			var validators = propertyInfo.GetCustomAttributes(typeof (ValidationAttribute), true)
-				.OfType<ValidationAttribute>();
-
-			var result = from v in validators
-			             where !v.IsValid(value)
-			             select new InvalidValueInfo(entityInstance.GetType(), propertyInfo.Name, v);
-
-			return result.OfType<IInvalidValueInfo>().ToList();
+			return validators
+				.Where(v => !v.IsValid(value))
+				.Select(v => new InvalidValueInfo(entityType, propertyInfo.Name, v))
+				.Cast<IInvalidValueInfo>().ToList();
 		}
 
-		private static MemberInfo GetMemberInfo(LambdaExpression lambda)
+
+		public static MemberInfo DecodeMemberAccessExpression<TEntity, TResult>(Expression<Func<TEntity, TResult>> expression)
 		{
-			return ((MemberExpression)lambda.Body).Member;
+			if (expression.Body.NodeType != ExpressionType.MemberAccess)
+			{
+				if ((expression.Body.NodeType == ExpressionType.Convert) && (expression.Body.Type == typeof(object)))
+				{
+					return ((MemberExpression)((UnaryExpression)expression.Body).Operand).Member;
+				}
+				throw new InvalidOperationException(
+					string.Format("Invalid expression type: Expected ExpressionType.MemberAccess, Found {0}", expression.Body.NodeType));
+			}
+			return ((MemberExpression)expression.Body).Member;
 		}
 
 		///<summary>
@@ -85,14 +112,24 @@ namespace uNhAddIns.DataAnnotations
 		///</summary>
 		///<param name="entityInstance"></param>
 		///<param name="property"></param>
-		///<typeparam name="T"></typeparam>
-		///<typeparam name="TP"></typeparam>
 		///<returns></returns>
 		public IList<IInvalidValueInfo> Validate(object entityInstance, string property)
 		{
-			PropertyInfo propertyInfo = entityInstance.GetType().GetProperty(property);
+			var entityType = entityInstance.GetType();
+			var propertyInfo = entityType.GetProperty(property, BindingFlags.Public | BindingFlags.Instance);
+											
+			if(propertyInfo == null)
+			{
+				throw new InvalidOperationException("The expression should be a property");
+			}
+
 			var value = propertyInfo.GetValue(entityInstance, null);
-			return GetInvalidValues(entityInstance, propertyInfo, value);
+			
+			var validators = inspector.GetMetadata(entityType)
+				.ValidationsPerProperty[propertyInfo];
+			var result = Validate(validators, entityType, value, propertyInfo);
+
+			return result;
 		}
 
 		#endregion
