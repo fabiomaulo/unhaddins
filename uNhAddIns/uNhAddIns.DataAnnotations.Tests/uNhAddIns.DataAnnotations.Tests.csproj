@@ -56,8 +56,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataAnnotationsEntityInspectorFixture.cs" />
-    <Compile Include="EntityMetaDataFixture.cs" />
+    <Compile Include="EngineTests\DataAnnotationsEntityInspectorFixture.cs" />
+    <Compile Include="EngineTests\EntityMetaDataFixture.cs" />
     <Compile Include="EntityValidatorFixture.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

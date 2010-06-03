@@ -14,7 +14,7 @@ namespace uNhAddIns.DataAnnotations.Tests
 			var inspector = new DataAnnotationsEntityInspector();
 			var metadataInstance = inspector.GetMetadata(typeof (Person));
 			
-			inspector.FieldValue<IDictionary<Type, EntityMetaData>>("cache")
+			inspector.FieldValue<IDictionary<Type, EntityMetadata>>("cache")
 				.Values.Should().Contain(metadataInstance);
 
 		}

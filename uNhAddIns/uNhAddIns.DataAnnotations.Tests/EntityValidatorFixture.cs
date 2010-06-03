@@ -1,17 +1,20 @@
 ﻿using NUnit.Framework;
+using uNhAddIns.Adapters;
 
 namespace uNhAddIns.DataAnnotations.Tests
 {
 	[TestFixture]
 	public class EntityValidatorFixture
 	{
+		private static readonly IEntityValidator entityValidator 
+			= new EntityValidator();
+
 		[Test]
 		public void is_valid_should_work()
 		{
 			var person = new Person();
 
 
-			var entityValidator = new EntityValidator();
 			entityValidator.IsValid(person).Should().Be.False();
 
 			person.Age = 20;
@@ -23,8 +26,6 @@ namespace uNhAddIns.DataAnnotations.Tests
 		public void validate_entire_instance_should_work()
 		{
 			var person = new Person();
-
-			var entityValidator = new EntityValidator();
 
 			var results = entityValidator.Validate(person);
 
@@ -48,7 +49,7 @@ namespace uNhAddIns.DataAnnotations.Tests
 		public void validate_property_strongly_typed()
 		{
 			var person = new Person();
-			var entityValidator = new EntityValidator();
+
 			var result = entityValidator.Validate(person, p => p.Name);
 			result[0].PropertyName.Should().Be.EqualTo("Name");
 			result[0].Message.Should().Be.EqualTo(Person.NameErrorMessage);
@@ -62,7 +63,7 @@ namespace uNhAddIns.DataAnnotations.Tests
 		public void validate_property_not_strongly_typed()
 		{
 			var person = new Person();
-			var entityValidator = new EntityValidator();
+
 			var result = entityValidator.Validate(person, "Name");
 
 			result[0].PropertyName.Should().Be.EqualTo("Name");
