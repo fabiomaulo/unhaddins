@@ -16,6 +16,8 @@
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns\uNhAddIns2.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters\Adapters.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.Adapters.Common\Adapters.Common.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CommonServiceLocatorAdapters\CommonServiceLocatorAdapters.build"/>
+			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CommonServiceLocatorAdapters.Tests\CommonServiceLocatorAdapters.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters\CastleAdapters.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.CastleAdapters.Tests\CastleAdapters.Tests.build"/>
 			<BuildFiles Include="$(RootDir)\uNhAddIns\uNhAddIns.NinjectAdapters\NinjectAdapters.build"/>
