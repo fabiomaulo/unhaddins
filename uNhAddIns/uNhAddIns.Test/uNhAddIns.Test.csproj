@@ -98,6 +98,15 @@
     <Compile Include="Audit\MappingAuditableMetaDataStoreFixture.cs" />
     <Compile Include="Audit\Person.cs" />
     <Compile Include="Audit\Simple.cs" />
+    <Compile Include="Audit\TriggerGenerator\AbstractAuditColumnSourceFixture.cs" />
+    <Compile Include="Audit\TriggerGenerator\AuditColumnSourceFixture.cs" />
+    <Compile Include="Audit\TriggerGenerator\AbstractNamingStrategyFixture.cs" />
+    <Compile Include="Audit\TriggerGenerator\Cat.cs" />
+    <Compile Include="Audit\TriggerGenerator\CatAudit.cs" />
+    <Compile Include="Audit\TriggerGenerator\Dialects\DialectMapFixture.cs" />
+    <Compile Include="Audit\TriggerGenerator\Dialects\DummyExtendedDialect.cs" />
+    <Compile Include="Audit\TriggerGenerator\IntegrationFixture.cs" />
+    <Compile Include="Audit\TriggerGenerator\NamingStrategyFixture.cs" />
     <Compile Include="Cache\ConfigurationExtensionsFixture.cs" />
     <Compile Include="Cache\CustomQcStub.cs" />
     <Compile Include="Cache\Entities.cs" />
@@ -247,6 +256,8 @@
     <EmbeddedResource Include="Mapping\Simple.hbm.xml" />
     <EmbeddedResource Include="Listeners\AutoDirtyCheck\Domain.hbm.xml" />
     <EmbeddedResource Include="SessionEasier\Silly2.hbm.xml" />
+    <EmbeddedResource Include="Audit\TriggerGenerator\Cat.hbm.xml" />
+    <EmbeddedResource Include="Audit\TriggerGenerator\CatAudit.hbm.xml" />
     <Content Include="TestConfig1.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
