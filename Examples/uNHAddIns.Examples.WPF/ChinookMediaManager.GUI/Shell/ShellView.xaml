@@ -31,7 +31,7 @@
 					<ContentControl>
 						<DockPanel>
 							<Button Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" 
-                                    Visibility="{Binding CanShutdown, Mode=TwoWay, Converter={StaticResource VisibilityConverter}}"
+									Command="{Binding Path=CloseView}"
                                     Width="15" 
                                     Margin="2,0,0,0" 
                                     DockPanel.Dock="Right">

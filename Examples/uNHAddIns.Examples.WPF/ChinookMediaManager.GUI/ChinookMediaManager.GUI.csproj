@@ -79,6 +79,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Albums\Browse\AlbumsBrowseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,8 +109,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Artifacts\TemplateSelector.cs" />
-    <Compile Include="Artifacts\ViewFactory.cs" />
+    <Compile Include="Albums\Browse\AlbumsBrowseView.xaml.cs">
+      <DependentUpon>AlbumsBrowseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Albums\Browse\AlbumsBrowseViewModel.cs" />
+    <Compile Include="Artifacts\IViewModelFactory.cs" />
+    <Compile Include="Artifacts\ViewModelBase.cs" />
+    <Compile Include="Artifacts\RelayCommand.cs" />
     <Compile Include="Shell\ShellViewModel.cs" />
     <Compile Include="Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>

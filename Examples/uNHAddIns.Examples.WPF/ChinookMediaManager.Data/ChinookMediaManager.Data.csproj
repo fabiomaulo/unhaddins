@@ -41,9 +41,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\IAlbumRepository.cs" />
-    <Compile Include="Repositories\IArtistRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="IDao.cs" />
+    <Compile Include="IDaoFactory.cs" />
+    <Compile Include="IDaoReadOnly.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
