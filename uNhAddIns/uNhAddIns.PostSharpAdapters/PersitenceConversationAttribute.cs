@@ -10,7 +10,7 @@ namespace uNhAddIns.PostSharpAdapters
 	{
 		public PersistenceConversationAttribute()
 		{
-			ConversationEndMode = EndMode.Continue;
+			ConversationEndMode = EndMode.Unspecified;
 			Exclude = false;
 		}
 		/// <summary>
