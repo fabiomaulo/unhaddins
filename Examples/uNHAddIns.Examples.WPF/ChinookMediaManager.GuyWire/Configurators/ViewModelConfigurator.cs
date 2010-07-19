@@ -1,5 +1,7 @@
+using Castle.Facilities.TypedFactory;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
+using ChinookMediaManager.GUI.Artifacts;
 using ChinookMediaManager.ViewModels;
 
 namespace ChinookMediaManager.GuyWire.Configurators
@@ -18,6 +20,8 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
             container.Register(Component.For<EditAlbumViewModel>()
                                        .LifeStyle.Transient);
+
+        	container.Register(Component.For<IViewModelFactory>().AsFactory());
         }
 
         #endregion
