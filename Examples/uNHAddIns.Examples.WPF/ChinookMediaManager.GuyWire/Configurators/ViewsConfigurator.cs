@@ -18,7 +18,8 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
             container.Register(Component.For<IViewFactory>()
                                         .ImplementedBy<ViewFactory>());
-        }
+
+		}
 
         #endregion
     }

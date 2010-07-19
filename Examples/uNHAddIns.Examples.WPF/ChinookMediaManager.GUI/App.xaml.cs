@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ChinookMediaManager.GUI.Shell;
 using ChinookMediaManager.Infrastructure;
 using ChinookMediaManager.ViewModels;
 using Microsoft.Practices.ServiceLocation;
@@ -21,8 +22,8 @@ namespace ChinookMediaManager.GUI
         
         protected override void OnStartup(StartupEventArgs e)
         {
-            var viewFactory = ServiceLocator.Current.GetInstance<IViewFactory>();
-            viewFactory.ShowView<BrowseArtistViewModel>();
+        	var shell = ServiceLocator.Current.GetInstance<ShellView>();
+			shell.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)
