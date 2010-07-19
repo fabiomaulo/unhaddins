@@ -259,9 +259,11 @@ namespace uNhAddIns.PostSharpAdapters
 			{
 				return DefaultEndMode;
 			}
-			return methodInfo.GetCustomAttributes(typeof (PersistenceConversationAttribute), true)
+			var attributeValue = methodInfo.GetCustomAttributes(typeof (PersistenceConversationAttribute), true)
 				.OfType<PersistenceConversationAttribute>()
 				.First().ConversationEndMode;
+
+			return attributeValue == EndMode.Unspecified ? DefaultEndMode : attributeValue;
 		}
 
 		[AspectTypeDependency(AspectDependencyAction.Commute, typeof(PersistenceConversationalAttribute))]
