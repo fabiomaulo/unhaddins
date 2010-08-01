@@ -6,8 +6,8 @@ using Microsoft.Practices.ServiceLocation;
 using PostSharp.Aspects;
 using PostSharp.Aspects.Advices;
 using PostSharp.Aspects.Dependencies;
-using PostSharp.CodeModel;
 using PostSharp.Extensibility;
+using PostSharp.Reflection;
 using uNhAddIns.Extensions;
 using uNhAddIns.SessionEasier.Conversations;
 
