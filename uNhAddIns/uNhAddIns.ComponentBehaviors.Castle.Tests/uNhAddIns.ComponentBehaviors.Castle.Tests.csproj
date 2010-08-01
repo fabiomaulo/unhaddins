@@ -76,6 +76,10 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.XML" />
+    <Reference Include="uNhAddIns.Entities, Version=2.0.0.826, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\Debug\uNhAddIns.Entities.dll</HintPath>
+    </Reference>
     <Reference Include="uNhAddIns.NHibernateTypeResolver, Version=2.0.0.826, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\Debug\uNhAddIns.NHibernateTypeResolver.dll</HintPath>
@@ -122,10 +126,6 @@
     <ProjectReference Include="..\uNhAddIns.ComponentBehaviors.Castle\uNhAddIns.ComponentBehaviors.Castle.csproj">
       <Project>{5C999026-7D20-495E-BD31-63993EF308BB}</Project>
       <Name>uNhAddIns.ComponentBehaviors.Castle</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\uNhAddIns.Entities\uNhAddIns.Entities.csproj">
-      <Project>{676FDC6C-A4BB-42A5-9C56-C2D1669E45A8}</Project>
-      <Name>uNhAddIns.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\uNhAddIns.NHibernateValidator\uNhAddIns.NHibernateValidator.csproj">
       <Project>{6C864615-C94A-49A7-9556-55955E6A90BA}</Project>
