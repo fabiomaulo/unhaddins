@@ -332,17 +332,6 @@
             <see cref="T:System.Data.IDataReader"/>s it can have are followed.
             </remarks>
         </member>
-        <member name="M:NHibernate.Engine.IBatcher.ExpandQueryParameters(System.Data.IDbCommand,NHibernate.SqlCommand.SqlString)">
-            <summary>
-            Expand the parameters of the cmd to have a single parameter for each parameter in the
-            sql string
-            </summary>
-            <remarks>
-            This is for databases that do not support named parameters.  So, instead of a single parameter
-            for 'select ... from MyTable t where t.Col1 = @p0 and t.Col2 = @p0' we can issue
-            'select ... from MyTable t where t.Col1 = ? and t.Col2 = ?'
-            </remarks>
-        </member>
         <member name="M:NHibernate.Engine.IBatcher.AbortBatch(System.Exception)">
             <summary>
             Must be called when an exception occurs.
@@ -6616,11 +6605,6 @@
             Settings that affect the behavior of NHibernate at runtime.
             </summary>
         </member>
-        <member name="P:NHibernate.Cfg.Settings.LinqToHqlGeneratorsRegistry">
-            <summary>
-            Get the registry to provide Hql-Generators for known properties/methods.
-            </summary>
-        </member>
         <member name="T:NHibernate.Cfg.SettingsFactory">
             <summary>
             Reads configuration properties and configures a <see cref="T:NHibernate.Cfg.Settings"/> instance. 
@@ -8610,6 +8594,18 @@
             </summary>
         </member>
         <member name="M:NHibernate.Criterion.AbstractCriterion.op_True(NHibernate.Criterion.AbstractCriterion)">
+            <summary>
+            See here for details:
+            http://steve.emxsoftware.com/NET/Overloading+the++and++operators
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.AbstractEmptinessExpression.op_False(NHibernate.Criterion.AbstractEmptinessExpression)">
+            <summary>
+            See here for details:
+            http://steve.emxsoftware.com/NET/Overloading+the++and++operators
+            </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.AbstractEmptinessExpression.op_True(NHibernate.Criterion.AbstractEmptinessExpression)">
             <summary>
             See here for details:
             http://steve.emxsoftware.com/NET/Overloading+the++and++operators
@@ -14340,17 +14336,6 @@
             <param name="name">The name to set for IDbDataParameter.Name</param>
             <param name="sqlType">The SqlType to set for IDbDataParameter.</param>
             <returns>An IDbDataParameter ready to be added to an IDbCommand.</returns>
-        </member>
-        <member name="M:NHibernate.Driver.IDriver.ExpandQueryParameters(System.Data.IDbCommand,NHibernate.SqlCommand.SqlString)">
-            <summary>
-            Expand the parameters of the cmd to have a single parameter for each parameter in the
-            sql string
-            </summary>
-            <remarks>
-            This is for databases that do not support named parameters.  So, instead of a single parameter
-            for 'select ... from MyTable t where t.Col1 = @p0 and t.Col2 = @p0' we can issue
-            'select ... from MyTable t where t.Col1 = ? and t.Col2 = ?'
-            </remarks>
         </member>
         <member name="P:NHibernate.Driver.IDriver.SupportsMultipleOpenReaders">
             <summary>
@@ -28035,40 +28020,6 @@
             <summary>
             Performs bottom-up analysis to determine which nodes that match a certain predicate
             </summary>
-        </member>
-        <member name="M:NHibernate.Linq.ReflectionHelper.GetMethodDefinition``1(System.Linq.Expressions.Expression{System.Action{``0}})">
-            <summary>
-            Extract the <see cref="T:System.Reflection.MethodInfo"/> from a given expression.
-            </summary>
-            <typeparam name="TSource">The declaring-type of the method.</typeparam>
-            <param name="method">The method.</param>
-            <returns>The <see cref="T:System.Reflection.MethodInfo"/> of the no-generic method or the generic-definition for a generic-method.</returns>
-            <seealso cref="M:System.Reflection.MethodInfo.GetGenericMethodDefinition"/>
-        </member>
-        <member name="M:NHibernate.Linq.ReflectionHelper.GetMethodDefinition(System.Linq.Expressions.Expression{System.Action})">
-            <summary>
-            Extract the <see cref="T:System.Reflection.MethodInfo"/> from a given expression.
-            </summary>
-            <param name="method">The method.</param>
-            <returns>The <see cref="T:System.Reflection.MethodInfo"/> of the no-generic method or the generic-definition for a generic-method.</returns>
-            <seealso cref="M:System.Reflection.MethodInfo.GetGenericMethodDefinition"/>
-        </member>
-        <member name="M:NHibernate.Linq.ReflectionHelper.GetProperty``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
-            <summary>
-            Gets the field or property to be accessed.
-            </summary>
-            <typeparam name="TSource">The declaring-type of the property.</typeparam>
-            <typeparam name="TResult">The type of the property.</typeparam>
-            <param name="property">The expression representing the property getter.</param>
-            <returns>The <see cref="T:System.Reflection.MemberInfo"/> of the property.</returns>
-        </member>
-        <member name="M:NHibernate.Linq.ReflectionHelper.IsMethodOf(System.Reflection.MethodInfo,System.Type)">
-            <summary>
-            Check if a method is declared in a given <see cref="T:System.Type"/>.
-            </summary>
-            <param name="source">The method to check.</param>
-            <param name="realDeclaringType">The where the method is really declared.</param>
-            <returns>True if the method is an implementation of the method declared in <paramref name="realDeclaringType"/>; false otherwise. </returns>
         </member>
         <member name="T:NHibernate.Linq.NhQueryable`1">
             <summary>
