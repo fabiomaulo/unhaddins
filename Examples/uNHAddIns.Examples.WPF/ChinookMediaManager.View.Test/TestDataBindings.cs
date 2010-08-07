@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Caliburn.Testability;
-using ChinookMediaManager.ViewModels;
 using NUnit.Framework;
 
 namespace ChinookMediaManager.View.Test

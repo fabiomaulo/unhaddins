@@ -59,9 +59,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="NUnitEx, Version=1.0.3.0, Culture=neutral, PublicKeyToken=57e34ad207e9e5a3, processorArchitecture=MSIL">
+    <Reference Include="SharpTestsEx.NUnit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8c60d8070630b1c1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\NUnitEx.dll</HintPath>
+      <HintPath>..\libs\SharpTestsEx.NUnit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -97,16 +97,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\ChinookMediaManager.GuyWire\Configurators\NHVConfigurator.cs">
-      <Link>NHVConfigurator.cs</Link>
-    </Compile>
-    <Compile Include="..\ChinookMediaManager.GuyWire\IConfigurator.cs">
-      <Link>IConfigurator.cs</Link>
+    <Compile Include="..\ChinookMediaManager.GuyWire\Configurators\ValidatorInstaller.cs">
+      <Link>ValidatorInstaller.cs</Link>
     </Compile>
     <Compile Include="Model\AlbumModelFixture.cs" />
-    <Compile Include="Helpers\StrongReflection.cs" />
-    <Compile Include="Helpers\GetAttributeExtesion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\DaoStub.cs" />
+    <Compile Include="Util\EntityExtensions.cs" />
     <Compile Include="ValidationTests\AlbumValidationFixture.cs" />
   </ItemGroup>
   <ItemGroup>

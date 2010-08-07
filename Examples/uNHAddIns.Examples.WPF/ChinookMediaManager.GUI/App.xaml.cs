@@ -1,35 +1,33 @@
 ﻿using System.Windows;
 using ChinookMediaManager.GUI.Shell;
-using ChinookMediaManager.Infrastructure;
-using ChinookMediaManager.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.GUI
 {
-	/// <summary>
-	/// Lógica de interacción para App.xaml
-	/// </summary>
-	public partial class App : Application
+	public partial class App
 	{
 		private readonly IGuyWire guyWire = ApplicationConfiguration.GetGuyWire();
 
 		public App()
 		{
 			guyWire.Wire();
-			log4net.Config.XmlConfigurator.Configure();
 		}
 		
-		protected override void OnStartup(StartupEventArgs e)
+		protected override IServiceLocator CreateContainer()
 		{
-			var shell = ServiceLocator.Current.GetInstance<ShellView>();
-			shell.Show();
+			return ServiceLocator.Current;
+		}
+
+		protected override object CreateRootModel()
+		{
+			return Container.GetInstance<IShellViewModel>();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			base.OnExit(e);
 			guyWire.Dewire();
+			base.OnExit(e);
 		}
 	}
 }

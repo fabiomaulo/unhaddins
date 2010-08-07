@@ -36,6 +36,7 @@ namespace ChinookMediaManager.GuyWire
 
 			//I don't like this very much, but it is the only way to go with caliburn for now.
 			ServiceLocator.SetLocatorProvider(() => new Caliburn.Windsor.WindsorAdapter(container));
+			log4net.Config.XmlConfigurator.Configure();
 		}
 
 		/// <summary>

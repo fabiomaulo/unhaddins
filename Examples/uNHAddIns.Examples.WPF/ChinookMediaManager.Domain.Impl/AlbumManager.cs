@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ChinookMediaManager.Data;
@@ -7,12 +8,12 @@ using uNhAddIns.Adapters;
 namespace ChinookMediaManager.Domain.Impl
 {
 	[PersistenceConversational]
-	public class AlbumManagerModel : IAlbumManagerModel
+	public class AlbumManager : IAlbumManagerModel
 	{
 		private readonly IDao<Album> daoAlbum;
 		private readonly IEntityValidator entityValidator;
 
-		public AlbumManagerModel(IDao<Album> daoAlbum, IEntityValidator entityValidator)
+		public AlbumManager(IDao<Album> daoAlbum, IEntityValidator entityValidator)
 		{
 			this.daoAlbum = daoAlbum;
 			this.entityValidator = entityValidator;
@@ -21,7 +22,7 @@ namespace ChinookMediaManager.Domain.Impl
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public IEnumerable<Album> GetAlbumsToBrowse()
 		{
-			return daoAlbum.RetrieveAll().ToArray();
+			return daoAlbum.RetrieveAll().OrderBy(a => a.Title).ToArray();
 		}
 
 		//The default [PersistenceConversation(ConversationEndMode = EndMode.Continue)]
@@ -33,7 +34,11 @@ namespace ChinookMediaManager.Domain.Impl
 		[PersistenceConversation(ConversationEndMode = EndMode.End)]
 		public void Save(Album album)
 		{
-			if(IsValid(album)) daoAlbum.MakePersistent(album);
+			if(!IsValid(album))
+			{
+				throw new InvalidOperationException("The album is invalid. You should verify is valid with IsValid before calling save.");	
+			}	
+			daoAlbum.MakePersistent(album);
 		}
 
 		[PersistenceConversation(ConversationEndMode = EndMode.Abort)]

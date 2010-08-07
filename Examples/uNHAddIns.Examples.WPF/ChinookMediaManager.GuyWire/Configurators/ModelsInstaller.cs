@@ -11,7 +11,7 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			AllTypes.FromAssemblyContaining<AlbumManagerModel>()
+			AllTypes.FromAssemblyContaining<AlbumManager>()
 				.Where(t => !t.IsAbstract && !t.IsInterface)
 				.WithService.FirstInterface();
 		}

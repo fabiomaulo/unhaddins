@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using Castle.Windsor;
-using ChinookMediaManager.Domain.Test.Helpers;
 using ChinookMediaManager.GuyWire.Configurators;
-using NHibernate.Validator.Constraints;
-using NHibernate.Validator.Engine;
 using NUnit.Framework;
+using SharpTestsEx;
+using uNhAddIns.Adapters;
 
 namespace ChinookMediaManager.Domain.Test.ValidationTests
 {
@@ -15,49 +10,29 @@ namespace ChinookMediaManager.Domain.Test.ValidationTests
 	public class AlbumValidationFixture
 	{
 		private IWindsorContainer container;
+		private IEntityValidator entityValidator;
 
 		[TestFixtureSetUp]
 		public void FixtureSetUp()
 		{
 			container = new WindsorContainer();
-			var configurator = new NHVConfigurator();
-			configurator.Configure(container);
+			container.Install(new ValidatorInstaller());
+			entityValidator = container.GetService<IEntityValidator>();
 		}
 
 		[Test]
-		public void title_constraints()
+		public void WhenTitleIsNullThenValidationResultIsNotEmpty()
 		{
-			GetConstraint<Album, NotEmptyAttribute>(a => a.Title)
-				.Message
-				.Should().Be.EqualTo("Title should not be null.");
-
-			GetConstraint<Album, LengthAttribute>(a => a.Title)
-				.Should().Be.OfType<LengthAttribute>()
-				.And.ValueOf.Message.Should().Be.EqualTo("Title should not exceed 200 chars.");
-				
-			
+			var album = new Album {Title = null};
+			entityValidator.Validate(album, a => a.Title).Should().Not.Be.Empty();
 		}
 
-		private TConstraintType GetConstraint<T, TConstraintType>(Expression<Func<T, object>> property) where TConstraintType : Attribute
+		[Test]
+		public void WhenTitleIsToLargeThenValidationResultIsNotEmpty()
 		{
-			var propertyName = Strong.Instance<T>
-									 .Property(property)
-									 .Name;
-
-			var ve = container.Resolve<ValidatorEngine>();
-
-			var constraints = ve.GetClassValidator(typeof(T))
-								.GetMemberConstraints(propertyName);
-
-			ICollection<Attribute> matchedConstraints = constraints.Where(a => a.GetType().Equals(typeof(TConstraintType))).ToArray();
-			
-			matchedConstraints.Count.Should(string.Format("{0}.{1} doesn't have a {2} constraint", 
-											typeof (T).Name,
-											propertyName, 
-											typeof (TConstraintType).Name))
-									.Be.GreaterThan(0);
-
-			return (TConstraintType)matchedConstraints.First();
+			var album = new Album { Title = new string('j',201)};
+			entityValidator.Validate(album, a => a.Title).Should().Not.Be.Empty();
 		}
+
 	}
 }

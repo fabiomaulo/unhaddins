@@ -8,7 +8,7 @@ using uNhAddIns.Entities;
 
 namespace ChinookMediaManager.Data.Impl
 {
-	public class Dao<T> : IDao<T>
+	public class Dao<T> : IDao<T> where T : Entity
 	{
 		protected readonly ISessionFactory Factory;
 
@@ -54,23 +54,23 @@ namespace ChinookMediaManager.Data.Impl
 			CurrentSession.Load(entity, id);
 		}
 
-		public IEnumerable<T> RetrieveAll()
+		public IQueryable<T> RetrieveAll()
 		{
 			return GetLinq();
 		}
 
-		public IEnumerable<T> RetrieveAll(params Expression<Func<T,object >>[] expandProperties)
+		public IQueryable<T> RetrieveAll(params Expression<Func<T, object>>[] expandProperties)
 		{
 			//return GetLinq().Fetch();
 			return GetLinq();
 		}
 
-		public virtual IEnumerable<T> Retrieve(Expression<Func<T, bool>> predicate)
+		public virtual IQueryable<T> Retrieve(Expression<Func<T, bool>> predicate)
 		{
 			return GetLinq().Where(predicate);
 		}
 
-		public IEnumerable<T> Retrieve(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] expandProperties)
+		public IQueryable<T> Retrieve(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] expandProperties)
 		{
 			//return GetLinq().Fetch();
 			return Retrieve(predicate);

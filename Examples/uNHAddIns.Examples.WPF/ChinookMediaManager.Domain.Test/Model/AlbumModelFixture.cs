@@ -1,145 +1,78 @@
-using System.Collections.Generic;
-using System.Reflection;
-using ChinookMediaManager.Data.Repositories;
+using System;
+using System.Linq;
 using ChinookMediaManager.Domain.Impl;
-using ChinookMediaManager.Domain.Test.Helpers;
-using ChinookMediaManager.Infrastructure;
+using ChinookMediaManager.Domain.Test.Util;
 using Moq;
 using NUnit.Framework;
+using SharpTestsEx;
 using uNhAddIns.Adapters;
-using uNhAddIns.Adapters.Common;
 
 namespace ChinookMediaManager.Domain.Test.Model
 {
 	[TestFixture]
 	public class AlbumModelFixture
 	{
-		private readonly ReflectionConversationalMetaInfoStore conversationalMetaInfoStore
-			= new ReflectionConversationalMetaInfoStore();
-
-		private IConversationalMetaInfoHolder metaInfo;
-
-		[TestFixtureSetUp]
-		public void FixtureSetUp()
+		[Test]		
+		public void CanGetAlbumById()
 		{
-			conversationalMetaInfoStore.Add(typeof (AlbumManagerModel));
-			metaInfo = conversationalMetaInfoStore.GetMetadataFor(typeof (AlbumManagerModel));
-		}
-
-		[Test]
-		public void can_cancel_album()
-		{
-			var repository = new Mock<IAlbumRepository>();
-			var entityFactory = new Mock<IEntityFactory>();
-
-			var album = new Album();
-			repository.Setup(rep => rep.Refresh(It.IsAny<Album>()))
-				.AtMostOnce();
-
-			var albumManagerModel = new AlbumManagerModel(repository.Object,
-														  entityFactory.Object,  new Mock<IEntityValidator>().Object);
-
-			albumManagerModel.CancelAlbum(album);
-
-			repository.Verify(rep => rep.Refresh(album));
-		}
-
-		[Test]
-		public void can_get_all_albums_by_artist()
-		{
-			var artist = new Artist();
-			var albums = new List<Album> {new Album()};
-			var repository = new Mock<IAlbumRepository>();
-			var entityFactory = new Mock<IEntityFactory>();
-
-			repository.Setup(rep => rep.GetByArtist(It.IsAny<Artist>()))
-				.Returns(albums).AtMostOnce();
-
-			var albumManagerModel = new AlbumManagerModel(repository.Object,
-														  entityFactory.Object, new Mock<IEntityValidator>().Object);
-
-			albumManagerModel.GetAlbumsByArtist(artist);
-
-			repository.Verify(rep => rep.GetByArtist(artist));
-		}
-
-		[Test]
-		public void cancel_all_abort_the_conversation()
-		{
-			MethodInfo method = Strong.Instance<AlbumManagerModel>
-				.Method(am => am.CancelAll());
-
-			IPersistenceConversationInfo conversationInfo = metaInfo.GetConversationInfoFor(method);
-
-			conversationInfo.ConversationEndMode
-				.Should().Be.EqualTo(EndMode.Abort);
-		}
-
-		[Test]
-		public void model_represents_conversation()
-		{
-			metaInfo.Should().Not.Be.Null();
-			metaInfo.Setting.DefaultEndMode.Should().Be.EqualTo(EndMode.Continue);
-			metaInfo.Setting.MethodsIncludeMode.Should().Be.EqualTo(MethodsIncludeMode.Implicit);
-		}
-
-		[Test]
-		public void save_album_should_not_persist_if_album_is_invalid()
-		{
-			var repository = new Mock<IAlbumRepository>();
-			var entityValidator = new Mock<IEntityValidator>();
-			var entityFactory = new Mock<IEntityFactory>();
-
-			var album = new Album();
-
-			entityValidator.Setup(ev => ev.IsValid(album)).Returns(false);
-
-			var albumManagerModel = new AlbumManagerModel(repository.Object,
-														  entityFactory.Object,
-														  entityValidator.Object);
-
-			albumManagerModel.SaveAlbum(album);
-
-			entityValidator.Verify(ev => ev.IsValid(album));
-		}
-
-		[Test]
-		public void save_album_should_work()
-		{
-			var repository = new Mock<IAlbumRepository>();
-			var entityValidator = new Mock<IEntityValidator>();
-			var entityFactory = new Mock<IEntityFactory>();
-			var album = new Album();
-
-			entityValidator.Setup(ev => ev.IsValid(album)).Returns(true);
-			repository.Setup(rep => rep.MakePersistent(It.IsAny<Album>())).Returns(album);
-
-			var albumManagerModel = new AlbumManagerModel(repository.Object,
-														  entityFactory.Object, 
-														  entityValidator.Object);
-
-			albumManagerModel.SaveAlbum(album);
-
-			entityValidator.Verify(ev => ev.IsValid(album));
-			repository.Verify(rep => rep.MakePersistent(album));
+			var album = new Album().SetId(123);
+			var daoAlbum = new DaoStub<Album>().AddEntity(album);
+			var model = new AlbumManager(daoAlbum, new Mock<IEntityValidator>().Object);
+			model.GetAlbumById(123).Should().Be.EqualTo(album);
 		}
 		
 		[Test]
-		public void save_all_end_the_conversation()
+		public void WhenEntityIsInvalidThenThrowExceptionAndDontSave()
 		{
-			MethodInfo method = Strong.Instance<AlbumManagerModel>
-									  .Method(am => am.SaveAll());
-			
-			//typeof(AlbumManagerModel).GetMethod("SaveAll")
+			//Arrange
+			var album = new Album();
+			var daoAlbum = new DaoStub<Album>().AddEntity(album);
+			var validator = new Mock<IEntityValidator>();
+			validator.Setup(v => v.IsValid(album)).Returns(false);
+			var model = new AlbumManager(daoAlbum, validator.Object);
 
-			IPersistenceConversationInfo conversationInfo = metaInfo.GetConversationInfoFor(method);
+			//Act
+			model.Executing(am => am.Save(album))
+				.Throws<InvalidOperationException>(); //assert
 
-			conversationInfo.ConversationEndMode
-				.Should().Be.EqualTo(EndMode.End);
+			//assert
+			daoAlbum.Mock.Verify(da => da.MakePersistent(album), Times.Never());
+		}
 
-			
+		[Test]
+		public void GetAlbumsShouldReturnOrderedAlbums()
+		{
+			//Arrange
+			var daoAlbum = new DaoStub<Album>().AddEntities(new Album{Title = "za"}, new Album{Title = "aa"});
+
+			var model = new AlbumManager(daoAlbum, new Mock<IEntityValidator>().Object);
+
+			//Act
+			var result = model.GetAlbumsToBrowse();
+
+			//assert
+			result.Should().Have.SameSequenceAs(daoAlbum.RetrieveAll().OrderBy(a => a.Title).ToArray());
+		}
 
 
+		[Test]
+		public void WhenEntityIsNotValidThenIsValidReturnsFalse()
+		{
+			var album = new Album();
+			var entityValidator = new Mock<IEntityValidator>();
+			var model = new AlbumManager(new DaoStub<Album>(), entityValidator.Object);
+			entityValidator.Setup(ev => ev.IsValid(album)).Returns(false);
+			model.IsValid(album).Should().Be.False();
+		}
+
+		[Test]
+		public void WhenEntityIsValidThenIsValidReturnsTrue()
+		{
+			var album = new Album();
+			var entityValidator = new Mock<IEntityValidator>();
+			var model = new AlbumManager(new DaoStub<Album>(), entityValidator.Object);
+			entityValidator.Setup(ev => ev.IsValid(album)).Returns(true);
+			model.IsValid(album).Should().Be.True();
 		}
 	}
 }
