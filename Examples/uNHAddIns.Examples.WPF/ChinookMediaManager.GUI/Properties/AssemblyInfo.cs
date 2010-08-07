@@ -32,21 +32,21 @@ using System.Windows;
 
 
 [assembly: ThemeInfo(
-    ResourceDictionaryLocation.None, //donde se encuentran los diccionarios de recursos específicos del tema
-    //(se utiliza si no se encuentra ningún recurso en la página 
-    // ni diccionarios de recursos de la aplicación)
-    ResourceDictionaryLocation.SourceAssembly //donde se encuentra el diccionario de recursos genérico
-    //(se utiliza si no se encuentra ningún recurso en la página, 
-    // aplicación o diccionarios de recursos específicos del tema)
+	ResourceDictionaryLocation.None, //donde se encuentran los diccionarios de recursos específicos del tema
+	//(se utiliza si no se encuentra ningún recurso en la página 
+	// ni diccionarios de recursos de la aplicación)
+	ResourceDictionaryLocation.SourceAssembly //donde se encuentra el diccionario de recursos genérico
+	//(se utiliza si no se encuentra ningún recurso en la página, 
+	// aplicación o diccionarios de recursos específicos del tema)
 )]
 
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
-//      Versión principal
-//      Versión secundaria 
-//      Número de versión de compilación
-//      Revisión
+//	  Versión principal
+//	  Versión secundaria 
+//	  Número de versión de compilación
+//	  Revisión
 //
 // Puede especificar todos los valores o establecer como predeterminados los números de versión de compilación y de revisión 
 // mediante el asterisco ('*'), como se muestra a continuación:

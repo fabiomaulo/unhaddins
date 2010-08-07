@@ -1,46 +1,26 @@
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using ChinookMediaManager.GUI.Artifacts;
+using Caliburn.PresentationFramework.Screens;
+using Caliburn.PresentationFramework.ViewModels;
 
 namespace ChinookMediaManager.GUI.Shell
 {
-	public class ShellViewModel : ViewModelBase
+
+	public interface IShellViewModel
+	{
+	}
+
+	public class ShellViewModel : Conductor<IScreen>.Collection.OneActive, IShellViewModel
 	{
 		private readonly IViewModelFactory viewModelFactory;
 
 		public ShellViewModel(IViewModelFactory viewModelFactory)
 		{
 			this.viewModelFactory = viewModelFactory;
-
-			Presenters = new ObservableCollection<ViewModelBase>();
-
-			CloseView = new RelayCommand(
-				() =>
-					{
-						Presenters.Remove(CurrentPresenter);
-						viewModelFactory.DestroyViewModel(CurrentPresenter);
-						CurrentPresenter = null;
-					},
-				() => CurrentPresenter != null);
-
-			//ShowAlbums = new RelayCommand(
-			//    () => Presenters.Add(viewModelFactory.CreateViewModel<>()));
 		}
 
-		public ICommand CloseView { get; private set; }
-		public ICommand ShowAlbums { get; private set; }
-
-		public ObservableCollection<ViewModelBase> Presenters { get; private set; }
-
-		private ViewModelBase currentPresenter;
-		public ViewModelBase CurrentPresenter
+		
+		public void ShutdownPresenter(IScreen presenter)
 		{
-			get { return currentPresenter; }
-			set
-			{
-				currentPresenter = value;
-				OnPropertyChanged("CurrentPresenter");
-			}
+			CloseItem(presenter);
 		}
 	}
 }

@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Core, Version=2.0.0.53754, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Caliburn.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Windsor, Version=2.0.0.53754, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Caliburn.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\Castle.Core.dll</HintPath>
@@ -86,21 +94,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Adapters.Castle.dll</HintPath>
     </Reference>
-    <Reference Include="uNhAddIns.ComponentBehaviors, Version=2.0.0.771, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\uNhAddIns.ComponentBehaviors.dll</HintPath>
-    </Reference>
-    <Reference Include="uNhAddIns.ComponentBehaviors.Castle, Version=2.0.0.740, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\uNhAddIns.ComponentBehaviors.Castle.dll</HintPath>
-    </Reference>
     <Reference Include="uNhAddIns.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\uNhAddIns.Entities.dll</HintPath>
-    </Reference>
-    <Reference Include="uNhAddIns.NHibernateTypeResolver, Version=2.0.0.770, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\libs\uNhAddIns.NHibernateTypeResolver.dll</HintPath>
     </Reference>
     <Reference Include="uNhAddIns.NHibernateValidator, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -115,15 +111,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurators\EntitiesConfigurator.cs" />
-    <Compile Include="Configurators\ModelsConfigurator.cs" />
-    <Compile Include="Configurators\NHVConfigurator.cs" />
-    <Compile Include="Configurators\ViewModelConfigurator.cs" />
-    <Compile Include="Configurators\RepositoriesConfigurator.cs" />
-    <Compile Include="Configurators\ViewsConfigurator.cs" />
+    <Compile Include="Configurators\ModelsInstaller.cs" />
+    <Compile Include="Configurators\ValidatorInstaller.cs" />
+    <Compile Include="Configurators\PresenterInstaller.cs" />
+    <Compile Include="Configurators\DaoInstaller.cs" />
     <Compile Include="GeneralGuyWire.cs" />
-    <Compile Include="IConfigurator.cs" />
-    <Compile Include="Configurators\NHibernateConfigurator.cs" />
+    <Compile Include="Configurators\NHibernateInstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +128,10 @@
       <Project>{1E1A7CE8-81F9-455E-A7D2-C9E644F1B951}</Project>
       <Name>ChinookMediaManager.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ChinookMediaManager.Domain.Impl\ChinookMediaManager.Domain.Impl.csproj">
+      <Project>{47F559A1-96FC-42A2-8C66-E94A340E8FDF}</Project>
+      <Name>ChinookMediaManager.Domain.Impl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ChinookMediaManager.Domain\ChinookMediaManager.Domain.csproj">
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
@@ -142,14 +139,6 @@
     <ProjectReference Include="..\ChinookMediaManager.GUI\ChinookMediaManager.GUI.csproj">
       <Project>{C3DB558C-F203-4132-9635-B4DEC818A011}</Project>
       <Name>ChinookMediaManager.GUI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
-      <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
-      <Name>ChinookMediaManager.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.ViewModels\ChinookMediaManager.ViewModels.csproj">
-      <Project>{A8A3E81F-E77B-4948-A660-57336FF7D73B}</Project>
-      <Name>ChinookMediaManager.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

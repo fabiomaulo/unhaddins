@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.PresentationFramework, Version=2.0.0.53754, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Caliburn.PresentationFramework.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\log4net.dll</HintPath>
@@ -71,8 +75,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\libs\WPF Toolkit\v3.5.40619.1\WPFToolkit.dll</HintPath>
     </Reference>
-    <Resource Include="ImageResources\add.png" />
-    <Resource Include="ImageResources\error.png" />
+    <Resource Include="Resources\Images\add.png" />
+    <Resource Include="Resources\Images\error.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -87,22 +91,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AlbumManagerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AlbumManagerView_Res.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\BrowseArtistView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditAlbumView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -113,19 +101,9 @@
       <DependentUpon>AlbumsBrowseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Albums\Browse\AlbumsBrowseViewModel.cs" />
-    <Compile Include="Artifacts\IViewModelFactory.cs" />
-    <Compile Include="Artifacts\ViewModelBase.cs" />
-    <Compile Include="Artifacts\RelayCommand.cs" />
     <Compile Include="Shell\ShellViewModel.cs" />
     <Compile Include="Shell\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AlbumManagerView.xaml.cs">
-      <DependentUpon>AlbumManagerView.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Views\BrowseArtistView.xaml.cs">
-      <DependentUpon>BrowseArtistView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -139,10 +117,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Views\EditAlbumView.xaml.cs">
-      <DependentUpon>EditAlbumView.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -159,14 +133,6 @@
       <Project>{B036A41C-815F-4A3F-A4D5-88DBCCE1F7F6}</Project>
       <Name>ChinookMediaManager.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.Infrastructure\ChinookMediaManager.Infrastructure.csproj">
-      <Project>{1A7929AD-C569-4B96-87E3-79B94931C6D4}</Project>
-      <Name>ChinookMediaManager.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ChinookMediaManager.ViewModels\ChinookMediaManager.ViewModels.csproj">
-      <Project>{A8A3E81F-E77B-4948-A660-57336FF7D73B}</Project>
-      <Name>ChinookMediaManager.ViewModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -175,7 +141,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ImageResources\albums.jpg" />
+    <Resource Include="Resources\Images\albums.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
