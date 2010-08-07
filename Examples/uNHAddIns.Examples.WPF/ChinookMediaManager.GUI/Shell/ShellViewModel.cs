@@ -1,9 +1,9 @@
 using Caliburn.PresentationFramework.Screens;
 using Caliburn.PresentationFramework.ViewModels;
+using ChinookMediaManager.GUI.Albums.Browse;
 
 namespace ChinookMediaManager.GUI.Shell
 {
-
 	public interface IShellViewModel
 	{
 	}
@@ -17,6 +17,10 @@ namespace ChinookMediaManager.GUI.Shell
 			this.viewModelFactory = viewModelFactory;
 		}
 
+		public void ShowAlbums()
+		{
+			ActivateItem(viewModelFactory.Create<AlbumsBrowseViewModel>());
+		}
 		
 		public void ShutdownPresenter(IScreen presenter)
 		{

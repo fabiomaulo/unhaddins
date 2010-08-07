@@ -5,6 +5,7 @@ using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using Microsoft.Practices.ServiceLocation;
 using uNhAddIns.Adapters;
+using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 
 namespace ChinookMediaManager.GuyWire
 {
@@ -26,7 +27,8 @@ namespace ChinookMediaManager.GuyWire
 				Dewire();
 			container = new WindsorContainer();
 			container.AddFacility<FactorySupportFacility>();
-			
+			container.AddFacility<PersistenceConversationFacility>();
+
 			var windsorInstallers = typeof (GuyWire).Assembly.GetTypes()
 				.Where(t => !t.IsAbstract && !t.IsInterface && typeof (IWindsorInstaller).IsAssignableFrom(t))
 				.Select(t => Activator.CreateInstance(t))
