@@ -1,5 +1,3 @@
-using System.Linq;
-using ChinookMediaManager.Data.Impl.Repositories;
 using ChinookMediaManager.Domain;
 using NHibernate.Context;
 using NUnit.Framework;

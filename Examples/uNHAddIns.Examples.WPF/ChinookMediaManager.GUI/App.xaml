@@ -1,6 +1,7 @@
-﻿<Application x:Class="ChinookMediaManager.GUI.App"
+﻿<cal:CaliburnApplication x:Class="ChinookMediaManager.GUI.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:cal="clr-namespace:Caliburn.PresentationFramework.ApplicationModel;assembly=Caliburn.PresentationFramework">
     <Application.Resources>         
     </Application.Resources>
-</Application>
+</cal:CaliburnApplication>

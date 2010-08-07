@@ -33,5 +33,10 @@ namespace ChinookMediaManager.Domain
 			track.Album = null;
 			Tracks.Remove(track);
 		}
+
+		public override string ToString()
+		{
+			return Title;
+		}
 	}
 }

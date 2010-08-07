@@ -1,7 +1,7 @@
 using Castle.MicroKernel;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using ChinookMediaManager.ViewModels;
+using ChinookMediaManager.GUI.Albums.Browse;
 
 namespace ChinookMediaManager.GuyWire.Configurators
 {
@@ -11,14 +11,9 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			container.Register(Component.For<BrowseArtistViewModel>()
+			container.Register(Component.For<AlbumsBrowseViewModel>()
 										.LifeStyle.Transient);
 
-			container.Register(Component.For<AlbumManagerViewModel>()
-										.LifeStyle.Transient);
-
-			container.Register(Component.For<EditAlbumViewModel>()
-										.LifeStyle.Transient);
 		}
 
 		#endregion
