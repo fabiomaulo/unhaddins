@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace ChinookMediaManager.Domain.AppServicesInterfaces
 {
 
-	public interface IAlbumManagerModel
+	public interface IAlbumManager
 	{
 		/// <summary>
 		/// Return a list of albums to browse.

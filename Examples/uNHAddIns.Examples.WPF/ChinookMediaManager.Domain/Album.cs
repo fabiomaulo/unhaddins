@@ -6,7 +6,7 @@ namespace ChinookMediaManager.Domain
 {
 	public class Album : Entity
 	{
-		private readonly HashedSet<Track> tracks;
+		private readonly ISet<Track> tracks;
 
 		public Album()
 		{

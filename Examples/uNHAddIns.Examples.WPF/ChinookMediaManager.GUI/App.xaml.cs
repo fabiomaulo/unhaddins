@@ -11,11 +11,12 @@ namespace ChinookMediaManager.GUI
 
 		public App()
 		{
-			guyWire.Wire();
+			
 		}
 		
 		protected override IServiceLocator CreateContainer()
 		{
+			guyWire.Wire();
 			return ServiceLocator.Current;
 		}
 

@@ -9,7 +9,6 @@ using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
 using uNhAddIns.CastleAdapters.EnhancedBytecodeProvider;
 using uNhAddIns.SessionEasier;
 using uNhAddIns.SessionEasier.Conversations;
-using uNhAddIns.WPF.Collections;
 using ValidatorInitializer = NHibernate.Validator.Cfg.ValidatorInitializer;
 
 namespace ChinookMediaManager.GuyWire.Configurators
@@ -20,19 +19,13 @@ namespace ChinookMediaManager.GuyWire.Configurators
 
 		public void Install(IWindsorContainer container, IConfigurationStore store)
 		{
-			container.AddFacility<PersistenceConversationFacility>();
-
+			
 			Environment.BytecodeProvider = new EnhancedBytecode(container);
 
 
 			var nhConfigurator = new DefaultSessionFactoryConfigurationProvider();
 
-			nhConfigurator.BeforeConfigure += (sender, e) =>
-								{
-									ValidatorInitializer.Initialize(e.Configuration);
-									e.Configuration.Properties[Environment.CollectionTypeFactoryClass]
-										= typeof (WpfCollectionTypeFactory).AssemblyQualifiedName;
-								};
+			nhConfigurator.BeforeConfigure += (sender, e) => ValidatorInitializer.Initialize(e.Configuration);
 
 			var sfp = new SessionFactoryProvider(nhConfigurator);
 

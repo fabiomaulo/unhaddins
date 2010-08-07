@@ -9,7 +9,7 @@
 
     <property name="Title" />
     <many-to-one name="Artist" class="Artist" column="ArtistId" />
-    <set name="Tracks" inverse="true" cascade="all">
+    <set name="Tracks" inverse="true" cascade="all" access="field.camelcase">
       <key column="AlbumId" />
       <one-to-many class="Track" />
     </set>

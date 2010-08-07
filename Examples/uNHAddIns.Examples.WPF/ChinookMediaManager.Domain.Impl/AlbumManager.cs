@@ -8,7 +8,7 @@ using uNhAddIns.Adapters;
 namespace ChinookMediaManager.Domain.Impl
 {
 	[PersistenceConversational]
-	public class AlbumManager : IAlbumManagerModel
+	public class AlbumManager : IAlbumManager
 	{
 		private readonly IDao<Album> daoAlbum;
 		private readonly IEntityValidator entityValidator;

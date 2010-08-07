@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="ChinookMediaManager.GUI.Shell.ShellView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-			 xmlns:cal="http://www.caliburnproject.org" 
-             Height="300" Width="500">
+			 xmlns:cal="http://www.caliburnproject.org"
+			 MinHeight="300" MinWidth="600">
 
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="VisibilityConverter" />
