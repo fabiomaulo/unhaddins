@@ -2,6 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Controls="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit" Height="300" Width="300">
 	<StackPanel>
-		<Controls:DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Items}" />
+		<Controls:DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Subject}" />
 	</StackPanel>
 </UserControl>
