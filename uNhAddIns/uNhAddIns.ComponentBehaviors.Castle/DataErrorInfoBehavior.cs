@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 using uNhAddIns.Adapters;
 
 namespace uNhAddIns.ComponentBehaviors.Castle

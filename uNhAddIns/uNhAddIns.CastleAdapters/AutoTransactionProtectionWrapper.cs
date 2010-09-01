@@ -13,7 +13,7 @@ namespace uNhAddIns.CastleAdapters
 		public AutoTransactionProtectionWrapper(ISession realSession, SessionCloseDelegate closeDelegate, SessionDisposeDelegate disposeDelegate) : base(realSession, closeDelegate, disposeDelegate)
 		{}
 
-		public override void Intercept(Castle.Core.Interceptor.IInvocation invocation)
+		public override void Intercept(Castle.DynamicProxy.IInvocation invocation)
 		{
 			base.Intercept(invocation);
 

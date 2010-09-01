@@ -1,4 +1,4 @@
-using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 using uNhAddIns.NHibernateTypeResolver;
 
 namespace uNhAddIns.ComponentBehaviors.Castle

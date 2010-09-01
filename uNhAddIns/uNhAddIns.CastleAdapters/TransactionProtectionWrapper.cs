@@ -1,10 +1,10 @@
 using System;
 using System.Reflection;
-using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 using NHibernate;
 using NHibernate.Util;
 using uNhAddIns.SessionEasier;
-using IInterceptor=Castle.Core.Interceptor.IInterceptor;
+using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace uNhAddIns.CastleAdapters
 {
@@ -12,11 +12,15 @@ namespace uNhAddIns.CastleAdapters
 	public class TransactionProtectionWrapper : BasicTransactionProtectionWrapper, IInterceptor
 	{
 		public TransactionProtectionWrapper(ISession realSession, SessionCloseDelegate closeDelegate)
-			: base(realSession, closeDelegate) {}
+			: base(realSession, closeDelegate)
+		{
+		}
 
 		public TransactionProtectionWrapper(ISession realSession, SessionCloseDelegate closeDelegate,
 		                                    SessionDisposeDelegate disposeDelegate)
-			: base(realSession, closeDelegate, disposeDelegate) {}
+			: base(realSession, closeDelegate, disposeDelegate)
+		{
+		}
 
 		#region IInterceptor Members
 

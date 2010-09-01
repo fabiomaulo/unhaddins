@@ -8,7 +8,7 @@ using NHibernate.ByteCode.Castle;
 using NHibernate.Engine;
 using NHibernate.Proxy;
 using uNhAddIns.ComponentBehaviors.Castle.Configuration;
-using IInterceptor=Castle.Core.Interceptor.IInterceptor;
+using IInterceptor = Castle.DynamicProxy.IInterceptor;
 
 namespace uNhAddIns.ComponentBehaviors.Castle.ProxyFactory
 {

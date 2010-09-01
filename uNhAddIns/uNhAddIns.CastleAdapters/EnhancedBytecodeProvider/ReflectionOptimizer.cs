@@ -23,7 +23,7 @@ namespace uNhAddIns.CastleAdapters.EnhancedBytecodeProvider
 			else
 			{
 				return container.Kernel.HasComponent(mappedType.FullName)
-				       	? container.Resolve(mappedType.FullName)
+						? container.Resolve(mappedType.FullName, new{})
 				       	: base.CreateInstance();
 			}
 		}

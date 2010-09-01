@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using Castle.Core;
 using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 using Castle.MicroKernel;
 using uNhAddIns.Adapters.Common;
 using uNhAddIns.SessionEasier.Conversations;
