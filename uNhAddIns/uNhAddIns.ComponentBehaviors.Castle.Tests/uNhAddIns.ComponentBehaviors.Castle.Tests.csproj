@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataErrorInfo_Ktunick.cs" />
     <Compile Include="ComponentProxyFactory\ComponentProxyFactoryFixture.cs" />
     <Compile Include="Configuration\BehavioInspectorFixture.cs" />
     <Compile Include="Configuration\BehaviorToProxyResolverFixture.cs" />

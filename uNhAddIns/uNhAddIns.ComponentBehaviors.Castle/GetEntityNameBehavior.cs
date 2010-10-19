@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Castle.DynamicProxy;
 using uNhAddIns.NHibernateTypeResolver;
 
@@ -12,13 +14,15 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 		{
 			if (invocation.Method.DeclaringType.Equals(typeof (IWellKnownProxy)))
 			{
+				Type baseType = GetBaseType(invocation);
+
 				if (invocation.Method.Name == "get_EntityName")
 				{
-					invocation.ReturnValue = invocation.Proxy.GetType().BaseType.FullName;
+					invocation.ReturnValue = baseType.FullName;
 				}
 				else if (invocation.Method.Name == "get_EntityType")
 				{
-					invocation.ReturnValue = invocation.Proxy.GetType().BaseType;
+					invocation.ReturnValue = baseType;
 				}
 			}
 			else
@@ -28,5 +32,15 @@ namespace uNhAddIns.ComponentBehaviors.Castle
 		}
 
 		#endregion
+
+		public Type GetBaseType(IInvocation invocation)
+		{
+			object target = ((IProxyTargetAccessor) invocation.Proxy).DynProxyGetTarget();
+			if (ReferenceEquals(invocation.Proxy, target))
+			{
+				return invocation.Proxy.GetType().BaseType;
+			}
+			return invocation.Proxy.GetType().GetInterfaces().First();
+		}
 	}
 }
