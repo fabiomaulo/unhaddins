@@ -1,6 +1,4 @@
-﻿using System;
-using Ninject;
-using CommonServiceLocator.NinjectAdapter;
+﻿using Ninject;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate.Proxy;
 using NHibernate.Bytecode;

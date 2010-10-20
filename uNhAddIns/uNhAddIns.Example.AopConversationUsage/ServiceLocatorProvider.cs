@@ -1,10 +1,10 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate;
 using uNhAddIns.CastleAdapters;
 using uNhAddIns.CastleAdapters.AutomaticConversationManagement;
+using uNhAddIns.CastleAdapters.Tests;
 using uNhAddIns.Example.AopConversationUsage.BusinessLogic;
 using uNhAddIns.Example.AopConversationUsage.DataAccessObjects;
 using uNhAddIns.Example.AopConversationUsage.Entities;
