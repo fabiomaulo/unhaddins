@@ -18,3 +18,9 @@ tmp/
 *.ReSharper.user
 *.suo
 AssemblyInfo.cs
+*.pidb
+Lib/*.pdb
+*.Tests/hibernate.cfg.xml
+*.Test/hibernate.cfg.xml
+*.userprefs
+*.user
