@@ -1,8 +1,8 @@
 using Castle.Facilities.FactorySupport;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
+using uNhAddIns.CastleAdapters.Tests;
 using uNhAddIns.Example.MultiSessionConversationUsage.BusinessLogic;
 using uNhAddIns.Example.MultiSessionConversationUsage.DataAccessObjects;
 using NHibernate;

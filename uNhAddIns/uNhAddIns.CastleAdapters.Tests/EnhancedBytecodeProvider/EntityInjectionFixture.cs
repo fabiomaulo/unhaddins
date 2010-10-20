@@ -2,7 +2,6 @@ using System;
 using Castle.Core;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate.Bytecode;
 using NUnit.Framework;

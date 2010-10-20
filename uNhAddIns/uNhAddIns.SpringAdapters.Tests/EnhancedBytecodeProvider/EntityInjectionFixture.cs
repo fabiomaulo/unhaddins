@@ -1,5 +1,4 @@
 using System;
-using CommonServiceLocator.SpringAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NHibernate.Bytecode;
 using NUnit.Framework;

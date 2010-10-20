@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator.NinjectAdapter;
-using Microsoft.Practices.ServiceLocation;
+﻿using Microsoft.Practices.ServiceLocation;
 using NHibernate.Bytecode;
 using NHibernate.ByteCode.Castle;
 using NHibernate.Proxy;
@@ -7,6 +6,7 @@ using Ninject;
 using NUnit.Framework;
 using uNhAddIns.Adapters.CommonTests.EnhancedBytecodeProvider;
 using uNhAddIns.CommonServiceLocatorAdapters.BytecodeProvider;
+using uNhAddIns.NinjectAdapters.Tests;
 
 namespace uNhAddIns.CommonServiceLocatorAdapters.Tests
 {

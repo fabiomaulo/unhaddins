@@ -1,4 +1,3 @@
-using CommonServiceLocator.SpringAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NUnit.Framework;
 using Spring.Context;

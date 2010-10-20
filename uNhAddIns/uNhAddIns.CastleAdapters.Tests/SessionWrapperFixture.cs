@@ -1,6 +1,5 @@
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
-using CommonServiceLocator.WindsorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using NUnit.Framework;
 using uNhAddIns.Adapters.CommonTests.Integration;
