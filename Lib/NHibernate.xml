@@ -8649,6 +8649,11 @@
             A single-column projection that may be aliased
             </summary>
         </member>
+        <member name="T:NHibernate.Criterion.IEnhancedProjection">
+            <summary>
+            An "enhanced" Projection for a <see cref="T:NHibernate.ICriteria"/> query.
+            </summary>
+        </member>
         <member name="M:NHibernate.Criterion.IProjection.ToSqlString(NHibernate.ICriteria,System.Int32,NHibernate.Criterion.ICriteriaQuery,System.Collections.Generic.IDictionary{System.String,NHibernate.IFilter})">
             <summary>
             Render the SQL Fragment.
@@ -8722,6 +8727,29 @@
             <summary>
             Does this projection specify aggregate attributes?
             </summary>
+        </member>
+        <member name="M:NHibernate.Criterion.IEnhancedProjection.GetColumnAliases(System.Int32,NHibernate.ICriteria,NHibernate.Criterion.ICriteriaQuery)">
+            <summary>
+            Get the SQL column aliases used by this projection for the columns it writes for inclusion into the
+            <code>SELECT</code> clause <see cref="M:NHibernate.Criterion.IProjection.ToSqlString(NHibernate.ICriteria,System.Int32,NHibernate.Criterion.ICriteriaQuery,System.Collections.Generic.IDictionary{System.String,NHibernate.IFilter})"/>.  NHibernate always uses column aliases 
+            to extract data from the <see cref="T:System.Data.IDataReader"/>, so it is important that these be implemented 
+            correctly in order for NHibernate to be able to extract these values correctly.
+            </summary>
+            <param name="position">Just as in <see cref="M:NHibernate.Criterion.IProjection.ToSqlString(NHibernate.ICriteria,System.Int32,NHibernate.Criterion.ICriteriaQuery,System.Collections.Generic.IDictionary{System.String,NHibernate.IFilter})"/>, represents the number of columns rendered prior to this projection.</param>
+            <param name="criteria">The local criteria to which this project is attached (for resolution).</param>
+            <param name="criteriaQuery">The overall criteria query instance.</param>
+            <returns>The columns aliases.</returns>
+        </member>
+        <member name="M:NHibernate.Criterion.IEnhancedProjection.GetColumnAliases(System.String,System.Int32,NHibernate.ICriteria,NHibernate.Criterion.ICriteriaQuery)">
+            <summary>
+            Get the SQL column aliases used by this projection for the columns it writes for inclusion into the
+            <code>SELECT</code> clause (<see cref="M:NHibernate.Criterion.IProjection.ToSqlString(NHibernate.ICriteria,System.Int32,NHibernate.Criterion.ICriteriaQuery,System.Collections.Generic.IDictionary{System.String,NHibernate.IFilter})"/>) for a particular criteria-level alias.
+            </summary>
+            <param name="alias">The criteria-level alias.</param>
+            <param name="position">Just as in <see cref="M:NHibernate.Criterion.IProjection.ToSqlString(NHibernate.ICriteria,System.Int32,NHibernate.Criterion.ICriteriaQuery,System.Collections.Generic.IDictionary{System.String,NHibernate.IFilter})"/>, represents the number of columns rendered prior to this projection.</param>
+            <param name="criteria">The local criteria to which this project is attached (for resolution).</param>
+            <param name="criteriaQuery">The overall criteria query instance.</param>
+            <returns>The columns aliases.</returns>
         </member>
         <member name="M:NHibernate.Criterion.SimpleProjection.GetTypedValues(NHibernate.ICriteria,NHibernate.Criterion.ICriteriaQuery)">
             <summary>
@@ -9882,7 +9910,10 @@
             </summary>
         </member>
         <member name="M:NHibernate.Criterion.ICriteriaQuery.GetColumn(NHibernate.ICriteria,System.String)">
-            <summary> Get the names of the columns mapped by a property path, ignoring projection aliases </summary>
+            <summary> Get the name of the column mapped by a property path, ignoring projection alias</summary>
+        </member>
+        <member name="M:NHibernate.Criterion.ICriteriaQuery.GetColumns(NHibernate.ICriteria,System.String)">
+            <summary> Get the names of the columns mapped by a property path, ignoring projection aliases</summary>
         </member>
         <member name="M:NHibernate.Criterion.ICriteriaQuery.GetType(NHibernate.ICriteria,System.String)">
             <summary> Get the type of a property path, ignoring projection aliases</summary>
@@ -28415,8 +28446,7 @@
         </member>
         <member name="M:NHibernate.Loader.Criteria.CriteriaQueryTranslator.GetColumnsUsingProjection(NHibernate.ICriteria,System.String)">
             <summary>
-            Get the names of the columns constrained
-            by this criterion.
+            Get the names of the columns constrained by this criterion.
             </summary>
         </member>
         <member name="M:NHibernate.Loader.Criteria.CriteriaQueryTranslator.GetTypedValue(NHibernate.ICriteria,System.String,System.Object)">
