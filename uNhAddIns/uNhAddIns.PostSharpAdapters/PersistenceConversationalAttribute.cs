@@ -128,10 +128,10 @@ namespace uNhAddIns.PostSharpAdapters
 		}
 
 		#region IConversationalIdHolder Members
-		[ImportMember("GetConversationId", IsRequired = false, Order = ImportMemberOrder.AfterIntroductions)]
-		public Func<string> GetConversationIdMethod;
+		//[ImportMember("GetConversationId", IsRequired = false, Order = ImportMemberOrder.AfterIntroductions)]
+		//public Func<string> GetConversationIdMethod;
 
-		[IntroduceMember(OverrideAction = MemberOverrideAction.Ignore, Visibility = Visibility.Family, IsVirtual = true)]
+		//[IntroduceMember(OverrideAction = MemberOverrideAction.Ignore, Visibility = Visibility.Family, IsVirtual = true)]
 		public string GetConversationId()
 		{
 			if (string.IsNullOrEmpty(conversationId))
@@ -161,7 +161,7 @@ namespace uNhAddIns.PostSharpAdapters
 			if (IsNoopConversationalMarkerActive) return;
 			if (eventArgs.Exception is ConversationException)
 			{
-				ConversationsContainerAccessor.Container.Unbind(GetConversationIdMethod.Invoke());
+				ConversationsContainerAccessor.Container.Unbind(GetConversationId());
 			}
 			eventArgs.FlowBehavior = FlowBehavior.RethrowException;
 		}
@@ -173,7 +173,7 @@ namespace uNhAddIns.PostSharpAdapters
 		{
 			if (IsNoopConversationalMarkerActive) return;
 
-			var convId = GetConversationIdMethod.Invoke();
+			var convId = GetConversationId();
 			IConversation c = ConversationsContainerAccessor.Container.Get(convId);
 			if (c == null)
 			{
@@ -273,7 +273,7 @@ namespace uNhAddIns.PostSharpAdapters
 			if (IsNoopConversationalMarkerActive) return;
 			if (eventArgs.MethodExecutionTag == NestedMethodMarker) return;
 			IConversationsContainerAccessor cca = ConversationsContainerAccessor;
-			IConversation c = cca.Container.Get(GetConversationIdMethod.Invoke());
+			IConversation c = cca.Container.Get(GetConversationId());
 			
 			EndMode endMode = GetMethodEndMode(eventArgs.Method);
 			switch (endMode)

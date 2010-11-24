@@ -302,6 +302,31 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 		}
 
 		[Test]
+		public void TwoInstancesShouldStartDifferentsConversations()
+		{
+
+			var sl = CreateDefaultContainer();
+
+			int startedCalledTimes = 0;
+			var convFactory = new ConversationFactoryStub(delegate(string id)
+			{
+			    IConversation result = new NoOpConversationStub(id);
+			    result.Started += (s, a) => startedCalledTimes++;
+			    return result;
+			});
+			sl.AddInstance<IConversationFactory>(convFactory);
+
+			var presenter = new SamplePresenter();
+			presenter.GetProduct(Guid.NewGuid());
+			presenter.GetProduct(Guid.NewGuid());
+
+			var presenter2 = new SamplePresenter();
+			presenter2.GetProduct(Guid.NewGuid());
+
+			startedCalledTimes.Should().Be.EqualTo(2);
+		}
+
+		[Test]
 		public void ShouldSupportNestedConversationalMethods()
 		{
 
@@ -373,5 +398,7 @@ namespace uNhAddIns.PostSharpAdapters.Tests
 			typeof(SamplePresenter).IsDefined(typeof(PersistenceConversationalAttribute), true)
 				.Should("PersistMetaData should be true").Be.True();
 		}
+
+
 	}
 }
