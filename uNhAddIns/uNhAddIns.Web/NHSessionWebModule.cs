@@ -1,6 +1,6 @@
 using System;
+using System.IO;
 using System.Web;
-using System.Web.Handlers;
 using log4net;
 using NHibernate;
 using uNhAddIns.SessionEasier;
@@ -10,6 +10,7 @@ namespace uNhAddIns.Web
 	public class NHSessionWebModule : IHttpModule
 	{
 		private static readonly ILog log = LogManager.GetLogger(typeof (NHSessionWebModule));
+		private static readonly string[] NoPersistenceFileExtensions = new string[] { ".jpg", ".gif", ".png", ".css", ".js", ".swf", ".xap" };
 		private ISessionFactoryProvider sfp;
 
 		#region Implementation of IHttpModule
@@ -76,10 +77,13 @@ namespace uNhAddIns.Web
 			{
 				return false;
 			}
-
 			HttpContext context = application.Context;
-			return context != null && context.Handler != null &&
-				!(context.Handler is AssemblyResourceLoader) && !(context.Handler is DefaultHttpHandler);
+			if (context == null)
+			{
+				return false;
+			}
+			string fileExtension = Path.GetExtension(context.Request.PhysicalPath);
+			return fileExtension != null && Array.IndexOf(NoPersistenceFileExtensions, fileExtension.ToLower()) < 0;
 		}
 
 		#endregion
